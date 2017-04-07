@@ -1,0 +1,53 @@
+Package: sweep
+Type: Package
+Title: Tidy Tools for Forecasting and Working with Time Series
+Version: 0.1.0
+Date: 2017-03-23
+Authors@R: c(
+    person("Matt", "Dancho", email = "mdancho@business-science.io", role = c("aut", "cre")),
+    person("Davis", "Vaughan", email = "dvaughan@business-science.io", role = c("aut"))
+  )
+Maintainer: Matt Dancho <mdancho@business-science.io>
+Description: The 'sweep' package is a swiss army knife for "tidy" time series forecasting.
+    The goal of the 'sweep' package is to "tidy" up the 
+    forecasting workflow. In doing so, the 'sweep' package provides three
+    main benefits. First, it provides functions to easily coerce between 
+    tibbles ("tidy" data frames) and the various time series data structures. 
+    Second, it extends the 'broom' package by providing 'tidy', 'glance', and 
+    'augment' functions for various forecasting models. 
+    Third, it provides the 'sweep' function which coerces
+    'forecast' objects to tibbles. 
+URL: https://github.com/business-science/sweep
+BugReports: https://github.com/business-science/sweep/issues
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Depends:
+    R (>= 3.3.0)
+Imports:
+    broom (>= 0.4.2),
+    devtools (>= 1.12.0),
+    dplyr (>= 0.5.0),
+    forecast (>= 8.0),
+    lazyeval (>= 0.2.0),
+    lubridate (>= 1.6.0),
+    purrr (>= 0.2.2),
+    readr (>= 1.0.0),
+    tibble (>= 1.2),
+    tidyquant (>= 0.4.0),
+    tidyr (>= 0.6.1),
+    timeSeries (>= 3022.101.2),
+    tseries (>= 0.10-37),
+    TTR (>= 0.23-1),
+    xts (>= 0.9-7),
+    zoo (>= 1.7-14)
+Suggests:
+    knitr,
+    rmarkdown,
+    testthat,
+    forcats,
+    stringr,
+    tidyverse
+RoxygenNote: 6.0.1
+Roxygen: list(markdown = TRUE)
+VignetteBuilder: knitr
