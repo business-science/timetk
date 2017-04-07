@@ -1,7 +1,9 @@
-# Utility functions for sw_tidy, sw_glance, sw_augment
+# Utility functions to get
 
-#' Print the ARIMA model parameters (refer to forecast:::arima.string)
-#' https://github.com/robjhyndman/forecast/blob/master/R/arima.R
+#' Print the ARIMA model parameters
+#'
+#' Refer to forecast:::arima.string.
+#' [`forecast` arima.R](https://github.com/robjhyndman/forecast/blob/master/R/arima.R)
 #'
 #' @param object An object of class Arima
 #' @param padding Add padding to the name returned
