@@ -32,7 +32,7 @@ NULL
 #' __`sw_tidy()`__ returns one row for each model parameter,
 #' with two columns:
 #'   * `term`: The smoothing parameters (alpha, gamma) and the initial states
-#'   (l, s1 through s12)
+#'   (l, s0 through s10)
 #'   * `estimate`: The estimated parameter value
 #'
 #'
@@ -99,15 +99,7 @@ sw_glance.ets <- function(x, ...) {
 #' @export
 sw_augment.ets <- function(x, ...) {
 
-    if ("fitted" %in% names(x)) {
-        # forecast::Arima
-        ret <- sw_tbl(cbind(.actual = x$x, .fitted = x$fitted, .resid = x$residuals))
-    } else {
-        # stats::Arima
-        warning("No `.actual` or `.fitted` within stats::arima() models. Use forecast::Arima() if more information is needed.")
-        ret <- sw_tbl(x$residuals) %>%
-            dplyr::rename(.resid = value)
-    }
+    ret <- sw_tbl(cbind(.actual = x$x, .fitted = x$fitted, .resid = x$residuals))
 
     return(ret)
 

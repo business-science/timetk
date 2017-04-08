@@ -1,6 +1,6 @@
-#' Decomposes time-series objects / models into tibbles.
+#' Coerces decomposed time-series objects to tibble format.
 #'
-#' @param model A time-series model of class `ets`, `stl`.
+#' @param model A time-series object of class `stl`, `ets`, `decomposed.ts`.
 #' @param index_rename Enables the index column to be renamed.
 #' @param ... Additional parameters passed to the [tibble::as_tibble()] function.
 #'
@@ -20,6 +20,11 @@
 #' # Decompose ETS model
 #' USAccDeaths %>%
 #'     ets() %>%
+#'     sw_decompose()
+#'
+#' # Decompose STL object
+#' USAccDeaths %>%
+#'     stl(s.window = 'periodic') %>%
 #'     sw_decompose()
 #'
 #'
@@ -55,6 +60,75 @@ sw_decompose.ets <- function(model, index_rename = "index", ...) {
         ret <- cbind(observed=y, level=model$states[,1], slope=model$states[,"b"],
                    season=model$states[,"s1"])
     }
+
+    # Coerce to tibble
+    ret <- suppressMessages(suppressWarnings(
+        sw_tbl(ret, preserve_index = TRUE, index_rename, ...)
+    ))
+
+    # Validate indexes
+    ret_has_index <- index_rename %in% colnames(ret)
+
+    # If no index, drop index columns and auto.index
+    if (!ret_has_index) {
+        ret_auto_index <- 1:nrow(ret)
+        ret <- ret %>%
+            tibble::add_column(index = ret_auto_index)
+    }
+
+    # Rearrange index
+    ret <- ret %>%
+        dplyr::select_(index_rename, "dplyr::everything()")
+
+    return(ret)
+}
+
+#' @export
+sw_decompose.stl <- function(model, index_rename = "index", ...) {
+
+    ret <- cbind(seasonal    = model$time.series[,1],
+                 trend       = model$time.series[,2],
+                 remainder   = model$time.series[,3],
+                 seasadj     = forecast::seasadj(model))
+
+    # Coerce to tibble
+    ret <- suppressMessages(suppressWarnings(
+        sw_tbl(ret, preserve_index = TRUE, index_rename, ...)
+    ))
+
+    # Validate indexes
+    ret_has_index <- index_rename %in% colnames(ret)
+
+    # If no index, drop index columns and auto.index
+    if (!ret_has_index) {
+        ret_auto_index <- 1:nrow(ret)
+        ret <- ret %>%
+            tibble::add_column(index = ret_auto_index)
+    }
+
+    # Rearrange index
+    ret <- ret %>%
+        dplyr::select_(index_rename, "dplyr::everything()")
+
+    return(ret)
+}
+
+#' @export
+sw_decompose.stlm <- function(model, index_rename = "index", ...) {
+
+    ret <- sw_decompose(model$stl, index_rename, ...)
+
+    return(ret)
+}
+
+#' @export
+sw_decompose.decomposed.ts <- function(model, index_rename = "index", ...) {
+
+    ret <- cbind(actual   = model$x,
+                 seasonal = model$seasonal,
+                 trend    = model$trend,
+                 random   = model$random,
+                 seasadj  = forecast::seasadj(model))
 
     # Coerce to tibble
     ret <- suppressMessages(suppressWarnings(

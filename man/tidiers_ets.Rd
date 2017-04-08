@@ -24,7 +24,7 @@ modeling of time series}
 with two columns:
 \itemize{
 \item \code{term}: The smoothing parameters (alpha, gamma) and the initial states
-(l, s1 through s12)
+(l, s0 through s10)
 \item \code{estimate}: The estimated parameter value
 }
 

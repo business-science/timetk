@@ -2,12 +2,12 @@
 % Please edit documentation in R/sw_decompose.R
 \name{sw_decompose}
 \alias{sw_decompose}
-\title{Decomposes time-series objects / models into tibbles.}
+\title{Coerces decomposed time-series objects to tibble format.}
 \usage{
 sw_decompose(model, index_rename = "index", ...)
 }
 \arguments{
-\item{model}{A time-series model of class \code{ets}, \code{stl}.}
+\item{model}{A time-series object of class \code{stl}, \code{ets}, \code{decomposed.ts}.}
 
 \item{index_rename}{Enables the index column to be renamed.}
 
@@ -17,7 +17,7 @@ sw_decompose(model, index_rename = "index", ...)
 Returns a \code{tibble} object.
 }
 \description{
-Decomposes time-series objects / models into tibbles.
+Coerces decomposed time-series objects to tibble format.
 }
 \details{
 \code{sw_decompose} is designed
@@ -34,6 +34,11 @@ library(sweep)
 # Decompose ETS model
 USAccDeaths \%>\%
     ets() \%>\%
+    sw_decompose()
+
+# Decompose STL object
+USAccDeaths \%>\%
+    stl(s.window = 'periodic') \%>\%
     sw_decompose()
 
 
