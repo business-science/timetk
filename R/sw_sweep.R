@@ -47,10 +47,8 @@ sw_sweep.forecast <- function(forecast, index_rename = "index", ...) {
         tibble::add_column(key = rep("Forecast", nrow(.)))
 
     # Fix colnames
-    colnames(ret_upper) <- stringr::str_c("hi.", colnames(ret_upper)) %>%
-        stringr::str_replace(pattern = "%", replacement = "")
-    colnames(ret_lower) <- stringr::str_c("lo.", colnames(ret_lower)) %>%
-        stringr::str_replace(pattern = "%", replacement = "")
+    colnames(ret_upper) <- stringr::str_c("hi.", forecast$level)
+    colnames(ret_lower) <- stringr::str_c("lo.", forecast$level)
 
     # Combine into forecast
     ret_fcast <- dplyr::bind_cols(ret_mean, ret_lower, ret_upper)
