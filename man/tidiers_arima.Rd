@@ -11,7 +11,7 @@
 
 \method{sw_glance}{Arima}(x, ...)
 
-\method{sw_augment}{Arima}(x, ...)
+\method{sw_augment}{Arima}(x, data = NULL, index_rename = "index", ...)
 }
 \arguments{
 \item{x}{An object of class "Arima"}
@@ -20,6 +20,13 @@
 (\code{sw_tidy()} only)}
 
 \item{...}{Additional parameters passed to \code{stats::confint} (\code{sw_tidy()} only)}
+
+\item{data}{Used with \code{sw_augment} only.
+\code{NULL} by default which simply returns augmented columns only.
+User can supply the original data, which returns the data + augmented columns.}
+
+\item{index_rename}{Used with \code{sw_augment} only.
+A string representing the name of the index generated.}
 }
 \value{
 \strong{\code{sw_tidy()}} returns one row for each coefficient in the model,
@@ -52,7 +59,9 @@ the degree of differencing, and the MA order.
 
 \strong{\code{sw_augment()}} returns a tibble with the following time series attributes:
 \itemize{
-\item \code{x}: The original time series
+\item \code{index}: An index is either attempted to be extracted from the model or
+a sequential index is created for plotting purposes
+\item \code{.actual}: The original time series
 \item \code{.fitted}: The fitted values from the model
 \item \code{.resid}: The residual values from the model
 }
@@ -75,5 +84,5 @@ sw_augment(fit_arima)
 
 }
 \seealso{
-\code{\link[=arima]{arima()}}, \code{\link[forecast:Arima]{forecast::Arima()}}
+\code{\link[=arima]{arima()}}, \link[=arima]{Arima()}
 }

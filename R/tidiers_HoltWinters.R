@@ -1,10 +1,9 @@
-#' Tidying methods for ETS (Error, Trend, Seasonal) / exponential smoothing
-#' modeling of time series
+#' Tidying methods for HoltWinters modeling of time series
 #'
-#' These methods tidy the coefficients of ETS models of univariate time
+#' These methods tidy `HoltWinters` models of univariate time
 #' series.
 #'
-#' @param x An object of class "ets"
+#' @param x An object of class "HoltWinters"
 #' @param data Used with `sw_augment` only.
 #' `NULL` by default which simply returns augmented columns only.
 #' User can supply the original data, which returns the data + augmented columns.
@@ -12,48 +11,48 @@
 #' A string representing the name of the index generated.
 #'
 #'
-#' @seealso [ets()]
+#' @seealso [HoltWinters()]
 #'
 #' @examples
 #' library(forecast)
 #' library(sweep)
 #'
-#' fit_ets <- WWWusage %>%
-#'     ets()
+#' fit_hw <- USAccDeaths %>%
+#'     stats::HoltWinters()
 #'
-#' sw_tidy(fit_ets)
-#' sw_glance(fit_ets)
-#' sw_augment(fit_ets)
+#' sw_tidy(fit_hw)
+#' sw_glance(fit_hw)
+#' sw_augment(fit_hw)
 #'
-#' @name tidiers_ets
+#' @name tidiers_HoltWinters
 NULL
 
 
-#' @rdname tidiers_ets
+#' @rdname tidiers_HoltWinters
 #'
 #' @param ... Additional parameters (not used)
 #'
 #' @return
 #' __`sw_tidy()`__ returns one row for each model parameter,
 #' with two columns:
-#'   * `term`: The smoothing parameters (alpha, gamma) and the initial states
-#'   (l, s0 through s10)
+#'   * `term`: The various parameters (alpha, beta, gamma, and coefficients)
 #'   * `estimate`: The estimated parameter value
 #'
 #'
 #' @export
-sw_tidy.ets <- function(x, ...) {
+sw_tidy.HoltWinters <- function(x, ...) {
 
-    coefs <- stats::coef(x)
+    terms     <- c("alpha", "beta", "gamma", names(stats::coef(x)))
+    estimates <- c(x$alpha, x$beta, x$gamma, stats::coef(x))
 
-    ret <- tibble::tibble(term      = names(coefs),
-                          estimate  = coefs)
+    ret <- tibble::tibble(term     = terms,
+                          estimate = estimates)
 
     return(ret)
 }
 
 
-#' @rdname tidiers_ets
+#' @rdname tidiers_HoltWinters
 #'
 #' @return
 #' __`sw_glance()`__ returns one row with the columns
@@ -63,7 +62,7 @@ sw_tidy.ets <- function(x, ...) {
 #' * `sigma`: The square root of the estimated residual variance
 #' * `logLik`: The data's log-likelihood under the model
 #' * `AIC`: The Akaike Information Criterion
-#' * `BIC`: The Bayesian Information Criterion
+#' * `BIC`: The Bayesian Information Criterion (`NA` for bats / tbats)
 #' * `ME`: Mean error
 #' * `RMSE`: Root mean squared error
 #' * `MAE`: Mean absolute error
@@ -73,18 +72,21 @@ sw_tidy.ets <- function(x, ...) {
 #' * `ACF1`: Autocorrelation of errors at lag 1
 #'
 #' @export
-sw_glance.ets <- function(x, ...) {
+sw_glance.HoltWinters <- function(x, ...) {
 
     # Model description
-    ret_1 <- tibble::tibble(model.desc = x$method)
+    ret_1 <- tibble::tibble(model.desc = "HoltWinters")
 
     # Summary statistics
-    ret_2 <- tibble::tibble(sigma = sqrt(x$sigma2))
-    ret_2 <- broom::finish_glance(ret_2, x) %>%
-        tibble::as_tibble()
+    ret_2 <- tibble::tibble(sigma  = sqrt(x$SSE),
+                            logLik = NA,
+                            AIC    = NA,
+                            BIC    = NA)
 
     # forecast accuracy
-    ret_3 <- tibble::as_tibble(forecast::accuracy(x))
+    ret_3 <- tibble::as_tibble(forecast::accuracy(
+        forecast::forecast(x)
+    ))
 
     ret <- dplyr::bind_cols(ret_1, ret_2, ret_3)
 
@@ -93,7 +95,7 @@ sw_glance.ets <- function(x, ...) {
 }
 
 
-#' @rdname tidiers_ets
+#' @rdname tidiers_HoltWinters
 #'
 #' @return
 #' __`sw_augment()`__ returns a tibble with the following time series attributes:
@@ -104,12 +106,15 @@ sw_glance.ets <- function(x, ...) {
 #'   * `.resid`: The residual values from the model
 #'
 #' @export
-sw_augment.ets <- function(x, data = NULL, index_rename = "index", ...) {
+sw_augment.HoltWinters <- function(x, data = NULL, index_rename = "index", ...) {
 
     ret <- suppressWarnings(
-        sw_tbl(cbind(.actual = x$x, .fitted = x$fitted, .resid = x$residuals),
+        sw_tbl(cbind(.actual = x$x, .fitted = x$fitted[,1]),
                index_rename = index_rename)
-    )
+        )
+
+    ret <- ret %>%
+        dplyr::mutate(.resid = .actual - .fitted)
 
     ret <- sw_augment_columns(ret, data, index_rename)
 

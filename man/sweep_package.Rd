@@ -6,27 +6,30 @@
 \alias{sweep_package-package}
 \title{sweep: Tidy Tools for Forecasting and Working with Time Series}
 \description{
-The \code{sweep} package is a swiss army knife for "tidy" time series forecasting.
+The \code{sweep} package is a swiss army knife for working with time-series
+within the "tidyverse".
+It combines elements from the \code{broom} package for "tidy" analysis of time series models
+along with time-series coercion functions including \code{sw_sweep()} and
+\code{sw_decompose()} to coerce \code{forecast} and time-series decompositions to
+"tibbles". Last, the package includes functions to easily coerce between
+the primary time series object classes and "tibbles" with a time-series
+index.
 }
 \details{
-The main benefit of \code{sweep} is to
-enable coercion of time series and \code{forecast} objects between the various data structures
-that exist within R such as \code{ts}, \code{mts}, \code{irts}, \code{zoo}, \code{zooreg}, \code{xts}, and
-\code{tibble}. Further, time-series-like objects (such as
-\code{forecast}, \code{stl}, \code{HoltzWinters}, etc) can be coerced to "tidy" tibbles.
-
 The goal of the \code{sweep} package is to "tidy" up the
-forecasting workflow. The \code{sweep} package provides tools to solve three
-forecasting / time-series scenarios:
+forecasting workflow. The \code{sweep} package provides the following tools:
 \enumerate{
+\item It extends the \code{broom} package by providing \code{\link[=sw_tidy]{sw_tidy()}}, \code{\link[=sw_glance]{sw_glance()}}, and
+\code{\link[=sw_augment]{sw_augment()}} functions for various time-series models such as
+\code{Arima}, \code{ets}, \code{HoltzWinters}, \code{tbats}, etc.
+\item It provides the \code{\link[=sw_sweep]{sw_sweep()}} function which coerces
+\code{forecast} objects to "tibbles" for easy visualization with \code{ggplot2}
+and manipulation with \code{dplyr}.
+\item It provides the \code{\link[=sw_decompose]{sw_decompose()}} function which coerces time-series
+decomposition objects including \code{stl}, \code{ets}, \code{decomposed.ts}, and \code{tbats}.
 \item It provides functions to easily coerce between
-tibbles ("tidy" data frames) and the various time series data structures.
-Refer to \code{\link[=sw_tbl]{sw_tbl()}}, \code{\link[=sw_xts]{sw_xts()}}, \code{\link[=sw_zoo]{sw_zoo()}}, and \code{\link[=sw_ts]{sw_ts()}}.
-\item It extends the \code{broom} package by providing \code{\link[=tidy]{tidy()}}, \code{\link[=glance]{glance()}}, and
-\code{\link[=augment]{augment()}} functions for various models (such as
-\code{stl}, \code{HoltzWinters}, \code{tbats}, etc).
-\item It provides the \code{\link[=sweep]{sweep()}} function which coerces
-\code{forecast} objects to tibbles for easy visualization.
+"tibbles" ("tidy" data frames) and the various time series data structures.
+Refer to \code{\link[=sw_tbl]{sw_tbl()}}, \code{\link[=sw_xts]{sw_xts()}}, \code{\link[=sw_zoo]{sw_zoo()}}, \code{\link[=sw_zooreg]{sw_zooreg()}}, and \code{\link[=sw_ts]{sw_ts()}}.
 }
 
 To learn more about \code{sweep}, start with the vignettes:

@@ -21,7 +21,7 @@ Turn forecast objects into tibbles.
 }
 \details{
 \code{sw_sweep} is designed
-to coerce \code{forecast} objects from Rob Hyndman's excellent \code{forecast} package
+to coerce \code{forecast} objects from the \code{forecast} package
 to \code{tibble} objects. The returned object contains both the actual values
 and the forecasted values including the point forecast and upper and lower
 confidence intervals.

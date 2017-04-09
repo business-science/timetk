@@ -11,19 +11,25 @@
 
 \method{sw_glance}{bats}(x, ...)
 
-\method{sw_augment}{bats}(x, ...)
+\method{sw_augment}{bats}(x, data = NULL, index_rename = "index", ...)
 }
 \arguments{
 \item{x}{An object of class "bats" or "tbats"}
 
 \item{...}{Additional parameters (not used)}
+
+\item{data}{Used with \code{sw_augment} only.
+\code{NULL} by default which simply returns augmented columns only.
+User can supply the original data, which returns the data + augmented columns.}
+
+\item{index_rename}{Used with \code{sw_augment} only.
+A string representing the name of the index generated.}
 }
 \value{
 \strong{\code{sw_tidy()}} returns one row for each model parameter,
 with two columns:
 \itemize{
-\item \code{term}: The smoothing parameters (alpha, gamma) and the initial states
-(l, s0 through s10)
+\item \code{term}: The various parameters (lambda, alpha, gamma, etc)
 \item \code{estimate}: The estimated parameter value
 }
 
@@ -35,7 +41,7 @@ the degree of differencing, and the MA order.
 \item \code{sigma}: The square root of the estimated residual variance
 \item \code{logLik}: The data's log-likelihood under the model
 \item \code{AIC}: The Akaike Information Criterion
-\item \code{BIC}: The Bayesian Information Criterion
+\item \code{BIC}: The Bayesian Information Criterion (\code{NA} for bats / tbats)
 \item \code{ME}: Mean error
 \item \code{RMSE}: Root mean squared error
 \item \code{MAE}: Mean absolute error
@@ -47,7 +53,9 @@ the degree of differencing, and the MA order.
 
 \strong{\code{sw_augment()}} returns a tibble with the following time series attributes:
 \itemize{
-\item \code{x}: The original time series
+\item \code{index}: An index is either attempted to be extracted from the model or
+a sequential index is created for plotting purposes
+\item \code{.actual}: The original time series
 \item \code{.fitted}: The fitted values from the model
 \item \code{.resid}: The residual values from the model
 }

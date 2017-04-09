@@ -16,8 +16,36 @@ vignette: >
 knitr::opts_chunk$set(message = FALSE,
                       warning = FALSE,
                       fig.width = 6)
-# library(sweep)
-devtools::load_all() # Travis CI fails on load_all()
+library(tidyquant)
+library(sweep)
+# devtools::load_all() # Travis CI fails on load_all()
 ```
 
+
+
+
+
+```{r, echo = F}
+tibble::tribble(
+    ~Function,       ~`sw_tidy()`, ~`sw_glance()`, ~`sw_augment()`, ~`sw_tidy_decomp()`,
+    "ar()",          "",  "",  "", "",
+    "arima()",       "X", "X", "X", "",
+    "Arima()",       "X", "X", "X", "",
+    "ets()",         "X", "X", "X", "X",
+    "baggedETS()",   "",  "",  "",  "",
+    "bats()",        "X", "X", "X", "X",
+    "tbats()",       "X", "X", "X", "X",
+    "nnetar()",      "X", "X", "X", "",
+    "stl()",         "",  "",  "",  "X",
+    "HoltWinters()", "X", "X", "X", "X",
+    "StructTS",      "X", "X", "X", "X",
+    "tslm()",        "X", "X", "X", "",
+    "decompose()",   "",  "",  "",  "X",
+    "adf.test()",    "X", "X", "",  "",
+    "Box.test()",    "X", "X", "",  "",
+    "kpss.test()",   "X", "X", "",  ""
+) %>%
+    knitr::kable(caption = "Function Compatibility: sw_tidy, sw_glance, sw_augment, sw_tidy_decomp",
+                 align = c("l", "c", "c", "c", "c"))
+```
 

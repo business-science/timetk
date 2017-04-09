@@ -16,8 +16,12 @@ Given an R statistical model or other non-tidy object, add columns to the
 original dataset such as predictions, residuals and cluster assignments.
 }
 \details{
-This generic originated in the ggplot2 package, where it was called
-"fortify."
+\code{sw_augment()} is a wrapper for \code{broom::augment()}. The benefit of \code{sw_augment}
+is that it has methods for various time-series model classes such as
+\code{HoltWinters}, \code{ets}, \code{Arima}, etc.
+
+For non-time series, \code{sw_augment()} defaults to \code{broom::augment()}.
+The only difference is that the return is a tibble.
 
 Note that by convention the first argument is almost always \code{data},
 which specifies the original data object. This is not part of the S3
@@ -25,5 +29,5 @@ signature, partly because it prevents \link{rowwise_df_tidiers} from
 taking a column name as the first argument.
 }
 \seealso{
-\code{\link{augment}}
+\code{\link[broom:augment]{broom::augment()}}
 }

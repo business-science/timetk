@@ -1,10 +1,10 @@
-#' Tidying methods for ETS (Error, Trend, Seasonal) / exponential smoothing
+#' Tidying methods for StructTS (Error, Trend, Seasonal) / exponential smoothing
 #' modeling of time series
 #'
-#' These methods tidy the coefficients of ETS models of univariate time
+#' These methods tidy the coefficients of StructTS models of univariate time
 #' series.
 #'
-#' @param x An object of class "ets"
+#' @param x An object of class "StructTS"
 #' @param data Used with `sw_augment` only.
 #' `NULL` by default which simply returns augmented columns only.
 #' User can supply the original data, which returns the data + augmented columns.
@@ -12,39 +12,38 @@
 #' A string representing the name of the index generated.
 #'
 #'
-#' @seealso [ets()]
+#' @seealso [StructTS()]
 #'
 #' @examples
 #' library(forecast)
 #' library(sweep)
 #'
-#' fit_ets <- WWWusage %>%
-#'     ets()
+#' fit_StructTS <- WWWusage %>%
+#'     StructTS()
 #'
-#' sw_tidy(fit_ets)
-#' sw_glance(fit_ets)
-#' sw_augment(fit_ets)
+#' sw_tidy(fit_StructTS)
+#' sw_glance(fit_StructTS)
+#' sw_augment(fit_StructTS)
 #'
-#' @name tidiers_ets
+#' @name tidiers_StructTS
 NULL
 
 
-#' @rdname tidiers_ets
+#' @rdname tidiers_StructTS
 #'
 #' @param ... Additional parameters (not used)
 #'
 #' @return
 #' __`sw_tidy()`__ returns one row for each model parameter,
 #' with two columns:
-#'   * `term`: The smoothing parameters (alpha, gamma) and the initial states
-#'   (l, s0 through s10)
+#'   * `term`: The model parameters
 #'   * `estimate`: The estimated parameter value
 #'
 #'
 #' @export
-sw_tidy.ets <- function(x, ...) {
+sw_tidy.StructTS <- function(x, ...) {
 
-    coefs <- stats::coef(x)
+    coefs <- x$coef
 
     ret <- tibble::tibble(term      = names(coefs),
                           estimate  = coefs)
@@ -53,7 +52,7 @@ sw_tidy.ets <- function(x, ...) {
 }
 
 
-#' @rdname tidiers_ets
+#' @rdname tidiers_StructTS
 #'
 #' @return
 #' __`sw_glance()`__ returns one row with the columns
@@ -73,15 +72,18 @@ sw_tidy.ets <- function(x, ...) {
 #' * `ACF1`: Autocorrelation of errors at lag 1
 #'
 #' @export
-sw_glance.ets <- function(x, ...) {
+sw_glance.StructTS <- function(x, ...) {
+
+    x <- forecast::forecast(x)
 
     # Model description
     ret_1 <- tibble::tibble(model.desc = x$method)
 
     # Summary statistics
-    ret_2 <- tibble::tibble(sigma = sqrt(x$sigma2))
-    ret_2 <- broom::finish_glance(ret_2, x) %>%
-        tibble::as_tibble()
+    ret_2 <- tibble::tibble(sigma  = sqrt(mean((x$model$residuals)^2, na.rm = TRUE)),
+                            logLik = x$model$loglik,
+                            AIC    = -2*x$model$loglik + 2*2,
+                            BIC    = -2*x$model$loglik + log(length(x$model$data))*2)
 
     # forecast accuracy
     ret_3 <- tibble::as_tibble(forecast::accuracy(x))
@@ -93,7 +95,7 @@ sw_glance.ets <- function(x, ...) {
 }
 
 
-#' @rdname tidiers_ets
+#' @rdname tidiers_StructTS
 #'
 #' @return
 #' __`sw_augment()`__ returns a tibble with the following time series attributes:
@@ -104,7 +106,9 @@ sw_glance.ets <- function(x, ...) {
 #'   * `.resid`: The residual values from the model
 #'
 #' @export
-sw_augment.ets <- function(x, data = NULL, index_rename = "index", ...) {
+sw_augment.StructTS <- function(x, data = NULL, index_rename = "index", ...) {
+
+    x <- forecast(x)
 
     ret <- suppressWarnings(
         sw_tbl(cbind(.actual = x$x, .fitted = x$fitted, .resid = x$residuals),

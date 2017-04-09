@@ -4,6 +4,11 @@
 #' series.
 #'
 #' @param x An object of class "bats" or "tbats"
+#' @param data Used with `sw_augment` only.
+#' `NULL` by default which simply returns augmented columns only.
+#' User can supply the original data, which returns the data + augmented columns.
+#' @param index_rename Used with `sw_augment` only.
+#' A string representing the name of the index generated.
 #'
 #'
 #' @seealso [bats()], [tbats()]
@@ -30,8 +35,7 @@ NULL
 #' @return
 #' __`sw_tidy()`__ returns one row for each model parameter,
 #' with two columns:
-#'   * `term`: The smoothing parameters (alpha, gamma) and the initial states
-#'   (l, s0 through s10)
+#'   * `term`: The various parameters (lambda, alpha, gamma, etc)
 #'   * `estimate`: The estimated parameter value
 #'
 #'
@@ -76,18 +80,17 @@ sw_tidy.bats <- function(x, ...) {
 sw_glance.bats <- function(x, ...) {
 
     # Model description
-    # ret_1 <- tibble::tibble(model.desc = x$method)
     if (inherits(x, "tbats")) {
-        ret_1 <- tibble::tibble(model.desc = "TBATS")
+        ret_1 <- tibble::tibble(model.desc = tbats_string(x))
     } else {
-        ret_1 <- tibble::tibble(model.desc = "BATS")
+        ret_1 <- tibble::tibble(model.desc = bats_string(x))
     }
 
     # Summary statistics
     ret_2 <- tibble::tibble(sigma  = sqrt(x$variance),
                             logLik = x$likelihood,
                             AIC    = x$AIC,
-                            BIC    = NA)
+                            BIC    = x$AIC - (2*2) + log(length(x$y))*2)
 
     # forecast accuracy
     ret_3 <- tibble::as_tibble(forecast::accuracy(x))
@@ -103,14 +106,21 @@ sw_glance.bats <- function(x, ...) {
 #'
 #' @return
 #' __`sw_augment()`__ returns a tibble with the following time series attributes:
-#'   * `x`: The original time series
+#'   * `index`: An index is either attempted to be extracted from the model or
+#'   a sequential index is created for plotting purposes
+#'   * `.actual`: The original time series
 #'   * `.fitted`: The fitted values from the model
 #'   * `.resid`: The residual values from the model
 #'
 #' @export
-sw_augment.bats <- function(x, ...) {
+sw_augment.bats <- function(x, data = NULL, index_rename = "index", ...) {
 
-    ret <- sw_tbl(cbind(.actual = x$y, .fitted = x$fitted.values, .resid = x$errors))
+    ret <- suppressWarnings(
+        sw_tbl(cbind(.actual = x$y, .fitted = x$fitted.values, .resid = x$errors),
+               index_rename = index_rename)
+        )
+
+    ret <- sw_augment_columns(ret, data, index_rename)
 
     return(ret)
 

@@ -18,25 +18,16 @@ a tibble
 Tidy the result of a time-series model into a summary tibble
 }
 \details{
-\code{sw_tidy()} methods always returns a "tidy" tibble with model coeffc.
-The single row includes summary statistics relevent to the model accuracy,
-which can be used to assess model fit and quality. The benefit of \code{sw_glance}
+\code{sw_tidy()} is a wrapper for \code{broom::tidy()}. The main benefit of \code{sw_tidy()}
 is that it has methods for various time-series model classes such as
 \code{HoltWinters}, \code{ets}, \code{Arima}, etc.
+\code{sw_tidy()} methods always returns a "tidy" tibble with model coefficient / parameters.
 
-For non-time series, \code{sw_glance()} defaults to \code{broom::glance()}.
+For non-time series, \code{sw_tidy()} defaults to \code{broom::tidy()}.
 The only difference is that the return is a tibble.
 The output of \code{sw_tidy()} is always a tibble with disposable row names. It is
 therefore suited for further manipulation by packages like dplyr and
-ggplot2. The \code{sw_tidy()} function is designed to work well with time-series
-models (supplied via \code{x}). The function provides additional "tidy" functionality
-to the \code{broom::tidy()} function as follows:
-\enumerate{
-\item Model object classes such as \code{ets}, \code{Arima}, \code{bats}, \code{stl},
-and others from Rob Hyndman's excellent \code{forecast} package.
-\item Model object classes such as \code{HoltWinters} and \code{Arima} from the \code{stats}
-package.
-}
+ggplot2.
 }
 \examples{
 library(forecast)
@@ -46,5 +37,5 @@ WWWusage \%>\%
 
 }
 \seealso{
-\code{\link[=tidy]{tidy()}}
+\code{\link[broom:tidy]{broom::tidy()}}
 }

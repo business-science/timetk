@@ -1,4 +1,4 @@
-# Utility functions to get
+# Utility functions for working with forecast package -----
 
 #' Print the ARIMA model parameters
 #'
@@ -34,4 +34,119 @@ arima_string <- function(object, padding = FALSE) {
 
 }
 
+#' Print the BATS model parameters
+#'
+#' Refer to forecast:::makeText.
+#' [`forecast` bats.R](https://github.com/robjhyndman/forecast/blob/master/R/bats.R)
+#'
+#' @param object An object of class bats
+bats_string <- function(object) {
 
+    name <- "BATS("
+    if (!is.null(object$lambda)) {
+        name <- paste(name, round(object$lambda, digits = 3),
+                      sep = "")
+    }
+    else {
+        name <- paste(name, "1", sep = "")
+    }
+    name <- paste(name, ", {", sep = "")
+    if (!is.null(object$ar.coefficients)) {
+        name <- paste(name, length(object$ar.coefficients), sep = "")
+    }
+    else {
+        name <- paste(name, "0", sep = "")
+    }
+    name <- paste(name, ",", sep = "")
+    if (!is.null(object$ma.coefficients)) {
+        name <- paste(name, length(object$ma.coefficients), sep = "")
+    }
+    else {
+        name <- paste(name, "0", sep = "")
+    }
+    name <- paste(name, "}, ", sep = "")
+    if (!is.null(object$damping.parameter)) {
+        name <- paste(name, round(object$damping.parameter, digits = 3),
+                      sep = "")
+    }
+    else {
+        name <- paste(name, "-", sep = "")
+    }
+    name <- paste(name, ", ", sep = "")
+    if (!is.null(object$seasonal.periods)) {
+        name <- paste(name, "{", sep = "")
+        for (i in object$seasonal.periods) {
+            name <- paste(name, i, sep = "")
+            if (i != object$seasonal.periods[length(object$seasonal.periods)]) {
+                name <- paste(name, ",", sep = "")
+            }
+            else {
+                name <- paste(name, "})", sep = "")
+            }
+        }
+    }
+    else {
+        name <- paste(name, "-)", sep = "")
+    }
+    return(name)
+
+}
+
+#' Print the TBATS model parameters
+#'
+#' Refer to forecast:::makeTextTBATS.
+#' [`forecast` bats.R](https://github.com/robjhyndman/forecast/blob/master/R/bats.R)
+#'
+#' @param object An object of class bats or tbats
+tbats_string <- function(object) {
+
+    name <- "TBATS("
+    if (!is.null(object$lambda)) {
+        name <- paste(name, round(object$lambda, digits = 3),
+                      sep = "")
+    }
+    else {
+        name <- paste(name, "1", sep = "")
+    }
+    name <- paste(name, ", {", sep = "")
+    if (!is.null(object$ar.coefficients)) {
+        name <- paste(name, length(object$ar.coefficients), sep = "")
+    }
+    else {
+        name <- paste(name, "0", sep = "")
+    }
+    name <- paste(name, ",", sep = "")
+    if (!is.null(object$ma.coefficients)) {
+        name <- paste(name, length(object$ma.coefficients), sep = "")
+    }
+    else {
+        name <- paste(name, "0", sep = "")
+    }
+    name <- paste(name, "}, ", sep = "")
+    if (!is.null(object$damping.parameter)) {
+        name <- paste(name, round(object$damping.parameter, digits = 3),
+                      ",", sep = "")
+    }
+    else {
+        name <- paste(name, "-,", sep = "")
+    }
+    if (!is.null(object$seasonal.periods)) {
+        name <- paste(name, " {", sep = "")
+        M <- length(object$seasonal.periods)
+        for (i in 1:M) {
+            name <- paste(name, "<", object$seasonal.periods[i],
+                          ",", object$k.vector[i], ">", sep = "")
+            if (i < M) {
+                name <- paste(name, ", ", sep = "")
+            }
+            else {
+                name <- paste(name, "})", sep = "")
+            }
+        }
+    }
+    else {
+        name <- paste(name, "{-})", sep = "")
+    }
+    return(name)
+
+}

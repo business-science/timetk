@@ -4,9 +4,14 @@
 #' series.
 #'
 #' @param x An object of class "Arima"
+#' @param data Used with `sw_augment` only.
+#' `NULL` by default which simply returns augmented columns only.
+#' User can supply the original data, which returns the data + augmented columns.
+#' @param index_rename Used with `sw_augment` only.
+#' A string representing the name of the index generated.
 #'
 #'
-#' @seealso [arima()], [forecast::Arima()]
+#' @seealso [arima()], [Arima()]
 #'
 #' @examples
 #' library(forecast)
@@ -104,22 +109,31 @@ sw_glance.Arima <- function(x, ...) {
 #'
 #' @return
 #' __`sw_augment()`__ returns a tibble with the following time series attributes:
-#'   * `x`: The original time series
+#'   * `index`: An index is either attempted to be extracted from the model or
+#'   a sequential index is created for plotting purposes
+#'   * `.actual`: The original time series
 #'   * `.fitted`: The fitted values from the model
 #'   * `.resid`: The residual values from the model
 #'
 #' @export
-sw_augment.Arima <- function(x, ...) {
+sw_augment.Arima <- function(x, data = NULL, index_rename = "index", ...) {
 
     if ("fitted" %in% names(x)) {
         # forecast::Arima
-        ret <- sw_tbl(cbind(.actual = x$x, .fitted = x$fitted, .resid = x$residuals))
+        ret <- suppressWarnings(
+            sw_tbl(cbind(.actual = x$x, .fitted = x$fitted, .resid = x$residuals),
+                   index_rename = index_rename)
+            )
     } else {
         # stats::Arima
         warning("No `.actual` or `.fitted` within stats::arima() models. Use forecast::Arima() if more information is needed.")
-        ret <- sw_tbl(x$residuals) %>%
-            dplyr::rename(.resid = value)
+        ret <- suppressWarnings(
+            sw_tbl(x$residuals, index_rename = index_rename) %>%
+                dplyr::rename(.resid = value)
+        )
     }
+
+    ret <- sw_augment_columns(ret, data, index_rename)
 
     return(ret)
 

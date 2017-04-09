@@ -7,7 +7,7 @@
 #' @return Returns a `tibble` object.
 #'
 #' @details `sw_sweep` is designed
-#' to coerce `forecast` objects from Rob Hyndman's excellent `forecast` package
+#' to coerce `forecast` objects from the `forecast` package
 #' to `tibble` objects. The returned object contains both the actual values
 #' and the forecasted values including the point forecast and upper and lower
 #' confidence intervals.
@@ -35,10 +35,8 @@ sw_sweep <- function(forecast, index_rename = "index", ...) {
 sw_sweep.forecast <- function(forecast, index_rename = "index", ...) {
 
     # Get tibbles from forecast model
-    ret_x     <- sw_tbl(forecast$x, preserve_index = TRUE, index_rename, ...)
-    ret_mean  <- sw_tbl(forecast$mean, preserve_index = TRUE, index_rename, ...)
-    ret_upper <- sw_tbl(forecast$upper, preserve_index = FALSE, ...)
-    ret_lower <- sw_tbl(forecast$lower, preserve_index = FALSE, ...)
+    ret_x     <- suppressWarnings(sw_tbl(forecast$x, preserve_index = TRUE, index_rename, ...))
+    ret_mean  <- suppressWarnings(sw_tbl(forecast$mean, preserve_index = TRUE, index_rename, ...))
 
     # Add key column
     ret_x <- ret_x %>%
@@ -46,12 +44,17 @@ sw_sweep.forecast <- function(forecast, index_rename = "index", ...) {
     ret_mean <- ret_mean %>%
         tibble::add_column(key = rep("Forecast", nrow(.)))
 
-    # Fix colnames
-    colnames(ret_upper) <- stringr::str_c("hi.", forecast$level)
-    colnames(ret_lower) <- stringr::str_c("lo.", forecast$level)
-
-    # Combine into forecast
-    ret_fcast <- dplyr::bind_cols(ret_mean, ret_lower, ret_upper)
+    ret_fcast <- ret_mean
+    if (!is.null(forecast$level)) {
+        # If levels, add columns to forecast
+        ret_upper <- suppressWarnings(sw_tbl(forecast$upper, preserve_index = FALSE, ...))
+        ret_lower <- suppressWarnings(sw_tbl(forecast$lower, preserve_index = FALSE, ...))
+        # Fix colnames
+        colnames(ret_upper) <- stringr::str_c("hi.", forecast$level)
+        colnames(ret_lower) <- stringr::str_c("lo.", forecast$level)
+        # Combine into forecast
+        ret_fcast <- dplyr::bind_cols(ret_mean, ret_lower, ret_upper)
+    }
 
     # Validate indexes
     ret_x_has_index <- index_rename %in% colnames(ret_x)

@@ -1,6 +1,6 @@
 library(sweep)
 library(forecast)
-context("Testing sweep function")
+context("Testing sw_sweep function")
 
 
 test_that("sw_sweep test returns tibble with correct rows and columns.", {
@@ -17,21 +17,24 @@ test_that("sw_sweep test returns tibble with correct rows and columns.", {
     expect_equal(colnames(test_sweep_1)[[9]], "hi.99")
 
     # Automatic ARIMA forecasts
-    expect_warning(
-        # Warning: no index
+    expect_equal(
         WWWusage %>%
             auto.arima %>%
             forecast(h=20) %>%
-            sw_sweep()
+            sw_sweep() %>%
+            nrow(),
+        120
     )
 
     # ARFIMA forecasts
-    x <- fracdiff::fracdiff.sim( 100, ma=-.4, d=.3)$series
-    expect_warning(
+    x <- fracdiff::fracdiff.sim(100, ma=-.4, d=.3)$series
+    expect_equal(
         # Warning: no index
         arfima(x) %>%
             forecast(h=30) %>%
-            sw_sweep()
+            sw_sweep() %>%
+            nrow(),
+        130
     )
 
     # STL forecasts
