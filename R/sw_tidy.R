@@ -5,26 +5,18 @@
 #' @param ... extra arguments
 #'
 #' @details
-#' `sw_tidy()` methods always returns a "tidy" tibble with model coeffc.
-#' The single row includes summary statistics relevent to the model accuracy,
-#' which can be used to assess model fit and quality. The benefit of `sw_glance`
+#' `sw_tidy()` is a wrapper for `broom::tidy()`. The main benefit of `sw_tidy()`
 #' is that it has methods for various time-series model classes such as
 #' `HoltWinters`, `ets`, `Arima`, etc.
+#' `sw_tidy()` methods always returns a "tidy" tibble with model coefficient / parameters.
 #'
-#' For non-time series, `sw_glance()` defaults to `broom::glance()`.
+#' For non-time series, `sw_tidy()` defaults to `broom::tidy()`.
 #' The only difference is that the return is a tibble.
 #' The output of `sw_tidy()` is always a tibble with disposable row names. It is
 #' therefore suited for further manipulation by packages like dplyr and
-#' ggplot2. The `sw_tidy()` function is designed to work well with time-series
-#' models (supplied via `x`). The function provides additional "tidy" functionality
-#' to the `broom::tidy()` function as follows:
+#' ggplot2.
 #'
-#' 1. Model object classes such as `ets`, `Arima`, `bats`, `stl`,
-#' and others from Rob Hyndman's excellent `forecast` package.
-#' 2. Model object classes such as `HoltWinters` and `Arima` from the `stats`
-#' package.
-#'
-#' @seealso [tidy()]
+#' @seealso [broom::tidy()]
 #'
 #' @return a tibble
 #'
