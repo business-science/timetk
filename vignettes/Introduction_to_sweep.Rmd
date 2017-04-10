@@ -13,17 +13,136 @@ vignette: >
 ---
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE}
-knitr::opts_chunk$set(message = FALSE,
-                      warning = FALSE,
-                      fig.width = 6)
+knitr::opts_chunk$set(
+    # message = FALSE,
+    # warning = FALSE,
+    fig.width = 8, 
+    fig.height = 4.5,
+    fig.align = 'center',
+    out.width='95%', 
+    dpi = 200
+)
 library(tidyquant)
 library(sweep)
+library(forecast)
 # devtools::load_all() # Travis CI fails on load_all()
 ```
 
+> Your Swiss Army Knife for "tidy" forecasting and time series analysis
+
+The `sweep` package combines a set of tools for performing forecasts and time series analysis in the "tidyverse". While the package is geared towards the workflow required to perform forecasts using Rob Hyndman's `forecast` package, it contains elements that can help when performing time series analysis using tibbles ("tidy" data frames). The package contains three basic elements:
+
+1. `sw_tbl`, `sw_ts`, `sw_xts`, `sw_zoo`, and `sw_zooreg`: Functions that coerce time-based tibbles `tbl` to and from each of the main time-series data types `xts`, `zoo`, `zooreg`, `ts`.
+
+2. `sw_tidy`, `sw_glance`, `sw_augment`, `sw_tidy_decomp`: Functions that extend `tidy`, `glance`, and `augment` from the `broom` package specifically for forecast models (`ets`, `Arima`, `bats`, etc) within the `forecast` package.
+
+3. `sw_sweep`: A function that converts a `forecast` to a tibble that can be easily manipulated in the "tidyverse".
+
+To illustrate, let's take a basic forecasting workflow starting from data collected in a tibble format and then performing some basic processes to achieve a forecast in tibble format.
+
+# Prerequisites
+
+Before we get started, load the following packages.
+
+```{r, eval = F}
+library(forecast)
+library(tidyquant)
+library(sweep)
+```
+
+# Forecasting Sales of Beer, Wine, and Distilled Alcohol Beverages
+
+We'll use the `tidyquant` package to get some data. The alchol sales data comes from the FRED data base and originates from the US Bureau of the Census. The FRED code is "S4248SM144NCEN" and the data can be found [here](https://fred.stlouisfed.org/series/S4248SM144NCEN).
+
+```{r}
+alcohol_sales_tbl <- tq_get("S4248SM144NCEN", 
+                            get  = "economic.data", 
+                            from = "2007-01-01",
+                            to   = "2016-12-31")
+alcohol_sales_tbl
+```
+
+And, we can quickly visualize using the familiar `ggplot2` package. We can see that there appears to be some seasonality and an upward trend.
+
+```{r}
+alcohol_sales_tbl %>%
+    ggplot(aes(x = date, y = price)) +
+    geom_line(size = 1, color = palette_light()[[1]]) +
+    geom_smooth() +
+    labs(title = "US Alcohol Sales: Monthly", x = "", y = "Millions") +
+    scale_y_continuous(labels = scales::dollar) +
+    scale_x_date(date_breaks = "1 year", date_labels = "%Y") +
+    theme_tq()
+```
 
 
+# Forecasting Workflow
 
+The forecasting workflow involves a few basic steps:
+
+1. Step 1: Coerce to a `ts` object class.
+2. Step 2: Apply a model (or set of models)
+3. Step 3: Forecast the models (similar to predict)
+
+In each step of the workflow we'll see how `sweep` can help.
+
+## Step 1: Coerce to a `ts` object class
+
+We can do this a few ways. First, we'll take a look at the current way using `stats::ts()`. This procedure works, but there's a few things the user needs to be careful with. First, only numeric columns get coerced. If the user forgets to add the `[,-1]` to drop the "date" column, `ts()` returns dates in numeric format which is not what the user wants. 
+
+```{r}
+alcohol_sales_ts_old <- ts(alcohol_sales_tbl[,-1], start = 2007, freq = 12)
+alcohol_sales_ts_old
+```
+
+Second, the results do not retain the original index (a vector of dates).
+
+```{r}
+str(alcohol_sales_ts_old)
+```
+
+
+Now using the new function, `sw_ts()`, we can see a few differences. First, only numeric columns get coerced. If a column is dropped, the user gets a warning. 
+
+```{r}
+alcohol_sales_ts <- sw_ts(alcohol_sales_tbl, start = 2007, freq = 12)
+alcohol_sales_ts
+```
+
+Second, the data returned has a few additional attributes. The most important of which is a numeric attribute, "index", which contains the original date information as a number. The `ts()` function will not preserve this index while `sw_ts()` will in numeric form. 
+
+```{r}
+str(alcohol_sales_ts)
+```
+
+We can actually coerce the index back using the `as_datetime()` function from the `lubridate` package.
+
+```{r}
+index <- attr(alcohol_sales_ts, "index") %>% 
+    as_datetime()
+head(index)
+class(index)
+```
+
+Now that a time series has been coerced, let's proceed with modeling.
+
+## Step 2: Modeling a time series
+
+The modeling workflow takes a time series object and applies a model. Nothing new here. Just use the `forecast` package. We'll use the `auto.arima()` function to get an ARIMA model.
+
+```{r}
+fit_arima <- alcohol_sales_ts %>%
+    auto.arima()
+```
+
+Where `sweep` can help is in the evaluation of a model. Expanding on the `broom` package there are four functions:
+
+* `sw_tidy()`: Returns a tibble of model parameters
+* `sw_glance()`: Returns the model accuracy measurements
+* `sw_augment()`: Returns the fitted and residuals of the model
+* `sw_tidy_decomp()`: Returns a tidy decomposition from a model
+
+The guide below shows which modeling functions are compatible with which `sweep` tidier functions.
 
 ```{r, echo = F}
 tibble::tribble(
@@ -47,5 +166,67 @@ tibble::tribble(
 ) %>%
     knitr::kable(caption = "Function Compatibility: sw_tidy, sw_glance, sw_augment, sw_tidy_decomp",
                  align = c("l", "c", "c", "c", "c"))
+```
+
+
+Going through the tidiers, we can get useful `model` information.
+
+```{r}
+sw_tidy(fit_arima)
+```
+
+```{r}
+sw_glance(fit_arima)
+```
+
+```{r}
+augment_fit_arima <- sw_augment(fit_arima)
+augment_fit_arima
+```
+
+We can review the residuals to determine if their are any underlying patterns left. The index date is regularized meaning that it's a numeric value with the point during the year identified as a numeric value (e.g. 2007.833 is the equivalent of January 2007). The `yearmon` function from the zoo package can be used to convert to a human readible Jan 2007. The `geom_ma()` function from `tidyquant` is used to add a moving average, which can be used to spot remaining pattern. 
+
+```{r}
+augment_fit_arima %>%
+    ggplot(aes(x = yearmon(index), y = .resid)) +
+    geom_hline(yintercept = 0, color = "grey40") +
+    geom_line(color = palette_light()[[2]]) +
+    geom_point() +
+    geom_ma(ma_fun = SMA, n = 12, size = 1) +
+    scale_x_yearmon(n = 10) +
+    labs(title = "US Alcohol Sales: ARIMA Residuals", x = "") + 
+    theme_tq()
+```
+
+While the residuals clearly show a pattern remains, let's continue with the goal of forecasting the model.
+
+## Step 3: Forecasting the model
+
+We'll use the `sw_sweep()` function to coerce a `forecast` into a usable data frame. The `forecast()` function is similar to `predict` from the `stats` package in that it creates a forecast (or prediction) from the ARIMA model, `fit_arima`. The `sw_sweep()` function then coerces the `forecast` object into a tibble that can be sent to `ggplot` for visualization. We set the `forecast(h = 12)` to yield a 12 month forecast. 
+
+```{r}
+fcast_arima <- fit_arima %>%
+    forecast(h = 12) 
+    
+sweep_arima <- sw_sweep(fcast_arima)
+sweep_arima
+```
+
+We can visualize using a combination of `geom_line()` and `geom_ribbon()`.
+
+```{r}
+sweep_arima %>%
+    ggplot(aes(x = yearmon(index), y = price, color = key)) +
+    geom_ribbon(aes(ymin = lo.95, ymax = hi.95), 
+                fill = "#D5DBFF", color = NA, size = 0) +
+    geom_ribbon(aes(ymin = lo.80, ymax = hi.80, fill = key), 
+                fill = "#596DD5", color = NA, size = 0, alpha = 0.8) +
+    geom_line(size = 1) +
+    labs(title = "US Alcohol Sales: Forecast from ARIMA", x = "", y = "Millions") +
+    scale_y_continuous(labels = scales::dollar) +
+    scale_x_yearmon(n = 12) +
+    scale_color_tq() +
+    scale_fill_tq() +
+    theme_tq()
 ```
 

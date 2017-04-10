@@ -1,0 +1,26 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+    message = F, 
+    warning = F,
+    collapse = TRUE,
+    comment = "#>",
+    fig.path = "README-"
+)
+```
+
+```{r, echo=FALSE}
+library(tidyquant)
+library(sweep)
+```
+
+
+# Sweep
+
+> Your Swiss Army Knife for "tidy" forecasting and time series analysis
+
