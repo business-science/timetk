@@ -20,7 +20,7 @@ library(sweep)
 ```
 
 
-# Sweep
+# sweep
 
 > Your Swiss Army Knife for "tidy" forecasting and time series analysis
 
