@@ -32,11 +32,11 @@ library(forecast)
 
 The `sweep` package combines a set of tools for performing forecasts and time series analysis in the "tidyverse". While the package is geared towards the workflow required to perform forecasts using Rob Hyndman's `forecast` package, it contains elements that can help when performing time series analysis using tibbles ("tidy" data frames). The package contains three basic elements:
 
-1. `sw_tbl`, `sw_ts`, `sw_xts`, `sw_zoo`, and `sw_zooreg`: Functions that coerce time-based tibbles `tbl` to and from each of the main time-series data types `xts`, `zoo`, `zooreg`, `ts`.
+1. __Coercion functions__: `sw_tbl`, `sw_ts`, `sw_xts`, `sw_zoo`, and `sw_zooreg`. These functions coerce time-based tibbles `tbl` to and from each of the main time-series data types `xts`, `zoo`, `zooreg`, `ts`, maintaining the time-based index.
 
-2. `sw_tidy`, `sw_glance`, `sw_augment`, `sw_tidy_decomp`: Functions that extend `tidy`, `glance`, and `augment` from the `broom` package specifically for forecast models (`ets`, `Arima`, `bats`, etc) within the `forecast` package.
+2. __broom model tidiers__: `sw_tidy`, `sw_glance`, `sw_augment`, `sw_tidy_decomp`. These functions extend `tidy`, `glance`, and `augment` from the `broom` package specifically for models (`ets()`, `Arima()`, `bats()`, etc) used for forecasting.
 
-3. `sw_sweep`: A function that converts a `forecast` to a tibble that can be easily manipulated in the "tidyverse".
+3. __Forecast tidier__: `sw_sweep`. A function that converts a `forecast` to a tibble that can be easily manipulated in the "tidyverse".
 
 To illustrate, let's take a basic forecasting workflow starting from data collected in a tibble format and then performing some basic processes to achieve a forecast in tibble format.
 
@@ -52,7 +52,7 @@ library(sweep)
 
 # Forecasting Sales of Beer, Wine, and Distilled Alcohol Beverages
 
-We'll use the `tidyquant` package to get the US alcohol sales, which comes from the FRED data base (the origin is the US Bureau of the Census, one of the 80+ data sources FRED connects to). The FRED code is "S4248SM144NCEN" and the data can be found [here](https://fred.stlouisfed.org/series/S4248SM144NCEN).
+We'll use the `tidyquant` package to get the US alcohol sales, which comes from the FRED data base (the origin is the US Bureau of the Census, one of the 80+ data sources FRED connects to). The FRED code is "S4248SM144NCEN" and the data set can be found [here](https://fred.stlouisfed.org/series/S4248SM144NCEN).
 
 ```{r}
 alcohol_sales_tbl <- tq_get("S4248SM144NCEN", 
@@ -88,7 +88,7 @@ In each step of the workflow we'll see how `sweep` can help.
 
 ## Step 1: Coerce to a `ts` object class
 
-We can do this a few ways. First, we'll take a look at the current way using `stats::ts()`. 
+The `forecast` package uses the `ts` data structure, which is quite a bit different than tibbles that we are currently using. Fortunately, it's easy to get to the correct structure. We can do this a couple ways. First, we'll take a look at the current way using `stats::ts()`. 
 
 ### stats::ts
 
@@ -99,7 +99,7 @@ alcohol_sales_ts_stats <- ts(alcohol_sales_tbl[,-1], start = 2007, freq = 12)
 alcohol_sales_ts_stats
 ```
 
-Second, the results do not retain the original index (a vector of dates).
+Second, the results do not retain the original index (a vector of dates). Only a regularized time series is maintained in numeric format meaning that the date information is lost. 
 
 ```{r}
 str(alcohol_sales_ts_stats)
@@ -107,7 +107,7 @@ str(alcohol_sales_ts_stats)
 
 ### sweep::sw_ts
 
-Now using the new function, `sw_ts()`, we can see a few differences. First, only numeric columns get coerced. If a column is dropped, the user gets a warning. 
+Now using the new function, `sw_ts()`, we can see a few differences. First, only numeric columns get coerced, which prevents unintended consequences due to R coercion rules (e.g. dates getting unintentionally converted or characters causing numeric to be coerced). If a column is dropped, the user gets a warning. 
 
 ```{r}
 alcohol_sales_ts <- sw_ts(alcohol_sales_tbl, start = 2007, freq = 12)
@@ -120,7 +120,7 @@ Second, the data returned has a few additional attributes. The most important of
 str(alcohol_sales_ts)
 ```
 
-We can actually get the index using `sw_index()`.
+We can extract the original index in date format using `sw_index()`.
 
 ```{r}
 index <- sw_index(alcohol_sales_ts)
@@ -132,7 +132,7 @@ Now that a time series has been coerced, let's proceed with modeling.
 
 ## Step 2: Modeling a time series
 
-The modeling workflow takes a time series object and applies a model. Nothing new here. Just use the `forecast` package. We'll use the `ets()` function to get an ETS (Error, Trend, Seasonal) model.
+The modeling workflow takes a time series object and applies a model. Nothing new here: we'll simply use the `ets()` function from the `forecast` package to get an Exponential Smoothing ETS (Error, Trend, Seasonal) model.
 
 ```{r}
 fit_ets <- alcohol_sales_ts %>%
@@ -173,17 +173,25 @@ tibble::tribble(
 ```
 
 
-Going through the tidiers, we can get useful `model` information. `sw_tidy()` returns the model parameters.
+Going through the tidiers, we can get useful `model` information. 
+
+### sw_tidy
+
+`sw_tidy()` returns the model parameters.
 
 ```{r}
 sw_tidy(fit_ets)
 ```
+
+### sw_glance
 
 `sw_glance()` returns the model quality parameters.
 
 ```{r}
 sw_glance(fit_ets)
 ```
+
+### sw_augment
 
 `sw_augment()` returns the actual, fitted and residual values.
 
@@ -202,9 +210,12 @@ augment_fit_ets %>%
     geom_point() +
     geom_ma(ma_fun = SMA, n = 12, size = 1) +
     scale_x_yearmon(n = 10) +
-    labs(title = "US Alcohol Sales: ARIMA Residuals", x = "") + 
+    labs(title = "US Alcohol Sales: ETS Residuals", x = "") + 
     theme_tq()
 ```
+
+
+### sw_tidy_decomp
 
 `sw_tidy_decomp()` returns the decomposition of the ETS model.
 
@@ -213,18 +224,27 @@ decomp_fit_ets <- sw_tidy_decomp(fit_ets)
 decomp_fit_ets 
 ```
 
-We can review the decomposition using `ggplot2` as well.
+We can review the decomposition using `ggplot2` as well.  The data will need to be manipulated slightly for the facet visualization. The `gather()` function from the `tidyr` package is used to reshape the data into a long format data frame with column names "key" and "value" indicating all columns except for index are to be reshaped. The "key" column is then mutated using `mutate()` to a factor which preserves the order of the keys so "observed" comes first when plotting. 
 
 ```{r}
 decomp_fit_ets %>%
     gather(key = key, value = value, -index) %>%
-    mutate(key = forcats::as_factor(key))
+    mutate(key = forcats::as_factor(key)) %>%
+    ggplot(aes(x = yearmon(index), y = value, group = key)) +
+    geom_line(color = palette_light()[[2]]) +
+    geom_ma(ma_fun = SMA, n = 12, size = 1) +
+    facet_wrap(~ key, scales = "free_y") +
+    scale_x_yearmon(n = 10) +
+    labs(title = "US Alcohol Sales: ETS Decomposition", x = "") + 
+    theme_tq() +
+    theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
 
+Under normal circumstances it would make sense to refine the model at this point. However, in the interest of showing capabilities (rather than how to forecast) we move onto forecasting the model. For more information on how to forecast, please refer to the online book [_"Forecasting: Principles and Practices"_](https://www.otexts.org/book/fpp). 
 
 ## Step 3: Forecasting the model
 
-We'll use the `sw_sweep()` function to coerce a `forecast` into a usable data frame. The `forecast()` function is similar to `predict` from the `stats` package in that it creates a forecast (or prediction) from the ARIMA model, `fit_arima`. The `sw_sweep()` function then coerces the `forecast` object into a tibble that can be sent to `ggplot` for visualization. We set the `forecast(h = 12)` to yield a 12 month forecast. 
+We'll use the `sw_sweep()` function to coerce a `forecast` into a usable data frame. The `forecast()` function is similar to `predict` from the `stats` package in that it creates a forecast (or prediction) from the ETS model, `fit_ets`. We set the `forecast(h = 12)` to yield a 12 month forecast. The `sw_sweep()` function then coerces the `forecast` object into a tibble that can be sent to `ggplot` for visualization. 
 
 ```{r}
 fcast_ets <- fit_ets %>%
@@ -244,11 +264,15 @@ sweep_ets %>%
     geom_ribbon(aes(ymin = lo.80, ymax = hi.80, fill = key), 
                 fill = "#596DD5", color = NA, size = 0, alpha = 0.8) +
     geom_line(size = 1) +
-    labs(title = "US Alcohol Sales: Forecast from ARIMA", x = "", y = "Millions") +
+    labs(title = "US Alcohol Sales: Forecast from ETS", x = "", y = "") +
     scale_y_continuous(labels = scales::dollar) +
     scale_x_yearmon(n = 12) +
     scale_color_tq() +
     scale_fill_tq() +
     theme_tq()
 ```
+
+# Recap
+
+This was a brief overview of how various functions within the `sweep` package can be used to assist in forecasting and time series analysis. In the next vignette, we discuss some more powerful concepts including forecasting at scale. 
 
