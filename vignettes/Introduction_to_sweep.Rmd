@@ -132,11 +132,11 @@ Now that a time series has been coerced, let's proceed with modeling.
 
 ## Step 2: Modeling a time series
 
-The modeling workflow takes a time series object and applies a model. Nothing new here. Just use the `forecast` package. We'll use the `auto.arima()` function to get an ARIMA model.
+The modeling workflow takes a time series object and applies a model. Nothing new here. Just use the `forecast` package. We'll use the `ets()` function to get an ETS (Error, Trend, Seasonal) model.
 
 ```{r}
-fit_arima <- alcohol_sales_ts %>%
-    auto.arima()
+fit_ets <- alcohol_sales_ts %>%
+    ets()
 ```
 
 Where `sweep` can help is in the evaluation of a model. Expanding on the `broom` package there are four functions:
@@ -176,26 +176,26 @@ tibble::tribble(
 Going through the tidiers, we can get useful `model` information. `sw_tidy()` returns the model parameters.
 
 ```{r}
-sw_tidy(fit_arima)
+sw_tidy(fit_ets)
 ```
 
 `sw_glance()` returns the model quality parameters.
 
 ```{r}
-sw_glance(fit_arima)
+sw_glance(fit_ets)
 ```
 
 `sw_augment()` returns the actual, fitted and residual values.
 
 ```{r}
-augment_fit_arima <- sw_augment(fit_arima)
-augment_fit_arima
+augment_fit_ets <- sw_augment(fit_ets)
+augment_fit_ets
 ```
 
 We can review the residuals to determine if their are any underlying patterns left. The index date is regularized meaning that it's a numeric value with the point during the year identified as a numeric value (e.g. 2007.833 is the equivalent of January 2007). The `yearmon` function from the zoo package can be used to convert to a human readible Jan 2007. The `geom_ma()` function from `tidyquant` is used to add a moving average, which can be used to spot remaining pattern. 
 
 ```{r}
-augment_fit_arima %>%
+augment_fit_ets %>%
     ggplot(aes(x = yearmon(index), y = .resid)) +
     geom_hline(yintercept = 0, color = "grey40") +
     geom_line(color = palette_light()[[2]]) +
@@ -206,24 +206,38 @@ augment_fit_arima %>%
     theme_tq()
 ```
 
-While the residuals clearly show a pattern remains, let's continue with the goal of forecasting the model.
+`sw_tidy_decomp()` returns the decomposition of the ETS model.
+
+```{r}
+decomp_fit_ets <- sw_tidy_decomp(fit_ets)
+decomp_fit_ets 
+```
+
+We can review the decomposition using `ggplot2` as well.
+
+```{r}
+decomp_fit_ets %>%
+    gather(key = key, value = value, -index) %>%
+    mutate(key = forcats::as_factor(key))
+```
+
 
 ## Step 3: Forecasting the model
 
 We'll use the `sw_sweep()` function to coerce a `forecast` into a usable data frame. The `forecast()` function is similar to `predict` from the `stats` package in that it creates a forecast (or prediction) from the ARIMA model, `fit_arima`. The `sw_sweep()` function then coerces the `forecast` object into a tibble that can be sent to `ggplot` for visualization. We set the `forecast(h = 12)` to yield a 12 month forecast. 
 
 ```{r}
-fcast_arima <- fit_arima %>%
+fcast_ets <- fit_ets %>%
     forecast(h = 12) 
     
-sweep_arima <- sw_sweep(fcast_arima)
-sweep_arima
+sweep_ets <- sw_sweep(fcast_ets)
+sweep_ets
 ```
 
 We can visualize using a combination of `geom_line()` and `geom_ribbon()`.
 
 ```{r}
-sweep_arima %>%
+sweep_ets %>%
     ggplot(aes(x = yearmon(index), y = price, color = key)) +
     geom_ribbon(aes(ymin = lo.95, ymax = hi.95), 
                 fill = "#D5DBFF", color = NA, size = 0) +
