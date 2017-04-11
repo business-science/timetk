@@ -12,6 +12,8 @@ get_date_variables <- function(df){
     }
     classes <- lapply(df, class)
     date_classes <- (sapply(classes, function(x) 'POSIXt' %in% x) |
-                         sapply(classes, function(x) 'Date' %in% x))
+                     sapply(classes, function(x) 'Date' %in% x) |
+                     sapply(classes, function(x) 'yearmon' %in% x) |
+                     sapply(classes, function(x) 'yearqtr' %in% x))
     return(names(which(date_classes)))
 }
