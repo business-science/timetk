@@ -1,2 +1,2 @@
 globalVariables(c(".", "value", "observed", "season", ".actual", ".fitted",
-                  "actual", "seasonal", "trend", "remainder"))
+                  "actual", "seasonal", "trend", "remainder", "ret"))

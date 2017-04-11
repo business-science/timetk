@@ -28,7 +28,7 @@ library(forecast)
 # devtools::load_all() # Travis CI fails on load_all()
 ```
 
-> Your Swiss Army Knife for "tidy" forecasting and time series analysis
+> A "tidy" toolkit for forecasting and time series analysis
 
 The `sweep` package combines a set of tools for performing forecasts and time series analysis in the "tidyverse". While the package is geared towards the workflow required to perform forecasts using Rob Hyndman's `forecast` package, it contains elements that can help when performing time series analysis using tibbles ("tidy" data frames). The package contains three basic elements:
 
@@ -52,7 +52,7 @@ library(sweep)
 
 # Forecasting Sales of Beer, Wine, and Distilled Alcohol Beverages
 
-We'll use the `tidyquant` package to get some data. The alchol sales data comes from the FRED data base and originates from the US Bureau of the Census. The FRED code is "S4248SM144NCEN" and the data can be found [here](https://fred.stlouisfed.org/series/S4248SM144NCEN).
+We'll use the `tidyquant` package to get the US alcohol sales, which comes from the FRED data base (the origin is the US Bureau of the Census, one of the 80+ data sources FRED connects to). The FRED code is "S4248SM144NCEN" and the data can be found [here](https://fred.stlouisfed.org/series/S4248SM144NCEN).
 
 ```{r}
 alcohol_sales_tbl <- tq_get("S4248SM144NCEN", 
@@ -62,7 +62,7 @@ alcohol_sales_tbl <- tq_get("S4248SM144NCEN",
 alcohol_sales_tbl
 ```
 
-And, we can quickly visualize using the familiar `ggplot2` package. We can see that there appears to be some seasonality and an upward trend.
+We can quickly visualize using the `ggplot2` package. We can see that there appears to be some seasonality and an upward trend.
 
 ```{r}
 alcohol_sales_tbl %>%
@@ -88,19 +88,24 @@ In each step of the workflow we'll see how `sweep` can help.
 
 ## Step 1: Coerce to a `ts` object class
 
-We can do this a few ways. First, we'll take a look at the current way using `stats::ts()`. This procedure works, but there's a few things the user needs to be careful with. First, only numeric columns get coerced. If the user forgets to add the `[,-1]` to drop the "date" column, `ts()` returns dates in numeric format which is not what the user wants. 
+We can do this a few ways. First, we'll take a look at the current way using `stats::ts()`. 
+
+### stats::ts
+
+This procedure works, but there's a few things the user needs to be aware of. First, only numeric columns get coerced. If the user forgets to add the `[,-1]` to drop the "date" column, `ts()` returns dates in numeric format which is not what the user wants. 
 
 ```{r}
-alcohol_sales_ts_old <- ts(alcohol_sales_tbl[,-1], start = 2007, freq = 12)
-alcohol_sales_ts_old
+alcohol_sales_ts_stats <- ts(alcohol_sales_tbl[,-1], start = 2007, freq = 12)
+alcohol_sales_ts_stats
 ```
 
 Second, the results do not retain the original index (a vector of dates).
 
 ```{r}
-str(alcohol_sales_ts_old)
+str(alcohol_sales_ts_stats)
 ```
 
+### sweep::sw_ts
 
 Now using the new function, `sw_ts()`, we can see a few differences. First, only numeric columns get coerced. If a column is dropped, the user gets a warning. 
 
@@ -115,11 +120,10 @@ Second, the data returned has a few additional attributes. The most important of
 str(alcohol_sales_ts)
 ```
 
-We can actually coerce the index back using the `as_datetime()` function from the `lubridate` package.
+We can actually get the index using `sw_index()`.
 
 ```{r}
-index <- attr(alcohol_sales_ts, "index") %>% 
-    as_datetime()
+index <- sw_index(alcohol_sales_ts)
 head(index)
 class(index)
 ```
@@ -169,15 +173,19 @@ tibble::tribble(
 ```
 
 
-Going through the tidiers, we can get useful `model` information.
+Going through the tidiers, we can get useful `model` information. `sw_tidy()` returns the model parameters.
 
 ```{r}
 sw_tidy(fit_arima)
 ```
 
+`sw_glance()` returns the model quality parameters.
+
 ```{r}
 sw_glance(fit_arima)
 ```
+
+`sw_augment()` returns the actual, fitted and residual values.
 
 ```{r}
 augment_fit_arima <- sw_augment(fit_arima)

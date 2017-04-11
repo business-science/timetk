@@ -45,7 +45,7 @@ test_that("sw_*.Arima test returns tibble with correct rows and columns.", {
     expect_is(test, "tbl")
     # expect_false(any(lapply(test, is.factor) %>% unlist())) # No factors
     expect_equal(nrow(test), 2)
-    expect_equal(ncol(test), 5)
+    expect_equal(ncol(test), 2)
 
     # sw_glance ----
     test <- sw_glance(fit_arima)
@@ -71,7 +71,7 @@ test_that("sw_*.Arima test returns tibble with correct rows and columns.", {
     expect_is(test, "tbl")
     # expect_false(any(lapply(test, is.factor) %>% unlist())) # No factors
     expect_equal(nrow(test), 2)
-    expect_equal(ncol(test), 5)
+    expect_equal(ncol(test), 2)
 
     # sw_glance ----
     test <- suppressWarnings(sw_glance(fit_arima_stats))

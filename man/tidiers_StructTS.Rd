@@ -30,8 +30,7 @@ A string representing the name of the index generated.}
 \strong{\code{sw_tidy()}} returns one row for each model parameter,
 with two columns:
 \itemize{
-\item \code{term}: The smoothing parameters (alpha, gamma) and the initial states
-(l, s0 through s10)
+\item \code{term}: The model parameters
 \item \code{estimate}: The estimated parameter value
 }
 

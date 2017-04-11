@@ -3,4 +3,4 @@
 sweep
 =====
 
-> Your Swiss Army Knife for "tidy" forecasting and time series analysis
+> A "tidy" toolkit for forecasting and time series analysis

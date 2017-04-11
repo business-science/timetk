@@ -108,7 +108,7 @@ sw_glance.StructTS <- function(x, ...) {
 #' @export
 sw_augment.StructTS <- function(x, data = NULL, index_rename = "index", ...) {
 
-    x <- forecast(x)
+    x <- forecast::forecast(x)
 
     ret <- suppressWarnings(
         sw_tbl(cbind(.actual = x$x, .fitted = x$fitted, .resid = x$residuals),
