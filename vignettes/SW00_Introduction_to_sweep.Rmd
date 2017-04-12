@@ -274,5 +274,5 @@ sweep_ets %>%
 
 # Recap
 
-This was a brief overview of how various functions within the `sweep` package can be used to assist in forecasting and time series analysis. In the next vignette, we discuss some more powerful concepts including forecasting at scale. 
+This was a brief overview of how various functions within the `sweep` package can be used to assist in forecasting and time series analysis. In the next vignette, we discuss some more powerful concepts including forecasting at scale with grouped time series analysis. 
 

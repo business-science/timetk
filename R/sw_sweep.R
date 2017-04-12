@@ -1,6 +1,6 @@
 #' Turn forecast objects into tibbles.
 #'
-#' @param forecast A time-series forecast of class `forecast`.
+#' @param x A time-series forecast of class `forecast`.
 #' @param index_rename Enables the index column to be renamed.
 #' @param ... Additional parameters passed to the [tibble::as_tibble()] function.
 #'
@@ -27,16 +27,16 @@
 #'
 #'
 #' @export
-sw_sweep <- function(forecast, index_rename = "index", ...) {
-    UseMethod("sw_sweep", forecast)
+sw_sweep <- function(x, index_rename = "index", ...) {
+    UseMethod("sw_sweep", x)
 }
 
 #' @export
-sw_sweep.forecast <- function(forecast, index_rename = "index", ...) {
+sw_sweep.forecast <- function(x, index_rename = "index", ...) {
 
     # Get tibbles from forecast model
-    ret_x     <- suppressWarnings(sw_tbl(forecast$x, preserve_index = TRUE, index_rename, ...))
-    ret_mean  <- suppressWarnings(sw_tbl(forecast$mean, preserve_index = TRUE, index_rename, ...))
+    ret_x     <- suppressWarnings(sw_tbl(x$x, preserve_index = TRUE, index_rename, ...))
+    ret_mean  <- suppressWarnings(sw_tbl(x$mean, preserve_index = TRUE, index_rename, ...))
 
     # Add key column
     ret_x <- ret_x %>%
@@ -45,13 +45,13 @@ sw_sweep.forecast <- function(forecast, index_rename = "index", ...) {
         tibble::add_column(key = rep("Forecast", nrow(.)))
 
     ret_fcast <- ret_mean
-    if (!is.null(forecast$level)) {
+    if (!is.null(x$level)) {
         # If levels, add columns to forecast
-        ret_upper <- suppressWarnings(sw_tbl(forecast$upper, preserve_index = FALSE, ...))
-        ret_lower <- suppressWarnings(sw_tbl(forecast$lower, preserve_index = FALSE, ...))
+        ret_upper <- suppressWarnings(sw_tbl(x$upper, preserve_index = FALSE, ...))
+        ret_lower <- suppressWarnings(sw_tbl(x$lower, preserve_index = FALSE, ...))
         # Fix colnames
-        colnames(ret_upper) <- stringr::str_c("hi.", forecast$level)
-        colnames(ret_lower) <- stringr::str_c("lo.", forecast$level)
+        colnames(ret_upper) <- stringr::str_c("hi.", x$level)
+        colnames(ret_lower) <- stringr::str_c("lo.", x$level)
         # Combine into forecast
         ret_fcast <- dplyr::bind_cols(ret_mean, ret_lower, ret_upper)
     }
@@ -83,8 +83,8 @@ sw_sweep.forecast <- function(forecast, index_rename = "index", ...) {
 }
 
 #' @export
-sw_sweep.default <- function(forecast, index_rename = "index", ...) {
-    warning(paste0("`sw_sweep` function does not support class ", class(forecast)[[1]],
+sw_sweep.default <- function(x, index_rename = "index", ...) {
+    warning(paste0("`sw_sweep` function does not support class ", class(x)[[1]],
                    ". Object must inherit forecast class."))
-    return(forecast)
+    return(x)
 }

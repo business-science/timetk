@@ -31,21 +31,16 @@ NULL
 
 #' @rdname tidiers_arima
 #'
-#' @param conf_level confidence level of the interval passed to `stats::confint`
-#' (`sw_tidy()` only)
-#' @param ... Additional parameters passed to `stats::confint` (`sw_tidy()` only)
+#' @param ... Additional parameters (not used)
 #'
 #' @return
 #' __`sw_tidy()`__ returns one row for each coefficient in the model,
 #' with five columns:
 #'   * `term`: The term in the nonlinear model being estimated and tested
 #'   * `estimate`: The estimated coefficient
-#'   * `std.error`: The standard error from the linear model
-#'   * `conf.low`: Low end of confidence interval
-#'   * `conf.high`: High end of confidence interval
 #'
 #' @export
-sw_tidy.Arima <- function(x, conf_level = 0.95, ...) {
+sw_tidy.Arima <- function(x, ...) {
 
     coefs <- stats::coef(x)
 

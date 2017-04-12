@@ -4,10 +4,10 @@
 \alias{sw_sweep}
 \title{Turn forecast objects into tibbles.}
 \usage{
-sw_sweep(forecast, index_rename = "index", ...)
+sw_sweep(x, index_rename = "index", ...)
 }
 \arguments{
-\item{forecast}{A time-series forecast of class \code{forecast}.}
+\item{x}{A time-series forecast of class \code{forecast}.}
 
 \item{index_rename}{Enables the index column to be renamed.}
 

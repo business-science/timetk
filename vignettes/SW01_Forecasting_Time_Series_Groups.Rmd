@@ -1,0 +1,265 @@
+---
+title: "Forecasting Time Series Groups in the tidyverse"
+author: "Matt Dancho"
+date: "`r Sys.Date()`"
+output: 
+  rmarkdown::html_vignette:
+    toc: true
+    toc_depth: 2
+vignette: >
+  %\VignetteIndexEntry{sweep and dplyr - Forecasting in the tidyverse}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+knitr::opts_chunk$set(
+    # message = FALSE,
+    # warning = FALSE,
+    fig.width = 8, 
+    fig.height = 4.5,
+    fig.align = 'center',
+    out.width='95%', 
+    dpi = 200
+)
+library(tidyquant)
+library(sweep)
+library(forecast)
+# devtools::load_all() # Travis CI fails on load_all()
+```
+
+> A "tidy" toolkit for forecasting and time series analysis
+
+One of the most powerful things about `sweep` is that it makes forecasting at scale possible within the "tidyverse". There are two common situations:
+
+1. Applying a model to groups of time series
+2. Applying multiple models to a time series
+
+In this vignette we'll review how `sweep` can help the first situation.
+
+# Prerequisites
+
+Before we get started, load the following packages.
+
+```{r, eval = F}
+library(forecast)
+library(tidyquant)
+library(sweep)
+```
+
+# Cannondale Bike Sales
+
+We'll use the bike sales data set, `bike_sales`, provided with the `sweep` package for this tutorial. The `bike_sales` data set is a _fictional_ daily order history that spans 2011 through 2015. It simulates a sales database that is typical of a business. The customers are the "bike shops" and the products are the "models".  
+
+```{r}
+bike_sales
+```
+
+We'll analyse the monthly sales trends for the bicycle manufacturer. Let's transform the data set by aggregating by month.
+
+```{r}
+bike_sales_monthly <- bike_sales %>%
+    mutate(month = month(order.date, label = TRUE),
+           year  = year(order.date)) %>%
+    group_by(year, month) %>%
+    summarise(total.qty = sum(quantity)) 
+bike_sales_monthly
+```
+
+
+We can visualize package with a month plot using the `ggplot2` .
+
+```{r}
+bike_sales_monthly %>%
+    ggplot(aes(x = month, y = total.qty, group = factor(year))) +
+    geom_area(aes(fill = year), position = "stack") +
+    labs(title = "Quantity Sold: Month Plot", x = "", y = "Sales",
+         subtitle = "March through July tend to be most active") +
+    scale_y_continuous() +
+    theme_tq()
+```
+
+Suppose manufacturing wants a more granular forecast because the bike components tend to vary by the secondary category. In the next section we discuss how `sweep` can help to perform a forecast on each sub-category.
+
+
+# Performing Forecasts on Groups
+
+First, we need to get the data organized into groups. We'll create a new "order.yearmon" date using `zoo::as.yearmon()` that captures the year and month information from the "order.date". The `yearmon` class is needed to coerce to a `ts` down the road. 
+
+```{r}
+qty_by_cat2 <- bike_sales %>%
+    mutate(order.yearmon = as.yearmon(order.date)) %>%
+    group_by(category.secondary, order.yearmon) %>%
+    summarise(total.qty = sum(quantity))
+qty_by_cat2
+```
+
+Next, we use the `nest()` function from the `tidyr` package to consolidate each time series by group. The newly created list-column, "data.tbl", contains the "order.yearmon" and "total.qty" columns by group from the previous step. The `nest()` function just bundles the data together which is very useful for iterative functional programming.
+
+```{r}
+qty_by_cat2_nest <- qty_by_cat2 %>%
+    group_by(category.secondary) %>%
+    nest(.key = "data.tbl")
+qty_by_cat2_nest
+```
+
+## Forecasting Workflow
+
+The forecasting workflow involves a few basic steps:
+
+1. Step 1: Coerce to a `ts` object class.
+2. Step 2: Apply a model (or set of models)
+3. Step 3: Forecast the models (similar to predict)
+
+In each step of the workflow we'll see how `sweep` can help.
+
+## Step 1: Coerce to a `ts` object class
+
+In this step we map the `sw_ts()` function into a new column "data.ts". We first perform the long way using the combination of `dplyr::mutate()` and `purrr::map()`. At the end of this step, we discuss a cleaner alternative using `map_list_column()` from the `sweep` package.
+
+### mutate and map
+
+The `mutate()` function adds a column, and the `map()` function maps the contents of a list-column (`.x`) to a function (`.f`). In our case, `.x = data` and `.f = ~ sw_ts(.x, select = -order.yearmon, start = 2011, freq = 12)`. The `select` statement is used to drop the "order.yearmon" from the final output so we don't get a bunch of warning messages. We specify `start = 2011` and `freq = 12` to return a monthly frequency.
+
+```{r}
+qty_by_cat2_ts <- qty_by_cat2_nest %>%
+    mutate(data.ts = map(.x = data.tbl, 
+                         .f = ~ sw_ts(.x, 
+                                      select   = -order.yearmon, 
+                                      start    = 2011,
+                                      freq     = 12)))
+qty_by_cat2_ts
+```
+
+### map_list_column
+
+A simplified way to do this is with the function `map_list_column()`. The function takes five arguments, the first three of which are required: 
+
+1. `data` (required): The data frame that contains the list column. In our case `qty_by_cat_nest`.
+2. `list_col`: The name of the list-column that contains the lists that you would like to iterate over. In our case, "data.tbl".
+3. `fun`: The function that you would like to apply. In our case, `sw_ts` to coerce to a `ts` object. Additional arguments to the function can be passed via the `...`. For us this includes `select`, `start` and `freq`.
+4. `.drop = FALSE`: Specifies whether or not to drop the other list-columns and unnest the results. 
+5. `col_rename = "data.map"`: The name of the column to be added if `.drop = FALSE`.
+
+We can get the same result as previous using `map_list_column()`. Notice how the additional arguments to the `sw_ts()` function are supplied as additional arguments to `map_list_column()` using the `...` catch all. 
+
+
+```{r}
+qty_by_cat2_nest %>%
+    map_list_column(data.tbl, 
+                    sw_ts, select = -order.yearmon, start = 2011, freq = 12,
+                    .drop = FALSE,
+                    col_rename = "data.ts")
+    
+```
+
+
+## Step 2: Modeling a time series
+
+Next, we map a model function from the `forecast` package. We'll use the `ets()` function to fit an Exponential Smoothing ETS (Error, Trend, Seasonal) model to each of the groups. Since we are not passing parameters, we can use shorthand for `.f = ets`. 
+
+```{r}
+qty_by_cat2_fit <- qty_by_cat2_ts %>%
+    map_list_column(data.ts, ets, col_rename = "fit.ets")
+qty_by_cat2_fit
+```
+
+At this point, we can do some model inspection with the `sweep` tidiers.
+
+### sw_tidy
+
+To get the model parameters for each nested list, we can combine `sw_tidy` with `map_list_column`. The only main difference is now we include `.drop = TRUE` to unnest the list and remove the additional list columns. We can use this process for each of the tidyiers. Last, because it's easier to compare the model parameters side by side, we add one additional call to `spread()` from the `tidyr` package.
+
+```{r}
+qty_by_cat2_fit %>%
+    map_list_column(fit.ets, sw_tidy, .drop = TRUE) %>%
+    spread(key = category.secondary, value = estimate)
+```
+
+### sw_glance
+
+We can view the model accuracies also by combining `sw_glance` with `map_list_column`.
+
+```{r}
+qty_by_cat2_fit %>%
+    map_list_column(fit.ets, sw_glance, .drop = TRUE)
+```
+
+### sw_augment
+
+The augmented fitted and residual values can be achieved in much the same manner. This returns nine groups data. 
+
+```{r}
+augment_fit_ets <- qty_by_cat2_fit %>%
+    map_list_column(fit.ets, sw_augment, .drop = TRUE)
+augment_fit_ets
+```
+
+We can plot the residuals for the nine categories like so. Unfortunately we do see some very high residuals (especially with "Fat Bike"). This is often the case with realworld data.
+
+```{r}
+augment_fit_ets %>%
+    ggplot(aes(x = yearmon(index), y = .resid, group = category.secondary)) +
+    geom_hline(yintercept = 0, color = "grey40") +
+    geom_line(color = palette_light()[[2]]) +
+    geom_ma(ma_fun = SMA, n = 12, size = 1) +
+    labs(title = "Bike Qty Sold: ETS Residuals", x = "") + 
+    theme_tq() +
+    facet_wrap(~ category.secondary, scale = "free_y", ncol = 3) +
+    scale_x_yearmon(format = "%Y")
+```
+
+### sw_tidy_decomp
+
+We can create decompositions using a similar process with `map_list_column()` and `sw_tidy_decomp()`.
+
+```{r}
+qty_by_cat2_fit %>%
+    map_list_column(fit.ets, sw_tidy_decomp, .drop = TRUE)
+```
+
+
+
+## Step 3: Forecasting the model
+
+We can also forecast the multiple models again using a very similar approach. We'll set the `list_col = fit.ets` and then use the `forecast()` function for the `fun` parameter. We want a 12 month forecast so we add the argument for the `h = 12` (refer to `?forecast` for all of the parameters you can add, there's quite a few).
+
+```{r}
+qty_by_cat2_fcast <- qty_by_cat2_fit %>%
+    map_list_column(fit.ets, forecast, h = 12, .drop = FALSE, col_rename = "fcast.ets")
+qty_by_cat2_fcast
+```
+
+Next, we can apply `sw_sweep` to get the forecast in a nice "tidy" data frame. We'll use `.drop = TRUE` to drop the left over list-columns and return an unnested data frame.
+
+```{r}
+qty_by_cat2_fcast_tidy <- qty_by_cat2_fcast %>%
+    map_list_column(fcast.ets, sw_sweep, .drop = TRUE)
+qty_by_cat2_fcast_tidy
+```
+
+
+Visualization is just one final step. 
+
+```{r, fig.height=7}
+qty_by_cat2_fcast_tidy %>%
+    ggplot(aes(x = yearmon(index), y = total.qty, color = key, group = category.secondary)) +
+    geom_ribbon(aes(ymin = lo.95, ymax = hi.95), 
+                fill = "#D5DBFF", color = NA, size = 0) +
+    geom_ribbon(aes(ymin = lo.80, ymax = hi.80, fill = key), 
+                fill = "#596DD5", color = NA, size = 0, alpha = 0.8) +
+    geom_line(size = 1) +
+    labs(title = "Bike Quantity Sold By Secondary Category: Forecast from ETS", 
+         x = "", y = "Units") +
+    scale_x_yearmon(format = "%Y") +
+    scale_color_tq() +
+    scale_fill_tq() +
+    facet_wrap(~ category.secondary, scales = "free_y", ncol = 3) +
+    theme_tq() +
+    theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+
+# Recap
+
+The `sweep` package has a several tools to analyze grouped time series. In the final vignette we will review how to apply multiple models to a time series.

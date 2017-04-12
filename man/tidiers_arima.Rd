@@ -7,7 +7,7 @@
 \alias{sw_augment.Arima}
 \title{Tidying methods for ARIMA modeling of time series}
 \usage{
-\method{sw_tidy}{Arima}(x, conf_level = 0.95, ...)
+\method{sw_tidy}{Arima}(x, ...)
 
 \method{sw_glance}{Arima}(x, ...)
 
@@ -16,10 +16,7 @@
 \arguments{
 \item{x}{An object of class "Arima"}
 
-\item{conf_level}{confidence level of the interval passed to \code{stats::confint}
-(\code{sw_tidy()} only)}
-
-\item{...}{Additional parameters passed to \code{stats::confint} (\code{sw_tidy()} only)}
+\item{...}{Additional parameters (not used)}
 
 \item{data}{Used with \code{sw_augment} only.
 \code{NULL} by default which simply returns augmented columns only.
@@ -34,9 +31,6 @@ with five columns:
 \itemize{
 \item \code{term}: The term in the nonlinear model being estimated and tested
 \item \code{estimate}: The estimated coefficient
-\item \code{std.error}: The standard error from the linear model
-\item \code{conf.low}: Low end of confidence interval
-\item \code{conf.high}: High end of confidence interval
 }
 
 \strong{\code{sw_glance()}} returns one row with the columns

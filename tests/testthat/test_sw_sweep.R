@@ -80,8 +80,8 @@ test_that("sw_sweep test returns tibble with correct rows and columns.", {
     expect_equal(ncol(test_sweep_5), 7)
     expect_equal(colnames(test_sweep_5)[[7]], "hi.95")
 
-    # sweep.default()
-    expect_warning(sw_sweep(datasets::mtcars)) # Returns original data and warning message
+    # # sweep.default()
+    # expect_warning(sw_sweep(datasets::mtcars)) # Returns original data and warning message
 
 })
 
