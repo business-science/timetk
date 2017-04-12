@@ -136,8 +136,8 @@ qty_by_cat2_ts
 A simplified way to do this is with the function `map_list_column()`. The function takes five arguments, the first three of which are required: 
 
 1. `data` (required): The data frame that contains the list column. In our case `qty_by_cat_nest`.
-2. `list_col`: The name of the list-column that contains the lists that you would like to iterate over. In our case, "data.tbl".
-3. `fun`: The function that you would like to apply. In our case, `sw_ts` to coerce to a `ts` object. Additional arguments to the function can be passed via the `...`. For us this includes `select`, `start` and `freq`.
+2. `list_col` (required): The name of the list-column that contains the lists that you would like to iterate over. In our case, "data.tbl".
+3. `fun` (required): The function that you would like to apply. In our case, `sw_ts` to coerce to a `ts` object. Additional arguments to the function can be passed via the `...`. For us this includes `select`, `start` and `freq`.
 4. `.drop = FALSE`: Specifies whether or not to drop the other list-columns and unnest the results. 
 5. `col_rename = "data.map"`: The name of the column to be added if `.drop = FALSE`.
 
