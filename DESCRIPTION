@@ -34,6 +34,7 @@ Imports:
     lubridate (>= 1.6.0),
     purrr (>= 0.2.2),
     readr (>= 1.0.0),
+    scales (<= 0.4.1),
     tibble (>= 1.2),
     tidyquant (>= 0.4.0),
     tidyr (>= 0.6.1),
@@ -46,7 +47,6 @@ Suggests:
     knitr,
     rmarkdown,
     testthat,
-    forcats,
     stringr,
     tidyverse
 RoxygenNote: 6.0.1
