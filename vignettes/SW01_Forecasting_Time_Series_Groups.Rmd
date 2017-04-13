@@ -115,11 +115,11 @@ In each step of the workflow we'll see how `sweep` can help.
 
 ## Step 1: Coerce to a `ts` object class
 
-In this step we map the `sw_ts()` function into a new column "data.ts". We first perform the long way using the combination of `dplyr::mutate()` and `purrr::map()`. At the end of this step, we discuss a simplified alternative using `map_list_column()` from the `sweep` package.
+In this step we map the `sw_ts()` function into a new column "data.ts". The procedure is performed using the combination of `dplyr::mutate()` and `purrr::map()`, which works really well for the data science workflow where analyses are built progressively. As a result, this combination will be used in many of the subsequent steps in this vignette as we build the analysis. 
 
 ### mutate and map
 
-The `mutate()` function adds a column, and the `map()` function maps the contents of a list-column (`.x`) to a function (`.f`). In our case, `.x = data.tbl` and `.f = sw_ts` and `... = select = -order.yearmon, start = 2011, freq = 12`. The `select` statement is used to drop the "order.yearmon" from the final output so we don't get a bunch of warning messages. We specify `start = 2011` and `freq = 12` to return a monthly frequency.
+The `mutate()` function adds a column, and the `map()` function maps the contents of a list-column (`.x`) to a function (`.f`). In our case, `.x = data.tbl` and `.f = sw_ts`. The arguments `select = -order.yearmon`, `start = 2011`, and `freq = 12` are passed to the `...` parameters in map, which are passed through to the function. The `select` statement is used to drop the "order.yearmon" from the final output so we don't get a bunch of warning messages. We specify `start = 2011` and `freq = 12` to return a monthly frequency.
 
 ```{r}
 qty_by_cat2_ts <- qty_by_cat2_nest %>%
@@ -131,36 +131,14 @@ qty_by_cat2_ts <- qty_by_cat2_nest %>%
 qty_by_cat2_ts
 ```
 
-### map_list_column
-
-A simplified way to do this is with the function `map_list_column()`, which combines the mutation, map, unnest (if required), and column renaming (if required) operations into one. This works really well for the data science workflow where analyses are built progressively and often have to do all four of these steps. The `map_list_column` function takes six arguments, the first three of which are required: 
-
-1. `.d` (required): The data frame that contains the list column. In our case, `.d = qty_by_cat_nest`.
-2. `.l` (required): The name of the list-column that contains the lists that you would like to iterate over. In our case, `.l = data.tbl`.
-3. `.f` (required): The function that you would like to apply. In our case, `sw_ts` to coerce to a `ts` object. 
-4. `...` Additional arguments passed to the `.f`. For us this includes `select`, `start` and `freq`.
-5. `.unnest = FALSE`: Specifies whether or not to drop the other list-columns and unnest the results. 
-6. `.to = "out"`: The name of the column to be added if `.unnest = FALSE`. In our case we want nested data so we set `to = "data.ts"`.
-
-We can get the same result as previous using `map_list_column()`. Notice how the additional arguments `select`, `start`, and `freq` that pertain to the `sw_ts()` function are supplied using the `...` catch all. 
-
-
-```{r}
-qty_by_cat2_nest %>%
-    map_list_column(.l      = data.tbl, 
-                    .f      = sw_ts, select = -order.yearmon, start = 2011, freq = 12,
-                    .to     = "data.ts")
-    
-```
-
 
 ## Step 2: Modeling a time series
 
-Next, we map a model function from the `forecast` package. We'll use the `ets()` function to fit an Exponential Smoothing ETS (Error, Trend, Seasonal) model to each of the groups. Use the `map_list_column()` function to map the `ets` function rowwise over the "data.ts" list-column. We can rename the resultant column "fit.ets" indicating an ETS model was fit to the time series data. 
+Next, we map the Exponential Smoothing ETS (Error, Trend, Seasonal) model function, `ets`, from the `forecast` package. Use the combination of `mutate` to add a column and `map` to interatively apply a function rowwise to a list-column. In this instance, the function to map the `ets` function and the list-column is "data.ts". We rename the resultant column "fit.ets" indicating an ETS model was fit to the time series data. 
 
 ```{r}
 qty_by_cat2_fit <- qty_by_cat2_ts %>%
-    map_list_column(data.ts, ets, .to = "fit.ets")
+    mutate(fit.ets = map(data.ts, ets))
 qty_by_cat2_fit
 ```
 
@@ -168,21 +146,23 @@ At this point, we can do some model inspection with the `sweep` tidiers.
 
 ### sw_tidy
 
-To get the model parameters for each nested list, we can combine `sw_tidy` with `map_list_column`. The only real difference is now we include `.unnest = TRUE` to unnest the list and remove the other list columns. We can use this process for each of the tidyiers. Last, because it's easier to compare the model parameters side by side, we add one additional call to `spread()` from the `tidyr` package.
+To get the model parameters for each nested list, we can combine `sw_tidy` within the `mutate` and `map` combo. The only real difference is now we `unnest` the generated column (named "tidy"). Last, because it's easier to compare the model parameters side by side, we add one additional call to `spread()` from the `tidyr` package.
 
 ```{r}
 qty_by_cat2_fit %>%
-    map_list_column(fit.ets, sw_tidy, .unnest = TRUE) %>%
+    mutate(tidy = map(fit.ets, sw_tidy)) %>%
+    unnest(tidy, .drop = TRUE) %>%
     spread(key = category.secondary, value = estimate)
 ```
 
 ### sw_glance
 
-We can view the model accuracies also by combining `sw_glance` with `map_list_column`.
+We can view the model accuracies also by mapping `sw_glance` within the `mutate` and `map` combo.
 
 ```{r}
 qty_by_cat2_fit %>%
-    map_list_column(fit.ets, sw_glance, .unnest = TRUE)
+    mutate(glance = map(fit.ets, sw_glance)) %>%
+    unnest(glance, .drop = TRUE)
 ```
 
 ### sw_augment
@@ -191,7 +171,8 @@ The augmented fitted and residual values can be achieved in much the same manner
 
 ```{r}
 augment_fit_ets <- qty_by_cat2_fit %>%
-    map_list_column(fit.ets, sw_augment, index_rename = "date", .unnest = TRUE)
+    mutate(augment = map(fit.ets, sw_augment, index_rename = "date")) %>%
+    unnest(augment, .drop = TRUE)
 
 augment_fit_ets
 ```
@@ -213,30 +194,32 @@ augment_fit_ets %>%
 
 ### sw_tidy_decomp
 
-We can create decompositions using a similar process with `map_list_column()` and `sw_tidy_decomp()`.
+We can create decompositions using the same procedure with `sw_tidy_decomp()` and the `mutate` and `map` combo.
 
 ```{r}
 qty_by_cat2_fit %>%
-    map_list_column(fit.ets, sw_tidy_decomp, .unnest = TRUE)
+    mutate(decomp = map(fit.ets, sw_tidy_decomp)) %>%
+    unnest(decomp)
 ```
 
 
 
 ## Step 3: Forecasting the model
 
-We can also forecast the multiple models again using a very similar approach. We'll set the `.l = fit.ets` and then use the `forecast()` function for the `fun` parameter. We want a 12 month forecast so we add the argument for the `h = 12` (refer to `?forecast` for all of the parameters you can add, there's quite a few).
+We can also forecast the multiple models again using a very similar approach with the `forecast` function. We want a 12 month forecast so we add the argument for the `h = 12` (refer to `?forecast` for all of the parameters you can add, there's quite a few).
 
 ```{r}
 qty_by_cat2_fcast <- qty_by_cat2_fit %>%
-    map_list_column(fit.ets, forecast, h = 12, .unnest = FALSE, .to = "fcast.ets")
+    mutate(fcast.ets = map(fit.ets, forecast, h = 12))
 qty_by_cat2_fcast
 ```
 
-Next, we can apply `sw_sweep` to get the forecast in a nice "tidy" data frame. We'll use `.unnest = TRUE` to drop the left over list-columns and return an unnested data frame.
+Next, we can apply `sw_sweep` to get the forecast in a nice "tidy" data frame. We use the argument `.fitted = FALSE` to remove the fitted values from the forecast (leave off if fitted values are desired). We'll use `unnest()` to drop the left over list-columns and return an unnested data frame.
 
 ```{r}
 qty_by_cat2_fcast_tidy <- qty_by_cat2_fcast %>%
-    map_list_column(.l = fcast.ets, .f = sw_sweep, .fitted = FALSE, .unnest = TRUE)
+    mutate(sweep = map(fcast.ets, sw_sweep, .fitted = FALSE)) %>%
+    unnest(sweep)
 qty_by_cat2_fcast_tidy
 ```
 
