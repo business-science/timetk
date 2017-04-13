@@ -79,7 +79,7 @@ bike_sales_monthly %>%
     theme_tq()
 ```
 
-Suppose manufacturing wants a more granular forecast because the bike components tend to vary by the secondary category. In the next section we discuss how `sweep` can help to perform a forecast on each sub-category.
+Suppose Manufacturing wants a more granular forecast because the bike components tend to vary by the secondary category. In the next section we discuss how `sweep` can help to perform a forecast on each sub-category.
 
 
 # Performing Forecasts on Groups
@@ -156,7 +156,7 @@ qty_by_cat2_nest %>%
 
 ## Step 2: Modeling a time series
 
-Next, we map a model function from the `forecast` package. We'll use the `ets()` function to fit an Exponential Smoothing ETS (Error, Trend, Seasonal) model to each of the groups. Since we are not passing parameters, we can use shorthand for `.f = ets`. 
+Next, we map a model function from the `forecast` package. We'll use the `ets()` function to fit an Exponential Smoothing ETS (Error, Trend, Seasonal) model to each of the groups. Use the `map_list_column()` function to map the `ets` function rowwise over the "data.ts" list-column. We can rename the resultant column "fit.ets" indicating an ETS model was fit to the time series data. 
 
 ```{r}
 qty_by_cat2_fit <- qty_by_cat2_ts %>%
@@ -168,7 +168,7 @@ At this point, we can do some model inspection with the `sweep` tidiers.
 
 ### sw_tidy
 
-To get the model parameters for each nested list, we can combine `sw_tidy` with `map_list_column`. The only main difference is now we include `.drop = TRUE` to unnest the list and remove the additional list columns. We can use this process for each of the tidyiers. Last, because it's easier to compare the model parameters side by side, we add one additional call to `spread()` from the `tidyr` package.
+To get the model parameters for each nested list, we can combine `sw_tidy` with `map_list_column`. The only real difference is now we include `.drop = TRUE` to unnest the list and remove the other list columns. We can use this process for each of the tidyiers. Last, because it's easier to compare the model parameters side by side, we add one additional call to `spread()` from the `tidyr` package.
 
 ```{r}
 qty_by_cat2_fit %>%
@@ -203,7 +203,8 @@ augment_fit_ets %>%
     geom_hline(yintercept = 0, color = "grey40") +
     geom_line(color = palette_light()[[2]]) +
     geom_ma(ma_fun = SMA, n = 12, size = 1) +
-    labs(title = "Bike Qty Sold: ETS Residuals", x = "") + 
+    labs(title = "Bike Quantity Sold By Secondary Category",
+         subtitle = "ETS Model Residuals", x = "") + 
     theme_tq() +
     facet_wrap(~ category.secondary, scale = "free_y", ncol = 3) +
     scale_x_yearmon(format = "%Y")
@@ -249,7 +250,8 @@ qty_by_cat2_fcast_tidy %>%
     geom_ribbon(aes(ymin = lo.80, ymax = hi.80, fill = key), 
                 fill = "#596DD5", color = NA, size = 0, alpha = 0.8) +
     geom_line(size = 1) +
-    labs(title = "Bike Quantity Sold By Secondary Category: Forecast from ETS", 
+    labs(title = "Bike Quantity Sold By Secondary Category",
+         subtitle = "ETS Model Forecasts",
          x = "", y = "Units") +
     scale_x_yearmon(format = "%Y") +
     scale_color_tq() +

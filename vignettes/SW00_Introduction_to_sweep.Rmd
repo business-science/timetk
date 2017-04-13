@@ -264,12 +264,12 @@ sweep_ets %>%
     geom_ribbon(aes(ymin = lo.80, ymax = hi.80, fill = key), 
                 fill = "#596DD5", color = NA, size = 0, alpha = 0.8) +
     geom_line(size = 1) +
-    labs(title = "US Alcohol Sales: Forecast from ETS", x = "", y = "") +
+    labs(title = "US Alcohol Sales", subtitle = "ETS Model Forecast", x = "", y = "") +
     scale_y_continuous(labels = scales::dollar) +
-    scale_x_yearmon(n = 12) +
+    scale_x_yearmon(n = 12, format = "%Y") +
     scale_color_tq() +
     scale_fill_tq() +
-    theme_tq()
+    theme_tq() 
 ```
 
 # Recap
