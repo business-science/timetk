@@ -244,20 +244,19 @@ Under normal circumstances it would make sense to refine the model at this point
 
 ## Step 3: Forecasting the model
 
-We'll use the `sw_sweep()` function to coerce a `forecast` into a usable data frame. The `forecast()` function is similar to `predict` from the `stats` package in that it creates a forecast (or prediction) from the ETS model, `fit_ets`. We set the `forecast(h = 12)` to yield a 12 month forecast. The `sw_sweep()` function then coerces the `forecast` object into a tibble that can be sent to `ggplot` for visualization. 
+We'll use the `sw_sweep()` function to coerce a `forecast` into a usable data frame. The `forecast()` function is similar to `predict` from the `stats` package in that it creates a forecast (or prediction) from the ETS model, `fit_ets`. We set the `forecast(h = 12)` to yield a 12 month forecast. The `sw_sweep()` function then coerces the `forecast` object into a tibble that can be sent to `ggplot` for visualization. The tibble return contains "key" and "value" (or in this case "price") that are tidy columns with the values of "key" being "Actual" and "Forecast". The `sw_sweep` argument contains a parameter `.fitted` that is `TRUE` by default meaning that the "Forecast" values contain the fitted model as well (We'll see how you can toggle this off in the next graph). The remaining columns are the forecast confidence intervals (typically 80 and 95, but this can be changed with `forecast(level = c(80, 95))`). These columns are setup to enable using the `geom_ribbon()` for visualization purposes.
 
 ```{r}
 fcast_ets <- fit_ets %>%
     forecast(h = 12) 
     
-sweep_ets <- sw_sweep(fcast_ets)
-sweep_ets
+sw_sweep(fcast_ets)
 ```
 
-We can visualize using a combination of `geom_line()` and `geom_ribbon()`.
+We can visualize using a combination of `geom_line()` and `geom_ribbon()`. The fitted values can be toggled off using `sw_sweep(.fitted = FALSE)`.
 
 ```{r}
-sweep_ets %>%
+sw_sweep(fcast_ets, .fitted = FALSE) %>%
     ggplot(aes(x = yearmon(index), y = price, color = key)) +
     geom_ribbon(aes(ymin = lo.95, ymax = hi.95), 
                 fill = "#D5DBFF", color = NA, size = 0) +

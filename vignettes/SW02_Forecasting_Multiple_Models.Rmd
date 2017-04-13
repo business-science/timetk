@@ -1,5 +1,5 @@
 ---
-title: "Forecasting Time Series Groups in the tidyverse"
+title: "Forecasting Using Multiple Models"
 author: "Matt Dancho"
 date: "`r Sys.Date()`"
 output: 
@@ -35,7 +35,7 @@ One of the most powerful things about `sweep` is that it makes forecasting at sc
 1. Applying a model to groups of time series
 2. Applying multiple models to a time series
 
-In this vignette we'll review how `sweep` can help the first situation: _Applying a model to groups of time series_.
+In this vignette we'll review how `sweep` can help the second situation: _Applying multiple models to a time series_.
 
 # Prerequisites
 

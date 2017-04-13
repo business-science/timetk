@@ -1,14 +1,14 @@
 #' Map a function rowwise to a list-column
 #'
 #'
-#' @param data A nested tibble
-#' @param list_col The column name of the column containing the nested lists.
-#' @param fun The function to be applied rowwise
-#' @param ... Additional arguments to pass on to the function, `fun`.
-#' @param .drop Whether or not to unnest the return and drop other list columns
+#' @param .d A nested tibble
+#' @param .l The column name of the column containing the nested lists.
+#' @param .f The function to be applied rowwise
+#' @param ... Additional arguments to pass on to the function, `.f`.
+#' @param .unnest Whether or not to unnest the return and drop other list columns
 #' in the process. `FALSE` by default, which returns nested list-columns.
-#' @param col_rename Used to rename a nested list column that is returned if
-#' `.drop = FALSE`.
+#' @param .to Used to rename a nested list column that is returned if
+#' `.unnest = FALSE`.
 #'
 #' @return A `grouped_df`, where the non-list columns of the
 #' original are used as grouping columns alongside the tidied outputs.
@@ -28,71 +28,71 @@
 #'
 #' regressions
 #'
-#' regressions %>% map_list_column(mod, sw_tidy, .drop = TRUE)
+#' regressions %>% map_list_column(mod, sw_tidy, .unnest = TRUE)
 #'
 #' @name map_list_column
 NULL
 
 #' @rdname map_list_column
 #' @export
-map_list_column <- function(data, list_col, fun, ..., .drop = FALSE, col_rename = "data.map") {
+map_list_column <- function(.d, .l, .f, ..., .unnest = FALSE, .to = "out") {
     # Target column
-    list_col <- lazyeval::expr_text(list_col)
+    .l <- lazyeval::expr_text(.l)
 
-    map_list_column_(data         = data,
-                     list_col     = list_col,
-                     fun          = fun,
+    map_list_column_(.d           = .d,
+                     .l           = .l,
+                     .f           = .f,
                      ...          = ...,
-                     .drop        = .drop,
-                     col_rename   = col_rename)
+                     .unnest      = .unnest,
+                     .to          = .to)
 }
 
 #' @rdname map_list_column
 #' @export
-map_list_column_ <- function(data, list_col, fun, ..., .drop = FALSE, col_rename = "data.map") {
-    UseMethod("map_list_column_", data)
+map_list_column_ <- function(.d, .l, .f, ..., .unnest = FALSE, .to = "out") {
+    UseMethod("map_list_column_", .d)
 
 }
 
 #' @export
-map_list_column_.data.frame <- function(data, list_col, fun, ..., .drop = FALSE, col_rename = "data.map") {
+map_list_column_.data.frame <- function(.d, .l, .f, ..., .unnest = FALSE, .to = "out") {
 
     # Validations
-    class_target <- data %>%
+    class_target <- .d %>%
         dplyr::ungroup() %>%
-        dplyr::select_(list_col) %>%
+        dplyr::select_(.l) %>%
         lapply(., class) %>%
         unlist()
     if (class_target[[1]] != "list")
-        stop(paste0("Can only tidy class ", class(data)[[1]], " using list-columns. Class of column selected is ", class_target[[1]], "."))
+        stop(paste0("Can only tidy class ", class(.d)[[1]], " using list-columns. Class of column selected is ", class_target[[1]], "."))
 
     # Detect columns that can be kept
-    groupers <- colnames(data)[sapply(data, function(x) class(x)[1]) != "list"]
+    groupers <- colnames(.d)[sapply(.d, function(x) class(x)[1]) != "list"]
 
-    # purrr magic: map `fun` to target
-    ret <- data
-    colnames(ret)[stringr::str_detect(colnames(ret), list_col)] <- "..target"
+    # purrr magic: map `.f` to target
+    ret <- .d
+    colnames(ret)[stringr::str_detect(colnames(ret), .l)] <- "..target"
     ret <- ret %>%
         dplyr::ungroup() %>%
         dplyr::group_by_(groupers) %>%
-        dplyr::mutate(..data.map = purrr::map(.x = ..target, .f = ~ fun(.x, ...)))
+        dplyr::mutate(..data.map = purrr::map(.x = ..target, .f = ~ .f(.x, ...)))
 
 
-    if (.drop == TRUE) {
+    if (.unnest == TRUE) {
         # Drop list columns and unnest
         ret <- ret %>%
             dplyr::select_(.dots = list(groupers, "..data.map")) %>%
             tidyr::unnest()
     } else {
         # rename target
-        colnames(ret)[stringr::str_detect(colnames(ret), "..target")] <- list_col
-        colnames(ret)[stringr::str_detect(colnames(ret), "..data.map")] <- col_rename
+        colnames(ret)[stringr::str_detect(colnames(ret), "..target")] <- .l
+        colnames(ret)[stringr::str_detect(colnames(ret), "..data.map")] <- .to
     }
 
     return(ret)
 }
 
 #' @export
-map_list_column_.default <- function(data, list_col, fun, ..., .drop = FALSE, col_rename = "data.map") {
-    stop(paste0("Method does not work with `data` of class ", class(data)[[1]], "."))
+map_list_column_.default <- function(.d, .l, .f, ..., .unnest = FALSE, .to = "out") {
+    stop(paste0("Method does not work with `.d` of class ", class(.d)[[1]], "."))
 }

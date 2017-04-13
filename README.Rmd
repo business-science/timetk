@@ -98,14 +98,14 @@ This just scratches the surface of `sweep`. Here's how to install to get started
 
 ## Installation
 
-Development Version with Latest Features:
+Development version with latest features:
 
 ``` {r, eval = FALSE}
 # install.packages("devtools")
 devtools::install_github("business-science/sweep")
 ```
 
-<!-- CRAN Approved Version: -->
+<!-- CRAN approved version: -->
 
 <!-- ```{r, eval = FALSE} -->
 <!-- install.packages("sweep") -->

@@ -6,26 +6,24 @@
 \alias{map_list_column_}
 \title{Map a function rowwise to a list-column}
 \usage{
-map_list_column(data, list_col, fun, ..., .drop = FALSE,
-  col_rename = "data.map")
+map_list_column(.d, .l, .f, ..., .unnest = FALSE, .to = "out")
 
-map_list_column_(data, list_col, fun, ..., .drop = FALSE,
-  col_rename = "data.map")
+map_list_column_(.d, .l, .f, ..., .unnest = FALSE, .to = "out")
 }
 \arguments{
-\item{data}{A nested tibble}
+\item{.d}{A nested tibble}
 
-\item{list_col}{The column name of the column containing the nested lists.}
+\item{.l}{The column name of the column containing the nested lists.}
 
-\item{fun}{The function to be applied rowwise}
+\item{.f}{The function to be applied rowwise}
 
-\item{...}{Additional arguments to pass on to the function, \code{fun}.}
+\item{...}{Additional arguments to pass on to the function, \code{.f}.}
 
-\item{.drop}{Whether or not to unnest the return and drop other list columns
+\item{.unnest}{Whether or not to unnest the return and drop other list columns
 in the process. \code{FALSE} by default, which returns nested list-columns.}
 
-\item{col_rename}{Used to rename a nested list column that is returned if
-\code{.drop = FALSE}.}
+\item{.to}{Used to rename a nested list column that is returned if
+\code{.unnest = FALSE}.}
 }
 \value{
 A \code{grouped_df}, where the non-list columns of the
@@ -48,6 +46,6 @@ regressions <- mtcars \%>\%
 
 regressions
 
-regressions \%>\% map_list_column(mod, sw_tidy, .drop = TRUE)
+regressions \%>\% map_list_column(mod, sw_tidy, .unnest = TRUE)
 
 }
