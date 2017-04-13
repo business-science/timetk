@@ -18,15 +18,13 @@ Benefits
 Tools
 -----
 
-The package contains four primary elements:
+The package contains three primary elements:
 
 1.  **coercion functions**: `sw_tbl`, `sw_ts`, `sw_xts`, `sw_zoo`, and `sw_zooreg`. These functions coerce time-based tibbles `tbl` to and from each of the main time-series data types `xts`, `zoo`, `zooreg`, `ts`, maintaining the time-based index.
 
 2.  **broom model tidiers**: `sw_tidy`, `sw_glance`, `sw_augment`, `sw_tidy_decomp`. These functions extend `tidy`, `glance`, and `augment` from the `broom` package specifically for models (`ets()`, `Arima()`, `bats()`, etc) used for forecasting.
 
 3.  **forecast tidier**: `sw_sweep` converts a `forecast` to a tibble that can be easily manipulated in the "tidyverse".
-
-4.  **enhanced mapping functions**: `map_list_column` enables applying functions to lists for quickly creating complex nested data frames.
 
 Making forecasts in the tidyverse
 ---------------------------------
@@ -76,14 +74,14 @@ This just scratches the surface of `sweep`. Here's how to install to get started
 Installation
 ------------
 
-Development Version with Latest Features:
+Development version with latest features:
 
 ``` r
 # install.packages("devtools")
 devtools::install_github("business-science/sweep")
 ```
 
-<!-- CRAN Approved Version: -->
+<!-- CRAN approved version: -->
 <!-- ```{r, eval = FALSE} -->
 <!-- install.packages("sweep") -->
 <!-- ``` -->

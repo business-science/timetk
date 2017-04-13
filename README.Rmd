@@ -36,7 +36,7 @@ The `sweep` package combines a set of tools for performing forecasts and time se
 
 ## Tools
 
-The package contains four primary elements:
+The package contains three primary elements:
 
 1. __coercion functions__: `sw_tbl`, `sw_ts`, `sw_xts`, `sw_zoo`, and `sw_zooreg`. These functions coerce time-based tibbles `tbl` to and from each of the main time-series data types `xts`, `zoo`, `zooreg`, `ts`, maintaining the time-based index.
 
@@ -44,7 +44,6 @@ The package contains four primary elements:
 
 3. __forecast tidier__: `sw_sweep` converts a `forecast` to a tibble that can be easily manipulated in the "tidyverse".
 
-4. __enhanced mapping functions__: `map_list_column` enables applying functions to lists for quickly creating complex nested data frames. 
 
 ## Making forecasts in the tidyverse
 
