@@ -249,7 +249,7 @@ qty_by_cat2_fcast_tidy %>%
                 fill = "#D5DBFF", color = NA, size = 0) +
     geom_ribbon(aes(ymin = lo.80, ymax = hi.80, fill = key), 
                 fill = "#596DD5", color = NA, size = 0, alpha = 0.8) +
-    geom_line(size = 1) +
+    geom_line() +
     labs(title = "Bike Quantity Sold By Secondary Category",
          subtitle = "ETS Model Forecasts",
          x = "", y = "Units") +
