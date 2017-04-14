@@ -4,7 +4,8 @@
 \alias{sw_tbl}
 \title{Coerce time-series objects to tibble.}
 \usage{
-sw_tbl(data, preserve_index = TRUE, index_rename = "index", ...)
+sw_tbl(data, preserve_index = TRUE, index_rename = "index",
+  .unroll = FALSE, ...)
 }
 \arguments{
 \item{data}{A time-series object.}
@@ -12,6 +13,11 @@ sw_tbl(data, preserve_index = TRUE, index_rename = "index", ...)
 \item{preserve_index}{Attempts to preserve a time series index. Default is \code{TRUE}.}
 
 \item{index_rename}{Enables the index column to be renamed.}
+
+\item{.unroll}{Used when unrolling \code{ts} objects that contain date or datetime
+"index" attribute.
+Refer to \code{\link[=sw_unroll_index]{sw_unroll_index()}} for more information on returning index information
+from regularized timeseries objects (i.e. \code{ts}).}
 
 \item{...}{Additional parameters passed to the \code{\link[tibble:as_tibble]{tibble::as_tibble()}} function.}
 }
@@ -24,16 +30,31 @@ Coerce time-series objects to tibble.
 \details{
 \code{sw_tbl} is designed
 to coerce time series objects (e.g. \code{xts}, \code{zoo}, \code{ts}, \code{timeSeries}, etc)
-to \code{tibble} objects. The main advantage is that the function attempts to keep the
+to \code{tibble} objects. The main advantage is that the function keeps the
 date / date-time information from the underlying time-series object.
+
 When \code{preserve_index = TRUE} is specified, a new column,
 \code{index}, is created during object coercion, and the function attempts to preserve
 the date or date-time information. The date / date-time column name
 can be changed using the \code{index_rename} argument.
+
+The \code{.unroll} argument is applicable when coercing \code{ts} objects that were
+created using \code{sw_ts()} from an object that had a time base
+(e.g. \code{tbl}, \code{xts}, \code{zoo}).
+Setting \code{.unroll = TRUE} enables unrolling the original index.
 }
 \examples{
+library(tidyverse)
+library(sweep)
+
+data_tbl <- tibble(
+    date = seq.Date(from = as.Date("2010-01-01"), by = 1, length.out = 5),
+    x    = seq(100, 120, by = 5)
+)
+
+
 ### ts to tibble: Comparison between as.data.frame() and sw_tbl()
-data_ts <- ts(1:10, start = c(2015,1), freq = 4)
+data_ts <- sw_ts(data_tbl, start = c(2010,1), freq = 365)
 
 # No index
 as.data.frame(data_ts)
@@ -41,9 +62,22 @@ as.data.frame(data_ts)
 # Regularized numeric index starting in 2015
 sw_tbl(data_ts)
 
+# Original date index unrolled (Only possible if original data has time-based index)
+sw_tbl(data_ts, .unroll = TRUE)
+
+
+### xts to tibble: Comparison between as.data.frame() and sw_tbl()
+data_xts <- sw_xts(data_tbl)
+
+# Dates are character class stored in row names
+as.data.frame(data_xts)
+
+# Dates are appropriate date class and within the data frame
+sw_tbl(data_xts)
+
 
 ### zooreg to tibble: Comparison between as.data.frame() and sw_tbl()
-data_zooreg <- zoo::zooreg(1:8, start = zoo::yearqtr(2000), frequency = 4)
+data_zooreg <- sw_zooreg(1:8, start = zoo::yearqtr(2000), frequency = 4)
 
 # Dates are character class stored in row names
 as.data.frame(data_zooreg)
@@ -62,20 +96,6 @@ as.data.frame(data_zoo)
 sw_tbl(data_zoo)
 
 
-### xts to tibble: Comparison between as.data.frame() and sw_tbl()
-data_xts <- xts::as.xts(
-    x        = matrix(c(1:5 * 10, 5:1 * rnorm(1)), ncol = 2),
-    order.by = seq.Date(from       = as.Date("2010-01-01"),
-                        by         = 1,
-                        length.out = 5)
-    )
-colnames(data_xts) <- c("x", "y")
-
-# Dates are character class stored in row names
-as.data.frame(data_xts)
-
-# Dates are appropriate date class and within the data frame
-sw_tbl(data_xts)
 
 
 }

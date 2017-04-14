@@ -3,24 +3,43 @@
 #' @param data A time-series object.
 #' @param preserve_index Attempts to preserve a time series index. Default is `TRUE`.
 #' @param index_rename Enables the index column to be renamed.
+#' @param .unroll Used when unrolling `ts` objects that contain date or datetime
+#' "index" attribute.
+#' Refer to [sw_unroll_index()] for more information on returning index information
+#' from regularized timeseries objects (i.e. `ts`).
 #' @param ... Additional parameters passed to the [tibble::as_tibble()] function.
 #'
 #' @return Returns a `tibble` object.
 #'
 #' @details `sw_tbl` is designed
 #' to coerce time series objects (e.g. `xts`, `zoo`, `ts`, `timeSeries`, etc)
-#' to `tibble` objects. The main advantage is that the function attempts to keep the
+#' to `tibble` objects. The main advantage is that the function keeps the
 #' date / date-time information from the underlying time-series object.
+#'
 #' When `preserve_index = TRUE` is specified, a new column,
 #' `index`, is created during object coercion, and the function attempts to preserve
 #' the date or date-time information. The date / date-time column name
 #' can be changed using the `index_rename` argument.
 #'
+#' The `.unroll` argument is applicable when coercing `ts` objects that were
+#' created using `sw_ts()` from an object that had a time base
+#' (e.g. `tbl`, `xts`, `zoo`).
+#' Setting `.unroll = TRUE` enables unrolling the original index.
+#'
 #' @seealso [sw_xts()], [sw_zoo()], [sw_zooreg()], [sw_ts()]
 #'
 #' @examples
+#' library(tidyverse)
+#' library(sweep)
+#'
+#' data_tbl <- tibble(
+#'     date = seq.Date(from = as.Date("2010-01-01"), by = 1, length.out = 5),
+#'     x    = seq(100, 120, by = 5)
+#' )
+#'
+#'
 #' ### ts to tibble: Comparison between as.data.frame() and sw_tbl()
-#' data_ts <- ts(1:10, start = c(2015,1), freq = 4)
+#' data_ts <- sw_ts(data_tbl, start = c(2010,1), freq = 365)
 #'
 #' # No index
 #' as.data.frame(data_ts)
@@ -28,9 +47,22 @@
 #' # Regularized numeric index starting in 2015
 #' sw_tbl(data_ts)
 #'
+#' # Original date index unrolled (Only possible if original data has time-based index)
+#' sw_tbl(data_ts, .unroll = TRUE)
+#'
+#'
+#' ### xts to tibble: Comparison between as.data.frame() and sw_tbl()
+#' data_xts <- sw_xts(data_tbl)
+#'
+#' # Dates are character class stored in row names
+#' as.data.frame(data_xts)
+#'
+#' # Dates are appropriate date class and within the data frame
+#' sw_tbl(data_xts)
+#'
 #'
 #' ### zooreg to tibble: Comparison between as.data.frame() and sw_tbl()
-#' data_zooreg <- zoo::zooreg(1:8, start = zoo::yearqtr(2000), frequency = 4)
+#' data_zooreg <- sw_zooreg(1:8, start = zoo::yearqtr(2000), frequency = 4)
 #'
 #' # Dates are character class stored in row names
 #' as.data.frame(data_zooreg)
@@ -49,29 +81,15 @@
 #' sw_tbl(data_zoo)
 #'
 #'
-#' ### xts to tibble: Comparison between as.data.frame() and sw_tbl()
-#' data_xts <- xts::as.xts(
-#'     x        = matrix(c(1:5 * 10, 5:1 * rnorm(1)), ncol = 2),
-#'     order.by = seq.Date(from       = as.Date("2010-01-01"),
-#'                         by         = 1,
-#'                         length.out = 5)
-#'     )
-#' colnames(data_xts) <- c("x", "y")
-#'
-#' # Dates are character class stored in row names
-#' as.data.frame(data_xts)
-#'
-#' # Dates are appropriate date class and within the data frame
-#' sw_tbl(data_xts)
 #'
 #'
 #' @export
-sw_tbl <- function(data, preserve_index = TRUE, index_rename = "index", ...) {
+sw_tbl <- function(data, preserve_index = TRUE, index_rename = "index", .unroll = FALSE, ...) {
     UseMethod("sw_tbl", data)
 }
 
 #' @export
-sw_tbl.data.frame <- function(data, preserve_index = TRUE, index_rename = "index", ...) {
+sw_tbl.data.frame <- function(data, preserve_index = TRUE, index_rename = "index", .unroll = FALSE, ...) {
 
     if (preserve_index == TRUE) {
 
@@ -106,7 +124,7 @@ sw_tbl.data.frame <- function(data, preserve_index = TRUE, index_rename = "index
 }
 
 #' @export
-sw_tbl.xts <- function(data, preserve_index = TRUE, index_rename = "index", ...) {
+sw_tbl.xts <- function(data, preserve_index = TRUE, index_rename = "index", .unroll = FALSE, ...) {
 
     # Coerce to zoo, then to tbl
     ret <- sw_tbl(zoo::as.zoo(data), preserve_index, index_rename, ...)
@@ -114,7 +132,7 @@ sw_tbl.xts <- function(data, preserve_index = TRUE, index_rename = "index", ...)
 }
 
 #' @export
-sw_tbl.matrix <- function(data, preserve_index = TRUE, index_rename = "index", ...) {
+sw_tbl.matrix <- function(data, preserve_index = TRUE, index_rename = "index", .unroll = FALSE, ...) {
 
     # Coerce to data frame, then to tbl
     ret <- sw_tbl(as.data.frame(data), preserve_index, index_rename, ...)
@@ -123,7 +141,7 @@ sw_tbl.matrix <- function(data, preserve_index = TRUE, index_rename = "index", .
 }
 
 #' @export
-sw_tbl.zoo <- function(data, preserve_index = TRUE, index_rename = "index", ...) {
+sw_tbl.zoo <- function(data, preserve_index = TRUE, index_rename = "index", .unroll = FALSE, ...) {
 
     if (preserve_index == TRUE) {
 
@@ -162,13 +180,61 @@ sw_tbl.zoo <- function(data, preserve_index = TRUE, index_rename = "index", ...)
     return(ret)
 }
 
-# zooreg handled via zoo
+#' @export
+sw_tbl.zooreg <- function(data, preserve_index = TRUE, index_rename = "index", .unroll = FALSE, ...) {
+
+    # Handle index unrolling
+    if (.unroll && preserve_index) {
+
+        # Index attribute found?
+        first_val <- rownames(data)[[1]]
+        if (!is.null(first_val)) {
+            # Coerce to xts then to tbl
+            index <- sw_unroll_index(data)
+            ret <- sw_xts(data, order.by = index) %>%
+                sw_tbl(preserve_index = preserve_index,
+                       index_rename   = index_rename,
+                       .unroll        = .unroll,
+                       ...            = ...)
+        } else {
+            warning("No `index` attribute to unroll. Using regularized index.")
+            ret <- sw_tbl(zoo::as.zoo(data), preserve_index, index_rename, ...)
+        }
+
+    } else {
+        # Coerce to zoo then convert to tibble
+        ret <- sw_tbl(zoo::as.zoo(data), preserve_index, index_rename, ...)
+    }
+
+    return(ret)
+}
 
 #' @export
-sw_tbl.ts <- function(data, preserve_index = TRUE, index_rename = "index", ...) {
+sw_tbl.ts <- function(data, preserve_index = TRUE, index_rename = "index", .unroll = FALSE, ...) {
 
-    # Coerce to zoo then convert to tibble
-    ret <- sw_tbl(zoo::as.zoo(data), preserve_index, index_rename, ...)
+    # Handle index unrolling
+    if (.unroll && preserve_index) {
+
+        # Index attribute found?
+        index_attr <- attr(data, "index")
+        if (!is.null(index_attr)) {
+            # Coerce to xts then to tbl
+            index <- sw_unroll_index(data)
+            ret <- sw_xts(data, order.by = index) %>%
+                sw_tbl(preserve_index = preserve_index,
+                       index_rename   = index_rename,
+                       .unroll        = .unroll,
+                       ...            = ...)
+        } else {
+            warning("No `index` attribute to unroll. Using regularized index.")
+            ret <- sw_tbl(zoo::as.zoo(data), preserve_index, index_rename, ...)
+        }
+
+    } else {
+        # Coerce to zoo then convert to tibble
+        ret <- sw_tbl(zoo::as.zoo(data), preserve_index, index_rename, ...)
+    }
+
     return(ret)
 }
 
@@ -176,7 +242,7 @@ sw_tbl.ts <- function(data, preserve_index = TRUE, index_rename = "index", ...) 
 
 
 #' @export
-sw_tbl.msts <- function(data, preserve_index = TRUE, index_rename = "index", ...) {
+sw_tbl.msts <- function(data, preserve_index = TRUE, index_rename = "index", .unroll = FALSE, ...) {
 
     # Coerce to zoo then convert to tibble
     ret <- sw_tbl(zoo::as.zoo(data), preserve_index, index_rename, ...)
@@ -184,7 +250,7 @@ sw_tbl.msts <- function(data, preserve_index = TRUE, index_rename = "index", ...
 }
 
 #' @export
-sw_tbl.timeSeries <- function(data, preserve_index = TRUE, index_rename = "index", ...) {
+sw_tbl.timeSeries <- function(data, preserve_index = TRUE, index_rename = "index", .unroll = FALSE, ...) {
 
     # Coerce to data frame, then to tbl (No index to coerce to zoo)
     ret <- sw_tbl(as.data.frame(data), preserve_index, index_rename, ...)
@@ -192,7 +258,7 @@ sw_tbl.timeSeries <- function(data, preserve_index = TRUE, index_rename = "index
 }
 
 #' @export
-sw_tbl.irts <- function(data, preserve_index = TRUE, index_rename = "index", ...) {
+sw_tbl.irts <- function(data, preserve_index = TRUE, index_rename = "index", .unroll = FALSE, ...) {
 
     # Coerce to zoo then convert to tibble
     ret <- sw_tbl(zoo::as.zoo(data), preserve_index, index_rename, ...)
@@ -201,7 +267,7 @@ sw_tbl.irts <- function(data, preserve_index = TRUE, index_rename = "index", ...
 
 
 #' @export
-sw_tbl.default <- function(data, preserve_index = TRUE, index_rename = "index", ...) {
+sw_tbl.default <- function(data, preserve_index = TRUE, index_rename = "index", .unroll = FALSE, ...) {
 
     tryCatch({
         # Attempt coercion to data.frame, then to tbl

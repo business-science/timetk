@@ -5,26 +5,28 @@ sweep
 
 > A "tidy" toolkit for forecasting and time series analysis
 
-The `sweep` package combines a set of tools for performing forecasts and time series analysis in the "tidyverse". While the package is geared towards the workflow required to perform forecasts using Rob Hyndman's `forecast` package, it contains elements that can help when performing time series analysis using tibbles ("tidy" data frames).
+The `sweep` package combines a collection of tools for performing forecasts and time series analysis in the "tidyverse". While the package is geared towards the workflow required to perform forecasts using Rob Hyndman's `forecast` package, it contains elements that can help when performing time series analysis using tibbles ("tidy" data frames).
 
 Benefits
 --------
 
 -   **Designed for modeling and scaling forecast analyses using the the `tidyverse` tools in [*R for Data Science*](http://r4ds.had.co.nz/)**
 -   **Extends `broom` for forecast model analysis**
+-   **Maximizes data retention and simplifies the coercion process between time-based tibbles (`tbl`) and the major time series data types `xts`, `zoo`, `zooreg`, and `ts`**
 -   **Combined with the `forecast` and `tidyquant` packages enables end-to-end time series analysis capability**
--   **Eliminates time series coercion issues between time-based tibbles ("tidy" data frames) and the major time series data types `xts`, `zoo`, `zooreg`, and `ts`**
 
 Tools
 -----
 
-The package contains three primary elements:
+The package contains the following elements:
 
-1.  **coercion functions**: `sw_tbl`, `sw_ts`, `sw_xts`, `sw_zoo`, and `sw_zooreg`. These functions coerce time-based tibbles `tbl` to and from each of the main time-series data types `xts`, `zoo`, `zooreg`, `ts`, maintaining the time-based index.
+1.  **forecast tidier**: `sw_sweep` converts a `forecast` object to a tibble that can be easily manipulated in the "tidyverse".
 
-2.  **broom model tidiers**: `sw_tidy`, `sw_glance`, `sw_augment`, `sw_tidy_decomp`. These functions extend `tidy`, `glance`, and `augment` from the `broom` package specifically for models (`ets()`, `Arima()`, `bats()`, etc) used for forecasting.
+2.  **broom model tidiers**: `sw_tidy`, `sw_glance`, `sw_augment`, `sw_tidy_decomp` functions extend `tidy`, `glance`, and `augment` from the `broom` package specifically for models (`ets()`, `Arima()`, `bats()`, etc) used for forecasting.
 
-3.  **forecast tidier**: `sw_sweep` converts a `forecast` to a tibble that can be easily manipulated in the "tidyverse".
+3.  **coercion functions**: `sw_tbl`, `sw_ts`, `sw_xts`, `sw_zoo`, and `sw_zooreg` coerce time-based tibbles `tbl` to and from each of the main time-series data types `xts`, `zoo`, `zooreg`, `ts`, maintaining the time-based index.
+
+4.  **unroll function**: `sw_unroll_index` returns the original time series index of `forecast`objects, models, and `ts` objects. Only applicable to `ts` objects coerced using the `sw_ts()` function on data objects with a time-based index (e.g. `tbl`, `xts`, `zoo`).
 
 Making forecasts in the tidyverse
 ---------------------------------
@@ -69,10 +71,68 @@ If you are familiar with `broom`, you know how useful it is for retrieving "tidy
 | Box.test()    |      X     |       X      |               |                    |
 | kpss.test()   |      X     |       X      |               |                    |
 
-This just scratches the surface of `sweep`. Here's how to install to get started.
+Extensible time series coercion
+-------------------------------
+
+The coercion functions `sw_tbl`, `sw_xts`, `sw_zoo`, `sw_zooreg`, and `sw_ts` enable maximize data retention and simplify the coercion process. Further working with regularized time series (`ts`) class has been a particular pain until now.
+
+``` r
+# Time based tibble
+data_tbl <- tibble(
+    date = seq.Date(from = as.Date("2010-01-01"), by = 1, length.out = 5),
+    x    = seq(100, 120, by = 5)
+)
+data_tbl
+#> # A tibble: 5 × 2
+#>         date     x
+#>       <date> <dbl>
+#> 1 2010-01-01   100
+#> 2 2010-01-02   105
+#> 3 2010-01-03   110
+#> 4 2010-01-04   115
+#> 5 2010-01-05   120
+
+# Coercion from time-based tibble to ts using sw_ts()
+data_ts <- sw_ts(data_tbl, start = c(2010,1), freq = 365)
+
+# Comparison between as.data.frame() and sw_tbl()
+
+# No index
+as.data.frame(data_ts)
+#>     x
+#> 1 100
+#> 2 105
+#> 3 110
+#> 4 115
+#> 5 120
+
+# Regularized numeric index starting in 2015
+sw_tbl(data_ts)
+#> # A tibble: 5 × 2
+#>      index     x
+#>      <dbl> <dbl>
+#> 1 2010.000   100
+#> 2 2010.003   105
+#> 3 2010.005   110
+#> 4 2010.008   115
+#> 5 2010.011   120
+
+# Original date index unrolled 
+sw_tbl(data_ts, .unroll = TRUE)
+#> # A tibble: 5 × 2
+#>        index     x
+#>       <date> <dbl>
+#> 1 2010-01-01   100
+#> 2 2010-01-02   105
+#> 3 2010-01-03   110
+#> 4 2010-01-04   115
+#> 5 2010-01-05   120
+```
 
 Installation
 ------------
+
+Here's how to install to get started.
 
 Development version with latest features:
 
@@ -93,5 +153,6 @@ The `sweep` package includes several vignettes to help users get up to speed qui
 -   SW00 - Introduction to `sweep`
 -   SW01 - Forecasting Time Series Groups in the tidyverse
 -   SW02 - TODO
+-   SW03 - Time Series Coercion Using `sweep`
 
 <!-- See the [`tidyquant` vignettes](https://cran.r-project.org/package=tidyquant) for further details on the package. -->

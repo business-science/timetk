@@ -47,20 +47,6 @@ sw_tidy.Arima <- function(x, ...) {
     ret <- tibble::tibble(term      = names(coefs),
                           estimate  = coefs)
 
-    # coefs <- stats::coef(x)
-    #
-    # # standard errors are computed as in stats:::print.Arima
-    # ses <- rep.int(0, length(coefs))
-    # ses[x$mask] <- sqrt(diag(x$var.coef))
-    #
-    # ret <- tibble::tibble(term      = names(coefs),
-    #                       estimate  = coefs,
-    #                       std.error = ses)
-    #
-    # # Confidence intervals are computed using stats::confint()
-    # ret <- cbind(ret, broom::confint_tidy(x, conf.level = conf_level, ...)) %>%
-    #     tibble::as_tibble()
-
     return(ret)
 }
 

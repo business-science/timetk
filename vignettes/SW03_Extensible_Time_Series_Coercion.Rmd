@@ -1,0 +1,311 @@
+---
+title: "Time Series Coercion Using sweep"
+author: "Matt Dancho"
+date: "`r Sys.Date()`"
+output: 
+  rmarkdown::html_vignette:
+    toc: true
+    toc_depth: 2
+vignette: >
+  %\VignetteIndexEntry{Time Series Coercion Using sweep}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+knitr::opts_chunk$set(
+    # message = FALSE,
+    # warning = FALSE,
+    fig.width = 8, 
+    fig.height = 4.5,
+    fig.align = 'center',
+    out.width='95%', 
+    dpi = 200
+)
+library(tidyquant)
+library(sweep)
+library(forecast)
+# devtools::load_all() # Travis CI fails on load_all()
+```
+
+> A "tidy" toolkit for forecasting and time series analysis
+
+The time series landscape in R is vast, deep, and complex causing many inconsistencies in data attributes and object structures ultimately making it difficult to coerce back and forth while maintaining the required data for each class. The `zoo` and `xts` packages solved a number of the issues in dealing with the various classes (`ts`, `zoo`, `xts`, `irts`, `msts`, and the list goes on...). However, because these packages deal in classes other than data frame, the issues with coercion to and from `tbl` and time classes are still present.
+
+The `sweep` package provides tools that solve the issues with coercion, maximizing attribute extensibility (the required data attributes are retained during the coercion to each of the primary time series classes). The following tools are available to coerce and unroll key information:
+
+* __Coercion functions__: `sw_tbl`, `sw_ts`, `sw_xts`, `sw_zoo`, and `sw_zooreg`. These functions coerce time-based tibbles `tbl` to and from each of the main time-series data types `xts`, `zoo`, `zooreg`, `ts`, maintaining the time-based index.
+
+* __unroll function__: `sw_unroll_index` unrolls time-based index (non-regularized index) of `forecast` objects, models, and `ts` objects.
+
+This vignette includes a brief discussion on coercion issues and then a detailed explanation of the coercion and unroll functions.
+
+# Prerequisites
+
+Before we get started, load the following packages.
+
+```{r, eval = F}
+library(forecast)
+library(tidyquant)
+library(sweep)
+```
+
+# Data
+
+We'll use the `bike_sales` data set in this vignette. Although this is _fictional_ data, the data is largely based on the structure of realworld data from a "sales database" in a company. It tracks orders with various customers (bike shops) and various products (models). 
+
+```{r}
+bike_sales
+```
+
+In this example we'll use the total sales by month. The following "tidying" script uses the `zoo::as.yearmon()` function to initially coerce to a monthly periodicity. We group by the monthly order date and total the sales for each of the month. We then reconvert the `yearmon` date to `date` class. We now have aggregated monthly sales.
+
+```{r}
+bike_sales_tbl <- bike_sales %>%
+    mutate(order.date = as.yearmon(order.date)) %>%
+    select(order.date, price.ext) %>%
+    group_by(order.date) %>%
+    summarize(total.sales = sum(price.ext)) %>%
+    mutate(order.date = as_date(order.date))
+bike_sales_tbl
+```
+
+
+# Case Study: Coercion issues with ts()
+
+The `forecast` package uses the `ts` data structure, which is the most difficult to coerce back and forth because by default it does not contain a time-based index. Rather it uses a regularized index computed using a `start` and a `frequency`. Coercion to `ts` is done using the `ts()` function from the `stats` library, but coercion using this function results in various problems.  
+
+## Problems 
+
+First, only numeric columns get coerced. If the user forgets to add the `[,"total.sales"]` to drop the "date" column, `ts()` returns dates in numeric format which is not what the user wants. 
+
+```{r}
+# order.date column gets coerced to numeric
+ts(bike_sales_tbl, start = 2011, freq = 12) %>%
+    head()
+```
+
+The correct method is to call the specific column desired. However, this presents a new issue. The date index is lost, and a different "regularized" index is built using the `start` and `frequency` attributes. 
+
+```{r}
+bike_sales_ts_stats <- ts(bike_sales_tbl[,"total.sales"], start = 2011, freq = 12)
+bike_sales_ts_stats
+```
+
+We can see from the structure that the regularized time series is present, but there is no date index retained.
+
+```{r}
+# No date index attribute
+str(bike_sales_ts_stats)
+```
+
+We can get the index using the `index()` function from the `zoo` package. The index retained is a regular sequence of numeric values. These values cannot be coerced back to the original time-base due to dates and date times containing significantly more information (i.e. year-month-day, hour-minute-second, and timezone attributes).
+
+```{r}
+# Regularized numeric sequence
+index(bike_sales_ts_stats)
+```
+
+
+## Solution
+
+the `sweep` package contains a new function, `sw_ts()`, that enables maintaining the original date index as an attribute. When we repeat the `tbl` to `ts` coercion process using the new function, `sw_ts()`, we can see a few differences. 
+
+First, only numeric columns get coerced, which prevents unintended consequences due to R coercion rules (e.g. dates getting unintentionally converted or characters causing the homogenous data structure converting all values to character). If a column is dropped, the user gets a warning. 
+
+```{r}
+# order.date automatically dropped and user is warned
+bike_sales_ts_sweep <- sw_ts(bike_sales_tbl, start = 2007, freq = 12)
+bike_sales_ts_sweep
+```
+
+Second, the data returned has a few additional attributes. The most important of which is a numeric attribute, "index", which contains the original date information as a number. The `ts()` function will not preserve this index while `sw_ts()` will in numeric form. 
+
+```{r}
+# More attributes including time index, time class, time zone
+str(bike_sales_ts_sweep)
+```
+
+## Advantages of coercion with sw_tbl()
+
+We can extract the original index in date format using `sw_unroll_index()`.
+
+```{r}
+# Can now retrieve the original date index
+index <- sw_unroll_index(bike_sales_ts_sweep)
+head(index)
+class(index)
+```
+
+We can also go back to the original tibble using `sw_tbl()`. First, we show coercion without unrolling the index. Notice that the index returned is "regularized" meaning its actually a numeric index rather than a time-based index.
+
+```{r}
+# Coercion back to tibble without unrolling index
+sw_tbl(bike_sales_ts_sweep)
+```
+
+In many cases it's beneficial to have the original date information. We can now get the contents of the original tibble using the argument `.unroll = TRUE`.
+
+```{r}
+# Coercion back to tibble now with unrolling index
+bike_sales_tbl_sweep <- sw_tbl(bike_sales_ts_sweep, 
+                               index_rename = "order.date", 
+                               .unroll = TRUE)
+bike_sales_tbl_sweep
+```
+
+We can see that in this case (and in most cases) you can get the same data frame you began with.
+
+```{r}
+# Comparing the coerced tibble with the original tibble
+identical(bike_sales_tbl_sweep, bike_sales_tbl)
+```
+
+
+# Coercion Methods
+
+Using the `bike_sales_tbl`, we'll go through the various coercion methods using `sw_tbl`, `sw_xts`, `sw_zoo`, `sw_zooreg`, and `sw_ts`.
+
+## From tbl
+
+```{r}
+# Start:
+bike_sales_tbl
+```
+
+
+### to xts
+
+Use `sw_xts()`. By default "order.date"" is used as the date index and the "order.date" column is dropped from the output. Only numeric columns are coerced to avoid unintentional coercion issues. 
+
+```{r}
+# End
+bike_sales_xts <- sw_xts(bike_sales_tbl) 
+head(bike_sales_xts)
+```
+
+Use the `select` argument to specify which columns to drop. Use the `date_var` argument to specify which column to use as the date index. Notice the message and warning are no longer present.
+
+```{r}
+# End - Using `select` and `date_var` args
+sw_xts(bike_sales_tbl, select = -order.date, date_var = order.date) %>%
+    head()
+```
+
+
+### to zoo
+
+Use `sw_zoo()`. Same as when coercing to xts, the non-numeric "order.date" column is automatically dropped and the index is automatically selected as the date column. 
+
+```{r}
+# End
+bike_sales_zoo <- sw_zoo(bike_sales_tbl) 
+head(bike_sales_zoo)
+```
+
+### to zooreg
+
+Use `sw_zooreg()`. Same as when coercing to xts, the non-numeric "order.date" column is automatically dropped. The regularized index is built from the function arguments. However, the original index is retained and can be unrolled. 
+
+```{r}
+# End
+bike_sales_zooreg <- sw_zooreg(bike_sales_tbl, start = 2011, freq = 12) 
+head(bike_sales_zooreg)
+```
+
+We can unroll the original index using `sw_unroll_index()`.
+
+```{r}
+# Unroll original index
+sw_unroll_index(bike_sales_zooreg) %>%
+    str()
+```
+
+
+### to ts
+
+Use `sw_ts()`. The non-numeric "order.date" column is automatically dropped. The regularized index is built from the function arguments. However, the original index is retained and can be unrolled. 
+
+```{r}
+# End
+bike_sales_ts <- sw_ts(bike_sales_tbl, start = 2011, freq = 12) 
+bike_sales_ts
+```
+
+We can unroll the original index using `sw_unroll_index()`.
+
+```{r}
+# Unroll original index
+sw_unroll_index(bike_sales_ts) %>%
+    str()
+```
+
+
+## To tbl
+
+Going back to tibble is just as easy using `sw_tbl()`.
+
+### From xts
+
+```{r}
+# Start
+head(bike_sales_xts)
+
+# End
+sw_tbl(bike_sales_xts)
+```
+
+
+### From zoo
+
+```{r}
+# Start
+head(bike_sales_zoo)
+
+# End
+sw_tbl(bike_sales_zoo)
+```
+
+### From zooreg
+
+```{r}
+# Start
+head(bike_sales_zooreg)
+```
+
+Index is a regularized numeric sequence.
+
+```{r}
+# End - without index unrolling
+sw_tbl(bike_sales_zooreg)
+```
+
+Index is the original date sequence.
+
+```{r}
+# End - with index unrolling
+sw_tbl(bike_sales_zooreg, .unroll = TRUE)
+```
+
+
+### From ts
+
+```{r}
+# Start
+bike_sales_ts
+```
+
+Index is a regularized numeric sequence.
+
+```{r}
+# End - without index unrolling
+sw_tbl(bike_sales_ts)
+```
+
+Index is the original date sequence.
+
+```{r}
+# End - with index unrolling
+sw_tbl(bike_sales_ts, .unroll = TRUE)
+```
+

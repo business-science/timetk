@@ -7,7 +7,7 @@ output:
     toc: true
     toc_depth: 2
 vignette: >
-  %\VignetteIndexEntry{sweep and dplyr - Forecasting in the tidyverse}
+  %\VignetteIndexEntry{Forecasting Using Multiple Models}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -35,7 +35,7 @@ One of the most powerful things about `sweep` is that it makes forecasting at sc
 1. Applying a model to groups of time series
 2. Applying multiple models to a time series
 
-In this vignette we'll review how `sweep` can help the second situation: _Applying multiple models to a time series_.
+In this vignette we'll review how `sweep` can help the __second situation__: _Applying multiple models to a time series_.
 
 # Prerequisites
 
@@ -47,4 +47,108 @@ library(tidyquant)
 library(sweep)
 ```
 
+# Forecasting Crude Oil Prices
+
+To start, let's get some data from the FRED data base using `tidyquant`. We'll use `tq_get()` to retrieve the WTI Oil Prices from 1997 through today (`r today()`).
+
+```{r}
+wti_prices_daily_raw <- tq_get("DCOILWTICO", 
+                     get  = "economic.data", 
+                     from = "1997-01-01", 
+                     to   = today()) 
+wti_prices_daily_raw
+```
+
+Upon a brief inspection, the data contains `r is.na(wti_prices_daily_raw$price) %>% sum()` `NA` values that will need to be dealt with.
+
+```{r}
+summary(wti_prices_daily_raw$price)
+```
+
+We can use the `fill()` from the `tidyr` package to help deal with these data. We first fill down and then fill up to use the previous and then post days prices to fill in the missing data. 
+
+```{r}
+wti_prices_daily <- wti_prices_daily_raw %>%
+    fill(price, .direction = "down") %>%
+    fill(price, .direction = "up")
+```
+
+We can now visualize the data.
+
+```{r}
+wti_prices_daily %>%
+    ggplot(aes(x = date, y = price)) +
+    geom_line(color = palette_light()[[1]]) +
+    labs(title = "WTI Oil Prices", subtitle = "Daily Periodicity", x = "", y = "USD") +
+    scale_y_continuous(labels = scales::dollar) +
+    theme_tq()
+```
+
+Daily periodicity might be a bit much for model fitting. We can easily switch periodicity to monthly using `tq_transmute()` from the `tidyquant` package along with the periodicity aggregation function `to.period` from the `xts` package. We'll convert the date to `yearmon` class which is regularized. 
+
+```{r}
+wti_prices_monthly <- wti_prices_daily %>%
+    tq_transmute(mutate_fun = to.period, period = "months") %>%
+    mutate(date = as.yearmon(date))
+wti_prices_monthly
+```
+
+Another quick visualization.
+
+```{r}
+wti_prices_monthly %>%
+    ggplot(aes(x = date, y = price)) +
+    geom_line(color = palette_light()[[1]]) +
+    labs(title = "WTI Oil Prices", subtitle = "Monthly Periodicity", x = "", y = "USD") +
+    scale_y_continuous(labels = scales::dollar) +
+    scale_x_yearmon(format = "%Y") + 
+    theme_tq()
+```
+
+# Performing Forecasts on Using Multiple Models
+
+In this section we will use three models to analyze best fit using the `sweep` functions in combination with `dplyr` and `purrr`:
+
+1. ARIMA
+2. ETS
+3. BATS
+
+First, without arguments.
+
+```{r}
+models <- tribble(
+    ~model,    ~f,
+    "ARIMA",  auto.arima,
+    "ETS",    ets,
+    "BATS",   bats
+)
+
+```
+
+```{r}
+wti_prices_nest <- wti_prices_monthly %>%
+    tq_repeat_df(n = 3, index_col_name = "index") %>%
+    group_by(index) %>%
+    nest(.key = "data.tbl") %>%
+    mutate(data.ts = map(data.tbl, sw_ts, select = price))
+wti_prices_nest
+```
+
+```{r}
+model_data <- bind_cols(models, wti_prices_nest[,-1])
+model_data
+```
+
+```{r}
+df <- tibble(
+  f = c("runif", "rpois", "rnorm"),
+  params = list(
+    list(n = 10),
+    list(n = 5, lambda = 10),
+    list(n = 10, mean = -3, sd = 10)
+  )
+)
+df
+df %>% mutate(out = invoke_map(f, params))
+```
 

@@ -30,13 +30,15 @@ library(forecast)
 
 > A "tidy" toolkit for forecasting and time series analysis
 
-The `sweep` package combines a set of tools for performing forecasts and time series analysis in the "tidyverse". While the package is geared towards the workflow required to perform forecasts using Rob Hyndman's `forecast` package, it contains elements that can help when performing time series analysis using tibbles ("tidy" data frames). The package contains three basic elements:
+The `sweep` package combines a collection of tools for performing forecasts and time series analysis in the "tidyverse". While the package is geared towards the workflow required to perform forecasts using Rob Hyndman's `forecast` package, it contains elements that can help when performing time series analysis using time-based tibbles (`tbl`). The package contains the following elements:
 
-1. __Coercion functions__: `sw_tbl`, `sw_ts`, `sw_xts`, `sw_zoo`, and `sw_zooreg`. These functions coerce time-based tibbles `tbl` to and from each of the main time-series data types `xts`, `zoo`, `zooreg`, `ts`, maintaining the time-based index.
+1. __forecast tidier__: `sw_sweep` converts a `forecast` object to a tibble that can be easily manipulated in the "tidyverse".
 
-2. __broom model tidiers__: `sw_tidy`, `sw_glance`, `sw_augment`, `sw_tidy_decomp`. These functions extend `tidy`, `glance`, and `augment` from the `broom` package specifically for models (`ets()`, `Arima()`, `bats()`, etc) used for forecasting.
+2. __broom model tidiers__: `sw_tidy`, `sw_glance`, `sw_augment`, `sw_tidy_decomp` functions extend `tidy`, `glance`, and `augment` from the `broom` package specifically for models (`ets()`, `Arima()`, `bats()`, etc) used for forecasting.
 
-3. __Forecast tidier__: `sw_sweep`. A function that converts a `forecast` to a tibble that can be easily manipulated in the "tidyverse".
+3. __coercion functions__: `sw_tbl`, `sw_ts`, `sw_xts`, `sw_zoo`, and `sw_zooreg` coerce time-based tibbles `tbl` to and from each of the main time-series data types `xts`, `zoo`, `zooreg`, `ts`, maintaining the time-based index.
+
+4. __unroll function__: `sw_unroll_index` returns the original time series index of `forecast`objects, models, and `ts` objects. Only applicable to `ts` objects coerced using the `sw_ts()` function on data objects with a time-based index (e.g. `tbl`, `xts`, `zoo`).  
 
 To illustrate, let's take a basic forecasting workflow starting from data collected in a tibble format and then performing some basic processes to achieve a forecast in tibble format.
 
@@ -86,46 +88,16 @@ The forecasting workflow involves a few basic steps:
 
 In each step of the workflow we'll see how `sweep` can help.
 
+_Note that we purposely omit other steps such as testing the series for stationarity (`Box.test(type = "Ljung")`) and analysis of autocorrelations (`Acf`, `Pacf`) for brevity purposes._
+
 ## Step 1: Coerce to a `ts` object class
 
-The `forecast` package uses the `ts` data structure, which is quite a bit different than tibbles that we are currently using. Fortunately, it's easy to get to the correct structure. We can do this a couple ways. First, we'll take a look at the current way using `stats::ts()`. 
+The `forecast` package uses the `ts` data structure, which is quite a bit different than tibbles that we are currently using. Fortunately, it's easy to get to the correct structure with `sw_ts()` (Refer to [SW03 Extensible Time Series Coercion Using sweep]()] for the benefits).  
 
-### stats::ts
-
-This procedure works, but there's a few things the user needs to be aware of. First, only numeric columns get coerced. If the user forgets to add the `[,-1]` to drop the "date" column, `ts()` returns dates in numeric format which is not what the user wants. 
-
-```{r}
-alcohol_sales_ts_stats <- ts(alcohol_sales_tbl[,-1], start = 2007, freq = 12)
-alcohol_sales_ts_stats
-```
-
-Second, the results do not retain the original index (a vector of dates). Only a regularized time series is maintained in numeric format meaning that the date information is lost. 
-
-```{r}
-str(alcohol_sales_ts_stats)
-```
-
-### sweep::sw_ts
-
-Now using the new function, `sw_ts()`, we can see a few differences. First, only numeric columns get coerced, which prevents unintended consequences due to R coercion rules (e.g. dates getting unintentionally converted or characters causing numeric to be coerced). If a column is dropped, the user gets a warning. 
 
 ```{r}
 alcohol_sales_ts <- sw_ts(alcohol_sales_tbl, start = 2007, freq = 12)
 alcohol_sales_ts
-```
-
-Second, the data returned has a few additional attributes. The most important of which is a numeric attribute, "index", which contains the original date information as a number. The `ts()` function will not preserve this index while `sw_ts()` will in numeric form. 
-
-```{r}
-str(alcohol_sales_ts)
-```
-
-We can extract the original index in date format using `sw_index()`.
-
-```{r}
-index <- sw_index(alcohol_sales_ts)
-head(index)
-class(index)
 ```
 
 Now that a time series has been coerced, let's proceed with modeling.

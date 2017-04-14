@@ -7,7 +7,7 @@ output:
     toc: true
     toc_depth: 2
 vignette: >
-  %\VignetteIndexEntry{sweep and dplyr - Forecasting in the tidyverse}
+  %\VignetteIndexEntry{Forecasting Time Series Groups in the tidyverse}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -35,7 +35,7 @@ One of the most powerful things about `sweep` is that it makes forecasting at sc
 1. Applying a model to groups of time series
 2. Applying multiple models to a time series
 
-In this vignette we'll review how `sweep` can help the first situation: _Applying a model to groups of time series_.
+In this vignette we'll review how `sweep` can help the __first situation__: _Applying a model to groups of time series_.
 
 # Prerequisites
 
@@ -47,7 +47,7 @@ library(tidyquant)
 library(sweep)
 ```
 
-# Cannondale Bike Sales
+# Bike Sales
 
 We'll use the bike sales data set, `bike_sales`, provided with the `sweep` package for this tutorial. The `bike_sales` data set is a _fictional_ daily order history that spans 2011 through 2015. It simulates a sales database that is typical of a business. The customers are the "bike shops" and the products are the "models".  
 
@@ -248,4 +248,4 @@ qty_by_cat2_fcast_tidy %>%
 
 # Recap
 
-The `sweep` package has a several tools to analyze grouped time series. In the final vignette we will review how to apply multiple models to a time series.
+The `sweep` package has a several tools to analyze grouped time series. In the next vignette we will review how to apply multiple models to a time series.
