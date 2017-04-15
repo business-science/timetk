@@ -106,7 +106,7 @@ as.data.frame(data_ts)
 #> 4 115
 #> 5 120
 
-# Regularized numeric index starting in 2015
+# Regularized numeric index starting in 2010
 sw_tbl(data_ts)
 #> # A tibble: 5 × 2
 #>      index     x

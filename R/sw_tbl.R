@@ -3,9 +3,9 @@
 #' @param data A time-series object.
 #' @param preserve_index Attempts to preserve a time series index. Default is `TRUE`.
 #' @param index_rename Enables the index column to be renamed.
-#' @param .unroll Used when unrolling `ts` objects that contain date or datetime
-#' "index" attribute.
-#' Refer to [sw_unroll_index()] for more information on returning index information
+#' @param .sweep_idx Used to return a date / datetime index for
+#' regularized objects that contain a sweep "index" attribute.
+#' Refer to [sw_index()] for more information on returning index information
 #' from regularized timeseries objects (i.e. `ts`).
 #' @param ... Additional parameters passed to the [tibble::as_tibble()] function.
 #'
@@ -21,10 +21,10 @@
 #' the date or date-time information. The date / date-time column name
 #' can be changed using the `index_rename` argument.
 #'
-#' The `.unroll` argument is applicable when coercing `ts` objects that were
+#' The `.sweep_idx` argument is applicable when coercing `ts` objects that were
 #' created using `sw_ts()` from an object that had a time base
 #' (e.g. `tbl`, `xts`, `zoo`).
-#' Setting `.unroll = TRUE` enables unrolling the original index.
+#' Setting `.sweep_idx = TRUE` enables returning the sweep "index" attribute.
 #'
 #' @seealso [sw_xts()], [sw_zoo()], [sw_zooreg()], [sw_ts()]
 #'
@@ -44,11 +44,11 @@
 #' # No index
 #' as.data.frame(data_ts)
 #'
-#' # Regularized numeric index starting in 2015
+#' # Defualt index returned is regularized numeric index
 #' sw_tbl(data_ts)
 #'
-#' # Original date index unrolled (Only possible if original data has time-based index)
-#' sw_tbl(data_ts, .unroll = TRUE)
+#' # Original date index returned (Only possible if original data has time-based index)
+#' sw_tbl(data_ts, .sweep_idx = TRUE)
 #'
 #'
 #' ### xts to tibble: Comparison between as.data.frame() and sw_tbl()
@@ -84,12 +84,12 @@
 #'
 #'
 #' @export
-sw_tbl <- function(data, preserve_index = TRUE, index_rename = "index", .unroll = FALSE, ...) {
+sw_tbl <- function(data, preserve_index = TRUE, index_rename = "index", .sweep_idx = FALSE, ...) {
     UseMethod("sw_tbl", data)
 }
 
 #' @export
-sw_tbl.data.frame <- function(data, preserve_index = TRUE, index_rename = "index", .unroll = FALSE, ...) {
+sw_tbl.data.frame <- function(data, preserve_index = TRUE, index_rename = "index", .sweep_idx = FALSE, ...) {
 
     if (preserve_index == TRUE) {
 
@@ -103,7 +103,7 @@ sw_tbl.data.frame <- function(data, preserve_index = TRUE, index_rename = "index
             ret <- data %>%
                 as.data.frame() %>%
                 tibble::rownames_to_column(var = index_rename) %>%
-                tibble::as_tibble()
+                tibble::as_tibble(...)
 
             ret <- suppressMessages(readr::type_convert(ret))
 
@@ -124,7 +124,7 @@ sw_tbl.data.frame <- function(data, preserve_index = TRUE, index_rename = "index
 }
 
 #' @export
-sw_tbl.xts <- function(data, preserve_index = TRUE, index_rename = "index", .unroll = FALSE, ...) {
+sw_tbl.xts <- function(data, preserve_index = TRUE, index_rename = "index", .sweep_idx = FALSE, ...) {
 
     # Coerce to zoo, then to tbl
     ret <- sw_tbl(zoo::as.zoo(data), preserve_index, index_rename, ...)
@@ -132,7 +132,7 @@ sw_tbl.xts <- function(data, preserve_index = TRUE, index_rename = "index", .unr
 }
 
 #' @export
-sw_tbl.matrix <- function(data, preserve_index = TRUE, index_rename = "index", .unroll = FALSE, ...) {
+sw_tbl.matrix <- function(data, preserve_index = TRUE, index_rename = "index", .sweep_idx = FALSE, ...) {
 
     # Coerce to data frame, then to tbl
     ret <- sw_tbl(as.data.frame(data), preserve_index, index_rename, ...)
@@ -141,7 +141,7 @@ sw_tbl.matrix <- function(data, preserve_index = TRUE, index_rename = "index", .
 }
 
 #' @export
-sw_tbl.zoo <- function(data, preserve_index = TRUE, index_rename = "index", .unroll = FALSE, ...) {
+sw_tbl.zoo <- function(data, preserve_index = TRUE, index_rename = "index", .sweep_idx = FALSE, ...) {
 
     if (preserve_index == TRUE) {
 
@@ -181,23 +181,23 @@ sw_tbl.zoo <- function(data, preserve_index = TRUE, index_rename = "index", .unr
 }
 
 #' @export
-sw_tbl.zooreg <- function(data, preserve_index = TRUE, index_rename = "index", .unroll = FALSE, ...) {
+sw_tbl.zooreg <- function(data, preserve_index = TRUE, index_rename = "index", .sweep_idx = FALSE, ...) {
 
-    # Handle index unrolling
-    if (.unroll && preserve_index) {
+    # Handle sweep index
+    if (.sweep_idx && preserve_index) {
 
         # Index attribute found?
         first_val <- rownames(data)[[1]]
         if (!is.null(first_val)) {
             # Coerce to xts then to tbl
-            index <- sw_unroll_index(data)
+            index <- sw_index(data, .sweep_idx = TRUE)
             ret <- sw_xts(data, order.by = index) %>%
                 sw_tbl(preserve_index = preserve_index,
                        index_rename   = index_rename,
-                       .unroll        = .unroll,
+                       .sweep_idx     = .sweep_idx,
                        ...            = ...)
         } else {
-            warning("No `index` attribute to unroll. Using regularized index.")
+            warning("No `sweep index` attribute found. Using regularized index.")
             ret <- sw_tbl(zoo::as.zoo(data), preserve_index, index_rename, ...)
         }
 
@@ -210,23 +210,23 @@ sw_tbl.zooreg <- function(data, preserve_index = TRUE, index_rename = "index", .
 }
 
 #' @export
-sw_tbl.ts <- function(data, preserve_index = TRUE, index_rename = "index", .unroll = FALSE, ...) {
+sw_tbl.ts <- function(data, preserve_index = TRUE, index_rename = "index", .sweep_idx = FALSE, ...) {
 
-    # Handle index unrolling
-    if (.unroll && preserve_index) {
+    # Handle sweep index
+    if (.sweep_idx && preserve_index) {
 
         # Index attribute found?
         index_attr <- attr(data, "index")
         if (!is.null(index_attr)) {
             # Coerce to xts then to tbl
-            index <- sw_unroll_index(data)
+            index <- sw_index(data, .sweep_idx = TRUE)
             ret <- sw_xts(data, order.by = index) %>%
                 sw_tbl(preserve_index = preserve_index,
                        index_rename   = index_rename,
-                       .unroll        = .unroll,
+                       .sweep_idx        = .sweep_idx,
                        ...            = ...)
         } else {
-            warning("No `index` attribute to unroll. Using regularized index.")
+            warning("No sweep `index` attribute found. Using regularized index.")
             ret <- sw_tbl(zoo::as.zoo(data), preserve_index, index_rename, ...)
         }
 
@@ -242,7 +242,7 @@ sw_tbl.ts <- function(data, preserve_index = TRUE, index_rename = "index", .unro
 
 
 #' @export
-sw_tbl.msts <- function(data, preserve_index = TRUE, index_rename = "index", .unroll = FALSE, ...) {
+sw_tbl.msts <- function(data, preserve_index = TRUE, index_rename = "index", .sweep_idx = FALSE, ...) {
 
     # Coerce to zoo then convert to tibble
     ret <- sw_tbl(zoo::as.zoo(data), preserve_index, index_rename, ...)
@@ -250,7 +250,7 @@ sw_tbl.msts <- function(data, preserve_index = TRUE, index_rename = "index", .un
 }
 
 #' @export
-sw_tbl.timeSeries <- function(data, preserve_index = TRUE, index_rename = "index", .unroll = FALSE, ...) {
+sw_tbl.timeSeries <- function(data, preserve_index = TRUE, index_rename = "index", .sweep_idx = FALSE, ...) {
 
     # Coerce to data frame, then to tbl (No index to coerce to zoo)
     ret <- sw_tbl(as.data.frame(data), preserve_index, index_rename, ...)
@@ -258,7 +258,7 @@ sw_tbl.timeSeries <- function(data, preserve_index = TRUE, index_rename = "index
 }
 
 #' @export
-sw_tbl.irts <- function(data, preserve_index = TRUE, index_rename = "index", .unroll = FALSE, ...) {
+sw_tbl.irts <- function(data, preserve_index = TRUE, index_rename = "index", .sweep_idx = FALSE, ...) {
 
     # Coerce to zoo then convert to tibble
     ret <- sw_tbl(zoo::as.zoo(data), preserve_index, index_rename, ...)
@@ -267,7 +267,7 @@ sw_tbl.irts <- function(data, preserve_index = TRUE, index_rename = "index", .un
 
 
 #' @export
-sw_tbl.default <- function(data, preserve_index = TRUE, index_rename = "index", .unroll = FALSE, ...) {
+sw_tbl.default <- function(data, preserve_index = TRUE, index_rename = "index", .sweep_idx = FALSE, ...) {
 
     tryCatch({
         # Attempt coercion to data.frame, then to tbl

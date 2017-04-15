@@ -115,7 +115,7 @@ data_ts <- sw_ts(data_tbl, start = c(2010,1), freq = 365)
 # No index
 as.data.frame(data_ts)
 
-# Regularized numeric index starting in 2015
+# Regularized numeric index starting in 2010
 sw_tbl(data_ts)
 
 # Original date index unrolled 

@@ -30,15 +30,15 @@ library(forecast)
 
 > A "tidy" toolkit for forecasting and time series analysis
 
-The time series landscape in R is vast, deep, and complex causing many inconsistencies in data attributes and object structures ultimately making it difficult to coerce back and forth while maintaining the required data for each class. The `zoo` and `xts` packages solved a number of the issues in dealing with the various classes (`ts`, `zoo`, `xts`, `irts`, `msts`, and the list goes on...). However, because these packages deal in classes other than data frame, the issues with coercion to and from `tbl` and time classes are still present.
+The time series landscape in R is vast, deep, and complex causing many inconsistencies in data attributes and formats ultimately making it difficult to coerce between the different data structures. The `zoo` and `xts` packages solved a number of the issues in dealing with the various classes (`ts`, `zoo`, `xts`, `irts`, `msts`, and the list goes on...). However, because these packages deal in classes other than data frame, the issues with coercion between `tbl` and other time series object classes are still present.
 
-The `sweep` package provides tools that solve the issues with coercion, maximizing attribute extensibility (the required data attributes are retained during the coercion to each of the primary time series classes). The following tools are available to coerce and unroll key information:
+The `sweep` package provides tools that solve the issues with coercion, maximizing attribute extensibility (the required data attributes are retained during the coercion to each of the primary time series classes). The following tools are available to coerce and retrieve key information:
 
 * __Coercion functions__: `sw_tbl`, `sw_ts`, `sw_xts`, `sw_zoo`, and `sw_zooreg`. These functions coerce time-based tibbles `tbl` to and from each of the main time-series data types `xts`, `zoo`, `zooreg`, `ts`, maintaining the time-based index.
 
-* __unroll function__: `sw_unroll_index` unrolls time-based index (non-regularized index) of `forecast` objects, models, and `ts` objects.
+* __Index function__: `sw_index` returns the index. When the argument, `.sweep_idx = TRUE`, A time-based index (non-regularized index) of `forecast` objects, models, and `ts` objects is returned if present. Refer to `sw_ts()` to learn about non-regularized index persistence during the coercion process.
 
-This vignette includes a brief discussion on coercion issues and then a detailed explanation of the coercion and unroll functions.
+This vignette includes a brief case study on coercion issues and then a detailed explanation of the coercion between `tbl` and several primary time series classes (`xts`, `zoo`, `zooreg` and `ts`).
 
 # Prerequisites
 
@@ -119,7 +119,7 @@ bike_sales_ts_sweep <- sw_ts(bike_sales_tbl, start = 2007, freq = 12)
 bike_sales_ts_sweep
 ```
 
-Second, the data returned has a few additional attributes. The most important of which is a numeric attribute, "index", which contains the original date information as a number. The `ts()` function will not preserve this index while `sw_ts()` will in numeric form. 
+Second, the data returned has a few additional attributes. The most important of which is a numeric attribute, "index", which contains the original date information as a number. The `ts()` function will not preserve this index while `sw_ts()` will preserve the index in numeric form along with the time zone and class. 
 
 ```{r}
 # More attributes including time index, time class, time zone
@@ -128,29 +128,29 @@ str(bike_sales_ts_sweep)
 
 ## Advantages of coercion with sw_tbl()
 
-We can extract the original index in date format using `sw_unroll_index()`.
+Since we used the `sw_ts()` during coercion, we can extract the original index in date format using `sw_index(.sweep_idx = TRUE)` (the default is FALSE which returns the default regularized index).
 
 ```{r}
 # Can now retrieve the original date index
-index <- sw_unroll_index(bike_sales_ts_sweep)
+index <- sw_index(bike_sales_ts_sweep, .sweep_idx = TRUE)
 head(index)
 class(index)
 ```
 
-We can also go back to the original tibble using `sw_tbl()`. First, we show coercion without unrolling the index. Notice that the index returned is "regularized" meaning its actually a numeric index rather than a time-based index.
+Next, the `sw_tbl()` function has an argument `.sweep_idx` also which can be used to select which index to return. First, we show coercion using the default index. Notice that the index returned is "regularized" meaning its actually a numeric index rather than a time-based index.
 
 ```{r}
-# Coercion back to tibble without unrolling index
-sw_tbl(bike_sales_ts_sweep)
+# Coercion back to tibble using the default index (regularized)
+bike_sales_ts_sweep %>%
+    sw_tbl(index_rename = "order.date", .sweep_idx = FALSE)
 ```
 
-In many cases it's beneficial to have the original date information. We can now get the contents of the original tibble using the argument `.unroll = TRUE`.
+Now, the benefit of using the `sw_ts()` function is we can now get the contents of the original tibble using the `sw_tbl()` argument `.sweep_idx = TRUE`.
 
 ```{r}
-# Coercion back to tibble now with unrolling index
-bike_sales_tbl_sweep <- sw_tbl(bike_sales_ts_sweep, 
-                               index_rename = "order.date", 
-                               .unroll = TRUE)
+# Coercion back to tibble now using the sweep index (date / date-time)
+bike_sales_tbl_sweep <- bike_sales_ts_sweep %>%
+    sw_tbl(index_rename = "order.date", .sweep_idx = TRUE)
 bike_sales_tbl_sweep
 ```
 
@@ -205,7 +205,7 @@ head(bike_sales_zoo)
 
 ### to zooreg
 
-Use `sw_zooreg()`. Same as when coercing to xts, the non-numeric "order.date" column is automatically dropped. The regularized index is built from the function arguments. However, the original index is retained and can be unrolled. 
+Use `sw_zooreg()`. Same as when coercing to xts, the non-numeric "order.date" column is automatically dropped. The regularized index is built from the function arguments `start` and `freq`.  
 
 ```{r}
 # End
@@ -213,18 +213,18 @@ bike_sales_zooreg <- sw_zooreg(bike_sales_tbl, start = 2011, freq = 12)
 head(bike_sales_zooreg)
 ```
 
-We can unroll the original index using `sw_unroll_index()`.
+The original time-based index is retained and can be accessed using `sw_index(.sweep_idx = TRUE)`.
 
 ```{r}
-# Unroll original index
-sw_unroll_index(bike_sales_zooreg) %>%
+# Retrieve original time-based index
+sw_index(bike_sales_zooreg, .sweep_idx = TRUE) %>%
     str()
 ```
 
 
 ### to ts
 
-Use `sw_ts()`. The non-numeric "order.date" column is automatically dropped. The regularized index is built from the function arguments. However, the original index is retained and can be unrolled. 
+Use `sw_ts()`. The non-numeric "order.date" column is automatically dropped. The regularized index is built from the function arguments.  
 
 ```{r}
 # End
@@ -232,11 +232,11 @@ bike_sales_ts <- sw_ts(bike_sales_tbl, start = 2011, freq = 12)
 bike_sales_ts
 ```
 
-We can unroll the original index using `sw_unroll_index()`.
+The original time-based index is retained and can be accessed using `sw_index(.sweep_idx = TRUE)`.
 
 ```{r}
-# Unroll original index
-sw_unroll_index(bike_sales_ts) %>%
+# Retrieve original time-based index
+sw_index(bike_sales_ts, .sweep_idx = TRUE) %>%
     str()
 ```
 
@@ -276,15 +276,15 @@ head(bike_sales_zooreg)
 Index is a regularized numeric sequence.
 
 ```{r}
-# End - without index unrolling
+# End - with default index
 sw_tbl(bike_sales_zooreg)
 ```
 
 Index is the original date sequence.
 
 ```{r}
-# End - with index unrolling
-sw_tbl(bike_sales_zooreg, .unroll = TRUE)
+# End - with sweep index
+sw_tbl(bike_sales_zooreg, .sweep_idx = TRUE)
 ```
 
 
@@ -298,14 +298,14 @@ bike_sales_ts
 Index is a regularized numeric sequence.
 
 ```{r}
-# End - without index unrolling
+# End - with default index
 sw_tbl(bike_sales_ts)
 ```
 
 Index is the original date sequence.
 
 ```{r}
-# End - with index unrolling
-sw_tbl(bike_sales_ts, .unroll = TRUE)
+# End - with sweep index 
+sw_tbl(bike_sales_ts, .sweep_idx = TRUE)
 ```
 

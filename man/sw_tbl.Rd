@@ -5,7 +5,7 @@
 \title{Coerce time-series objects to tibble.}
 \usage{
 sw_tbl(data, preserve_index = TRUE, index_rename = "index",
-  .unroll = FALSE, ...)
+  .sweep_idx = FALSE, ...)
 }
 \arguments{
 \item{data}{A time-series object.}
@@ -14,9 +14,9 @@ sw_tbl(data, preserve_index = TRUE, index_rename = "index",
 
 \item{index_rename}{Enables the index column to be renamed.}
 
-\item{.unroll}{Used when unrolling \code{ts} objects that contain date or datetime
-"index" attribute.
-Refer to \code{\link[=sw_unroll_index]{sw_unroll_index()}} for more information on returning index information
+\item{.sweep_idx}{Used to return a date / datetime index for
+regularized objects that contain a sweep "index" attribute.
+Refer to \code{\link[=sw_index]{sw_index()}} for more information on returning index information
 from regularized timeseries objects (i.e. \code{ts}).}
 
 \item{...}{Additional parameters passed to the \code{\link[tibble:as_tibble]{tibble::as_tibble()}} function.}
@@ -38,10 +38,10 @@ When \code{preserve_index = TRUE} is specified, a new column,
 the date or date-time information. The date / date-time column name
 can be changed using the \code{index_rename} argument.
 
-The \code{.unroll} argument is applicable when coercing \code{ts} objects that were
+The \code{.sweep_idx} argument is applicable when coercing \code{ts} objects that were
 created using \code{sw_ts()} from an object that had a time base
 (e.g. \code{tbl}, \code{xts}, \code{zoo}).
-Setting \code{.unroll = TRUE} enables unrolling the original index.
+Setting \code{.sweep_idx = TRUE} enables returning the sweep "index" attribute.
 }
 \examples{
 library(tidyverse)
@@ -59,11 +59,11 @@ data_ts <- sw_ts(data_tbl, start = c(2010,1), freq = 365)
 # No index
 as.data.frame(data_ts)
 
-# Regularized numeric index starting in 2015
+# Defualt index returned is regularized numeric index
 sw_tbl(data_ts)
 
-# Original date index unrolled (Only possible if original data has time-based index)
-sw_tbl(data_ts, .unroll = TRUE)
+# Original date index returned (Only possible if original data has time-based index)
+sw_tbl(data_ts, .sweep_idx = TRUE)
 
 
 ### xts to tibble: Comparison between as.data.frame() and sw_tbl()
