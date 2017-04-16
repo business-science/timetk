@@ -14,12 +14,13 @@
 #'
 #' @details `sw_zoo` is a wrapper for `zoo::zoo()` that is designed
 #' to coerce `tibble` objects that have a "time-base" (meaning the values vary with time)
-#' to `zoo` class objects. There are two main advantages:
+#' to `zoo` class objects. There are three main advantages:
 #'
 #' 1. Non-numeric columns that are not removed via `select` are dropped and the user is warned.
 #' This prevents an error or coercion issue from occurring.
 #' 2. The date column is auto-detected if not specified by `date_var`. This takes
 #' the effort off the user to assign a date vector during coercion.
+#' 3. `ts` objects are automatically coerced if a "sweep index" is present. Refer to [sw_ts()].
 #'
 #' The `select` argument can be used to select subsets
 #' of columns from the incoming data.frame.
@@ -39,6 +40,9 @@
 #' @seealso [sw_tbl()], [sw_xts()], [sw_zooreg()], [sw_ts()]
 #'
 #' @examples
+#' library(tidyverse)
+#' library(sweep)
+#'
 #' ### tibble to zoo: Comparison between sw_zoo() and zoo::zoo()
 #' data_tbl <- tibble::tibble(
 #'     date = seq.Date(as.Date("2016-01-01"), by = 1, length.out = 5),
@@ -51,6 +55,9 @@
 #'
 #' # sw_zoo: Character columns dropped with a warning; No need to specify dates (auto detected)
 #' sw_zoo(data_tbl)
+#'
+#' # ts can be coerced back to zoo
+#' data_tbl %>% sw_ts() %>% sw_zoo()
 #'
 #'
 #' ### Using select and date_var

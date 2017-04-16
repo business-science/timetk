@@ -47,7 +47,8 @@ to coerce \code{tibble} objects that have a "time-base" (meaning the values vary
 to \code{ts} class objects. There are two main advantages:
 \enumerate{
 \item Non-numeric columns get removed instead of being populated by NA's.
-\item The returned \code{ts} object retains an index (and various other attributes) if detected.
+\item The returned \code{ts} object retains a "sweep index" (and various other attributes) if detected.
+The "sweep index" can be used to coerce between \code{tbl}, \code{xts}, \code{zoo}, and \code{ts} data types.
 }
 
 The \code{select} argument is used to select subsets
@@ -61,6 +62,9 @@ using \code{stats::ts()}.
 \code{sw_ts_} is a nonstandard evaluation method.
 }
 \examples{
+library(tidyverse)
+library(sweep)
+
 ### tibble to ts: Comparison between sw_ts() and stats::ts()
 data_tbl <- tibble::tibble(
     date = seq.Date(as.Date("2016-01-01"), by = 1, length.out = 5),
@@ -72,7 +76,15 @@ data_tbl <- tibble::tibble(
 stats::ts(data_tbl[,-1], start = 2016)
 
 # sw_ts: Only numeric columns get coerced; Result retains index in numeric format
-sw_ts(data_tbl, start = 2016)
+data_ts <- sw_ts(data_tbl, start = 2016)
+data_ts
+
+# sweep index
+sw_index(data_ts, .sweep_idx = FALSE)   # Regularized index returned
+sw_index(data_ts, .sweep_idx = TRUE)    # Original date index returned
+
+# Coerce back to tibble
+data_ts \%>\% sw_tbl(.sweep_idx = TRUE)
 
 
 ### Using select
@@ -85,5 +97,5 @@ sw_ts_(data_tbl, select = select)
 
 }
 \seealso{
-\code{\link[=sw_tbl]{sw_tbl()}}, \code{\link[=sw_xts]{sw_xts()}}, \code{\link[=sw_zoo]{sw_zoo()}}, \code{\link[=sw_zooreg]{sw_zooreg()}}
+\code{\link[=sw_index]{sw_index()}}, \code{\link[=sw_tbl]{sw_tbl()}}, \code{\link[=sw_xts]{sw_xts()}}, \code{\link[=sw_zoo]{sw_zoo()}}, \code{\link[=sw_zooreg]{sw_zooreg()}}
 }

@@ -14,12 +14,13 @@
 #'
 #' @details `sw_xts` is a wrapper for `xts::xts()` that is designed
 #' to coerce `tibble` objects that have a "time-base" (meaning the values vary with time)
-#' to `xts` class objects. There are two main advantages:
+#' to `xts` class objects. There are three main advantages:
 #'
 #' 1. Non-numeric columns that are not removed via `select` are dropped and the user is warned.
 #' This prevents an error or coercion issue from occurring.
 #' 2. The date column is auto-detected if not specified by `date_var`. This takes
 #' the effort off the user to assign a date vector during coercion.
+#' 3. `ts` objects are automatically coerced if a "sweep index" is present. Refer to [sw_ts()].
 #'
 #' The `select` argument can be used to select subsets
 #' of columns from the incoming data.frame.
@@ -37,6 +38,9 @@
 #' @seealso [sw_tbl()], [sw_zoo()], [sw_zooreg()], [sw_ts()]
 #'
 #' @examples
+#' library(tidyverse)
+#' library(sweep)
+#'
 #' ### tibble to xts: Comparison between sw_xts() and xts::xts()
 #' data_tbl <- tibble::tibble(
 #'     date = seq.Date(as.Date("2016-01-01"), by = 1, length.out = 5),
@@ -50,6 +54,8 @@
 #' # sw_xts: Non-numeric columns automatically dropped; No need to specify date column
 #' sw_xts(data_tbl)
 #'
+#' # ts can be coerced back to xts
+#' data_tbl %>% sw_ts() %>% sw_xts()
 #'
 #' ### Using select and date_var
 #' sw_xts(data_tbl, select = y, date_var = date)
@@ -132,6 +138,75 @@ sw_xts_.data.frame <- function(data, select = NULL, date_var = NULL, ...) {
 
 }
 
+#' @export
+sw_xts_.ts <- function(data, select = NULL, date_var = NULL, ...) {
+
+    # Validate select
+    if (!(is.null(select) || select == "NULL")) warning("`select` is only applicable to data.frame and tibble objects.")
+
+    # Validate date_var
+    if (!(is.null(date_var) || date_var == "NULL")) warning("`date_var` is only applicable to data.frame and tibble objects.")
+
+    # Collect xts args
+    ret <- data
+    xts_args <- list(x = ret)
+    xts_args <- append(xts_args, list(...))
+
+    # Interpret the order.by
+    if (!("order.by" %in% names(xts_args))) {
+
+        # Check if .sweep_idx present
+        sw_index <- attr(data, "index")
+        sw_index_present <- !is.null(sw_index)
+
+        if (sw_index_present) {
+            xts_args$order.by <- sw_index(data, .sweep_idx = TRUE)
+        } else {
+            stop("No date or date-time index found. Object must contain an unambigous date or date-time column.")
+        }
+    }
+
+    # Coerce to xts
+    ret <- do.call("xts", xts_args)
+
+    return(ret)
+
+}
+
+#' @export
+sw_xts_.zooreg <- function(data, select = NULL, date_var = NULL, ...) {
+
+    # Validate select
+    if (!(is.null(select) || select == "NULL")) warning("`select` is only applicable to data.frame and tibble objects.")
+
+    # Validate date_var
+    if (!(is.null(date_var) || date_var == "NULL")) warning("`date_var` is only applicable to data.frame and tibble objects.")
+
+    # Collect xts args
+    ret <- data
+    xts_args <- list(x = ret)
+    xts_args <- append(xts_args, list(...))
+
+    # Interpret the order.by
+    if (!("order.by" %in% names(xts_args))) {
+
+        # Check if .sweep_idx present
+        sw_index <- rownames(data)
+        sw_index_present <- !is.null(sw_index)
+
+        if (sw_index_present) {
+            xts_args$order.by <- sw_index(data, .sweep_idx = TRUE)
+        } else {
+            stop("No date or date-time index found. Object must contain an unambigous date or date-time column.")
+        }
+    }
+
+    # Coerce to xts
+    ret <- do.call("xts", xts_args)
+
+    return(ret)
+
+}
 
 #' @export
 sw_xts_.default <- function(data, select = NULL, date_var = NULL, ...) {

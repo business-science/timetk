@@ -14,7 +14,8 @@
 #' to `ts` class objects. There are two main advantages:
 #'
 #' 1. Non-numeric columns get removed instead of being populated by NA's.
-#' 2. The returned `ts` object retains an index (and various other attributes) if detected.
+#' 2. The returned `ts` object retains a "sweep index" (and various other attributes) if detected.
+#' The "sweep index" can be used to coerce between `tbl`, `xts`, `zoo`, and `ts` data types.
 #'
 #' The `select` argument is used to select subsets
 #' of columns from the incoming data.frame.
@@ -26,9 +27,12 @@
 #'
 #' `sw_ts_` is a nonstandard evaluation method.
 #'
-#' @seealso [sw_tbl()], [sw_xts()], [sw_zoo()], [sw_zooreg()]
+#' @seealso [sw_index()], [sw_tbl()], [sw_xts()], [sw_zoo()], [sw_zooreg()]
 #'
 #' @examples
+#' library(tidyverse)
+#' library(sweep)
+#'
 #' ### tibble to ts: Comparison between sw_ts() and stats::ts()
 #' data_tbl <- tibble::tibble(
 #'     date = seq.Date(as.Date("2016-01-01"), by = 1, length.out = 5),
@@ -40,7 +44,15 @@
 #' stats::ts(data_tbl[,-1], start = 2016)
 #'
 #' # sw_ts: Only numeric columns get coerced; Result retains index in numeric format
-#' sw_ts(data_tbl, start = 2016)
+#' data_ts <- sw_ts(data_tbl, start = 2016)
+#' data_ts
+#'
+#' # sweep index
+#' sw_index(data_ts, .sweep_idx = FALSE)   # Regularized index returned
+#' sw_index(data_ts, .sweep_idx = TRUE)    # Original date index returned
+#'
+#' # Coerce back to tibble
+#' data_ts %>% sw_tbl(.sweep_idx = TRUE)
 #'
 #'
 #' ### Using select

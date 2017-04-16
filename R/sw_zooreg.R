@@ -17,7 +17,7 @@
 #' to `zooreg` class objects. There are two main advantages:
 #'
 #' 1. Non-numeric columns get removed instead causing coercion issues.
-#' 2. If an index is present, the returned `zooreg` object retains an index retrievable using `rownames()`.
+#' 2. If an index is present, the returned `zooreg` object retains an index retrievable using [sw_index()].
 #'
 #' The `select` argument is used to select subsets
 #' of columns from the incoming data.frame.
@@ -51,8 +51,10 @@
 #' # sw_zooreg: Only numeric columns get coerced; Result retains index as rownames
 #' data_sw_zooreg <- sw_zooreg(data_tbl, start = 2016, freq = 365)
 #' data_sw_zooreg             # No inadvertent coercion to character class
-#' rownames(data_sw_zooreg)   # Original date index retained
-#' zoo::index(data_sw_zooreg) # New regularized index retrieveable
+#'
+#' # sweep index
+#' sw_index(data_sw_zooreg, .sweep_idx = FALSE)   # Regularized index returned
+#' sw_index(data_sw_zooreg, .sweep_idx = TRUE)    # Original date index returned
 #'
 #' ### Using select and date_var
 #' sw_zooreg(data_tbl, select = y, date_var = date, start = 2016, freq = 365)
