@@ -3,6 +3,8 @@
 sweep
 =====
 
+[![Travis-CI Build Status](https://travis-ci.org/business-science/sweep.svg?branch=master)](https://travis-ci.org/business-science/sweep.svg?branch=master) [![codecov](https://codecov.io/gh/business-science/sweep/branch/master/graph/badge.svg)](https://codecov.io/gh/business-science/sweep) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/sweep)](https://cran.r-project.org/package=sweep) ![](http://cranlogs.r-pkg.org/badges/sweep?color=brightgreen) ![](http://cranlogs.r-pkg.org/badges/grand-total/sweep?color=brightgreen)
+
 > A "tidy" toolkit for forecasting and time series analysis
 
 The `sweep` package combines a collection of tools for performing forecasts and time series analysis in the "tidyverse". While the package is geared towards the workflow required to perform forecasts using Rob Hyndman's `forecast` package, it contains elements that can help when performing time series analysis using tibbles ("tidy" data frames).
@@ -38,14 +40,16 @@ Making forecasts in the tidyverse
 Forecasting multiple time series groups at scale
 ------------------------------------------------
 
-Often forecasts are required on grouped data to analyse trends in sub-categories. The good news is scaling from one time series to many is easy with the various `sw_` functions and the enhanced mapping function `map_list_column`.
+Often forecasts are required on grouped data to analyse trends in sub-categories. The good news is scaling from one time series to many is easy with the various `sw_` functions in combination with `dplyr` and `purrr`.
 
 <img src="img/time_series_groups.png" width="100%" />
 
 Forecasting multiple models for accuracy
 ----------------------------------------
 
-TODO
+A common goal in forecasting is to compare different forecast models against each other. `sweep` helps in this area as well.
+
+<img src="img/multiple_models.png" width="100%" />
 
 broom extensions for forecasting
 --------------------------------
@@ -145,7 +149,7 @@ The `sweep` package includes several vignettes to help users get up to speed qui
 
 -   SW00 - Introduction to `sweep`
 -   SW01 - Forecasting Time Series Groups in the tidyverse
--   SW02 - TODO
+-   SW02 - Forecasting Using Multiple Models
 -   SW03 - Time Series Coercion Using `sweep`
 
 <!-- See the [`tidyquant` vignettes](https://cran.r-project.org/package=tidyquant) for further details on the package. -->

@@ -30,7 +30,7 @@ library(forecast)
 
 > A "tidy" toolkit for forecasting and time series analysis
 
-One of the most powerful things about `sweep` is that it makes forecasting at scale possible within the "tidyverse". There are two common situations:
+One of the most powerful benefits of `sweep` is that it helps forecasting at scale within the "tidyverse". There are two common situations:
 
 1. Applying a model to groups of time series
 2. Applying multiple models to a time series
@@ -47,28 +47,29 @@ library(tidyquant)
 library(sweep)
 ```
 
-# Forecasting Crude Oil Prices
+# Forecasting Gasoline Prices
 
-To start, let's get some data from the FRED data base using `tidyquant`. We'll use `tq_get()` to retrieve the WTI Oil Prices from 1997 through today (`r today()`).
+To start, let's get some data from the FRED data base using `tidyquant`. We'll use `tq_get()` to retrieve the Gasoline Prices from 1990 through today (`r today()`).
 
 ```{r}
-wti_prices_daily_raw <- tq_get("DCOILWTICO", 
-                     get  = "economic.data", 
-                     from = "1997-01-01", 
-                     to   = today()) 
-wti_prices_daily_raw
+gas_prices_monthly_raw <- tq_get(
+    x    = "GASREGCOVM", 
+    get  = "economic.data", 
+    from = "1990-01-01", 
+    to   = today()) 
+gas_prices_monthly_raw
 ```
 
-Upon a brief inspection, the data contains `r is.na(wti_prices_daily_raw$price) %>% sum()` `NA` values that will need to be dealt with.
+Upon a brief inspection, the data contains `r is.na(gas_prices_monthly_raw$price) %>% sum()` `NA` values that will need to be dealt with.
 
 ```{r}
-summary(wti_prices_daily_raw$price)
+summary(gas_prices_monthly_raw$price)
 ```
 
 We can use the `fill()` from the `tidyr` package to help deal with these data. We first fill down and then fill up to use the previous and then post days prices to fill in the missing data. 
 
 ```{r}
-wti_prices_daily <- wti_prices_daily_raw %>%
+gas_prices_monthly <- gas_prices_monthly_raw %>%
     fill(price, .direction = "down") %>%
     fill(price, .direction = "up")
 ```
@@ -76,68 +77,47 @@ wti_prices_daily <- wti_prices_daily_raw %>%
 We can now visualize the data.
 
 ```{r}
-wti_prices_daily %>%
+gas_prices_monthly %>%
     ggplot(aes(x = date, y = price)) +
     geom_line(color = palette_light()[[1]]) +
-    labs(title = "WTI Oil Prices", subtitle = "Daily Periodicity", x = "", y = "USD") +
+    labs(title = "Gasoline Prices", subtitle = "Monthly Periodicity", x = "", y = "USD") +
     scale_y_continuous(labels = scales::dollar) +
     theme_tq()
 ```
 
-Daily periodicity might be a bit much for model fitting. We can easily switch periodicity to monthly using `tq_transmute()` from the `tidyquant` package along with the periodicity aggregation function `to.period` from the `xts` package. We'll convert the date to `yearmon` class which is regularized. 
+Monthly periodicity might be a bit granular for model fitting. We can easily switch periodicity to quarterly using `tq_transmute()` from the `tidyquant` package along with the periodicity aggregation function `to.period` from the `xts` package. We'll convert the date to `yearqtr` class which is regularized. 
 
 ```{r}
-wti_prices_monthly <- wti_prices_daily %>%
-    tq_transmute(mutate_fun = to.period, period = "months") %>%
-    mutate(date = as.yearmon(date))
-wti_prices_monthly
+gas_prices_quarterly <- gas_prices_monthly %>%
+    tq_transmute(mutate_fun = to.period, period = "quarters") %>%
+    mutate(date = as.yearqtr(date))
+gas_prices_quarterly
 ```
 
-Another quick visualization.
+Another quick visualization to show the reduction in granularity.
 
 ```{r}
-wti_prices_monthly %>%
+gas_prices_quarterly %>%
     ggplot(aes(x = date, y = price)) +
     geom_line(color = palette_light()[[1]]) +
-    labs(title = "WTI Oil Prices", subtitle = "Monthly Periodicity", x = "", y = "USD") +
+    labs(title = "Gasoline Prices", subtitle = "Quarterly Periodicity", x = "", y = "USD") +
     scale_y_continuous(labels = scales::dollar) +
-    scale_x_yearmon(format = "%Y") + 
+    scale_x_yearqtr() + 
     theme_tq()
 ```
 
-# Performing Forecasts on Using Multiple Models
+# Performing Forecasts Using Multiple Models
 
-In this section we will use three models to analyze best fit using the `sweep` functions in combination with `dplyr` and `purrr`:
+In this section we will use three models to forecast Gasoline prices:
 
 1. ARIMA
 2. ETS
 3. BATS
 
-First, without arguments.
 
-```{r}
-models <- tribble(
-    ~model,    ~f,
-    "ARIMA",  auto.arima,
-    "ETS",    ets,
-    "BATS",   bats
-)
+## Multiple Models Concept
 
-```
-
-```{r}
-wti_prices_nest <- wti_prices_monthly %>%
-    tq_repeat_df(n = 3, index_col_name = "index") %>%
-    group_by(index) %>%
-    nest(.key = "data.tbl") %>%
-    mutate(data.ts = map(data.tbl, sw_ts, select = price))
-wti_prices_nest
-```
-
-```{r}
-model_data <- bind_cols(models, wti_prices_nest[,-1])
-model_data
-```
+Before we jump into modeling, let's take a look at the multiple model process from [R for Data Science, Chapter 25 Many Models](http://r4ds.had.co.nz/many-models.html#from-a-named-list). We first create a data frame from a named list. The example below has two columns: "f" the functions as text, and "params" a nested list of parameters we will pass to the respective function in column "f".
 
 ```{r}
 df <- tibble(
@@ -149,6 +129,148 @@ df <- tibble(
   )
 )
 df
-df %>% mutate(out = invoke_map(f, params))
 ```
 
+We can also view the contents of the `df$params` column to understand the underlying structure. Notice that there are three primary levels and then secondary levels containing the name-value pairs of parameters. This format is important.
+
+```{r}
+df$params
+```
+
+
+Next we apply the functions to the parameters using a special function, `invoke_map()`. The parameter lists in the "params" column are passed to the function in the "f" column. The output is in a nested list-column named "out".
+
+```{r}
+df %>% 
+    mutate(out = invoke_map(f, params))
+```
+
+Take a minute to understand the conceptual process of the `invoke_map` function and specifically the parameter setup. Once you are comfortable, we can move on to model implementation.
+
+## Multiple Model Implementation
+
+We'll need to take the following steps to in an actual forecast model implementation:
+
+1. Coerce the data to time series using `sw_ts()`
+2. Build a model list using nested lists
+3. Create the the model data frame
+4. Invoke a function map
+
+This is easier than it sounds. Let's start by coercing the univariate time series with `sw_ts()`.
+
+```{r}
+gas_prices_quarterly_ts <- gas_prices_quarterly %>% 
+    sw_ts(select = -date, start = c(1990, 3), freq = 4)
+gas_prices_quarterly_ts
+```
+
+Next, create a nested list using the function names as the first-level keys (this is important as you'll see in the next step). Pass the model parameters as name-value pairs in the second level.  
+
+```{r}
+models_list <- list(
+    auto.arima = list(
+        y = gas_prices_quarterly_ts
+        ),
+    ets = list(
+        y = gas_prices_quarterly_ts,
+        damped = TRUE
+    ),
+    bats = list(
+        y = gas_prices_quarterly_ts
+    )
+)
+```
+
+Now, convert to a data frame using the function, `enframe()` that turns lists into tibbles. Set the arguments `name = "f"` and `value = "params"`. In doing so we get a bonus: the model names are the now convieniently located in column "f".
+
+```{r}
+models_tbl <- enframe(models_list, name = "f", value = "params")
+models_tbl
+```
+
+We are ready to invoke the map. Combine `mutate()` with `invoke_map()` as follows. Bada bing, bada boom, we now have models fitted using the parameters we defined previously. 
+
+```{r}
+models_tbl_fit <- models_tbl %>%
+    mutate(fit = invoke_map(f, params))
+models_tbl_fit
+```
+
+# Inspecting the Model Fit
+
+It's a good point to review and understand the model output. We can review the model parameters, accuracy measurements, and the residuals using `sw_tidy()`, `sw_glance()`, and `sw_augment()`.
+
+## sw_tidy
+
+The tidying function returns the model parameters and estimates. We use the combination of `mutate` and `map` to iteratively apply the `sw_tidy()` function as a new column named "tidy". Then we unnest and spread to review the terms by model function. 
+
+```{r}
+models_tbl_fit %>%
+    mutate(tidy = map(fit, sw_tidy)) %>%
+    unnest(tidy) %>%
+    spread(key = f, value = estimate)
+```
+
+## sw_glance
+
+Glance is one of the most powerful tools because it yields the model accuracies enabling direct comparisons between the fit of each model. We use the same process for used for tidy, except theres no need to spread to perform the comparison. We can see that the ARIMA model has the lowest AIC by far.
+
+```{r}
+models_tbl_fit %>%
+    mutate(glance = map(fit, sw_glance)) %>%
+    unnest(glance, .drop = TRUE)
+```
+
+## sw_augment
+
+We can augment the models to get the residuals following the same procedure. We can pipe (`%>%`) the results right into `ggplot()` for plotting. Notice the ARIMA model has the largest residuals especially as the model index increases whereas the bats model has relatively low residuals.
+
+
+```{r}
+models_tbl_fit %>%
+    mutate(augment = map(fit, sw_augment)) %>%
+    unnest(augment) %>%
+    ggplot(aes(x = index, y = .resid, group = f)) +
+    geom_line(color = palette_light()[[2]]) +
+    geom_point(color = palette_light()[[1]]) +
+    geom_ma(n = 6) +
+    facet_wrap(~ f, ncol = 3, scales = "free_y") +
+    labs(title = "Residuals Plot") +
+    theme_tq()
+```
+
+
+# Forecasting with sw_sweep
+
+Creating the forecast for the models is accomplished by mapping the `forecast` function. We can also map `sw_sweep`, which coerces the forecast into tibble format. 
+
+```{r}
+models_tbl_fcast <- models_tbl_fit %>%
+    mutate(fcast = map(fit, forecast, h = 6),
+           sweep = map(fcast, sw_sweep, .fitted = FALSE))
+models_tbl_fcast
+```
+
+Last, we can plot the forecast by unnesting the "sweep" column and piping to `ggplot()`.
+
+```{r, fig.height=8}
+models_tbl_fcast %>%
+    unnest(sweep) %>%
+    ggplot(aes(x = index, y = price, color = key, group = f)) +
+    geom_ribbon(aes(ymin = lo.95, ymax = hi.95), 
+                fill = "#D5DBFF", color = NA, size = 0) +
+    geom_ribbon(aes(ymin = lo.80, ymax = hi.80, fill = key), 
+                fill = "#596DD5", color = NA, size = 0, alpha = 0.8) +
+    geom_line(size = 1) +
+    facet_wrap(~f, nrow = 3) +
+    labs(title = "Gasoline Price Forecasts",
+         subtitle = "Multiple Models: ARIMA, BATS, ETS",
+         x = "", y = "Price") +
+    scale_y_continuous(labels = scales::dollar) +
+    theme_tq() +
+    scale_color_tq()
+```
+
+# Recap
+
+The `sweep` package can aid analysis of multiple forecast models. In the next vignette we will review time series object coercion with `sweep`.

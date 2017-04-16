@@ -30,7 +30,7 @@ library(forecast)
 
 > A "tidy" toolkit for forecasting and time series analysis
 
-One of the most powerful things about `sweep` is that it makes forecasting at scale possible within the "tidyverse". There are two common situations:
+One of the most powerful benefits of `sweep` is that it helps forecasting at scale within the "tidyverse". There are two common situations:
 
 1. Applying a model to groups of time series
 2. Applying multiple models to a time series
