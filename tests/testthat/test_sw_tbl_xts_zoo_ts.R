@@ -5,7 +5,7 @@ context("Testing sw_tbl, sw_xts, sw_zoo, sw_zooreg, sw_ts functions")
 
 # tbl to tbl -----
 AAPL_tbl <- tidyquant::tq_get("AAPL", from = "2015-01-01", to = "2016-12-31")
-test_that("Tibble test returns tibble with correct rows and columns.", {
+test_that("tbl tot tbl test returns tibble with correct rows and columns.", {
     test_tbl_1 <- sw_tbl(AAPL_tbl, preserve_index = F, index_rename = "date")
     expect_is(test_tbl_1, "tbl")
     expect_equal(nrow(test_tbl_1), 504)
@@ -16,7 +16,7 @@ test_that("Tibble test returns tibble with correct rows and columns.", {
 
 # xts to tbl -----
 AAPL_xts <- sw_xts(AAPL_tbl, select = -date, date_var = date)
-test_that("xts test returns tibble with correct rows and columns.", {
+test_that("xts to tbl test returns tibble with correct rows and columns.", {
     test_tbl_2 <- sw_tbl(AAPL_xts, preserve_index = T, index_rename = "date")
     expect_equal(nrow(test_tbl_2), 504)
     expect_equal(ncol(test_tbl_2), 7)
@@ -26,7 +26,7 @@ test_that("xts test returns tibble with correct rows and columns.", {
 
 # zoo to tbl -----
 AAPL_zoo <- sw_zoo(AAPL_tbl, select = -date, date_var = date)
-test_that("zoo test returns tibble with correct rows and columns.", {
+test_that("zoo to tbl test returns tibble with correct rows and columns.", {
     test_tbl_3 <- sw_tbl(AAPL_zoo, preserve_index = T, index_rename = "date")
     expect_equal(nrow(test_tbl_3), 504)
     expect_equal(ncol(test_tbl_3), 7)
@@ -35,13 +35,18 @@ test_that("zoo test returns tibble with correct rows and columns.", {
 })
 
 # zooreg to tbl -----
-AAPL_zooreg <- zoo::zooreg(AAPL_zoo, frequency = 250)
-test_that("zooreg test returns tibble with correct rows and columns.", {
-    test_tbl_6 <- sw_tbl(AAPL_zooreg, preserve_index = T, index_rename = "date")
-    expect_equal(nrow(test_tbl_6), 504)
-    expect_equal(ncol(test_tbl_6), 7)
-    expect_equal(colnames(test_tbl_6)[[1]], "date")
+AAPL_zooreg <- sw_zooreg(AAPL_tbl, select = -date, start = 2015, frequency = 250)
+test_that("zooreg to tbl test returns tibble with correct rows and columns.", {
+    test_tbl_3a <- sw_tbl(AAPL_zooreg, preserve_index = T, index_rename = "date")
+    expect_equal(nrow(test_tbl_3a), 504)
+    expect_equal(ncol(test_tbl_3a), 7)
+    expect_equal(colnames(test_tbl_3a)[[1]], "date")
     expect_equal(ncol(sw_tbl(AAPL_zooreg, preserve_index = F, index_rename = "date")), 6)
+
+    # zooreg reverse coercion test ----
+    test_tbl_3b <- AAPL_zooreg %>%
+        sw_tbl(index_rename = "date", .sweep_idx = TRUE)
+    expect_identical(test_tbl_3b, AAPL_tbl)
 
     # Test different start/end types
 
@@ -61,7 +66,7 @@ test_that("zooreg test returns tibble with correct rows and columns.", {
 
 # ts to tbl -----
 AAPL_mts <- sw_ts(AAPL_tbl, select = -date, start = 2015, frequency = 252)
-test_that("mts test returns tibble with correct rows and columns.", {
+test_that("mts to tbl test returns tibble with correct rows and columns.", {
     test_tbl_4 <- sw_tbl(AAPL_mts, preserve_index = T, index_rename = "date")
     expect_equal(nrow(test_tbl_4), 504)
     expect_equal(ncol(test_tbl_4), 7)
@@ -69,11 +74,16 @@ test_that("mts test returns tibble with correct rows and columns.", {
     expect_equal(ncol(sw_tbl(AAPL_mts, preserve_index = F, index_rename = "date")), 6)
     # Warning if no index to preserve
     expect_warning(sw_tbl(sw_ts(AAPL_mts, start = 1), select = -date, preserve_index = T))
+
+    # ts reverse coercion test ----
+    test_tbl_4b <- AAPL_mts %>%
+        sw_tbl(index_rename = "date", .sweep_idx = TRUE)
+    expect_identical(test_tbl_4b, AAPL_tbl)
 })
 
 # matrix to tbl -----
 AAPL_matrix <- AAPL_xts %>% as.matrix()
-test_that("matrix test returns tibble with correct rows and columns.", {
+test_that("matrix to tbl test returns tibble with correct rows and columns.", {
     test_tbl_5 <- sw_tbl(AAPL_matrix, preserve_index = T, index_rename = "date")
     expect_equal(nrow(test_tbl_5), 504)
     expect_equal(ncol(test_tbl_5), 7)
@@ -87,7 +97,7 @@ test_that("matrix test returns tibble with correct rows and columns.", {
 
 # timeSeries::timeSeries to tbl -----
 test_timeSeries <- timeSeries::timeSeries(1:100, timeDate::timeSequence(length.out = 100, by = "sec"))
-test_that("timeSeries test returns tibble with correct rows and columns.", {
+test_that("timeSeries to tbl test returns tibble with correct rows and columns.", {
     test_tbl_6 <- sw_tbl(test_timeSeries, preserve_index = T, index_rename = "date-time")
     expect_equal(nrow(test_tbl_6), 100)
     expect_equal(ncol(test_tbl_6), 2)
@@ -99,7 +109,7 @@ n <- 10
 t <- cumsum(rexp(n, rate = 0.1))
 v <- rnorm(n)
 test_tseries <- tseries::irts(t, v)
-test_that("tseries test returns tibble with correct rows and columns.", {
+test_that("tseries to tbl test returns tibble with correct rows and columns.", {
     test_tbl_7 <- sw_tbl(test_tseries, preserve_index = T, index_rename = "date-time")
     expect_equal(nrow(test_tbl_7), 10)
     expect_equal(ncol(test_tbl_7), 2)
@@ -108,7 +118,7 @@ test_that("tseries test returns tibble with correct rows and columns.", {
 
 # forecast::msts to tbl -----
 test_msts <- forecast::msts(forecast::taylor, seasonal.periods=c(48,336), start=2000+22/52)
-test_that("forecast::msts test returns tibble with correct rows and columns.", {
+test_that("forecast::msts to tbl test returns tibble with correct rows and columns.", {
     test_tbl_8 <- sw_tbl(test_msts, preserve_index = T, index_rename = "index")
     expect_equal(nrow(test_tbl_8), 4032)
     expect_equal(ncol(test_tbl_8), 2)
@@ -121,7 +131,7 @@ test_that("forecast::msts test returns tibble with correct rows and columns.", {
 # FUNCTION: sw_xts -----
 
 # tbl to xts -----
-test_that("tbl test returns xts with correct rows and columns.", {
+test_that("tbl to xts test returns xts with correct rows and columns.", {
     # Use date column to specify order
     test_xts_1 <- sw_xts(AAPL_tbl, select = -date, date_var = date)
     expect_equal(nrow(test_xts_1), 504)
@@ -154,7 +164,7 @@ test_that("tbl test returns xts with correct rows and columns.", {
 
 # zoo to xts -----
 # Default is xts::xts() for other objects; only test zoo
-test_that("zoo test returns xts with correct rows and columns.", {
+test_that("zoo to xts test returns xts with correct rows and columns.", {
     # Use date column to specify order
     test_xts_4 <- sw_xts(AAPL_zoo)
     expect_equal(nrow(test_xts_4), 504)
@@ -176,12 +186,21 @@ test_that("zoo test returns xts with correct rows and columns.", {
 
 })
 
+# ts to xts -----
+# Default is xts::xts() for other objects; only test zoo
+test_that("ts to xts test returns xts with correct rows and columns.", {
+    # Use date column to specify order
+    test_xts_6 <- sw_ts(AAPL_tbl, select = -date) %>%
+        sw_xts()
+    expect_equal(nrow(test_xts_6), 504)
+    expect_equal(ncol(test_xts_6), 6)
 
+})
 
 # FUNCTION: sw_zoo -----
 
 # tbl to zoo -----
-test_that("tbl test returns zoo with correct rows and columns.", {
+test_that("tbl to zoo test returns zoo with correct rows and columns.", {
     # Use date column to specify order
     test_zoo_1 <- sw_zoo(AAPL_tbl, select = -date, date_var = date)
     expect_equal(nrow(test_zoo_1), 504)
@@ -213,7 +232,7 @@ test_that("tbl test returns zoo with correct rows and columns.", {
 
 # xts to zoo -----
 # Default is xts::xts() for other objects; only test zoo
-test_that("xts test returns zoo with correct rows and columns.", {
+test_that("xts to zoo test returns zoo with correct rows and columns.", {
     # Use date column to specify order
     test_zoo_4 <- sw_zoo(AAPL_xts)
     expect_equal(nrow(test_zoo_4), 504)
@@ -239,7 +258,7 @@ test_that("xts test returns zoo with correct rows and columns.", {
 # FUNCTION: sw_zooreg -----
 
 # tbl to zooreg -----
-test_that("tbl test returns zooreg with correct rows and columns.", {
+test_that("tbl to zooreg test returns zooreg with correct rows and columns.", {
     # Use date column to specify order
     test_zooreg_1 <- sw_zooreg(AAPL_tbl, select = -date, date_var = date,
                                freq = 252, start = 2015)
@@ -275,7 +294,7 @@ test_that("tbl test returns zooreg with correct rows and columns.", {
 
 # xts to zooreg -----
 # Default is xts::xts() for other objects; only test zoo
-test_that("xts test returns zooreg with correct rows and columns.", {
+test_that("xts to zooreg test returns zooreg with correct rows and columns.", {
     # Use date column to specify order
     test_zooreg_4 <- sw_zooreg(AAPL_xts, freq = 252, start = 2015)
     expect_equal(nrow(test_zooreg_4), 504)
@@ -305,11 +324,16 @@ test_that("xts test returns zooreg with correct rows and columns.", {
 # FUNCTION: sw_ts -----
 
 # tbl to ts -----
-test_that("tbl test returns ts with correct rows and columns.", {
+test_that("tbl to ts test returns ts with correct rows and columns.", {
     # Use date column to specify order
     test_ts_1 <- sw_ts(AAPL_tbl, select = -date, freq = 252, start = 2015)
     expect_equal(nrow(test_ts_1), 504)
     expect_equal(ncol(test_ts_1), 6)
+
+    # Reverse coercion
+    test_ts_2 <- test_ts_1 %>%
+        sw_tbl(index_rename = "date", .sweep_idx = TRUE)
+    expect_identical(AAPL_tbl, test_ts_2)
 
     # Auto-drop columns
     expect_warning(sw_ts(AAPL_tbl, freq = 252, start = 2015)) # dropping date column
@@ -324,11 +348,16 @@ test_that("tbl test returns ts with correct rows and columns.", {
 })
 
 # xts to ts -----
-test_that("xts test returns ts with correct rows and columns.", {
+test_that("xts to ts test returns ts with correct rows and columns.", {
     # Use date column to specify order
     test_ts_4 <- sw_ts(AAPL_xts, freq = 252, start = 2015)
     expect_equal(nrow(test_ts_4), 504)
     expect_equal(ncol(test_ts_4), 6)
+
+    # Reverse coercion
+    test_ts_5 <- test_ts_4 %>%
+        sw_xts()
+    expect_identical(AAPL_xts, test_ts_5)
 
     # Warning if using select field
     expect_warning(sw_ts(AAPL_xts, select = -date,
@@ -339,3 +368,28 @@ test_that("xts test returns ts with correct rows and columns.", {
                        freq = 252, start = 2015)) # date_var not used
 
 })
+
+# zoo to ts -----
+test_that("zoo to ts test returns ts with correct rows and columns.", {
+    # Use date column to specify order
+    test_ts_6 <- sw_ts(AAPL_zoo, freq = 252, start = 2015)
+    expect_equal(nrow(test_ts_6), 504)
+    expect_equal(ncol(test_ts_6), 6)
+
+    # Reverse coercion
+    test_ts_7 <- test_ts_6 %>%
+        sw_zoo()
+    expect_identical(AAPL_zoo, test_ts_7)
+
+    # Warning if using select field
+    expect_warning(sw_ts(AAPL_xts, select = -date,
+                         freq = 252, start = 2015))  # only for use with data.frames
+
+    # Warning if using date_var field
+    expect_error(sw_ts(AAPL_xts, date_var = date,
+                       freq = 252, start = 2015)) # date_var not used
+
+})
+
+
+

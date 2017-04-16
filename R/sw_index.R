@@ -100,11 +100,17 @@ sw_index.ts <- function(data, .sweep_idx = FALSE) {
 
         # Set time class to date if Date class
         tclass <- attr(attr(data, "index"), "tclass")
-        if (tclass == "Date") ret <- lubridate::as_date(ret)
+        if (!is.null(tclass))
+            if (tclass == "Date") ret <- lubridate::as_date(ret)
+        class <- attr(attr(data, "index"), "class")
+        if (!is.null(class))
+            if (class == "Date") ret <- lubridate::as_date(ret)
 
         # Set the timezone
         tzone <- attr(attr(data, "index"), "tzone")
-        lubridate::tz(ret) <- tzone
+        if (!is.null(tzone))
+            lubridate::tz(ret) <- tzone
+
     }
 
     if (.sweep_idx && is.null(sweep_idx)) {
@@ -208,7 +214,7 @@ sw_index.ets <- function(data, .sweep_idx = FALSE) {
 
 #' @export
 sw_index.stl <- function(data, .sweep_idx = FALSE) {
-    sw_index(data$x, .sweep_idx)
+    sw_index(data$time.series, .sweep_idx)
 }
 
 #' @export
@@ -248,7 +254,7 @@ sw_index.nnetar <- function(data, .sweep_idx = FALSE) {
 
 #' @export
 sw_index.StructTS <- function(data, .sweep_idx = FALSE) {
-    sw_index(data$x, .sweep_idx)
+    sw_index(data$data, .sweep_idx)
 }
 
 #' @export

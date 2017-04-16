@@ -116,10 +116,15 @@ test_that("sw_*.ets test returns tibble with correct rows and columns.", {
     # sw_augment ----
     test <- sw_augment(fit_ets, index_rename = "date")
     expect_is(test, "tbl")
-    # expect_false(any(lapply(test, is.factor) %>% unlist())) # No factors
     expect_equal(nrow(test), 100)
     expect_equal(ncol(test), 4)
     expect_equal(colnames(test)[[1]], "date")
+
+    # sw_tidy_decomp ----
+    test <- sw_tidy_decomp(fit_ets)
+    expect_is(test, "tbl")
+    expect_equal(nrow(test), 101)
+    expect_equal(ncol(test), 4)
 
 })
 
@@ -133,24 +138,28 @@ test_that("sw_*.bats test returns tibble with correct rows and columns.", {
     # sw_tidy ----
     test <- sw_tidy(fit_bats)
     expect_is(test, "tbl")
-    # expect_false(any(lapply(test, is.factor) %>% unlist())) # No factors
     expect_equal(nrow(test), 7)
     expect_equal(ncol(test), 2)
 
     # sw_glance ----
     test <- sw_glance(fit_bats)
     expect_is(test, "tbl")
-    # expect_false(any(lapply(test, is.factor) %>% unlist())) # No factors
     expect_equal(nrow(test), 1)
     expect_equal(ncol(test), 12)
 
     # sw_augment ----
     test <- sw_augment(fit_bats, index_rename = "date")
     expect_is(test, "tbl")
-    # expect_false(any(lapply(test, is.factor) %>% unlist())) # No factors
     expect_equal(nrow(test), 100)
     expect_equal(ncol(test), 4)
     expect_equal(colnames(test)[[1]], "date")
+
+    # sw_tidy_decomp ----
+    test <- sw_tidy_decomp(fit_bats)
+    expect_is(test, "tbl")
+    expect_equal(nrow(test), 100)
+    expect_equal(ncol(test), 3)
+
 
     # tbats()  ----
     fit_tbats <- WWWusage %>%
@@ -159,24 +168,28 @@ test_that("sw_*.bats test returns tibble with correct rows and columns.", {
     # sw_tidy ----
     test <- sw_tidy(fit_tbats)
     expect_is(test, "tbl")
-    # expect_false(any(lapply(test, is.factor) %>% unlist())) # No factors
     expect_equal(nrow(test), 7)
     expect_equal(ncol(test), 2)
 
     # sw_glance ----
     test <- sw_glance(fit_tbats)
     expect_is(test, "tbl")
-    # expect_false(any(lapply(test, is.factor) %>% unlist())) # No factors
     expect_equal(nrow(test), 1)
     expect_equal(ncol(test), 12)
 
     # sw_augment ----
     test <- sw_augment(fit_tbats, index_rename = "date")
     expect_is(test, "tbl")
-    # expect_false(any(lapply(test, is.factor) %>% unlist())) # No factors
     expect_equal(nrow(test), 100)
     expect_equal(ncol(test), 4)
     expect_equal(colnames(test)[[1]], "date")
+
+    # sw_tidy_decomp ----
+    test <- sw_tidy_decomp(fit_tbats)
+    expect_is(test, "tbl")
+    expect_equal(nrow(test), 100)
+    expect_equal(ncol(test), 3)
+
 })
 
 # FUNCTION: sw_*.HoltWinters -----
@@ -189,14 +202,12 @@ test_that("sw_*.HoltWinters test returns tibble with correct rows and columns.",
     # sw_tidy ----
     test <- sw_tidy(fit_hw)
     expect_is(test, "tbl")
-    # expect_false(any(lapply(test, is.factor) %>% unlist())) # No factors
     expect_equal(nrow(test), 17)
     expect_equal(ncol(test), 2)
 
     # sw_glance ----
     test <- sw_glance(fit_hw)
     expect_is(test, "tbl")
-    # expect_false(any(lapply(test, is.factor) %>% unlist())) # No factors
     expect_equal(nrow(test), 1)
     expect_equal(ncol(test), 12)
 
@@ -204,14 +215,12 @@ test_that("sw_*.HoltWinters test returns tibble with correct rows and columns.",
     # Test normal
     test <- sw_augment(fit_hw, index_rename = "date")
     expect_is(test, "tbl")
-    # expect_false(any(lapply(test, is.factor) %>% unlist())) # No factors
     expect_equal(nrow(test), 72)
     expect_equal(ncol(test), 4)
 
     # Test passing data
     test <- sw_augment(fit_hw, data = USAccDeaths, index_rename = "date")
     expect_is(test, "tbl")
-    # expect_false(any(lapply(test, is.factor) %>% unlist())) # No factors
     expect_equal(nrow(test), 72)
     expect_equal(ncol(test), 4)
 
@@ -221,12 +230,18 @@ test_that("sw_*.HoltWinters test returns tibble with correct rows and columns.",
                               index_rename = "date")
                    )
 
+    # sw_tidy_decomp ----
+    test <- sw_tidy_decomp(fit_hw)
+    expect_is(test, "tbl")
+    expect_equal(nrow(test), 72)
+    expect_equal(ncol(test), 5)
+
 })
 
 # FUNCTION: sw_*.nnetar -----
 test_that("sw_*.nnetar test returns tibble with correct rows and columns.", {
 
-    # HoltWinters()  ----
+    # nnetar()  ----
     fit_nnetar <- USAccDeaths %>%
         nnetar()
 
@@ -268,6 +283,72 @@ test_that("sw_*.nnetar test returns tibble with correct rows and columns.", {
 })
 
 
+# FUNCTION: sw_*.StructTS -----
+test_that("sw_*.StructTS test returns tibble with correct rows and columns.", {
 
+    # StructTS()  ----
+    fit_StructTS <- WWWusage %>%
+        StructTS()
 
+    # sw_tidy ----
+    test <- sw_tidy(fit_StructTS)
+    expect_is(test, "tbl")
+    # expect_false(any(lapply(test, is.factor) %>% unlist())) # No factors
+    expect_equal(nrow(test), 3)
+    expect_equal(ncol(test), 2)
 
+    # sw_glance ----
+    test <- sw_glance(fit_StructTS)
+    expect_is(test, "tbl")
+    # expect_false(any(lapply(test, is.factor) %>% unlist())) # No factors
+    expect_equal(nrow(test), 1)
+    expect_equal(ncol(test), 12)
+
+    # sw_augment ----
+    # Test normal
+    test <- sw_augment(fit_StructTS, index_rename = "date")
+    expect_is(test, "tbl")
+    # expect_false(any(lapply(test, is.factor) %>% unlist())) # No factors
+    expect_equal(nrow(test), 100)
+    expect_equal(ncol(test), 4)
+
+})
+
+# FUNCTION sw_*.stl -----
+test_that("sw_*.stl test returns tibble with correct rows and columns.", {
+
+    # stl()  ----
+    fit_stl <- USAccDeaths %>%
+        stl(s.window = 'periodic')
+
+    # sw_tidy_decomp ----
+    test <- sw_tidy_decomp(fit_stl)
+    expect_is(test, "tbl")
+    expect_equal(nrow(test), 72)
+    expect_equal(ncol(test), 5)
+
+    # stlm() ----
+    fit_stlm <- USAccDeaths %>%
+        stlm(modelfunction=ar)
+
+    # sw_tidy_decomp ----
+    test <- sw_tidy_decomp(fit_stlm)
+    expect_is(test, "tbl")
+    expect_equal(nrow(test), 72)
+    expect_equal(ncol(test), 5)
+})
+
+# FUNCTION sw_*.decomposed.ts ----
+test_that("sw_*.decomposed.ts test returns tibble with correct rows and columns.", {
+
+    # decompose()  ----
+    fit_decomposed_ts <- USAccDeaths %>%
+        decompose()
+
+    # sw_tidy_decomp ----
+    test <- sw_tidy_decomp(fit_decomposed_ts)
+    expect_is(test, "tbl")
+    expect_equal(nrow(test), 72)
+    expect_equal(ncol(test), 6)
+
+})

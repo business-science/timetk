@@ -147,6 +147,9 @@ sw_xts_.ts <- function(data, select = NULL, date_var = NULL, ...) {
     # Validate date_var
     if (!(is.null(date_var) || date_var == "NULL")) warning("`date_var` is only applicable to data.frame and tibble objects.")
 
+    # Remove tsp attribute
+    attr(data, "tsp") <- NULL
+
     # Collect xts args
     ret <- data
     xts_args <- list(x = ret)
