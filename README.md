@@ -26,7 +26,7 @@ The package contains the following elements:
 
 3.  **coercion functions**: `sw_tbl`, `sw_ts`, `sw_xts`, `sw_zoo`, and `sw_zooreg` coerce time-based tibbles `tbl` to and from each of the main time-series data types `xts`, `zoo`, `zooreg`, `ts`, maintaining the time-based index.
 
-4.  **unroll function**: `sw_unroll_index` returns the original time series index of `forecast`objects, models, and `ts` objects. Only applicable to `ts` objects coerced using the `sw_ts()` function on data objects with a time-based index (e.g. `tbl`, `xts`, `zoo`).
+4.  **index function**: `sw_index` returns the time series index of time series objects, models, and `forecast` objects. The argument `sweep_idx` can be used to return a special attribute for regularized `ts` objects that returns a non-regularized date / date-time index if present.
 
 Making forecasts in the tidyverse
 ---------------------------------
@@ -95,18 +95,9 @@ data_tbl
 # Coercion from time-based tibble to ts using sw_ts()
 data_ts <- sw_ts(data_tbl, start = c(2010,1), freq = 365)
 
-# Comparison between as.data.frame() and sw_tbl()
-
-# No index
-as.data.frame(data_ts)
-#>     x
-#> 1 100
-#> 2 105
-#> 3 110
-#> 4 115
-#> 5 120
-
-# Regularized numeric index starting in 2010
+# Regularized numeric index
+sw_index(data_ts) %>% str()
+#>  num [1:5] 2010 2010 2010 2010 2010
 sw_tbl(data_ts)
 #> # A tibble: 5 × 2
 #>      index     x
@@ -117,8 +108,10 @@ sw_tbl(data_ts)
 #> 4 2010.008   115
 #> 5 2010.011   120
 
-# Original date index unrolled 
-sw_tbl(data_ts, .unroll = TRUE)
+# Non-regularized date index 
+sw_index(data_ts, .sweep_idx = TRUE) %>% str()
+#>  Date[1:5], format: "2010-01-01" "2010-01-02" "2010-01-03" "2010-01-04" ...
+sw_tbl(data_ts, .sweep_idx = TRUE)
 #> # A tibble: 5 × 2
 #>        index     x
 #>       <date> <dbl>

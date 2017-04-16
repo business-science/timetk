@@ -38,7 +38,7 @@ The `sweep` package combines a collection of tools for performing forecasts and 
 
 3. __coercion functions__: `sw_tbl`, `sw_ts`, `sw_xts`, `sw_zoo`, and `sw_zooreg` coerce time-based tibbles `tbl` to and from each of the main time-series data types `xts`, `zoo`, `zooreg`, `ts`, maintaining the time-based index.
 
-4. __unroll function__: `sw_unroll_index` returns the original time series index of `forecast`objects, models, and `ts` objects. Only applicable to `ts` objects coerced using the `sw_ts()` function on data objects with a time-based index (e.g. `tbl`, `xts`, `zoo`).  
+4. __index function__: `sw_index` returns the time series index of time series objects, models, and `forecast` objects. The argument `sweep_idx` can be used to return a special attribute for regularized `ts` objects that returns a non-regularized date / date-time index if present.  
 
 To illustrate, let's take a basic forecasting workflow starting from data collected in a tibble format and then performing some basic processes to achieve a forecast in tibble format.
 
