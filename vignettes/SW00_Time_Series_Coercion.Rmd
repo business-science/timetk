@@ -28,7 +28,7 @@ library(forecast)
 # devtools::load_all() # Travis CI fails on load_all()
 ```
 
-> A "tidy" toolkit for forecasting and time series analysis
+> Simplified and extensible time series coercion tools
 
 The time series landscape in R is vast, deep, and complex causing many inconsistencies in data attributes and formats ultimately making it difficult to coerce between the different data structures. The `zoo` and `xts` packages solved a number of the issues in dealing with the various classes (`ts`, `zoo`, `xts`, `irts`, `msts`, and the list goes on...). However, because these packages deal in classes other than data frame, the issues with coercion between `tbl` and other time series object classes are still present.
 
@@ -38,92 +38,98 @@ The `sweep` package provides tools that solve the issues with coercion, maximizi
 
 * __Index function__: `sw_index` returns the index. When the argument, `.sweep_idx = TRUE`, A time-based index (non-regularized index) of `forecast` objects, models, and `ts` objects is returned if present. Refer to `sw_ts()` to learn about non-regularized index persistence during the coercion process.
 
-This vignette includes a brief case study on coercion issues and then a detailed explanation of the coercion between `tbl` and several primary time series classes (`xts`, `zoo`, `zooreg` and `ts`).
+This vignette includes a brief case study on coercion issues and then a detailed explanation of `sweep` function coercion between time-based `tbl` objects and several primary time series classes (`xts`, `zoo`, `zooreg` and `ts`).
 
 # Prerequisites
 
 Before we get started, load the following packages.
 
 ```{r, eval = F}
-library(forecast)
 library(tidyquant)
 library(sweep)
 ```
 
 # Data
 
-We'll use the `bike_sales` data set in this vignette. Although this is _fictional_ data, the data is largely based on the structure of realworld data from a "sales database" in a company. It tracks orders with various customers (bike shops) and various products (models). 
+We'll use the ten-year treasury rate available from the FRED database with the code, "DGS10". We'll retrieve the data set using `tq_get(get = "economic.data")`. The return structure is a tibble (or "tidy" data frame), which is not conducive to many of the popular time series analysis packages including `quantmod`, `TTR`, `forecast` and many others. 
 
 ```{r}
-bike_sales
+ten_year_treasury_rate_tbl <- tq_get("DGS10", 
+                                     get  = "economic.data", 
+                                     from = today() - years(20), 
+                                     to   = today()) %>%
+    rename(pct = price) %>%
+    mutate(pct = pct / 100)
+ten_year_treasury_rate_tbl
 ```
 
-In this example we'll use the total sales by month. The following "tidying" script uses the `zoo::as.yearmon()` function to initially coerce to a monthly periodicity. We group by the monthly order date and total the sales for each of the month. We then reconvert the `yearmon` date to `date` class. We now have aggregated monthly sales.
+For purposes of the Case Study, we'll change to a quarterly periodicity using `tq_transmute()` from the `tidyquant` package. Note that `NA` values are automatically removed from the data (message not shown).
 
-```{r}
-bike_sales_tbl <- bike_sales %>%
-    mutate(order.date = as.yearmon(order.date)) %>%
-    select(order.date, price.ext) %>%
-    group_by(order.date) %>%
-    summarize(total.sales = sum(price.ext)) %>%
-    mutate(order.date = as_date(order.date))
-bike_sales_tbl
+```{r, message=F, warning=F}
+ten_year_treasury_rate_tbl <- ten_year_treasury_rate_tbl %>%
+    tq_transmute(pct, mutate_fun = to.period, period = "quarters")
+ten_year_treasury_rate_tbl
 ```
+
 
 
 # Case Study: Coercion issues with ts()
 
-The `forecast` package uses the `ts` data structure, which is the most difficult to coerce back and forth because by default it does not contain a time-based index. Rather it uses a regularized index computed using a `start` and a `frequency`. Coercion to `ts` is done using the `ts()` function from the `stats` library, but coercion using this function results in various problems.  
+The `ts` object class has roots in the `stats` package and many popular packages use this time series data structure including the popular `forecast` package. With that said, the `ts` data structure is the most difficult to coerce back and forth because by default it does not contain a time-based index. Rather it uses a regularized index computed using the `start` and `frequency` arguments. Coercion to `ts` is done using the `ts()` function from the `stats` library, which results in various problems.  
 
 ## Problems 
 
-First, only numeric columns get coerced. If the user forgets to add the `[,"total.sales"]` to drop the "date" column, `ts()` returns dates in numeric format which is not what the user wants. 
+First, only numeric columns get coerced. If the user forgets to add the `[,"pct"]` to drop the "date" column, `ts()` returns dates in numeric format which is not what the user wants. 
 
 ```{r}
-# order.date column gets coerced to numeric
-ts(bike_sales_tbl, start = 2011, freq = 12) %>%
+# date column gets coerced to numeric
+ts(ten_year_treasury_rate_tbl, start = c(1997, 2), freq = 4) %>%
     head()
 ```
 
 The correct method is to call the specific column desired. However, this presents a new issue. The date index is lost, and a different "regularized" index is built using the `start` and `frequency` attributes. 
 
 ```{r}
-bike_sales_ts_stats <- ts(bike_sales_tbl[,"total.sales"], start = 2011, freq = 12)
-bike_sales_ts_stats
+ten_year_treasury_rate_ts_stats <- ts(ten_year_treasury_rate_tbl[,"pct"], 
+                                      start = c(1997, 2), 
+                                      freq  = 4)
+ten_year_treasury_rate_ts_stats
 ```
 
-We can see from the structure that the regularized time series is present, but there is no date index retained.
+We can see from the structure (using the `str()` function) that the regularized time series is present, but there is no date index retained.
 
 ```{r}
 # No date index attribute
-str(bike_sales_ts_stats)
+attributes(ten_year_treasury_rate_ts_stats)
 ```
 
 We can get the index using the `index()` function from the `zoo` package. The index retained is a regular sequence of numeric values. These values cannot be coerced back to the original time-base due to dates and date times containing significantly more information (i.e. year-month-day, hour-minute-second, and timezone attributes).
 
 ```{r}
 # Regularized numeric sequence
-index(bike_sales_ts_stats)
+index(ten_year_treasury_rate_ts_stats)
 ```
 
 
 ## Solution
 
-the `sweep` package contains a new function, `sw_ts()`, that enables maintaining the original date index as an attribute. When we repeat the `tbl` to `ts` coercion process using the new function, `sw_ts()`, we can see a few differences. 
+The `sweep` package contains a new function, `sw_ts()`, that enables maintaining the original date index as an attribute. When we repeat the `tbl` to `ts` coercion process using the new function, `sw_ts()`, we can see a few differences. 
 
-First, only numeric columns get coerced, which prevents unintended consequences due to R coercion rules (e.g. dates getting unintentionally converted or characters causing the homogenous data structure converting all values to character). If a column is dropped, the user gets a warning. 
+First, only numeric columns get coerced, which prevents unintended consequences due to R coercion rules (e.g. dates getting unintentionally converted or characters causing the homogeneous data structure converting all values to character). If a column is dropped, the user gets a warning. 
 
 ```{r}
-# order.date automatically dropped and user is warned
-bike_sales_ts_sweep <- sw_ts(bike_sales_tbl, start = 2007, freq = 12)
-bike_sales_ts_sweep
+# date automatically dropped and user is warned
+ten_year_treasury_rate_ts_sweep <- sw_ts(ten_year_treasury_rate_tbl, 
+                                         start = c(1997, 2), 
+                                         freq  = 4)
+ten_year_treasury_rate_ts_sweep
 ```
 
 Second, the data returned has a few additional attributes. The most important of which is a numeric attribute, "index", which contains the original date information as a number. The `ts()` function will not preserve this index while `sw_ts()` will preserve the index in numeric form along with the time zone and class. 
 
 ```{r}
 # More attributes including time index, time class, time zone
-str(bike_sales_ts_sweep)
+str(ten_year_treasury_rate_ts_sweep)
 ```
 
 ## Advantages of coercion with sw_tbl()
@@ -132,7 +138,7 @@ Since we used the `sw_ts()` during coercion, we can extract the original index i
 
 ```{r}
 # Can now retrieve the original date index
-index <- sw_index(bike_sales_ts_sweep, .sweep_idx = TRUE)
+index <- sw_index(ten_year_treasury_rate_ts_sweep, .sweep_idx = TRUE)
 head(index)
 class(index)
 ```
@@ -141,102 +147,102 @@ Next, the `sw_tbl()` function has an argument `.sweep_idx` also which can be use
 
 ```{r}
 # Coercion back to tibble using the default index (regularized)
-bike_sales_ts_sweep %>%
-    sw_tbl(index_rename = "order.date", .sweep_idx = FALSE)
+ten_year_treasury_rate_ts_sweep %>%
+    sw_tbl(index_rename = "date", .sweep_idx = FALSE)
 ```
 
 Now, the benefit of using the `sw_ts()` function is we can now get the contents of the original tibble using the `sw_tbl()` argument `.sweep_idx = TRUE`.
 
 ```{r}
 # Coercion back to tibble now using the sweep index (date / date-time)
-bike_sales_tbl_sweep <- bike_sales_ts_sweep %>%
-    sw_tbl(index_rename = "order.date", .sweep_idx = TRUE)
-bike_sales_tbl_sweep
+ten_year_treasury_rate_tbl_sweep <- ten_year_treasury_rate_ts_sweep %>%
+    sw_tbl(index_rename = "date", .sweep_idx = TRUE)
+ten_year_treasury_rate_tbl_sweep
 ```
 
 We can see that in this case (and in most cases) you can get the same data frame you began with.
 
 ```{r}
 # Comparing the coerced tibble with the original tibble
-identical(bike_sales_tbl_sweep, bike_sales_tbl)
+identical(ten_year_treasury_rate_tbl_sweep, ten_year_treasury_rate_tbl)
 ```
 
 
 # Coercion Methods
 
-Using the `bike_sales_tbl`, we'll go through the various coercion methods using `sw_tbl`, `sw_xts`, `sw_zoo`, `sw_zooreg`, and `sw_ts`.
+Using the `ten_year_treasury_rate_tbl`, we'll go through the various coercion methods using `sw_tbl`, `sw_xts`, `sw_zoo`, `sw_zooreg`, and `sw_ts`.
 
 ## From tbl
 
 ```{r}
 # Start:
-bike_sales_tbl
+ten_year_treasury_rate_tbl
 ```
 
 
 ### to xts
 
-Use `sw_xts()`. By default "order.date"" is used as the date index and the "order.date" column is dropped from the output. Only numeric columns are coerced to avoid unintentional coercion issues. 
+Use `sw_xts()`. By default "date" is used as the date index and the "date" column is dropped from the output. Only numeric columns are coerced to avoid unintentional coercion issues. 
 
 ```{r}
 # End
-bike_sales_xts <- sw_xts(bike_sales_tbl) 
-head(bike_sales_xts)
+ten_year_treasury_rate_xts <- sw_xts(ten_year_treasury_rate_tbl) 
+head(ten_year_treasury_rate_xts)
 ```
 
 Use the `select` argument to specify which columns to drop. Use the `date_var` argument to specify which column to use as the date index. Notice the message and warning are no longer present.
 
 ```{r}
 # End - Using `select` and `date_var` args
-sw_xts(bike_sales_tbl, select = -order.date, date_var = order.date) %>%
+sw_xts(ten_year_treasury_rate_tbl, select = -date, date_var = date) %>%
     head()
 ```
 
 
 ### to zoo
 
-Use `sw_zoo()`. Same as when coercing to xts, the non-numeric "order.date" column is automatically dropped and the index is automatically selected as the date column. 
+Use `sw_zoo()`. Same as when coercing to xts, the non-numeric "date" column is automatically dropped and the index is automatically selected as the date column. 
 
 ```{r}
 # End
-bike_sales_zoo <- sw_zoo(bike_sales_tbl) 
-head(bike_sales_zoo)
+ten_year_treasury_rate_zoo <- sw_zoo(ten_year_treasury_rate_tbl) 
+head(ten_year_treasury_rate_zoo)
 ```
 
 ### to zooreg
 
-Use `sw_zooreg()`. Same as when coercing to xts, the non-numeric "order.date" column is automatically dropped. The regularized index is built from the function arguments `start` and `freq`.  
+Use `sw_zooreg()`. Same as when coercing to xts, the non-numeric "date" column is automatically dropped. The regularized index is built from the function arguments `start` and `freq`.  
 
 ```{r}
 # End
-bike_sales_zooreg <- sw_zooreg(bike_sales_tbl, start = 2011, freq = 12) 
-head(bike_sales_zooreg)
+ten_year_treasury_rate_zooreg <- sw_zooreg(ten_year_treasury_rate_tbl, start = 2011, freq = 12) 
+head(ten_year_treasury_rate_zooreg)
 ```
 
 The original time-based index is retained and can be accessed using `sw_index(.sweep_idx = TRUE)`.
 
 ```{r}
 # Retrieve original time-based index
-sw_index(bike_sales_zooreg, .sweep_idx = TRUE) %>%
+sw_index(ten_year_treasury_rate_zooreg, .sweep_idx = TRUE) %>%
     str()
 ```
 
 
 ### to ts
 
-Use `sw_ts()`. The non-numeric "order.date" column is automatically dropped. The regularized index is built from the function arguments.  
+Use `sw_ts()`. The non-numeric "date" column is automatically dropped. The regularized index is built from the function arguments.  
 
 ```{r}
 # End
-bike_sales_ts <- sw_ts(bike_sales_tbl, start = 2011, freq = 12) 
-bike_sales_ts
+ten_year_treasury_rate_ts <- sw_ts(ten_year_treasury_rate_tbl, start = 2011, freq = 12) 
+ten_year_treasury_rate_ts
 ```
 
 The original time-based index is retained and can be accessed using `sw_index(.sweep_idx = TRUE)`.
 
 ```{r}
 # Retrieve original time-based index
-sw_index(bike_sales_ts, .sweep_idx = TRUE) %>%
+sw_index(ten_year_treasury_rate_ts, .sweep_idx = TRUE) %>%
     str()
 ```
 
@@ -249,10 +255,10 @@ Going back to tibble is just as easy using `sw_tbl()`.
 
 ```{r}
 # Start
-head(bike_sales_xts)
+head(ten_year_treasury_rate_xts)
 
 # End
-sw_tbl(bike_sales_xts)
+sw_tbl(ten_year_treasury_rate_xts)
 ```
 
 
@@ -260,31 +266,31 @@ sw_tbl(bike_sales_xts)
 
 ```{r}
 # Start
-head(bike_sales_zoo)
+head(ten_year_treasury_rate_zoo)
 
 # End
-sw_tbl(bike_sales_zoo)
+sw_tbl(ten_year_treasury_rate_zoo)
 ```
 
 ### From zooreg
 
 ```{r}
 # Start
-head(bike_sales_zooreg)
+head(ten_year_treasury_rate_zooreg)
 ```
 
 Index is a regularized numeric sequence.
 
 ```{r}
 # End - with default index
-sw_tbl(bike_sales_zooreg)
+sw_tbl(ten_year_treasury_rate_zooreg)
 ```
 
 Index is the original date sequence.
 
 ```{r}
 # End - with sweep index
-sw_tbl(bike_sales_zooreg, .sweep_idx = TRUE)
+sw_tbl(ten_year_treasury_rate_zooreg, .sweep_idx = TRUE)
 ```
 
 
@@ -292,20 +298,20 @@ sw_tbl(bike_sales_zooreg, .sweep_idx = TRUE)
 
 ```{r}
 # Start
-bike_sales_ts
+ten_year_treasury_rate_ts
 ```
 
 Index is a regularized numeric sequence.
 
 ```{r}
 # End - with default index
-sw_tbl(bike_sales_ts)
+sw_tbl(ten_year_treasury_rate_ts)
 ```
 
 Index is the original date sequence.
 
 ```{r}
 # End - with sweep index 
-sw_tbl(bike_sales_ts, .sweep_idx = TRUE)
+sw_tbl(ten_year_treasury_rate_ts, .sweep_idx = TRUE)
 ```
 

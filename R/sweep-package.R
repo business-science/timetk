@@ -1,30 +1,19 @@
-#' sweep: A "tidy" toolkit for forecasting and time series analysis
+#' sweep: Time series coercion tools
 #'
-#' The `sweep` package is a swiss army knife for working with time-series
-#' within the "tidyverse".
-#' While the package is geared towards the workflow required to perform
-#' forecasts using Rob Hyndman's `forecast` package,
-#' it contains elements that can help when performing time series analysis
-#' using tibbles ("tidy" data frames).
+#' The `sweep` package combines a collection of coercion tools for
+#' time series analysis in the "tidyverse".
 #'
 #'
 #'
 #' @details
-#' The goal of the `sweep` package is to "tidy" up the
-#' forecasting workflow. The `sweep` package provides the following tools:
+#' The `sweep` package has two main benefits:
 #'
-#' 1. It provides functions to easily coerce between
-#' "tibbles" ("tidy" data frames) and the various time series data structures.
-#' Refer to [sw_tbl()], [sw_xts()], [sw_zoo()], [sw_zooreg()], and [sw_ts()].
-#' 2. It extends the `broom` package by providing [sw_tidy()], [sw_glance()],
-#' [sw_augment()], [sw_tidy_decomp()] functions for various time-series models such as
-#' `Arima`, `ets`, `HoltzWinters`, `tbats`, etc.
-#' 3. It provides the [sw_sweep()] function which coerces
-#' `forecast` objects to "tibbles" for easy visualization with `ggplot2`
-#' and manipulation with `dplyr`.
+#' 1. It simplifies the coercion process between time-based tibbles (`tbl`)
+#' and the major time series data types `xts`, `zoo`, `zooreg`, and `ts`
+#' 2. It maximizes time-based data retention during coercion to regularized time series
 #'
 #' To learn more about `sweep`, start with the vignettes:
-#'  `browseVignettes(package = "sweep")`
+#' `browseVignettes(package = "sweep")`
 #'
 #' @docType package
 #' @name sweep_package
