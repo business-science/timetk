@@ -17,4 +17,4 @@ notifications:
     on_failure: change
 
 after_success:
-  - Rscript -e 'library(covr);coveralls()'
+  - Rscript -e 'covr::codecov()'

@@ -28,7 +28,7 @@ The package contains the following elements:
 
 3.  **coercion functions**: `sw_tbl`, `sw_ts`, `sw_xts`, `sw_zoo`, and `sw_zooreg` coerce time-based tibbles `tbl` to and from each of the main time-series data types `xts`, `zoo`, `zooreg`, `ts`, maintaining the time-based index.
 
-4.  **index function**: `sw_index` returns the time series index of time series objects, models, and `forecast` objects. The argument `sweep_idx` can be used to return a special attribute for regularized `ts` objects that returns a non-regularized date / date-time index if present.
+4.  **index function**: `sw_index` returns the time series index of time series objects, models, and `forecast` objects. The argument `.sweep_idx` can be used to return a special sweep "index" attribute for regularized `ts` objects that returns a non-regularized date / date-time index if present.
 
 Making forecasts in the tidyverse
 ---------------------------------
