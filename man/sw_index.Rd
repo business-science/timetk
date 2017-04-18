@@ -4,7 +4,7 @@
 \alias{sw_index}
 \title{Extract an index of date or datetime from time series objects, models, forecasts}
 \usage{
-sw_index(data, .sweep_idx = FALSE)
+sw_index(data, .sweep_idx = FALSE, silent = FALSE)
 }
 \arguments{
 \item{data}{A time-based tibble, time-series object, time-series model,
@@ -12,6 +12,8 @@ or \code{forecast} object.}
 
 \item{.sweep_idx}{If \code{.sweep_idx} is \code{TRUE} a sweep time-based index attribute is attempted to be returned.
 If \code{FALSE} the default index is returned. See discussion below for further details.}
+
+\item{silent}{Used to toggle printing of messages and warnings.}
 }
 \value{
 Returns a vector of date or date times
@@ -60,13 +62,6 @@ sw_index(data_ts, .sweep_idx = TRUE)  # Returns original time-based index vector
 sw_tbl(data_ts, .sweep_idx = FALSE) # Returns regularized tbl
 sw_tbl(data_ts, .sweep_idx = TRUE)  # Returns time-based tbl
 
-# Coerce to xts
-data_ts \%>\%
-    sw_xts(order.by = sw_index(., .sweep_idx = TRUE))
-
-# Coerce to zoo
-data_ts \%>\%
-    sw_zoo(order.by = sw_index(., .sweep_idx = TRUE))
 
 
 }

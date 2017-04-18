@@ -7,6 +7,7 @@
 #' @param .sweep_idx
 #' If `.sweep_idx` is `TRUE` a sweep time-based index attribute is attempted to be returned.
 #' If `FALSE` the default index is returned. See discussion below for further details.
+#' @param silent Used to toggle printing of messages and warnings.
 #'
 #' @return Returns a vector of date or date times
 #'
@@ -55,23 +56,16 @@
 #' sw_tbl(data_ts, .sweep_idx = FALSE) # Returns regularized tbl
 #' sw_tbl(data_ts, .sweep_idx = TRUE)  # Returns time-based tbl
 #'
-#' # Coerce to xts
-#' data_ts %>%
-#'     sw_xts(order.by = sw_index(., .sweep_idx = TRUE))
-#'
-#' # Coerce to zoo
-#' data_ts %>%
-#'     sw_zoo(order.by = sw_index(., .sweep_idx = TRUE))
 #'
 #'
 #' @export
-sw_index <- function(data, .sweep_idx = FALSE) {
+sw_index <- function(data, .sweep_idx = FALSE, silent = FALSE) {
     UseMethod("sw_index", data)
 }
 
 
 #' @export
-sw_index.data.frame <- function(data, .sweep_idx = FALSE) {
+sw_index.data.frame <- function(data, .sweep_idx = FALSE, silent = FALSE) {
 
     date_var <- get_date_variables(data)
 
@@ -87,7 +81,7 @@ sw_index.data.frame <- function(data, .sweep_idx = FALSE) {
 }
 
 #' @export
-sw_index.ts <- function(data, .sweep_idx = FALSE) {
+sw_index.ts <- function(data, .sweep_idx = FALSE, silent = FALSE) {
 
     sweep_idx <- attr(data, "index")
 
@@ -114,7 +108,7 @@ sw_index.ts <- function(data, .sweep_idx = FALSE) {
     }
 
     if (.sweep_idx && is.null(sweep_idx)) {
-        warning("sweep attribute `index` not found. Returning default instead.")
+        if (!silent) warning("sweep attribute `index` not found. Returning default instead.")
         .sweep_idx = FALSE
     }
 
@@ -129,9 +123,9 @@ sw_index.ts <- function(data, .sweep_idx = FALSE) {
 }
 
 #' @export
-sw_index.zoo <- function(data, .sweep_idx = FALSE) {
+sw_index.zoo <- function(data, .sweep_idx = FALSE, silent = FALSE) {
 
-    ret <- sw_xts(data) %>%
+    ret <- sw_xts(data, silent = silent) %>%
         sw_index()
 
     return(ret)
@@ -139,7 +133,7 @@ sw_index.zoo <- function(data, .sweep_idx = FALSE) {
 }
 
 #' @export
-sw_index.zooreg <- function(data, .sweep_idx = FALSE) {
+sw_index.zooreg <- function(data, .sweep_idx = FALSE, silent = FALSE) {
 
     sweep_idx <- rownames(data)
     first_val <- sweep_idx[[1]]
@@ -161,7 +155,7 @@ sw_index.zooreg <- function(data, .sweep_idx = FALSE) {
     }
 
     if (.sweep_idx && is.null(sweep_idx)) {
-        warning("sweep attribute `index` not found. Returning default instead.")
+        if (!silent) warning("sweep attribute `index` not found. Returning default instead.")
         .sweep_idx = FALSE
     }
 
@@ -175,7 +169,7 @@ sw_index.zooreg <- function(data, .sweep_idx = FALSE) {
 }
 
 #' @export
-sw_index.xts <- function(data, .sweep_idx = FALSE) {
+sw_index.xts <- function(data, .sweep_idx = FALSE, silent = FALSE) {
 
     if (is.null(attr(data, "index"))) {
         stop("Attribute `index` not found.")
@@ -198,67 +192,67 @@ sw_index.xts <- function(data, .sweep_idx = FALSE) {
 }
 
 #' @export
-sw_index.forecast <- function(data, .sweep_idx = FALSE) {
-    sw_index(data$x, .sweep_idx)
+sw_index.forecast <- function(data, .sweep_idx = FALSE, silent = FALSE) {
+    sw_index(data$x, .sweep_idx, silent)
 }
 
 #' @export
-sw_index.Arima <- function(data, .sweep_idx = FALSE) {
-    sw_index(data$x, .sweep_idx)
+sw_index.Arima <- function(data, .sweep_idx = FALSE, silent = FALSE) {
+    sw_index(data$x, .sweep_idx, silent)
 }
 
 #' @export
-sw_index.ets <- function(data, .sweep_idx = FALSE) {
-    sw_index(data$x, .sweep_idx)
+sw_index.ets <- function(data, .sweep_idx = FALSE, silent = FALSE) {
+    sw_index(data$x, .sweep_idx, silent)
 }
 
 #' @export
-sw_index.stl <- function(data, .sweep_idx = FALSE) {
-    sw_index(data$time.series, .sweep_idx)
+sw_index.stl <- function(data, .sweep_idx = FALSE, silent = FALSE) {
+    sw_index(data$time.series, .sweep_idx, silent)
 }
 
 #' @export
-sw_index.stlm <- function(data, .sweep_idx = FALSE) {
-    sw_index(data$x, .sweep_idx)
+sw_index.stlm <- function(data, .sweep_idx = FALSE, silent = FALSE) {
+    sw_index(data$x, .sweep_idx, silent)
 }
 
 #' @export
-sw_index.stlf <- function(data, .sweep_idx = FALSE) {
-    sw_index(data$x, .sweep_idx)
+sw_index.stlf <- function(data, .sweep_idx = FALSE, silent = FALSE) {
+    sw_index(data$x, .sweep_idx, silent)
 }
 
 #' @export
-sw_index.baggedETS <- function(data, .sweep_idx = FALSE) {
-    sw_index(data$y, .sweep_idx)
+sw_index.baggedETS <- function(data, .sweep_idx = FALSE, silent = FALSE) {
+    sw_index(data$y, .sweep_idx, silent)
 }
 
 #' @export
-sw_index.fracdiff <- function(data, .sweep_idx = FALSE) {
-    sw_index(data$x, .sweep_idx)
+sw_index.fracdiff <- function(data, .sweep_idx = FALSE, silent = FALSE) {
+    sw_index(data$x, .sweep_idx, silent)
 }
 
 #' @export
-sw_index.bats <- function(data, .sweep_idx = FALSE) {
-    sw_index(data$y, .sweep_idx)
+sw_index.bats <- function(data, .sweep_idx = FALSE, silent = FALSE) {
+    sw_index(data$y, .sweep_idx, silent)
 }
 
 #' @export
-sw_index.HoltWinters <- function(data, .sweep_idx = FALSE) {
-    sw_index(data$x, .sweep_idx)
+sw_index.HoltWinters <- function(data, .sweep_idx = FALSE, silent = FALSE) {
+    sw_index(data$x, .sweep_idx, silent)
 }
 
 #' @export
-sw_index.nnetar <- function(data, .sweep_idx = FALSE) {
-    sw_index(data$x, .sweep_idx)
+sw_index.nnetar <- function(data, .sweep_idx = FALSE, silent = FALSE) {
+    sw_index(data$x, .sweep_idx, silent)
 }
 
 #' @export
-sw_index.StructTS <- function(data, .sweep_idx = FALSE) {
-    sw_index(data$data, .sweep_idx)
+sw_index.StructTS <- function(data, .sweep_idx = FALSE, silent = FALSE) {
+    sw_index(data$data, .sweep_idx, silent)
 }
 
 #' @export
-sw_index.default <- function(data, .sweep_idx = FALSE) {
+sw_index.default <- function(data, .sweep_idx = FALSE, silent = FALSE) {
     warning(paste0("`sw_index` is not designed to work with objects of class ", class(data), "."))
     invisible(data)
 }

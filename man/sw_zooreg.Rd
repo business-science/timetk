@@ -7,11 +7,11 @@
 \usage{
 sw_zooreg(data, select = NULL, date_var = NULL, start = 1,
   end = numeric(), frequency = 1, deltat = 1,
-  ts.eps = getOption("ts.eps"), order.by = NULL)
+  ts.eps = getOption("ts.eps"), order.by = NULL, silent = FALSE)
 
 sw_zooreg_(data, select = NULL, date_var = NULL, start = 1,
   end = numeric(), frequency = 1, deltat = 1,
-  ts.eps = getOption("ts.eps"), order.by = NULL)
+  ts.eps = getOption("ts.eps"), order.by = NULL, silent = FALSE)
 }
 \arguments{
 \item{data}{A time-based tibble or time-series object.}
@@ -43,6 +43,8 @@ Column name to be used to \code{order.by}.
     are ordered. If this is specified the arguments \code{start} and
     \code{end} are ignored and \code{zoo(data, order.by, frequency)} is
     called. See \code{\link{zoo}} for more information.}
+
+\item{silent}{Used to toggle printing of messages and warnings.}
 }
 \value{
 Returns a \code{zooreg} object.

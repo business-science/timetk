@@ -8,15 +8,15 @@
 \alias{sweep_internal}
 \title{Internal Functions Used in sweep}
 \usage{
-sw_ts_.data.frame(data, select, start, end, frequency, deltat, ts.eps)
+sw_ts_.data.frame(data, select, start, end, frequency, deltat, ts.eps, silent)
 
-sw_ts_.default(data, select, start, end, frequency, deltat, ts.eps)
+sw_ts_.default(data, select, start, end, frequency, deltat, ts.eps, silent)
 
 sw_zooreg_.data.frame(data, select, date_var, start, end, frequency, deltat,
-  ts.eps, order.by)
+  ts.eps, order.by, silent)
 
 sw_zooreg_.default(data, select, date_var, start, end, frequency, deltat,
-  ts.eps, order.by)
+  ts.eps, order.by, silent)
 }
 \arguments{
 \item{data}{A time-based tibble or time-series object.}
@@ -39,6 +39,8 @@ The column or set of columns to be coerced to \code{zooreg} class.}
 
 \item{ts.eps}{time series comparison tolerance.  Frequencies are considered
     equal if their absolute difference is less than \code{ts.eps}.}
+
+\item{silent}{Used to toggle printing of messages and warnings.}
 
 \item{date_var}{\strong{Applicable to tibbles and data frames only}.
 Column name to be used to \code{order.by}.

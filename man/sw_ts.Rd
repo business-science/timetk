@@ -6,10 +6,10 @@
 \title{Coerce time series objects and tibbles with date/date-time columns to ts.}
 \usage{
 sw_ts(data, select = NULL, start = 1, end = numeric(), frequency = 1,
-  deltat = 1, ts.eps = getOption("ts.eps"))
+  deltat = 1, ts.eps = getOption("ts.eps"), silent = FALSE)
 
 sw_ts_(data, select = NULL, start = 1, end = numeric(), frequency = 1,
-  deltat = 1, ts.eps = getOption("ts.eps"))
+  deltat = 1, ts.eps = getOption("ts.eps"), silent = FALSE)
 }
 \arguments{
 \item{data}{A time-based tibble or time-series object.}
@@ -34,6 +34,8 @@ The column or set of columns to be coerced to \code{ts} class.}
 \item{ts.eps}{time series comparison tolerance.  Frequencies are
     considered equal if their absolute difference is less than
     \code{ts.eps}.}
+
+\item{silent}{Used to toggle printing of messages and warnings.}
 }
 \value{
 Returns a \code{ts} object.

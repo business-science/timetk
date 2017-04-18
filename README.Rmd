@@ -28,25 +28,82 @@ library(sweep)
 ![](http://cranlogs.r-pkg.org/badges/sweep?color=brightgreen)
 ![](http://cranlogs.r-pkg.org/badges/grand-total/sweep?color=brightgreen)
 
-> Simplified and extensible time series coercion tools
+> A "tidy" toolkit for forecasting and time series analysis
 
-The `sweep` package combines a collection of coercion tools for time series analysis in the "tidyverse". 
+The `sweep` package combines a collection of tools for performing forecasts and time series analysis in the "tidyverse". While the package is geared towards the workflow required to perform forecasts using Rob Hyndman's `forecast` package, it contains elements that can help when performing time series analysis using tibbles ("tidy" data frames). 
 
 ## Benefits
 
-* __Simplifies the coercion process between time-based tibbles (`tbl`) and the major time series data types `xts`, `zoo`, `zooreg`, and `ts`__
-* __Maximizes time-based data retention during coercion to regularized time series__
+* __Designed for modeling and scaling forecast analyses using the the `tidyverse` tools in [_R for Data Science_](http://r4ds.had.co.nz/)__
+* __Extends `broom` for forecast model analysis__
+* __Maximizes data retention and simplifies the coercion process between time-based tibbles (`tbl`) and the major time series data types `xts`, `zoo`, `zooreg`, and `ts`__
+* __Combined with the `forecast` and `tidyquant` packages enables end-to-end time series analysis capability__
 
 
 ## Tools
 
 The package contains the following elements:
 
-1. __coercion functions__: `sw_tbl`, `sw_ts`, `sw_xts`, `sw_zoo`, and `sw_zooreg` coerce time-based tibbles `tbl` to and from each of the main time-series data types `xts`, `zoo`, `zooreg`, `ts`, maintaining the time-based index.
+1. __forecast tidier__: `sw_sweep` converts a `forecast` object to a tibble that can be easily manipulated in the "tidyverse".
 
-2. __index function__: `sw_index` returns the time series index of time series objects, models, and `forecast` objects. The argument `.sweep_idx` can be used to return a special sweep "index" attribute for regularized `ts` objects that returns a non-regularized date / date-time index if present.
+2. __broom model tidiers__: `sw_tidy`, `sw_glance`, `sw_augment`, `sw_tidy_decomp` functions extend `tidy`, `glance`, and `augment` from the `broom` package specifically for models (`ets()`, `Arima()`, `bats()`, etc) used for forecasting.
+
+3. __coercion functions__: `sw_tbl`, `sw_ts`, `sw_xts`, `sw_zoo`, and `sw_zooreg` coerce time-based tibbles `tbl` to and from each of the main time-series data types `xts`, `zoo`, `zooreg`, `ts`, maintaining the time-based index.
+
+4. __index function__: `sw_index` returns the time series index of time series objects, models, and `forecast` objects. The argument `.sweep_idx` can be used to return a special sweep "index" attribute for regularized `ts` objects that returns a non-regularized date / date-time index if present.
 
 
+## Making forecasts in the tidyverse
+
+`sweep` enables transitioning from tibble to ts, from ts to model (e.g. Arima, ets, etc), from model to forecast, and then from forecast to tibble. The result is ability to use `dplyr`, `tidyr`, and `ggplot` natively to manipulate, analyze and visualize forecasts.
+
+```{r echo=FALSE, out.width='100%'}
+knitr::include_graphics("img/forecast.png")
+```
+
+## Forecasting multiple time series groups at scale
+
+Often forecasts are required on grouped data to analyse trends in sub-categories. The good news is scaling from one time series to many is easy with the various `sw_` functions in combination with `dplyr` and `purrr`.
+
+```{r echo=FALSE, out.width='100%'}
+knitr::include_graphics("img/time_series_groups.png")
+```
+
+## Forecasting multiple models for accuracy
+
+A common goal in forecasting is to compare different forecast models against each other. `sweep` helps in this area as well.
+
+```{r echo=FALSE, out.width='100%'}
+knitr::include_graphics("img/multiple_models.png")
+```
+
+## broom extensions for forecasting
+
+If you are familiar with `broom`, you know how useful it is for retrieving "tidy" format model coefficients (`tidy`), accuracy statistics (`glance`), and residuals (`augment`). The `sweep` package extends these functions to forecast modeling functions such as ARIMA, ETS, BATS, TBATS, NNETAR, and more: just use the `sweep` functions, `sw_tidy`, `sw_glance`, and `sw_augment`. In addition, a new tidier, `sw_tidy_decomp` is designed to specifically tidy models that produce seasonal decompositions. The compatibility chart is listed below.
+
+```{r, echo = F}
+tibble::tribble(
+    ~Function,       ~`sw_tidy()`, ~`sw_glance()`, ~`sw_augment()`, ~`sw_tidy_decomp()`,
+    "ar()",          "",  "",  "", "",
+    "arima()",       "X", "X", "X", "",
+    "Arima()",       "X", "X", "X", "",
+    "ets()",         "X", "X", "X", "X",
+    "baggedETS()",   "",  "",  "",  "",
+    "bats()",        "X", "X", "X", "X",
+    "tbats()",       "X", "X", "X", "X",
+    "nnetar()",      "X", "X", "X", "",
+    "stl()",         "",  "",  "",  "X",
+    "HoltWinters()", "X", "X", "X", "X",
+    "StructTS",      "X", "X", "X", "X",
+    "tslm()",        "X", "X", "X", "",
+    "decompose()",   "",  "",  "",  "X",
+    "adf.test()",    "X", "X", "",  "",
+    "Box.test()",    "X", "X", "",  "",
+    "kpss.test()",   "X", "X", "",  ""
+) %>%
+    knitr::kable(caption = "Function Compatibility: sw_tidy, sw_glance, sw_augment, sw_tidy_decomp",
+                 align = c("l", "c", "c", "c", "c"))
+```
 
 ## Extensible time series coercion
 
@@ -77,14 +134,14 @@ sw_tbl(data_ts, .sweep_idx = TRUE)
 
 Here's how to install to get started.
 
-_Development version with latest features_:
+Development version with latest features:
 
 ``` {r, eval = FALSE}
 # install.packages("devtools")
 devtools::install_github("business-science/sweep")
 ```
 
-<!-- _CRAN approved version_: -->
+<!-- CRAN approved version: -->
 
 <!-- ```{r, eval = FALSE} -->
 <!-- install.packages("sweep") -->
@@ -94,8 +151,11 @@ devtools::install_github("business-science/sweep")
 
 ## Further Information
 
-The `sweep` package includes a vignette to help users get up to speed quickly:
+The `sweep` package includes several vignettes to help users get up to speed quickly:
 
-* SW00 - Time Series Coercion Using `sweep`
+* SW00 - Introduction to `sweep`
+* SW01 - Forecasting Time Series Groups in the tidyverse
+* SW02 - Forecasting Using Multiple Models
+* SW03 - Time Series Coercion Using `sweep`
 
 <!-- See the [`tidyquant` vignettes](https://cran.r-project.org/package=tidyquant) for further details on the package. -->

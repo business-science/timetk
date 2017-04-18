@@ -8,6 +8,7 @@
 #' @param date_var __Applicable to tibbles and data frames only__.
 #' Column name to be used to `order.by`.
 #' `NULL` by default. If `NULL`, function will find the date or date-time column.
+#' @param silent Used to toggle printing of messages and warnings.
 #' @inheritParams zoo::zooreg
 #'
 #' @return Returns a `zooreg` object.
@@ -68,7 +69,7 @@
 #' @rdname sw_zooreg
 #' @export
 sw_zooreg <- function(data, select = NULL, date_var = NULL, start = 1, end = numeric(), frequency = 1,
-                      deltat = 1, ts.eps = getOption("ts.eps"), order.by = NULL) {
+                      deltat = 1, ts.eps = getOption("ts.eps"), order.by = NULL, silent = FALSE) {
 
     # ts validation
     if (is.matrix(data) || is.data.frame(data))  {
@@ -110,7 +111,8 @@ sw_zooreg <- function(data, select = NULL, date_var = NULL, start = 1, end = num
                                frequency = frequency,
                                deltat    = deltat,
                                ts.eps    = ts.eps,
-                               order.by  = order.by)
+                               order.by  = order.by,
+                               silent    = silent)
     return(ret)
 
 }
@@ -118,7 +120,7 @@ sw_zooreg <- function(data, select = NULL, date_var = NULL, start = 1, end = num
 #' @rdname sw_zooreg
 #' @export
 sw_zooreg_ <- function(data, select = NULL, date_var = NULL, start = 1, end = numeric(), frequency = 1,
-                       deltat = 1, ts.eps = getOption("ts.eps"), order.by = NULL) {
+                       deltat = 1, ts.eps = getOption("ts.eps"), order.by = NULL, silent = FALSE) {
 
     # ts validation
     if (is.matrix(data) || is.data.frame(data))  {
@@ -156,13 +158,14 @@ sw_zooreg_ <- function(data, select = NULL, date_var = NULL, start = 1, end = nu
                                frequency = frequency,
                                deltat    = deltat,
                                ts.eps    = ts.eps,
-                               order.by  = order.by)
+                               order.by  = order.by,
+                               silent    = silent)
     return(ret)
 
 }
 
 
-sw_zooreg_dispatch_ <- function(data, select, date_var, start, end, frequency, deltat, ts.eps, order.by) {
+sw_zooreg_dispatch_ <- function(data, select, date_var, start, end, frequency, deltat, ts.eps, order.by, silent) {
     UseMethod("sw_zooreg_", data)
 }
 
@@ -170,12 +173,12 @@ sw_zooreg_dispatch_ <- function(data, select, date_var, start, end, frequency, d
 
 #' @rdname sweep_internal
 #' @export
-sw_zooreg_.data.frame <- function(data, select, date_var, start, end, frequency, deltat, ts.eps, order.by) {
+sw_zooreg_.data.frame <- function(data, select, date_var, start, end, frequency, deltat, ts.eps, order.by, silent) {
 
     ret <- data
 
     # Coerce to xts, which retains index, timezone, etc
-    ret <- suppressMessages(sweep::sw_xts_(ret, select = select, date_var = date_var))
+    ret <- suppressMessages(sweep::sw_xts_(ret, select = select, date_var = date_var, silent = silent))
 
     # Coerce to ts
     ret <- zoo::zooreg(ret, start = start, end = end, frequency = frequency, deltat = deltat, ts.eps = ts.eps, order.by = order.by)
@@ -186,13 +189,15 @@ sw_zooreg_.data.frame <- function(data, select, date_var, start, end, frequency,
 
 #' @rdname sweep_internal
 #' @export
-sw_zooreg_.default <- function(data, select, date_var, start, end, frequency, deltat, ts.eps, order.by) {
+sw_zooreg_.default <- function(data, select, date_var, start, end, frequency, deltat, ts.eps, order.by, silent) {
 
     # Validate select
-    if (!(is.null(select) || select == "NULL")) warning("`select` is only applicable to data.frame and tibble objects.")
+    if (!(is.null(select) || select == "NULL"))
+        if (!silent) warning("`select` is only applicable to data.frame and tibble objects.")
 
     # Validate select
-    if (!(is.null(date_var) || date_var == "NULL")) warning("`date_var` is only applicable to data.frame and tibble objects.")
+    if (!(is.null(date_var) || date_var == "NULL"))
+        if (!silent) warning("`date_var` is only applicable to data.frame and tibble objects.")
 
 
     # Coerce

@@ -8,6 +8,7 @@
 #' @param date_var __Applicable to tibbles and data frames only__.
 #' Column name to be used to `order.by`.
 #' `NULL` by default. If `NULL`, function will find the date or date-time column.
+#' @param silent Used to toggle printing of messages and warnings.
 #' @param ... Additional parameters to be passed to `xts::xts()`. Refer to `xts::xts()`.
 #'
 #' @return Returns a `xts` object.
@@ -55,7 +56,9 @@
 #' sw_xts(data_tbl)
 #'
 #' # ts can be coerced back to xts
-#' data_tbl %>% sw_ts() %>% sw_xts()
+#' data_tbl %>%
+#'     sw_ts(start = 2016, freq = 365) %>%
+#'     sw_xts()
 #'
 #' ### Using select and date_var
 #' sw_xts(data_tbl, select = y, date_var = date)
@@ -68,23 +71,23 @@
 #'
 #' @name sw_xts
 #' @export
-sw_xts <- function(data, select = NULL, date_var = NULL, ...) {
+sw_xts <- function(data, select = NULL, date_var = NULL, silent = FALSE, ...) {
     select   <- lazyeval::expr_text(select)
     date_var <- lazyeval::expr_text(date_var)
 
-    ret <- sweep::sw_xts_(data = data, select = select, date_var = date_var, ...)
+    ret <- sweep::sw_xts_(data = data, select = select, date_var = date_var, silent = silent, ...)
     return(ret)
 }
 
 #' @export
 #' @rdname sw_xts
-sw_xts_ <- function(data, select = NULL, date_var = NULL, ...) {
+sw_xts_ <- function(data, select = NULL, date_var = NULL, silent = FALSE, ...) {
     UseMethod("sw_xts_", data)
 }
 
 
 #' @export
-sw_xts_.data.frame <- function(data, select = NULL, date_var = NULL, ...) {
+sw_xts_.data.frame <- function(data, select = NULL, date_var = NULL, silent = FALSE, ...) {
 
     # Implement select
     if (!(select == "NULL" || is.null(select))) {
@@ -101,30 +104,32 @@ sw_xts_.data.frame <- function(data, select = NULL, date_var = NULL, ...) {
 
     # Provide warning if columns are dropped
     names_dropped <- names_to_check[!(names_to_check %in% colnames(ret))]
-    if (length(names_dropped) > 0) warning(paste0("Non-numeric columns being dropped: ",
-                                                  stringr::str_c(names_dropped, collapse = ", ")))
+    if (length(names_dropped) > 0)
+        if (!silent) warning(paste0("Non-numeric columns being dropped: ", stringr::str_c(names_dropped, collapse = ", ")))
 
     # Collect xts args
     xts_args <- list(x = ret)
     xts_args <- append(xts_args, list(...))
 
-    # Interpret the order.by
+    # Interpret the order.by if not specified
     if (!("order.by" %in% names(xts_args))) {
 
         # Get date column
         if (!(is.null(date_var) || date_var == "NULL")) {
 
+            # User specifies date_var
             date_col <- dplyr::select_(data, date_var)
             xts_args$order.by <- date_col[[1]]
 
         } else {
 
+            # Auto detect date if date_var not specified
             date_var <- get_date_variables(data)
             date_found <- !purrr::is_empty(date_var)
             if (date_found) {
                 date_col <- dplyr::select_(data, date_var)
                 xts_args$order.by <- date_col[[1]]
-                message(paste0("Using column `", date_var, "` for date_var."))
+                if (!silent) message(paste0("Using column `", date_var, "` for date_var."))
             } else {
                 stop("No date or date-time column found. Object must contain an unambigous date or date-time column.")
             }
@@ -139,13 +144,15 @@ sw_xts_.data.frame <- function(data, select = NULL, date_var = NULL, ...) {
 }
 
 #' @export
-sw_xts_.ts <- function(data, select = NULL, date_var = NULL, ...) {
+sw_xts_.ts <- function(data, select = NULL, date_var = NULL, silent = FALSE, ...) {
 
     # Validate select
-    if (!(is.null(select) || select == "NULL")) warning("`select` is only applicable to data.frame and tibble objects.")
+    if (!(is.null(select) || select == "NULL"))
+        if (!silent) warning("`select` is only applicable to data.frame and tibble objects.")
 
     # Validate date_var
-    if (!(is.null(date_var) || date_var == "NULL")) warning("`date_var` is only applicable to data.frame and tibble objects.")
+    if (!(is.null(date_var) || date_var == "NULL"))
+        if (!silent) warning("`date_var` is only applicable to data.frame and tibble objects.")
 
     # Remove tsp attribute
     attr(data, "tsp") <- NULL
@@ -177,13 +184,15 @@ sw_xts_.ts <- function(data, select = NULL, date_var = NULL, ...) {
 }
 
 #' @export
-sw_xts_.zooreg <- function(data, select = NULL, date_var = NULL, ...) {
+sw_xts_.zooreg <- function(data, select = NULL, date_var = NULL, silent = FALSE, ...) {
 
     # Validate select
-    if (!(is.null(select) || select == "NULL")) warning("`select` is only applicable to data.frame and tibble objects.")
+    if (!(is.null(select) || select == "NULL"))
+        if (!silent) warning("`select` is only applicable to data.frame and tibble objects.")
 
     # Validate date_var
-    if (!(is.null(date_var) || date_var == "NULL")) warning("`date_var` is only applicable to data.frame and tibble objects.")
+    if (!(is.null(date_var) || date_var == "NULL"))
+        if (!silent) warning("`date_var` is only applicable to data.frame and tibble objects.")
 
     # Collect xts args
     ret <- data
@@ -212,13 +221,15 @@ sw_xts_.zooreg <- function(data, select = NULL, date_var = NULL, ...) {
 }
 
 #' @export
-sw_xts_.default <- function(data, select = NULL, date_var = NULL, ...) {
+sw_xts_.default <- function(data, select = NULL, date_var = NULL, silent = FALSE, ...) {
 
     # Validate select
-    if (!(is.null(select) || select == "NULL")) warning("`select` is only applicable to data.frame and tibble objects.")
+    if (!(is.null(select) || select == "NULL"))
+        if (!silent) warning("`select` is only applicable to data.frame and tibble objects.")
 
     # Validate date_var
-    if (!(is.null(date_var) || date_var == "NULL")) warning("`date_var` is only applicable to data.frame and tibble objects.")
+    if (!(is.null(date_var) || date_var == "NULL"))
+        if (!silent) warning("`date_var` is only applicable to data.frame and tibble objects.")
 
     # Coerce to xts
     ret <- xts::xts(data, ...)

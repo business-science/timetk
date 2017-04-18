@@ -5,6 +5,7 @@
 #' @param data A time-based tibble or time-series object.
 #' @param select __Applicable to tibbles and data frames only__.
 #' The column or set of columns to be coerced to `ts` class.
+#' @param silent Used to toggle printing of messages and warnings.
 #' @inheritParams stats::ts
 #'
 #' @return Returns a `ts` object.
@@ -66,7 +67,7 @@
 #' @rdname sw_ts
 #' @export
 sw_ts <- function(data, select = NULL, start = 1, end = numeric(), frequency = 1,
-                  deltat = 1, ts.eps = getOption("ts.eps")) {
+                  deltat = 1, ts.eps = getOption("ts.eps"), silent = FALSE) {
 
     # ts validation
     if (is.matrix(data) || is.data.frame(data))  {
@@ -100,7 +101,8 @@ sw_ts <- function(data, select = NULL, start = 1, end = numeric(), frequency = 1
 
     # Method dispatch
     ret <- sw_ts_dispatch_(data = data, select = select, start = start, end = end,
-                           frequency = frequency, deltat = deltat, ts.eps = ts.eps)
+                           frequency = frequency, deltat = deltat, ts.eps = ts.eps,
+                           silent = silent)
     return(ret)
 
 }
@@ -108,7 +110,7 @@ sw_ts <- function(data, select = NULL, start = 1, end = numeric(), frequency = 1
 #' @rdname sw_ts
 #' @export
 sw_ts_ <- function(data, select = NULL, start = 1, end = numeric(), frequency = 1,
-                   deltat = 1, ts.eps = getOption("ts.eps")) {
+                   deltat = 1, ts.eps = getOption("ts.eps"), silent = FALSE) {
 
     # ts validation
     if (is.matrix(data) || is.data.frame(data))  {
@@ -139,13 +141,14 @@ sw_ts_ <- function(data, select = NULL, start = 1, end = numeric(), frequency = 
 
     # Method dispatch
     ret <- sw_ts_dispatch_(data = data, select = select, start = start, end = end,
-                           frequency = frequency, deltat = deltat, ts.eps = ts.eps)
+                           frequency = frequency, deltat = deltat, ts.eps = ts.eps,
+                           silent = silent)
     return(ret)
 
 }
 
 
-sw_ts_dispatch_ <- function(data, select, start, end, frequency, deltat, ts.eps) {
+sw_ts_dispatch_ <- function(data, select, start, end, frequency, deltat, ts.eps, silent) {
     UseMethod("sw_ts_", data)
 }
 
@@ -153,12 +156,12 @@ sw_ts_dispatch_ <- function(data, select, start, end, frequency, deltat, ts.eps)
 
 #' @rdname sweep_internal
 #' @export
-sw_ts_.data.frame <- function(data, select, start, end, frequency, deltat, ts.eps) {
+sw_ts_.data.frame <- function(data, select, start, end, frequency, deltat, ts.eps, silent) {
 
     ret <- data
 
     # Coerce to xts, which retains index, timezone, etc
-    ret <- suppressMessages(sweep::sw_xts_(ret, select = select))
+    ret <- suppressMessages(sweep::sw_xts_(ret, select = select, silent = silent))
 
     # Coerce to ts
     ret <- stats::ts(ret, start = start, end = end, frequency = frequency, deltat = deltat, ts.eps = ts.eps)
@@ -169,10 +172,11 @@ sw_ts_.data.frame <- function(data, select, start, end, frequency, deltat, ts.ep
 
 #' @rdname sweep_internal
 #' @export
-sw_ts_.default <- function(data, select, start, end, frequency, deltat, ts.eps) {
+sw_ts_.default <- function(data, select, start, end, frequency, deltat, ts.eps, silent) {
 
     # Validate select
-    if (!(is.null(select) || select == "NULL")) warning("`select` is only applicable to data.frame and tibble objects.")
+    if (!(is.null(select) || select == "NULL"))
+        if (!silent) warning("`select` is only applicable to data.frame and tibble objects.")
 
     # Coerce
     ret <- stats::ts(data, start = start, end = end, frequency = frequency, deltat = deltat, ts.eps = ts.eps)

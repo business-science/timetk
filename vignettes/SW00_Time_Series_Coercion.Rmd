@@ -100,7 +100,7 @@ We can see from the structure (using the `str()` function) that the regularized 
 
 ```{r}
 # No date index attribute
-attributes(ten_year_treasury_rate_ts_stats)
+str(ten_year_treasury_rate_ts_stats)
 ```
 
 We can get the index using the `index()` function from the `zoo` package. The index retained is a regular sequence of numeric values. These values cannot be coerced back to the original time-base due to dates and date times containing significantly more information (i.e. year-month-day, hour-minute-second, and timezone attributes).
@@ -174,6 +174,8 @@ Using the `ten_year_treasury_rate_tbl`, we'll go through the various coercion me
 
 ## From tbl
 
+The starting point is the `ten_year_treasury_rate_tbl`. We will coerce this into `xts`, `zoo`, `zooreg` and `ts` classes.
+
 ```{r}
 # Start:
 ten_year_treasury_rate_tbl
@@ -195,6 +197,13 @@ Use the `select` argument to specify which columns to drop. Use the `date_var` a
 ```{r}
 # End - Using `select` and `date_var` args
 sw_xts(ten_year_treasury_rate_tbl, select = -date, date_var = date) %>%
+    head()
+```
+
+Also, as an alternative, we can set `silent = TRUE` to bypass the warnings since the default dropping of the "date" column is what is desired. Notice no messages 
+
+```{r}
+sw_xts(ten_year_treasury_rate_tbl, silent = TRUE) %>%
     head()
 ```
 

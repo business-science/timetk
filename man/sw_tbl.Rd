@@ -5,7 +5,7 @@
 \title{Coerce time-series objects to tibble.}
 \usage{
 sw_tbl(data, preserve_index = TRUE, index_rename = "index",
-  .sweep_idx = FALSE, ...)
+  .sweep_idx = FALSE, silent = FALSE, ...)
 }
 \arguments{
 \item{data}{A time-series object.}
@@ -18,6 +18,8 @@ sw_tbl(data, preserve_index = TRUE, index_rename = "index",
 regularized objects that contain a sweep "index" attribute.
 Refer to \code{\link[=sw_index]{sw_index()}} for more information on returning index information
 from regularized timeseries objects (i.e. \code{ts}).}
+
+\item{silent}{Used to toggle printing of messages and warnings.}
 
 \item{...}{Additional parameters passed to the \code{\link[tibble:as_tibble]{tibble::as_tibble()}} function.}
 }
@@ -41,7 +43,8 @@ can be changed using the \code{index_rename} argument.
 The \code{.sweep_idx} argument is applicable when coercing \code{ts} objects that were
 created using \code{sw_ts()} from an object that had a time base
 (e.g. \code{tbl}, \code{xts}, \code{zoo}).
-Setting \code{.sweep_idx = TRUE} enables returning the sweep "index" attribute.
+Setting \code{.sweep_idx = TRUE} enables returning the sweep "index" attribute if present,
+which is the original (non-regularized) time-based index.
 }
 \examples{
 library(tidyverse)

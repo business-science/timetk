@@ -8,6 +8,7 @@
 #' @param date_var __Applicable to tibbles and data frames only__.
 #' Column name to be used to `order.by`.
 #' `NULL` by default. If `NULL`, function will find the date or date-time column.
+#' @param silent Used to toggle printing of messages and warnings.
 #' @param ... Additional parameters to be passed to `xts::xts()`. Refer to `xts::xts()`.
 #'
 #' @return Returns a `zoo` object.
@@ -57,7 +58,9 @@
 #' sw_zoo(data_tbl)
 #'
 #' # ts can be coerced back to zoo
-#' data_tbl %>% sw_ts() %>% sw_zoo()
+#' data_tbl %>%
+#'     sw_ts(start = 2016, freq = 365) %>%
+#'     sw_zoo()
 #'
 #'
 #' ### Using select and date_var
@@ -71,13 +74,13 @@
 #'
 #' @name sw_zoo
 #' @export
-sw_zoo <- function(data, select = NULL, date_var = NULL, ...) {
+sw_zoo <- function(data, select = NULL, date_var = NULL, silent = FALSE, ...) {
 
     select <- lazyeval::expr_text(select)
     date_var <- lazyeval::expr_text(date_var)
 
     # Coerce to xts then to zoo
-    ret <- sweep::sw_xts_(data = data, select = select, date_var = date_var, ...)
+    ret <- sweep::sw_xts_(data = data, select = select, date_var = date_var, silent = silent, ...)
     ret <- zoo::zoo(ret)
 
     return(ret)
@@ -86,10 +89,10 @@ sw_zoo <- function(data, select = NULL, date_var = NULL, ...) {
 
 #' @export
 #' @rdname sw_zoo
-sw_zoo_ <- function(data, select = NULL, date_var = NULL, ...) {
+sw_zoo_ <- function(data, select = NULL, date_var = NULL, silent = FALSE, ...) {
 
     # Coerce to xts then to zoo
-    ret <- sweep::sw_xts_(data = data, select = select, date_var = date_var, ...)
+    ret <- sweep::sw_xts_(data = data, select = select, date_var = date_var, silent = silent, ...)
     ret <- zoo::zoo(ret)
 
     return(ret)

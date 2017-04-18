@@ -5,9 +5,9 @@
 \alias{sw_xts_}
 \title{Coerce time series objects and tibbles with date/date-time columns to xts.}
 \usage{
-sw_xts(data, select = NULL, date_var = NULL, ...)
+sw_xts(data, select = NULL, date_var = NULL, silent = FALSE, ...)
 
-sw_xts_(data, select = NULL, date_var = NULL, ...)
+sw_xts_(data, select = NULL, date_var = NULL, silent = FALSE, ...)
 }
 \arguments{
 \item{data}{A time-based tibble or time-series object.}
@@ -18,6 +18,8 @@ The column or set of columns to be coerced to \code{ts} class.}
 \item{date_var}{\strong{Applicable to tibbles and data frames only}.
 Column name to be used to \code{order.by}.
 \code{NULL} by default. If \code{NULL}, function will find the date or date-time column.}
+
+\item{silent}{Used to toggle printing of messages and warnings.}
 
 \item{...}{Additional parameters to be passed to \code{xts::xts()}. Refer to \code{xts::xts()}.}
 }
@@ -70,7 +72,9 @@ xts::xts(data_tbl[,-1], order.by = data_tbl$date)
 sw_xts(data_tbl)
 
 # ts can be coerced back to xts
-data_tbl \%>\% sw_ts() \%>\% sw_xts()
+data_tbl \%>\%
+    sw_ts(start = 2016, freq = 365) \%>\%
+    sw_xts()
 
 ### Using select and date_var
 sw_xts(data_tbl, select = y, date_var = date)
