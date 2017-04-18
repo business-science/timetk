@@ -69,7 +69,9 @@ Maximum data retention
 ----------------------
 
 -   **Problem**: The `ts()` function drops the time series data for a regularized index using the `start` and `freq` arguments.
--   **Solution**: The new `sw_ts()` stores the original date or datetime index as a second index ("sweep index"). The default regularized index is retrieved with `sw_index()`.
+-   **Solution**: The new `sw_ts()` stores the original date or datetime index as a second index ("sweep index").
+
+The index is retrieved with `sw_index()`. The default index for `ts` class is the regularized index.
 
 ``` r
 # Regularized numeric index
@@ -77,7 +79,7 @@ sw_index(data_ts)
 #> [1] 2010.000 2010.003 2010.005 2010.008 2010.011
 ```
 
-The original date or datetime index is retrieved by setting `.sweep_idx = TRUE`.
+The original date or datetime index can be retrieved by setting `.sweep_idx = TRUE`. Note that a "sweep index" must be present. This can be tested with the function `has_sweep_idx()`.
 
 ``` r
 # Secondary "sweep index": date or date-time index now retrievable
@@ -100,19 +102,21 @@ data_ts %>%
 #> 5 2010-01-05   120
 ```
 
+This covers the basics of the `sweep` package time series coercion capabilities, but there's much more to learn.
+
 Installation
 ------------
 
-Here's how to install to get started.
+Here's how to get started.
 
-*Development version with latest features*:
+*Download development version with latest features*:
 
 ``` r
 # install.packages("devtools")
 devtools::install_github("business-science/sweep")
 ```
 
-<!-- _CRAN approved version_: -->
+<!-- _Or, download CRAN approved version_: -->
 <!-- ```{r, eval = FALSE} -->
 <!-- install.packages("sweep") -->
 <!-- ``` -->
