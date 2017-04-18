@@ -230,7 +230,7 @@ sw_tbl.ts <- function(data, preserve_index = TRUE, index_rename = "index", .swee
                        silent         = silent,
                        ...            = ...)
         } else {
-            if (!silent) warning("No sweep `index` attribute found. Using regularized index.")
+            # if (!silent) warning("No sweep `index` attribute found. Using regularized index.")
             ret <- sw_tbl(zoo::as.zoo(data), preserve_index, index_rename, .sweep_idx, silent, ...)
         }
 
@@ -273,13 +273,7 @@ sw_tbl.irts <- function(data, preserve_index = TRUE, index_rename = "index", .sw
 #' @export
 sw_tbl.default <- function(data, preserve_index = TRUE, index_rename = "index", .sweep_idx = FALSE, silent = FALSE, ...) {
 
-    tryCatch({
-        # Attempt coercion to data.frame, then to tbl
-        ret <- sw_tbl(as.data.frame(data), preserve_index, index_rename, .sweep_idx, silent, ...)
-        return(ret)
-    }, error = function(e) {
-        warning(paste0("Coercion unsuccessful. Function does not support class ", class(data)[[1]], ". ", e))
-        return(data)
-    })
+    ret <- sw_tbl(as.data.frame(data), preserve_index, index_rename, .sweep_idx, silent, ...)
+    return(ret)
 
 }
