@@ -48,9 +48,11 @@ The package contains the following elements:
 
 
 
-## Extensible time series coercion
+## Simplified time series coercion
 
 The coercion functions `sw_tbl`, `sw_xts`, `sw_zoo`, `sw_zooreg`, and `sw_ts` enable maximize data retention and simplify the coercion process. Further working with regularized time series (`ts`) class has been a particular pain until now. 
+
+The data process often starts with a time-based tibble:
 
 ```{r}
 # Time based tibble
@@ -59,17 +61,48 @@ data_tbl <- tibble(
     x    = seq(100, 120, by = 5)
 )
 data_tbl
+```
 
-# Coercion from time-based tibble to ts using sw_ts()
-data_ts <- sw_ts(data_tbl, start = c(2010,1), freq = 365)
+Coercion to `xts`, `zoo`, or `ts` is simplified. The data is ordered correctly automatically using the column containing the date or datetime information. Non-numeric columns are automatically dropped with a warning to the user (the `silent = TRUE` hides the warnings).
 
+```{r}
+# xts
+data_xts <- sw_xts(data_tbl, silent = TRUE)
+```
+
+```{r}
+# zoo
+data_zoo <- sw_zoo(data_tbl, silent = TRUE)
+```
+
+
+```{r}
+# ts
+data_ts <- sw_ts(data_tbl, start = 2010, freq = 365, silent = TRUE)
+```
+
+## Maximum data retention
+
+* __Problem__: The `ts()` function drops the time series data for a regularized index using the `start` and `freq` arguments. 
+* __Solution__: The new `sw_ts()` stores the original date or datetime index as a second index ("sweep index"). The default regularized index is retrieved with `sw_index()`.
+
+```{r}
 # Regularized numeric index
-sw_index(data_ts) %>% str()
-sw_tbl(data_ts)
+sw_index(data_ts) 
+```
 
-# Non-regularized date index 
-sw_index(data_ts, .sweep_idx = TRUE) %>% str()
-sw_tbl(data_ts, .sweep_idx = TRUE)
+The original date or datetime index is retrieved by setting `.sweep_idx = TRUE`.
+
+```{r}
+# Secondary "sweep index": date or date-time index now retrievable
+sw_index(data_ts, .sweep_idx = TRUE)
+```
+
+Using this approach of storing the secondary "sweep index", we can now go from `ts` back to `tbl`.
+
+```{r}
+data_ts %>%
+    sw_tbl(.sweep_idx = TRUE)
 ```
 
 
