@@ -109,8 +109,12 @@ sw_index.ts <- function(data, .sweep_idx = FALSE, silent = FALSE) {
 
         # Set time class to date if Date class
         tclass <- attr(attr(data, "index"), "tclass")
-        if (!is.null(tclass))
+        if (!is.null(tclass)) {
             if (tclass == "Date") ret <- lubridate::as_date(ret)
+            if (tclass == "yearmon") ret <- zoo::as.yearmon(ret)
+            if (tclass == "yearqtr") ret <- zoo::as.yearqtr(ret)
+        }
+
         class <- attr(attr(data, "index"), "class")
         if (!is.null(class))
             if (class == "Date") ret <- lubridate::as_date(ret)
@@ -118,7 +122,8 @@ sw_index.ts <- function(data, .sweep_idx = FALSE, silent = FALSE) {
         # Set the timezone
         tzone <- attr(attr(data, "index"), "tzone")
         if (!is.null(tzone))
-            lubridate::tz(ret) <- tzone
+            if (!(tclass %in% c("yearmon", "yearqtr")))
+                lubridate::tz(ret) <- tzone
 
     }
 
@@ -272,27 +277,32 @@ sw_index.default <- function(data, .sweep_idx = FALSE, silent = FALSE) {
 #' @export
 #' @rdname sw_index
 has_sweep_idx <- function(data) {
-    UseMethod("has_sweep_idx")
+    UseMethod("has_sweep_idx", data)
 }
 
+#' @export
 has_sweep_idx.data.frame <- function(data) {
     FALSE
 }
 
+#' @export
 has_sweep_idx.xts <- function(data) {
     FALSE
 }
 
+#' @export
 has_sweep_idx.zoo <- function(data) {
     FALSE
 }
 
+#' @export
 has_sweep_idx.zooreg <- function(data) {
     has_sweep_index <- TRUE
     if (is.null(rownames(data))) has_sweep_index <- FALSE
     return(has_sweep_index)
 }
 
+#' @export
 has_sweep_idx.ts <- function(data) {
     has_sweep_index <- TRUE
     if (is.null(attr(data, "index"))) has_sweep_index <- FALSE
