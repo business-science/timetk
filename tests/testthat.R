@@ -1,4 +1,4 @@
 library(testthat)
-library(sweep)
+library(timekit)
 
-test_check("sweep")
+test_check("timekit")

@@ -16,21 +16,21 @@ knitr::opts_chunk$set(
 
 ```{r, echo=FALSE}
 library(tidyquant)
-library(sweep)
+library(timekit)
 ```
 
 
-# sweep
+# timekit
 
-[![Travis-CI Build Status](https://travis-ci.org/business-science/sweep.svg?branch=master)](https://travis-ci.org/business-science/sweep.svg?branch=master)
-[![codecov](https://codecov.io/gh/business-science/sweep/branch/master/graph/badge.svg)](https://codecov.io/gh/business-science/sweep)
-[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/sweep)](https://cran.r-project.org/package=sweep)
-![](http://cranlogs.r-pkg.org/badges/sweep?color=brightgreen)
-![](http://cranlogs.r-pkg.org/badges/grand-total/sweep?color=brightgreen)
+[![Travis-CI Build Status](https://travis-ci.org/business-science/timekit.svg?branch=master)](https://travis-ci.org/business-science/timekit.svg?branch=master)
+[![codecov](https://codecov.io/gh/business-science/timekit/branch/master/graph/badge.svg)](https://codecov.io/gh/business-science/timekit)
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/timekit)](https://cran.r-project.org/package=timekit)
+![](http://cranlogs.r-pkg.org/badges/timekit?color=brightgreen)
+![](http://cranlogs.r-pkg.org/badges/grand-total/timekit?color=brightgreen)
 
 > Simplified and extensible time series coercion tools
 
-The `sweep` package combines a collection of coercion tools for time series analysis in the "tidyverse". 
+The `timekit` package combines a collection of coercion tools for time series analysis. 
 
 ## Benefits
 
@@ -42,15 +42,15 @@ The `sweep` package combines a collection of coercion tools for time series anal
 
 The package contains the following elements:
 
-1. __coercion functions__: `sw_tbl`, `sw_ts`, `sw_xts`, `sw_zoo`, and `sw_zooreg` coerce time-based tibbles `tbl` to and from each of the main time-series data types `xts`, `zoo`, `zooreg`, `ts`, maintaining the time-based index.
+1. __coercion functions__: `tk_tbl`, `tk_ts`, `tk_xts`, `tk_zoo`, and `tk_zooreg` coerce time-based tibbles `tbl` to and from each of the main time-series data types `xts`, `zoo`, `zooreg`, `ts`, maintaining the time-based index.
 
-2. __index function__: `sw_index` returns the time series index of time series objects, models, and `forecast` objects. The argument `.sweep_idx` can be used to return a special sweep "index" attribute for regularized `ts` objects that returns a non-regularized date / date-time index if present.
+2. __index function__: `tk_index` returns the time series index of time series objects, models, and `forecast` objects. The argument `timekit_idx` can be used to return a special timekit "index" attribute for regularized `ts` objects that returns a non-regularized date / date-time index if present.
 
 
 
 ## Simplified time series coercion
 
-The coercion functions `sw_tbl`, `sw_xts`, `sw_zoo`, `sw_zooreg`, and `sw_ts` enable maximize data retention and simplify the coercion process. Further working with regularized time series (`ts`) class has been a particular pain until now. 
+The coercion functions `tk_tbl`, `tk_xts`, `tk_zoo`, `tk_zooreg`, and `tk_ts` enable maximize data retention and simplify the coercion process. Further working with regularized time series (`ts`) class has been a particular pain until now. 
 
 The data process often starts with a time-based tibble:
 
@@ -67,72 +67,70 @@ Coercion to `xts`, `zoo`, or `ts` is simplified. The data is ordered correctly a
 
 ```{r}
 # xts
-data_xts <- sw_xts(data_tbl, silent = TRUE)
+data_xts <- tk_xts(data_tbl, silent = TRUE)
 ```
 
 ```{r}
 # zoo
-data_zoo <- sw_zoo(data_tbl, silent = TRUE)
+data_zoo <- tk_zoo(data_tbl, silent = TRUE)
 ```
 
 
 ```{r}
 # ts
-data_ts <- sw_ts(data_tbl, start = 2010, freq = 365, silent = TRUE)
+data_ts <- tk_ts(data_tbl, start = 2010, freq = 365, silent = TRUE)
 ```
 
 ## Maximum data retention
 
 * __Problem__: The `ts()` function drops the time series data for a regularized index using the `start` and `freq` arguments. 
-* __Solution__: The new `sw_ts()` stores the original date or datetime index as a second index ("sweep index"). 
+* __Solution__: The new `tk_ts()` stores the original date or datetime index as a second index ("timekit index"). 
 
-The index is retrieved with `sw_index()`. The default index for `ts` class is the regularized index.
+The index is retrieved with `tk_index()`. The default index for `ts` class is the regularized index.
 
 ```{r}
 # Regularized numeric index
-sw_index(data_ts) 
+tk_index(data_ts) 
 ```
 
-The original date or datetime index can be retrieved by setting `.sweep_idx = TRUE`. Note that a "sweep index" must be present. This can be tested with the function `has_sweep_idx()`.
+The original date or datetime index can be retrieved by setting `timekit_idx = TRUE`. Note that a "timekit index" must be present. This can be tested with the function `has_timekit_idx()`.
 
 ```{r}
-# Secondary "sweep index": date or date-time index now retrievable
-sw_index(data_ts, .sweep_idx = TRUE)
+# Secondary "timekit index": date or date-time index now retrievable
+tk_index(data_ts, timekit_idx = TRUE)
 ```
 
-Using this approach of storing the secondary "sweep index", we can now go from `ts` back to `tbl`.
+Using this approach of storing the secondary "timekit index", we can now go from `ts` back to `tbl`.
 
 ```{r}
 data_ts %>%
-    sw_tbl(.sweep_idx = TRUE)
+    tk_tbl(timekit_idx = TRUE)
 ```
 
 
-This covers the basics of the `sweep` package time series coercion capabilities, but there's much more to learn. 
+This covers the basics of the `timekit` package time series coercion capabilities. Here's how to get started.
 
 ## Installation
-
-Here's how to get started.
 
 _Download development version with latest features_:
 
 ``` {r, eval = FALSE}
 # install.packages("devtools")
-devtools::install_github("business-science/sweep")
+devtools::install_github("business-science/timekit")
 ```
 
 <!-- _Or, download CRAN approved version_: -->
 
 <!-- ```{r, eval = FALSE} -->
-<!-- install.packages("sweep") -->
+<!-- install.packages("timekit") -->
 <!-- ``` -->
 
 
 
 ## Further Information
 
-The `sweep` package includes a vignette to help users get up to speed quickly:
+The `timekit` package includes a vignette to help users get up to speed quickly:
 
-* SW00 - Time Series Coercion Using `sweep`
+* SW00 - Time Series Coercion Using `timekit`
 
 <!-- See the [`tidyquant` vignettes](https://cran.r-project.org/package=tidyquant) for further details on the package. -->

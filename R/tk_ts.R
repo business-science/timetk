@@ -1,6 +1,6 @@
 #' Coerce time series objects and tibbles with date/date-time columns to ts.
 #'
-#' @name sw_ts
+#' @name tk_ts
 #'
 #' @param data A time-based tibble or time-series object.
 #' @param select __Applicable to tibbles and data frames only__.
@@ -10,13 +10,13 @@
 #'
 #' @return Returns a `ts` object.
 #'
-#' @details `sw_ts()` is a wrapper for `stats::ts()` that is designed
+#' @details `tk_ts()` is a wrapper for `stats::ts()` that is designed
 #' to coerce `tibble` objects that have a "time-base" (meaning the values vary with time)
 #' to `ts` class objects. There are two main advantages:
 #'
 #' 1. Non-numeric columns get removed instead of being populated by NA's.
-#' 2. The returned `ts` object retains a "sweep index" (and various other attributes) if detected.
-#' The "sweep index" can be used to coerce between `tbl`, `xts`, `zoo`, and `ts` data types.
+#' 2. The returned `ts` object retains a "timekit index" (and various other attributes) if detected.
+#' The "timekit index" can be used to coerce between `tbl`, `xts`, `zoo`, and `ts` data types.
 #'
 #' The `select` argument is used to select subsets
 #' of columns from the incoming data.frame.
@@ -26,15 +26,15 @@
 #' For non-data.frame object classes (e.g. `xts`, `zoo`, `timeSeries`, etc) the objects are coerced
 #' using `stats::ts()`.
 #'
-#' `sw_ts_` is a nonstandard evaluation method.
+#' `tk_ts_` is a nonstandard evaluation method.
 #'
-#' @seealso [sw_index()], [sw_tbl()], [sw_xts()], [sw_zoo()], [sw_zooreg()]
+#' @seealso [tk_index()], [tk_tbl()], [tk_xts()], [tk_zoo()], [tk_zooreg()]
 #'
 #' @examples
 #' library(tidyverse)
-#' library(sweep)
+#' library(timekit)
 #'
-#' ### tibble to ts: Comparison between sw_ts() and stats::ts()
+#' ### tibble to ts: Comparison between tk_ts() and stats::ts()
 #' data_tbl <- tibble::tibble(
 #'     date = seq.Date(as.Date("2016-01-01"), by = 1, length.out = 5),
 #'     x    = rep("chr values", 5),
@@ -44,29 +44,29 @@
 #' # as.ts: Character columns introduce NA's; Result does not retain index
 #' stats::ts(data_tbl[,-1], start = 2016)
 #'
-#' # sw_ts: Only numeric columns get coerced; Result retains index in numeric format
-#' data_ts <- sw_ts(data_tbl, start = 2016)
+#' # tk_ts: Only numeric columns get coerced; Result retains index in numeric format
+#' data_ts <- tk_ts(data_tbl, start = 2016)
 #' data_ts
 #'
-#' # sweep index
-#' sw_index(data_ts, .sweep_idx = FALSE)   # Regularized index returned
-#' sw_index(data_ts, .sweep_idx = TRUE)    # Original date index returned
+#' # timekit index
+#' tk_index(data_ts, timekit_idx = FALSE)   # Regularized index returned
+#' tk_index(data_ts, timekit_idx = TRUE)    # Original date index returned
 #'
 #' # Coerce back to tibble
-#' data_ts %>% sw_tbl(.sweep_idx = TRUE)
+#' data_ts %>% tk_tbl(timekit_idx = TRUE)
 #'
 #'
 #' ### Using select
-#' sw_ts(data_tbl, select = y)
+#' tk_ts(data_tbl, select = y)
 #'
 #'
 #' ### NSE: Enables programming
 #' select   <- "y"
-#' sw_ts_(data_tbl, select = select)
+#' tk_ts_(data_tbl, select = select)
 #'
-#' @rdname sw_ts
+#' @rdname tk_ts
 #' @export
-sw_ts <- function(data, select = NULL, start = 1, end = numeric(), frequency = 1,
+tk_ts <- function(data, select = NULL, start = 1, end = numeric(), frequency = 1,
                   deltat = 1, ts.eps = getOption("ts.eps"), silent = FALSE) {
 
     # ts validation
@@ -100,16 +100,16 @@ sw_ts <- function(data, select = NULL, start = 1, end = numeric(), frequency = 1
     select   <- lazyeval::expr_text(select)
 
     # Method dispatch
-    ret <- sw_ts_dispatch_(data = data, select = select, start = start, end = end,
+    ret <- tk_ts_dispatch_(data = data, select = select, start = start, end = end,
                            frequency = frequency, deltat = deltat, ts.eps = ts.eps,
                            silent = silent)
     return(ret)
 
 }
 
-#' @rdname sw_ts
+#' @rdname tk_ts
 #' @export
-sw_ts_ <- function(data, select = NULL, start = 1, end = numeric(), frequency = 1,
+tk_ts_ <- function(data, select = NULL, start = 1, end = numeric(), frequency = 1,
                    deltat = 1, ts.eps = getOption("ts.eps"), silent = FALSE) {
 
     # ts validation
@@ -140,7 +140,7 @@ sw_ts_ <- function(data, select = NULL, start = 1, end = numeric(), frequency = 
         stop("'start' cannot be after 'end'")
 
     # Method dispatch
-    ret <- sw_ts_dispatch_(data = data, select = select, start = start, end = end,
+    ret <- tk_ts_dispatch_(data = data, select = select, start = start, end = end,
                            frequency = frequency, deltat = deltat, ts.eps = ts.eps,
                            silent = silent)
     return(ret)
@@ -148,20 +148,20 @@ sw_ts_ <- function(data, select = NULL, start = 1, end = numeric(), frequency = 
 }
 
 
-sw_ts_dispatch_ <- function(data, select, start, end, frequency, deltat, ts.eps, silent) {
-    UseMethod("sw_ts_", data)
+tk_ts_dispatch_ <- function(data, select, start, end, frequency, deltat, ts.eps, silent) {
+    UseMethod("tk_ts_", data)
 }
 
 
 
-#' @rdname sweep_internal
+#' @rdname timekit_internal
 #' @export
-sw_ts_.data.frame <- function(data, select, start, end, frequency, deltat, ts.eps, silent) {
+tk_ts_.data.frame <- function(data, select, start, end, frequency, deltat, ts.eps, silent) {
 
     ret <- data
 
     # Coerce to xts, which retains index, timezone, etc
-    ret <- suppressMessages(sweep::sw_xts_(ret, select = select, silent = silent))
+    ret <- suppressMessages(tk_xts_(ret, select = select, silent = silent))
 
     # Coerce to ts
     ret <- stats::ts(ret, start = start, end = end, frequency = frequency, deltat = deltat, ts.eps = ts.eps)
@@ -170,9 +170,9 @@ sw_ts_.data.frame <- function(data, select, start, end, frequency, deltat, ts.ep
 
 }
 
-#' @rdname sweep_internal
+#' @rdname timekit_internal
 #' @export
-sw_ts_.default <- function(data, select, start, end, frequency, deltat, ts.eps, silent) {
+tk_ts_.default <- function(data, select, start, end, frequency, deltat, ts.eps, silent) {
 
     # Validate select
     if (!(is.null(select) || select == "NULL"))

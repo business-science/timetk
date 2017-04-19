@@ -1,6 +1,6 @@
 #' Coerce time series objects and tibbles with date/date-time columns to xts.
 #'
-#' @name sw_xts
+#' @name tk_xts
 #'
 #' @param data A time-based tibble or time-series object.
 #' @param select __Applicable to tibbles and data frames only__.
@@ -13,7 +13,7 @@
 #'
 #' @return Returns a `xts` object.
 #'
-#' @details `sw_xts` is a wrapper for `xts::xts()` that is designed
+#' @details `tk_xts` is a wrapper for `xts::xts()` that is designed
 #' to coerce `tibble` objects that have a "time-base" (meaning the values vary with time)
 #' to `xts` class objects. There are three main advantages:
 #'
@@ -21,7 +21,7 @@
 #' This prevents an error or coercion issue from occurring.
 #' 2. The date column is auto-detected if not specified by `date_var`. This takes
 #' the effort off the user to assign a date vector during coercion.
-#' 3. `ts` objects are automatically coerced if a "sweep index" is present. Refer to [sw_ts()].
+#' 3. `ts` objects are automatically coerced if a "timekit index" is present. Refer to [tk_ts()].
 #'
 #' The `select` argument can be used to select subsets
 #' of columns from the incoming data.frame.
@@ -34,15 +34,15 @@
 #' For non-data.frame object classes (e.g. `xts`, `zoo`, `timeSeries`, etc) the objects are coerced
 #' using `xts::xts()`.
 #'
-#' `sw_xts_` is a nonstandard evaluation method.
+#' `tk_xts_` is a nonstandard evaluation method.
 #'
-#' @seealso [sw_tbl()], [sw_zoo()], [sw_zooreg()], [sw_ts()]
+#' @seealso [tk_tbl()], [tk_zoo()], [tk_zooreg()], [tk_ts()]
 #'
 #' @examples
 #' library(tidyverse)
-#' library(sweep)
+#' library(timekit)
 #'
-#' ### tibble to xts: Comparison between sw_xts() and xts::xts()
+#' ### tibble to xts: Comparison between tk_xts() and xts::xts()
 #' data_tbl <- tibble::tibble(
 #'     date = seq.Date(as.Date("2016-01-01"), by = 1, length.out = 5),
 #'     x    = rep("chr values", 5),
@@ -52,42 +52,42 @@
 #' # xts: Character columns cause coercion issues; order.by must be passed a vector of dates
 #' xts::xts(data_tbl[,-1], order.by = data_tbl$date)
 #'
-#' # sw_xts: Non-numeric columns automatically dropped; No need to specify date column
-#' sw_xts(data_tbl)
+#' # tk_xts: Non-numeric columns automatically dropped; No need to specify date column
+#' tk_xts(data_tbl)
 #'
 #' # ts can be coerced back to xts
 #' data_tbl %>%
-#'     sw_ts(start = 2016, freq = 365) %>%
-#'     sw_xts()
+#'     tk_ts(start = 2016, freq = 365) %>%
+#'     tk_xts()
 #'
 #' ### Using select and date_var
-#' sw_xts(data_tbl, select = y, date_var = date)
+#' tk_xts(data_tbl, select = y, date_var = date)
 #'
 #'
 #' ### NSE: Enables programming
 #' date_var <- "date"
 #' select   <- "y"
-#' sw_xts_(data_tbl, select = select, date_var = date_var)
+#' tk_xts_(data_tbl, select = select, date_var = date_var)
 #'
-#' @name sw_xts
+#' @name tk_xts
 #' @export
-sw_xts <- function(data, select = NULL, date_var = NULL, silent = FALSE, ...) {
+tk_xts <- function(data, select = NULL, date_var = NULL, silent = FALSE, ...) {
     select   <- lazyeval::expr_text(select)
     date_var <- lazyeval::expr_text(date_var)
 
-    ret <- sweep::sw_xts_(data = data, select = select, date_var = date_var, silent = silent, ...)
+    ret <- tk_xts_(data = data, select = select, date_var = date_var, silent = silent, ...)
     return(ret)
 }
 
 #' @export
-#' @rdname sw_xts
-sw_xts_ <- function(data, select = NULL, date_var = NULL, silent = FALSE, ...) {
-    UseMethod("sw_xts_", data)
+#' @rdname tk_xts
+tk_xts_ <- function(data, select = NULL, date_var = NULL, silent = FALSE, ...) {
+    UseMethod("tk_xts_", data)
 }
 
 
 #' @export
-sw_xts_.data.frame <- function(data, select = NULL, date_var = NULL, silent = FALSE, ...) {
+tk_xts_.data.frame <- function(data, select = NULL, date_var = NULL, silent = FALSE, ...) {
 
     # Implement select
     if (!(select == "NULL" || is.null(select))) {
@@ -144,7 +144,7 @@ sw_xts_.data.frame <- function(data, select = NULL, date_var = NULL, silent = FA
 }
 
 #' @export
-sw_xts_.ts <- function(data, select = NULL, date_var = NULL, silent = FALSE, ...) {
+tk_xts_.ts <- function(data, select = NULL, date_var = NULL, silent = FALSE, ...) {
 
     # Validate select
     if (!(is.null(select) || select == "NULL"))
@@ -164,13 +164,8 @@ sw_xts_.ts <- function(data, select = NULL, date_var = NULL, silent = FALSE, ...
 
     # Interpret the order.by
     if (!("order.by" %in% names(xts_args))) {
-
-        # Check if .sweep_idx present
-        sw_index <- attr(data, "index")
-        sw_index_present <- !is.null(sw_index)
-
-        if (sw_index_present) {
-            xts_args$order.by <- sw_index(data, .sweep_idx = TRUE)
+        if (has_timekit_idx(data)) {
+            xts_args$order.by <- tk_index(data, timekit_idx = TRUE)
         } else {
             stop("No date or date-time index found. Object must contain an unambigous date or date-time column.")
         }
@@ -184,7 +179,7 @@ sw_xts_.ts <- function(data, select = NULL, date_var = NULL, silent = FALSE, ...
 }
 
 #' @export
-sw_xts_.zooreg <- function(data, select = NULL, date_var = NULL, silent = FALSE, ...) {
+tk_xts_.zooreg <- function(data, select = NULL, date_var = NULL, silent = FALSE, ...) {
 
     # Validate select
     if (!(is.null(select) || select == "NULL"))
@@ -201,13 +196,8 @@ sw_xts_.zooreg <- function(data, select = NULL, date_var = NULL, silent = FALSE,
 
     # Interpret the order.by
     if (!("order.by" %in% names(xts_args))) {
-
-        # Check if .sweep_idx present
-        sw_index <- rownames(data)
-        sw_index_present <- !is.null(sw_index)
-
-        if (sw_index_present) {
-            xts_args$order.by <- sw_index(data, .sweep_idx = TRUE)
+        if (has_timekit_idx(data)) {
+            xts_args$order.by <- tk_index(data, timekit_idx = TRUE)
         } else {
             stop("No date or date-time index found. Object must contain an unambigous date or date-time column.")
         }
@@ -221,7 +211,7 @@ sw_xts_.zooreg <- function(data, select = NULL, date_var = NULL, silent = FALSE,
 }
 
 #' @export
-sw_xts_.default <- function(data, select = NULL, date_var = NULL, silent = FALSE, ...) {
+tk_xts_.default <- function(data, select = NULL, date_var = NULL, silent = FALSE, ...) {
 
     # Validate select
     if (!(is.null(select) || select == "NULL"))

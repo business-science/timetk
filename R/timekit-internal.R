@@ -1,10 +1,10 @@
-#' Internal Functions Used in sweep
+#' Internal Functions Used in timekit
 #'
 #' The following are internal functions that are not meant to be used by
 #' users.
 #'
-#' @inheritParams sw_zooreg
+#' @inheritParams tk_zooreg
 #'
-#' @name sweep_internal
+#' @name timekit_internal
 #'
 NULL

@@ -3,16 +3,16 @@
 #' @param data A time-series object.
 #' @param preserve_index Attempts to preserve a time series index. Default is `TRUE`.
 #' @param index_rename Enables the index column to be renamed.
-#' @param .sweep_idx Used to return a date / datetime index for
-#' regularized objects that contain a sweep "index" attribute.
-#' Refer to [sw_index()] for more information on returning index information
+#' @param timekit_idx Used to return a date / datetime index for
+#' regularized objects that contain a timekit "index" attribute.
+#' Refer to [tk_index()] for more information on returning index information
 #' from regularized timeseries objects (i.e. `ts`).
 #' @param silent Used to toggle printing of messages and warnings.
 #' @param ... Additional parameters passed to the [tibble::as_tibble()] function.
 #'
 #' @return Returns a `tibble` object.
 #'
-#' @details `sw_tbl` is designed
+#' @details `tk_tbl` is designed
 #' to coerce time series objects (e.g. `xts`, `zoo`, `ts`, `timeSeries`, etc)
 #' to `tibble` objects. The main advantage is that the function keeps the
 #' date / date-time information from the underlying time-series object.
@@ -22,17 +22,17 @@
 #' the date or date-time information. The date / date-time column name
 #' can be changed using the `index_rename` argument.
 #'
-#' The `.sweep_idx` argument is applicable when coercing `ts` objects that were
-#' created using `sw_ts()` from an object that had a time base
+#' The `timekit_idx` argument is applicable when coercing `ts` objects that were
+#' created using `tk_ts()` from an object that had a time base
 #' (e.g. `tbl`, `xts`, `zoo`).
-#' Setting `.sweep_idx = TRUE` enables returning the sweep "index" attribute if present,
+#' Setting `timekit_idx = TRUE` enables returning the timekit "index" attribute if present,
 #' which is the original (non-regularized) time-based index.
 #'
-#' @seealso [sw_xts()], [sw_zoo()], [sw_zooreg()], [sw_ts()]
+#' @seealso [tk_xts()], [tk_zoo()], [tk_zooreg()], [tk_ts()]
 #'
 #' @examples
 #' library(tidyverse)
-#' library(sweep)
+#' library(timekit)
 #'
 #' data_tbl <- tibble(
 #'     date = seq.Date(from = as.Date("2010-01-01"), by = 1, length.out = 5),
@@ -40,58 +40,58 @@
 #' )
 #'
 #'
-#' ### ts to tibble: Comparison between as.data.frame() and sw_tbl()
-#' data_ts <- sw_ts(data_tbl, start = c(2010,1), freq = 365)
+#' ### ts to tibble: Comparison between as.data.frame() and tk_tbl()
+#' data_ts <- tk_ts(data_tbl, start = c(2010,1), freq = 365)
 #'
 #' # No index
 #' as.data.frame(data_ts)
 #'
 #' # Defualt index returned is regularized numeric index
-#' sw_tbl(data_ts)
+#' tk_tbl(data_ts)
 #'
 #' # Original date index returned (Only possible if original data has time-based index)
-#' sw_tbl(data_ts, .sweep_idx = TRUE)
+#' tk_tbl(data_ts, timekit_idx = TRUE)
 #'
 #'
-#' ### xts to tibble: Comparison between as.data.frame() and sw_tbl()
-#' data_xts <- sw_xts(data_tbl)
+#' ### xts to tibble: Comparison between as.data.frame() and tk_tbl()
+#' data_xts <- tk_xts(data_tbl)
 #'
 #' # Dates are character class stored in row names
 #' as.data.frame(data_xts)
 #'
 #' # Dates are appropriate date class and within the data frame
-#' sw_tbl(data_xts)
+#' tk_tbl(data_xts)
 #'
 #'
-#' ### zooreg to tibble: Comparison between as.data.frame() and sw_tbl()
-#' data_zooreg <- sw_zooreg(1:8, start = zoo::yearqtr(2000), frequency = 4)
+#' ### zooreg to tibble: Comparison between as.data.frame() and tk_tbl()
+#' data_zooreg <- tk_zooreg(1:8, start = zoo::yearqtr(2000), frequency = 4)
 #'
 #' # Dates are character class stored in row names
 #' as.data.frame(data_zooreg)
 #'
 #' # Dates are appropriate zoo yearqtr class within the data frame
-#' sw_tbl(data_zooreg)
+#' tk_tbl(data_zooreg)
 #'
 #'
-#' ### zoo to tibble: Comparison between as.data.frame() and sw_tbl()
+#' ### zoo to tibble: Comparison between as.data.frame() and tk_tbl()
 #' data_zoo <- zoo::zoo(1:12, zoo::yearmon(2016 + seq(0, 11)/12))
 #'
 #' # Dates are character class stored in row names
 #' as.data.frame(data_zoo)
 #'
 #' # Dates are appropriate zoo yearmon class within the data frame
-#' sw_tbl(data_zoo)
+#' tk_tbl(data_zoo)
 #'
 #'
 #'
 #'
 #' @export
-sw_tbl <- function(data, preserve_index = TRUE, index_rename = "index", .sweep_idx = FALSE, silent = FALSE, ...) {
-    UseMethod("sw_tbl", data)
+tk_tbl <- function(data, preserve_index = TRUE, index_rename = "index", timekit_idx = FALSE, silent = FALSE, ...) {
+    UseMethod("tk_tbl", data)
 }
 
 #' @export
-sw_tbl.data.frame <- function(data, preserve_index = TRUE, index_rename = "index", .sweep_idx = FALSE, silent = FALSE, ...) {
+tk_tbl.data.frame <- function(data, preserve_index = TRUE, index_rename = "index", timekit_idx = FALSE, silent = FALSE, ...) {
 
     if (preserve_index == TRUE) {
 
@@ -126,24 +126,24 @@ sw_tbl.data.frame <- function(data, preserve_index = TRUE, index_rename = "index
 }
 
 #' @export
-sw_tbl.xts <- function(data, preserve_index = TRUE, index_rename = "index", .sweep_idx = FALSE, silent = FALSE, ...) {
+tk_tbl.xts <- function(data, preserve_index = TRUE, index_rename = "index", timekit_idx = FALSE, silent = FALSE, ...) {
 
     # Coerce to zoo, then to tbl
-    ret <- sw_tbl(zoo::as.zoo(data), preserve_index, index_rename, .sweep_idx, silent, ...)
+    ret <- tk_tbl(zoo::as.zoo(data), preserve_index, index_rename, timekit_idx, silent, ...)
     return(ret)
 }
 
 #' @export
-sw_tbl.matrix <- function(data, preserve_index = TRUE, index_rename = "index", .sweep_idx = FALSE, silent = FALSE, ...) {
+tk_tbl.matrix <- function(data, preserve_index = TRUE, index_rename = "index", timekit_idx = FALSE, silent = FALSE, ...) {
 
     # Coerce to data frame, then to tbl
-    ret <- sw_tbl(as.data.frame(data), preserve_index, index_rename, .sweep_idx, silent, ...)
+    ret <- tk_tbl(as.data.frame(data), preserve_index, index_rename, timekit_idx, silent, ...)
     return(ret)
 
 }
 
 #' @export
-sw_tbl.zoo <- function(data, preserve_index = TRUE, index_rename = "index", .sweep_idx = FALSE, silent = FALSE, ...) {
+tk_tbl.zoo <- function(data, preserve_index = TRUE, index_rename = "index", timekit_idx = FALSE, silent = FALSE, ...) {
 
     if (preserve_index == TRUE) {
 
@@ -183,60 +183,60 @@ sw_tbl.zoo <- function(data, preserve_index = TRUE, index_rename = "index", .swe
 }
 
 #' @export
-sw_tbl.zooreg <- function(data, preserve_index = TRUE, index_rename = "index", .sweep_idx = FALSE, silent = FALSE, ...) {
+tk_tbl.zooreg <- function(data, preserve_index = TRUE, index_rename = "index", timekit_idx = FALSE, silent = FALSE, ...) {
 
-    # Handle sweep index
-    if (.sweep_idx && preserve_index) {
+    # Handle timekit index
+    if (timekit_idx && preserve_index) {
 
         # Index attribute found?
         first_val <- rownames(data)[[1]]
         if (!is.null(first_val)) {
             # Coerce to xts then to tbl
-            index <- sw_index(data, .sweep_idx = TRUE)
-            ret <- sw_xts(data, order.by = index) %>%
-                sw_tbl(preserve_index = preserve_index,
+            index <- tk_index(data, timekit_idx = TRUE)
+            ret <- tk_xts(data, order.by = index) %>%
+                tk_tbl(preserve_index = preserve_index,
                        index_rename   = index_rename,
-                       .sweep_idx     = .sweep_idx,
+                       timekit_idx     = timekit_idx,
                        silent         = silent,
                        ...            = ...)
         } else {
-            if (!silent) warning("No `sweep index` attribute found. Using regularized index.")
-            ret <- sw_tbl(zoo::as.zoo(data), preserve_index, index_rename, .sweep_idx, silent, ...)
+            if (!silent) warning("No `timekit index` attribute found. Using regularized index.")
+            ret <- tk_tbl(zoo::as.zoo(data), preserve_index, index_rename, timekit_idx, silent, ...)
         }
 
     } else {
         # Coerce to zoo then convert to tibble
-        ret <- sw_tbl(zoo::as.zoo(data), preserve_index, index_rename, .sweep_idx, silent, ...)
+        ret <- tk_tbl(zoo::as.zoo(data), preserve_index, index_rename, timekit_idx, silent, ...)
     }
 
     return(ret)
 }
 
 #' @export
-sw_tbl.ts <- function(data, preserve_index = TRUE, index_rename = "index", .sweep_idx = FALSE, silent = FALSE, ...) {
+tk_tbl.ts <- function(data, preserve_index = TRUE, index_rename = "index", timekit_idx = FALSE, silent = FALSE, ...) {
 
-    # Handle sweep index
-    if (.sweep_idx && preserve_index) {
+    # Handle timekit index
+    if (timekit_idx && preserve_index) {
 
         # Index attribute found?
         index_attr <- attr(data, "index")
         if (!is.null(index_attr)) {
             # Coerce to xts then to tbl
-            index <- sw_index(data, .sweep_idx = TRUE)
-            ret <- sw_xts(data, order.by = index) %>%
-                sw_tbl(preserve_index = preserve_index,
+            index <- tk_index(data, timekit_idx = TRUE)
+            ret <- tk_xts(data, order.by = index) %>%
+                tk_tbl(preserve_index = preserve_index,
                        index_rename   = index_rename,
-                       .sweep_idx     = .sweep_idx,
+                       timekit_idx     = timekit_idx,
                        silent         = silent,
                        ...            = ...)
         } else {
-            # if (!silent) warning("No sweep `index` attribute found. Using regularized index.")
-            ret <- sw_tbl(zoo::as.zoo(data), preserve_index, index_rename, .sweep_idx, silent, ...)
+            # if (!silent) warning("No timekit `index` attribute found. Using regularized index.")
+            ret <- tk_tbl(zoo::as.zoo(data), preserve_index, index_rename, timekit_idx, silent, ...)
         }
 
     } else {
         # Coerce to zoo then convert to tibble
-        ret <- sw_tbl(zoo::as.zoo(data), preserve_index, index_rename, .sweep_idx, silent, ...)
+        ret <- tk_tbl(zoo::as.zoo(data), preserve_index, index_rename, timekit_idx, silent, ...)
     }
 
     return(ret)
@@ -246,34 +246,34 @@ sw_tbl.ts <- function(data, preserve_index = TRUE, index_rename = "index", .swee
 
 
 #' @export
-sw_tbl.msts <- function(data, preserve_index = TRUE, index_rename = "index", .sweep_idx = FALSE, silent = FALSE, ...) {
+tk_tbl.msts <- function(data, preserve_index = TRUE, index_rename = "index", timekit_idx = FALSE, silent = FALSE, ...) {
 
     # Coerce to zoo then convert to tibble
-    ret <- sw_tbl(zoo::as.zoo(data), preserve_index, index_rename, .sweep_idx, silent, ...)
+    ret <- tk_tbl(zoo::as.zoo(data), preserve_index, index_rename, timekit_idx, silent, ...)
     return(ret)
 }
 
 #' @export
-sw_tbl.timeSeries <- function(data, preserve_index = TRUE, index_rename = "index", .sweep_idx = FALSE, silent = FALSE, ...) {
+tk_tbl.timeSeries <- function(data, preserve_index = TRUE, index_rename = "index", timekit_idx = FALSE, silent = FALSE, ...) {
 
     # Coerce to data frame, then to tbl (No index to coerce to zoo)
-    ret <- sw_tbl(as.data.frame(data), preserve_index, index_rename, .sweep_idx, silent, ...)
+    ret <- tk_tbl(as.data.frame(data), preserve_index, index_rename, timekit_idx, silent, ...)
     return(ret)
 }
 
 #' @export
-sw_tbl.irts <- function(data, preserve_index = TRUE, index_rename = "index", .sweep_idx = FALSE, silent = FALSE, ...) {
+tk_tbl.irts <- function(data, preserve_index = TRUE, index_rename = "index", timekit_idx = FALSE, silent = FALSE, ...) {
 
     # Coerce to zoo then convert to tibble
-    ret <- sw_tbl(zoo::as.zoo(data), preserve_index, index_rename, .sweep_idx, silent, ...)
+    ret <- tk_tbl(zoo::as.zoo(data), preserve_index, index_rename, timekit_idx, silent, ...)
     return(ret)
 }
 
 
 #' @export
-sw_tbl.default <- function(data, preserve_index = TRUE, index_rename = "index", .sweep_idx = FALSE, silent = FALSE, ...) {
+tk_tbl.default <- function(data, preserve_index = TRUE, index_rename = "index", timekit_idx = FALSE, silent = FALSE, ...) {
 
-    ret <- sw_tbl(as.data.frame(data), preserve_index, index_rename, .sweep_idx, silent, ...)
+    ret <- tk_tbl(as.data.frame(data), preserve_index, index_rename, timekit_idx, silent, ...)
     return(ret)
 
 }

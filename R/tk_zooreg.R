@@ -1,6 +1,6 @@
 #' Coerce time series objects and tibbles with date/date-time columns to ts.
 #'
-#' @name sw_zooreg
+#' @name tk_zooreg
 #'
 #' @param data A time-based tibble or time-series object.
 #' @param select __Applicable to tibbles and data frames only__.
@@ -13,12 +13,12 @@
 #'
 #' @return Returns a `zooreg` object.
 #'
-#' @details `sw_zooreg()` is a wrapper for `zoo::zooreg()` that is designed
+#' @details `tk_zooreg()` is a wrapper for `zoo::zooreg()` that is designed
 #' to coerce `tibble` objects that have a "time-base" (meaning the values vary with time)
 #' to `zooreg` class objects. There are two main advantages:
 #'
 #' 1. Non-numeric columns get removed instead causing coercion issues.
-#' 2. If an index is present, the returned `zooreg` object retains an index retrievable using [sw_index()].
+#' 2. If an index is present, the returned `zooreg` object retains an index retrievable using [tk_index()].
 #'
 #' The `select` argument is used to select subsets
 #' of columns from the incoming data.frame.
@@ -32,12 +32,12 @@
 #' For non-data.frame object classes (e.g. `xts`, `zoo`, `timeSeries`, etc) the objects are coerced
 #' using `zoo::zooreg()`.
 #'
-#' `sw_zooreg_` is a nonstandard evaluation method.
+#' `tk_zooreg_` is a nonstandard evaluation method.
 #'
-#' @seealso [sw_tbl()], [sw_xts()], [sw_zoo()], [sw_ts()]
+#' @seealso [tk_tbl()], [tk_xts()], [tk_zoo()], [tk_ts()]
 #'
 #' @examples
-#' ### tibble to zooreg: Comparison between sw_zooreg() and zoo::zooreg()
+#' ### tibble to zooreg: Comparison between tk_zooreg() and zoo::zooreg()
 #' data_tbl <- tibble::tibble(
 #'     date = seq.Date(as.Date("2016-01-01"), by = 1, length.out = 5),
 #'     x    = rep("chr values", 5),
@@ -49,26 +49,26 @@
 #' data_zooreg                # Numeric values coerced to character
 #' rownames(data_zooreg)      # NULL, no dates retained
 #'
-#' # sw_zooreg: Only numeric columns get coerced; Result retains index as rownames
-#' data_sw_zooreg <- sw_zooreg(data_tbl, start = 2016, freq = 365)
-#' data_sw_zooreg             # No inadvertent coercion to character class
+#' # tk_zooreg: Only numeric columns get coerced; Result retains index as rownames
+#' data_tk_zooreg <- tk_zooreg(data_tbl, start = 2016, freq = 365)
+#' data_tk_zooreg             # No inadvertent coercion to character class
 #'
-#' # sweep index
-#' sw_index(data_sw_zooreg, .sweep_idx = FALSE)   # Regularized index returned
-#' sw_index(data_sw_zooreg, .sweep_idx = TRUE)    # Original date index returned
+#' # timekit index
+#' tk_index(data_tk_zooreg, timekit_idx = FALSE)   # Regularized index returned
+#' tk_index(data_tk_zooreg, timekit_idx = TRUE)    # Original date index returned
 #'
 #' ### Using select and date_var
-#' sw_zooreg(data_tbl, select = y, date_var = date, start = 2016, freq = 365)
+#' tk_zooreg(data_tbl, select = y, date_var = date, start = 2016, freq = 365)
 #'
 #'
 #' ### NSE: Enables programming
 #' select   <- "y"
 #' date_var <- "date"
-#' sw_zooreg_(data_tbl, select = select, date_var = date_var, start = 2016, freq = 365)
+#' tk_zooreg_(data_tbl, select = select, date_var = date_var, start = 2016, freq = 365)
 #'
-#' @rdname sw_zooreg
+#' @rdname tk_zooreg
 #' @export
-sw_zooreg <- function(data, select = NULL, date_var = NULL, start = 1, end = numeric(), frequency = 1,
+tk_zooreg <- function(data, select = NULL, date_var = NULL, start = 1, end = numeric(), frequency = 1,
                       deltat = 1, ts.eps = getOption("ts.eps"), order.by = NULL, silent = FALSE) {
 
     # ts validation
@@ -103,7 +103,7 @@ sw_zooreg <- function(data, select = NULL, date_var = NULL, start = 1, end = num
     date_var <- lazyeval::expr_text(date_var)
 
     # Method dispatch
-    ret <- sw_zooreg_dispatch_(data      = data,
+    ret <- tk_zooreg_dispatch_(data      = data,
                                select    = select,
                                date_var  = date_var,
                                start     = start,
@@ -117,9 +117,9 @@ sw_zooreg <- function(data, select = NULL, date_var = NULL, start = 1, end = num
 
 }
 
-#' @rdname sw_zooreg
+#' @rdname tk_zooreg
 #' @export
-sw_zooreg_ <- function(data, select = NULL, date_var = NULL, start = 1, end = numeric(), frequency = 1,
+tk_zooreg_ <- function(data, select = NULL, date_var = NULL, start = 1, end = numeric(), frequency = 1,
                        deltat = 1, ts.eps = getOption("ts.eps"), order.by = NULL, silent = FALSE) {
 
     # ts validation
@@ -150,7 +150,7 @@ sw_zooreg_ <- function(data, select = NULL, date_var = NULL, start = 1, end = nu
         stop("'start' cannot be after 'end'")
 
     # Method dispatch
-    ret <- sw_zooreg_dispatch_(data      = data,
+    ret <- tk_zooreg_dispatch_(data      = data,
                                select    = select,
                                date_var  = date_var,
                                start     = start,
@@ -165,20 +165,20 @@ sw_zooreg_ <- function(data, select = NULL, date_var = NULL, start = 1, end = nu
 }
 
 
-sw_zooreg_dispatch_ <- function(data, select, date_var, start, end, frequency, deltat, ts.eps, order.by, silent) {
-    UseMethod("sw_zooreg_", data)
+tk_zooreg_dispatch_ <- function(data, select, date_var, start, end, frequency, deltat, ts.eps, order.by, silent) {
+    UseMethod("tk_zooreg_", data)
 }
 
 
 
-#' @rdname sweep_internal
+#' @rdname timekit_internal
 #' @export
-sw_zooreg_.data.frame <- function(data, select, date_var, start, end, frequency, deltat, ts.eps, order.by, silent) {
+tk_zooreg_.data.frame <- function(data, select, date_var, start, end, frequency, deltat, ts.eps, order.by, silent) {
 
     ret <- data
 
     # Coerce to xts, which retains index, timezone, etc
-    ret <- suppressMessages(sweep::sw_xts_(ret, select = select, date_var = date_var, silent = silent))
+    ret <- suppressMessages(tk_xts_(ret, select = select, date_var = date_var, silent = silent))
 
     # Coerce to ts
     ret <- zoo::zooreg(ret, start = start, end = end, frequency = frequency, deltat = deltat, ts.eps = ts.eps, order.by = order.by)
@@ -187,9 +187,9 @@ sw_zooreg_.data.frame <- function(data, select, date_var, start, end, frequency,
 
 }
 
-#' @rdname sweep_internal
+#' @rdname timekit_internal
 #' @export
-sw_zooreg_.default <- function(data, select, date_var, start, end, frequency, deltat, ts.eps, order.by, silent) {
+tk_zooreg_.default <- function(data, select, date_var, start, end, frequency, deltat, ts.eps, order.by, silent) {
 
     # Validate select
     if (!(is.null(select) || select == "NULL"))

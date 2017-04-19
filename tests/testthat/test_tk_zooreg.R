@@ -1,39 +1,39 @@
-library(sweep)
-context("Test sw_zooreg")
+library(timekit)
+context("Test tk_zooreg")
 
 AAPL_tbl <- tidyquant::tq_get("AAPL", from = "2015-01-01", to = "2016-12-31")
-AAPL_xts <- sw_xts(AAPL_tbl, silent = TRUE)
+AAPL_xts <- tk_xts(AAPL_tbl, silent = TRUE)
 
-# FUNCTION: sw_zooreg -----
+# FUNCTION: tk_zooreg -----
 
 # tbl to zooreg -----
 test_that("tbl to zooreg test returns zooreg with correct rows and columns.", {
     # Use date column to specify order
-    test_zooreg_1 <- sw_zooreg(AAPL_tbl, select = -date, date_var = date,
+    test_zooreg_1 <- tk_zooreg(AAPL_tbl, select = -date, date_var = date,
                                freq = 252, start = 2015)
     expect_equal(nrow(test_zooreg_1), 504)
     expect_equal(ncol(test_zooreg_1), 6)
     expect_equal(rownames(test_zooreg_1), as.character(AAPL_tbl$date))
 
     # Use order.by to specify order
-    test_zooreg_2 <- sw_zooreg(AAPL_tbl, select = -date, order.by = AAPL_tbl$date,
+    test_zooreg_2 <- tk_zooreg(AAPL_tbl, select = -date, order.by = AAPL_tbl$date,
                                freq = 252, start = 2015)
     expect_equal(nrow(test_zooreg_2), 504)
     expect_equal(ncol(test_zooreg_2), 6)
 
     # # Auto-index date
-    # expect_message(sw_zooreg(AAPL_tbl, freq = 252, start = 2015))  # using `date` column as date
+    # expect_message(tk_zooreg(AAPL_tbl, freq = 252, start = 2015))  # using `date` column as date
 
     # Auto-drop columns
-    expect_warning(sw_zooreg(AAPL_tbl, freq = 252, start = 2015)) # dropping date column
+    expect_warning(tk_zooreg(AAPL_tbl, freq = 252, start = 2015)) # dropping date column
 
     # # Auto-index and auto-drop columns
-    # expect_message(expect_warning(sw_zooreg(AAPL_tbl, freq = 252, start = 2015))) # using `date` column as date, dropping date column
+    # expect_message(expect_warning(tk_zooreg(AAPL_tbl, freq = 252, start = 2015))) # using `date` column as date, dropping date column
 
     # NSE
     select     <- "adjusted"
     date_var   <- "date"
-    test_zooreg_3 <- sw_zooreg_(AAPL_tbl, select = select, date_var = date_var,
+    test_zooreg_3 <- tk_zooreg_(AAPL_tbl, select = select, date_var = date_var,
                                 freq = 252, start = 2015)
     expect_equal(nrow(test_zooreg_3), 504)
     expect_equal(ncol(test_zooreg_3), 1)
@@ -45,25 +45,25 @@ test_that("tbl to zooreg test returns zooreg with correct rows and columns.", {
 # Default is xts::xts() for other objects; only test zoo
 test_that("xts to zooreg test returns zooreg with correct rows and columns.", {
     # Use date column to specify order
-    test_zooreg_4 <- sw_zooreg(AAPL_xts, freq = 252, start = 2015)
+    test_zooreg_4 <- tk_zooreg(AAPL_xts, freq = 252, start = 2015)
     expect_equal(nrow(test_zooreg_4), 504)
     expect_equal(ncol(test_zooreg_4), 6)
 
     # Use order.by to specify order
-    test_zooreg_5 <- sw_zooreg(AAPL_xts, order.by = zoo::index(AAPL_xts))
+    test_zooreg_5 <- tk_zooreg(AAPL_xts, order.by = zoo::index(AAPL_xts))
     expect_equal(nrow(test_zooreg_5), 504)
     expect_equal(ncol(test_zooreg_5), 6)
 
     # Warning if using select field
-    expect_warning(sw_zooreg(AAPL_xts, select = -date,
+    expect_warning(tk_zooreg(AAPL_xts, select = -date,
                              freq = 252, start = 2015))  # only for use with data.frames
 
     # Warning if using date_var field
-    expect_warning(sw_zooreg(AAPL_xts, date_var = date,
+    expect_warning(tk_zooreg(AAPL_xts, date_var = date,
                              freq = 252, start = 2015)) # only for use with data.frames
 
     # Two warnings: select and date_var args only applicable to data.frames
-    expect_warning(sw_zooreg(AAPL_xts, select = -date, date_var = date,
+    expect_warning(tk_zooreg(AAPL_xts, select = -date, date_var = date,
                              freq = 252, start = 2015))
 
 })
