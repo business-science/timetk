@@ -50,7 +50,7 @@ The package contains the following elements:
 
 ## Simplified time series coercion
 
-The coercion functions `tk_tbl`, `tk_xts`, `tk_zoo`, `tk_zooreg`, and `tk_ts` enable maximize data retention and simplify the coercion process. Further working with regularized time series (`ts`) class has been a particular pain until now. 
+The coercion functions `tk_tbl`, `tk_xts`, `tk_zoo`, `tk_zooreg`, and `tk_ts` maximize data retention and simplify the coercion process. Further working with regularized time series (`ts`) class has been a particular pain until now. 
 
 The data process often starts with a time-based tibble:
 
@@ -75,7 +75,6 @@ data_xts <- tk_xts(data_tbl, silent = TRUE)
 data_zoo <- tk_zoo(data_tbl, silent = TRUE)
 ```
 
-
 ```{r}
 # ts
 data_ts <- tk_ts(data_tbl, start = 2010, freq = 365, silent = TRUE)
@@ -84,25 +83,37 @@ data_ts <- tk_ts(data_tbl, start = 2010, freq = 365, silent = TRUE)
 ## Maximum data retention
 
 * __Problem__: The `ts()` function drops the time series data for a regularized index using the `start` and `freq` arguments. 
-* __Solution__: The new `tk_ts()` stores the original date or datetime index as a second index ("timekit index"). 
+* __Solution__: The new `tk_ts()` function stores the original date or datetime index as a second index ("timekit index"). 
 
 The index is retrieved with `tk_index()`. The default index for `ts` class is the regularized index.
 
 ```{r}
-# Regularized numeric index
+# Default index is regularized numeric index for ts class
 tk_index(data_ts) 
 ```
 
-The original date or datetime index can be retrieved by setting `timekit_idx = TRUE`. Note that a "timekit index" must be present. This can be tested with the function `has_timekit_idx()`.
+If a "timekit index" is present, the original date or datetime index can be retrieved by setting `timekit_idx = TRUE`. First, let's test with the function `has_timekit_idx()`.
+
+```{r}
+# Does the data have a timekit index?
+has_timekit_idx(data_ts)
+```
+
+Great! We can retrieve the secondary "timekit index" which is the original date or datetime index.
 
 ```{r}
 # Secondary "timekit index": date or date-time index now retrievable
 tk_index(data_ts, timekit_idx = TRUE)
 ```
 
-Using this approach of storing the secondary "timekit index", we can now go from `ts` back to `tbl`.
+The `tk_tbl()` function also has the `timekit_idx` argument. We can now go from `ts` back to `tbl` using the regularized or secondary "timekit index".
 
 ```{r}
+# Default regularized index
+data_ts %>%
+    tk_tbl(timekit_idx = FALSE)
+
+# Timekit index
 data_ts %>%
     tk_tbl(timekit_idx = TRUE)
 ```
@@ -131,6 +142,6 @@ devtools::install_github("business-science/timekit")
 
 The `timekit` package includes a vignette to help users get up to speed quickly:
 
-* SW00 - Time Series Coercion Using `timekit`
+* TK00 - Time Series Coercion Using `timekit`
 
 <!-- See the [`tidyquant` vignettes](https://cran.r-project.org/package=tidyquant) for further details on the package. -->
