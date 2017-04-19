@@ -7,7 +7,6 @@ Authors@R: c(
     person("Matt", "Dancho", email = "mdancho@business-science.io", role = c("aut", "cre")),
     person("Davis", "Vaughan", email = "dvaughan@business-science.io", role = c("aut"))
   )
-Maintainer: Matt Dancho <mdancho@business-science.io>
 Description: 
     The 'timekit' package provides simplified functions to 
     coerce between time-based tibbles (`tbl`) and the primary time series
@@ -16,7 +15,7 @@ Description:
     to regularized time series objects.
 URL: https://github.com/business-science/timekit
 BugReports: https://github.com/business-science/timekit/issues
-License: MIT + file LICENSE
+License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true
 Depends:
