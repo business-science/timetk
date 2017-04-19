@@ -3,7 +3,7 @@
 timekit
 =======
 
-[![Travis-CI Build Status](https://travis-ci.org/business-science/timekit.svg?branch=master)](https://travis-ci.org/business-science/timekit.svg?branch=master) [![codecov](https://codecov.io/gh/business-science/timekit/branch/master/graph/badge.svg)](https://codecov.io/gh/business-science/timekit) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/timekit)](https://cran.r-project.org/package=timekit) ![](http://cranlogs.r-pkg.org/badges/timekit?color=brightgreen) ![](http://cranlogs.r-pkg.org/badges/grand-total/timekit?color=brightgreen)
+[![Travis-CI Build Status](https://travis-ci.org/business-science/timekit.svg?branch=master)](https://travis-ci.org/business-science/timekit.svg?branch=master) [![codecov](https://codecov.io/gh/business-science/timekit/branch/master/graph/badge.svg)](https://codecov.io/gh/business-science/timekit) <!-- [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/timekit)](https://cran.r-project.org/package=timekit) --> <!-- ![](http://cranlogs.r-pkg.org/badges/timekit?color=brightgreen) --> <!-- ![](http://cranlogs.r-pkg.org/badges/grand-total/timekit?color=brightgreen) -->
 
 > Simplified and extensible time series coercion tools
 
@@ -145,5 +145,3 @@ Further Information
 The `timekit` package includes a vignette to help users get up to speed quickly:
 
 -   TK00 - Time Series Coercion Using `timekit`
-
-<!-- See the [`tidyquant` vignettes](https://cran.r-project.org/package=tidyquant) for further details on the package. -->
