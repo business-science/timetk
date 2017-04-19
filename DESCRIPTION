@@ -8,9 +8,8 @@ Authors@R: c(
     person("Davis", "Vaughan", email = "dvaughan@business-science.io", role = c("aut"))
   )
 Description: 
-    The 'timekit' package provides simplified functions to 
-    coerce between time-based tibbles (`tbl`) and the primary time series
-    object classes including `xts`, `zoo`, and `ts`. The package provides
+    Coerces between time-based tibbles ('tbl') and the primary time series
+    object classes including 'xts', 'zoo', and 'ts'. Additionally, provides
     methods for maintaining the non-regularized time index during coercion
     to regularized time series objects.
 URL: https://github.com/business-science/timekit
