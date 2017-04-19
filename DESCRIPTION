@@ -27,6 +27,7 @@ Imports:
     lazyeval (>= 0.2.0),
     lubridate (>= 1.6.0),
     purrr (>= 0.2.2),
+    quantmod (>= 0.4-8),
     readr (>= 1.0.0),
     scales (<= 0.4.1),
     tibble (>= 1.2),
