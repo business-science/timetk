@@ -1,6 +1,6 @@
 Package: timekit
 Type: Package
-Title: A time series toolkit
+Title: Simplified and Extensible Time Series Coercion Tools
 Version: 0.1.0
 Date: 2017-04-19
 Authors@R: c(
@@ -11,7 +11,9 @@ Maintainer: Matt Dancho <mdancho@business-science.io>
 Description: 
     The 'timekit' package provides simplified functions to 
     coerce between time-based tibbles (`tbl`) and the primary time series
-    object classes including `xts`, `zoo`, and `ts`. 
+    object classes including `xts`, `zoo`, and `ts`. The package provides
+    methods for maintaining the non-regularized time index during coercion
+    to regularized time series objects.
 URL: https://github.com/business-science/timekit
 BugReports: https://github.com/business-science/timekit/issues
 License: MIT + file LICENSE
