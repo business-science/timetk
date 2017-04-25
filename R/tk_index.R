@@ -82,7 +82,7 @@ tk_index <- function(data, timekit_idx = FALSE, silent = FALSE) {
 #' @export
 tk_index.data.frame <- function(data, timekit_idx = FALSE, silent = FALSE) {
 
-    date_var <- get_date_variables(data)
+    date_var <- tk_get_timeseries_variables(data)
 
     if (length(date_var) == 0) stop("No date or date-time identified.")
 
@@ -110,9 +110,9 @@ tk_index.ts <- function(data, timekit_idx = FALSE, silent = FALSE) {
         # Set time class to date if Date class
         tclass <- attr(attr(data, "index"), "tclass")
         if (!is.null(tclass)) {
-            if (tclass == "Date") ret <- lubridate::as_date(ret)
-            if (tclass == "yearmon") ret <- zoo::as.yearmon(ret)
-            if (tclass == "yearqtr") ret <- zoo::as.yearqtr(ret)
+            if ("Date" %in% tclass) ret <- lubridate::as_date(ret)
+            if ("yearmon" %in% tclass) ret <- zoo::as.yearmon(ret)
+            if ("yearqtr" %in% tclass) ret <- zoo::as.yearqtr(ret)
         }
 
         class <- attr(attr(data, "index"), "class")
@@ -201,11 +201,15 @@ tk_index.xts <- function(data, timekit_idx = FALSE, silent = FALSE) {
 
     # Set time class to date if Date class
     tclass <- xts::tclass(data)
-    if (tclass == "Date") ret <- lubridate::as_date(ret)
+    if ("Date" %in% tclass)    ret <- lubridate::as_date(ret)
+    if ("yearmon" %in% tclass) ret <- zoo::as.yearmon(ret)
+    if ("yearqtr" %in% tclass) ret <- zoo::as.yearqtr(ret)
 
     # Set the timezone
-    tzone <- xts::tzone(data)
-    lubridate::tz(ret) <- tzone
+    tzone <- xts::indexTZ(data)
+    if (!is.null(tzone))
+        if (!(tclass %in% c("yearmon", "yearqtr")))
+            lubridate::tz(ret) <- tzone
 
     return(ret)
 
