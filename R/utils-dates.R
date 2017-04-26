@@ -1,19 +1,16 @@
 # UTILILITY FUNCTIONS ----------------------------------------------------------
 
-#' Get date or date-time variables
-#'
-#' Refer to padr:::get_date_variables.
-#' [`padr` helpers.R](https://github.com/EdwinTh/padr/blob/master/R/helpers.R)
-#'
-#' @param df An object of class data.frame
-get_date_variables <- function(df){
-    if (!is.data.frame(df)) {
-        stop('df should be a data.frame', call. = FALSE)
-    }
-    classes <- lapply(df, class)
-    date_classes <- (sapply(classes, function(x) 'POSIXt' %in% x) |
-                     sapply(classes, function(x) 'Date' %in% x) |
-                     sapply(classes, function(x) 'yearmon' %in% x) |
-                     sapply(classes, function(x) 'yearqtr' %in% x))
-    return(names(which(date_classes)))
+
+
+
+tk_timeseries_unit_frequency <- function() {
+    # Setup units
+    unit <- c("sec", "min", "hour", "day", "week", "month", "quarter", "year")
+    freq <- c(0, 60, 3600, 86400, 604800, 2678400, 7948800, 31795200)
+
+    units <- tibble::tibble(unit, freq) %>%
+        dplyr::mutate(unit = forcats::as_factor(unit)) %>%
+        tidyr::spread(key = unit, value = freq)
+    return(units)
 }
+

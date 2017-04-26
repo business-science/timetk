@@ -1,0 +1,223 @@
+#' Get summary attributes from a time-series index
+#'
+#' @param idx A time-series index that is a vector of dates or datetimes.
+#'
+#' @return Returns a `tibble` object describing the timeseries.
+#'
+#' @details
+#' `tk_get_timeseries_signature` decomposes the timeseries into commonly
+#' needed features such as
+#' numeric value, differences,
+#' year, month, day, day of week, day of month,
+#' day of year, hour, minute, second.
+#'
+#' `tk_get_timeseries_summary` returns the summary returns the
+#' start, end, units, scale, and a "summary" of the timeseries differences
+#' in seconds including
+#' the minmum, 1st quartile, median, mean, 3rd quartile, and maximum frequency.
+#' The timeseries
+#' differences give the user a better picture of the index frequency
+#' so the user can understand the level of regularity or irregulairity.
+#' A perfectly regular time series will have equal values in seconds for each metric.
+#' However, this is not often the case.
+#'
+#' __Important Note__: These functions only work with time-based indexes in
+#' datetime, date, yearmon, and yearqtr values. Regularized dates cannot be decomposed.
+#'
+#' @seealso [tk_index()], [tk_augment_timeseries_signature()], [tk_make_future_timeseries()]
+#'
+#' @examples
+#' library(tidyquant)
+#' library(timekit)
+#'
+#' # Works with time-based tibbles
+#' FB_tbl <- FANG %>% filter(symbol == "FB")
+#' FB_idx <- tk_index(FB_tbl)
+#'
+#' tk_get_timeseries_signature(FB_idx)
+#' tk_get_timeseries_summary(FB_idx)
+#'
+#'
+#' # Works with dates in any periodicity
+#' idx_weekly <- seq.Date(from = ymd("2016-01-01"), by = 'week', length.out = 6)
+#'
+#' tk_get_timeseries_signature(idx_weekly)
+#' tk_get_timeseries_summary(idx_weekly)
+#'
+#'
+#' # Works with zoo yearmon and yearqtr classes
+#' idx_yearmon <- seq.Date(from       = ymd("2016-01-01"),
+#'                         by         = "month",
+#'                         length.out = 12) %>%
+#'     as.yearmon()
+#'
+#' tk_get_timeseries_signature(idx_yearmon)
+#' tk_get_timeseries_summary(idx_yearmon)
+#'
+#' @name tk_get_timeseries
+NULL
+
+#' @export
+#' @rdname tk_get_timeseries
+tk_get_timeseries_signature <- function(idx) {
+    UseMethod("tk_get_timeseries_signature", idx)
+}
+
+#' @export
+tk_get_timeseries_signature.POSIXt <- function(idx) {
+    get_timeseries_signature_date(idx)
+}
+
+#' @export
+tk_get_timeseries_signature.Date <- function(idx) {
+    get_timeseries_signature_date(idx)
+}
+
+#' @export
+tk_get_timeseries_signature.yearmon <- function(idx) {
+    get_timeseries_signature_date(idx)
+}
+
+#' @export
+tk_get_timeseries_signature.yearqtr <- function(idx) {
+    get_timeseries_signature_date(idx)
+}
+
+#' @export
+tk_get_timeseries_signature.numeric <- function(idx) {
+    stop("Index must be a non-numeric time-based class.")
+}
+
+#' @export
+tk_get_timeseries_signature.default <- function(idx) {
+    stop(paste0("No method for class ", class(idx)[[1]], "."))
+}
+
+get_timeseries_signature_date <- function(idx) {
+    ret <- tibble::tibble(index = idx) %>%
+        dplyr::mutate(
+            index.num = as.numeric(as.POSIXct(index)) %>% as.integer(),
+            diff      = c(NA, diff(index.num)) %>% as.integer(),
+            year      = lubridate::year(index) %>% as.integer(),
+            quarter   = lubridate::quarter(index) %>% as.integer(),
+            month     = lubridate::month(index) %>% as.integer(),
+            month.xts = as.integer(lubridate::month(index)) - 1L,
+            month.lbl = lubridate::month(index, label = TRUE, abbr = FALSE),
+            day       = lubridate::day(index) %>% as.integer(),
+            wday      = lubridate::wday(index) %>% as.integer(),
+            wday.xts  = as.integer(lubridate::wday(index)) - 1L,
+            wday.lbl  = lubridate::wday(index, label = TRUE, abbr = FALSE),
+            mday      = lubridate::mday(index) %>% as.integer(),
+            yday      = lubridate::yday(index) %>% as.integer(),
+            hour      = lubridate::hour(index) %>% as.integer(),
+            minute    = lubridate::minute(index) %>% as.integer(),
+            second    = lubridate::second(index) %>% as.integer()
+        )
+    return(ret)
+}
+
+
+
+
+
+#' @export
+#' @rdname tk_get_timeseries
+tk_get_timeseries_summary <- function(idx) {
+    UseMethod("tk_get_timeseries_summary", idx)
+}
+
+#' @export
+tk_get_timeseries_summary.POSIXt <- function(idx) {
+    get_timeseries_summary_date(idx)
+}
+
+#' @export
+tk_get_timeseries_summary.Date <- function(idx) {
+    get_timeseries_summary_date(idx)
+}
+
+#' @export
+tk_get_timeseries_summary.yearmon <- function(idx) {
+    get_timeseries_summary_date(idx)
+}
+
+#' @export
+tk_get_timeseries_summary.yearqtr <- function(idx) {
+    get_timeseries_summary_date(idx)
+}
+
+#' @export
+tk_get_timeseries_summary.numeric <- function(idx) {
+    stop("Index must be a non-numeric time-based class.")
+}
+
+#' @export
+tk_get_timeseries_summary.default <- function(idx) {
+    stop(paste0("No method for class ", class(idx)[[1]], "."))
+}
+
+get_timeseries_summary_date <- function(idx) {
+    idx_numeric <- as.numeric(as.POSIXct(idx))
+    idx_diff <- diff(idx_numeric)
+    idx_diff_summary <- idx_diff %>%
+        summary() %>%
+        broom::tidy() %>%
+        tibble::as_tibble()
+
+    colnames(idx_diff_summary) <- stringr::str_c("diff.", colnames(idx_diff_summary), sep = "")
+
+    idx_periodicity <- xts::periodicity(idx)
+    idx_period_summary <- tibble::tibble(
+        start              = idx_periodicity$start,
+        end                = idx_periodicity$end,
+        units              = idx_periodicity$units,
+        scale              = idx_periodicity$label
+        # label              = idx_periodicity$label
+    )
+
+    idx_nobs_summary <- tibble::tibble(
+        n.obs      = length(idx)
+    )
+
+    idx_tzone_summary <- tibble::tibble(
+        tzone      = lubridate::tz(idx)
+    )
+
+    idx_summary <- dplyr::bind_cols(idx_nobs_summary,
+                                    idx_period_summary,
+                                    idx_tzone_summary,
+                                    idx_diff_summary)
+
+    return(idx_summary)
+}
+
+
+
+
+#' Get date or datetime variables
+#'
+#' @param data An object of class `data.frame`
+#'
+#' @return `tk_get_timeseries_variables` returns a vector containing column names of date-like classes
+#'
+#' @details
+#' `tk_get_timeseries_variables` returns the column names of date or datetime variables
+#' in a data frame.
+#' Classes that meet criteria for return include those that inherit
+#' `POSIXt`, `Date`, `zoo::yearmon`, `zoo::yearqtr`. Function was adapted from `padr:::get_date_variables()`.
+#' See [padr helpers.R](https://github.com/EdwinTh/padr/blob/master/R/helpers.R)
+#'
+#'
+#' @export
+tk_get_timeseries_variables <- function(data){
+    if (!is.data.frame(data)) {
+        stop('`data` should be a data.frame', call. = FALSE)
+    }
+    classes <- lapply(data, class)
+    date_classes <- (sapply(classes, function(x) 'POSIXt' %in% x) |
+                         sapply(classes, function(x) 'Date' %in% x) |
+                         sapply(classes, function(x) 'yearmon' %in% x) |
+                         sapply(classes, function(x) 'yearqtr' %in% x))
+    return(names(which(date_classes)))
+}
+

@@ -1,2 +1,1 @@
-globalVariables(c(".", "value", "observed", "season", ".actual", ".fitted",
-                  "actual", "seasonal", "trend", "remainder", "ret", "..target"))
+globalVariables(c("index", "index.num", "y", "yhat"))

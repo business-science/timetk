@@ -124,7 +124,7 @@ tk_xts_.data.frame <- function(data, select = NULL, date_var = NULL, silent = FA
         } else {
 
             # Auto detect date if date_var not specified
-            date_var <- get_date_variables(data)
+            date_var <- tk_get_timeseries_variables(data)
             date_found <- !purrr::is_empty(date_var)
             if (date_found) {
                 date_col <- dplyr::select_(data, date_var)

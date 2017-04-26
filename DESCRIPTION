@@ -1,17 +1,17 @@
 Package: timekit
 Type: Package
-Title: Simplified and Extensible Time Series Coercion Tools
-Version: 0.1.0
-Date: 2017-04-19
+Title: A Collection of Tools for Working with Time Series in R
+Version: 0.1.0.9000
+Date: 2017-04-26
 Authors@R: c(
     person("Matt", "Dancho", email = "mdancho@business-science.io", role = c("aut", "cre")),
     person("Davis", "Vaughan", email = "dvaughan@business-science.io", role = c("aut"))
   )
 Description: 
-    Coerces between time-based tibbles ('tbl') and the primary time series
-    object classes including 'xts', 'zoo', and 'ts'. Additionally, provides
-    methods for maintaining the non-regularized time index during coercion
-    to regularized time series objects.
+    Coerce between time-based tibbles ('tbl') and 'xts', 'zoo', and 'ts'. 
+    Get the time series index, signature, and summary from time series objects and
+    time-based tibbles. Create future time series based on properties of 
+    existing time series index.
 URL: https://github.com/business-science/timekit
 BugReports: https://github.com/business-science/timekit/issues
 License: GPL (>= 3)
@@ -20,18 +20,20 @@ LazyData: true
 Depends:
     R (>= 3.3.0)
 Imports:
+    broom (>= 0.4.2),
     devtools (>= 1.12.0),
     dplyr (>= 0.5.0),
     forcats (>= 0.2.0),
     forecast (>= 0.8.0),
     lazyeval (>= 0.2.0),
     lubridate (>= 1.6.0),
+    padr (>= 0.2.1),
     purrr (>= 0.2.2),
     quantmod (>= 0.4-8),
     readr (>= 1.0.0),
     scales (<= 0.4.1),
     tibble (>= 1.2),
-    tidyquant (>= 0.5.0),
+    tidyquant (>= 0.5.1),
     tidyr (>= 0.6.1),
     timeSeries (>= 3022.101.2),
     tseries (>= 0.10-37),
