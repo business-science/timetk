@@ -151,7 +151,7 @@ predict_future_timeseries_daily <- function(idx, n_future, skip_values) {
     lubridate::tz(date_sequence) <- lubridate::tz(idx)
 
     # Filter skip_values
-    date_sequence <- filter_skip_values(date_sequence, skip_values, n_future)
+    date_sequence <- filter_skip_values(date_sequence, skip_values, 1.5 * n_future)
 
     # Create new_data data frame with future obs timeseries signature
     new_data <- date_sequence %>%
