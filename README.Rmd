@@ -28,92 +28,109 @@ library(timekit)
 ![](http://cranlogs.r-pkg.org/badges/timekit?color=brightgreen)
 ![](http://cranlogs.r-pkg.org/badges/grand-total/timekit?color=brightgreen)
 
-> Simplified and extensible time series coercion tools
+> A collection of tools for working with time series in R
 
 ## Benefits
 
-* __Simplifies the coercion process between time-based tibbles (`tbl`) and the major time series data types `xts`, `zoo`, `zooreg`, and `ts`__
-* __Maximizes time-based data retention during coercion to regularized time series__
+The `timekit` package enables a user to work with time objects. The package has tools for inspecting and manipulating the time-based index (e.g. a date or date time column from a `tbl` or the dates stored as rownames from an `xts` object) and converting time-based objects to and from the many time series classes. The following are key benefits:
+
+* __Index extraction: get the time series index from any time series object__
+* __Understand time series: create a signature decomposition and summary from a time series index__
+* __Build future time series: create a future time series from an index__
+* __Coerce between time-based tibbles (`tbl`) and the major time series data types `xts`, `zoo`, `zooreg`, and `ts`. Maximizes time-based data retention during coercion to regularized time series__
 
 
 ## Tools
 
 The package contains the following elements:
 
-1. __coercion functions__: `tk_tbl`, `tk_ts`, `tk_xts`, `tk_zoo`, and `tk_zooreg` coerce time-based tibbles `tbl` to and from each of the main time-series data types `xts`, `zoo`, `zooreg`, `ts`, maintaining the time-based index.
+1. __Get an index__: `tk_index` returns the time series index of time
+series objects, models. The argument `timekit_idx` can be used to return a
+special timekit "index" attribute for regularized `ts` objects that returns a
+non-regularized date / date-time index if present.
 
-2. __index function__: `tk_index` returns the time series index of time series objects, models, and `forecast` objects. The argument `timekit_idx` can be used to return a special timekit "index" attribute for regularized `ts` objects that returns a non-regularized date / date-time index if present.
+2. __Get critical timeseries information__: `tk_get_timeseries_signature`
+and `tk_get_timeseries_summary` takes an index and provides a time series
+decomposition and key summary attributes of the index, respectively. The
+`tk_augment_timeseries_signature` adds the time series decomposition to the time
+series object. 
 
+3. __Make a future timeseries__: `tk_make_future_timeseries` models a
+future time series after an existing time series index.  
+
+4. __Coercion functions__: `tk_tbl`, `tk_ts`, `tk_xts`, `tk_zoo`, and
+`tk_zooreg` coerce time-based tibbles `tbl` to and from each of the main
+time-series data types `xts`, `zoo`, `zooreg`, `ts`, maintaining the time-based
+index.
+
+## Getting started
+
+Load libraries and start with some time series data
+
+```{r}
+library(timekit)
+library(tidyquant)
+
+FB_tbl <- FANG %>%
+    filter(symbol == "FB")
+FB_tbl
+```
+
+## Work with a time series index
+
+Get the timeseries index
+
+```{r}
+idx <- tk_index(FB_tbl)
+```
+
+Get the time series signature from the index, a tibble of decomposed features that are useful for understanding the time series observations. 
+
+```{r}
+tk_get_timeseries_signature(idx)
+```
+
+Get the time series summary from the index, a single-row tibble of key summary information from the time series.
+
+```{r}
+tk_get_timeseries_summary(idx)
+```
+
+## Make a future time series
+
+Use an index to make a future time series. 
+
+```{r}
+holidays <- c("2017-01-02", "2017-01-16", "2017-02-20",
+              "2017-04-14", "2017-05-29", "2017-07-04",
+              "2017-09-04", "2017-11-23", "2017-12-25") %>%
+    ymd()
+
+idx_future <- tk_make_future_timeseries(
+    idx, 
+    n_future         = 251, 
+    skip_values      = holidays, 
+    inspect_weekdays = TRUE) 
+```
 
 
 ## Simplified time series coercion
-
-The coercion functions `tk_tbl`, `tk_xts`, `tk_zoo`, `tk_zooreg`, and `tk_ts` maximize data retention and simplify the coercion process. Further working with regularized time series (`ts`) class has been a particular pain until now. 
-
-The data process often starts with a time-based tibble:
-
-```{r}
-# Time based tibble
-data_tbl <- tibble(
-    date = seq.Date(from = as.Date("2010-01-01"), by = 1, length.out = 5),
-    x    = seq(100, 120, by = 5)
-)
-data_tbl
-```
 
 Coercion to `xts`, `zoo`, or `ts` is simplified. The data is ordered correctly automatically using the column containing the date or datetime information. Non-numeric columns are automatically dropped with a warning to the user (the `silent = TRUE` hides the warnings).
 
 ```{r}
 # xts
-data_xts <- tk_xts(data_tbl, silent = TRUE)
+FB_xts <- tk_xts(FB_tbl, silent = TRUE)
 ```
 
 ```{r}
 # zoo
-data_zoo <- tk_zoo(data_tbl, silent = TRUE)
+FB_zoo <- tk_zoo(FB_tbl, silent = TRUE)
 ```
 
 ```{r}
 # ts
-data_ts <- tk_ts(data_tbl, start = 2010, freq = 365, silent = TRUE)
-```
-
-## Maximum data retention
-
-* __Problem__: The `ts()` function drops the time series data for a regularized index using the `start` and `freq` arguments. 
-* __Solution__: The new `tk_ts()` function stores the original date or datetime index as a second index ("timekit index"). 
-
-The index is retrieved with `tk_index()`. The default index for `ts` class is the regularized index.
-
-```{r}
-# Default index is regularized numeric index for ts class
-tk_index(data_ts) 
-```
-
-If a "timekit index" is present, the original date or datetime index can be retrieved by setting `timekit_idx = TRUE`. First, let's test with the function `has_timekit_idx()`.
-
-```{r}
-# Does the data have a timekit index?
-has_timekit_idx(data_ts)
-```
-
-Great! We can retrieve the secondary "timekit index" which is the original date or datetime index.
-
-```{r}
-# Secondary "timekit index": date or date-time index now retrievable
-tk_index(data_ts, timekit_idx = TRUE)
-```
-
-The `tk_tbl()` function also has the `timekit_idx` argument. We can now go from `ts` back to `tbl` using the regularized or secondary "timekit index".
-
-```{r}
-# Default regularized index
-data_ts %>%
-    tk_tbl(timekit_idx = FALSE)
-
-# Timekit index
-data_ts %>%
-    tk_tbl(timekit_idx = TRUE)
+FB_ts <- tk_ts(FB_tbl, start = 2013, freq = 252, silent = TRUE)
 ```
 
 
@@ -141,4 +158,5 @@ install.packages("timekit")
 The `timekit` package includes a vignette to help users get up to speed quickly:
 
 * TK00 - Time Series Coercion Using `timekit`
+* TK01 - Working with the Time Series Index using `timekit`
 
