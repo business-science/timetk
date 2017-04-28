@@ -6,8 +6,9 @@
     * `tk_get_timeseries_summary` returns summary metrics for the time series index including number of observations, start, end, units, scale, diff summary (summary for frequency in seconds), etc.
     * `tk_augment_timeseries_signature` adds the time series signature to a `tbl` (with time base), `xts` or `zoo` object.
     * `tk_get_timeseries_variables` returns the variable column names for date, datetime, yearmon, or yearqtr variables in a data frame. 
-* Bug Fixes:
+* Fixes:
     * `tk_index`: Fixed timezone issue with yearmon and yearqtr classes. 
+    * `tk_tbl`: Changed argument from `index_rename` to `rename_index` for consistency.
     
 
 

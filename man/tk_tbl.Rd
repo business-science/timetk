@@ -4,7 +4,7 @@
 \alias{tk_tbl}
 \title{Coerce time-series objects to tibble.}
 \usage{
-tk_tbl(data, preserve_index = TRUE, index_rename = "index",
+tk_tbl(data, preserve_index = TRUE, rename_index = "index",
   timekit_idx = FALSE, silent = FALSE, ...)
 }
 \arguments{
@@ -12,7 +12,7 @@ tk_tbl(data, preserve_index = TRUE, index_rename = "index",
 
 \item{preserve_index}{Attempts to preserve a time series index. Default is \code{TRUE}.}
 
-\item{index_rename}{Enables the index column to be renamed.}
+\item{rename_index}{Enables the index column to be renamed.}
 
 \item{timekit_idx}{Used to return a date / datetime index for
 regularized objects that contain a timekit "index" attribute.
@@ -38,7 +38,7 @@ date / date-time information from the underlying time-series object.
 When \code{preserve_index = TRUE} is specified, a new column,
 \code{index}, is created during object coercion, and the function attempts to preserve
 the date or date-time information. The date / date-time column name
-can be changed using the \code{index_rename} argument.
+can be changed using the \code{rename_index} argument.
 
 The \code{timekit_idx} argument is applicable when coercing \code{ts} objects that were
 created using \code{tk_ts()} from an object that had a time base
