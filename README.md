@@ -10,12 +10,12 @@ timekit
 Benefits
 --------
 
-The `timekit` package enables a user to work with time objects. The package has tools for inspecting and manipulating the time-based index (e.g. a date or date time column from a `tbl` or the dates stored as rownames from an `xts` object) and converting objects to and from the many time series classes. The following are key benefits:
+The `timekit` package enables a user to more easily work with time series objects in R. The package has tools for inspecting and manipulating the time-based index (e.g. a date or date time column from a `tbl` or the dates stored as rownames from an `xts` object) and converting time-based objects to and from the many time series classes. The following are key benefits:
 
 -   **Index extraction: get the time series index from any time series object**
 -   **Understand time series: create a signature decomposition and summary from a time series index**
 -   **Build future time series: create a future time series from an index**
--   **Simplifies the coercion process between time-based tibbles (`tbl`) and the major time series data types `xts`, `zoo`, `zooreg`, and `ts`. Maximizes time-based data retention during coercion to regularized time series**
+-   **Coerce between time-based tibbles (`tbl`) and the major time series data types `xts`, `zoo`, `zooreg`, and `ts`. Maximizes time-based data retention during coercion to regularized time series**
 
 Tools
 -----
@@ -24,7 +24,7 @@ The package contains the following elements:
 
 1.  **Get an index**: `tk_index` returns the time series index of time series objects, models. The argument `timekit_idx` can be used to return a special timekit "index" attribute for regularized `ts` objects that returns a non-regularized date / date-time index if present.
 
-2.  **Get critical timeseries information**: `tk_get_timeseries_signature` and `tk_get_timeseries_summary` takes an index and provides a time series decomposition and key summary attributes of the index, respectively. The `tk_augment_timeseries_signature` adds the time series decomposition to the time series object.
+2.  **Get critical timeseries information**: `tk_get_timeseries_signature` and `tk_get_timeseries_summary` takes an index and provides a time series decomposition and key summary attributes of the index, respectively. The `tk_augment_timeseries_signature` expedites adding the time series decomposition to the time series object.
 
 3.  **Make a future timeseries**: `tk_make_future_timeseries` models a future time series after an existing time series index.
 
@@ -36,8 +36,8 @@ Getting started
 Load libraries and start with some time series data
 
 ``` r
-library(tidyquant)
 library(timekit)
+library(tidyquant)
 
 FB_tbl <- FANG %>%
     filter(symbol == "FB")
@@ -58,13 +58,16 @@ FB_tbl
 #> # ... with 998 more rows
 ```
 
-Understand and work with a time series index
---------------------------------------------
+Work with a time series index
+-----------------------------
 
 Get the timeseries index
 
 ``` r
 idx <- tk_index(FB_tbl)
+head(idx)
+#> [1] "2013-01-02" "2013-01-03" "2013-01-04" "2013-01-07" "2013-01-08"
+#> [6] "2013-01-09"
 ```
 
 Get the time series signature from the index, a tibble of decomposed features that are useful for understanding the time series observations.
@@ -117,6 +120,10 @@ idx_future <- tk_make_future_timeseries(
     n_future         = 251, 
     skip_values      = holidays, 
     inspect_weekdays = TRUE) 
+
+head(idx_future)
+#> [1] "2017-01-03" "2017-01-04" "2017-01-05" "2017-01-06" "2017-01-09"
+#> [6] "2017-01-10"
 ```
 
 Simplified time series coercion

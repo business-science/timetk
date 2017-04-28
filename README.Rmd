@@ -32,7 +32,7 @@ library(timekit)
 
 ## Benefits
 
-The `timekit` package enables a user to work with time objects. The package has tools for inspecting and manipulating the time-based index (e.g. a date or date time column from a `tbl` or the dates stored as rownames from an `xts` object) and converting time-based objects to and from the many time series classes. The following are key benefits:
+The `timekit` package enables a user to more easily work with time series objects in R. The package has tools for inspecting and manipulating the time-based index (e.g. a date or date time column from a `tbl` or the dates stored as rownames from an `xts` object) and converting time-based objects to and from the many time series classes. The following are key benefits:
 
 * __Index extraction: get the time series index from any time series object__
 * __Understand time series: create a signature decomposition and summary from a time series index__
@@ -52,7 +52,7 @@ non-regularized date / date-time index if present.
 2. __Get critical timeseries information__: `tk_get_timeseries_signature`
 and `tk_get_timeseries_summary` takes an index and provides a time series
 decomposition and key summary attributes of the index, respectively. The
-`tk_augment_timeseries_signature` adds the time series decomposition to the time
+`tk_augment_timeseries_signature` expedites adding the time series decomposition to the time
 series object. 
 
 3. __Make a future timeseries__: `tk_make_future_timeseries` models a
@@ -82,6 +82,7 @@ Get the timeseries index
 
 ```{r}
 idx <- tk_index(FB_tbl)
+head(idx)
 ```
 
 Get the time series signature from the index, a tibble of decomposed features that are useful for understanding the time series observations. 
@@ -111,6 +112,8 @@ idx_future <- tk_make_future_timeseries(
     n_future         = 251, 
     skip_values      = holidays, 
     inspect_weekdays = TRUE) 
+
+head(idx_future)
 ```
 
 
