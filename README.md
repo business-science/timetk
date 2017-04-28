@@ -12,15 +12,15 @@ Benefits
 
 The `timekit` package enables a user to more easily work with time series objects in R. The package has tools for inspecting and manipulating the time-based index (e.g. a date or date time column from a `tbl` or the dates stored as rownames from an `xts` object) and converting time-based objects to and from the many time series classes. The following are key benefits:
 
--   **Index extraction: get the time series index from any time series object**
--   **Understand time series: create a signature decomposition and summary from a time series index**
--   **Build future time series: create a future time series from an index**
--   **Coerce between time-based tibbles (`tbl`) and the major time series data types `xts`, `zoo`, `zooreg`, and `ts`. Maximizes time-based data retention during coercion to regularized time series**
+-   **Index extraction**: get the time series index from any time series object.
+-   **Understand time series**: create a signature decomposition and summary from a time series index.
+-   **Build future time series**: create a future time series from an index.
+-   **Coerce between time-based tibbles (`tbl`) and the major time series data types `xts`, `zoo`, `zooreg`, and `ts`**: Simplifies coercion and maximizes time-based data retention during coercion to regularized time series (e.g. `ts`).
 
 Tools
 -----
 
-The package contains the following elements:
+The package contains the following functions:
 
 1.  **Get an index**: `tk_index` returns the time series index of time series objects, models. The argument `timekit_idx` can be used to return a special timekit "index" attribute for regularized `ts` objects that returns a non-regularized date / date-time index if present.
 
@@ -146,7 +146,25 @@ FB_zoo <- tk_zoo(FB_tbl, silent = TRUE)
 FB_ts <- tk_ts(FB_tbl, start = 2013, freq = 252, silent = TRUE)
 ```
 
-This covers the basics of the `timekit` package time series coercion capabilities. Here's how to get started.
+Maintain time-based index during coercion to regularized classes
+----------------------------------------------------------------
+
+Get the default index (regularized for `ts` class).
+
+``` r
+tk_index(FB_ts) %>% head()
+#> [1] 2013.000 2013.004 2013.008 2013.012 2013.016 2013.020
+```
+
+Get the time-based index using the argument `timekit_idx = TRUE`.
+
+``` r
+tk_index(FB_ts, timekit_idx = TRUE) %>% head()
+#> [1] "2013-01-02" "2013-01-03" "2013-01-04" "2013-01-07" "2013-01-08"
+#> [6] "2013-01-09"
+```
+
+This covers the basics of the `timekit` package capabilities. Here's how to get started.
 
 Installation
 ------------
