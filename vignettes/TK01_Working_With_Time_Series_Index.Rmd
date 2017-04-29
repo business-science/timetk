@@ -1,0 +1,287 @@
+---
+title: "Working with the Time Series Index using timekit"
+author: "Matt Dancho"
+date: "`r Sys.Date()`"
+output: 
+  rmarkdown::html_vignette:
+    toc: true
+    toc_depth: 2
+vignette: >
+  %\VignetteIndexEntry{Working with the Time Series Index using timekit}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+knitr::opts_chunk$set(
+    # message = FALSE,
+    # warning = FALSE,
+    fig.width = 8, 
+    fig.height = 4.5,
+    fig.align = 'center',
+    out.width='95%', 
+    dpi = 200
+)
+library(tidyquant)
+library(timekit)
+library(forecast)
+# devtools::load_all() # Travis CI fails on load_all()
+```
+
+> A collection of tools for working with time series in R
+
+The __time series index__, which consists of a collection of time-based values that define _when_ each observation occurred, is the most important part of a time series object. The index gives the user a lot of information in a simple timestamp. Consider the datetime "2016-01-01 00:00:00". From this timestamp, we can decompose the datetime to get the __signature__, which consists of the year, quarter, month, day, day of year, day of month, hour, minute, and second of the occurrence of a single observation. Further, the difference between two or more observations is the __frequency__ from which we can obtain even more information such as the periodicity of the data and whether or not these observations are on a regular interval. This information is critical as it provides the basis for performance over time in finance, decay rates in biology, growth rates in economics, and so on.
+
+In this vignette the user will be exposed to the time series index, tools to gain insights and work with it, and methods to work with time series data in general. The user will see several functions that can help to efficiently extract and analyze a time series index. Further, the user will see how to decompose an index (i.e. create a signature) and how to efficiently add the signature to a time series object (`tbl` with time basis, `xts` or `zoo` objects). In addition, the user will learn about summary metrics and how to compute future time index values based on an existing index. 
+
+# Prerequisites
+
+Before we get started, load the following packages.
+
+```{r, eval = F}
+library(tidyquant)
+library(timekit)
+```
+
+# Data
+
+We'll use the Facebook stock prices from the `FANG` data set from `tidyquant`. These are the historical stock prices (open, high, low, close, volume, and adjusted) for the "FB" stock from 2013 through 2016.
+
+```{r}
+FB_tbl <- FANG %>% filter(symbol == "FB")
+FB_tbl
+```
+
+To simplify the tutorial, we will select only the "date" and "volume" columns. For the `FB_vol_date` data frame, we can see from the "date" column that the observations are _daily_ beginning on the second day of 2013.
+
+```{r}
+FB_vol_date <- FB_tbl %>% select(date, volume)
+FB_vol_date
+```
+
+To show examples using alternative time series classes, we'll summarize the data as `yearqtr` from the `zoo` package. We now see from the "date" column that the observations are _quarterly_ beginning on the first quarter of 2013.
+
+```{r}
+FB_vol_yearqtr <- FB_vol_date %>%
+    mutate(date = as.yearqtr(date)) %>%
+    group_by(date) %>%
+    summarize(volume = sum(volume))
+FB_vol_yearqtr
+```
+
+
+# Extract an index
+
+## tk_index
+
+Before we can analyze an index, we need to extract it from the object. The function `tk_index()` extracts the index from any time series object including data frame (or `tbl`), `xts`, `zoo`, etc. The index is always returned in the native date, datetime, yearmon, or yearqtr format. Note that the index must be in one of these time-based classes for extraction to work:
+
+* datetimes: Must inherit `POSIXt`
+* dates: Must inherit `Date`
+* yearmon: Must inherit `yearmon` from the `zoo` package
+* yearqtr: Must inherit `yearqtr` from the `zoo` package
+
+Extract the index using `tk_index()`. The structure is shown to see the output format, which is a vector of dates.
+
+```{r}
+# idx_date
+idx_date <- tk_index(FB_vol_date)
+str(idx_date)
+```
+
+We can see a similar result with the yearqtr index. The obvious differences are fewer observations since the time series was aggregated quarterly and the output format is the `yearqtr` class.
+
+```{r}
+# idx_yearqtr
+idx_yearqtr <- tk_index(FB_vol_yearqtr)
+paste0("class: ", class(idx_yearqtr), "\n",
+       "n.obs: ", length(idx_yearqtr), "\n",
+       "head:  ", stringr::str_c(head(idx_yearqtr), collapse = ", ")) %>%
+    cat()
+```
+
+# Analyze the index
+
+## tk_get_timeseries_signature and tk_augment_timeseries_signature
+
+The index can be decomposed into a _signature_. The time series signature is a unique set of properties of the time series values that describe the time series. The function `tk_get_timeseries_signature()` can be used to convert the index to a tibble containing the following values (columns):
+
+* __index__: The index value that was decomposed
+* __index.num__: The numeric value of the index in seconds. The base is "1970-01-01 00:00:00" (Execute `"1970-01-01 00:00:00" %>% ymd_hms() %>% as.numeric()` to see the value returned is zero). Every time series value after this date can be converted to a numeric value in seconds.
+* __diff__: The difference in seconds from the previous numeric index value.
+* __year__: The year component of the index.
+* __half__: The half component of the index.
+* __quarter__: The quarter component of the index.
+* __month__: The month component of the index with base 1. 
+* __month.xts__: The month component of the index with base 0, which is what `xts` implements.
+* __month.lbl__: The month label as an ordered factor begining with January and ending with December.
+* __day__: The day component of the index.
+* __hour__: The hour component of the index.
+* __minute__: The minute component of the index.
+* __second__: The second component of the index.
+* __wday__: The day of the week with base 1. Sunday = 1 and Saturday = 7.
+* __wday.xts__: The day of the week with base 0, which is what `xts` implements. Sunday = 0 and Saturday = 6.
+* __wday.lbl__: The day of the week label as an ordered factor begining with Sunday and ending with Saturday.
+* __mday__: The day of the month.
+* __yday__: The day of the year.
+* __week__: The week number of the year (Sunday start).
+* __week.iso__: The ISO week number of the year (Monday start).
+* __week2__: The modulus for bi-weekly frequency.
+* __week3__: The modulus for tri-weekly frequency.
+* __week4__: The modulus for quad-weekly frequency.
+
+
+```{r}
+# idx_date signature
+tk_get_timeseries_signature(idx_date)
+```
+
+We can also get the signature of other time-based objects. The `tk_get_timeseries_signature()` function works with date, datetime, yearmon, and yearqtr vectors. 
+
+```{r}
+# idx_yearqtr signature
+tk_get_timeseries_signature(idx_yearqtr)
+```
+
+It's usually important to keep the index signature with the values (e.g. volume in our example). We can use an expedited approach with `tk_augment_timeseries_signature()`, which adds the signature to the end of the time series object. Note that `xts` and `zoo` objects only retain numeric columns and therefore "month.lbl" and "wday.lbl" columns will be dropped. We'll use the `tk_augment_timeseries_signature()` function on the dataframe `FB_vol_date` which contains the date and volume columns.
+
+```{r}
+# Augmenting a data frame
+FB_vol_date_signature <- tk_augment_timeseries_signature(FB_vol_date)
+FB_vol_date_signature
+```
+
+Analyzing the time series is now easier with the decomposed measures. For example, we can create a month plot very easily in `ggplot2`.  
+
+```{r, fig.height=6}
+# Example Benefit 1: Making a month plot
+FB_vol_monthly <- FB_vol_date_signature %>%
+    group_by(year, month.lbl) %>%
+    summarize(volume = sum(volume)) 
+
+FB_vol_monthly %>%
+    ggplot(aes(x = month.lbl, y = volume, fill = factor(year))) +
+    geom_bar(stat = "identity") +
+    labs(title = "Month Plot of FB Volume", x ="", fill = "Year",
+         subtitle = "Analyzing time-based metrics is easy with time series signature") +
+    theme_tq() +
+    theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+    scale_fill_tq() +
+    scale_y_continuous(labels = scales::comma)
+        
+```
+
+Modeling is also much easier. As an example, we can use linear regression model using the `lm()` function with the month and year as a predictor of volume. 
+
+```{r}
+# Example Benefit 2: Modeling is easier
+fit <- lm(volume ~ year + month.lbl, data = FB_vol_monthly)
+summary(fit)
+```
+
+## tk_get_timeseries_summary
+
+The next index analysis tool is the summary metrics, which can be retrieved using the `tk_get_timeseries_summary()` function. The summary reports the following attributes as a single-row tibble.
+
+_General Summary_:
+
+The first six columns are general summary information.
+
+* __n.obs__: The total number of observations
+* __start__: The start in the appropriate time class
+* __end__: The end in the appropriate time class
+* __units__: A label that describes the unit of the index value that is independent of frequency (i.e. a date class will always be "days" whereas a datetime class will always be "seconds"). Values can be days, hours, mins, secs. 
+* __scale__: A label that describes the the median difference (frequency) between observations. Values can be quarter, month, day, hour, minute, second. 
+* __tzone__: The timezone of the index.
+
+_Differences Summary_:
+
+The next group of values are the __differences summary__ (i.e. summary of frequency). All values are in seconds:
+
+* __diff.minimum__: The minimum difference between index values.
+* __diff.q1__: The first quartile of the index differences.
+* __diff.median__: The median difference between index values (i.e. most common frequency).
+* __diff.mean__: The average difference between index values. 
+* __diff.q3__: The third quartile of the index differences.
+* __diff.maximum__: The maximum difference between index values.
+
+The __differences__ provide information about the _regularity of the frequency_. Generally speaking if all difference values are equal, the index is regular. However, scales beyond "day" are never theoretically regular since the differences in seconds are not equivalent. However, conceptually monthly, quarterly and yearly data can be thought of as regular if the index contains consecutive months, quarters, or years, respectively. Therefore, the difference attributes are most meaningful for daily and lower time scales because the difference summary always indicates level of regularity.
+
+We can get the time series summary using `tk_get_timeseries_summary()`. We'll split the output into six columns to view in the vignette. From the first group summary (general summary), we recognize that there are 1008 observations that span 2013 through 2016. The "units" of each index value are in "days", and the "scale" of the index values is "day" for daily periodicity.    
+
+```{r}
+# idx_date: First six columns, general summary
+tk_get_timeseries_summary(idx_date)[,1:6]
+```
+
+From the second group (differences summary), we immediately recognize that the mean is different than the median and therefore the index is _irregular_ (meaning certain days are missing). Further we can see that the maximum difference is 345,600 seconds, indicating the maximum difference is 4 days (345,600 seconds / 86400 seconds/day).
+ 
+```{r}
+# idx_date: Last six columns, difference summary
+tk_get_timeseries_summary(idx_date)[,7:12]
+```
+
+We can also get the summary from the quarterly data using `tk_get_timeseries_summary()`. The general summary for the quarterly output may not be what is expected because the "units" are reported as "days". This is because the maximum unit for an index value is days regardless of timeseries class. As anticipated the scale is "quarterly".
+
+```{r}
+# idx_yearqtr: First six columns, general summary
+tk_get_timeseries_summary(idx_yearqtr)[,1:6]
+```
+
+The difference summary indicates that the timeseries is _irregular_, which also may not be what is expected. This is because, when measured in seconds, the difference values between observations (quarters) varies. Some quarters have more seconds than others. With this said, the quarterly data can be conceptualized as _regular_ because the class is quarterly with all consecutive quarters present in the timespan.
+
+```{r}
+# idx_yearqtr: Last six columns, difference summary
+tk_get_timeseries_summary(idx_yearqtr)[,7:12]
+```
+
+# Make a future index
+
+## tk_make_future_index
+
+Sometimes we want to extend an index into the future. This task can be tricky because in addition to a frequency that needs to be accounted for there's often missing dates (e.g. weekends and holidays for daily data). The `tk_make_future_index()` simplifies this task by incoporating:
+
+1. The frequency regardless of scale
+2. Daily scale only: The weekday frequency on weekly, bi-weekly, tri-weekly, and quad-weekly frequency. This can be toggled on/off with the boolean `inspect_weekdays` argument.
+
+Further, missing observations on irregular intervals (e.g. holidays) can be another issue for daily data. These skipped days can be explicitly excluded from the future index using the `skip_values` argument. Note that the class of these values must match the class of the index.
+
+Here's an example of using an index to create a future index. We'll use `idx_date` first to show how the output varies with the arguments. The `n_future` argument tells the function how many future index values to make. The first 20 observations are shown for brevity. We can see that the output is a series of daily dates that extend from the last day present in the previous index ("2016-12-30"). While the result got the frequency correct (daily) it isn't realistic for our data because weekends are present and so are holidays (e.g. new year's day).
+
+```{r}
+# idx_date: future index, no weekday inspection, no skip values
+tk_make_future_timeseries(idx_date, 
+                          n_future = 20, 
+                          skip_values = NULL, 
+                          inspect_weekdays = FALSE
+                          )
+```
+
+We can correct for this using the `skip_values` and `inspect_weekdays` arguments. The former removes specific observations while the latter uses a logistic regression algorithm to identify the probability of specific weekdays being present in the future index. The algorithm for inspecting weekdays will check for any weekdays that are missing on a weekly, bi-weekly, tri-weekly, or quad-weekly frequency and automatically remove these days. As shown below, holidays (New Year's Day and Martin Luther King, Jr. Day) and weekends are accounted for. 
+
+```{r}
+# idx_date: future index, accounting for holidays and weekends
+# Build vector of holidays in correct timeseries class using ymd()
+holidays <- c("2017-01-02", "2017-01-16") %>% ymd()
+# Create future index
+tk_make_future_timeseries(idx_date, 
+                          n_future = 20, 
+                          skip_values = holidays, 
+                          inspect_weekdays = TRUE
+                          )
+```
+
+We can also project the year quarter index into the future. Note that the `inspect_weekdays` argument has no effect on an index with a non-daily scale.
+
+```{r}
+# idx_yearqtr: 
+tk_make_future_timeseries(idx_yearqtr, n_future = 4)
+```
+
+
+
+
+
+ 
+
+

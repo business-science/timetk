@@ -136,9 +136,11 @@ predict_future_timeseries_daily <- function(idx, n_future, skip_values) {
         tk_augment_timeseries_signature()
 
     # fit model
-    fit <- stats::glm(y ~ wday.lbl,
+    fit <- suppressWarnings(
+        stats::glm(y ~ wday.lbl + wday.lbl:week2 + wday.lbl:week3 + wday.lbl:week4,
                       family = stats::binomial(link = 'logit'),
                       data   = train)
+        )
 
     # Create new data
     last_numeric_date <- dplyr::last(train$index.num)
@@ -151,7 +153,7 @@ predict_future_timeseries_daily <- function(idx, n_future, skip_values) {
     lubridate::tz(date_sequence) <- lubridate::tz(idx)
 
     # Filter skip_values
-    date_sequence <- filter_skip_values(date_sequence, skip_values, n_future)
+    date_sequence <- filter_skip_values(date_sequence, skip_values, 1.5 * n_future)
 
     # Create new_data data frame with future obs timeseries signature
     new_data <- date_sequence %>%
@@ -159,7 +161,7 @@ predict_future_timeseries_daily <- function(idx, n_future, skip_values) {
 
     # Predict
     fitted.results <- stats::predict(fit, newdata = new_data, type = 'response')
-    fitted.results <- ifelse(fitted.results > 0.20, 1, 0)
+    fitted.results <- ifelse(fitted.results > 0.10, 1, 0)
 
     # Filter on fitted.results
     predictions <- tibble::tibble(

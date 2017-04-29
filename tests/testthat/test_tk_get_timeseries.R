@@ -13,7 +13,7 @@ test_that("tk_get_timeseries_signature(datetime) test returns correct format.", 
     test <- tk_get_timeseries_signature(test_datetime)
     expect_true(inherits(test, "tbl"))
     expect_equal(nrow(test), 3)
-    expect_equal(ncol(test), 17)
+    expect_equal(ncol(test), 23)
 })
 
 test_date <- c("2016-01-01",
@@ -25,7 +25,7 @@ test_that("tk_get_timeseries_signature(date) test returns correct format.", {
     test <- tk_get_timeseries_signature(test_date)
     expect_true(inherits(test, "tbl"))
     expect_equal(nrow(test), 3)
-    expect_equal(ncol(test), 17)
+    expect_equal(ncol(test), 23)
 })
 
 test_yearmon <- c("2016-01-01",
@@ -38,7 +38,7 @@ test_that("tk_get_timeseries_signature(yearmon) test returns correct format.", {
     test <- tk_get_timeseries_signature(test_yearmon)
     expect_true(inherits(test, "tbl"))
     expect_equal(nrow(test), 3)
-    expect_equal(ncol(test), 17)
+    expect_equal(ncol(test), 23)
 })
 
 test_yearqtr <- c("2016-01-01",
@@ -52,7 +52,7 @@ test_that("tk_get_timeseries_signature(yearqtr) test returns correct format.", {
     test <- tk_get_timeseries_signature(test_yearqtr)
     expect_true(inherits(test, "tbl"))
     expect_equal(nrow(test), 4)
-    expect_equal(ncol(test), 17)
+    expect_equal(ncol(test), 23)
 })
 
 test_numeric <- c(2016.00, 2016.25, 2016.50, 2016.75)

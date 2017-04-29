@@ -99,19 +99,26 @@ get_timeseries_signature_date <- function(idx) {
             index.num = as.numeric(as.POSIXct(index)) %>% as.integer(),
             diff      = c(NA, diff(index.num)) %>% as.integer(),
             year      = lubridate::year(index) %>% as.integer(),
+            half      = lubridate::semester(index) %>% as.integer(),
             quarter   = lubridate::quarter(index) %>% as.integer(),
             month     = lubridate::month(index) %>% as.integer(),
             month.xts = as.integer(lubridate::month(index)) - 1L,
             month.lbl = lubridate::month(index, label = TRUE, abbr = FALSE),
             day       = lubridate::day(index) %>% as.integer(),
+            hour      = lubridate::hour(index) %>% as.integer(),
+            minute    = lubridate::minute(index) %>% as.integer(),
+            second    = lubridate::second(index) %>% as.integer(),
             wday      = lubridate::wday(index) %>% as.integer(),
             wday.xts  = as.integer(lubridate::wday(index)) - 1L,
             wday.lbl  = lubridate::wday(index, label = TRUE, abbr = FALSE),
             mday      = lubridate::mday(index) %>% as.integer(),
+            # qday      = lubridate::qday(index) %>% as.integer(),
             yday      = lubridate::yday(index) %>% as.integer(),
-            hour      = lubridate::hour(index) %>% as.integer(),
-            minute    = lubridate::minute(index) %>% as.integer(),
-            second    = lubridate::second(index) %>% as.integer()
+            week      = lubridate::week(index) %>% as.integer(),
+            week.iso  = lubridate::isoweek(index) %>% as.integer(),
+            week2     = as.integer(week %% 2),
+            week3     = as.integer(week %% 3),
+            week4     = as.integer(week %% 4)
         )
     return(ret)
 }
@@ -191,33 +198,4 @@ get_timeseries_summary_date <- function(idx) {
     return(idx_summary)
 }
 
-
-
-
-#' Get date or datetime variables
-#'
-#' @param data An object of class `data.frame`
-#'
-#' @return `tk_get_timeseries_variables` returns a vector containing column names of date-like classes
-#'
-#' @details
-#' `tk_get_timeseries_variables` returns the column names of date or datetime variables
-#' in a data frame.
-#' Classes that meet criteria for return include those that inherit
-#' `POSIXt`, `Date`, `zoo::yearmon`, `zoo::yearqtr`. Function was adapted from `padr:::get_date_variables()`.
-#' See [padr helpers.R](https://github.com/EdwinTh/padr/blob/master/R/helpers.R)
-#'
-#'
-#' @export
-tk_get_timeseries_variables <- function(data){
-    if (!is.data.frame(data)) {
-        stop('`data` should be a data.frame', call. = FALSE)
-    }
-    classes <- lapply(data, class)
-    date_classes <- (sapply(classes, function(x) 'POSIXt' %in% x) |
-                         sapply(classes, function(x) 'Date' %in% x) |
-                         sapply(classes, function(x) 'yearmon' %in% x) |
-                         sapply(classes, function(x) 'yearqtr' %in% x))
-    return(names(which(date_classes)))
-}
 
