@@ -5,6 +5,8 @@ timekit
 
 [![Travis-CI Build Status](https://travis-ci.org/business-science/timekit.svg?branch=master)](https://travis-ci.org/business-science/timekit.svg?branch=master) [![codecov](https://codecov.io/gh/business-science/timekit/branch/master/graph/badge.svg)](https://codecov.io/gh/business-science/timekit) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/timekit)](https://cran.r-project.org/package=timekit) ![](http://cranlogs.r-pkg.org/badges/timekit?color=brightgreen) ![](http://cranlogs.r-pkg.org/badges/grand-total/timekit?color=brightgreen)
 
+<img src="tools/timekit-logo.png" width="147" height="170" align="right" />
+
 > A collection of tools for working with time series in R
 
 Benefits
