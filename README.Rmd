@@ -28,7 +28,7 @@ library(timekit)
 ![](http://cranlogs.r-pkg.org/badges/timekit?color=brightgreen)
 ![](http://cranlogs.r-pkg.org/badges/grand-total/timekit?color=brightgreen)
 
-<img src="tools/timekit-logo.png" width="147" height="170" align="right" />
+<img src="tools/logo.png" width="147" height="170" align="right" />
 
 > A collection of tools for working with time series in R
 
