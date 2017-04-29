@@ -17,7 +17,7 @@
 #' See [padr helpers.R](https://github.com/EdwinTh/padr/blob/master/R/helpers.R)
 #'
 #' @examples
-#' libarary(tidyquant)
+#' library(tidyquant)
 #' library(timekit)
 #'
 #' FANG %>%

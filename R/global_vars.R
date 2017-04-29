@@ -1,1 +1,1 @@
-globalVariables(c("index", "index.num", "y", "yhat"))
+globalVariables(c("index", "index.num", "y", "yhat", "week"))
