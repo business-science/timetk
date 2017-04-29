@@ -10,32 +10,34 @@ timekit
 Benefits
 --------
 
--   **Index extraction: get the time series index from any time series object**
--   **Understand time series: create a signature decomposition and summary from an index**
--   **Build future time series: create a future time series from an index**
--   **Simplifies the coercion process between time-based tibbles (`tbl`) and the major time series data types `xts`, `zoo`, `zooreg`, and `ts`. Maximizes time-based data retention during coercion to regularized time series**
+The `timekit` package enables a user to more easily work with time series objects in R. The package has tools for inspecting and manipulating the time-based index (e.g. a date or date time column from a `tbl` or the dates stored as rownames from an `xts` object) and converting time-based objects to and from the many time series classes. The following are key benefits:
+
+-   **Index extraction**: get the time series index from any time series object.
+-   **Understand time series**: create a signature decomposition and summary from a time series index.
+-   **Build future time series**: create a future time series from an index.
+-   **Coerce between time-based tibbles (`tbl`) and the major time series data types `xts`, `zoo`, `zooreg`, and `ts`**: Simplifies coercion and maximizes time-based data retention during coercion to regularized time series (e.g. `ts`).
 
 Tools
 -----
 
-The package contains the following elements:
+The package contains the following functions:
 
 1.  **Get an index**: `tk_index` returns the time series index of time series objects, models. The argument `timekit_idx` can be used to return a special timekit "index" attribute for regularized `ts` objects that returns a non-regularized date / date-time index if present.
 
-2.  **Get critical timeseries information**: `tk_get_timeseries_signature` and `tk_get_timeseries_summary` takes an index and provides a time series decomposition and key summary attributes of the index, respectively. The `tk_augment_timeseries_signature` adds the time series decomposition to the time series object.
+2.  **Get critical timeseries information**: `tk_get_timeseries_signature` and `tk_get_timeseries_summary` takes an index and provides a time series decomposition and key summary attributes of the index, respectively. The `tk_augment_timeseries_signature` expedites adding the time series decomposition to the time series object.
 
 3.  **Make a future timeseries**: `tk_make_future_timeseries` models a future time series after an existing time series index.
 
 4.  **Coercion functions**: `tk_tbl`, `tk_ts`, `tk_xts`, `tk_zoo`, and `tk_zooreg` coerce time-based tibbles `tbl` to and from each of the main time-series data types `xts`, `zoo`, `zooreg`, `ts`, maintaining the time-based index.
 
-Understand and work with a time series index
---------------------------------------------
+Getting started
+---------------
 
-Start with some time series data
+Load libraries and start with some time series data
 
 ``` r
-library(tidyquant)
 library(timekit)
+library(tidyquant)
 
 FB_tbl <- FANG %>%
     filter(symbol == "FB")
@@ -56,32 +58,39 @@ FB_tbl
 #> # ... with 998 more rows
 ```
 
+Work with a time series index
+-----------------------------
+
 Get the timeseries index
 
 ``` r
 idx <- tk_index(FB_tbl)
+head(idx)
+#> [1] "2013-01-02" "2013-01-03" "2013-01-04" "2013-01-07" "2013-01-08"
+#> [6] "2013-01-09"
 ```
 
 Get the time series signature from the index, a tibble of decomposed features that are useful for understanding the time series observations.
 
 ``` r
 tk_get_timeseries_signature(idx)
-#> # A tibble: 1,008 × 17
-#>         index  index.num   diff  year quarter month month.xts month.lbl
-#>        <date>      <int>  <int> <int>   <int> <int>     <int>     <ord>
-#> 1  2013-01-02 1357084800     NA  2013       1     1         0   January
-#> 2  2013-01-03 1357171200  86400  2013       1     1         0   January
-#> 3  2013-01-04 1357257600  86400  2013       1     1         0   January
-#> 4  2013-01-07 1357516800 259200  2013       1     1         0   January
-#> 5  2013-01-08 1357603200  86400  2013       1     1         0   January
-#> 6  2013-01-09 1357689600  86400  2013       1     1         0   January
-#> 7  2013-01-10 1357776000  86400  2013       1     1         0   January
-#> 8  2013-01-11 1357862400  86400  2013       1     1         0   January
-#> 9  2013-01-14 1358121600 259200  2013       1     1         0   January
-#> 10 2013-01-15 1358208000  86400  2013       1     1         0   January
-#> # ... with 998 more rows, and 9 more variables: day <int>, wday <int>,
-#> #   wday.xts <int>, wday.lbl <ord>, mday <int>, yday <int>, hour <int>,
-#> #   minute <int>, second <int>
+#> # A tibble: 1,008 × 23
+#>         index  index.num   diff  year  half quarter month month.xts
+#>        <date>      <int>  <int> <int> <int>   <int> <int>     <int>
+#> 1  2013-01-02 1357084800     NA  2013     1       1     1         0
+#> 2  2013-01-03 1357171200  86400  2013     1       1     1         0
+#> 3  2013-01-04 1357257600  86400  2013     1       1     1         0
+#> 4  2013-01-07 1357516800 259200  2013     1       1     1         0
+#> 5  2013-01-08 1357603200  86400  2013     1       1     1         0
+#> 6  2013-01-09 1357689600  86400  2013     1       1     1         0
+#> 7  2013-01-10 1357776000  86400  2013     1       1     1         0
+#> 8  2013-01-11 1357862400  86400  2013     1       1     1         0
+#> 9  2013-01-14 1358121600 259200  2013     1       1     1         0
+#> 10 2013-01-15 1358208000  86400  2013     1       1     1         0
+#> # ... with 998 more rows, and 15 more variables: month.lbl <ord>,
+#> #   day <int>, hour <int>, minute <int>, second <int>, wday <int>,
+#> #   wday.xts <int>, wday.lbl <ord>, mday <int>, yday <int>, week <int>,
+#> #   week.iso <int>, week2 <int>, week3 <int>, week4 <int>
 ```
 
 Get the time series summary from the index, a single-row tibble of key summary information from the time series.
@@ -112,10 +121,14 @@ idx_future <- tk_make_future_timeseries(
     n_future         = 251, 
     skip_values      = holidays, 
     inspect_weekdays = TRUE) 
+
+head(idx_future)
+#> [1] "2017-01-03" "2017-01-04" "2017-01-05" "2017-01-06" "2017-01-09"
+#> [6] "2017-01-10"
 ```
 
-Simplified time series coercion
--------------------------------
+Coerce time series without specifying order.by or worrying about coercion issues
+--------------------------------------------------------------------------------
 
 Coercion to `xts`, `zoo`, or `ts` is simplified. The data is ordered correctly automatically using the column containing the date or datetime information. Non-numeric columns are automatically dropped with a warning to the user (the `silent = TRUE` hides the warnings).
 
@@ -134,7 +147,25 @@ FB_zoo <- tk_zoo(FB_tbl, silent = TRUE)
 FB_ts <- tk_ts(FB_tbl, start = 2013, freq = 252, silent = TRUE)
 ```
 
-This covers the basics of the `timekit` package time series coercion capabilities. Here's how to get started.
+Maintain time-based index during coercion to regularized classes
+----------------------------------------------------------------
+
+Get the default index (regularized for `ts` class).
+
+``` r
+tk_index(FB_ts) %>% head()
+#> [1] 2013.000 2013.004 2013.008 2013.012 2013.016 2013.020
+```
+
+Get the time-based index using the argument `timekit_idx = TRUE`.
+
+``` r
+tk_index(FB_ts, timekit_idx = TRUE) %>% head()
+#> [1] "2013-01-02" "2013-01-03" "2013-01-04" "2013-01-07" "2013-01-08"
+#> [6] "2013-01-09"
+```
+
+This covers the basics of the `timekit` package capabilities. Here's how to get started.
 
 Installation
 ------------
@@ -158,3 +189,4 @@ Further Information
 The `timekit` package includes a vignette to help users get up to speed quickly:
 
 -   TK00 - Time Series Coercion Using `timekit`
+-   TK01 - Working with the Time Series Index using `timekit`
