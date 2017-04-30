@@ -1,5 +1,5 @@
 ## Release Summary
-This is the first release of `timekit` for CRAN review. The package enables simplified and extensible time series coercion between various time series data classes and `tibble`.
+This is the second release of `timekit` for CRAN review. There's several new functions for working with the timeseries index.
 
 
 ## Test environments

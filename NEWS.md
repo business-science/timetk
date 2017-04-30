@@ -1,4 +1,4 @@
-# Development Version
+# timekit 0.2.0
 
 * New Functions:
     * `tk_make_future_timeseries` creates a future time-based index from an existing time-based index. 
