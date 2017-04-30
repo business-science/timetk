@@ -121,7 +121,9 @@ predict_future_timeseries_daily <- function(idx, n_future, skip_values) {
         if (class(skip_values)[[1]] != class(idx)[[1]]) {
             warning("Class `skip_values` does not match class `idx`.", call. = FALSE)
             return(NA)
-            }
+        }
+
+    if (length(idx) < 60) warning("Less than 60 observations could result in incorrectly predicted weekday frequency due to small sample size.")
 
     # Get index attributes
     idx_signature         <- tk_get_timeseries_signature(idx)
@@ -138,8 +140,8 @@ predict_future_timeseries_daily <- function(idx, n_future, skip_values) {
     # fit model
     fit <- suppressWarnings(
         stats::glm(y ~ wday.lbl + wday.lbl:week2 + wday.lbl:week3 + wday.lbl:week4,
-                      family = stats::binomial(link = 'logit'),
-                      data   = train)
+                   family = stats::binomial(link = 'logit'),
+                   data   = train)
         )
 
     # Create new data
@@ -161,7 +163,7 @@ predict_future_timeseries_daily <- function(idx, n_future, skip_values) {
 
     # Predict
     fitted.results <- stats::predict(fit, newdata = new_data, type = 'response')
-    fitted.results <- ifelse(fitted.results > 0.10, 1, 0)
+    fitted.results <- ifelse(fitted.results > 0.50, 1, 0)
 
     # Filter on fitted.results
     predictions <- tibble::tibble(

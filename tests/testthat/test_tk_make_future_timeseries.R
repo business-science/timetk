@@ -179,7 +179,7 @@ expect_every_two <-
     ymd()
 
 test_that("tk_make_future_timeseries(predict_every_two) test returns correct format.", {
-    test <- tk_make_future_timeseries(idx_every_two, n_future = 18)
+    expect_warning(test <- tk_make_future_timeseries(idx_every_two, n_future = 18))
     expect_equal(test, expect_every_two)
 })
 
@@ -218,7 +218,7 @@ expect_every_three <-
     ymd()
 
 test_that("tk_make_future_timeseries(predict_every_three) test returns correct format.", {
-    test <- tk_make_future_timeseries(idx_every_three, n_future = 19)
+    expect_warning(test <- tk_make_future_timeseries(idx_every_three, n_future = 19))
     expect_equal(test, expect_every_three)
 })
 
@@ -256,7 +256,7 @@ expect_every_four <-
     ymd()
 
 test_that("tk_make_future_timeseries(predict_every_four) test returns correct format.", {
-    test <- tk_make_future_timeseries(idx_every_four, n_future = 19)
+    expect_warning(test <- tk_make_future_timeseries(idx_every_four, n_future = 19))
     expect_equal(test, expect_every_four)
 })
 
@@ -300,6 +300,6 @@ expect_random <-
     ymd()
 
 test_that("tk_make_future_timeseries(predict_random) test returns correct format.", {
-    test <- tk_make_future_timeseries(idx_random, n_future = 20)
+    expect_warning(test <- tk_make_future_timeseries(idx_random, n_future = 20))
     expect_equal(test, expect_random)
 })
