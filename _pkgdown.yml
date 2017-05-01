@@ -1,0 +1,66 @@
+template:
+  params:
+    bootswatch: flatly
+
+navbar:
+  title: "timekit"
+  left:
+    - text: "Home"
+      href: index.html
+    - text: "Function Reference"
+      href: reference/index.html
+    - text: "Vignettes"
+      href: articles/index.html
+      menu:
+        - text: "Time series coercion"
+          href: articles/TK00_Time_Series_Coercion.html
+        - text: "Time series index"
+          href: articles/TK01_Working_With_Time_Series_Index.html
+    - text: "News"
+      href: news/index.html
+
+  right:
+    - icon: fa-github
+      href: https://github.com/business-science/timekit
+
+reference:
+  - title: Future series
+    desc: __Functions for creating future time series from existing time series allowing for holidays, weekends, and regularly skipped days to be removed.__
+    contents:
+    - starts_with("tk_make")
+  - title: Coercion
+    desc: __Functions for moving between common time series formats.__
+    contents:
+    - "tk_tbl"
+    - "tk_ts"
+    - "tk_ts_"
+    - "tk_xts"
+    - "tk_xts_"
+    - "tk_zoo"
+    - "tk_zoo_"
+    - "tk_zooreg"
+    - "tk_zooreg_"
+  - title: Index
+    desc: __Functions for extracting or checking for a timekit index.__
+    contents:
+    - starts_with("tk_index")
+    - starts_with("has_timekit_idx")
+  - title: Augment
+    desc: __Add a time series signature to the original data.__
+    contents:
+    - starts_with("tk_augment")
+  - title: Getters
+    desc: __Functions for getting variables, frequencies, and signatures from time series.__
+    contents:
+    - starts_with("tk_get")
+  - title: Internal
+    desc: __Internal functions used in timekit.__
+    contents:
+    - starts_with("tk_ts_.")
+    - starts_with("tk_zooreg_.")
+  - title: Timekit
+    desc: __Package level information.__
+    contents:
+    - "timekit"
+
+
