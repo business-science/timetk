@@ -1,17 +1,17 @@
 Package: timekit
 Type: Package
 Title: A Collection of Tools for Working with Time Series in R
-Version: 0.2.0
+Version: 0.2.0.9000
 Date: 2017-04-30
 Authors@R: c(
     person("Matt", "Dancho", email = "mdancho@business-science.io", role = c("aut", "cre")),
     person("Davis", "Vaughan", email = "dvaughan@business-science.io", role = c("aut"))
   )
 Description: 
-    Coerce between time-based tibbles ('tbl') and 'xts', 'zoo', and 'ts'. 
     Get the time series index, signature, and summary from time series objects and
     time-based tibbles. Create future time series based on properties of 
-    existing time series index.
+    existing time series index.  
+    Coerce between time-based tibbles ('tbl') and 'xts', 'zoo', and 'ts'. 
 URL: https://github.com/business-science/timekit
 BugReports: https://github.com/business-science/timekit/issues
 License: GPL (>= 3)

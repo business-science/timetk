@@ -185,6 +185,15 @@ devtools::install_github("business-science/timekit")
 install.packages("timekit")
 ```
 
+Acknowledgements: Standing On Shoulders
+---------------------------------------
+
+A lot of innovative time series and forecasting work is going on that ultimately benefits the community. We'd like to thank the following people and packages that came before `timekit` in time series analysis and machine learning.
+
+-   [`maltese`](https://github.com/bearloga/maltese): Similar in respect to `timekit` in that it enables machine learning-friendly data frame generation exposing a number of critical features that can be used for forecasting.
+-   [`lubridate`](https://github.com/hadley/lubridate): Contains an excellent set of functions to extract components of the date and datetime index.
+-   [`xts`](https://github.com/joshuaulrich/xts) and `zoo`: Fundamental packages for working with time series enabling creation of a time series index for `ts` class and calculating periodicity.
+
 Further Information
 -------------------
 
