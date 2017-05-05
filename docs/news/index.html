@@ -99,6 +99,38 @@
     </div>
 
     <div class="contents">
+    <div id="timekit-0-2-0-9000" class="section level1">
+<h1 class="hasAnchor">
+<a href="#timekit-0-2-0-9000" class="anchor"></a>timekit 0.2.0.9000</h1>
+</div>
+    <div id="timekit-0-2-0" class="section level1">
+<h1 class="hasAnchor">
+<a href="#timekit-0-2-0" class="anchor"></a>timekit 0.2.0</h1>
+<ul>
+<li>New Functions:
+<ul>
+<li>
+<code>tk_make_future_timeseries</code> creates a future time-based index from an existing time-based index.</li>
+<li>
+<code>tk_get_timeseries_signature</code> returns a tibble with the time series index decomposed into year, quarter, month, etc.</li>
+<li>
+<code>tk_get_timeseries_summary</code> returns summary metrics for the time series index including number of observations, start, end, units, scale, diff summary (summary for frequency in seconds), etc.</li>
+<li>
+<code>tk_augment_timeseries_signature</code> adds the time series signature to a <code>tbl</code> (with time base), <code>xts</code> or <code>zoo</code> object.</li>
+<li>
+<code>tk_get_timeseries_variables</code> returns the variable column names for date, datetime, yearmon, or yearqtr variables in a data frame.</li>
+</ul>
+</li>
+<li>Fixes:
+<ul>
+<li>
+<code>tk_index</code>: Fixed timezone issue with yearmon and yearqtr classes.</li>
+<li>
+<code>tk_tbl</code>: Changed argument from <code>index_rename</code> to <code>rename_index</code> for consistency.</li>
+</ul>
+</li>
+</ul>
+</div>
     <div id="timekit-0-1-0" class="section level1">
 <h1 class="hasAnchor">
 <a href="#timekit-0-1-0" class="anchor"></a>timekit 0.1.0</h1>
@@ -106,7 +138,6 @@
 <li>Initial release of <code>timekit</code>, a time series toolkit that simplifies coercion between time series classes and time-based tibbles (“tidy” data frames).</li>
 </ul>
 </div>
-    NA
     </div>
   </div>
 
@@ -114,8 +145,9 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
+        <li><a href="#timekit-0-2-0-9000">0.2.0.9000</a></li>
+        <li><a href="#timekit-0-2-0">0.2.0</a></li>
         <li><a href="#timekit-0-1-0">0.1.0</a></li>
-        <li><a href="#NA">NA</a></li>
       </ul>
     </div>
   </div>

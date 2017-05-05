@@ -772,13 +772,13 @@ data_tbl &lt;-<span class="st"> </span>tibble::<span class="kw">tibble</span>(
     <span class="dt">x    =</span> <span class="kw">cumsum</span>(<span class="dv">11</span>:<span class="dv">15</span>) *<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1</span>))
 data_tbl</code></pre></div>
 <pre><code>## # A tibble: 5 × 2
-##         date         x
-##       &lt;date&gt;     &lt;dbl&gt;
-## 1 2016-01-01  7.574945
-## 2 2016-01-02 15.838521
-## 3 2016-01-03 24.790729
-## 4 2016-01-04 34.431568
-## 5 2016-01-05 44.761038</code></pre>
+##         date        x
+##       &lt;date&gt;    &lt;dbl&gt;
+## 1 2016-01-01 15.00824
+## 2 2016-01-02 31.38087
+## 3 2016-01-03 49.11789
+## 4 2016-01-04 68.21929
+## 5 2016-01-05 88.68508</code></pre>
 <p>Coerce to <code>ts</code> class using the <code><a href="../reference/tk_ts.html">tk_ts()</a></code> function. Note that the non-numeric column “date” is being dropped, and the <code>silent = TRUE</code> hides the message.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Coerce to ts </span>
 data_ts &lt;-<span class="st"> </span><span class="kw"><a href="../reference/tk_ts.html">tk_ts</a></span>(data_tbl, <span class="dt">start =</span> <span class="dv">2016</span>, <span class="dt">freq =</span> <span class="dv">365</span>, <span class="dt">silent =</span> <span class="ot">TRUE</span>)
@@ -787,12 +787,12 @@ data_ts</code></pre></div>
 ## Start = c(2016, 1) 
 ## End = c(2016, 5) 
 ## Frequency = 365 
-##              x
-## [1,]  7.574945
-## [2,] 15.838521
-## [3,] 24.790729
-## [4,] 34.431568
-## [5,] 44.761038
+##             x
+## [1,] 15.00824
+## [2,] 31.38087
+## [3,] 49.11789
+## [4,] 68.21929
+## [5,] 88.68508
 ## attr(,"index")
 ## [1] 1451606400 1451692800 1451779200 1451865600 1451952000
 ## attr(,"index")attr(,"tzone")
@@ -815,16 +815,16 @@ data_ts</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># No need to specify order.by arg</span>
 data_xts &lt;-<span class="st"> </span><span class="kw"><a href="../reference/tk_xts.html">tk_xts</a></span>(data_ts)
 data_xts</code></pre></div>
-<pre><code>##                    x
-## 2016-01-01  7.574945
-## 2016-01-02 15.838521
-## 2016-01-03 24.790729
-## 2016-01-04 34.431568
-## 2016-01-05 44.761038</code></pre>
+<pre><code>##                   x
+## 2016-01-01 15.00824
+## 2016-01-02 31.38087
+## 2016-01-03 49.11789
+## 2016-01-04 68.21929
+## 2016-01-05 88.68508</code></pre>
 <p>We can see that the <code>xts</code> structure is maintained.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(data_xts)</code></pre></div>
 <pre><code>## An 'xts' object on 2016-01-01/2016-01-05 containing:
-##   Data: num [1:5, 1] 7.57 15.84 24.79 34.43 44.76
+##   Data: num [1:5, 1] 15 31.4 49.1 68.2 88.7
 ##  - attr(*, "dimnames")=List of 2
 ##   ..$ : NULL
 ##   ..$ : chr "x"
@@ -835,16 +835,16 @@ data_xts</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># No need to specify order.by arg</span>
 data_zoo &lt;-<span class="st"> </span><span class="kw"><a href="../reference/tk_zoo.html">tk_zoo</a></span>(data_ts)
 data_zoo</code></pre></div>
-<pre><code>##                    x
-## 2016-01-01  7.574945
-## 2016-01-02 15.838521
-## 2016-01-03 24.790729
-## 2016-01-04 34.431568
-## 2016-01-05 44.761038</code></pre>
+<pre><code>##                   x
+## 2016-01-01 15.00824
+## 2016-01-02 31.38087
+## 2016-01-03 49.11789
+## 2016-01-04 68.21929
+## 2016-01-05 88.68508</code></pre>
 <p>We can see that the <code>zoo</code> structure is maintained.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(data_zoo)</code></pre></div>
 <pre><code>## 'zoo' series from 2016-01-01 to 2016-01-05
-##   Data: num [1:5, 1] 7.57 15.84 24.79 34.43 44.76
+##   Data: num [1:5, 1] 15 31.4 49.1 68.2 88.7
 ##  - attr(*, "dimnames")=List of 2
 ##   ..$ : chr [1:5] "2016-01-01" "2016-01-02" "2016-01-03" "2016-01-04" ...
 ##   ..$ : chr "x"
@@ -852,13 +852,13 @@ data_zoo</code></pre></div>
 <p>Note that <code>tbl</code> requires the <code>timekit_idx = TRUE</code> argument to specify the use of the non-regularized index.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/tk_tbl.html">tk_tbl</a></span>(data_ts, <span class="dt">timekit_idx =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <pre><code>## # A tibble: 5 × 2
-##        index         x
-##       &lt;date&gt;     &lt;dbl&gt;
-## 1 2016-01-01  7.574945
-## 2 2016-01-02 15.838521
-## 3 2016-01-03 24.790729
-## 4 2016-01-04 34.431568
-## 5 2016-01-05 44.761038</code></pre>
+##        index        x
+##       &lt;date&gt;    &lt;dbl&gt;
+## 1 2016-01-01 15.00824
+## 2 2016-01-02 31.38087
+## 3 2016-01-03 49.11789
+## 4 2016-01-04 68.21929
+## 5 2016-01-05 88.68508</code></pre>
 </div>
 <div id="working-with-yearmon-and-yearqtr-index" class="section level2">
 <h2 class="hasAnchor">
