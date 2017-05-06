@@ -1,5 +1,6 @@
-# Development Version
-
+# timekit 0.2.0.9000
+* Improvements:
+    * `tk_make_future_timeseries`: Improved handling of index with units = days, but scale greater than day (e.g. weekly, monthly, quarterly, +). Now values returned will be a regular series of the appropriate scale versus an irregular series of dates. 
 
 # timekit 0.2.0
 
