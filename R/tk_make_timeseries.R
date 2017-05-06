@@ -84,17 +84,60 @@ tk_make_future_timeseries.Date <- function(idx, n_future, skip_values = NULL, in
     }
 
     # Daily Periodicity + Inspect Weekdays
-    idx_summary   <- tk_get_timeseries_summary(idx)
+    idx_summary <- tk_get_timeseries_summary(idx)
+
     if (idx_summary$scale == "day" && inspect_weekdays) {
+
+        # Daily scale with weekday inspection
         tryCatch({
+
             return(predict_future_timeseries_daily(idx = idx, n_future = n_future, skip_values = skip_values))
+
         }, error = function(e) {
+
             warning(paste0("Could not perform `glm()`: ", e, "\nMaking sequential timeseries."))
             return(make_sequential_timeseries_irregular_freq(idx = idx, n_future = n_future, skip_values = skip_values))
+
         })
-    } else {
+
+    } else if (idx_summary$scale == "day") {
+
+        # Daily scale without weekday inspection
         return(make_sequential_timeseries_irregular_freq(idx = idx, n_future = n_future, skip_values = skip_values))
+
+    } else if (idx_summary$scale == "week") {
+
+        # Weekly scale
+        return(make_sequential_timeseries_irregular_freq(idx = idx, n_future = n_future, skip_values = skip_values))
+
+    } else if (idx_summary$scale == "month") {
+
+        # Monthly scale - Switch to yearmon and then back to date
+        if (!is.null(skip_values)) skip_values <- as.yearmon(skip_values)
+        ret  <- zoo::as.yearmon(idx) %>%
+            tk_make_future_timeseries(n_future = n_future, skip_values = skip_values) %>%
+            lubridate::as_date()
+        return(ret)
+
+    } else if (idx_summary$scale == "quarter") {
+
+        # Quarterly scale - Switch to yearqtr and then back to date
+        if (!is.null(skip_values)) skip_values <- as.yearqtr(skip_values)
+        ret  <- zoo::as.yearqtr(idx) %>%
+            tk_make_future_timeseries(n_future = n_future, skip_values = skip_values) %>%
+            lubridate::as_date()
+        return(ret)
+
+    } else {
+
+        # Yearly scale - Use yearmon and rely on frequency to dictate yearly scale
+        if (!is.null(skip_values)) skip_values <- as.yearmon(skip_values)
+        ret  <- zoo::as.yearmon(idx) %>%
+            tk_make_future_timeseries(n_future = n_future, skip_values = skip_values) %>%
+            lubridate::as_date()
+        return(ret)
     }
+
 }
 
 #' @export

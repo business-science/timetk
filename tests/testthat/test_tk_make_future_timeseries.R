@@ -41,6 +41,9 @@ test_date <- FANG %>%
     tk_index()
 
 test_that("tk_make_future_timeseries(date) test returns correct format.", {
+
+    # DAILY SCALE
+
     # No skip values, inspect_weekdays = FALSE
     test <- tk_make_future_timeseries(test_date, n_future = 3, skip_values = NULL, inspect_weekdays = FALSE)
     expectation <- c("2016-12-31", "2017-01-01", "2017-01-02") %>%
@@ -81,6 +84,83 @@ test_that("tk_make_future_timeseries(date) test returns correct format.", {
     # Inspect validation of skip_values
     expect_warning(test <- tk_make_future_timeseries(test_date, n_future = 10, skip_values = 1))
     expect_equal(test, NA)
+
+    # WEEKLY SCALE
+
+    # No skip
+    test_date   <- c("2017-01-01", "2017-01-08") %>% ymd()
+    expectation <- c("2017-01-15", "2017-01-22") %>% ymd()
+    expect_equal(tk_make_future_timeseries(test_date, n_future = 2),
+                 expectation)
+
+    # With skip
+    test_date   <- c("2017-01-01", "2017-01-08") %>% ymd()
+    skip_values  <- c("2017-01-22") %>% ymd()
+    expectation <- c("2017-01-15", "2017-01-29") %>% ymd()
+    expect_equal(tk_make_future_timeseries(test_date, n_future = 2, skip_values = skip_values),
+                 expectation)
+
+    # MONTHLY SCALE
+
+    # No skip
+    test_date   <- c("2017-01-01", "2017-02-01") %>% ymd()
+    expectation <- c("2017-03-01", "2017-04-01") %>% ymd()
+    expect_equal(tk_make_future_timeseries(test_date, n_future = 2),
+                 expectation)
+
+    # With skip
+    test_date   <- c("2017-01-01", "2017-02-01") %>% ymd()
+    skip_values  <- c("2017-03-01") %>% ymd()
+    expectation <- c("2017-04-01", "2017-05-01") %>% ymd()
+    expect_equal(tk_make_future_timeseries(test_date, n_future = 2, skip_values = skip_values),
+                 expectation)
+
+    # QUARTERLY SCALE
+
+    # No skip
+    test_date   <- c("2017-01-01", "2017-04-01") %>% ymd()
+    expectation <- c("2017-07-01", "2017-10-01") %>% ymd()
+    expect_equal(tk_make_future_timeseries(test_date, n_future = 2),
+                 expectation)
+
+    # With skip
+    test_date   <- c("2017-01-01", "2017-04-01") %>% ymd()
+    skip_values  <- c("2017-10-01") %>% ymd()
+    expectation <- c("2017-07-01", "2018-01-01") %>% ymd()
+    expect_equal(tk_make_future_timeseries(test_date, n_future = 2, skip_values = skip_values),
+                 expectation)
+
+    # YEARLY SCALE
+
+    # No skip
+    test_date   <- c("2017-06-01", "2018-06-01") %>% ymd()
+    expectation <- c("2019-06-01", "2020-06-01") %>% ymd()
+    expect_equal(tk_make_future_timeseries(test_date, n_future = 2),
+                 expectation)
+
+    # With skip
+    test_date   <- c("2017-04-01", "2018-04-01") %>% ymd()
+    skip_values  <- c("2019-04-01") %>% ymd()
+    expectation <- c("2020-04-01", "2021-04-01") %>% ymd()
+    expect_equal(tk_make_future_timeseries(test_date, n_future = 2, skip_values = skip_values),
+                 expectation)
+
+    # 1.5 YEARLY SCALE
+
+    # No skip
+    test_date   <- c("2017-07-01", "2019-01-01") %>% ymd()
+    expectation <- c("2020-07-01", "2022-01-01") %>% ymd()
+    expect_equal(tk_make_future_timeseries(test_date, n_future = 2),
+                 expectation)
+
+    # With skip
+    skip_values  <- c("2022-01-01") %>% ymd()
+    test_date   <- c("2017-07-01", "2019-01-01") %>% ymd()
+    expectation <- c("2020-07-01", "2023-07-01") %>% ymd()
+    expect_equal(tk_make_future_timeseries(test_date, n_future = 2, skip_values = skip_values),
+                 expectation)
+
+
 })
 
 test_yearmon <- c("2016-01",
