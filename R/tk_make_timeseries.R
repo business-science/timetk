@@ -113,7 +113,7 @@ tk_make_future_timeseries.Date <- function(idx, n_future, skip_values = NULL, in
     } else if (idx_summary$scale == "month") {
 
         # Monthly scale - Switch to yearmon and then back to date
-        if (!is.null(skip_values)) skip_values <- as.yearmon(skip_values)
+        if (!is.null(skip_values)) skip_values <- zoo::as.yearmon(skip_values)
         ret  <- zoo::as.yearmon(idx) %>%
             tk_make_future_timeseries(n_future = n_future, skip_values = skip_values) %>%
             lubridate::as_date()
@@ -122,7 +122,7 @@ tk_make_future_timeseries.Date <- function(idx, n_future, skip_values = NULL, in
     } else if (idx_summary$scale == "quarter") {
 
         # Quarterly scale - Switch to yearqtr and then back to date
-        if (!is.null(skip_values)) skip_values <- as.yearqtr(skip_values)
+        if (!is.null(skip_values)) skip_values <- zoo::as.yearqtr(skip_values)
         ret  <- zoo::as.yearqtr(idx) %>%
             tk_make_future_timeseries(n_future = n_future, skip_values = skip_values) %>%
             lubridate::as_date()
@@ -131,7 +131,7 @@ tk_make_future_timeseries.Date <- function(idx, n_future, skip_values = NULL, in
     } else {
 
         # Yearly scale - Use yearmon and rely on frequency to dictate yearly scale
-        if (!is.null(skip_values)) skip_values <- as.yearmon(skip_values)
+        if (!is.null(skip_values)) skip_values <- zoo::as.yearmon(skip_values)
         ret  <- zoo::as.yearmon(idx) %>%
             tk_make_future_timeseries(n_future = n_future, skip_values = skip_values) %>%
             lubridate::as_date()
@@ -172,15 +172,29 @@ predict_future_timeseries_daily <- function(idx, n_future, skip_values) {
     idx_signature         <- tk_get_timeseries_signature(idx)
     idx_summary           <- tk_get_timeseries_summary(idx)
 
+    # Find start and end
+    start <- min(idx)
+    end <- max(idx)
+    idx_min_max_summary <- c(start, end) %>%
+        tk_get_timeseries_summary()
+    if (idx_min_max_summary$scale == "year") {
+        # Reset start to first day of month
+        lubridate::day(start) <- 1
+        # Reset end to last day of month
+        end <- end + months(1)
+        lubridate::day(end) <- 1
+        end <- end - lubridate::days(1)
+    }
+
     # Format data frame
     train <- tibble::tibble(
         index = idx,
         y     = rep(1, length(idx))) %>%
-        padr::pad() %>%
+        padr::pad(start_val = start, end_val = end) %>%
         padr::fill_by_value(y, value = 0) %>%
         tk_augment_timeseries_signature()
 
-    # fit model
+    # fit model based on components
     fit <- suppressWarnings(
         stats::glm(y ~ wday.lbl + wday.lbl:week2 + wday.lbl:week3 + wday.lbl:week4,
                    family = stats::binomial(link = 'logit'),
@@ -206,7 +220,7 @@ predict_future_timeseries_daily <- function(idx, n_future, skip_values) {
 
     # Predict
     fitted.results <- stats::predict(fit, newdata = new_data, type = 'response')
-    fitted.results <- ifelse(fitted.results > 0.50, 1, 0)
+    fitted.results <- ifelse(fitted.results > 0.63, 1, 0)
 
     # Filter on fitted.results
     predictions <- tibble::tibble(
