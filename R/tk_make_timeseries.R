@@ -175,17 +175,6 @@ predict_future_timeseries_daily <- function(idx, n_future, skip_values) {
     # Find start and end
     start <- min(idx)
     end <- max(idx)
-    idx_min_max_summary <- c(start, end) %>%
-        tk_get_timeseries_summary()
-    # Padding dates - Results in errors if not required
-    # if (idx_min_max_summary$scale == "year") {
-    #     # Reset start to first day of month
-    #     lubridate::day(start) <- 1
-    #     # Reset end to last day of month
-    #     end <- end + months(1)
-    #     lubridate::day(end) <- 1
-    #     end <- end - lubridate::days(1)
-    # }
 
     # Format data frame
     train <- tibble::tibble(
@@ -365,7 +354,7 @@ make_daily_prediction_formula <- function(ts_signature_tbl_train) {
 
 
     params <- stringr::str_c(nm_list, collapse = " + ")
-    f <- as.formula(paste0("y ~ ", params))
+    f <- stats::as.formula(paste0("y ~ ", params))
 
     return(f)
 }

@@ -1,6 +1,8 @@
 # timekit 0.2.0.9000
 * Improvements:
-    * `tk_make_future_timeseries`: Improved handling of index with units = days, but scale greater than day (e.g. weekly, monthly, quarterly, +). Now values returned will be a regular series of the appropriate scale versus an irregular series of dates. 
+    * `tk_make_future_timeseries`: 
+        * Improved future date picking algorithm to look for trends beyond weekdays including missing months, missing days of month, missing days of year, etc. The data must span at least two calendar years to gain this benefit. 
+        * Improved handling of index with units = days, but scale greater than day (e.g. weekly, monthly, quarterly, +). Now values returned will be a regular series of the appropriate scale versus an irregular series of dates. 
 
 # timekit 0.2.0
 
