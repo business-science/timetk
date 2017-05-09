@@ -177,14 +177,15 @@ predict_future_timeseries_daily <- function(idx, n_future, skip_values) {
     end <- max(idx)
     idx_min_max_summary <- c(start, end) %>%
         tk_get_timeseries_summary()
-    if (idx_min_max_summary$scale == "year") {
-        # Reset start to first day of month
-        lubridate::day(start) <- 1
-        # Reset end to last day of month
-        end <- end + months(1)
-        lubridate::day(end) <- 1
-        end <- end - lubridate::days(1)
-    }
+    # Padding dates - Results in errors if not required
+    # if (idx_min_max_summary$scale == "year") {
+    #     # Reset start to first day of month
+    #     lubridate::day(start) <- 1
+    #     # Reset end to last day of month
+    #     end <- end + months(1)
+    #     lubridate::day(end) <- 1
+    #     end <- end - lubridate::days(1)
+    # }
 
     # Format data frame
     train <- tibble::tibble(
@@ -195,14 +196,21 @@ predict_future_timeseries_daily <- function(idx, n_future, skip_values) {
         tk_augment_timeseries_signature()
 
     # fit model based on components
+    f <- make_daily_prediction_formula(train)
     fit <- suppressWarnings(
-        stats::glm(y ~ wday.lbl + wday.lbl:week2 + wday.lbl:week3 + wday.lbl:week4,
-                   family = stats::binomial(link = 'logit'),
-                   data   = train)
-        )
+        stats::glm(f, family = stats::binomial(link = 'logit'), data = train)
+    )
+    # Old Model:
+    # fit <- suppressWarnings(
+    #     stats::glm(y ~ wday.lbl + wday.lbl:week2 + wday.lbl:week3 + wday.lbl:week4,
+    #                family = stats::binomial(link = 'logit'),
+    #                data   = train)
+    #     )
 
     # Create new data
-    last_numeric_date <- dplyr::last(train$index.num)
+    last_numeric_date <- idx_summary$end %>%
+        lubridate::as_datetime() %>%
+        as.numeric()
     frequency         <- idx_summary$diff.median
     next_numeric_date <- last_numeric_date + frequency
     numeric_sequence  <- seq(from = next_numeric_date, by = frequency, length.out = 2*n_future + 500)
@@ -219,8 +227,10 @@ predict_future_timeseries_daily <- function(idx, n_future, skip_values) {
         tk_get_timeseries_signature()
 
     # Predict
-    fitted.results <- stats::predict(fit, newdata = new_data, type = 'response')
-    fitted.results <- ifelse(fitted.results > 0.63, 1, 0)
+    fitted.results <- suppressWarnings(
+        stats::predict(fit, newdata = new_data, type = 'response')
+        )
+    fitted.results <- ifelse(fitted.results > 0.5, 1, 0)
 
     # Filter on fitted.results
     predictions <- tibble::tibble(
@@ -332,4 +342,30 @@ filter_skip_values <- function(date_sequence, skip_values, n_future) {
     }
 
     return(date_sequence)
+}
+
+make_daily_prediction_formula <- function(ts_signature_tbl_train) {
+
+    nm_list <- list()
+    # nm_list <- append(nm_list, "index.num") # index num hurts predictions for dates
+    # if (length(unique(ts_signature_tbl_train$year)) > 1)       nm_list <- append(nm_list, "year")
+    if (length(unique(ts_signature_tbl_train$half)) == 2 &&
+        length(unique(ts_signature_tbl_train$year)) >= 2)      nm_list <- append(nm_list, "half")
+    if (length(unique(ts_signature_tbl_train$quarter)) == 4 &&
+        length(unique(ts_signature_tbl_train$year)) >= 2)      nm_list <- append(nm_list, "quarter")
+    if (length(unique(ts_signature_tbl_train$month)) == 12 &&
+        length(unique(ts_signature_tbl_train$year)) >= 2)      nm_list <- append(nm_list, list("month", "month.lbl", "month.lbl:day"))
+    if (length(unique(ts_signature_tbl_train$year)) >= 2)      nm_list <- append(nm_list, "day")
+    # skip hour, minute, second for daily data
+    nm_list <- append(nm_list, list("wday", "wday.lbl"))
+    # if (length(ts_signature_tbl_train$mday) >= 90)             nm_list <- append(nm_list, "mday")
+    if (length(unique(ts_signature_tbl_train$year)) >= 2)      nm_list <- append(nm_list, "yday")
+    if (length(unique(ts_signature_tbl_train$year)) >= 2)      nm_list <- append(nm_list, "week")
+    nm_list <- append(nm_list, list("week2", "week3", "week4", "wday.lbl:week2", "wday.lbl:week3", "wday.lbl:week4"))
+
+
+    params <- stringr::str_c(nm_list, collapse = " + ")
+    f <- as.formula(paste0("y ~ ", params))
+
+    return(f)
 }
