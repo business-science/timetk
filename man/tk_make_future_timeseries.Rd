@@ -4,16 +4,13 @@
 \alias{tk_make_future_timeseries}
 \title{Make a future time series from an existing time series}
 \usage{
-tk_make_future_timeseries(idx, n_future, skip_values = NULL,
-  inspect_weekdays = FALSE, inspect_months = FALSE)
+tk_make_future_timeseries(idx, n_future, inspect_weekdays = FALSE,
+  inspect_months = FALSE, skip_values = NULL)
 }
 \arguments{
 \item{idx}{A vector of dates}
 
 \item{n_future}{Number of future observations}
-
-\item{skip_values}{A vector of same class as \code{idx} of timeseries
-values to skip.}
 
 \item{inspect_weekdays}{Uses a logistic regression algorithm to inspect
 whether certain weekdays (e.g. weekends) should be excluded from the future dates.
@@ -23,6 +20,9 @@ Default is \code{FALSE}.}
 whether certain days of months (e.g. last two weeks of year or seasonal days)
 should be excluded from the future dates.
 Default is \code{FALSE}.}
+
+\item{skip_values}{A vector of same class as \code{idx} of timeseries
+values to skip.}
 }
 \value{
 A vector containing future dates
@@ -35,11 +35,6 @@ Make a future time series from an existing time series
 on the input index frequency and attributes.
 
 The argument \code{n_future} determines how many future index observations to compute.
-
-The \code{skip_values} argument can be used to pass a timeseries vector of values to skip.
-This argument is good for passing holidays or special index values that should
-be excluded from the future time series.
-The values must be the same format as the \code{idx} class.
 
 The \code{inspect_weekdays} and \code{inspect_months} arguments apply to "daily" (scale = "day") data
 (refer to \code{tk_get_timeseries_summary()} to get the index scale).
@@ -56,6 +51,11 @@ as a result the incorrect day may be selected in certain years.
 It's recommended to always review the date results to ensure the future days match
 the user's expectations. It's recommended to have at least two years of days to use
 this option.
+
+The \code{skip_values} argument can be used to pass a timeseries vector of values to skip.
+This argument is good for passing holidays or special index values that should
+be excluded from the future time series.
+The values must be the same format as the \code{idx} class.
 }
 \examples{
 library(tidyquant)

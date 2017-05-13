@@ -2,8 +2,6 @@
 #'
 #' @param idx A vector of dates
 #' @param n_future Number of future observations
-#' @param skip_values A vector of same class as `idx` of timeseries
-#' values to skip.
 #' @param inspect_weekdays Uses a logistic regression algorithm to inspect
 #' whether certain weekdays (e.g. weekends) should be excluded from the future dates.
 #' Default is `FALSE`.
@@ -11,17 +9,14 @@
 #' whether certain days of months (e.g. last two weeks of year or seasonal days)
 #' should be excluded from the future dates.
 #' Default is `FALSE`.
+#' @param skip_values A vector of same class as `idx` of timeseries
+#' values to skip.
 #'
 #' @details
 #' `tk_make_future_timeseries` returns a time series based
 #' on the input index frequency and attributes.
 #'
 #' The argument `n_future` determines how many future index observations to compute.
-#'
-#' The `skip_values` argument can be used to pass a timeseries vector of values to skip.
-#' This argument is good for passing holidays or special index values that should
-#' be excluded from the future time series.
-#' The values must be the same format as the `idx` class.
 #'
 #' The `inspect_weekdays` and `inspect_months` arguments apply to "daily" (scale = "day") data
 #' (refer to `tk_get_timeseries_summary()` to get the index scale).
@@ -38,6 +33,11 @@
 #' It's recommended to always review the date results to ensure the future days match
 #' the user's expectations. It's recommended to have at least two years of days to use
 #' this option.
+#'
+#' The `skip_values` argument can be used to pass a timeseries vector of values to skip.
+#' This argument is good for passing holidays or special index values that should
+#' be excluded from the future time series.
+#' The values must be the same format as the `idx` class.
 #'
 #' @return A vector containing future dates
 #'
@@ -81,17 +81,17 @@
 #'
 #'
 #' @export
-tk_make_future_timeseries <- function(idx, n_future, skip_values = NULL, inspect_weekdays = FALSE, inspect_months = FALSE) {
+tk_make_future_timeseries <- function(idx, n_future, inspect_weekdays = FALSE, inspect_months = FALSE, skip_values = NULL) {
     UseMethod("tk_make_future_timeseries", idx)
 }
 
 #' @export
-tk_make_future_timeseries.POSIXt <- function(idx, n_future, skip_values = NULL, inspect_weekdays = FALSE, inspect_months = FALSE) {
+tk_make_future_timeseries.POSIXt <- function(idx, n_future, inspect_weekdays = FALSE, inspect_months = FALSE, skip_values = NULL) {
     return(make_sequential_timeseries_irregular_freq(idx = idx, n_future = n_future, skip_values = skip_values))
 }
 
 #' @export
-tk_make_future_timeseries.Date <- function(idx, n_future, skip_values = NULL, inspect_weekdays = FALSE, inspect_months = FALSE) {
+tk_make_future_timeseries.Date <- function(idx, n_future, inspect_weekdays = FALSE, inspect_months = FALSE, skip_values = NULL) {
 
     if (missing(n_future)) {
         warning("Argument `n_future` is missing with no default")
@@ -156,23 +156,23 @@ tk_make_future_timeseries.Date <- function(idx, n_future, skip_values = NULL, in
 }
 
 #' @export
-tk_make_future_timeseries.yearmon <- function(idx, n_future, skip_values = NULL, inspect_weekdays = FALSE, inspect_months = FALSE) {
+tk_make_future_timeseries.yearmon <- function(idx, n_future, inspect_weekdays = FALSE, inspect_months = FALSE, skip_values = NULL) {
     return(make_sequential_timeseries_regular_freq(idx = idx, n_future = n_future, skip_values = skip_values))
 }
 
 #' @export
-tk_make_future_timeseries.yearqtr <- function(idx, n_future, skip_values = NULL, inspect_weekdays = FALSE, inspect_months = FALSE) {
+tk_make_future_timeseries.yearqtr <- function(idx, n_future, inspect_weekdays = FALSE, inspect_months = FALSE, skip_values = NULL) {
     return(make_sequential_timeseries_regular_freq(idx = idx, n_future = n_future, skip_values = skip_values))
 }
 
 #' @export
-tk_make_future_timeseries.numeric <- function(idx, n_future, skip_values = NULL, inspect_weekdays = FALSE, inspect_months = FALSE) {
+tk_make_future_timeseries.numeric <- function(idx, n_future, inspect_weekdays = FALSE, inspect_months = FALSE, skip_values = NULL) {
     return(make_sequential_timeseries_regular_freq(idx = idx, n_future = n_future, skip_values = skip_values))
 }
 
 # UTILITIY FUNCTIONS -----
 
-predict_future_timeseries_daily <- function(idx, n_future, skip_values, inspect_weekdays, inspect_months) {
+predict_future_timeseries_daily <- function(idx, n_future, inspect_weekdays, inspect_months, skip_values) {
 
     # Validation
     if (!is.null(skip_values))
