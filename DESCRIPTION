@@ -32,6 +32,7 @@ Imports:
     quantmod (>= 0.4-8),
     readr (>= 1.0.0),
     scales (<= 0.4.1),
+    stringi (>= 1.1.5),
     tibble (>= 1.2),
     tidyquant (>= 0.5.1),
     tidyr (>= 0.6.1),

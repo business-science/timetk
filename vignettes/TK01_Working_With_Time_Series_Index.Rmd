@@ -119,16 +119,21 @@ The index can be decomposed into a _signature_. The time series signature is a u
 * __hour__: The hour component of the index.
 * __minute__: The minute component of the index.
 * __second__: The second component of the index.
+* __hour12__: The hour component on a 12 hour scale.
+* __am.pm__: Morning (AM) = 1, Afternoon (PM) = 2.
 * __wday__: The day of the week with base 1. Sunday = 1 and Saturday = 7.
 * __wday.xts__: The day of the week with base 0, which is what `xts` implements. Sunday = 0 and Saturday = 6.
 * __wday.lbl__: The day of the week label as an ordered factor begining with Sunday and ending with Saturday.
 * __mday__: The day of the month.
+* __qday__: The day of the quarter.
 * __yday__: The day of the year.
+* __mweek__: The week of the month. 
 * __week__: The week number of the year (Sunday start).
 * __week.iso__: The ISO week number of the year (Monday start).
 * __week2__: The modulus for bi-weekly frequency.
 * __week3__: The modulus for tri-weekly frequency.
 * __week4__: The modulus for quad-weekly frequency.
+* __mday7__: The integer division of day of the month by seven, which returns the first, second, third, ... instance the day has appeared in the month. Values begin at 1. For example, the first Saturday in the month has mday7 = 1. The second has mday7 = 2.
 
 
 ```{r}

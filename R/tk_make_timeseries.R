@@ -6,7 +6,11 @@
 #' values to skip.
 #' @param inspect_weekdays Uses a logistic regression algorithm to inspect
 #' whether certain weekdays (e.g. weekends) should be excluded from the future dates.
-#' Default is `TRUE`.
+#' Default is `FALSE`.
+#' @param inspect_months Uses a logistic regression algorithm to inspect
+#' whether certain days of months (e.g. last two weeks of year or seasonal days)
+#' should be excluded from the future dates.
+#' Default is `FALSE`.
 #'
 #' @details
 #' `tk_make_future_timeseries` returns a time series based
@@ -19,10 +23,21 @@
 #' be excluded from the future time series.
 #' The values must be the same format as the `idx` class.
 #'
-#' The `inspect_weekdays` argument applies to "daily" (scale = "day") data
+#' The `inspect_weekdays` and `inspect_months` arguments apply to "daily" (scale = "day") data
 #' (refer to `tk_get_timeseries_summary()` to get the index scale).
-#' The default is `TRUE`, which runs a logistic regression on the weekdays to
-#' determine if certain weekdays should be excluded from the future dates.
+#'
+#' The `inspect_weekdays` argument is useful in determining missing days of the week
+#' that occur on a weekly frequency such as every week, every other week, and so on.
+#' It's recommended to have at least 60 days to use this option.
+#'
+#' The `inspect_months` argument is useful in determining missing days of the month, quarter
+#' or year; however, the algorithm can inadvertently select incorrect dates if the pattern
+#' is irratic.
+#' For example, some holidays do not occur on the same day of each month, and
+#' as a result the incorrect day may be selected in certain years.
+#' It's recommended to always review the date results to ensure the future days match
+#' the user's expectations. It's recommended to have at least two years of days to use
+#' this option.
 #'
 #' @return A vector containing future dates
 #'
@@ -66,17 +81,17 @@
 #'
 #'
 #' @export
-tk_make_future_timeseries <- function(idx, n_future, skip_values = NULL, inspect_weekdays = TRUE) {
+tk_make_future_timeseries <- function(idx, n_future, skip_values = NULL, inspect_weekdays = FALSE, inspect_months = FALSE) {
     UseMethod("tk_make_future_timeseries", idx)
 }
 
 #' @export
-tk_make_future_timeseries.POSIXt <- function(idx, n_future, skip_values = NULL, inspect_weekdays = TRUE) {
+tk_make_future_timeseries.POSIXt <- function(idx, n_future, skip_values = NULL, inspect_weekdays = FALSE, inspect_months = FALSE) {
     return(make_sequential_timeseries_irregular_freq(idx = idx, n_future = n_future, skip_values = skip_values))
 }
 
 #' @export
-tk_make_future_timeseries.Date <- function(idx, n_future, skip_values = NULL, inspect_weekdays = TRUE) {
+tk_make_future_timeseries.Date <- function(idx, n_future, skip_values = NULL, inspect_weekdays = FALSE, inspect_months = FALSE) {
 
     if (missing(n_future)) {
         warning("Argument `n_future` is missing with no default")
@@ -86,12 +101,12 @@ tk_make_future_timeseries.Date <- function(idx, n_future, skip_values = NULL, in
     # Daily Periodicity + Inspect Weekdays
     idx_summary <- tk_get_timeseries_summary(idx)
 
-    if (idx_summary$scale == "day" && inspect_weekdays) {
+    if (idx_summary$scale == "day" && (inspect_weekdays || inspect_months)) {
 
         # Daily scale with weekday inspection
         tryCatch({
 
-            return(predict_future_timeseries_daily(idx = idx, n_future = n_future, skip_values = skip_values))
+            return(predict_future_timeseries_daily(idx = idx, n_future = n_future, skip_values = skip_values, inspect_weekdays = inspect_weekdays, inspect_months = inspect_months))
 
         }, error = function(e) {
 
@@ -141,23 +156,23 @@ tk_make_future_timeseries.Date <- function(idx, n_future, skip_values = NULL, in
 }
 
 #' @export
-tk_make_future_timeseries.yearmon <- function(idx, n_future, skip_values = NULL, inspect_weekdays = TRUE) {
+tk_make_future_timeseries.yearmon <- function(idx, n_future, skip_values = NULL, inspect_weekdays = FALSE, inspect_months = FALSE) {
     return(make_sequential_timeseries_regular_freq(idx = idx, n_future = n_future, skip_values = skip_values))
 }
 
 #' @export
-tk_make_future_timeseries.yearqtr <- function(idx, n_future, skip_values = NULL, inspect_weekdays = TRUE) {
+tk_make_future_timeseries.yearqtr <- function(idx, n_future, skip_values = NULL, inspect_weekdays = FALSE, inspect_months = FALSE) {
     return(make_sequential_timeseries_regular_freq(idx = idx, n_future = n_future, skip_values = skip_values))
 }
 
 #' @export
-tk_make_future_timeseries.numeric <- function(idx, n_future, skip_values = NULL, inspect_weekdays = TRUE) {
+tk_make_future_timeseries.numeric <- function(idx, n_future, skip_values = NULL, inspect_weekdays = FALSE, inspect_months = FALSE) {
     return(make_sequential_timeseries_regular_freq(idx = idx, n_future = n_future, skip_values = skip_values))
 }
 
 # UTILITIY FUNCTIONS -----
 
-predict_future_timeseries_daily <- function(idx, n_future, skip_values) {
+predict_future_timeseries_daily <- function(idx, n_future, skip_values, inspect_weekdays, inspect_months) {
 
     # Validation
     if (!is.null(skip_values))
@@ -185,7 +200,7 @@ predict_future_timeseries_daily <- function(idx, n_future, skip_values) {
         tk_augment_timeseries_signature()
 
     # fit model based on components
-    f <- make_daily_prediction_formula(train)
+    f <- make_daily_prediction_formula(train, inspect_weekdays, inspect_months)
     fit <- suppressWarnings(
         stats::glm(f, family = stats::binomial(link = 'logit'), data = train)
     )
@@ -333,26 +348,25 @@ filter_skip_values <- function(date_sequence, skip_values, n_future) {
     return(date_sequence)
 }
 
-make_daily_prediction_formula <- function(ts_signature_tbl_train) {
+make_daily_prediction_formula <- function(ts_signature_tbl_train, inspect_weekdays, inspect_months) {
 
     nm_list <- list()
-    # nm_list <- append(nm_list, "index.num") # index num hurts predictions for dates
-    # if (length(unique(ts_signature_tbl_train$year)) > 1)       nm_list <- append(nm_list, "year")
-    if (length(unique(ts_signature_tbl_train$half)) == 2 &&
-        length(unique(ts_signature_tbl_train$year)) >= 2)      nm_list <- append(nm_list, "half")
-    if (length(unique(ts_signature_tbl_train$quarter)) == 4 &&
-        length(unique(ts_signature_tbl_train$year)) >= 2)      nm_list <- append(nm_list, "quarter")
-    if (length(unique(ts_signature_tbl_train$month)) == 12 &&
-        length(unique(ts_signature_tbl_train$year)) >= 2)      nm_list <- append(nm_list, list("month", "month.lbl", "month.lbl:day"))
-    if (length(unique(ts_signature_tbl_train$year)) >= 2)      nm_list <- append(nm_list, "day")
-    # skip hour, minute, second for daily data
-    nm_list <- append(nm_list, list("wday", "wday.lbl"))
-    # if (length(ts_signature_tbl_train$mday) >= 90)             nm_list <- append(nm_list, "mday")
-    if (length(unique(ts_signature_tbl_train$year)) >= 2)      nm_list <- append(nm_list, "yday")
-    if (length(unique(ts_signature_tbl_train$year)) >= 2)      nm_list <- append(nm_list, "week")
-    nm_list <- append(nm_list, list("week2", "week3", "week4", "wday.lbl:week2", "wday.lbl:week3", "wday.lbl:week4"))
 
+    # inspect_weekdays
+    if (inspect_weekdays) nm_list <- append(nm_list, list("wday.lbl", "week2", "week3", "week4", "wday.lbl:week2", "wday.lbl:week3", "wday.lbl:week4"))
 
+    # inspect_months
+    if (inspect_months) {
+        # Need all 12 months and time span to be at least across 2 years
+        if (length(unique(ts_signature_tbl_train$month)) == 12 &&
+            length(unique(ts_signature_tbl_train$year)) >= 2) {
+            nm_list <- append(nm_list, list("week", "month.lbl", "month.lbl:week"))
+        } else {
+            message("Insufficient timespan / months to perform inspect_month prediction.")
+        }
+    }
+
+    # Build formula
     params <- stringr::str_c(nm_list, collapse = " + ")
     f <- stats::as.formula(paste0("y ~ ", params))
 

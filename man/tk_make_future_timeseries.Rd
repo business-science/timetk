@@ -5,7 +5,7 @@
 \title{Make a future time series from an existing time series}
 \usage{
 tk_make_future_timeseries(idx, n_future, skip_values = NULL,
-  inspect_weekdays = TRUE)
+  inspect_weekdays = FALSE, inspect_months = FALSE)
 }
 \arguments{
 \item{idx}{A vector of dates}
@@ -17,7 +17,12 @@ values to skip.}
 
 \item{inspect_weekdays}{Uses a logistic regression algorithm to inspect
 whether certain weekdays (e.g. weekends) should be excluded from the future dates.
-Default is \code{TRUE}.}
+Default is \code{FALSE}.}
+
+\item{inspect_months}{Uses a logistic regression algorithm to inspect
+whether certain days of months (e.g. last two weeks of year or seasonal days)
+should be excluded from the future dates.
+Default is \code{FALSE}.}
 }
 \value{
 A vector containing future dates
@@ -36,10 +41,21 @@ This argument is good for passing holidays or special index values that should
 be excluded from the future time series.
 The values must be the same format as the \code{idx} class.
 
-The \code{inspect_weekdays} argument applies to "daily" (scale = "day") data
+The \code{inspect_weekdays} and \code{inspect_months} arguments apply to "daily" (scale = "day") data
 (refer to \code{tk_get_timeseries_summary()} to get the index scale).
-The default is \code{TRUE}, which runs a logistic regression on the weekdays to
-determine if certain weekdays should be excluded from the future dates.
+
+The \code{inspect_weekdays} argument is useful in determining missing days of the week
+that occur on a weekly frequency such as every week, every other week, and so on.
+It's recommended to have at least 60 days to use this option.
+
+The \code{inspect_months} argument is useful in determining missing days of the month, quarter
+or year; however, the algorithm can inadvertently select incorrect dates if the pattern
+is irratic.
+For example, some holidays do not occur on the same day of each month, and
+as a result the incorrect day may be selected in certain years.
+It's recommended to always review the date results to ensure the future days match
+the user's expectations. It's recommended to have at least two years of days to use
+this option.
 }
 \examples{
 library(tidyquant)
