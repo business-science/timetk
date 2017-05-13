@@ -1,0 +1,293 @@
+---
+title: "Forecasting Using a Time Series Signature with timekit"
+author: "Matt Dancho"
+date: "`r Sys.Date()`"
+output: 
+  rmarkdown::html_vignette:
+    toc: true
+    toc_depth: 2
+vignette: >
+  %\VignetteIndexEntry{Forecasting Using a Time Series Signature with timekit}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+knitr::opts_chunk$set(
+    message = FALSE,
+    warning = FALSE,
+    fig.width = 8, 
+    fig.height = 4.5,
+    fig.align = 'center',
+    out.width='95%', 
+    dpi = 200
+)
+library(tidyquant)
+library(timekit)
+library(broom)
+# devtools::load_all() # Travis CI fails on load_all()
+```
+
+> A collection of tools for working with time series in R
+
+The time series signature is a collection of useful features that describe the time series index of a time-based data set. It contains a wealth of features that can be used to forecast time series that contain patterns. In this vignette, the user will learn methods to implement machine learning to predict future outcomes in a time-based data set. The vignette example uses a well known time series dataset, the Bike Sharing Dataset, from the UCI Machine Learning Repository. The vignette follows an example where we'll use `timekit` to build a basic Machine Learning model to predict future values using the time series signature. The objective is to build a model and predict the next six months of Bike Sharing daily counts.  
+
+
+# Prerequisites
+
+Before we get started, load the following packages.
+
+```{r, eval = F}
+library(tidyquant)
+library(timekit)
+library(broom)
+```
+
+# Data
+
+We'll be using the [Bike Sharing Dataset](https://archive.ics.uci.edu/ml/datasets/bike+sharing+dataset) from the UCI Machine Learning Repository. Download the data and select the "day.csv" file which is aggregated to daily periodicity.
+
+_Source: Fanaee-T, Hadi, and Gama, Joao, 'Event labeling combining ensemble detectors and background knowledge', Progress in Artificial Intelligence (2013): pp. 1-15, Springer Berlin Heidelberg_
+
+```{r}
+# Read data
+bikes <- read_csv("day.csv")
+
+# Select date and count
+bikes <- bikes %>%
+    select(dteday, cnt) %>%
+    rename(date = dteday)
+```
+
+A visualization will help understand how we plan to tackle the problem of forecasting the data. We'll split the data into two regions: a training region and a testing region. 
+
+```{r}
+# Visualize data and training/testing regions
+bikes %>%
+    ggplot(aes(x = date, y = cnt)) +
+    geom_rect(xmin = as.numeric(ymd("2012-07-01")),
+              xmax = as.numeric(ymd("2013-01-01")),
+              ymin = 0, ymax = 10000,
+              fill = palette_light()[[4]], alpha = 0.01) +
+    annotate("text", x = ymd("2011-10-01"), y = 7800,
+             color = palette_light()[[1]], label = "Train Region") +
+    annotate("text", x = ymd("2012-10-01"), y = 1550,
+             color = palette_light()[[1]], label = "Test Region") +
+    geom_point(alpha = 0.5, color = palette_light()[[1]]) +
+    labs(title = "Bikes Sharing Dataset: Daily Scale", x = "") +
+    theme_tq()
+```
+
+Split the data into train and test sets at "2012-07-01". 
+
+```{r}
+# Split into training and test sets
+train <- bikes %>%
+    filter(date < ymd("2012-07-01"))
+
+test <- bikes %>%
+    filter(date >= ymd("2012-07-01"))
+```
+
+
+# Modeling
+
+Start with the training set, which has the "date" and "cnt" columns.  
+
+```{r}
+# Training set
+train
+```
+
+The first step is to add the _time series signature_ to the training set, which will be used this to learn the patterns. The most efficient method is using `tk_augment_timeseries_signature()`, which adds the columns we need as additional columns. 
+
+```{r}
+# Add time series signature
+train_augmented <- train %>%
+    tk_augment_timeseries_signature()
+train_augmented
+```
+
+Now that we have a number of fields that can be used for training, we can use these for modeling. _In practice, you will want to go through the process of pre-processing the data, centering and scaling if necessary, making dummy variables, removing correlated variables that are present, examining interactions, etc. For brevity, we do not do this here._
+
+```{r}
+# Model using the augmented features
+fit_lm <- lm(cnt ~ ., data = train_augmented)
+```
+
+We can examine the model residuals to see if there is any significant pattern remaining using `augment()` from the `broom` package. 
+
+```{r}
+# Visualize the residuals of training set
+fit_lm %>%
+    augment() %>%
+    ggplot(aes(x = date, y = .resid)) +
+    geom_hline(yintercept = 0, color = "red") +
+    geom_point(color = palette_light()[[1]], alpha = 0.5) +
+    theme_tq() +
+    labs(title = "Training Set: lm() Model Residuals", x = "") +
+    scale_y_continuous(limits = c(-5000, 5000))
+```
+
+We can also get a quick idea of the overall error of the model on the training set. Note that what we really care about is the error on the test set, as this is a much better predictor of future model performance.
+
+```{r}
+# RMSE
+sqrt(mean(fit_lm$residuals^2))
+```
+
+# Test Validation
+
+With a suitable model (low residual error and random residuals) we can forecast using the "test" set for validation purposes. 
+
+```{r}
+test
+```
+
+We need to again augment the time series signature to the test set.
+
+```{r}
+test_augmented <- test %>%
+    tk_augment_timeseries_signature()
+test_augmented
+```
+
+Next, use `predict()` to apply the model to the test set.
+
+```{r}
+yhat_test <- predict(fit_lm, newdata = test_augmented)
+```
+
+Add the predictions (use `add_column` for numeric vectors) to the test set for comparison. Additionally, we can add the residuals using `mutate()`, which enables performing calculations between columns of a data frame. 
+
+```{r}
+pred_test <- test %>%
+    add_column(yhat = yhat_test) %>%
+    mutate(.resid = cnt - yhat)
+pred_test
+```
+
+Visualize the results using `ggplot()`.
+
+```{r}
+ggplot(aes(x = date), data = bikes) +
+    geom_rect(xmin = as.numeric(ymd("2012-07-01")),
+              xmax = as.numeric(ymd("2013-01-01")),
+              ymin = 0, ymax = 10000,
+              fill = palette_light()[[4]], alpha = 0.01) +
+    annotate("text", x = ymd("2011-10-01"), y = 7800,
+             color = palette_light()[[1]], label = "Train Region") +
+    annotate("text", x = ymd("2012-10-01"), y = 1550,
+             color = palette_light()[[1]], label = "Test Region") + 
+    geom_point(aes(x = date, y = cnt), data = train, alpha = 0.5, color = palette_light()[[1]]) +
+    geom_point(aes(x = date, y = cnt), data = pred_test, alpha = 0.5, color = palette_light()[[1]]) +
+    geom_point(aes(x = date, y = yhat), data = pred_test, alpha = 0.5, color = palette_light()[[2]]) +
+    theme_tq() 
+    
+```
+
+Visualize the residuals of the test set. Looks like there may be a slight pattern left as we get closer to the end of 2012. 
+
+```{r}
+ggplot(aes(x = date, y = .resid), data = pred_test) +
+    geom_hline(yintercept = 0, color = "red") +
+    geom_point(color = palette_light()[[1]], alpha = 0.5) +
+    geom_smooth() +
+    theme_tq() +
+    labs(title = "Test Set: lm() Model Residuals", x = "") +
+    scale_y_continuous(limits = c(-5000, 5000))
+```
+
+We can also review the RMSE of the model to get an idea of test set error. The test error is higher than the training error, which is always the case.
+
+```{r}
+# RMSE
+sqrt(mean((pred_test$.resid)^2))
+```
+
+At this point you might go back to the model and try tweaking to features, adding other features that may be known in the future (e.g. temperature of day can be forecasted relatively accurately within 7 days), or try a completely different modeling technique (e.g. SVM regression) with the hope of better predictions on the test set. Once you feel that your model is optimized, move on the final step of forecasting. 
+
+# Forecasting
+
+What are the expected future values for the next six months? Let's use our model to predict this.
+
+The first step is to create the date sequence. Let's use `tk_get_timeseries_summary()` to review the summary of the dates from the original dataset, "bikes". 
+
+```{r}
+# Extract bikes index
+idx <- bikes %>%
+    tk_index()
+
+# Get time series summary from index
+bikes_summary <- idx %>%
+    tk_get_timeseries_summary()
+```
+
+The first six parameters are general summary information.
+
+```{r}
+bikes_summary[1:6]
+```
+
+The second six parameters are the periodicity information.
+
+```{r}
+bikes_summary[7:12]
+```
+
+From the summary, we know that the data is 100% regular because the median and mean differences are 86400 seconds or 1 day. We don't need to do any special inspections when we use `tk_make_future_timeseries()`. If the data was irregular, meaning weekends or holidays were excluded, you'd want to account for this. Otherwise your forecast would be innacurate.
+
+```{r}
+idx_future <- idx %>%
+    tk_make_future_timeseries(n_future = 180)
+```
+
+To make the prediction, we need to use the future index to get the time series signature (`tk_get_timeseries_signature()`). Make sure to rename the column "index" to "date" so it matches the column names of the original data.
+
+```{r}
+data_future <- idx_future %>%
+    tk_get_timeseries_signature() %>%
+    rename(date = index)
+```
+
+Make the prediction.
+
+```{r}
+pred_future <- predict(fit_lm, newdata = data_future)
+```
+
+Build the future data frame.
+
+```{r}
+bikes_future <- data_future %>%
+    select(date) %>%
+    add_column(cnt = pred_future)
+```
+
+Visualize the forecast.
+
+```{r}
+bikes %>%
+    ggplot(aes(x = date, y = cnt)) +
+    geom_rect(xmin = as.numeric(ymd("2012-07-01")),
+              xmax = as.numeric(ymd("2013-01-01")),
+              ymin = 0, ymax = 10000,
+              fill = palette_light()[[4]], alpha = 0.01) +
+    geom_rect(xmin = as.numeric(ymd("2013-01-01")),
+              xmax = as.numeric(ymd("2013-07-01")),
+              ymin = 0, ymax = 10000,
+              fill = palette_light()[[5]], alpha = 0.01) +
+    annotate("text", x = ymd("2011-10-01"), y = 7800,
+             color = palette_light()[[1]], label = "Train Region") +
+    annotate("text", x = ymd("2012-10-01"), y = 1550,
+             color = palette_light()[[1]], label = "Test Region") +
+    annotate("text", x = ymd("2013-4-01"), y = 1550,
+             color = palette_light()[[1]], label = "Forecast Region") +
+    geom_point(alpha = 0.5, color = palette_light()[[1]]) +
+    geom_point(aes(x = date, y = cnt), data = bikes_future,
+               alpha = 0.5, color = palette_light()[[2]]) +
+    labs(title = "Bikes Sharing Dataset: 6-Month Forecast", x = "") +
+    theme_tq()
+    
+```
+
