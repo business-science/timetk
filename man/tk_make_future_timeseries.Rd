@@ -80,7 +80,7 @@ holidays <- c("2017-01-02", "2017-01-16", "2017-02-20",
 # Remove holidays with skip_values, and remove weekends with inspect_weekdays = TRUE
 FB_tbl \%>\%
     tk_index() \%>\%
-    tk_make_future_timeseries(n_future         = 251,
+    tk_make_future_timeseries(n_future         = 366,
                               skip_values      = holidays,
                               inspect_weekdays = TRUE)
 

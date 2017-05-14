@@ -66,7 +66,7 @@
 #' # Remove holidays with skip_values, and remove weekends with inspect_weekdays = TRUE
 #' FB_tbl %>%
 #'     tk_index() %>%
-#'     tk_make_future_timeseries(n_future         = 251,
+#'     tk_make_future_timeseries(n_future         = 366,
 #'                               skip_values      = holidays,
 #'                               inspect_weekdays = TRUE)
 #'
@@ -181,7 +181,8 @@ predict_future_timeseries_daily <- function(idx, n_future, inspect_weekdays, ins
             return(NA)
         }
 
-    if (length(idx) < 60) warning("Less than 60 observations could result in incorrectly predicted weekday frequency due to small sample size.")
+    if ((length(idx) < 60) && inspect_weekdays) warning("Less than 60 observations could result in incorrectly predicted weekday frequency due to small sample size.")
+    if ((length(idx) < 400) && inspect_months) warning("Less than 400 observations could result in incorrectly predicted month frequency due to small sample size.")
 
     # Get index attributes
     idx_signature         <- tk_get_timeseries_signature(idx)
@@ -204,12 +205,6 @@ predict_future_timeseries_daily <- function(idx, n_future, inspect_weekdays, ins
     fit <- suppressWarnings(
         stats::glm(f, family = stats::binomial(link = 'logit'), data = train)
     )
-    # Old Model:
-    # fit <- suppressWarnings(
-    #     stats::glm(y ~ wday.lbl + wday.lbl:week2 + wday.lbl:week3 + wday.lbl:week4,
-    #                family = stats::binomial(link = 'logit'),
-    #                data   = train)
-    #     )
 
     # Create new data
     last_numeric_date <- idx_summary$end %>%
@@ -217,37 +212,36 @@ predict_future_timeseries_daily <- function(idx, n_future, inspect_weekdays, ins
         as.numeric()
     frequency         <- idx_summary$diff.median
     next_numeric_date <- last_numeric_date + frequency
-    numeric_sequence  <- seq(from = next_numeric_date, by = frequency, length.out = 2*n_future + 500)
+    numeric_sequence  <- seq(from = next_numeric_date, by = frequency, length.out = n_future)
 
     date_sequence <- lubridate::as_datetime(numeric_sequence) %>%
         lubridate::as_date()
     lubridate::tz(date_sequence) <- lubridate::tz(idx)
-
-    # Filter skip_values
-    date_sequence <- filter_skip_values(date_sequence, skip_values, 1.5 * n_future)
 
     # Create new_data data frame with future obs timeseries signature
     new_data <- date_sequence %>%
         tk_get_timeseries_signature()
 
     # Predict
-    fitted.results <- suppressWarnings(
+    fitted_results <- suppressWarnings(
         stats::predict(fit, newdata = new_data, type = 'response')
         )
-    fitted.results <- ifelse(fitted.results > 0.5, 1, 0)
+    fitted_results <- ifelse(fitted_results > 0.5, 1, 0)
 
     # Filter on fitted.results
     predictions <- tibble::tibble(
         index = date_sequence,
-        yhat  = fitted.results
+        yhat  = fitted_results
         )
 
     predictions <- predictions %>%
-        dplyr::filter(yhat == 1) %>%
-        dplyr::slice(1:n_future)
+        dplyr::filter(yhat == 1)
+
+    # Filter skip_values
+    idx_pred <- filter_skip_values(predictions$index, skip_values, n_future)
 
     # Return date sequence
-    return(predictions$index)
+    return(idx_pred)
 }
 
 make_sequential_timeseries_irregular_freq <- function(idx, n_future, skip_values) {
@@ -267,7 +261,7 @@ make_sequential_timeseries_irregular_freq <- function(idx, n_future, skip_values
     last_numeric_date <- dplyr::last(idx_signature$index.num)
     frequency         <- idx_summary$diff.median
     next_numeric_date <- last_numeric_date + frequency
-    numeric_sequence  <- seq(from = next_numeric_date, by = frequency, length.out = n_future + length(skip_values))
+    numeric_sequence  <- seq(from = next_numeric_date, by = frequency, length.out = n_future)
 
     if (inherits(idx, "Date")) {
         # Date
@@ -282,9 +276,6 @@ make_sequential_timeseries_irregular_freq <- function(idx, n_future, skip_values
 
     # Filter skip_values
     date_sequence <- filter_skip_values(date_sequence, skip_values, n_future)
-
-    # Remove any extra obs
-    date_sequence <- date_sequence[1:n_future]
 
     # Return date sequence
     return(date_sequence)
@@ -309,7 +300,7 @@ make_sequential_timeseries_regular_freq <- function(idx, n_future, skip_values) 
     last_numeric_date <- dplyr::last(idx_numeric)
     frequency         <- median_diff
     next_numeric_date <- last_numeric_date + frequency
-    numeric_sequence  <- seq(from = next_numeric_date, by = frequency, length.out = n_future + length(skip_values))
+    numeric_sequence  <- seq(from = next_numeric_date, by = frequency, length.out = n_future)
 
     if (inherits(idx, "yearmon")) {
         # yearmon
@@ -324,9 +315,6 @@ make_sequential_timeseries_regular_freq <- function(idx, n_future, skip_values) 
 
     # Filter skip_values
     date_sequence <- filter_skip_values(date_sequence, skip_values, n_future)
-
-    # Remove any extra obs
-    date_sequence <- date_sequence[1:n_future]
 
     # Return date sequence
     return(date_sequence)

@@ -76,7 +76,7 @@ Get the time series signature from the index, a tibble of decomposed features th
 
 ``` r
 tk_get_timeseries_signature(idx)
-#> # A tibble: 1,008 × 23
+#> # A tibble: 1,008 × 28
 #>         index  index.num   diff  year  half quarter month month.xts
 #>        <date>      <int>  <int> <int> <int>   <int> <int>     <int>
 #> 1  2013-01-02 1357084800     NA  2013     1       1     1         0
@@ -89,10 +89,11 @@ tk_get_timeseries_signature(idx)
 #> 8  2013-01-11 1357862400  86400  2013     1       1     1         0
 #> 9  2013-01-14 1358121600 259200  2013     1       1     1         0
 #> 10 2013-01-15 1358208000  86400  2013     1       1     1         0
-#> # ... with 998 more rows, and 15 more variables: month.lbl <ord>,
-#> #   day <int>, hour <int>, minute <int>, second <int>, wday <int>,
-#> #   wday.xts <int>, wday.lbl <ord>, mday <int>, yday <int>, week <int>,
-#> #   week.iso <int>, week2 <int>, week3 <int>, week4 <int>
+#> # ... with 998 more rows, and 20 more variables: month.lbl <ord>,
+#> #   day <int>, hour <int>, minute <int>, second <int>, hour12 <int>,
+#> #   am.pm <int>, wday <int>, wday.xts <int>, wday.lbl <ord>, mday <int>,
+#> #   qday <int>, yday <int>, mweek <int>, week <int>, week.iso <int>,
+#> #   week2 <int>, week3 <int>, week4 <int>, mday7 <dbl>
 ```
 
 Get the time series summary from the index, a single-row tibble of key summary information from the time series.
@@ -120,13 +121,19 @@ holidays <- c("2017-01-02", "2017-01-16", "2017-02-20",
 
 idx_future <- tk_make_future_timeseries(
     idx, 
-    n_future         = 251, 
+    n_future         = 366, 
     skip_values      = holidays, 
     inspect_weekdays = TRUE) 
 
 head(idx_future)
 #> [1] "2017-01-03" "2017-01-04" "2017-01-05" "2017-01-06" "2017-01-09"
 #> [6] "2017-01-10"
+```
+
+``` r
+tail(idx_future)
+#> [1] "2017-12-21" "2017-12-22" "2017-12-26" "2017-12-27" "2017-12-28"
+#> [6] "2017-12-29"
 ```
 
 Coerce time series without specifying order.by or worrying about coercion issues

@@ -97,7 +97,7 @@ tk_get_timeseries_summary(idx)
 
 ## Make a future time series
 
-Use an index to make a future time series. 
+Use an index to make a future time series.  
 
 ```{r}
 holidays <- c("2017-01-02", "2017-01-16", "2017-02-20",
@@ -107,11 +107,15 @@ holidays <- c("2017-01-02", "2017-01-16", "2017-02-20",
 
 idx_future <- tk_make_future_timeseries(
     idx, 
-    n_future         = 251, 
+    n_future         = 366, 
     skip_values      = holidays, 
     inspect_weekdays = TRUE) 
 
 head(idx_future)
+```
+
+```{r}
+tail(idx_future)
 ```
 
 

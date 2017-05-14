@@ -14,8 +14,8 @@ vignette: >
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE}
 knitr::opts_chunk$set(
-    # message = FALSE,
-    # warning = FALSE,
+    message = FALSE,
+    warning = FALSE,
     fig.width = 8, 
     fig.height = 4.5,
     fig.align = 'center',
@@ -48,14 +48,14 @@ library(timekit)
 
 ```{r}
 # Create sequence with omitted weekends and omitted last two weeks of each year
-idx <- seq.Date(ymd("2010-01-01"), by = "day", length.out = 1200) %>%
+idx <- seq.Date(ymd("2010-01-01"), by = "day", length.out = 1110) %>%
     tk_get_timeseries_signature() %>%
     filter(!(wday.lbl) %in% c("Saturday", "Sunday")) %>%
     filter(!(week %in% c(51, 52, 53))) %>%
     tk_index()
 
 idx_train <- idx[1:500]
-idx_test  <- idx[501:824]
+idx_test  <- idx[501:length(idx)]
 ```
 
 Visualize the frequency of the generated test index - This is what we will predict. The `tk_get_timeseries_signature()` function retrieves the differences (frequency) of the data. We can then plot using `ggplot()`.
@@ -78,7 +78,7 @@ Inspecting weekdays finds and removes omitted weekends of the future data set.
 
 ```{r}
 idx_train %>%
-    tk_make_future_timeseries(n_future = 346, inspect_weekdays = T) %>%
+    tk_make_future_timeseries(n_future = 395, inspect_weekdays = T) %>%
     tk_get_timeseries_signature() %>%
     ggplot(aes(x = index, y = diff)) +
     geom_line(color = palette_light()[[1]]) +
@@ -96,7 +96,7 @@ Inspecting months finds and removes omitted dates in the last two weeks of the y
 
 ```{r}
 idx %>%
-    tk_make_future_timeseries(n_future = 343, inspect_months = T) %>%
+    tk_make_future_timeseries(n_future = 395, inspect_months = T) %>%
     tk_get_timeseries_signature() %>%
     ggplot(aes(x = index, y = diff)) +
     geom_line(color = palette_light()[[1]]) +
@@ -112,13 +112,13 @@ Inspecting both weekdays and months removes both weekends and last two weeks of 
 
 ```{r}
 idx_future_wdays_and_months <- idx_train %>%
-    tk_make_future_timeseries(n_future = 325, inspect_weekdays = T, inspect_months = T) 
+    tk_make_future_timeseries(n_future = 395, inspect_weekdays = T, inspect_months = T) 
 idx_future_wdays_and_months %>%
     tk_get_timeseries_signature() %>%
     ggplot(aes(x = index, y = diff)) +
     geom_line(color = palette_light()[[1]]) +
     theme_tq() +
-    labs(title = "Simple Test: Frequency of predection with both inspect_weekdays = T and inspect_months = T", 
+    labs(title = "Simple Test: Both inspect_weekdays = T and inspect_months = T", 
          subtitle = "For most part catches missing weekends and last two weeks of year") +
     scale_y_continuous(limits = c(0, 2.2e6))
 ```
@@ -185,7 +185,7 @@ Inspecting weekdays only gets us pretty close. The algorithm correctly removes w
 ```{r}
 # Inspect weekdays: Removes weekends from future series
 idx_future_wdays <- idx_train %>% 
-    tk_make_future_timeseries(n_future = 261, inspect_weekdays = TRUE, inspect_months = FALSE)
+    tk_make_future_timeseries(n_future = 366, inspect_weekdays = TRUE, inspect_months = FALSE)
 
 # Visualize frequency
 idx_future_wdays %>% 
@@ -219,7 +219,7 @@ If we apply both inspect weekdays and inspect months the errors actually increas
 ```{r}
 # Inspect weekdays: Removes weekends from future series
 idx_future_wdays_and_months <- idx_train %>% 
-    tk_make_future_timeseries(n_future = 256, inspect_weekdays = TRUE, inspect_months = TRUE)
+    tk_make_future_timeseries(n_future = 366, inspect_weekdays = TRUE, inspect_months = TRUE)
 
 # Visualize frequency
 idx_future_wdays_and_months %>%
@@ -260,7 +260,7 @@ holidays <- c(
 
 # Create future index
 idx_future <- idx_train %>%
-    tk_make_future_timeseries(n_future = 251, inspect_weekdays = TRUE, skip_values = holidays) 
+    tk_make_future_timeseries(n_future = 366, inspect_weekdays = TRUE, skip_values = holidays) 
 
 # Plot using ggplot
 idx_future %>%

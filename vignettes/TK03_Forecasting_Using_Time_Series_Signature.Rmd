@@ -235,7 +235,7 @@ The second six parameters are the periodicity information.
 bikes_summary[7:12]
 ```
 
-From the summary, we know that the data is 100% regular because the median and mean differences are 86400 seconds or 1 day. We don't need to do any special inspections when we use `tk_make_future_timeseries()`. If the data was irregular, meaning weekends or holidays were excluded, you'd want to account for this. Otherwise your forecast would be innacurate.
+From the summary, we know that the data is 100% regular because the median and mean differences are 86400 seconds or 1 day. We don't need to do any special inspections when we use `tk_make_future_timeseries()`. If the data was irregular, meaning weekends or holidays were excluded, you'd want to account for this. Otherwise your forecast would be inaccurate.
 
 ```{r}
 idx_future <- idx %>%
@@ -276,7 +276,7 @@ bikes %>%
     geom_rect(xmin = as.numeric(ymd("2013-01-01")),
               xmax = as.numeric(ymd("2013-07-01")),
               ymin = 0, ymax = 10000,
-              fill = palette_light()[[5]], alpha = 0.01) +
+              fill = palette_light()[[9]], alpha = 0.01) +
     annotate("text", x = ymd("2011-10-01"), y = 7800,
              color = palette_light()[[1]], label = "Train Region") +
     annotate("text", x = ymd("2012-10-01"), y = 1550,
@@ -286,8 +286,19 @@ bikes %>%
     geom_point(alpha = 0.5, color = palette_light()[[1]]) +
     geom_point(aes(x = date, y = cnt), data = bikes_future,
                alpha = 0.5, color = palette_light()[[2]]) +
+    geom_smooth(aes(x = date, y = cnt), data = bikes_future,
+                method = 'loess') + 
     labs(title = "Bikes Sharing Dataset: 6-Month Forecast", x = "") +
     theme_tq()
     
 ```
 
+Note that there are no error bands. I'm still researching suitable techniques to include confidence intervals for forecasting using this approach.
+
+# Parting Thoughts
+
+Forecasting using the time series signature can be very accurate especially when time-based patterns are present in the underlying data. As with most machine learning applications, the prediction is only as good as the patterns in the data. Forecasting using this approach may not be suitable when patterns are not present or when the future is highly uncertain (i.e. past is not a suitable predictor of future performance). However, in may situations the time series signature can provide an accurate forecast.
+
+One benefit to the machine learning approach that was not covered in this vignette but is an significant advantage is that other features (including non-time-based) can be included in the analysis if the values are present in the training and test sets and can be determined with some level of accuracy in the future. For example, one can expect that experts in Bike Sharing analytics have access to historical temperature and weather patterns, wind speeds, and so on that could have a significant affect on bicycle sharing. The beauty of this method is these features can easily be incorporated into the model and prediction.
+
+Last, a few points on the modeling process. Important modeling steps such as pre-processing data, removing correlated features, and so on where not addressed or included in this vignette. The astute modeler would certainly review the data and processing accordingly to achieve an optimal model. 
