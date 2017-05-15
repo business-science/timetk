@@ -186,7 +186,28 @@ ggplot(aes(x = date), data = bikes) +
     
 ```
 
-Visualize the residuals of the test set. Looks like there may be a slight pattern left as we get closer to the end of 2012. 
+
+
+# Test Accuracy
+
+The [forecast accuracy](https://www.otexts.org/fpp/2/5) can be evaluated on the test set using residual diagnostics and forecast accuracy measures.  
+
+```{r}
+# Calculating forecast error
+test_residuals <- pred_test$.resid
+pct_err <- test_residuals/pred_test$cnt * 100 # Percentage error
+
+me   <- mean(test_residuals, na.rm=TRUE)
+rmse <- mean(test_residuals^2, na.rm=TRUE)^0.5
+mae  <- mean(abs(test_residuals), na.rm=TRUE)
+mape <- mean(abs(pct_err), na.rm=TRUE)
+mpe  <- mean(pct_err, na.rm=TRUE)
+
+error_tbl <- tibble(me, rmse, mae, mape, mpe)
+error_tbl
+```
+
+Next we can visualize the residuals of the test set. The residuals of the model aren't perfect, but we can work with it. The residuals show that the model predicts low in October and high in December.    
 
 ```{r}
 ggplot(aes(x = date, y = .resid), data = pred_test) +
@@ -198,20 +219,11 @@ ggplot(aes(x = date, y = .resid), data = pred_test) +
     scale_y_continuous(limits = c(-5000, 5000))
 ```
 
-We can also review the RMSE of the model to get an idea of test set error. The test error is higher than the training error, which is almost always the case.
-
-```{r}
-# RMSE
-sqrt(mean((pred_test$.resid)^2))
-```
-
-At this point you might go back to the model and try tweaking to features, adding other features that may be known in the future (e.g. temperature of day can be forecasted relatively accurately within 7 days), or try a completely different modeling technique with the hope of better predictions on the test set. Once you feel that your model is optimized, move on the final step of forecasting. 
+At this point you might go back to the model and try tweaking features using interactions or polynomial terms, adding other features that may be known in the future (e.g. temperature of day can be forecasted relatively accurately within 7 days), or try a completely different modeling technique with the hope of better predictions on the test set. Once you feel that your model is optimized, move on the final step of forecasting. 
 
 # Forecasting
 
-What are the expected future values for the next six months? Let's use our model to predict this.
-
-The first step is to create the date sequence. Let's use `tk_get_timeseries_summary()` to review the summary of the dates from the original dataset, "bikes". 
+Let's use our model to predict What are the expected future values for the next six months. The first step is to create the date sequence. Let's use `tk_get_timeseries_summary()` to review the summary of the dates from the original dataset, "bikes". 
 
 ```{r}
 # Extract bikes index
@@ -293,7 +305,43 @@ bikes %>%
     
 ```
 
-Note that there are no error bands. I'm still researching suitable techniques to include confidence intervals for forecasting using this approach.
+# Forecast Error
+
+A forecast is never perfect. We need prediction intervals to account for the variance from the model predictions to the actual data. There's a number of methods to achieve this. We'll follow the [prediction interval](https://www.otexts.org/fpp/2/7) methodology from Forecasting: Principles and Practice.
+
+```{r}
+# Calculate standard deviation of residuals
+test_resid_sd <- sd(test_residuals)
+
+bikes_future <- bikes_future %>%
+    mutate(
+        lo.95 = cnt - 1.96 * test_resid_sd,
+        lo.80 = cnt - 1.28 * test_resid_sd,
+        hi.80 = cnt + 1.28 * test_resid_sd,
+        hi.95 = cnt + 1.96 * test_resid_sd
+        )
+```
+
+Now, plotting the forecast with the prediction intervals.
+
+```{r}
+bikes %>%
+    ggplot(aes(x = date, y = cnt)) +
+    geom_point(alpha = 0.5, color = palette_light()[[1]]) +
+    geom_ribbon(aes(ymin = lo.95, ymax = hi.95), data = bikes_future, 
+                fill = "#D5DBFF", color = NA, size = 0) +
+    geom_ribbon(aes(ymin = lo.80, ymax = hi.80, fill = key), data = bikes_future,
+                fill = "#596DD5", color = NA, size = 0, alpha = 0.8) +
+    geom_point(aes(x = date, y = cnt), data = bikes_future,
+               alpha = 0.5, color = palette_light()[[2]]) +
+    geom_smooth(aes(x = date, y = cnt), data = bikes_future,
+                method = 'loess', color = "white") + 
+    labs(title = "Bikes Sharing Dataset: 6-Month Forecast with Prediction Intervals", x = "") +
+    theme_tq()
+```
+
+ 
+
 
 # Parting Thoughts
 
