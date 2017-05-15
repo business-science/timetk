@@ -60,7 +60,7 @@ idx_train <- idx[1:500]
 idx_test  <- idx[501:length(idx)]
 ```
 
-Visualize the frequency of the generated test index - This is what we will predict. The `tk_get_timeseries_signature()` function retrieves the differences (frequency) of the data. We can then plot using `ggplot()`. The frequency (diff) is in seconds. Since it's daily periodicity, the base 86,400 seconds. Each small spike to 253,800 seconds is a weekend, and the large spike to 1,555,200 seconds is the missing two week period at the end of the year. 
+First we visualize the frequency of the simulated test index, which is what we will generate as a future time series. The `tk_get_timeseries_signature()` function retrieves the differences (frequency or "diff" column) of the test dataset. We can then plot using `ggplot()`. The frequency (diff) is in seconds. Since it's daily periodicity, the base 86,400 seconds. Each small spike to 253,800 seconds is a weekend, and the large spike to 1,555,200 seconds is the missing two week period at the end of the year. 
 
 ```{r}
 idx_test %>%
@@ -108,7 +108,7 @@ idx %>%
     scale_y_continuous(limits = c(0, 2.2e6))
 ```
 
-## Inspect Both weekdays and months
+## Inspect both weekdays and months
 
 We can combine both `inspect_weekdays` and `inspect_months` to detect both sequences of missing dates. Applying both to the example removes the weekends and last two weeks of each year. However, there is one error made due to the interactions of the two algorithms. 
 
@@ -125,11 +125,13 @@ idx_future_wdays_and_months %>%
     scale_y_continuous(limits = c(0, 2.2e6))
 ```
 
-We can inspect further by analyzing both the Type I (algorithm removed incorrectly) and Type II errors (days present in prediction that algorithm failed to remove).
+## Reviewing errors
+
+We can inspect further by analyzing both the Type I errors (errors that the algorithm removed incorrectly) and Type II errors (errors that the prediction that algorithm failed to remove).
 
 ### Type I Errors 
 
-Errors that algorithm removed days incorrectly. This is __typically very important__ since users will want to ensure actual days traded are accounted for conservatively and deal with exceptions via `skip_values`.
+__Errors that algorithm removed incorrectly__. These errors are the most dangerous because users may not know which days were removed incorrectly. If known, they can be accounted for with `insert_values`. The easiest way to tell is by reviewing the frequency chart for larger than normal spikes.   
 
 ```{r}
 idx_test[!(idx_test %in% idx_future_wdays_and_months)]
@@ -137,7 +139,7 @@ idx_test[!(idx_test %in% idx_future_wdays_and_months)]
 
 ### Type II Errors
 
-Days present in prediction that algorithm failed to remove. Typically, can be addressed with `skip_values` provided prediction length is manageable. 
+__Errorst that algorithm failed to remove__. These errors are the eaisest to manage because typically the analyst generally knows which days should be removed. These errors can be addressed with `skip_values` provided prediction length is manageable. 
 
 ```{r}
 idx_future_wdays_and_months[!(idx_future_wdays_and_months %in% idx_test)]
@@ -146,7 +148,7 @@ idx_future_wdays_and_months[!(idx_future_wdays_and_months %in% idx_test)]
 
 ## Using skip values and insert values
 
-`skip_values` removes values from the future time series, and `insert_values` adds values to the future time series. The Type II errors (incorrectly kept) can be addressed with `skip_values`. The Type I errors (incorrectly removed) can be addressed with `insert_values`. We had one Type II error in the example, and we'll correct with `skip_values`.
+`insert_values` adds values to the future time series, and `skip_values` removes values from the future time series. The Type I errors (incorrectly removed observations) can be addressed with `insert_values`. The Type II errors (incorrectly kept observations) can be addressed with `skip_values`. We had one Type II error in the example, and we'll correct with `skip_values`. Make sure the class of the value passed to `skip_values` matches the class of the time series index. 
 
 ```{r}
 idx_future_wdays_months_skip_vals <- idx_train %>%
