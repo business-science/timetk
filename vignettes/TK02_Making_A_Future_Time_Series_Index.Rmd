@@ -271,7 +271,7 @@ idx_future_wdays_and_months[!(idx_future_wdays_and_months %in% idx_test)]
 
 ## Skip values
 
-We can correct for this using the `skip_values` and `inspect_weekdays` arguments. The former removes specific observations while the latter uses a logistic regression algorithm to identify the probability of specific weekdays being present in the future index. The algorithm for inspecting weekdays will check for any weekdays that are missing on a weekly, bi-weekly, tri-weekly, or quad-weekly frequency and automatically remove these days. As shown below, holidays (New Year's Day and Martin Luther King, Jr. Day) and weekends are accounted for. 
+We can correct for this using the `skip_values` and `inspect_weekdays` arguments. The former removes specific observations while the latter uses a logistic regression algorithm to identify the probability of specific weekdays being present in the future index. The algorithm for inspecting weekdays will check for any weekdays that are missing on a weekly, bi-weekly, tri-weekly, or quad-weekly frequency and automatically remove these days. As shown below, holidays and weekends are accounted for. 
 
 ```{r}
 # Build vector of holidays in correct timeseries class using ymd()
@@ -296,7 +296,7 @@ idx_future %>%
     
 ```
 
-## Parting Thoughts
+# Parting Thoughts
 
 Building the future date sequence is an essential part of forecasting using `timekit`. An innaccurate date sequence can hurt the performance of the forecast. The `tk_make_future_index()` function has methods to remove frequently missing dates. However, the user should always review the output to ensure an accurate future date sequence is achieved.
 
