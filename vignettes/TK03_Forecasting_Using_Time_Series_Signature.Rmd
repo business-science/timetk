@@ -297,7 +297,7 @@ Note that there are no error bands. I'm still researching suitable techniques to
 
 # Parting Thoughts
 
-Forecasting using the time series signature can be very accurate especially when time-based patterns are present in the underlying data. As with most machine learning applications, the prediction is only as good as the patterns in the data. Forecasting using this approach may not be suitable when patterns are not present or when the future is highly uncertain (i.e. past is not a suitable predictor of future performance). However, in may situations the time series signature can provide an accurate forecast.
+Forecasting using the time series signature can be very accurate especially when time-based patterns are present in the underlying data. As with most machine learning applications, the prediction is only as good as the patterns in the data. Forecasting using this approach may _not_ be suitable when patterns are not present or when the future is highly uncertain (i.e. past is not a suitable predictor of future performance). However, in may situations the time series signature can provide an accurate forecast.
 
 One benefit to the machine learning approach that was not covered in this vignette but is an significant advantage is that other features (including non-time-based) can be included in the analysis if the values are present in the training and test sets and can be determined with some level of accuracy in the future. For example, one can expect that experts in Bike Sharing analytics have access to historical temperature and weather patterns, wind speeds, and so on that could have a significant affect on bicycle sharing. The beauty of this method is these features can easily be incorporated into the model and prediction.
 

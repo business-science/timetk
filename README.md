@@ -208,3 +208,5 @@ The `timekit` package includes a vignette to help users get up to speed quickly:
 
 -   TK00 - Time Series Coercion Using `timekit`
 -   TK01 - Working with the Time Series Index using `timekit`
+-   TK02 - Making a Future Time Series Index using `timekit`
+-   TK03 - Forecasting Using a Time Series Signature with `timekit`

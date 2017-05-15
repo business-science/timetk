@@ -11,6 +11,8 @@
 #' Default is `FALSE`.
 #' @param skip_values A vector of same class as `idx` of timeseries
 #' values to skip.
+#' @param insert_values A vector of same class as `idx` of timeseries
+#' values to insert.
 #'
 #' @details
 #' `tk_make_future_timeseries` returns a time series based
@@ -20,11 +22,9 @@
 #'
 #' The `inspect_weekdays` and `inspect_months` arguments apply to "daily" (scale = "day") data
 #' (refer to `tk_get_timeseries_summary()` to get the index scale).
-#'
 #' The `inspect_weekdays` argument is useful in determining missing days of the week
 #' that occur on a weekly frequency such as every week, every other week, and so on.
 #' It's recommended to have at least 60 days to use this option.
-#'
 #' The `inspect_months` argument is useful in determining missing days of the month, quarter
 #' or year; however, the algorithm can inadvertently select incorrect dates if the pattern
 #' is irratic.
@@ -34,10 +34,13 @@
 #' the user's expectations. It's recommended to have at least two years of days to use
 #' this option.
 #'
-#' The `skip_values` argument can be used to pass a timeseries vector of values to skip.
-#' This argument is good for passing holidays or special index values that should
+#' The `skip_values` and `insert_values` arguments can be used to remove and add
+#' values into the series of future times. The values must be the same format as the `idx` class.
+#' The `skip_values` argument useful for passing holidays or special index values that should
 #' be excluded from the future time series.
-#' The values must be the same format as the `idx` class.
+#' The `insert_values` argument is useful for adding values back that the algorithm may have
+#' excluded.
+#'
 #'
 #' @return A vector containing future dates
 #'
@@ -67,8 +70,8 @@
 #' FB_tbl %>%
 #'     tk_index() %>%
 #'     tk_make_future_timeseries(n_future         = 366,
-#'                               skip_values      = holidays,
-#'                               inspect_weekdays = TRUE)
+#'                               inspect_weekdays = TRUE,
+#'                               skip_values      = holidays)
 #'
 #' # Works with regularized indexes as well
 #' c(2016.00, 2016.25, 2016.50, 2016.75) %>%
@@ -81,17 +84,17 @@
 #'
 #'
 #' @export
-tk_make_future_timeseries <- function(idx, n_future, inspect_weekdays = FALSE, inspect_months = FALSE, skip_values = NULL) {
+tk_make_future_timeseries <- function(idx, n_future, inspect_weekdays = FALSE, inspect_months = FALSE, skip_values = NULL, insert_values = NULL) {
     UseMethod("tk_make_future_timeseries", idx)
 }
 
 #' @export
-tk_make_future_timeseries.POSIXt <- function(idx, n_future, inspect_weekdays = FALSE, inspect_months = FALSE, skip_values = NULL) {
-    return(make_sequential_timeseries_irregular_freq(idx = idx, n_future = n_future, skip_values = skip_values))
+tk_make_future_timeseries.POSIXt <- function(idx, n_future, inspect_weekdays = FALSE, inspect_months = FALSE, skip_values = NULL, insert_values = NULL) {
+    return(make_sequential_timeseries_irregular_freq(idx = idx, n_future = n_future, skip_values = skip_values, insert_values = insert_values))
 }
 
 #' @export
-tk_make_future_timeseries.Date <- function(idx, n_future, inspect_weekdays = FALSE, inspect_months = FALSE, skip_values = NULL) {
+tk_make_future_timeseries.Date <- function(idx, n_future, inspect_weekdays = FALSE, inspect_months = FALSE, skip_values = NULL, insert_values = NULL) {
 
     if (missing(n_future)) {
         warning("Argument `n_future` is missing with no default")
@@ -103,34 +106,35 @@ tk_make_future_timeseries.Date <- function(idx, n_future, inspect_weekdays = FAL
 
     if (idx_summary$scale == "day" && (inspect_weekdays || inspect_months)) {
 
-        # Daily scale with weekday inspection
+        # Daily scale with weekday and/or month inspection
         tryCatch({
 
-            return(predict_future_timeseries_daily(idx = idx, n_future = n_future, skip_values = skip_values, inspect_weekdays = inspect_weekdays, inspect_months = inspect_months))
+            return(predict_future_timeseries_daily(idx = idx, n_future = n_future, inspect_weekdays = inspect_weekdays, inspect_months = inspect_months, skip_values = skip_values, insert_values = insert_values))
 
         }, error = function(e) {
 
             warning(paste0("Could not perform `glm()`: ", e, "\nMaking sequential timeseries."))
-            return(make_sequential_timeseries_irregular_freq(idx = idx, n_future = n_future, skip_values = skip_values))
+            return(make_sequential_timeseries_irregular_freq(idx = idx, n_future = n_future, skip_values = skip_values, insert_values = insert_values))
 
         })
 
     } else if (idx_summary$scale == "day") {
 
         # Daily scale without weekday inspection
-        return(make_sequential_timeseries_irregular_freq(idx = idx, n_future = n_future, skip_values = skip_values))
+        return(make_sequential_timeseries_irregular_freq(idx = idx, n_future = n_future, skip_values = skip_values, insert_values = insert_values))
 
     } else if (idx_summary$scale == "week") {
 
         # Weekly scale
-        return(make_sequential_timeseries_irregular_freq(idx = idx, n_future = n_future, skip_values = skip_values))
+        return(make_sequential_timeseries_irregular_freq(idx = idx, n_future = n_future, skip_values = skip_values, insert_values = insert_values))
 
     } else if (idx_summary$scale == "month") {
 
         # Monthly scale - Switch to yearmon and then back to date
         if (!is.null(skip_values)) skip_values <- zoo::as.yearmon(skip_values)
+        if (!is.null(insert_values)) insert_values <- zoo::as.yearmon(insert_values)
         ret  <- zoo::as.yearmon(idx) %>%
-            tk_make_future_timeseries(n_future = n_future, skip_values = skip_values) %>%
+            tk_make_future_timeseries(n_future = n_future, skip_values = skip_values, insert_values = insert_values) %>%
             lubridate::as_date()
         return(ret)
 
@@ -138,8 +142,9 @@ tk_make_future_timeseries.Date <- function(idx, n_future, inspect_weekdays = FAL
 
         # Quarterly scale - Switch to yearqtr and then back to date
         if (!is.null(skip_values)) skip_values <- zoo::as.yearqtr(skip_values)
+        if (!is.null(insert_values)) insert_values <- zoo::as.yearqtr(insert_values)
         ret  <- zoo::as.yearqtr(idx) %>%
-            tk_make_future_timeseries(n_future = n_future, skip_values = skip_values) %>%
+            tk_make_future_timeseries(n_future = n_future, skip_values = skip_values, insert_values = insert_values) %>%
             lubridate::as_date()
         return(ret)
 
@@ -147,8 +152,9 @@ tk_make_future_timeseries.Date <- function(idx, n_future, inspect_weekdays = FAL
 
         # Yearly scale - Use yearmon and rely on frequency to dictate yearly scale
         if (!is.null(skip_values)) skip_values <- zoo::as.yearmon(skip_values)
+        if (!is.null(insert_values)) insert_values <- zoo::as.yearmon(insert_values)
         ret  <- zoo::as.yearmon(idx) %>%
-            tk_make_future_timeseries(n_future = n_future, skip_values = skip_values) %>%
+            tk_make_future_timeseries(n_future = n_future, skip_values = skip_values, insert_values) %>%
             lubridate::as_date()
         return(ret)
     }
@@ -156,30 +162,38 @@ tk_make_future_timeseries.Date <- function(idx, n_future, inspect_weekdays = FAL
 }
 
 #' @export
-tk_make_future_timeseries.yearmon <- function(idx, n_future, inspect_weekdays = FALSE, inspect_months = FALSE, skip_values = NULL) {
-    return(make_sequential_timeseries_regular_freq(idx = idx, n_future = n_future, skip_values = skip_values))
+tk_make_future_timeseries.yearmon <- function(idx, n_future, inspect_weekdays = FALSE, inspect_months = FALSE, skip_values = NULL, insert_values = NULL) {
+    return(make_sequential_timeseries_regular_freq(idx = idx, n_future = n_future, skip_values = skip_values, insert_values = insert_values))
 }
 
 #' @export
-tk_make_future_timeseries.yearqtr <- function(idx, n_future, inspect_weekdays = FALSE, inspect_months = FALSE, skip_values = NULL) {
-    return(make_sequential_timeseries_regular_freq(idx = idx, n_future = n_future, skip_values = skip_values))
+tk_make_future_timeseries.yearqtr <- function(idx, n_future, inspect_weekdays = FALSE, inspect_months = FALSE, skip_values = NULL, insert_values = NULL) {
+    return(make_sequential_timeseries_regular_freq(idx = idx, n_future = n_future, skip_values = skip_values, insert_values = insert_values))
 }
 
 #' @export
-tk_make_future_timeseries.numeric <- function(idx, n_future, inspect_weekdays = FALSE, inspect_months = FALSE, skip_values = NULL) {
-    return(make_sequential_timeseries_regular_freq(idx = idx, n_future = n_future, skip_values = skip_values))
+tk_make_future_timeseries.numeric <- function(idx, n_future, inspect_weekdays = FALSE, inspect_months = FALSE, skip_values = NULL, insert_values = NULL) {
+    return(make_sequential_timeseries_regular_freq(idx = idx, n_future = n_future, skip_values = skip_values, insert_values = insert_values))
 }
 
 # UTILITIY FUNCTIONS -----
 
-predict_future_timeseries_daily <- function(idx, n_future, inspect_weekdays, inspect_months, skip_values) {
+predict_future_timeseries_daily <- function(idx, n_future, inspect_weekdays, inspect_months, skip_values, insert_values) {
 
     # Validation
-    if (!is.null(skip_values))
+    if (!is.null(skip_values)) {
         if (class(skip_values)[[1]] != class(idx)[[1]]) {
             warning("Class `skip_values` does not match class `idx`.", call. = FALSE)
             return(NA)
         }
+    }
+
+    if (!is.null(insert_values)) {
+        if (class(insert_values)[[1]] != class(idx)[[1]]) {
+            warning("Class `insert_values` does not match class `idx`.", call. = FALSE)
+            return(NA)
+        }
+    }
 
     if ((length(idx) < 60) && inspect_weekdays) warning("Less than 60 observations could result in incorrectly predicted weekday frequency due to small sample size.")
     if ((length(idx) < 400) && inspect_months) warning("Less than 400 observations could result in incorrectly predicted month frequency due to small sample size.")
@@ -239,19 +253,28 @@ predict_future_timeseries_daily <- function(idx, n_future, inspect_weekdays, ins
 
     # Filter skip_values
     idx_pred <- filter_skip_values(predictions$index, skip_values, n_future)
+    idx_pred <- add_insert_values(idx_pred, insert_values)
 
     # Return date sequence
     return(idx_pred)
 }
 
-make_sequential_timeseries_irregular_freq <- function(idx, n_future, skip_values) {
+make_sequential_timeseries_irregular_freq <- function(idx, n_future, skip_values, insert_values) {
 
     # Validation
-    if (!is.null(skip_values))
+    if (!is.null(skip_values)) {
         if (class(skip_values)[[1]] != class(idx)[[1]]) {
             warning("Class `skip_values` does not match class `idx`.", call. = FALSE)
             return(NA)
         }
+    }
+
+    if (!is.null(insert_values)) {
+        if (class(insert_values)[[1]] != class(idx)[[1]]) {
+            warning("Class `insert_values` does not match class `idx`.", call. = FALSE)
+            return(NA)
+        }
+    }
 
     # Get index attributes
     idx_signature         <- tk_get_timeseries_signature(idx)
@@ -276,20 +299,29 @@ make_sequential_timeseries_irregular_freq <- function(idx, n_future, skip_values
 
     # Filter skip_values
     date_sequence <- filter_skip_values(date_sequence, skip_values, n_future)
+    date_sequence <- add_insert_values(date_sequence, insert_values)
 
     # Return date sequence
     return(date_sequence)
 }
 
 
-make_sequential_timeseries_regular_freq <- function(idx, n_future, skip_values) {
+make_sequential_timeseries_regular_freq <- function(idx, n_future, skip_values, insert_values) {
 
     # Validation
-    if (!is.null(skip_values))
+    if (!is.null(skip_values)) {
         if (class(skip_values)[[1]] != class(idx)[[1]]) {
             warning("Class `skip_values` does not match class `idx`.", call. = FALSE)
             return(NA)
         }
+    }
+
+    if (!is.null(insert_values)) {
+        if (class(insert_values)[[1]] != class(idx)[[1]]) {
+            warning("Class `insert_values` does not match class `idx`.", call. = FALSE)
+            return(NA)
+        }
+    }
 
     # Get index attributes
     idx_numeric   <- as.numeric(idx)
@@ -315,6 +347,7 @@ make_sequential_timeseries_regular_freq <- function(idx, n_future, skip_values) 
 
     # Filter skip_values
     date_sequence <- filter_skip_values(date_sequence, skip_values, n_future)
+    date_sequence <- add_insert_values(date_sequence, insert_values)
 
     # Return date sequence
     return(date_sequence)
@@ -323,6 +356,10 @@ make_sequential_timeseries_regular_freq <- function(idx, n_future, skip_values) 
 filter_skip_values <- function(date_sequence, skip_values, n_future) {
     # Filter skip_values
     if (!is.null(skip_values)) {
+
+        # Remove duplicates
+        skip_values <- unique(skip_values)
+
         # Inspect skip_values
         skips_not_in_seq <- skip_values[!(skip_values %in% date_sequence[1:n_future])]
         if (length(skips_not_in_seq) > 0)
@@ -334,6 +371,34 @@ filter_skip_values <- function(date_sequence, skip_values, n_future) {
     }
 
     return(date_sequence)
+}
+
+add_insert_values <- function(date_sequence, insert_values) {
+    # Add insert values
+
+    ret <- date_sequence
+
+    if (!is.null(insert_values)) {
+
+        # Remove duplicates
+        insert_values <- unique(insert_values)
+
+        # Inspect insert_values
+        adds_in_seq <- insert_values[(insert_values %in% date_sequence)]
+        if (length(adds_in_seq) > 0)
+            message(paste0("The following `insert_values` were already in the future date sequence: ", stringr::str_c(adds_in_seq, collapse = ", ")))
+
+        # Add insert_values
+        ret <- c(date_sequence, insert_values[!(insert_values %in% date_sequence)]) %>%
+            sort()
+
+        # Correct timezone
+        if (inherits(date_sequence, "POSIXt") || inherits(date_sequence, "Date"))
+            lubridate::tz(ret) <- lubridate::tz(date_sequence)
+
+    }
+
+    return(ret)
 }
 
 make_daily_prediction_formula <- function(ts_signature_tbl_train, inspect_weekdays, inspect_months) {
@@ -360,3 +425,4 @@ make_daily_prediction_formula <- function(ts_signature_tbl_train, inspect_weekda
 
     return(f)
 }
+

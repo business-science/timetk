@@ -5,7 +5,7 @@
 \title{Make a future time series from an existing time series}
 \usage{
 tk_make_future_timeseries(idx, n_future, inspect_weekdays = FALSE,
-  inspect_months = FALSE, skip_values = NULL)
+  inspect_months = FALSE, skip_values = NULL, insert_values = NULL)
 }
 \arguments{
 \item{idx}{A vector of dates}
@@ -23,6 +23,9 @@ Default is \code{FALSE}.}
 
 \item{skip_values}{A vector of same class as \code{idx} of timeseries
 values to skip.}
+
+\item{insert_values}{A vector of same class as \code{idx} of timeseries
+values to insert.}
 }
 \value{
 A vector containing future dates
@@ -38,11 +41,9 @@ The argument \code{n_future} determines how many future index observations to co
 
 The \code{inspect_weekdays} and \code{inspect_months} arguments apply to "daily" (scale = "day") data
 (refer to \code{tk_get_timeseries_summary()} to get the index scale).
-
 The \code{inspect_weekdays} argument is useful in determining missing days of the week
 that occur on a weekly frequency such as every week, every other week, and so on.
 It's recommended to have at least 60 days to use this option.
-
 The \code{inspect_months} argument is useful in determining missing days of the month, quarter
 or year; however, the algorithm can inadvertently select incorrect dates if the pattern
 is irratic.
@@ -52,10 +53,12 @@ It's recommended to always review the date results to ensure the future days mat
 the user's expectations. It's recommended to have at least two years of days to use
 this option.
 
-The \code{skip_values} argument can be used to pass a timeseries vector of values to skip.
-This argument is good for passing holidays or special index values that should
+The \code{skip_values} and \code{insert_values} arguments can be used to remove and add
+values into the series of future times. The values must be the same format as the \code{idx} class.
+The \code{skip_values} argument useful for passing holidays or special index values that should
 be excluded from the future time series.
-The values must be the same format as the \code{idx} class.
+The \code{insert_values} argument is useful for adding values back that the algorithm may have
+excluded.
 }
 \examples{
 library(tidyquant)
@@ -81,8 +84,8 @@ holidays <- c("2017-01-02", "2017-01-16", "2017-02-20",
 FB_tbl \%>\%
     tk_index() \%>\%
     tk_make_future_timeseries(n_future         = 366,
-                              skip_values      = holidays,
-                              inspect_weekdays = TRUE)
+                              inspect_weekdays = TRUE,
+                              skip_values      = holidays)
 
 # Works with regularized indexes as well
 c(2016.00, 2016.25, 2016.50, 2016.75) \%>\%

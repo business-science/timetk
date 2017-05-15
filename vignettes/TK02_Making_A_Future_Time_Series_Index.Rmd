@@ -31,8 +31,8 @@ library(timekit)
 
 A common task in forecasting is generating a future date sequence that mimics the existing index. This task can be incredibly important to the validity of the model. In this vignette the user will learn several methods to generate a future time series index from an existing index using the `tk_make_future_timeseries()` function along with pros and cons of each and testing for accuracy. We'll focus on making future dates with a daily frequency, which tends to be the most difficult to generate due to holidays, seasonality, weekends, etc. We'll use two cases to illustrate the pros and cons:
 
-* A simple test case with weekends and the last two weeks of the year missing
-* A test case using daily trade data for FB from 2013 through 2016
+* A simple example case with weekends and the last two weeks of the year missing
+* A example case using daily trade data for FB from 2013 through 2016
 
 
 # Prerequisites
@@ -46,6 +46,8 @@ library(timekit)
 
 # Example 1: Remove Weekends and Last Two Weeks of Year
 
+This is a simulated example that shows how to use the `tk_make_future_timeseries()` function. We'll create a sequence of dates beginning in 2010, and extending through the first two weeks of 2013. The sequence is daily periodicity. We'll split into training and test sets. The train set will be used to predict the future dates. The test set will be used for comparison.  
+
 ```{r}
 # Create sequence with omitted weekends and omitted last two weeks of each year
 idx <- seq.Date(ymd("2010-01-01"), by = "day", length.out = 1110) %>%
@@ -58,7 +60,7 @@ idx_train <- idx[1:500]
 idx_test  <- idx[501:length(idx)]
 ```
 
-Visualize the frequency of the generated test index - This is what we will predict. The `tk_get_timeseries_signature()` function retrieves the differences (frequency) of the data. We can then plot using `ggplot()`.
+Visualize the frequency of the generated test index - This is what we will predict. The `tk_get_timeseries_signature()` function retrieves the differences (frequency) of the data. We can then plot using `ggplot()`. The frequency (diff) is in seconds. Since it's daily periodicity, the base 86,400 seconds. Each small spike to 253,800 seconds is a weekend, and the large spike to 1,555,200 seconds is the missing two week period at the end of the year. 
 
 ```{r}
 idx_test %>%
@@ -74,11 +76,11 @@ idx_test %>%
 
 ## Inspect weekdays
 
-Inspecting weekdays finds and removes omitted weekends of the future data set. 
+`inspect_weekdays` is useful for finding and removing missing dates that occur on a weekly, bi-weekly, tri-weekly or quad-weekly frequency (such as weekends or every other Friday off). When applied to the example, the algorithm finds and removes omitted weekends of the future data set. 
 
 ```{r}
 idx_train %>%
-    tk_make_future_timeseries(n_future = 395, inspect_weekdays = T) %>%
+    tk_make_future_timeseries(n_future = 395, inspect_weekdays = TRUE) %>%
     tk_get_timeseries_signature() %>%
     ggplot(aes(x = index, y = diff)) +
     geom_line(color = palette_light()[[1]]) +
@@ -92,11 +94,11 @@ idx_train %>%
 
 ## Inspect months
 
-Inspecting months finds and removes omitted dates in the last two weeks of the year of the future data set.
+`inspect_months` is useful for finding and removing missing dates that occur on a monthly, quarterly, yearly frequency (such as last couple weeks of the year off). Applying to the example, the algorithm finds and removes omitted dates in the last two weeks of the year of the future data set.
 
 ```{r}
 idx %>%
-    tk_make_future_timeseries(n_future = 395, inspect_months = T) %>%
+    tk_make_future_timeseries(n_future = 395, inspect_months = TRUE) %>%
     tk_get_timeseries_signature() %>%
     ggplot(aes(x = index, y = diff)) +
     geom_line(color = palette_light()[[1]]) +
@@ -108,7 +110,7 @@ idx %>%
 
 ## Inspect Both weekdays and months
 
-Inspecting both weekdays and months removes both weekends and last two weeks of each year. However, there is one error made due to the interactions of the two algorithms. 
+We can combine both `inspect_weekdays` and `inspect_months` to detect both sequences of missing dates. Applying both to the example removes the weekends and last two weeks of each year. However, there is one error made due to the interactions of the two algorithms. 
 
 ```{r}
 idx_future_wdays_and_months <- idx_train %>%
@@ -142,12 +144,30 @@ idx_future_wdays_and_months[!(idx_future_wdays_and_months %in% idx_test)]
 ```
 
 
-## Results
+## Using skip values and insert values
 
-Does well when missing days are easy to predict. The algorithm missed one day due to conflict of months and weekdays inspection within algorithm.
+`skip_values` removes values from the future time series, and `insert_values` adds values to the future time series. The Type II errors (incorrectly kept) can be addressed with `skip_values`. The Type I errors (incorrectly removed) can be addressed with `insert_values`. We had one Type II error in the example, and we'll correct with `skip_values`.
+
+```{r}
+idx_future_wdays_months_skip_vals <- idx_train %>%
+    tk_make_future_timeseries(n_future = 395, 
+                              inspect_weekdays = T, 
+                              inspect_months   = T,
+                              skip_values      = ymd("2012-12-01")) 
+idx_future_wdays_months_skip_vals %>%
+    tk_get_timeseries_signature() %>%
+    ggplot(aes(x = index, y = diff)) +
+    geom_line(color = palette_light()[[1]]) +
+    theme_tq() +
+    labs(title = "Simple Test: inspect_weekdays = T, inspect_months = T, skip_values", 
+         subtitle = "Get the exact solution using skip values") +
+    scale_y_continuous(limits = c(0, 2.2e6))
+```
 
 
-# Weekly Frequency Test: FB days traded
+
+
+# Example 2: FB days traded
 
 The FB data from the FANG data set has missing dates that follow primarily a weekly pattern with irregular holidays mixed in. We'll predict which days will be traded using combinations of `inspect_weekdays` and `inspect_months`.
 
@@ -180,7 +200,7 @@ idx_test %>%
 
 ## Inspect weekdays
 
-Inspecting weekdays only gets us pretty close. The algorithm correctly removes weekends. It misses the holidays, which may be acceptable since we can omit easily using `skip_values`.
+Inspecting weekdays gets us pretty close. The algorithm correctly removes weekends. It misses the holidays, which may be acceptable since we can omit easily using `skip_values`.
 
 ```{r}
 # Inspect weekdays: Removes weekends from future series
@@ -227,7 +247,7 @@ idx_future_wdays_and_months %>%
     ggplot(aes(x = index, y = diff)) +
     geom_line(color = palette_light()[[1]]) +
     theme_tq() +
-    labs(title = "FB Test: Frequency of predection with both inspect_weekdays = T and inspect_months = T", 
+    labs(title = "FB Test: inspect_weekdays = T and inspect_months = T", 
          subtitle = "For most part catches missing weekends and some holidays, but some incorrect days are removed") +
     scale_y_continuous(limits = c(0, 2.2e6))
 ```
@@ -247,7 +267,7 @@ The Type II errors were predicted with slightly higher accuracy, but at the expe
 idx_future_wdays_and_months[!(idx_future_wdays_and_months %in% idx_test)] 
 ```
 
-## Inspect weekdays and skip values
+## Skip values
 
 We can correct for this using the `skip_values` and `inspect_weekdays` arguments. The former removes specific observations while the latter uses a logistic regression algorithm to identify the probability of specific weekdays being present in the future index. The algorithm for inspecting weekdays will check for any weekdays that are missing on a weekly, bi-weekly, tri-weekly, or quad-weekly frequency and automatically remove these days. As shown below, holidays (New Year's Day and Martin Luther King, Jr. Day) and weekends are accounted for. 
 
@@ -274,6 +294,8 @@ idx_future %>%
     
 ```
 
-## Results
+## Parting Thoughts
 
-Holidays are difficult to predict using inspect months. It is likely better for the user to select `inspect_weekdays = TRUE` and use `skip_values` to remove irregular holidays for missing dates with a weekly, bi-weekly, tri-weekly, or quad-weekly frequency. Use `inspect_months` when there are missing dates that occur on a monthly, quarterly, or yearly frequency.
+Building the future date sequence is an essential part of forecasting using `timekit`. An innaccurate date sequence can hurt the performance of the forecast. The `tk_make_future_index()` function has methods to remove frequently missing dates. However, the user should always review the output to ensure an accurate future date sequence is achieved.
+
+Further, holidays are difficult to predict using `inspect_months` due to the irregular nature. It is likely better for the user to select `inspect_weekdays = TRUE` and use `skip_values` to remove irregular holidays. Use `inspect_months` when there are missing dates that occur on a monthly, quarterly, or yearly frequency as part of a regular pattern. Use `skip_values` and `insert_values` to remove and add dates as necessary to account for irregular missing days. 

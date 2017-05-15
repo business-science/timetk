@@ -34,6 +34,13 @@ test_that("tk_make_future_timeseries(datetime) test returns correct format.", {
     expect_warning(test <- tk_make_future_timeseries(test_datetime, n_future = 10, skip_values = 1))
     expect_equal(test, NA)
 
+    # Insert values
+    insert <- tail(test_datetime, 1)
+    test <- tk_make_future_timeseries(test_datetime, n_future = 3, insert_values = insert)
+    expectation <- c("2015-12-31 19:00:06", "2015-12-31 19:00:09", "2015-12-31 19:00:12", "2015-12-31 19:00:15") %>%
+        ymd_hms()
+    expect_equal(test, expectation)
+
 })
 
 test_date <- FANG %>%
@@ -85,6 +92,14 @@ test_that("tk_make_future_timeseries(date) test returns correct format.", {
     expect_warning(test <- tk_make_future_timeseries(test_date, n_future = 10, skip_values = 1))
     expect_equal(test, NA)
 
+    # Insert dates
+    insert <- ymd(c("2017-01-03", "2017-01-01"))
+    test <- tk_make_future_timeseries(test_date, n_future = 3, inspect_weekdays = TRUE, insert_values = insert)
+    expectation <- c("2017-01-01", "2017-01-02", "2017-01-03") %>%
+        ymd()
+    expect_equal(test, expectation)
+
+
     # WEEKLY SCALE
 
     # No skip
@@ -99,6 +114,18 @@ test_that("tk_make_future_timeseries(date) test returns correct format.", {
     expectation <- c("2017-01-15") %>% ymd()
     expect_equal(tk_make_future_timeseries(test_date, n_future = 2, skip_values = skip_values),
                  expectation)
+
+    # With insert
+    test_date   <- c("2017-01-01", "2017-01-08") %>% ymd()
+    insert      <- c("2017-01-29") %>% ymd()
+    expectation <- c("2017-01-15", "2017-01-22", "2017-01-29") %>% ymd()
+    expect_equal(tk_make_future_timeseries(test_date, n_future = 2, insert_values = insert),
+                 expectation)
+
+    # With insert / Message
+    test_date   <- c("2017-01-01", "2017-01-08") %>% ymd()
+    insert      <- c("2017-01-22") %>% ymd()
+    expect_message(tk_make_future_timeseries(test_date, n_future = 2, insert_values = insert))
 
     # MONTHLY SCALE
 
@@ -115,6 +142,13 @@ test_that("tk_make_future_timeseries(date) test returns correct format.", {
     expect_equal(tk_make_future_timeseries(test_date, n_future = 2, skip_values = skip_values),
                  expectation)
 
+    # With insert
+    test_date   <- c("2017-01-01", "2017-02-01") %>% ymd()
+    insert      <- c("2017-06-01") %>% ymd()
+    expectation <- c("2017-03-01", "2017-04-01", "2017-06-01") %>% ymd()
+    expect_equal(tk_make_future_timeseries(test_date, n_future = 2, insert_values = insert),
+                 expectation)
+
     # QUARTERLY SCALE
 
     # No skip
@@ -128,6 +162,13 @@ test_that("tk_make_future_timeseries(date) test returns correct format.", {
     skip_values  <- c("2017-10-01") %>% ymd()
     expectation <- c("2017-07-01") %>% ymd()
     expect_equal(tk_make_future_timeseries(test_date, n_future = 2, skip_values = skip_values),
+                 expectation)
+
+    # With insert
+    test_date   <- c("2017-01-01", "2017-04-01") %>% ymd()
+    insert      <- c("2018-01-01") %>% ymd()
+    expectation <- c("2017-07-01", "2017-10-01", "2018-01-01") %>% ymd()
+    expect_equal(tk_make_future_timeseries(test_date, n_future = 2, insert_values = insert),
                  expectation)
 
     # YEARLY SCALE
@@ -189,6 +230,14 @@ test_that("tk_make_future_timeseries(yearmon) test returns correct format.", {
     # Inspect validation of skip_values
     expect_warning(test <- tk_make_future_timeseries(test_yearmon, n_future = 10, skip_values = 1))
     expect_equal(test, NA)
+
+    # insert values
+    insert <- as.yearmon(c("2017-10", "2017-11"))
+    test <- tk_make_future_timeseries(test_yearmon, n_future = 3, insert_values = insert)
+    expectation <- c("2016-04", "2016-05", "2016-06", " 2017-10", "2017-11")  %>%
+        as.yearmon()
+    expect_equal(test, expectation)
+
 })
 
 test_yearqtr <- c("2016 Q1",
