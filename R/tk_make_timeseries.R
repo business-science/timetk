@@ -388,13 +388,43 @@ add_insert_values <- function(date_sequence, insert_values) {
         if (length(adds_in_seq) > 0)
             message(paste0("The following `insert_values` were already in the future date sequence: ", stringr::str_c(adds_in_seq, collapse = ", ")))
 
-        # Add insert_values
-        ret <- c(date_sequence, insert_values[!(insert_values %in% date_sequence)]) %>%
-            sort()
-
         # Correct timezone
-        if (inherits(date_sequence, "POSIXt") || inherits(date_sequence, "Date"))
+        if (inherits(date_sequence, "Date")) {
+
+            # Deal with time zones
+            numeric_sequence <- date_sequence %>%
+                lubridate::as_datetime() %>%
+                as.numeric()
+            numeric_insert_values <- insert_values %>%
+                lubridate::as_datetime() %>%
+                as.numeric()
+
+            ret <- c(numeric_sequence, numeric_insert_values[!(numeric_insert_values %in% numeric_sequence)]) %>%
+                sort() %>%
+                lubridate::as_datetime() %>%
+                lubridate::as_date()
+
             lubridate::tz(ret) <- lubridate::tz(date_sequence)
+
+        } else if (inherits(date_sequence, "POSIXt")) {
+
+            # Deal with time zones
+            numeric_sequence <- as.numeric(date_sequence)
+            numeric_insert_values <- as.numeric(insert_values)
+
+            ret <- c(numeric_sequence, numeric_insert_values[!(numeric_insert_values %in% numeric_sequence)]) %>%
+                sort() %>%
+                lubridate::as_datetime()
+
+            lubridate::tz(ret) <- lubridate::tz(date_sequence)
+
+        } else {
+
+            ret <- c(date_sequence, insert_values[!(insert_values %in% date_sequence)]) %>%
+                sort()
+
+        }
+
 
     }
 

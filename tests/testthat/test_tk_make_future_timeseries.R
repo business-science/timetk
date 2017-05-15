@@ -37,7 +37,7 @@ test_that("tk_make_future_timeseries(datetime) test returns correct format.", {
     # Insert values
     insert <- tail(test_datetime, 1)
     test <- tk_make_future_timeseries(test_datetime, n_future = 3, insert_values = insert)
-    expectation <- c("2015-12-31 19:00:06", "2015-12-31 19:00:09", "2015-12-31 19:00:12", "2015-12-31 19:00:15") %>%
+    expectation <- c("2016-01-01 00:00:06", "2016-01-01 00:00:09", "2016-01-01 00:00:12", "2016-01-01 00:00:15") %>%
         ymd_hms()
     expect_equal(test, expectation)
 
