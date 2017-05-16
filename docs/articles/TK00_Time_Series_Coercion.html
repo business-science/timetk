@@ -780,11 +780,11 @@ data_tbl</code></pre></div>
 <pre><code>## # A tibble: 5 x 2
 ##         date         x
 ##       &lt;date&gt;     &lt;dbl&gt;
-## 1 2016-01-01  2.025742
-## 2 2016-01-02  4.235642
-## 3 2016-01-03  6.629700
-## 4 2016-01-04  9.207917
-## 5 2016-01-05 11.970292</code></pre>
+## 1 2016-01-01  2.345434
+## 2 2016-01-02  4.904090
+## 3 2016-01-03  7.675967
+## 4 2016-01-04 10.661065
+## 5 2016-01-05 13.859385</code></pre>
 <p>Coerce to <code>ts</code> class using the <code><a href="../reference/tk_ts.html">tk_ts()</a></code> function. Note that the non-numeric column “date” is being dropped, and the <code>silent = TRUE</code> hides the message.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Coerce to ts </span>
 data_ts &lt;-<span class="st"> </span><span class="kw"><a href="../reference/tk_ts.html">tk_ts</a></span>(data_tbl, <span class="dt">start =</span> <span class="dv">2016</span>, <span class="dt">freq =</span> <span class="dv">365</span>, <span class="dt">silent =</span> <span class="ot">TRUE</span>)
@@ -794,11 +794,11 @@ data_ts</code></pre></div>
 ## End = c(2016, 5) 
 ## Frequency = 365 
 ##              x
-## [1,]  2.025742
-## [2,]  4.235642
-## [3,]  6.629700
-## [4,]  9.207917
-## [5,] 11.970292
+## [1,]  2.345434
+## [2,]  4.904090
+## [3,]  7.675967
+## [4,] 10.661065
+## [5,] 13.859385
 ## attr(,"index")
 ## [1] 1451606400 1451692800 1451779200 1451865600 1451952000
 ## attr(,"index")attr(,"tzone")
@@ -822,15 +822,15 @@ data_ts</code></pre></div>
 data_xts &lt;-<span class="st"> </span><span class="kw"><a href="../reference/tk_xts.html">tk_xts</a></span>(data_ts)
 data_xts</code></pre></div>
 <pre><code>##                    x
-## 2016-01-01  2.025742
-## 2016-01-02  4.235642
-## 2016-01-03  6.629700
-## 2016-01-04  9.207917
-## 2016-01-05 11.970292</code></pre>
+## 2016-01-01  2.345434
+## 2016-01-02  4.904090
+## 2016-01-03  7.675967
+## 2016-01-04 10.661065
+## 2016-01-05 13.859385</code></pre>
 <p>We can see that the <code>xts</code> structure is maintained.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(data_xts)</code></pre></div>
 <pre><code>## An 'xts' object on 2016-01-01/2016-01-05 containing:
-##   Data: num [1:5, 1] 2.03 4.24 6.63 9.21 11.97
+##   Data: num [1:5, 1] 2.35 4.9 7.68 10.66 13.86
 ##  - attr(*, "dimnames")=List of 2
 ##   ..$ : NULL
 ##   ..$ : chr "x"
@@ -842,15 +842,15 @@ data_xts</code></pre></div>
 data_zoo &lt;-<span class="st"> </span><span class="kw"><a href="../reference/tk_zoo.html">tk_zoo</a></span>(data_ts)
 data_zoo</code></pre></div>
 <pre><code>##                    x
-## 2016-01-01  2.025742
-## 2016-01-02  4.235642
-## 2016-01-03  6.629700
-## 2016-01-04  9.207917
-## 2016-01-05 11.970292</code></pre>
+## 2016-01-01  2.345434
+## 2016-01-02  4.904090
+## 2016-01-03  7.675967
+## 2016-01-04 10.661065
+## 2016-01-05 13.859385</code></pre>
 <p>We can see that the <code>zoo</code> structure is maintained.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(data_zoo)</code></pre></div>
 <pre><code>## 'zoo' series from 2016-01-01 to 2016-01-05
-##   Data: num [1:5, 1] 2.03 4.24 6.63 9.21 11.97
+##   Data: num [1:5, 1] 2.35 4.9 7.68 10.66 13.86
 ##  - attr(*, "dimnames")=List of 2
 ##   ..$ : chr [1:5] "2016-01-01" "2016-01-02" "2016-01-03" "2016-01-04" ...
 ##   ..$ : chr "x"
@@ -860,11 +860,11 @@ data_zoo</code></pre></div>
 <pre><code>## # A tibble: 5 x 2
 ##        index         x
 ##       &lt;date&gt;     &lt;dbl&gt;
-## 1 2016-01-01  2.025742
-## 2 2016-01-02  4.235642
-## 3 2016-01-03  6.629700
-## 4 2016-01-04  9.207917
-## 5 2016-01-05 11.970292</code></pre>
+## 1 2016-01-01  2.345434
+## 2 2016-01-02  4.904090
+## 3 2016-01-03  7.675967
+## 4 2016-01-04 10.661065
+## 5 2016-01-05 13.859385</code></pre>
 </div>
 <div id="working-with-yearmon-and-yearqtr-index" class="section level2">
 <h2 class="hasAnchor">
