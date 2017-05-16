@@ -69,6 +69,12 @@
     <li>
       <a href="../articles/TK01_Working_With_Time_Series_Index.html">Time series index</a>
     </li>
+    <li>
+      <a href="../articles/TK02_Making_A_Future_Time_Series_Index.html">Creating future time series indices</a>
+    </li>
+    <li>
+      <a href="../articles/TK03_Forecasting_Using_Time_Series_Signature.html">Forecasting with timekit</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -101,8 +107,8 @@
     <p>Make a future time series from an existing time series</p>
     
 
-    <pre class="usage"><span class='fu'>tk_make_future_timeseries</span>(<span class='no'>idx</span>, <span class='no'>n_future</span>, <span class='kw'>skip_values</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>inspect_weekdays</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>tk_make_future_timeseries</span>(<span class='no'>idx</span>, <span class='no'>n_future</span>, <span class='kw'>inspect_weekdays</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>inspect_months</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>skip_values</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>insert_values</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -116,15 +122,27 @@
       <td><p>Number of future observations</p></td>
     </tr>
     <tr>
+      <th>inspect_weekdays</th>
+      <td><p>Uses a logistic regression algorithm to inspect
+whether certain weekdays (e.g. weekends) should be excluded from the future dates.
+Default is <code>FALSE</code>.</p></td>
+    </tr>
+    <tr>
+      <th>inspect_months</th>
+      <td><p>Uses a logistic regression algorithm to inspect
+whether certain days of months (e.g. last two weeks of year or seasonal days)
+should be excluded from the future dates.
+Default is <code>FALSE</code>.</p></td>
+    </tr>
+    <tr>
       <th>skip_values</th>
       <td><p>A vector of same class as <code>idx</code> of timeseries
 values to skip.</p></td>
     </tr>
     <tr>
-      <th>inspect_weekdays</th>
-      <td><p>Uses a logistic regression algorithm to inspect
-whether certain weekdays (e.g. weekends) should be excluded from the future dates.
-Default is <code>TRUE</code>.</p></td>
+      <th>insert_values</th>
+      <td><p>A vector of same class as <code>idx</code> of timeseries
+values to insert.</p></td>
     </tr>
     </table>
     
@@ -137,14 +155,25 @@ Default is <code>TRUE</code>.</p></td>
     <p><code>tk_make_future_timeseries</code> returns a time series based
 on the input index frequency and attributes.</p>
 <p>The argument <code>n_future</code> determines how many future index observations to compute.</p>
-<p>The <code>skip_values</code> argument can be used to pass a timeseries vector of values to skip.
-This argument is good for passing holidays or special index values that should
-be excluded from the future time series.
-The values must be the same format as the <code>idx</code> class.</p>
-<p>The <code>inspect_weekdays</code> argument applies to "daily" (scale = "day") data
+<p>The <code>inspect_weekdays</code> and <code>inspect_months</code> arguments apply to "daily" (scale = "day") data
 (refer to <code>tk_get_timeseries_summary()</code> to get the index scale).
-The default is <code>TRUE</code>, which runs a logistic regression on the weekdays to
-determine if certain weekdays should be excluded from the future dates.</p>
+The <code>inspect_weekdays</code> argument is useful in determining missing days of the week
+that occur on a weekly frequency such as every week, every other week, and so on.
+It's recommended to have at least 60 days to use this option.
+The <code>inspect_months</code> argument is useful in determining missing days of the month, quarter
+or year; however, the algorithm can inadvertently select incorrect dates if the pattern
+is irratic.
+For example, some holidays do not occur on the same day of each month, and
+as a result the incorrect day may be selected in certain years.
+It's recommended to always review the date results to ensure the future days match
+the user's expectations. It's recommended to have at least two years of days to use
+this option.</p>
+<p>The <code>skip_values</code> and <code>insert_values</code> arguments can be used to remove and add
+values into the series of future times. The values must be the same format as the <code>idx</code> class.
+The <code>skip_values</code> argument useful for passing holidays or special index values that should
+be excluded from the future time series.
+The <code>insert_values</code> argument is useful for adding values back that the algorithm may have
+excluded.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -174,9 +203,9 @@ determine if certain weekdays should be excluded from the future dates.</p>
 <span class='co'># Remove holidays with skip_values, and remove weekends with inspect_weekdays = TRUE</span>
 <span class='no'>FB_tbl</span> <span class='kw'>%&gt;%</span>
     <span class='fu'><a href='tk_index.html'>tk_index</a></span>() <span class='kw'>%&gt;%</span>
-    <span class='fu'>tk_make_future_timeseries</span>(<span class='kw'>n_future</span>         <span class='kw'>=</span> <span class='fl'>251</span>,
-                              <span class='kw'>skip_values</span>      <span class='kw'>=</span> <span class='no'>holidays</span>,
-                              <span class='kw'>inspect_weekdays</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;   [1] "2017-01-03" "2017-01-04" "2017-01-05" "2017-01-06" "2017-01-09"
+    <span class='fu'>tk_make_future_timeseries</span>(<span class='kw'>n_future</span>         <span class='kw'>=</span> <span class='fl'>366</span>,
+                              <span class='kw'>inspect_weekdays</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+                              <span class='kw'>skip_values</span>      <span class='kw'>=</span> <span class='no'>holidays</span>)</div><div class='output co'>#&gt;   [1] "2017-01-03" "2017-01-04" "2017-01-05" "2017-01-06" "2017-01-09"
 #&gt;   [6] "2017-01-10" "2017-01-11" "2017-01-12" "2017-01-13" "2017-01-17"
 #&gt;  [11] "2017-01-18" "2017-01-19" "2017-01-20" "2017-01-23" "2017-01-24"
 #&gt;  [16] "2017-01-25" "2017-01-26" "2017-01-27" "2017-01-30" "2017-01-31"

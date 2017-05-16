@@ -47,6 +47,12 @@
     <li>
       <a href="../articles/TK01_Working_With_Time_Series_Index.html">Time series index</a>
     </li>
+    <li>
+      <a href="../articles/TK02_Making_A_Future_Time_Series_Index.html">Creating future time series indices</a>
+    </li>
+    <li>
+      <a href="../articles/TK03_Forecasting_Using_Time_Series_Signature.html">Forecasting with timekit</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -75,7 +81,7 @@
       <h1>Time Series Coercion Using timekit</h1>
                         <h4 class="author">Matt Dancho</h4>
             
-            <h4 class="date">2017-05-05</h4>
+            <h4 class="date">2017-05-16</h4>
           </div>
 
     
@@ -109,36 +115,36 @@
 <span class="st">    </span><span class="kw">rename</span>(<span class="dt">pct =</span> price) %&gt;%
 <span class="st">    </span><span class="kw">mutate</span>(<span class="dt">pct =</span> pct /<span class="st"> </span><span class="dv">100</span>)
 ten_year_treasury_rate_tbl</code></pre></div>
-<pre><code>## # A tibble: 5,218 × 2
+<pre><code>## # A tibble: 5,218 x 2
 ##          date    pct
 ##        &lt;date&gt;  &lt;dbl&gt;
-## 1  1997-01-01     NA
-## 2  1997-01-02 0.0654
-## 3  1997-01-03 0.0652
-## 4  1997-01-06 0.0654
-## 5  1997-01-07 0.0657
-## 6  1997-01-08 0.0660
-## 7  1997-01-09 0.0652
-## 8  1997-01-10 0.0663
-## 9  1997-01-13 0.0663
+##  1 1997-01-01     NA
+##  2 1997-01-02 0.0654
+##  3 1997-01-03 0.0652
+##  4 1997-01-06 0.0654
+##  5 1997-01-07 0.0657
+##  6 1997-01-08 0.0660
+##  7 1997-01-09 0.0652
+##  8 1997-01-10 0.0663
+##  9 1997-01-13 0.0663
 ## 10 1997-01-14 0.0653
 ## # ... with 5,208 more rows</code></pre>
 <p>For purposes of the Case Study, we’ll change to a quarterly periodicity using <code>tq_transmute()</code> from the <code>tidyquant</code> package. Note that <code>NA</code> values are automatically removed from the data (message not shown).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ten_year_treasury_rate_tbl &lt;-<span class="st"> </span>ten_year_treasury_rate_tbl %&gt;%
 <span class="st">    </span><span class="kw">tq_transmute</span>(pct, <span class="dt">mutate_fun =</span> to.period, <span class="dt">period =</span> <span class="st">"quarters"</span>)
 ten_year_treasury_rate_tbl</code></pre></div>
-<pre><code>## # A tibble: 80 × 2
+<pre><code>## # A tibble: 80 x 2
 ##          date    pct
 ##        &lt;date&gt;  &lt;dbl&gt;
-## 1  1997-03-31 0.0692
-## 2  1997-06-30 0.0651
-## 3  1997-09-30 0.0612
-## 4  1997-12-31 0.0575
-## 5  1998-03-31 0.0567
-## 6  1998-06-30 0.0544
-## 7  1998-09-30 0.0444
-## 8  1998-12-31 0.0465
-## 9  1999-03-31 0.0525
+##  1 1997-03-31 0.0692
+##  2 1997-06-30 0.0651
+##  3 1997-09-30 0.0612
+##  4 1997-12-31 0.0575
+##  5 1998-03-31 0.0567
+##  6 1998-06-30 0.0544
+##  7 1998-09-30 0.0444
+##  8 1998-12-31 0.0465
+##  9 1999-03-31 0.0525
 ## 10 1999-06-30 0.0581
 ## # ... with 70 more rows</code></pre>
 </div>
@@ -270,18 +276,18 @@ timekit_index &lt;-<span class="st"> </span><span class="kw"><a href="../referen
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Coercion back to tibble using the default index (regularized)</span>
 ten_year_treasury_rate_ts_timekit %&gt;%
 <span class="st">    </span><span class="kw"><a href="../reference/tk_tbl.html">tk_tbl</a></span>(<span class="dt">index_rename =</span> <span class="st">"date"</span>, <span class="dt">timekit_idx =</span> <span class="ot">FALSE</span>)</code></pre></div>
-<pre><code>## # A tibble: 80 × 2
+<pre><code>## # A tibble: 80 x 2
 ##            index    pct
 ##    &lt;S3: yearqtr&gt;  &lt;dbl&gt;
-## 1        1997 Q1 0.0692
-## 2        1997 Q2 0.0651
-## 3        1997 Q3 0.0612
-## 4        1997 Q4 0.0575
-## 5        1998 Q1 0.0567
-## 6        1998 Q2 0.0544
-## 7        1998 Q3 0.0444
-## 8        1998 Q4 0.0465
-## 9        1999 Q1 0.0525
+##  1       1997 Q1 0.0692
+##  2       1997 Q2 0.0651
+##  3       1997 Q3 0.0612
+##  4       1997 Q4 0.0575
+##  5       1998 Q1 0.0567
+##  6       1998 Q2 0.0544
+##  7       1998 Q3 0.0444
+##  8       1998 Q4 0.0465
+##  9       1999 Q1 0.0525
 ## 10       1999 Q2 0.0581
 ## # ... with 70 more rows</code></pre>
 <p>We can now get the original date index using the <code><a href="../reference/tk_tbl.html">tk_tbl()</a></code> argument <code>timekit_idx = TRUE</code>.</p>
@@ -289,18 +295,18 @@ ten_year_treasury_rate_ts_timekit %&gt;%
 ten_year_treasury_rate_tbl_timekit &lt;-<span class="st"> </span>ten_year_treasury_rate_ts_timekit %&gt;%
 <span class="st">    </span><span class="kw"><a href="../reference/tk_tbl.html">tk_tbl</a></span>(<span class="dt">index_rename =</span> <span class="st">"date"</span>, <span class="dt">timekit_idx =</span> <span class="ot">TRUE</span>)
 ten_year_treasury_rate_tbl_timekit</code></pre></div>
-<pre><code>## # A tibble: 80 × 2
+<pre><code>## # A tibble: 80 x 2
 ##         index    pct
 ##        &lt;date&gt;  &lt;dbl&gt;
-## 1  1997-03-31 0.0692
-## 2  1997-06-30 0.0651
-## 3  1997-09-30 0.0612
-## 4  1997-12-31 0.0575
-## 5  1998-03-31 0.0567
-## 6  1998-06-30 0.0544
-## 7  1998-09-30 0.0444
-## 8  1998-12-31 0.0465
-## 9  1999-03-31 0.0525
+##  1 1997-03-31 0.0692
+##  2 1997-06-30 0.0651
+##  3 1997-09-30 0.0612
+##  4 1997-12-31 0.0575
+##  5 1998-03-31 0.0567
+##  6 1998-06-30 0.0544
+##  7 1998-09-30 0.0444
+##  8 1998-12-31 0.0465
+##  9 1999-03-31 0.0525
 ## 10 1999-06-30 0.0581
 ## # ... with 70 more rows</code></pre>
 <p>We can see that in this case (and in most cases) you can get the same data frame you began with.</p>
@@ -319,18 +325,18 @@ ten_year_treasury_rate_tbl_timekit</code></pre></div>
 <p>The starting point is the <code>ten_year_treasury_rate_tbl</code>. We will coerce this into <code>xts</code>, <code>zoo</code>, <code>zooreg</code> and <code>ts</code> classes.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Start:</span>
 ten_year_treasury_rate_tbl</code></pre></div>
-<pre><code>## # A tibble: 80 × 2
+<pre><code>## # A tibble: 80 x 2
 ##          date    pct
 ##        &lt;date&gt;  &lt;dbl&gt;
-## 1  1997-03-31 0.0692
-## 2  1997-06-30 0.0651
-## 3  1997-09-30 0.0612
-## 4  1997-12-31 0.0575
-## 5  1998-03-31 0.0567
-## 6  1998-06-30 0.0544
-## 7  1998-09-30 0.0444
-## 8  1998-12-31 0.0465
-## 9  1999-03-31 0.0525
+##  1 1997-03-31 0.0692
+##  2 1997-06-30 0.0651
+##  3 1997-09-30 0.0612
+##  4 1997-12-31 0.0575
+##  5 1998-03-31 0.0567
+##  6 1998-06-30 0.0544
+##  7 1998-09-30 0.0444
+##  8 1998-12-31 0.0465
+##  9 1999-03-31 0.0525
 ## 10 1999-06-30 0.0581
 ## # ... with 70 more rows</code></pre>
 <div id="to-xts" class="section level3">
@@ -468,18 +474,18 @@ ten_year_treasury_rate_ts</code></pre></div>
 <p>Notice no loss of data going back to <code>tbl</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># End</span>
 <span class="kw"><a href="../reference/tk_tbl.html">tk_tbl</a></span>(ten_year_treasury_rate_xts)</code></pre></div>
-<pre><code>## # A tibble: 80 × 2
+<pre><code>## # A tibble: 80 x 2
 ##         index    pct
 ##        &lt;date&gt;  &lt;dbl&gt;
-## 1  1997-03-31 0.0692
-## 2  1997-06-30 0.0651
-## 3  1997-09-30 0.0612
-## 4  1997-12-31 0.0575
-## 5  1998-03-31 0.0567
-## 6  1998-06-30 0.0544
-## 7  1998-09-30 0.0444
-## 8  1998-12-31 0.0465
-## 9  1999-03-31 0.0525
+##  1 1997-03-31 0.0692
+##  2 1997-06-30 0.0651
+##  3 1997-09-30 0.0612
+##  4 1997-12-31 0.0575
+##  5 1998-03-31 0.0567
+##  6 1998-06-30 0.0544
+##  7 1998-09-30 0.0444
+##  8 1998-12-31 0.0465
+##  9 1999-03-31 0.0525
 ## 10 1999-06-30 0.0581
 ## # ... with 70 more rows</code></pre>
 </div>
@@ -498,18 +504,18 @@ ten_year_treasury_rate_ts</code></pre></div>
 <p>Notice no loss of data going back to <code>tbl</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># End</span>
 <span class="kw"><a href="../reference/tk_tbl.html">tk_tbl</a></span>(ten_year_treasury_rate_zoo)</code></pre></div>
-<pre><code>## # A tibble: 80 × 2
+<pre><code>## # A tibble: 80 x 2
 ##         index    pct
 ##        &lt;date&gt;  &lt;dbl&gt;
-## 1  1997-03-31 0.0692
-## 2  1997-06-30 0.0651
-## 3  1997-09-30 0.0612
-## 4  1997-12-31 0.0575
-## 5  1998-03-31 0.0567
-## 6  1998-06-30 0.0544
-## 7  1998-09-30 0.0444
-## 8  1998-12-31 0.0465
-## 9  1999-03-31 0.0525
+##  1 1997-03-31 0.0692
+##  2 1997-06-30 0.0651
+##  3 1997-09-30 0.0612
+##  4 1997-12-31 0.0575
+##  5 1998-03-31 0.0567
+##  6 1998-06-30 0.0544
+##  7 1998-09-30 0.0444
+##  8 1998-12-31 0.0465
+##  9 1999-03-31 0.0525
 ## 10 1999-06-30 0.0581
 ## # ... with 70 more rows</code></pre>
 </div>
@@ -528,35 +534,35 @@ ten_year_treasury_rate_ts</code></pre></div>
 <p>Notice that the index is a regularized numeric sequence by default.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># End - with default regularized index</span>
 <span class="kw"><a href="../reference/tk_tbl.html">tk_tbl</a></span>(ten_year_treasury_rate_zooreg)</code></pre></div>
-<pre><code>## # A tibble: 80 × 2
+<pre><code>## # A tibble: 80 x 2
 ##            index    pct
 ##    &lt;S3: yearqtr&gt;  &lt;dbl&gt;
-## 1        1997 Q1 0.0692
-## 2        1997 Q2 0.0651
-## 3        1997 Q3 0.0612
-## 4        1997 Q4 0.0575
-## 5        1998 Q1 0.0567
-## 6        1998 Q2 0.0544
-## 7        1998 Q3 0.0444
-## 8        1998 Q4 0.0465
-## 9        1999 Q1 0.0525
+##  1       1997 Q1 0.0692
+##  2       1997 Q2 0.0651
+##  3       1997 Q3 0.0612
+##  4       1997 Q4 0.0575
+##  5       1998 Q1 0.0567
+##  6       1998 Q2 0.0544
+##  7       1998 Q3 0.0444
+##  8       1998 Q4 0.0465
+##  9       1999 Q1 0.0525
 ## 10       1999 Q2 0.0581
 ## # ... with 70 more rows</code></pre>
 <p>With <code>timekit_idx = TRUE</code> the index is the original date sequence. The result is the original <code>tbl</code> that we started with!</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># End - with timekit index that is the same as original time-based index</span>
 <span class="kw"><a href="../reference/tk_tbl.html">tk_tbl</a></span>(ten_year_treasury_rate_zooreg, <span class="dt">timekit_idx =</span> <span class="ot">TRUE</span>)</code></pre></div>
-<pre><code>## # A tibble: 80 × 2
+<pre><code>## # A tibble: 80 x 2
 ##         index    pct
 ##        &lt;date&gt;  &lt;dbl&gt;
-## 1  1997-03-31 0.0692
-## 2  1997-06-30 0.0651
-## 3  1997-09-30 0.0612
-## 4  1997-12-31 0.0575
-## 5  1998-03-31 0.0567
-## 6  1998-06-30 0.0544
-## 7  1998-09-30 0.0444
-## 8  1998-12-31 0.0465
-## 9  1999-03-31 0.0525
+##  1 1997-03-31 0.0692
+##  2 1997-06-30 0.0651
+##  3 1997-09-30 0.0612
+##  4 1997-12-31 0.0575
+##  5 1998-03-31 0.0567
+##  6 1998-06-30 0.0544
+##  7 1998-09-30 0.0444
+##  8 1998-12-31 0.0465
+##  9 1999-03-31 0.0525
 ## 10 1999-06-30 0.0581
 ## # ... with 70 more rows</code></pre>
 </div>
@@ -589,35 +595,35 @@ ten_year_treasury_rate_ts</code></pre></div>
 <p>Notice that the index is a regularized numeric sequence by default.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># End - with default regularized index</span>
 <span class="kw"><a href="../reference/tk_tbl.html">tk_tbl</a></span>(ten_year_treasury_rate_ts)</code></pre></div>
-<pre><code>## # A tibble: 80 × 2
+<pre><code>## # A tibble: 80 x 2
 ##            index    pct
 ##    &lt;S3: yearqtr&gt;  &lt;dbl&gt;
-## 1        1997 Q1 0.0692
-## 2        1997 Q2 0.0651
-## 3        1997 Q3 0.0612
-## 4        1997 Q4 0.0575
-## 5        1998 Q1 0.0567
-## 6        1998 Q2 0.0544
-## 7        1998 Q3 0.0444
-## 8        1998 Q4 0.0465
-## 9        1999 Q1 0.0525
+##  1       1997 Q1 0.0692
+##  2       1997 Q2 0.0651
+##  3       1997 Q3 0.0612
+##  4       1997 Q4 0.0575
+##  5       1998 Q1 0.0567
+##  6       1998 Q2 0.0544
+##  7       1998 Q3 0.0444
+##  8       1998 Q4 0.0465
+##  9       1999 Q1 0.0525
 ## 10       1999 Q2 0.0581
 ## # ... with 70 more rows</code></pre>
 <p>With <code>timekit_idx = TRUE</code> the index is the original date sequence. The result is the original <code>tbl</code> that we started with!</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># End - with timekit index </span>
 <span class="kw"><a href="../reference/tk_tbl.html">tk_tbl</a></span>(ten_year_treasury_rate_ts, <span class="dt">timekit_idx =</span> <span class="ot">TRUE</span>)</code></pre></div>
-<pre><code>## # A tibble: 80 × 2
+<pre><code>## # A tibble: 80 x 2
 ##         index    pct
 ##        &lt;date&gt;  &lt;dbl&gt;
-## 1  1997-03-31 0.0692
-## 2  1997-06-30 0.0651
-## 3  1997-09-30 0.0612
-## 4  1997-12-31 0.0575
-## 5  1998-03-31 0.0567
-## 6  1998-06-30 0.0544
-## 7  1998-09-30 0.0444
-## 8  1998-12-31 0.0465
-## 9  1999-03-31 0.0525
+##  1 1997-03-31 0.0692
+##  2 1997-06-30 0.0651
+##  3 1997-09-30 0.0612
+##  4 1997-12-31 0.0575
+##  5 1998-03-31 0.0567
+##  6 1998-06-30 0.0544
+##  7 1998-09-30 0.0444
+##  8 1998-12-31 0.0465
+##  9 1999-03-31 0.0525
 ## 10 1999-06-30 0.0581
 ## # ... with 70 more rows</code></pre>
 </div>
@@ -656,18 +662,18 @@ ten_year_treasury_rate_ts</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/tk_tbl.html">tk_tbl</a></span>(ten_year_treasury_rate_ts_stats, <span class="dt">timekit_idx =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <pre><code>## Warning in tk_tbl.zooreg(zoo::as.zoo(data), preserve_index, rename_index, :
 ## No `timekit index` attribute found. Using regularized index.</code></pre>
-<pre><code>## # A tibble: 80 × 2
+<pre><code>## # A tibble: 80 x 2
 ##            index    pct
 ##    &lt;S3: yearqtr&gt;  &lt;dbl&gt;
-## 1        1997 Q1 0.0692
-## 2        1997 Q2 0.0651
-## 3        1997 Q3 0.0612
-## 4        1997 Q4 0.0575
-## 5        1998 Q1 0.0567
-## 6        1998 Q2 0.0544
-## 7        1998 Q3 0.0444
-## 8        1998 Q4 0.0465
-## 9        1999 Q1 0.0525
+##  1       1997 Q1 0.0692
+##  2       1997 Q2 0.0651
+##  3       1997 Q3 0.0612
+##  4       1997 Q4 0.0575
+##  5       1998 Q1 0.0567
+##  6       1998 Q2 0.0544
+##  7       1998 Q3 0.0444
+##  8       1998 Q4 0.0465
+##  9       1999 Q1 0.0525
 ## 10       1999 Q2 0.0581
 ## # ... with 70 more rows</code></pre>
 </div>
@@ -698,18 +704,18 @@ ten_year_treasury_rate_ts</code></pre></div>
 ## [76] "2015-12-31" "2016-03-31" "2016-06-30" "2016-09-30" "2016-12-30"</code></pre>
 <p>If we toggle <code>timekit_idx = TRUE</code> during coercion to <code>tbl</code> using <code><a href="../reference/tk_tbl.html">tk_tbl()</a></code>, we get the index of dates rather than the regularized index in the returned <code>tbl</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/tk_tbl.html">tk_tbl</a></span>(ten_year_treasury_rate_ts_timekit, <span class="dt">timekit_idx =</span> <span class="ot">TRUE</span>)</code></pre></div>
-<pre><code>## # A tibble: 80 × 2
+<pre><code>## # A tibble: 80 x 2
 ##         index    pct
 ##        &lt;date&gt;  &lt;dbl&gt;
-## 1  1997-03-31 0.0692
-## 2  1997-06-30 0.0651
-## 3  1997-09-30 0.0612
-## 4  1997-12-31 0.0575
-## 5  1998-03-31 0.0567
-## 6  1998-06-30 0.0544
-## 7  1998-09-30 0.0444
-## 8  1998-12-31 0.0465
-## 9  1999-03-31 0.0525
+##  1 1997-03-31 0.0692
+##  2 1997-06-30 0.0651
+##  3 1997-09-30 0.0612
+##  4 1997-12-31 0.0575
+##  5 1998-03-31 0.0567
+##  6 1998-06-30 0.0544
+##  7 1998-09-30 0.0444
+##  8 1998-12-31 0.0465
+##  9 1999-03-31 0.0525
 ## 10 1999-06-30 0.0581
 ## # ... with 70 more rows</code></pre>
 </div>
@@ -771,14 +777,14 @@ data_tbl &lt;-<span class="st"> </span>tibble::<span class="kw">tibble</span>(
     <span class="dt">date =</span> <span class="kw">seq.Date</span>(<span class="kw">as.Date</span>(<span class="st">"2016-01-01"</span>), <span class="dt">by =</span> <span class="dv">1</span>, <span class="dt">length.out =</span> <span class="dv">5</span>),
     <span class="dt">x    =</span> <span class="kw">cumsum</span>(<span class="dv">11</span>:<span class="dv">15</span>) *<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1</span>))
 data_tbl</code></pre></div>
-<pre><code>## # A tibble: 5 × 2
-##         date        x
-##       &lt;date&gt;    &lt;dbl&gt;
-## 1 2016-01-01 15.00824
-## 2 2016-01-02 31.38087
-## 3 2016-01-03 49.11789
-## 4 2016-01-04 68.21929
-## 5 2016-01-05 88.68508</code></pre>
+<pre><code>## # A tibble: 5 x 2
+##         date         x
+##       &lt;date&gt;     &lt;dbl&gt;
+## 1 2016-01-01  2.025742
+## 2 2016-01-02  4.235642
+## 3 2016-01-03  6.629700
+## 4 2016-01-04  9.207917
+## 5 2016-01-05 11.970292</code></pre>
 <p>Coerce to <code>ts</code> class using the <code><a href="../reference/tk_ts.html">tk_ts()</a></code> function. Note that the non-numeric column “date” is being dropped, and the <code>silent = TRUE</code> hides the message.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Coerce to ts </span>
 data_ts &lt;-<span class="st"> </span><span class="kw"><a href="../reference/tk_ts.html">tk_ts</a></span>(data_tbl, <span class="dt">start =</span> <span class="dv">2016</span>, <span class="dt">freq =</span> <span class="dv">365</span>, <span class="dt">silent =</span> <span class="ot">TRUE</span>)
@@ -787,12 +793,12 @@ data_ts</code></pre></div>
 ## Start = c(2016, 1) 
 ## End = c(2016, 5) 
 ## Frequency = 365 
-##             x
-## [1,] 15.00824
-## [2,] 31.38087
-## [3,] 49.11789
-## [4,] 68.21929
-## [5,] 88.68508
+##              x
+## [1,]  2.025742
+## [2,]  4.235642
+## [3,]  6.629700
+## [4,]  9.207917
+## [5,] 11.970292
 ## attr(,"index")
 ## [1] 1451606400 1451692800 1451779200 1451865600 1451952000
 ## attr(,"index")attr(,"tzone")
@@ -815,16 +821,16 @@ data_ts</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># No need to specify order.by arg</span>
 data_xts &lt;-<span class="st"> </span><span class="kw"><a href="../reference/tk_xts.html">tk_xts</a></span>(data_ts)
 data_xts</code></pre></div>
-<pre><code>##                   x
-## 2016-01-01 15.00824
-## 2016-01-02 31.38087
-## 2016-01-03 49.11789
-## 2016-01-04 68.21929
-## 2016-01-05 88.68508</code></pre>
+<pre><code>##                    x
+## 2016-01-01  2.025742
+## 2016-01-02  4.235642
+## 2016-01-03  6.629700
+## 2016-01-04  9.207917
+## 2016-01-05 11.970292</code></pre>
 <p>We can see that the <code>xts</code> structure is maintained.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(data_xts)</code></pre></div>
 <pre><code>## An 'xts' object on 2016-01-01/2016-01-05 containing:
-##   Data: num [1:5, 1] 15 31.4 49.1 68.2 88.7
+##   Data: num [1:5, 1] 2.03 4.24 6.63 9.21 11.97
 ##  - attr(*, "dimnames")=List of 2
 ##   ..$ : NULL
 ##   ..$ : chr "x"
@@ -835,30 +841,30 @@ data_xts</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># No need to specify order.by arg</span>
 data_zoo &lt;-<span class="st"> </span><span class="kw"><a href="../reference/tk_zoo.html">tk_zoo</a></span>(data_ts)
 data_zoo</code></pre></div>
-<pre><code>##                   x
-## 2016-01-01 15.00824
-## 2016-01-02 31.38087
-## 2016-01-03 49.11789
-## 2016-01-04 68.21929
-## 2016-01-05 88.68508</code></pre>
+<pre><code>##                    x
+## 2016-01-01  2.025742
+## 2016-01-02  4.235642
+## 2016-01-03  6.629700
+## 2016-01-04  9.207917
+## 2016-01-05 11.970292</code></pre>
 <p>We can see that the <code>zoo</code> structure is maintained.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(data_zoo)</code></pre></div>
 <pre><code>## 'zoo' series from 2016-01-01 to 2016-01-05
-##   Data: num [1:5, 1] 15 31.4 49.1 68.2 88.7
+##   Data: num [1:5, 1] 2.03 4.24 6.63 9.21 11.97
 ##  - attr(*, "dimnames")=List of 2
 ##   ..$ : chr [1:5] "2016-01-01" "2016-01-02" "2016-01-03" "2016-01-04" ...
 ##   ..$ : chr "x"
 ##   Index:  Date[1:5], format: "2016-01-01" "2016-01-02" "2016-01-03" "2016-01-04" "2016-01-05"</code></pre>
 <p>Note that <code>tbl</code> requires the <code>timekit_idx = TRUE</code> argument to specify the use of the non-regularized index.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/tk_tbl.html">tk_tbl</a></span>(data_ts, <span class="dt">timekit_idx =</span> <span class="ot">TRUE</span>)</code></pre></div>
-<pre><code>## # A tibble: 5 × 2
-##        index        x
-##       &lt;date&gt;    &lt;dbl&gt;
-## 1 2016-01-01 15.00824
-## 2 2016-01-02 31.38087
-## 3 2016-01-03 49.11789
-## 4 2016-01-04 68.21929
-## 5 2016-01-05 88.68508</code></pre>
+<pre><code>## # A tibble: 5 x 2
+##        index         x
+##       &lt;date&gt;     &lt;dbl&gt;
+## 1 2016-01-01  2.025742
+## 2 2016-01-02  4.235642
+## 3 2016-01-03  6.629700
+## 4 2016-01-04  9.207917
+## 5 2016-01-05 11.970292</code></pre>
 </div>
 <div id="working-with-yearmon-and-yearqtr-index" class="section level2">
 <h2 class="hasAnchor">
@@ -867,18 +873,18 @@ data_zoo</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">yearqtr_tbl &lt;-<span class="st"> </span>ten_year_treasury_rate_tbl %&gt;%
 <span class="st">    </span><span class="kw">mutate</span>(<span class="dt">date =</span> <span class="kw">as.yearqtr</span>(date))
 yearqtr_tbl</code></pre></div>
-<pre><code>## # A tibble: 80 × 2
+<pre><code>## # A tibble: 80 x 2
 ##             date    pct
 ##    &lt;S3: yearqtr&gt;  &lt;dbl&gt;
-## 1        1997 Q1 0.0692
-## 2        1997 Q2 0.0651
-## 3        1997 Q3 0.0612
-## 4        1997 Q4 0.0575
-## 5        1998 Q1 0.0567
-## 6        1998 Q2 0.0544
-## 7        1998 Q3 0.0444
-## 8        1998 Q4 0.0465
-## 9        1999 Q1 0.0525
+##  1       1997 Q1 0.0692
+##  2       1997 Q2 0.0651
+##  3       1997 Q3 0.0612
+##  4       1997 Q4 0.0575
+##  5       1998 Q1 0.0567
+##  6       1998 Q2 0.0544
+##  7       1998 Q3 0.0444
+##  8       1998 Q4 0.0465
+##  9       1999 Q1 0.0525
 ## 10       1999 Q2 0.0581
 ## # ... with 70 more rows</code></pre>
 <p>We can coerce to <code>xts</code> and the <code>yearqtr</code> class is intact.</p>
@@ -905,18 +911,18 @@ yearqtr_ts %&gt;%
 <p>Coercing from <code>ts</code> to <code>tbl</code> using <code>timekit_idx = TRUE</code> shows that the original index was maintained through each of the coercion steps.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">yearqtr_ts %&gt;%
 <span class="st">    </span><span class="kw"><a href="../reference/tk_tbl.html">tk_tbl</a></span>(<span class="dt">timekit_idx =</span> <span class="ot">TRUE</span>)</code></pre></div>
-<pre><code>## # A tibble: 80 × 2
+<pre><code>## # A tibble: 80 x 2
 ##            index    pct
 ##    &lt;S3: yearqtr&gt;  &lt;dbl&gt;
-## 1        1997 Q1 0.0692
-## 2        1997 Q2 0.0651
-## 3        1997 Q3 0.0612
-## 4        1997 Q4 0.0575
-## 5        1998 Q1 0.0567
-## 6        1998 Q2 0.0544
-## 7        1998 Q3 0.0444
-## 8        1998 Q4 0.0465
-## 9        1999 Q1 0.0525
+##  1       1997 Q1 0.0692
+##  2       1997 Q2 0.0651
+##  3       1997 Q3 0.0612
+##  4       1997 Q4 0.0575
+##  5       1998 Q1 0.0567
+##  6       1998 Q2 0.0544
+##  7       1998 Q3 0.0444
+##  8       1998 Q4 0.0465
+##  9       1999 Q1 0.0525
 ## 10       1999 Q2 0.0581
 ## # ... with 70 more rows</code></pre>
 </div>
