@@ -69,6 +69,12 @@
     <li>
       <a href="../articles/TK01_Working_With_Time_Series_Index.html">Time series index</a>
     </li>
+    <li>
+      <a href="../articles/TK02_Making_A_Future_Time_Series_Index.html">Creating future time series indices</a>
+    </li>
+    <li>
+      <a href="../articles/TK03_Forecasting_Using_Time_Series_Signature.html">Forecasting with timekit</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -155,30 +161,33 @@ to the input data.</p>
 #&gt; <span class='message'>last():        dplyr, xts</span>
 #&gt; <span class='message'>setdiff():     lubridate, base</span>
 #&gt; <span class='message'>union():       lubridate, base</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Attaching package: ‘tidyquant’</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:tibble’:</span>
+#&gt; <span class='message'>Attaching package: ‘tidyquant’</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:dplyr’:</span>
+#&gt; <span class='message'></span>
+#&gt; <span class='message'>    as_tibble</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:tibble’:</span>
 #&gt; <span class='message'></span>
 #&gt; <span class='message'>    as_tibble</span></div><div class='input'><span class='fu'>library</span>(<span class='no'>timekit</span>)
 
 <span class='no'>FANG</span> <span class='kw'>%&gt;%</span>
     <span class='fu'>filter</span>(<span class='no'>symbol</span> <span class='kw'>==</span> <span class='st'>"FB"</span>) <span class='kw'>%&gt;%</span>
-    <span class='fu'>tk_augment_timeseries_signature</span>()</div><div class='output co'>#&gt; # A tibble: 1,008 × 30
+    <span class='fu'>tk_augment_timeseries_signature</span>()</div><div class='output co'>#&gt; # A tibble: 1,008 x 35
 #&gt;    symbol       date  open  high   low close    volume adjusted  index.num
 #&gt;     &lt;chr&gt;     &lt;date&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;      &lt;int&gt;
-#&gt; 1      FB 2013-01-02 27.44 28.18 27.42 28.00  69846400    28.00 1357084800
-#&gt; 2      FB 2013-01-03 27.88 28.47 27.59 27.77  63140600    27.77 1357171200
-#&gt; 3      FB 2013-01-04 28.01 28.93 27.83 28.76  72715400    28.76 1357257600
-#&gt; 4      FB 2013-01-07 28.69 29.79 28.65 29.42  83781800    29.42 1357516800
-#&gt; 5      FB 2013-01-08 29.51 29.60 28.86 29.06  45871300    29.06 1357603200
-#&gt; 6      FB 2013-01-09 29.67 30.60 29.49 30.59 104787700    30.59 1357689600
-#&gt; 7      FB 2013-01-10 30.60 31.45 30.28 31.30  95316400    31.30 1357776000
-#&gt; 8      FB 2013-01-11 31.28 31.96 31.10 31.72  89598000    31.72 1357862400
-#&gt; 9      FB 2013-01-14 32.08 32.21 30.62 30.95  98892800    30.95 1358121600
+#&gt;  1     FB 2013-01-02 27.44 28.18 27.42 28.00  69846400    28.00 1357084800
+#&gt;  2     FB 2013-01-03 27.88 28.47 27.59 27.77  63140600    27.77 1357171200
+#&gt;  3     FB 2013-01-04 28.01 28.93 27.83 28.76  72715400    28.76 1357257600
+#&gt;  4     FB 2013-01-07 28.69 29.79 28.65 29.42  83781800    29.42 1357516800
+#&gt;  5     FB 2013-01-08 29.51 29.60 28.86 29.06  45871300    29.06 1357603200
+#&gt;  6     FB 2013-01-09 29.67 30.60 29.49 30.59 104787700    30.59 1357689600
+#&gt;  7     FB 2013-01-10 30.60 31.45 30.28 31.30  95316400    31.30 1357776000
+#&gt;  8     FB 2013-01-11 31.28 31.96 31.10 31.72  89598000    31.72 1357862400
+#&gt;  9     FB 2013-01-14 32.08 32.21 30.62 30.95  98892800    30.95 1358121600
 #&gt; 10     FB 2013-01-15 30.64 31.71 29.88 30.10 173242600    30.10 1358208000
-#&gt; # ... with 998 more rows, and 21 more variables: diff &lt;int&gt;, year &lt;int&gt;,
+#&gt; # ... with 998 more rows, and 26 more variables: diff &lt;int&gt;, year &lt;int&gt;,
 #&gt; #   half &lt;int&gt;, quarter &lt;int&gt;, month &lt;int&gt;, month.xts &lt;int&gt;, month.lbl &lt;ord&gt;,
-#&gt; #   day &lt;int&gt;, hour &lt;int&gt;, minute &lt;int&gt;, second &lt;int&gt;, wday &lt;int&gt;,
-#&gt; #   wday.xts &lt;int&gt;, wday.lbl &lt;ord&gt;, mday &lt;int&gt;, yday &lt;int&gt;, week &lt;int&gt;,
-#&gt; #   week.iso &lt;int&gt;, week2 &lt;int&gt;, week3 &lt;int&gt;, week4 &lt;int&gt;</div><div class='input'>
+#&gt; #   day &lt;int&gt;, hour &lt;int&gt;, minute &lt;int&gt;, second &lt;int&gt;, hour12 &lt;int&gt;,
+#&gt; #   am.pm &lt;int&gt;, wday &lt;int&gt;, wday.xts &lt;int&gt;, wday.lbl &lt;ord&gt;, mday &lt;int&gt;,
+#&gt; #   qday &lt;int&gt;, yday &lt;int&gt;, mweek &lt;int&gt;, week &lt;int&gt;, week.iso &lt;int&gt;,
+#&gt; #   week2 &lt;int&gt;, week3 &lt;int&gt;, week4 &lt;int&gt;, mday7 &lt;dbl&gt;</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

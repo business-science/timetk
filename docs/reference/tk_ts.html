@@ -69,6 +69,12 @@
     <li>
       <a href="../articles/TK01_Working_With_Time_Series_Index.html">Time series index</a>
     </li>
+    <li>
+      <a href="../articles/TK02_Making_A_Future_Time_Series_Index.html">Creating future time series indices</a>
+    </li>
+    <li>
+      <a href="../articles/TK03_Forecasting_Using_Time_Series_Signature.html">Forecasting with timekit</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -229,7 +235,7 @@ using <code>stats::ts()</code>.
 <span class='co'># timekit index</span>
 <span class='fu'><a href='tk_index.html'>tk_index</a></span>(<span class='no'>data_ts</span>, <span class='kw'>timekit_idx</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)   <span class='co'># Regularized index returned</span></div><div class='output co'>#&gt; [1] 2016 2017 2018 2019 2020</div><div class='input'><span class='fu'><a href='tk_index.html'>tk_index</a></span>(<span class='no'>data_ts</span>, <span class='kw'>timekit_idx</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)    <span class='co'># Original date index returned</span></div><div class='output co'>#&gt; [1] "2016-01-01" "2016-01-02" "2016-01-03" "2016-01-04" "2016-01-05"</div><div class='input'>
 <span class='co'># Coerce back to tibble</span>
-<span class='no'>data_ts</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='tk_tbl.html'>tk_tbl</a></span>(<span class='kw'>timekit_idx</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; # A tibble: 5 × 3
+<span class='no'>data_ts</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='tk_tbl.html'>tk_tbl</a></span>(<span class='kw'>timekit_idx</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; # A tibble: 5 x 3
 #&gt;        index     y          z
 #&gt;       &lt;date&gt; &lt;dbl&gt;      &lt;dbl&gt;
 #&gt; 1 2016-01-01     1  -20.03999

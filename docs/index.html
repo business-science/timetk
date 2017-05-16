@@ -47,6 +47,12 @@
     <li>
       <a href="articles/TK01_Working_With_Time_Series_Index.html">Time series index</a>
     </li>
+    <li>
+      <a href="articles/TK02_Making_A_Future_Time_Series_Index.html">Creating future time series indices</a>
+    </li>
+    <li>
+      <a href="articles/TK03_Forecasting_Using_Time_Series_Signature.html">Forecasting with timekit</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -88,7 +94,7 @@
 <div id="benefits" class="section level2">
 <h2 class="hasAnchor">
 <a href="#benefits" class="anchor"></a>Benefits</h2>
-<p>The <code>timekit</code> package enables a user to more easily work with time series objects in R. The package has tools for inspecting and manipulating the time-based index (e.g. a date or date time column from a <code>tbl</code> or the dates stored as rownames from an <code>xts</code> object) and converting time-based objects to and from the many time series classes. The following are key benefits:</p>
+<p>The <code>timekit</code> package enables a user to more easily work with time series objects in R. The package has tools for inspecting and manipulating the time-based index, expanding the time features for data mining and machine learning, and converting time-based objects to and from the many time series classes. The following are key benefits:</p>
 <ul>
 <li>
 <strong>Index extraction</strong>: get the time series index from any time series object.</li>
@@ -99,6 +105,8 @@
 <li>
 <strong>Coerce between time-based tibbles (<code>tbl</code>) and the major time series data types <code>xts</code>, <code>zoo</code>, <code>zooreg</code>, and <code>ts</code></strong>: Simplifies coercion and maximizes time-based data retention during coercion to regularized time series (e.g. <code>ts</code>).</li>
 </ul>
+<p>An example of the forecasting capabilities as shown in vignette TK03 - Forecasting Using a Time Series Signature with <code>timekit</code>.</p>
+<p><img src="README_1_bikes_forecast.png" width="100%"></p>
 </div>
 <div id="tools" class="section level2">
 <h2 class="hasAnchor">
@@ -116,61 +124,76 @@
 <a href="#getting-started" class="anchor"></a>Getting started</h2>
 <p>Load libraries and start with some time series data</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(timekit)
-<span class="kw">library</span>(tidyquant)
-
-FB_tbl &lt;-<span class="st"> </span>FANG %&gt;%
+<span class="kw">library</span>(tidyquant)</code></pre></div>
+<p>Use the FB time series.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">FB_tbl &lt;-<span class="st"> </span>FANG %&gt;%
 <span class="st">    </span><span class="kw">filter</span>(symbol ==<span class="st"> "FB"</span>)
 FB_tbl
-<span class="co">#&gt; # A tibble: 1,008 × 8</span>
+<span class="co">#&gt; # A tibble: 1,008 x 8</span>
 <span class="co">#&gt;    symbol       date  open  high   low close    volume adjusted</span>
 <span class="co">#&gt;     &lt;chr&gt;     &lt;date&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;</span>
-<span class="co">#&gt; 1      FB 2013-01-02 27.44 28.18 27.42 28.00  69846400    28.00</span>
-<span class="co">#&gt; 2      FB 2013-01-03 27.88 28.47 27.59 27.77  63140600    27.77</span>
-<span class="co">#&gt; 3      FB 2013-01-04 28.01 28.93 27.83 28.76  72715400    28.76</span>
-<span class="co">#&gt; 4      FB 2013-01-07 28.69 29.79 28.65 29.42  83781800    29.42</span>
-<span class="co">#&gt; 5      FB 2013-01-08 29.51 29.60 28.86 29.06  45871300    29.06</span>
-<span class="co">#&gt; 6      FB 2013-01-09 29.67 30.60 29.49 30.59 104787700    30.59</span>
-<span class="co">#&gt; 7      FB 2013-01-10 30.60 31.45 30.28 31.30  95316400    31.30</span>
-<span class="co">#&gt; 8      FB 2013-01-11 31.28 31.96 31.10 31.72  89598000    31.72</span>
-<span class="co">#&gt; 9      FB 2013-01-14 32.08 32.21 30.62 30.95  98892800    30.95</span>
+<span class="co">#&gt;  1     FB 2013-01-02 27.44 28.18 27.42 28.00  69846400    28.00</span>
+<span class="co">#&gt;  2     FB 2013-01-03 27.88 28.47 27.59 27.77  63140600    27.77</span>
+<span class="co">#&gt;  3     FB 2013-01-04 28.01 28.93 27.83 28.76  72715400    28.76</span>
+<span class="co">#&gt;  4     FB 2013-01-07 28.69 29.79 28.65 29.42  83781800    29.42</span>
+<span class="co">#&gt;  5     FB 2013-01-08 29.51 29.60 28.86 29.06  45871300    29.06</span>
+<span class="co">#&gt;  6     FB 2013-01-09 29.67 30.60 29.49 30.59 104787700    30.59</span>
+<span class="co">#&gt;  7     FB 2013-01-10 30.60 31.45 30.28 31.30  95316400    31.30</span>
+<span class="co">#&gt;  8     FB 2013-01-11 31.28 31.96 31.10 31.72  89598000    31.72</span>
+<span class="co">#&gt;  9     FB 2013-01-14 32.08 32.21 30.62 30.95  98892800    30.95</span>
 <span class="co">#&gt; 10     FB 2013-01-15 30.64 31.71 29.88 30.10 173242600    30.10</span>
 <span class="co">#&gt; # ... with 998 more rows</span></code></pre></div>
 </div>
-<div id="work-with-a-time-series-index" class="section level2">
+<div id="extract-a-time-series-index" class="section level2">
 <h2 class="hasAnchor">
-<a href="#work-with-a-time-series-index" class="anchor"></a>Work with a time series index</h2>
-<p>Get the timeseries index</p>
+<a href="#extract-a-time-series-index" class="anchor"></a>Extract a time series index</h2>
+<p>Get the timeseries index.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">idx &lt;-<span class="st"> </span><span class="kw"><a href="reference/tk_index.html">tk_index</a></span>(FB_tbl)
 <span class="kw">head</span>(idx)
 <span class="co">#&gt; [1] "2013-01-02" "2013-01-03" "2013-01-04" "2013-01-07" "2013-01-08"</span>
 <span class="co">#&gt; [6] "2013-01-09"</span></code></pre></div>
-<p>Get the time series signature from the index, a tibble of decomposed features that are useful for understanding the time series observations.</p>
+</div>
+<div id="expand-the-time-series-signature" class="section level2">
+<h2 class="hasAnchor">
+<a href="#expand-the-time-series-signature" class="anchor"></a>Expand the time series signature</h2>
+<p>Get the time series signature from the index, a tibble of decomposed features that are useful for <strong>data mining</strong> and <strong>machine learning</strong>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="reference/tk_get_timeseries.html">tk_get_timeseries_signature</a></span>(idx)
-<span class="co">#&gt; # A tibble: 1,008 × 23</span>
+<span class="co">#&gt; # A tibble: 1,008 x 28</span>
 <span class="co">#&gt;         index  index.num   diff  year  half quarter month month.xts</span>
 <span class="co">#&gt;        &lt;date&gt;      &lt;int&gt;  &lt;int&gt; &lt;int&gt; &lt;int&gt;   &lt;int&gt; &lt;int&gt;     &lt;int&gt;</span>
-<span class="co">#&gt; 1  2013-01-02 1357084800     NA  2013     1       1     1         0</span>
-<span class="co">#&gt; 2  2013-01-03 1357171200  86400  2013     1       1     1         0</span>
-<span class="co">#&gt; 3  2013-01-04 1357257600  86400  2013     1       1     1         0</span>
-<span class="co">#&gt; 4  2013-01-07 1357516800 259200  2013     1       1     1         0</span>
-<span class="co">#&gt; 5  2013-01-08 1357603200  86400  2013     1       1     1         0</span>
-<span class="co">#&gt; 6  2013-01-09 1357689600  86400  2013     1       1     1         0</span>
-<span class="co">#&gt; 7  2013-01-10 1357776000  86400  2013     1       1     1         0</span>
-<span class="co">#&gt; 8  2013-01-11 1357862400  86400  2013     1       1     1         0</span>
-<span class="co">#&gt; 9  2013-01-14 1358121600 259200  2013     1       1     1         0</span>
+<span class="co">#&gt;  1 2013-01-02 1357084800     NA  2013     1       1     1         0</span>
+<span class="co">#&gt;  2 2013-01-03 1357171200  86400  2013     1       1     1         0</span>
+<span class="co">#&gt;  3 2013-01-04 1357257600  86400  2013     1       1     1         0</span>
+<span class="co">#&gt;  4 2013-01-07 1357516800 259200  2013     1       1     1         0</span>
+<span class="co">#&gt;  5 2013-01-08 1357603200  86400  2013     1       1     1         0</span>
+<span class="co">#&gt;  6 2013-01-09 1357689600  86400  2013     1       1     1         0</span>
+<span class="co">#&gt;  7 2013-01-10 1357776000  86400  2013     1       1     1         0</span>
+<span class="co">#&gt;  8 2013-01-11 1357862400  86400  2013     1       1     1         0</span>
+<span class="co">#&gt;  9 2013-01-14 1358121600 259200  2013     1       1     1         0</span>
 <span class="co">#&gt; 10 2013-01-15 1358208000  86400  2013     1       1     1         0</span>
-<span class="co">#&gt; # ... with 998 more rows, and 15 more variables: month.lbl &lt;ord&gt;,</span>
-<span class="co">#&gt; #   day &lt;int&gt;, hour &lt;int&gt;, minute &lt;int&gt;, second &lt;int&gt;, wday &lt;int&gt;,</span>
-<span class="co">#&gt; #   wday.xts &lt;int&gt;, wday.lbl &lt;ord&gt;, mday &lt;int&gt;, yday &lt;int&gt;, week &lt;int&gt;,</span>
-<span class="co">#&gt; #   week.iso &lt;int&gt;, week2 &lt;int&gt;, week3 &lt;int&gt;, week4 &lt;int&gt;</span></code></pre></div>
+<span class="co">#&gt; # ... with 998 more rows, and 20 more variables: month.lbl &lt;ord&gt;,</span>
+<span class="co">#&gt; #   day &lt;int&gt;, hour &lt;int&gt;, minute &lt;int&gt;, second &lt;int&gt;, hour12 &lt;int&gt;,</span>
+<span class="co">#&gt; #   am.pm &lt;int&gt;, wday &lt;int&gt;, wday.xts &lt;int&gt;, wday.lbl &lt;ord&gt;, mday &lt;int&gt;,</span>
+<span class="co">#&gt; #   qday &lt;int&gt;, yday &lt;int&gt;, mweek &lt;int&gt;, week &lt;int&gt;, week.iso &lt;int&gt;,</span>
+<span class="co">#&gt; #   week2 &lt;int&gt;, week3 &lt;int&gt;, week4 &lt;int&gt;, mday7 &lt;dbl&gt;</span></code></pre></div>
+</div>
+<div id="get-a-summary-of-the-time-series" class="section level2">
+<h2 class="hasAnchor">
+<a href="#get-a-summary-of-the-time-series" class="anchor"></a>Get a summary of the time series</h2>
 <p>Get the time series summary from the index, a single-row tibble of key summary information from the time series.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="reference/tk_get_timeseries.html">tk_get_timeseries_summary</a></span>(idx)
-<span class="co">#&gt; # A tibble: 1 × 12</span>
-<span class="co">#&gt;   n.obs      start        end units scale tzone diff.minimum diff.q1</span>
-<span class="co">#&gt;   &lt;int&gt;     &lt;date&gt;     &lt;date&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;        &lt;dbl&gt;   &lt;dbl&gt;</span>
-<span class="co">#&gt; 1  1008 2013-01-02 2016-12-30  days   day   UTC        86400   86400</span>
-<span class="co">#&gt; # ... with 4 more variables: diff.median &lt;dbl&gt;, diff.mean &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   diff.q3 &lt;dbl&gt;, diff.maximum &lt;dbl&gt;</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># General summary</span>
+<span class="kw"><a href="reference/tk_get_timeseries.html">tk_get_timeseries_summary</a></span>(idx)[<span class="dv">1</span>:<span class="dv">6</span>]
+<span class="co">#&gt; # A tibble: 1 x 6</span>
+<span class="co">#&gt;   n.obs      start        end units scale tzone</span>
+<span class="co">#&gt;   &lt;int&gt;     &lt;date&gt;     &lt;date&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;</span>
+<span class="co">#&gt; 1  1008 2013-01-02 2016-12-30  days   day   UTC</span>
+
+<span class="co"># Frequency summary</span>
+<span class="kw"><a href="reference/tk_get_timeseries.html">tk_get_timeseries_summary</a></span>(idx)[<span class="dv">6</span>:<span class="dv">12</span>]
+<span class="co">#&gt; # A tibble: 1 x 7</span>
+<span class="co">#&gt;   tzone diff.minimum diff.q1 diff.median diff.mean diff.q3 diff.maximum</span>
+<span class="co">#&gt;   &lt;chr&gt;        &lt;dbl&gt;   &lt;dbl&gt;       &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;        &lt;dbl&gt;</span>
+<span class="co">#&gt; 1   UTC        86400   86400       86400  125095.5   86400       345600</span></code></pre></div>
 </div>
 <div id="make-a-future-time-series" class="section level2">
 <h2 class="hasAnchor">
@@ -183,13 +206,16 @@ FB_tbl
 
 idx_future &lt;-<span class="st"> </span><span class="kw"><a href="reference/tk_make_future_timeseries.html">tk_make_future_timeseries</a></span>(
     idx, 
-    <span class="dt">n_future         =</span> <span class="dv">251</span>, 
+    <span class="dt">n_future         =</span> <span class="dv">366</span>, 
     <span class="dt">skip_values      =</span> holidays, 
     <span class="dt">inspect_weekdays =</span> <span class="ot">TRUE</span>) 
 
 <span class="kw">head</span>(idx_future)
 <span class="co">#&gt; [1] "2017-01-03" "2017-01-04" "2017-01-05" "2017-01-06" "2017-01-09"</span>
 <span class="co">#&gt; [6] "2017-01-10"</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tail</span>(idx_future)
+<span class="co">#&gt; [1] "2017-12-21" "2017-12-22" "2017-12-26" "2017-12-27" "2017-12-28"</span>
+<span class="co">#&gt; [6] "2017-12-29"</span></code></pre></div>
 </div>
 <div id="coerce-time-series-without-specifying-order-by-or-worrying-about-coercion-issues" class="section level2">
 <h2 class="hasAnchor">
@@ -201,17 +227,6 @@ FB_xts &lt;-<span class="st"> </span><span class="kw"><a href="reference/tk_xts.
 FB_zoo &lt;-<span class="st"> </span><span class="kw"><a href="reference/tk_zoo.html">tk_zoo</a></span>(FB_tbl, <span class="dt">silent =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># ts</span>
 FB_ts &lt;-<span class="st"> </span><span class="kw"><a href="reference/tk_ts.html">tk_ts</a></span>(FB_tbl, <span class="dt">start =</span> <span class="dv">2013</span>, <span class="dt">freq =</span> <span class="dv">252</span>, <span class="dt">silent =</span> <span class="ot">TRUE</span>)</code></pre></div>
-</div>
-<div id="maintain-time-based-index-during-coercion-to-regularized-classes" class="section level2">
-<h2 class="hasAnchor">
-<a href="#maintain-time-based-index-during-coercion-to-regularized-classes" class="anchor"></a>Maintain time-based index during coercion to regularized classes</h2>
-<p>Get the default index (regularized for <code>ts</code> class).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="reference/tk_index.html">tk_index</a></span>(FB_ts) %&gt;%<span class="st"> </span><span class="kw">head</span>()
-<span class="co">#&gt; [1] 2013.000 2013.004 2013.008 2013.012 2013.016 2013.020</span></code></pre></div>
-<p>Get the time-based index using the argument <code>timekit_idx = TRUE</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="reference/tk_index.html">tk_index</a></span>(FB_ts, <span class="dt">timekit_idx =</span> <span class="ot">TRUE</span>) %&gt;%<span class="st"> </span><span class="kw">head</span>()
-<span class="co">#&gt; [1] "2013-01-02" "2013-01-03" "2013-01-04" "2013-01-07" "2013-01-08"</span>
-<span class="co">#&gt; [6] "2013-01-09"</span></code></pre></div>
 <p>This covers the basics of the <code>timekit</code> package capabilities. Here’s how to get started.</p>
 </div>
 <div id="installation" class="section level2">
@@ -244,6 +259,10 @@ devtools::<span class="kw">install_github</span>(<span class="st">"business-scie
 <li>TK00 - Time Series Coercion Using <code>timekit</code>
 </li>
 <li>TK01 - Working with the Time Series Index using <code>timekit</code>
+</li>
+<li>TK02 - Making a Future Time Series Index using <code>timekit</code>
+</li>
+<li>TK03 - Forecasting Using a Time Series Signature with <code>timekit</code>
 </li>
 </ul>
 </div>

@@ -69,6 +69,12 @@
     <li>
       <a href="../articles/TK01_Working_With_Time_Series_Index.html">Time series index</a>
     </li>
+    <li>
+      <a href="../articles/TK02_Making_A_Future_Time_Series_Index.html">Creating future time series indices</a>
+    </li>
+    <li>
+      <a href="../articles/TK03_Forecasting_Using_Time_Series_Signature.html">Forecasting with timekit</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -175,14 +181,14 @@ during coercion to <code>ts</code>.</p>
 <span class='co'># Coerce to ts using tk_ts(): Preserves time-basis</span>
 <span class='no'>data_ts</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='tk_ts.html'>tk_ts</a></span>(<span class='no'>data_tbl</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Non-numeric columns being dropped: date</span></div><div class='input'><span class='fu'>tk_index</span>(<span class='no'>data_ts</span>, <span class='kw'>timekit_idx</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>) <span class='co'># Returns regularized index</span></div><div class='output co'>#&gt; [1] 1 2 3 4 5</div><div class='input'><span class='fu'>tk_index</span>(<span class='no'>data_ts</span>, <span class='kw'>timekit_idx</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)  <span class='co'># Returns original time-based index vector</span></div><div class='output co'>#&gt; [1] "2000-01-01" "2000-01-02" "2000-01-03" "2000-01-04" "2000-01-05"</div><div class='input'>
 <span class='co'># Coercing back to tbl</span>
-<span class='fu'><a href='tk_tbl.html'>tk_tbl</a></span>(<span class='no'>data_ts</span>, <span class='kw'>timekit_idx</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>) <span class='co'># Returns regularized tbl</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Warning: No index to preserve. Object otherwise converted to tibble successfully.</span></div><div class='output co'>#&gt; # A tibble: 5 × 2
+<span class='fu'><a href='tk_tbl.html'>tk_tbl</a></span>(<span class='no'>data_ts</span>, <span class='kw'>timekit_idx</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>) <span class='co'># Returns regularized tbl</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Warning: No index to preserve. Object otherwise converted to tibble successfully.</span></div><div class='output co'>#&gt; # A tibble: 5 x 2
 #&gt;              x     y
 #&gt; *        &lt;dbl&gt; &lt;dbl&gt;
 #&gt; 1   2.55317055     5
 #&gt; 2 -24.37263611     4
 #&gt; 3  -0.05571287     3
 #&gt; 4   6.21552721     2
-#&gt; 5  11.48411606     1</div><div class='input'><span class='fu'><a href='tk_tbl.html'>tk_tbl</a></span>(<span class='no'>data_ts</span>, <span class='kw'>timekit_idx</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)  <span class='co'># Returns time-based tbl</span></div><div class='output co'>#&gt; # A tibble: 5 × 3
+#&gt; 5  11.48411606     1</div><div class='input'><span class='fu'><a href='tk_tbl.html'>tk_tbl</a></span>(<span class='no'>data_ts</span>, <span class='kw'>timekit_idx</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)  <span class='co'># Returns time-based tbl</span></div><div class='output co'>#&gt; # A tibble: 5 x 3
 #&gt;        index            x     y
 #&gt;       &lt;date&gt;        &lt;dbl&gt; &lt;dbl&gt;
 #&gt; 1 2000-01-01   2.55317055     5

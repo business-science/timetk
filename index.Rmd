@@ -34,13 +34,18 @@ library(timekit)
 
 ## Benefits
 
-The `timekit` package enables a user to more easily work with time series objects in R. The package has tools for inspecting and manipulating the time-based index (e.g. a date or date time column from a `tbl` or the dates stored as rownames from an `xts` object) and converting time-based objects to and from the many time series classes. The following are key benefits:
+The `timekit` package enables a user to more easily work with time series objects in R. The package has tools for inspecting and manipulating the time-based index, expanding the time features for data mining and machine learning, and converting time-based objects to and from the many time series classes. The following are key benefits:
 
 * __Index extraction__: get the time series index from any time series object.
 * __Understand time series__: create a signature decomposition and summary from a time series index.
 * __Build future time series__: create a future time series from an index.
 * __Coerce between time-based tibbles (`tbl`) and the major time series data types `xts`, `zoo`, `zooreg`, and `ts`__: Simplifies coercion and maximizes time-based data retention during coercion to regularized time series (e.g. `ts`).
 
+An example of the forecasting capabilities as shown in vignette TK03 - Forecasting Using a Time Series Signature with `timekit`.
+
+```{r echo=FALSE, out.width='100%'}
+knitr::include_graphics("README_1_bikes_forecast.png")
+```
 
 ## Tools
 
@@ -68,36 +73,49 @@ Load libraries and start with some time series data
 ```{r}
 library(timekit)
 library(tidyquant)
+```
 
+Use the FB time series.
+
+```{r}
 FB_tbl <- FANG %>%
     filter(symbol == "FB")
 FB_tbl
 ```
 
-## Work with a time series index
 
-Get the timeseries index
+## Extract a time series index
+
+Get the timeseries index.
 
 ```{r}
 idx <- tk_index(FB_tbl)
 head(idx)
 ```
 
-Get the time series signature from the index, a tibble of decomposed features that are useful for understanding the time series observations. 
+## Expand the time series signature
+
+Get the time series signature from the index, a tibble of decomposed features that are useful for __data mining__ and __machine learning__. 
 
 ```{r}
 tk_get_timeseries_signature(idx)
 ```
 
+## Get a summary of the time series
+
 Get the time series summary from the index, a single-row tibble of key summary information from the time series.
 
 ```{r}
-tk_get_timeseries_summary(idx)
+# General summary
+tk_get_timeseries_summary(idx)[1:6]
+
+# Frequency summary
+tk_get_timeseries_summary(idx)[6:12]
 ```
 
 ## Make a future time series
 
-Use an index to make a future time series. 
+Use an index to make a future time series.  
 
 ```{r}
 holidays <- c("2017-01-02", "2017-01-16", "2017-02-20",
@@ -107,11 +125,15 @@ holidays <- c("2017-01-02", "2017-01-16", "2017-02-20",
 
 idx_future <- tk_make_future_timeseries(
     idx, 
-    n_future         = 251, 
+    n_future         = 366, 
     skip_values      = holidays, 
     inspect_weekdays = TRUE) 
 
 head(idx_future)
+```
+
+```{r}
+tail(idx_future)
 ```
 
 
@@ -132,20 +154,6 @@ FB_zoo <- tk_zoo(FB_tbl, silent = TRUE)
 ```{r}
 # ts
 FB_ts <- tk_ts(FB_tbl, start = 2013, freq = 252, silent = TRUE)
-```
-
-## Maintain time-based index during coercion to regularized classes
-
-Get the default index (regularized for `ts` class).
-
-```{r}
-tk_index(FB_ts) %>% head()
-```
-
-Get the time-based index using the argument `timekit_idx = TRUE`.
-
-```{r}
-tk_index(FB_ts, timekit_idx = TRUE) %>% head()
 ```
 
 
@@ -181,4 +189,6 @@ The `timekit` package includes a vignette to help users get up to speed quickly:
 
 * TK00 - Time Series Coercion Using `timekit`
 * TK01 - Working with the Time Series Index using `timekit`
+* TK02 - Making a Future Time Series Index using `timekit`
+* TK03 - Forecasting Using a Time Series Signature with `timekit`
 
