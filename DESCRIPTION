@@ -1,8 +1,8 @@
 Package: timekit
 Type: Package
 Title: A Collection of Tools for Working with Time Series in R
-Version: 0.2.0.9000
-Date: 2017-04-30
+Version: 0.3.0
+Date: 2017-05-16
 Authors@R: c(
     person("Matt", "Dancho", email = "mdancho@business-science.io", role = c("aut", "cre")),
     person("Davis", "Vaughan", email = "dvaughan@business-science.io", role = c("aut"))

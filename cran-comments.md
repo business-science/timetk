@@ -1,5 +1,5 @@
 ## Release Summary
-This is the second release of `timekit` for CRAN review. There's several new functions for working with the timeseries index.
+This is the third release of `timekit` for CRAN review. The major structural change is improvements to the `tk_make_future_timeseries()` function. Two new vignettes are added for improved documentation.
 
 
 ## Test environments
