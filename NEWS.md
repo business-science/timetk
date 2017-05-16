@@ -1,4 +1,6 @@
-# timekit 0.2.0.9000
+# timekit 0.3.0.9000
+
+# timekit 0.3.0
 * Improvements:
     * `tk_make_future_timeseries`: 
         * Improved future date picking algorithm to look for seasonal trends by way of `inspect_months`. The data must span at least two calendar years to gain this benefit. 
