@@ -1,4 +1,8 @@
 # timekit 0.3.0.9000
+* Improvements:
+    * `tk_index` and `tk_has_index`:
+        * Added `decomposed.ts` 
+
 
 # timekit 0.3.0
 * Improvements:

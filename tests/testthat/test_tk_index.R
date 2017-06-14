@@ -1,6 +1,7 @@
 library(forecast)
 library(timekit)
 library(tidyquant)
+library(forecast)
 context("Testing tk_index")
 
 AAPL_tbl    <- tq_get("AAPL", from = "2015-01-01", to = "2016-12-31")
@@ -300,6 +301,26 @@ test_that("tk_index(fracdiff) test returns correct format.", {
     )
 
 })
+
+test_that("tk_index(decomposed.ts) test returns correct format.", {
+
+    data_ts <- USAccDeaths %>%
+        tk_tbl() %>%
+        mutate(index = as_date(index)) %>%
+        tk_ts(start = 1973, freq = 12, silent = T)
+
+    fit <- decompose(data_ts)
+
+    test <- has_timekit_idx(fit)
+    expect_true(test)
+
+    expect_equal(tk_index(fit) %>% class(), "numeric")
+
+    expect_equal(tk_index(fit, timekit_idx = T) %>% class(), "Date")
+
+
+})
+
 
 
 

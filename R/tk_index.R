@@ -271,6 +271,11 @@ tk_index.StructTS <- function(data, timekit_idx = FALSE, silent = FALSE) {
 }
 
 #' @export
+tk_index.decomposed.ts <- function(data, timekit_idx = FALSE, silent = FALSE) {
+    tk_index(data$x, timekit_idx, silent)
+}
+
+#' @export
 tk_index.default <- function(data, timekit_idx = FALSE, silent = FALSE) {
     warning(paste0("`tk_index` is not designed to work with objects of class ", class(data), "."))
     invisible(data)
@@ -366,6 +371,11 @@ has_timekit_idx.nnetar <- function(data) {
 #' @export
 has_timekit_idx.StructTS <- function(data) {
     has_timekit_idx(data$data)
+}
+
+#' @export
+has_timekit_idx.decomposed.ts <- function(data) {
+    has_timekit_idx(data$x)
 }
 
 #' @export
