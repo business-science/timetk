@@ -110,6 +110,7 @@ The index can be decomposed into a _signature_. The time series signature is a u
 * __index.num__: The numeric value of the index in seconds. The base is "1970-01-01 00:00:00" (Execute `"1970-01-01 00:00:00" %>% ymd_hms() %>% as.numeric()` to see the value returned is zero). Every time series value after this date can be converted to a numeric value in seconds.
 * __diff__: The difference in seconds from the previous numeric index value.
 * __year__: The year component of the index.
+* __year.iso__: The ISO year number of the year (Monday start).
 * __half__: The half component of the index.
 * __quarter__: The quarter component of the index.
 * __month__: The month component of the index with base 1. 

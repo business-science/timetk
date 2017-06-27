@@ -99,6 +99,7 @@ get_timeseries_signature_date <- function(idx) {
             index.num = as.numeric(as.POSIXct(index)) %>% as.integer(),
             diff      = c(NA, diff(index.num)) %>% as.integer(),
             year      = lubridate::year(index) %>% as.integer(),
+            year.iso  = lubridate::isoyear(index) %>% as.integer(),
             half      = lubridate::semester(index) %>% as.integer(),
             quarter   = lubridate::quarter(index) %>% as.integer(),
             month     = lubridate::month(index) %>% as.integer(),
@@ -116,13 +117,13 @@ get_timeseries_signature_date <- function(idx) {
             mday      = lubridate::mday(index) %>% as.integer(),
             qday      = lubridate::qday(lubridate::as_date(index)) %>% as.integer(),
             yday      = lubridate::yday(index) %>% as.integer(),
-            mweek     = stringi::stri_datetime_fields(lubridate::as_date(index))$WeekOfMonth,
+            mweek     = stringi::stri_datetime_fields(lubridate::as_date(index))$WeekOfMonth %>% as.integer(),
             week      = lubridate::week(index) %>% as.integer(),
             week.iso  = lubridate::isoweek(index) %>% as.integer(),
             week2     = as.integer(week %% 2),
             week3     = as.integer(week %% 3),
             week4     = as.integer(week %% 4),
-            mday7     = as.integer(mday %/% 7) + 1
+            mday7     = as.integer(mday %/% 7) + 1L
         )
     return(ret)
 }

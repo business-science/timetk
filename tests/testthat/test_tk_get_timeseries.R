@@ -2,7 +2,7 @@ library(timekit)
 library(tidyquant)
 context("Testing tk_get_timeseries functions")
 
-n <- 28
+n <- 29
 
 # tk_get_timeseries_signature -----
 

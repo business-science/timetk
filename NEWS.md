@@ -3,6 +3,8 @@
     * `tk_index` and `tk_has_index`:
         * Added `decomposed.ts` 
     * Moved `tidyquant` to suggests
+    * `tk_get_timeseries_signatre` and `tk_augment_timeseries_signature`:
+        * Added "year.iso" (Issue #4)
 
 
 # timekit 0.3.0

@@ -8,7 +8,7 @@ FB_tbl <- FANG %>%
 test_tbl <- FB_tbl
 
 # Number of tk_get_signature columns
-n <- 28
+n <- 29
 
 test_that("tk_augment_timeseries_signature(tbl) test returns correct format.", {
     test <- tk_augment_timeseries_signature(test_tbl)
