@@ -34,7 +34,6 @@ Imports:
     scales (<= 0.4.1),
     stringi (>= 1.1.5),
     tibble (>= 1.2),
-    tidyquant (>= 0.5.1),
     tidyr (>= 0.6.1),
     timeSeries (>= 3022.101.2),
     tseries (>= 0.10-37),
@@ -42,6 +41,7 @@ Imports:
     xts (>= 0.9-7),
     zoo (>= 1.7-14)
 Suggests:
+    tidyquant,
     knitr,
     rmarkdown,
     testthat,

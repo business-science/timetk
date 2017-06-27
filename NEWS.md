@@ -2,6 +2,7 @@
 * Improvements:
     * `tk_index` and `tk_has_index`:
         * Added `decomposed.ts` 
+    * Moved `tidyquant` to suggests
 
 
 # timekit 0.3.0
