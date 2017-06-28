@@ -1,9 +1,9 @@
 ## Release Summary
-This is the third release of `timekit` for CRAN review. The major structural change is improvements to the `tk_make_future_timeseries()` function. Two new vignettes are added for improved documentation.
+This is the fourth release of `timekit` for CRAN review. Minor changes were made to incorporate feature requests and clean up DESCRIPTION.
 
 
 ## Test environments
-* local Windows install, R 3.3.3
+* local Windows install, R 3.4.0
 * ubuntu 12.04 (on travis-ci), R 3.3.3
 * win-builder (devel and release)
 

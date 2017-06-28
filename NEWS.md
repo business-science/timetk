@@ -1,4 +1,4 @@
-# timekit 0.3.0.9000
+# timekit 0.3.1
 * Improvements:
     * `tk_index` and `tk_has_index`: Added `decomposed.ts` 
     * `tk_get_timeseries_signature` and `tk_augment_timeseries_signature`:
