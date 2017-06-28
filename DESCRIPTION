@@ -2,7 +2,7 @@ Package: timekit
 Type: Package
 Title: A Collection of Tools for Working with Time Series in R
 Version: 0.3.0.9000
-Date: 2017-05-16
+Date: 2017-06-28
 Authors@R: c(
     person("Matt", "Dancho", email = "mdancho@business-science.io", role = c("aut", "cre")),
     person("Davis", "Vaughan", email = "dvaughan@business-science.io", role = c("aut"))
@@ -20,33 +20,29 @@ LazyData: true
 Depends:
     R (>= 3.3.0)
 Imports:
-    broom (>= 0.4.2),
     devtools (>= 1.12.0),
     dplyr (>= 0.7.0),
-    forcats (>= 0.2.0),
     forecast (>= 0.8.0),
     lazyeval (>= 0.2.0),
     lubridate (>= 1.6.0),
-    padr (>= 0.2.1),
+    padr (>= 0.3.0),
     purrr (>= 0.2.2),
-    quantmod (>= 0.4-9),
     readr (>= 1.0.0),
-    scales (<= 0.4.1),
     stringi (>= 1.1.5),
     tibble (>= 1.2),
     tidyr (>= 0.6.1),
-    timeSeries (>= 3022.101.2),
-    tseries (>= 0.10-37),
-    TTR (>= 0.23-1),
     xts (>= 0.9-7),
     zoo (>= 1.7-14)
 Suggests:
-    tidyquant,
+    broom,
+    forcats,
     knitr,
     rmarkdown,
-    testthat,
+    scales,
     stringr,
-    tidyverse
+    testthat,
+    tidyverse,
+    tidyquant
 RoxygenNote: 6.0.1
 Roxygen: list(markdown = TRUE)
 VignetteBuilder: knitr

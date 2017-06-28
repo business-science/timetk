@@ -1,10 +1,12 @@
 # timekit 0.3.0.9000
 * Improvements:
-    * `tk_index` and `tk_has_index`:
-        * Added `decomposed.ts` 
-    * Moved `tidyquant` to suggests
-    * `tk_get_timeseries_signatre` and `tk_augment_timeseries_signature`:
+    * `tk_index` and `tk_has_index`: Added `decomposed.ts` 
+    * `tk_get_timeseries_signature` and `tk_augment_timeseries_signature`:
         * Added "year.iso" (Issue #4)
+    * Cleaned up Imports:
+        * Moved `tidyquant`, `broom`, `forcats`, `scales` to Suggests 
+        * Removed `quantmod`, `TTR`, `timeSeries` and `tseries` from Imports
+    
 
 
 # timekit 0.3.0
