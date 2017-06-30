@@ -35,6 +35,16 @@ test_that("tbl to xts test returns xts with correct rows and columns.", {
     expect_equal(ncol(test_xts_3), 1)
     expect_equal(colnames(test_xts_3), select)
 
+    # Test back-ticked columns
+    tib <- tibble(
+        `date column` = seq.Date(from = as.Date("2017-01-01"), by = "day", length.out = 10),
+        `my value` = 1:10
+    )
+    test <- tk_xts(tib, silent = T)
+    expect_equal(nrow(test), 10)
+    expect_equal(ncol(test), 1)
+    expect_is(test, "xts")
+
 })
 
 

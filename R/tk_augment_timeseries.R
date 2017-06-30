@@ -36,8 +36,15 @@ tk_augment_timeseries_signature.data.frame <- function(data) {
 
     date_var <- tk_get_timeseries_variables(data)[[1]]
 
-    data <- data %>%
-        dplyr::arrange_(date_var)
+    # Arrange by date_var
+    date_var_has_space <- stringr::str_detect("date column", " ")
+    if (date_var_has_space) {
+        data <- data %>%
+            dplyr::arrange_(paste0("`", date_var, "`"))
+    } else {
+        data <- data %>%
+            dplyr::arrange_(date_var)
+    }
 
     ret_1 <- data
 

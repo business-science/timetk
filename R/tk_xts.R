@@ -118,7 +118,7 @@ tk_xts_.data.frame <- function(data, select = NULL, date_var = NULL, silent = FA
         if (!(is.null(date_var) || date_var == "NULL")) {
 
             # User specifies date_var
-            date_col <- dplyr::select_(data, date_var)
+            date_col <- dplyr::select(data, dplyr::matches(date_var))
             xts_args$order.by <- date_col[[1]]
 
         } else {
@@ -127,7 +127,7 @@ tk_xts_.data.frame <- function(data, select = NULL, date_var = NULL, silent = FA
             date_var <- tk_get_timeseries_variables(data)
             date_found <- !purrr::is_empty(date_var)
             if (date_found) {
-                date_col <- dplyr::select_(data, date_var)
+                date_col <- dplyr::select(data, dplyr::matches(date_var))
                 xts_args$order.by <- date_col[[1]]
                 if (!silent) message(paste0("Using column `", date_var, "` for date_var."))
             } else {
