@@ -23,7 +23,8 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-
+  
+  
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -156,7 +157,7 @@ values to insert.</p></td>
 on the input index frequency and attributes.</p>
 <p>The argument <code>n_future</code> determines how many future index observations to compute.</p>
 <p>The <code>inspect_weekdays</code> and <code>inspect_months</code> arguments apply to "daily" (scale = "day") data
-(refer to <code>tk_get_timeseries_summary()</code> to get the index scale).
+(refer to <code><a href='tk_get_timeseries.html'>tk_get_timeseries_summary()</a></code> to get the index scale).
 The <code>inspect_weekdays</code> argument is useful in determining missing days of the week
 that occur on a weekly frequency such as every week, every other week, and so on.
 It's recommended to have at least 60 days to use this option.
@@ -177,7 +178,7 @@ excluded.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><code><a href='tk_index.html'>tk_index()</a></code>, <code><a href='tk_get_timeseries.html'>tk_get_timeseries_summary()</a></code>, <code><a href='tk_get_timeseries.html'>tk_get_timeseries_signature()</a></code></p>
+    <p><code>tk_index()</code>, <code><a href='tk_get_timeseries.html'>tk_get_timeseries_summary()</a></code>, <code><a href='tk_get_timeseries.html'>tk_get_timeseries_signature()</a></code></p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -202,10 +203,10 @@ excluded.</p>
     <span class='fu'>ymd</span>()
 <span class='co'># Remove holidays with skip_values, and remove weekends with inspect_weekdays = TRUE</span>
 <span class='no'>FB_tbl</span> <span class='kw'>%&gt;%</span>
-    <span class='fu'><a href='tk_index.html'>tk_index</a></span>() <span class='kw'>%&gt;%</span>
+    <span class='fu'>tk_index</span>() <span class='kw'>%&gt;%</span>
     <span class='fu'>tk_make_future_timeseries</span>(<span class='kw'>n_future</span>         <span class='kw'>=</span> <span class='fl'>366</span>,
                               <span class='kw'>inspect_weekdays</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-                              <span class='kw'>skip_values</span>      <span class='kw'>=</span> <span class='no'>holidays</span>)</div><div class='output co'>#&gt;   [1] "2017-01-03" "2017-01-04" "2017-01-05" "2017-01-06" "2017-01-09"
+                              <span class='kw'>skip_values</span>      <span class='kw'>=</span> <span class='no'>holidays</span>)</div><div class='output co'>#&gt; <span class='message'>pad applied on the interval: day</span></div><div class='output co'>#&gt;   [1] "2017-01-03" "2017-01-04" "2017-01-05" "2017-01-06" "2017-01-09"
 #&gt;   [6] "2017-01-10" "2017-01-11" "2017-01-12" "2017-01-13" "2017-01-17"
 #&gt;  [11] "2017-01-18" "2017-01-19" "2017-01-20" "2017-01-23" "2017-01-24"
 #&gt;  [16] "2017-01-25" "2017-01-26" "2017-01-27" "2017-01-30" "2017-01-31"

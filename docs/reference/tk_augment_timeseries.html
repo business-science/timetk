@@ -23,7 +23,8 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-
+  
+  
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -137,39 +138,12 @@ to the input data.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>library</span>(<span class='no'>tidyquant</span>)</div><div class='output co'>#&gt; <span class='message'>Loading required package: lubridate</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Attaching package: ‘lubridate’</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:base’:</span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'>    date</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: PerformanceAnalytics</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: xts</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: zoo</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Attaching package: ‘zoo’</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:base’:</span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'>    as.Date, as.Date.numeric</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Attaching package: ‘PerformanceAnalytics’</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:graphics’:</span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'>    legend</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: quantmod</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: TTR</span></div><div class='output co'>#&gt; <span class='message'>Version 0.4-0 included new data defaults. See ?getSymbols.</span>
-#&gt; <span class='message'>Learn from a quantmod author: https://www.datacamp.com/courses/importing-and-managing-financial-data-in-r</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: tidyverse</span></div><div class='output co'>#&gt; <span class='message'>Loading tidyverse: ggplot2</span>
-#&gt; <span class='message'>Loading tidyverse: tibble</span>
-#&gt; <span class='message'>Loading tidyverse: tidyr</span>
-#&gt; <span class='message'>Loading tidyverse: readr</span>
-#&gt; <span class='message'>Loading tidyverse: purrr</span>
-#&gt; <span class='message'>Loading tidyverse: dplyr</span></div><div class='output co'>#&gt; <span class='message'>Conflicts with tidy packages ---------------------------------------------------</span></div><div class='output co'>#&gt; <span class='message'>as.difftime(): lubridate, base</span>
-#&gt; <span class='message'>date():        lubridate, base</span>
-#&gt; <span class='message'>filter():      dplyr, stats</span>
-#&gt; <span class='message'>first():       dplyr, xts</span>
-#&gt; <span class='message'>intersect():   lubridate, base</span>
-#&gt; <span class='message'>lag():         dplyr, stats</span>
-#&gt; <span class='message'>last():        dplyr, xts</span>
-#&gt; <span class='message'>setdiff():     lubridate, base</span>
-#&gt; <span class='message'>union():       lubridate, base</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Attaching package: ‘tidyquant’</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:dplyr’:</span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'>    as_tibble</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:tibble’:</span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'>    as_tibble</span></div><div class='input'><span class='fu'>library</span>(<span class='no'>timekit</span>)
+    <pre class="examples"><div class='input'><span class='fu'>library</span>(<span class='no'>tidyquant</span>)
+<span class='fu'>library</span>(<span class='no'>timekit</span>)
 
 <span class='no'>FANG</span> <span class='kw'>%&gt;%</span>
     <span class='fu'>filter</span>(<span class='no'>symbol</span> <span class='kw'>==</span> <span class='st'>"FB"</span>) <span class='kw'>%&gt;%</span>
-    <span class='fu'>tk_augment_timeseries_signature</span>()</div><div class='output co'>#&gt; # A tibble: 1,008 x 35
+    <span class='fu'>tk_augment_timeseries_signature</span>()</div><div class='output co'>#&gt; # A tibble: 1,008 x 36
 #&gt;    symbol       date  open  high   low close    volume adjusted  index.num
 #&gt;     &lt;chr&gt;     &lt;date&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;      &lt;int&gt;
 #&gt;  1     FB 2013-01-02 27.44 28.18 27.42 28.00  69846400    28.00 1357084800
@@ -182,12 +156,12 @@ to the input data.</p>
 #&gt;  8     FB 2013-01-11 31.28 31.96 31.10 31.72  89598000    31.72 1357862400
 #&gt;  9     FB 2013-01-14 32.08 32.21 30.62 30.95  98892800    30.95 1358121600
 #&gt; 10     FB 2013-01-15 30.64 31.71 29.88 30.10 173242600    30.10 1358208000
-#&gt; # ... with 998 more rows, and 26 more variables: diff &lt;int&gt;, year &lt;int&gt;,
-#&gt; #   half &lt;int&gt;, quarter &lt;int&gt;, month &lt;int&gt;, month.xts &lt;int&gt;, month.lbl &lt;ord&gt;,
-#&gt; #   day &lt;int&gt;, hour &lt;int&gt;, minute &lt;int&gt;, second &lt;int&gt;, hour12 &lt;int&gt;,
-#&gt; #   am.pm &lt;int&gt;, wday &lt;int&gt;, wday.xts &lt;int&gt;, wday.lbl &lt;ord&gt;, mday &lt;int&gt;,
-#&gt; #   qday &lt;int&gt;, yday &lt;int&gt;, mweek &lt;int&gt;, week &lt;int&gt;, week.iso &lt;int&gt;,
-#&gt; #   week2 &lt;int&gt;, week3 &lt;int&gt;, week4 &lt;int&gt;, mday7 &lt;dbl&gt;</div><div class='input'>
+#&gt; # ... with 998 more rows, and 27 more variables: diff &lt;int&gt;, year &lt;int&gt;,
+#&gt; #   year.iso &lt;int&gt;, half &lt;int&gt;, quarter &lt;int&gt;, month &lt;int&gt;, month.xts &lt;int&gt;,
+#&gt; #   month.lbl &lt;ord&gt;, day &lt;int&gt;, hour &lt;int&gt;, minute &lt;int&gt;, second &lt;int&gt;,
+#&gt; #   hour12 &lt;int&gt;, am.pm &lt;int&gt;, wday &lt;int&gt;, wday.xts &lt;int&gt;, wday.lbl &lt;ord&gt;,
+#&gt; #   mday &lt;int&gt;, qday &lt;int&gt;, yday &lt;int&gt;, mweek &lt;int&gt;, week &lt;int&gt;,
+#&gt; #   week.iso &lt;int&gt;, week2 &lt;int&gt;, week3 &lt;int&gt;, week4 &lt;int&gt;, mday7 &lt;int&gt;</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

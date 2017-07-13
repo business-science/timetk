@@ -1,6 +1,7 @@
-# timekit 0.3.1.9000
+# timekit 0.3.1.9001
 * Improvements:
     * Fixed issue with back-ticked date columns
+    * Update pkgdown
 
 # timekit 0.3.1
 * Improvements:

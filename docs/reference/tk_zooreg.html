@@ -23,7 +23,8 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-
+  
+  
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -178,22 +179,22 @@ Column name to be used to <code>order.by</code>.
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p><code>tk_zooreg()</code> is a wrapper for <code>zoo::zooreg()</code> that is designed
+    <p><code>tk_zooreg()</code> is a wrapper for <code><a href='http://www.rdocumentation.org/packages/zoo/topics/zooreg'>zoo::zooreg()</a></code> that is designed
 to coerce <code>tibble</code> objects that have a "time-base" (meaning the values vary with time)
 to <code>zooreg</code> class objects. There are two main advantages:</p><ol>
 <li><p>Non-numeric columns get removed instead causing coercion issues.</p></li>
-<li><p>If an index is present, the returned <code>zooreg</code> object retains an index retrievable using <code><a href='tk_index.html'>tk_index()</a></code>.</p></li>
+<li><p>If an index is present, the returned <code>zooreg</code> object retains an index retrievable using <code>tk_index()</code>.</p></li>
 </ol>
     <p>The <code>select</code> argument is used to select subsets
 of columns from the incoming data.frame.
 The <code>date_var</code> can be used to specify the column with the date index.
 If <code>date_var = NULL</code>, the date / date-time column is interpreted.
-Optionally, the <code>order.by</code> argument from the underlying <code>xts::xts()</code> function can be used.
+Optionally, the <code>order.by</code> argument from the underlying <code><a href='http://www.rdocumentation.org/packages/xts/topics/xts'>xts::xts()</a></code> function can be used.
 The user must pass a vector of dates or date-times if <code>order.by</code> is used.
 Only columns containing numeric data are coerced.
 <em>At a minimum, a <code>frequency</code> and a <code>start</code> should be specified.</em></p>
 <p>For non-data.frame object classes (e.g. <code>xts</code>, <code>zoo</code>, <code>timeSeries</code>, etc) the objects are coerced
-using <code>zoo::zooreg()</code>.
+using <code><a href='http://www.rdocumentation.org/packages/zoo/topics/zooreg'>zoo::zooreg()</a></code>.
     <code>tk_zooreg_</code> is a nonstandard evaluation method.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
@@ -203,29 +204,29 @@ using <code>zoo::zooreg()</code>.
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>### tibble to zooreg: Comparison between tk_zooreg() and zoo::zooreg()</span>
-<span class='no'>data_tbl</span> <span class='kw'>&lt;-</span> <span class='kw'>tibble</span><span class='kw'>::</span><span class='fu'>tibble</span>(
+<span class='no'>data_tbl</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>tibble</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/tibble/topics/tibble'>tibble</a></span>(
     <span class='kw'>date</span> <span class='kw'>=</span> <span class='fu'>seq.Date</span>(<span class='fu'>as.Date</span>(<span class='st'>"2016-01-01"</span>), <span class='kw'>by</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>length.out</span> <span class='kw'>=</span> <span class='fl'>5</span>),
     <span class='kw'>x</span>    <span class='kw'>=</span> <span class='fu'>rep</span>(<span class='st'>"chr values"</span>, <span class='fl'>5</span>),
     <span class='kw'>y</span>    <span class='kw'>=</span> <span class='fu'>cumsum</span>(<span class='fl'>1</span>:<span class='fl'>5</span>),
     <span class='kw'>z</span>    <span class='kw'>=</span> <span class='fu'>cumsum</span>(<span class='fl'>11</span>:<span class='fl'>15</span>) * <span class='fu'>rnorm</span>(<span class='fl'>1</span>))
 
 <span class='co'># zoo::zooreg: Values coerced to character; Result does not retain index</span>
-<span class='no'>data_zooreg</span> <span class='kw'>&lt;-</span> <span class='kw'>zoo</span><span class='kw'>::</span><span class='fu'>zooreg</span>(<span class='no'>data_tbl</span>[,-<span class='fl'>1</span>], <span class='kw'>start</span> <span class='kw'>=</span> <span class='fl'>2016</span>, <span class='kw'>freq</span> <span class='kw'>=</span> <span class='fl'>365</span>)
+<span class='no'>data_zooreg</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>zoo</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/zoo/topics/zooreg'>zooreg</a></span>(<span class='no'>data_tbl</span>[,-<span class='fl'>1</span>], <span class='kw'>start</span> <span class='kw'>=</span> <span class='fl'>2016</span>, <span class='kw'>freq</span> <span class='kw'>=</span> <span class='fl'>365</span>)
 <span class='no'>data_zooreg</span>                <span class='co'># Numeric values coerced to character</span></div><div class='output co'>#&gt;         x          y  z         
-#&gt; 2016(1) chr values  1  -3.109760
-#&gt; 2016(2) chr values  3  -6.502225
-#&gt; 2016(3) chr values  6 -10.177396
-#&gt; 2016(4) chr values 10 -14.135272
-#&gt; 2016(5) chr values 15 -18.375854</div><div class='input'><span class='fu'>rownames</span>(<span class='no'>data_zooreg</span>)      <span class='co'># NULL, no dates retained</span></div><div class='output co'>#&gt; NULL</div><div class='input'>
+#&gt; 2016(1) chr values  1  -2.686196
+#&gt; 2016(2) chr values  3  -5.616591
+#&gt; 2016(3) chr values  6  -8.791186
+#&gt; 2016(4) chr values 10 -12.209980
+#&gt; 2016(5) chr values 15 -15.872974</div><div class='input'><span class='fu'>rownames</span>(<span class='no'>data_zooreg</span>)      <span class='co'># NULL, no dates retained</span></div><div class='output co'>#&gt; NULL</div><div class='input'>
 <span class='co'># tk_zooreg: Only numeric columns get coerced; Result retains index as rownames</span>
 <span class='no'>data_tk_zooreg</span> <span class='kw'>&lt;-</span> <span class='fu'>tk_zooreg</span>(<span class='no'>data_tbl</span>, <span class='kw'>start</span> <span class='kw'>=</span> <span class='fl'>2016</span>, <span class='kw'>freq</span> <span class='kw'>=</span> <span class='fl'>365</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Non-numeric columns being dropped: date, x</span></div><div class='input'><span class='no'>data_tk_zooreg</span>             <span class='co'># No inadvertent coercion to character class</span></div><div class='output co'>#&gt;          y          z
-#&gt; 2016(1)  1  -3.109760
-#&gt; 2016(2)  3  -6.502225
-#&gt; 2016(3)  6 -10.177396
-#&gt; 2016(4) 10 -14.135272
-#&gt; 2016(5) 15 -18.375854</div><div class='input'>
+#&gt; 2016(1)  1  -2.686196
+#&gt; 2016(2)  3  -5.616591
+#&gt; 2016(3)  6  -8.791186
+#&gt; 2016(4) 10 -12.209980
+#&gt; 2016(5) 15 -15.872974</div><div class='input'>
 <span class='co'># timekit index</span>
-<span class='fu'><a href='tk_index.html'>tk_index</a></span>(<span class='no'>data_tk_zooreg</span>, <span class='kw'>timekit_idx</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)   <span class='co'># Regularized index returned</span></div><div class='output co'>#&gt; [1] 2016.000 2016.003 2016.005 2016.008 2016.011</div><div class='input'><span class='fu'><a href='tk_index.html'>tk_index</a></span>(<span class='no'>data_tk_zooreg</span>, <span class='kw'>timekit_idx</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)    <span class='co'># Original date index returned</span></div><div class='output co'>#&gt; [1] "2016-01-01" "2016-01-02" "2016-01-03" "2016-01-04" "2016-01-05"</div><div class='input'>
+<span class='fu'>tk_index</span>(<span class='no'>data_tk_zooreg</span>, <span class='kw'>timekit_idx</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)   <span class='co'># Regularized index returned</span></div><div class='output co'>#&gt; [1] 2016.000 2016.003 2016.005 2016.008 2016.011</div><div class='input'><span class='fu'>tk_index</span>(<span class='no'>data_tk_zooreg</span>, <span class='kw'>timekit_idx</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)    <span class='co'># Original date index returned</span></div><div class='output co'>#&gt; [1] "2016-01-01" "2016-01-02" "2016-01-03" "2016-01-04" "2016-01-05"</div><div class='input'>
 <span class='co'>### Using select and date_var</span>
 <span class='fu'>tk_zooreg</span>(<span class='no'>data_tbl</span>, <span class='kw'>select</span> <span class='kw'>=</span> <span class='no'>y</span>, <span class='kw'>date_var</span> <span class='kw'>=</span> <span class='no'>date</span>, <span class='kw'>start</span> <span class='kw'>=</span> <span class='fl'>2016</span>, <span class='kw'>freq</span> <span class='kw'>=</span> <span class='fl'>365</span>)</div><div class='output co'>#&gt;          y
 #&gt; 2016(1)  1

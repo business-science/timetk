@@ -23,7 +23,8 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-
+  
+  
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -129,7 +130,7 @@
       <th>timekit_idx</th>
       <td><p>Used to return a date / datetime index for
 regularized objects that contain a timekit "index" attribute.
-Refer to <code><a href='tk_index.html'>tk_index()</a></code> for more information on returning index information
+Refer to <code>tk_index()</code> for more information on returning index information
 from regularized timeseries objects (i.e. <code>ts</code>).</p></td>
     </tr>
     <tr>
@@ -157,7 +158,7 @@ date / date-time information from the underlying time-series object.</p>
 the date or date-time information. The date / date-time column name
 can be changed using the <code>rename_index</code> argument.</p>
 <p>The <code>timekit_idx</code> argument is applicable when coercing <code>ts</code> objects that were
-created using <code>tk_ts()</code> from an object that had a time base
+created using <code><a href='tk_ts.html'>tk_ts()</a></code> from an object that had a time base
 (e.g. <code>tbl</code>, <code>xts</code>, <code>zoo</code>).
 Setting <code>timekit_idx = TRUE</code> enables returning the timekit "index" attribute if present,
 which is the original (non-regularized) time-based index.</p>
@@ -225,7 +226,7 @@ which is the original (non-regularized) time-based index.</p>
 #&gt; 5 2010-01-05   120</div><div class='input'>
 
 <span class='co'>### zooreg to tibble: Comparison between as.data.frame() and tk_tbl()</span>
-<span class='no'>data_zooreg</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='tk_zooreg.html'>tk_zooreg</a></span>(<span class='fl'>1</span>:<span class='fl'>8</span>, <span class='kw'>start</span> <span class='kw'>=</span> <span class='kw'>zoo</span><span class='kw'>::</span><span class='fu'>yearqtr</span>(<span class='fl'>2000</span>), <span class='kw'>frequency</span> <span class='kw'>=</span> <span class='fl'>4</span>)
+<span class='no'>data_zooreg</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='tk_zooreg.html'>tk_zooreg</a></span>(<span class='fl'>1</span>:<span class='fl'>8</span>, <span class='kw'>start</span> <span class='kw'>=</span> <span class='kw pkg'>zoo</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/zoo/topics/yearqtr'>yearqtr</a></span>(<span class='fl'>2000</span>), <span class='kw'>frequency</span> <span class='kw'>=</span> <span class='fl'>4</span>)
 
 <span class='co'># Dates are character class stored in row names</span>
 <span class='fu'>as.data.frame</span>(<span class='no'>data_zooreg</span>)</div><div class='output co'>#&gt;         data_zooreg
@@ -251,7 +252,7 @@ which is the original (non-regularized) time-based index.</p>
 #&gt; 8       2001 Q4     8</div><div class='input'>
 
 <span class='co'>### zoo to tibble: Comparison between as.data.frame() and tk_tbl()</span>
-<span class='no'>data_zoo</span> <span class='kw'>&lt;-</span> <span class='kw'>zoo</span><span class='kw'>::</span><span class='fu'>zoo</span>(<span class='fl'>1</span>:<span class='fl'>12</span>, <span class='kw'>zoo</span><span class='kw'>::</span><span class='fu'>yearmon</span>(<span class='fl'>2016</span> + <span class='fu'>seq</span>(<span class='fl'>0</span>, <span class='fl'>11</span>)/<span class='fl'>12</span>))
+<span class='no'>data_zoo</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>zoo</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/zoo/topics/zoo'>zoo</a></span>(<span class='fl'>1</span>:<span class='fl'>12</span>, <span class='kw pkg'>zoo</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/zoo/topics/yearmon'>yearmon</a></span>(<span class='fl'>2016</span> + <span class='fu'>seq</span>(<span class='fl'>0</span>, <span class='fl'>11</span>)/<span class='fl'>12</span>))
 
 <span class='co'># Dates are character class stored in row names</span>
 <span class='fu'>as.data.frame</span>(<span class='no'>data_zoo</span>)</div><div class='output co'>#&gt;          data_zoo

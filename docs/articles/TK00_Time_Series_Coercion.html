@@ -81,7 +81,7 @@
       <h1>Time Series Coercion Using timekit</h1>
                         <h4 class="author">Matt Dancho</h4>
             
-            <h4 class="date">2017-05-16</h4>
+            <h4 class="date">2017-07-12</h4>
           </div>
 
     
@@ -107,13 +107,13 @@
 <div id="data" class="section level1">
 <h1 class="hasAnchor">
 <a href="#data" class="anchor"></a>Data</h1>
-<p>We’ll use the ten-year treasury rate available from the FRED database with the code, “DGS10”. We’ll retrieve the data set using <code>tq_get(get = "economic.data")</code>. The return structure is a tibble (or “tidy” data frame), which is not conducive to many of the popular time series analysis packages including <code>quantmod</code>, <code>TTR</code>, <code>forecast</code> and many others.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ten_year_treasury_rate_tbl &lt;-<span class="st"> </span><span class="kw">tq_get</span>(<span class="st">"DGS10"</span>, 
+<p>We’ll use the ten-year treasury rate available from the FRED database with the code, “DGS10”. We’ll retrieve the data set using <code><a href="http://www.rdocumentation.org/packages/tidyquant/topics/tq_get">tq_get(get = "economic.data")</a></code>. The return structure is a tibble (or “tidy” data frame), which is not conducive to many of the popular time series analysis packages including <code>quantmod</code>, <code>TTR</code>, <code>forecast</code> and many others.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ten_year_treasury_rate_tbl &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/tidyquant/topics/tq_get">tq_get</a></span>(<span class="st">"DGS10"</span>, 
                                      <span class="dt">get  =</span> <span class="st">"economic.data"</span>, 
                                      <span class="dt">from =</span> <span class="st">"1997-01-01"</span>, 
-                                     <span class="dt">to   =</span> <span class="st">"2016-12-31"</span>) %&gt;%
-<span class="st">    </span><span class="kw">rename</span>(<span class="dt">pct =</span> price) %&gt;%
-<span class="st">    </span><span class="kw">mutate</span>(<span class="dt">pct =</span> pct /<span class="st"> </span><span class="dv">100</span>)
+                                     <span class="dt">to   =</span> <span class="st">"2016-12-31"</span>) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">rename</span>(<span class="dt">pct =</span> price) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">mutate</span>(<span class="dt">pct =</span> pct <span class="op">/</span><span class="st"> </span><span class="dv">100</span>)
 ten_year_treasury_rate_tbl</code></pre></div>
 <pre><code>## # A tibble: 5,218 x 2
 ##          date    pct
@@ -129,9 +129,9 @@ ten_year_treasury_rate_tbl</code></pre></div>
 ##  9 1997-01-13 0.0663
 ## 10 1997-01-14 0.0653
 ## # ... with 5,208 more rows</code></pre>
-<p>For purposes of the Case Study, we’ll change to a quarterly periodicity using <code>tq_transmute()</code> from the <code>tidyquant</code> package. Note that <code>NA</code> values are automatically removed from the data (message not shown).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ten_year_treasury_rate_tbl &lt;-<span class="st"> </span>ten_year_treasury_rate_tbl %&gt;%
-<span class="st">    </span><span class="kw">tq_transmute</span>(pct, <span class="dt">mutate_fun =</span> to.period, <span class="dt">period =</span> <span class="st">"quarters"</span>)
+<p>For purposes of the Case Study, we’ll change to a quarterly periodicity using <code><a href="http://www.rdocumentation.org/packages/tidyquant/topics/tq_mutate">tq_transmute()</a></code> from the <code>tidyquant</code> package. Note that <code>NA</code> values are automatically removed from the data (message not shown).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ten_year_treasury_rate_tbl &lt;-<span class="st"> </span>ten_year_treasury_rate_tbl <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw"><a href="http://www.rdocumentation.org/packages/tidyquant/topics/tq_mutate">tq_transmute</a></span>(pct, <span class="dt">mutate_fun =</span> to.period, <span class="dt">period =</span> <span class="st">"quarters"</span>)
 ten_year_treasury_rate_tbl</code></pre></div>
 <pre><code>## # A tibble: 80 x 2
 ##          date    pct
@@ -157,7 +157,7 @@ ten_year_treasury_rate_tbl</code></pre></div>
 <a href="#problems" class="anchor"></a>Problems</h2>
 <p>First, only numeric columns get coerced. If the user forgets to add the <code>[,"pct"]</code> to drop the “date” column, <code>ts()</code> returns dates in numeric format which is not what the user wants.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># date column gets coerced to numeric</span>
-<span class="kw">ts</span>(ten_year_treasury_rate_tbl, <span class="dt">start =</span> <span class="dv">1997</span>, <span class="dt">freq =</span> <span class="dv">4</span>) %&gt;%
+<span class="kw">ts</span>(ten_year_treasury_rate_tbl, <span class="dt">start =</span> <span class="dv">1997</span>, <span class="dt">freq =</span> <span class="dv">4</span>) <span class="op">%&gt;%</span>
 <span class="st">    </span><span class="kw">head</span>()</code></pre></div>
 <pre><code>##          date    pct
 ## 1997 Q1  9951 0.0692
@@ -264,9 +264,9 @@ ten_year_treasury_rate_ts_timekit &lt;-<span class="st"> </span><span class="kw"
 <div id="advantages-of-coercion-with-tk_tbl" class="section level2">
 <h2 class="hasAnchor">
 <a href="#advantages-of-coercion-with-tk_tbl" class="anchor"></a>Advantages of coercion with tk_tbl()</h2>
-<p>Since we used the <code><a href="../reference/tk_ts.html">tk_ts()</a></code> during coercion, we can extract the original index in date format using <code><a href="../reference/tk_index.html">tk_index(timekit_idx = TRUE)</a></code> (the default is <code>timekit_idx = FALSE</code> which returns the default regularized index).</p>
+<p>Since we used the <code><a href="../reference/tk_ts.html">tk_ts()</a></code> during coercion, we can extract the original index in date format using <code>tk_index(timekit_idx = TRUE)</code> (the default is <code>timekit_idx = FALSE</code> which returns the default regularized index).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Can now retrieve the original date index</span>
-timekit_index &lt;-<span class="st"> </span><span class="kw"><a href="../reference/tk_index.html">tk_index</a></span>(ten_year_treasury_rate_ts_timekit, <span class="dt">timekit_idx =</span> <span class="ot">TRUE</span>)
+timekit_index &lt;-<span class="st"> </span><span class="kw">tk_index</span>(ten_year_treasury_rate_ts_timekit, <span class="dt">timekit_idx =</span> <span class="ot">TRUE</span>)
 <span class="kw">head</span>(timekit_index)</code></pre></div>
 <pre><code>## [1] "1997-03-31" "1997-06-30" "1997-09-30" "1997-12-31" "1998-03-31"
 ## [6] "1998-06-30"</code></pre>
@@ -274,7 +274,7 @@ timekit_index &lt;-<span class="st"> </span><span class="kw"><a href="../referen
 <pre><code>## [1] "Date"</code></pre>
 <p>Next, the <code><a href="../reference/tk_tbl.html">tk_tbl()</a></code> function has an argument <code>timekit_idx</code> also which can be used to select which index to return. First, we show coercion using the default index. Notice that the index returned is “regularized” meaning its actually a numeric index rather than a time-based index.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Coercion back to tibble using the default index (regularized)</span>
-ten_year_treasury_rate_ts_timekit %&gt;%
+ten_year_treasury_rate_ts_timekit <span class="op">%&gt;%</span>
 <span class="st">    </span><span class="kw"><a href="../reference/tk_tbl.html">tk_tbl</a></span>(<span class="dt">index_rename =</span> <span class="st">"date"</span>, <span class="dt">timekit_idx =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <pre><code>## # A tibble: 80 x 2
 ##            index    pct
@@ -292,7 +292,7 @@ ten_year_treasury_rate_ts_timekit %&gt;%
 ## # ... with 70 more rows</code></pre>
 <p>We can now get the original date index using the <code><a href="../reference/tk_tbl.html">tk_tbl()</a></code> argument <code>timekit_idx = TRUE</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Coercion back to tibble now using the timekit index (date / date-time)</span>
-ten_year_treasury_rate_tbl_timekit &lt;-<span class="st"> </span>ten_year_treasury_rate_ts_timekit %&gt;%
+ten_year_treasury_rate_tbl_timekit &lt;-<span class="st"> </span>ten_year_treasury_rate_ts_timekit <span class="op">%&gt;%</span>
 <span class="st">    </span><span class="kw"><a href="../reference/tk_tbl.html">tk_tbl</a></span>(<span class="dt">index_rename =</span> <span class="st">"date"</span>, <span class="dt">timekit_idx =</span> <span class="ot">TRUE</span>)
 ten_year_treasury_rate_tbl_timekit</code></pre></div>
 <pre><code>## # A tibble: 80 x 2
@@ -358,7 +358,7 @@ ten_year_treasury_rate_xts &lt;-<span class="st"> </span><span class="kw"><a hre
 ## 1998-06-30 0.0544</code></pre>
 <p>Use the <code>select</code> argument to specify which columns to drop. Use the <code>date_var</code> argument to specify which column to use as the date index. Notice the message and warning are no longer present.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># End - Using `select` and `date_var` args</span>
-<span class="kw"><a href="../reference/tk_xts.html">tk_xts</a></span>(ten_year_treasury_rate_tbl, <span class="dt">select =</span> -date, <span class="dt">date_var =</span> date) %&gt;%
+<span class="kw"><a href="../reference/tk_xts.html">tk_xts</a></span>(ten_year_treasury_rate_tbl, <span class="dt">select =</span> <span class="op">-</span>date, <span class="dt">date_var =</span> date) <span class="op">%&gt;%</span>
 <span class="st">    </span><span class="kw">head</span>()</code></pre></div>
 <pre><code>##               pct
 ## 1997-03-31 0.0692
@@ -369,7 +369,7 @@ ten_year_treasury_rate_xts &lt;-<span class="st"> </span><span class="kw"><a hre
 ## 1998-06-30 0.0544</code></pre>
 <p>Also, as an alternative, we can set <code>silent = TRUE</code> to bypass the warnings since the default dropping of the “date” column is what is desired. Notice no warnings or messages.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># End - Using `silent` to silence warnings</span>
-<span class="kw"><a href="../reference/tk_xts.html">tk_xts</a></span>(ten_year_treasury_rate_tbl, <span class="dt">silent =</span> <span class="ot">TRUE</span>) %&gt;%
+<span class="kw"><a href="../reference/tk_xts.html">tk_xts</a></span>(ten_year_treasury_rate_tbl, <span class="dt">silent =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span>
 <span class="st">    </span><span class="kw">head</span>()</code></pre></div>
 <pre><code>##               pct
 ## 1997-03-31 0.0692
@@ -411,9 +411,9 @@ ten_year_treasury_rate_zooreg &lt;-<span class="st"> </span><span class="kw"><a 
 ## 1997 Q4 0.0575
 ## 1998 Q1 0.0567
 ## 1998 Q2 0.0544</code></pre>
-<p>The original time-based index is retained and can be accessed using <code><a href="../reference/tk_index.html">tk_index(timekit_idx = TRUE)</a></code>.</p>
+<p>The original time-based index is retained and can be accessed using <code>tk_index(timekit_idx = TRUE)</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Retrieve original time-based index</span>
-<span class="kw"><a href="../reference/tk_index.html">tk_index</a></span>(ten_year_treasury_rate_zooreg, <span class="dt">timekit_idx =</span> <span class="ot">TRUE</span>) %&gt;%
+<span class="kw">tk_index</span>(ten_year_treasury_rate_zooreg, <span class="dt">timekit_idx =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span>
 <span class="st">    </span><span class="kw">str</span>()</code></pre></div>
 <pre><code>##  Date[1:80], format: "1997-03-31" "1997-06-30" "1997-09-30" "1997-12-31" "1998-03-31" ...</code></pre>
 </div>
@@ -448,9 +448,9 @@ ten_year_treasury_rate_ts</code></pre></div>
 ## 2014 0.0273 0.0253 0.0252 0.0217
 ## 2015 0.0194 0.0235 0.0206 0.0227
 ## 2016 0.0178 0.0149 0.0160 0.0245</code></pre>
-<p>The original time-based index is retained and can be accessed using <code><a href="../reference/tk_index.html">tk_index(timekit_idx = TRUE)</a></code>.</p>
+<p>The original time-based index is retained and can be accessed using <code>tk_index(timekit_idx = TRUE)</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Retrieve original time-based index</span>
-<span class="kw"><a href="../reference/tk_index.html">tk_index</a></span>(ten_year_treasury_rate_ts, <span class="dt">timekit_idx =</span> <span class="ot">TRUE</span>) %&gt;%
+<span class="kw">tk_index</span>(ten_year_treasury_rate_ts, <span class="dt">timekit_idx =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span>
 <span class="st">    </span><span class="kw">str</span>()</code></pre></div>
 <pre><code>##  Date[1:80], format: "1997-03-31" "1997-06-30" "1997-09-30" "1997-12-31" "1998-03-31" ...</code></pre>
 </div>
@@ -636,7 +636,7 @@ ten_year_treasury_rate_ts</code></pre></div>
 <div id="testing-if-an-object-has-a-timekit-index" class="section level2">
 <h2 class="hasAnchor">
 <a href="#testing-if-an-object-has-a-timekit-index" class="anchor"></a>Testing if an object has a timekit index</h2>
-<p>The function <code><a href="../reference/tk_index.html">has_timekit_idx()</a></code> can be used to test whether toggling the <code>timekit_idx</code> argument in the <code><a href="../reference/tk_index.html">tk_index()</a></code> and <code><a href="../reference/tk_tbl.html">tk_tbl()</a></code> functions will have an effect on the output. Here are several examples using the ten year treasury data used in the case study:</p>
+<p>The function <code><a href="../reference/tk_index.html">has_timekit_idx()</a></code> can be used to test whether toggling the <code>timekit_idx</code> argument in the <code>tk_index()</code> and <code><a href="../reference/tk_tbl.html">tk_tbl()</a></code> functions will have an effect on the output. Here are several examples using the ten year treasury data used in the case study:</p>
 <div id="testing-ts" class="section level3">
 <h3 class="hasAnchor">
 <a href="#testing-ts" class="anchor"></a>Testing ts()</h3>
@@ -644,8 +644,8 @@ ten_year_treasury_rate_ts</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Data coerced with stats::ts() has no timekit index</span>
 <span class="kw"><a href="../reference/tk_index.html">has_timekit_idx</a></span>(ten_year_treasury_rate_ts_stats)</code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
-<p>If we try to toggle <code>timekit_idx = TRUE</code> when retrieving the index with <code><a href="../reference/tk_index.html">tk_index()</a></code>, we get a warning and the default regularized time series is returned.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/tk_index.html">tk_index</a></span>(ten_year_treasury_rate_ts_stats, <span class="dt">timekit_idx =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<p>If we try to toggle <code>timekit_idx = TRUE</code> when retrieving the index with <code>tk_index()</code>, we get a warning and the default regularized time series is returned.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tk_index</span>(ten_year_treasury_rate_ts_stats, <span class="dt">timekit_idx =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <pre><code>## Warning in tk_index.ts(ten_year_treasury_rate_ts_stats, timekit_idx =
 ## TRUE): timekit attribute `index` not found. Returning default instead.</code></pre>
 <pre><code>##  [1] 1997.00 1997.25 1997.50 1997.75 1998.00 1998.25 1998.50 1998.75
@@ -684,8 +684,8 @@ ten_year_treasury_rate_ts</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Data coerced with tk_ts() has timekit index</span>
 <span class="kw"><a href="../reference/tk_index.html">has_timekit_idx</a></span>(ten_year_treasury_rate_ts_timekit)</code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
-<p>If we toggle <code>timekit_idx = TRUE</code> when retrieving the index with <code><a href="../reference/tk_index.html">tk_index()</a></code>, we get the index of dates rather than the regularized time series.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/tk_index.html">tk_index</a></span>(ten_year_treasury_rate_ts_timekit, <span class="dt">timekit_idx =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<p>If we toggle <code>timekit_idx = TRUE</code> when retrieving the index with <code>tk_index()</code>, we get the index of dates rather than the regularized time series.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tk_index</span>(ten_year_treasury_rate_ts_timekit, <span class="dt">timekit_idx =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <pre><code>##  [1] "1997-03-31" "1997-06-30" "1997-09-30" "1997-12-31" "1998-03-31"
 ##  [6] "1998-06-30" "1998-09-30" "1998-12-31" "1999-03-31" "1999-06-30"
 ## [11] "1999-09-30" "1999-12-31" "2000-03-31" "2000-06-30" "2000-09-29"
@@ -726,7 +726,7 @@ ten_year_treasury_rate_ts</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/tk_index.html">has_timekit_idx</a></span>(ten_year_treasury_rate_xts)</code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
 <p>Toggling the <code>timekit_idx</code> argument has no effect on the output. Output with <code>timekit_idx = TRUE</code> is the same as with <code>timekit_idx = FALSE</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/tk_index.html">tk_index</a></span>(ten_year_treasury_rate_xts, <span class="dt">timekit_idx =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tk_index</span>(ten_year_treasury_rate_xts, <span class="dt">timekit_idx =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <pre><code>##  [1] "1997-03-31" "1997-06-30" "1997-09-30" "1997-12-31" "1998-03-31"
 ##  [6] "1998-06-30" "1998-09-30" "1998-12-31" "1999-03-31" "1999-06-30"
 ## [11] "1999-09-30" "1999-12-31" "2000-03-31" "2000-06-30" "2000-09-29"
@@ -743,7 +743,7 @@ ten_year_treasury_rate_ts</code></pre></div>
 ## [66] "2013-06-28" "2013-09-30" "2013-12-31" "2014-03-31" "2014-06-30"
 ## [71] "2014-09-30" "2014-12-31" "2015-03-31" "2015-06-30" "2015-09-30"
 ## [76] "2015-12-31" "2016-03-31" "2016-06-30" "2016-09-30" "2016-12-30"</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/tk_index.html">tk_index</a></span>(ten_year_treasury_rate_xts, <span class="dt">timekit_idx =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tk_index</span>(ten_year_treasury_rate_xts, <span class="dt">timekit_idx =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <pre><code>##  [1] "1997-03-31" "1997-06-30" "1997-09-30" "1997-12-31" "1998-03-31"
 ##  [6] "1998-06-30" "1998-09-30" "1998-12-31" "1999-03-31" "1999-06-30"
 ## [11] "1999-09-30" "1999-12-31" "2000-03-31" "2000-06-30" "2000-09-29"
@@ -773,18 +773,18 @@ ten_year_treasury_rate_ts</code></pre></div>
 </ol>
 <p>Here’s a quick example. Our starting point is a tibble (<code>tbl</code>) but it could be another time-based object such as <code>xts</code> or <code>zoo</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Start with a date or date-time indexed data frame</span>
-data_tbl &lt;-<span class="st"> </span>tibble::<span class="kw">tibble</span>(
+data_tbl &lt;-<span class="st"> </span>tibble<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/tibble/topics/tibble">tibble</a></span>(
     <span class="dt">date =</span> <span class="kw">seq.Date</span>(<span class="kw">as.Date</span>(<span class="st">"2016-01-01"</span>), <span class="dt">by =</span> <span class="dv">1</span>, <span class="dt">length.out =</span> <span class="dv">5</span>),
-    <span class="dt">x    =</span> <span class="kw">cumsum</span>(<span class="dv">11</span>:<span class="dv">15</span>) *<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1</span>))
+    <span class="dt">x    =</span> <span class="kw">cumsum</span>(<span class="dv">11</span><span class="op">:</span><span class="dv">15</span>) <span class="op">*</span><span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1</span>))
 data_tbl</code></pre></div>
 <pre><code>## # A tibble: 5 x 2
-##         date         x
-##       &lt;date&gt;     &lt;dbl&gt;
-## 1 2016-01-01  2.345434
-## 2 2016-01-02  4.904090
-## 3 2016-01-03  7.675967
-## 4 2016-01-04 10.661065
-## 5 2016-01-05 13.859385</code></pre>
+##         date        x
+##       &lt;date&gt;    &lt;dbl&gt;
+## 1 2016-01-01 1.147210
+## 2 2016-01-02 2.398711
+## 3 2016-01-03 3.754505
+## 4 2016-01-04 5.214590
+## 5 2016-01-05 6.778967</code></pre>
 <p>Coerce to <code>ts</code> class using the <code><a href="../reference/tk_ts.html">tk_ts()</a></code> function. Note that the non-numeric column “date” is being dropped, and the <code>silent = TRUE</code> hides the message.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Coerce to ts </span>
 data_ts &lt;-<span class="st"> </span><span class="kw"><a href="../reference/tk_ts.html">tk_ts</a></span>(data_tbl, <span class="dt">start =</span> <span class="dv">2016</span>, <span class="dt">freq =</span> <span class="dv">365</span>, <span class="dt">silent =</span> <span class="ot">TRUE</span>)
@@ -793,12 +793,12 @@ data_ts</code></pre></div>
 ## Start = c(2016, 1) 
 ## End = c(2016, 5) 
 ## Frequency = 365 
-##              x
-## [1,]  2.345434
-## [2,]  4.904090
-## [3,]  7.675967
-## [4,] 10.661065
-## [5,] 13.859385
+##             x
+## [1,] 1.147210
+## [2,] 2.398711
+## [3,] 3.754505
+## [4,] 5.214590
+## [5,] 6.778967
 ## attr(,"index")
 ## [1] 1451606400 1451692800 1451779200 1451865600 1451952000
 ## attr(,"index")attr(,"tzone")
@@ -821,16 +821,16 @@ data_ts</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># No need to specify order.by arg</span>
 data_xts &lt;-<span class="st"> </span><span class="kw"><a href="../reference/tk_xts.html">tk_xts</a></span>(data_ts)
 data_xts</code></pre></div>
-<pre><code>##                    x
-## 2016-01-01  2.345434
-## 2016-01-02  4.904090
-## 2016-01-03  7.675967
-## 2016-01-04 10.661065
-## 2016-01-05 13.859385</code></pre>
+<pre><code>##                   x
+## 2016-01-01 1.147210
+## 2016-01-02 2.398711
+## 2016-01-03 3.754505
+## 2016-01-04 5.214590
+## 2016-01-05 6.778967</code></pre>
 <p>We can see that the <code>xts</code> structure is maintained.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(data_xts)</code></pre></div>
 <pre><code>## An 'xts' object on 2016-01-01/2016-01-05 containing:
-##   Data: num [1:5, 1] 2.35 4.9 7.68 10.66 13.86
+##   Data: num [1:5, 1] 1.15 2.4 3.75 5.21 6.78
 ##  - attr(*, "dimnames")=List of 2
 ##   ..$ : NULL
 ##   ..$ : chr "x"
@@ -841,16 +841,16 @@ data_xts</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># No need to specify order.by arg</span>
 data_zoo &lt;-<span class="st"> </span><span class="kw"><a href="../reference/tk_zoo.html">tk_zoo</a></span>(data_ts)
 data_zoo</code></pre></div>
-<pre><code>##                    x
-## 2016-01-01  2.345434
-## 2016-01-02  4.904090
-## 2016-01-03  7.675967
-## 2016-01-04 10.661065
-## 2016-01-05 13.859385</code></pre>
+<pre><code>##                   x
+## 2016-01-01 1.147210
+## 2016-01-02 2.398711
+## 2016-01-03 3.754505
+## 2016-01-04 5.214590
+## 2016-01-05 6.778967</code></pre>
 <p>We can see that the <code>zoo</code> structure is maintained.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(data_zoo)</code></pre></div>
 <pre><code>## 'zoo' series from 2016-01-01 to 2016-01-05
-##   Data: num [1:5, 1] 2.35 4.9 7.68 10.66 13.86
+##   Data: num [1:5, 1] 1.15 2.4 3.75 5.21 6.78
 ##  - attr(*, "dimnames")=List of 2
 ##   ..$ : chr [1:5] "2016-01-01" "2016-01-02" "2016-01-03" "2016-01-04" ...
 ##   ..$ : chr "x"
@@ -858,19 +858,19 @@ data_zoo</code></pre></div>
 <p>Note that <code>tbl</code> requires the <code>timekit_idx = TRUE</code> argument to specify the use of the non-regularized index.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/tk_tbl.html">tk_tbl</a></span>(data_ts, <span class="dt">timekit_idx =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <pre><code>## # A tibble: 5 x 2
-##        index         x
-##       &lt;date&gt;     &lt;dbl&gt;
-## 1 2016-01-01  2.345434
-## 2 2016-01-02  4.904090
-## 3 2016-01-03  7.675967
-## 4 2016-01-04 10.661065
-## 5 2016-01-05 13.859385</code></pre>
+##        index        x
+##       &lt;date&gt;    &lt;dbl&gt;
+## 1 2016-01-01 1.147210
+## 2 2016-01-02 2.398711
+## 3 2016-01-03 3.754505
+## 4 2016-01-04 5.214590
+## 5 2016-01-05 6.778967</code></pre>
 </div>
 <div id="working-with-yearmon-and-yearqtr-index" class="section level2">
 <h2 class="hasAnchor">
 <a href="#working-with-yearmon-and-yearqtr-index" class="anchor"></a>Working with yearmon and yearqtr index</h2>
 <p>The <code>zoo</code> package has the <code>yearmon</code> and <code>yearqtr</code> classes for working with regularized monthly and quarterly data, respectively. The “timekit index” tracks the format during coercion. Here’s and example with <code>yearqtr</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">yearqtr_tbl &lt;-<span class="st"> </span>ten_year_treasury_rate_tbl %&gt;%
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">yearqtr_tbl &lt;-<span class="st"> </span>ten_year_treasury_rate_tbl <span class="op">%&gt;%</span>
 <span class="st">    </span><span class="kw">mutate</span>(<span class="dt">date =</span> <span class="kw">as.yearqtr</span>(date))
 yearqtr_tbl</code></pre></div>
 <pre><code>## # A tibble: 80 x 2
@@ -892,7 +892,7 @@ yearqtr_tbl</code></pre></div>
 <pre><code>## Warning in tk_xts_.data.frame(data = data, select = select, date_var =
 ## date_var, : Non-numeric columns being dropped: date</code></pre>
 <pre><code>## Using column `date` for date_var.</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">yearqtr_xts %&gt;%
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">yearqtr_xts <span class="op">%&gt;%</span>
 <span class="st">    </span><span class="kw">head</span>()</code></pre></div>
 <pre><code>##            pct
 ## 1997 Q1 0.0692
@@ -903,13 +903,13 @@ yearqtr_tbl</code></pre></div>
 ## 1998 Q2 0.0544</code></pre>
 <p>We can coerce to <code>ts</code> and, although the “timekit index” is hidden, the <code>yearqtr</code> class is intact.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">yearqtr_ts &lt;-<span class="st"> </span><span class="kw"><a href="../reference/tk_ts.html">tk_ts</a></span>(yearqtr_xts, <span class="dt">start =</span> <span class="dv">1997</span>, <span class="dt">freq =</span> <span class="dv">4</span>)
-yearqtr_ts %&gt;%
+yearqtr_ts <span class="op">%&gt;%</span>
 <span class="st">    </span><span class="kw">head</span>()</code></pre></div>
 <pre><code>##        Qtr1   Qtr2   Qtr3   Qtr4
 ## 1997 0.0692 0.0651 0.0612 0.0575
 ## 1998 0.0567 0.0544</code></pre>
 <p>Coercing from <code>ts</code> to <code>tbl</code> using <code>timekit_idx = TRUE</code> shows that the original index was maintained through each of the coercion steps.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">yearqtr_ts %&gt;%
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">yearqtr_ts <span class="op">%&gt;%</span>
 <span class="st">    </span><span class="kw"><a href="../reference/tk_tbl.html">tk_tbl</a></span>(<span class="dt">timekit_idx =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <pre><code>## # A tibble: 80 x 2
 ##            index    pct
@@ -929,12 +929,12 @@ yearqtr_ts %&gt;%
 <div id="getting-the-index-of-other-time-based-objects-e-g-models" class="section level2">
 <h2 class="hasAnchor">
 <a href="#getting-the-index-of-other-time-based-objects-e-g-models" class="anchor"></a>Getting the index of other time-based objects (e.g. models)</h2>
-<p>It can be important to retrieve the index from models and other objects that use an underlying time series data set. We’ll go through an example retrieving the time index from an ARIMA model using <code><a href="../reference/tk_index.html">tk_index()</a></code>.</p>
+<p>It can be important to retrieve the index from models and other objects that use an underlying time series data set. We’ll go through an example retrieving the time index from an ARIMA model using <code>tk_index()</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(forecast)
-fit_arima &lt;-<span class="st"> </span>ten_year_treasury_rate_ts %&gt;%
-<span class="st">    </span><span class="kw">auto.arima</span>()</code></pre></div>
+fit_arima &lt;-<span class="st"> </span>ten_year_treasury_rate_ts <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw"><a href="http://www.rdocumentation.org/packages/forecast/topics/auto.arima">auto.arima</a></span>()</code></pre></div>
 <p>We can get the time index from the ARIMA model.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/tk_index.html">tk_index</a></span>(fit_arima)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tk_index</span>(fit_arima)</code></pre></div>
 <pre><code>##  [1] 1997.00 1997.25 1997.50 1997.75 1998.00 1998.25 1998.50 1998.75
 ##  [9] 1999.00 1999.25 1999.50 1999.75 2000.00 2000.25 2000.50 2000.75
 ## [17] 2001.00 2001.25 2001.50 2001.75 2002.00 2002.25 2002.50 2002.75
@@ -946,7 +946,7 @@ fit_arima &lt;-<span class="st"> </span>ten_year_treasury_rate_ts %&gt;%
 ## [65] 2013.00 2013.25 2013.50 2013.75 2014.00 2014.25 2014.50 2014.75
 ## [73] 2015.00 2015.25 2015.50 2015.75 2016.00 2016.25 2016.50 2016.75</code></pre>
 <p>We can also get the original index from the ARIMA model be setting <code>timekit_idx = TRUE</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/tk_index.html">tk_index</a></span>(fit_arima, <span class="dt">timekit_idx =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tk_index</span>(fit_arima, <span class="dt">timekit_idx =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <pre><code>##  [1] "1997-03-31" "1997-06-30" "1997-09-30" "1997-12-31" "1998-03-31"
 ##  [6] "1998-06-30" "1998-09-30" "1998-12-31" "1999-03-31" "1999-06-30"
 ## [11] "1999-09-30" "1999-12-31" "2000-03-31" "2000-06-30" "2000-09-29"
@@ -970,7 +970,8 @@ fit_arima &lt;-<span class="st"> </span>ten_year_treasury_rate_ts %&gt;%
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
         <div id="tocnav">
-      <h2>Contents</h2>
+      <h2 class="hasAnchor">
+<a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
 <li><a href="#prerequisites">Prerequisites</a></li>
       <li><a href="#data">Data</a></li>
@@ -992,7 +993,7 @@ fit_arima &lt;-<span class="st"> </span>ten_year_treasury_rate_ts %&gt;%
 <li><a href="#testing-if-an-object-has-a-timekit-index">Testing if an object has a timekit index</a></li>
       <li><a href="#coercing-ts-to-xts-and-zoo">Coercing ts to xts and zoo</a></li>
       <li><a href="#working-with-yearmon-and-yearqtr-index">Working with yearmon and yearqtr index</a></li>
-      <li><a href="#getting-the-index-of-other-time-based-objects-e.g.models">Getting the index of other time-based objects (e.g. models)</a></li>
+      <li><a href="#getting-the-index-of-other-time-based-objects-e-g-models">Getting the index of other time-based objects (e.g. models)</a></li>
       </ul>
 </li>
       </ul>
