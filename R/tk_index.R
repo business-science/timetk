@@ -231,6 +231,12 @@ tk_index.ets <- function(data, timekit_idx = FALSE, silent = FALSE) {
 }
 
 #' @export
+tk_index.robets <- function(data, timekit_idx = FALSE, silent = FALSE) {
+    tk_index(data$x, timekit_idx, silent)
+}
+
+
+#' @export
 tk_index.stl <- function(data, timekit_idx = FALSE, silent = FALSE) {
     tk_index(data$time.series, timekit_idx, silent)
 }
@@ -330,6 +336,11 @@ has_timekit_idx.Arima <- function(data) {
 
 #' @export
 has_timekit_idx.ets <- function(data) {
+    has_timekit_idx(data$x)
+}
+
+#' @export
+has_timekit_idx.robets <- function(data) {
     has_timekit_idx(data$x)
 }
 

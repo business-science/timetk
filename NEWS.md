@@ -2,6 +2,7 @@
 * Improvements:
     * Fixed issue with back-ticked date columns
     * Update pkgdown
+    * support for `robets`
 
 # timekit 0.3.1
 * Improvements:
