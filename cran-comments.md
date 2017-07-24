@@ -4,7 +4,7 @@ This is the first release of `timetk` for CRAN review. The package was formerly 
 
 ## Test environments
 * local Windows install, R 3.4.0
-* ubuntu 12.04 (on travis-ci), R 3.3.3
+* ubuntu 12.04 (on travis-ci), R 3.4.0
 * win-builder (devel and release)
 
 
