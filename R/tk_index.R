@@ -123,7 +123,7 @@ tk_index.ts <- function(data, timetk_idx = FALSE, silent = FALSE) {
         tzone <- attr(attr(data, "index"), "tzone")
         if (!is.null(tzone))
             if (!(tclass %in% c("yearmon", "yearqtr")))
-                lubridate::tz(ret) <- tzone
+                lubridate::tz(ret) <- tzone[[1]]
 
     }
 
@@ -209,7 +209,7 @@ tk_index.xts <- function(data, timetk_idx = FALSE, silent = FALSE) {
     tzone <- xts::indexTZ(data)
     if (!is.null(tzone))
         if (!(tclass %in% c("yearmon", "yearqtr")))
-            lubridate::tz(ret) <- tzone
+            lubridate::tz(ret) <- tzone[[1]]
 
     return(ret)
 
