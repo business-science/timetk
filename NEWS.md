@@ -1,7 +1,10 @@
+
 # timetk 0.3.1.9000
 * Renamed package `timetk`. Was formerly `timekit`. 
 * Improvements:
     * Fixed issue with back-ticked date columns
+    * Update pkgdown
+    * support for `robets`
 
 # timetk 0.3.1
 * Improvements:

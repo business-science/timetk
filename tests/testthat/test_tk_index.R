@@ -2,6 +2,7 @@ library(forecast)
 library(timetk)
 library(tidyquant)
 library(forecast)
+library(robets)
 context("Testing tk_index")
 
 AAPL_tbl    <- tq_get("AAPL", from = "2015-01-01", to = "2016-12-31")
@@ -129,6 +130,22 @@ test_that("tk_index(ets) test returns correct format.", {
 
     # Return vector of numeric regularized dates
     test_index_7 <- fit_ets %>%
+        tk_index(timetk_idx = FALSE)
+    expect_equal(class(test_index_7), "numeric")
+    expect_equal(length(test_index_7), 72)
+
+})
+
+fit_robets <- USAccDeaths %>%
+    robets::robets()
+
+test_that("tk_index(robets) test returns correct format.", {
+
+    # Test if object has timetk index
+    expect_false(has_timetk_idx(fit_robets))
+
+    # Return vector of numeric regularized dates
+    test_index_7 <- fit_robets %>%
         tk_index(timetk_idx = FALSE)
     expect_equal(class(test_index_7), "numeric")
     expect_equal(length(test_index_7), 72)

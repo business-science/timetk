@@ -23,7 +23,8 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-
+  
+  
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -135,7 +136,7 @@ Column name to be used to <code>order.by</code>.
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Additional parameters to be passed to <code>xts::xts()</code>. Refer to <code>xts::xts()</code>.</p></td>
+      <td><p>Additional parameters to be passed to <code><a href='http://www.rdocumentation.org/packages/xts/topics/xts'>xts::xts()</a></code>. Refer to <code><a href='http://www.rdocumentation.org/packages/xts/topics/xts'>xts::xts()</a></code>.</p></td>
     </tr>
     </table>
     
@@ -145,7 +146,7 @@ Column name to be used to <code>order.by</code>.
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p><code>tk_xts</code> is a wrapper for <code>xts::xts()</code> that is designed
+    <p><code>tk_xts</code> is a wrapper for <code><a href='http://www.rdocumentation.org/packages/xts/topics/xts'>xts::xts()</a></code> that is designed
 to coerce <code>tibble</code> objects that have a "time-base" (meaning the values vary with time)
 to <code>xts</code> class objects. There are three main advantages:</p><ol>
 <li><p>Non-numeric columns that are not removed via <code>select</code> are dropped and the user is warned.
@@ -159,10 +160,10 @@ of columns from the incoming data.frame.
 Only columns containing numeric data are coerced.
 The <code>date_var</code> can be used to specify the column with the date index.
 If <code>date_var = NULL</code>, the date / date-time column is interpreted.
-Optionally, the <code>order.by</code> argument from the underlying <code>xts::xts()</code> function can be used.
+Optionally, the <code>order.by</code> argument from the underlying <code><a href='http://www.rdocumentation.org/packages/xts/topics/xts'>xts::xts()</a></code> function can be used.
 The user must pass a vector of dates or date-times if <code>order.by</code> is used.</p>
 <p>For non-data.frame object classes (e.g. <code>xts</code>, <code>zoo</code>, <code>timeSeries</code>, etc) the objects are coerced
-using <code>xts::xts()</code>.
+using <code><a href='http://www.rdocumentation.org/packages/xts/topics/xts'>xts::xts()</a></code>.
     <code>tk_xts_</code> is a nonstandard evaluation method.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
@@ -175,35 +176,35 @@ using <code>xts::xts()</code>.
 <span class='fu'>library</span>(<span class='no'>timekit</span>)
 
 <span class='co'>### tibble to xts: Comparison between tk_xts() and xts::xts()</span>
-<span class='no'>data_tbl</span> <span class='kw'>&lt;-</span> <span class='kw'>tibble</span><span class='kw'>::</span><span class='fu'>tibble</span>(
+<span class='no'>data_tbl</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>tibble</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/tibble/topics/tibble'>tibble</a></span>(
     <span class='kw'>date</span> <span class='kw'>=</span> <span class='fu'>seq.Date</span>(<span class='fu'>as.Date</span>(<span class='st'>"2016-01-01"</span>), <span class='kw'>by</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>length.out</span> <span class='kw'>=</span> <span class='fl'>5</span>),
     <span class='kw'>x</span>    <span class='kw'>=</span> <span class='fu'>rep</span>(<span class='st'>"chr values"</span>, <span class='fl'>5</span>),
     <span class='kw'>y</span>    <span class='kw'>=</span> <span class='fu'>cumsum</span>(<span class='fl'>1</span>:<span class='fl'>5</span>),
     <span class='kw'>z</span>    <span class='kw'>=</span> <span class='fu'>cumsum</span>(<span class='fl'>11</span>:<span class='fl'>15</span>) * <span class='fu'>rnorm</span>(<span class='fl'>1</span>))
 
 <span class='co'># xts: Character columns cause coercion issues; order.by must be passed a vector of dates</span>
-<span class='kw'>xts</span><span class='kw'>::</span><span class='fu'>xts</span>(<span class='no'>data_tbl</span>[,-<span class='fl'>1</span>], <span class='kw'>order.by</span> <span class='kw'>=</span> <span class='no'>data_tbl</span>$<span class='no'>date</span>)</div><div class='output co'>#&gt;            x            y    z           
-#&gt; 2016-01-01 "chr values" " 1" " -2.720578"
-#&gt; 2016-01-02 "chr values" " 3" " -5.688482"
-#&gt; 2016-01-03 "chr values" " 6" " -8.903711"
-#&gt; 2016-01-04 "chr values" "10" "-12.366265"
-#&gt; 2016-01-05 "chr values" "15" "-16.076145"</div><div class='input'>
+<span class='kw pkg'>xts</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/xts/topics/xts'>xts</a></span>(<span class='no'>data_tbl</span>[,-<span class='fl'>1</span>], <span class='kw'>order.by</span> <span class='kw'>=</span> <span class='no'>data_tbl</span>$<span class='no'>date</span>)</div><div class='output co'>#&gt;            x            y    z           
+#&gt; 2016-01-01 "chr values" " 1" " -20.03999"
+#&gt; 2016-01-02 "chr values" " 3" " -41.90181"
+#&gt; 2016-01-03 "chr values" " 6" " -65.58544"
+#&gt; 2016-01-04 "chr values" "10" " -91.09088"
+#&gt; 2016-01-05 "chr values" "15" "-118.41815"</div><div class='input'>
 <span class='co'># tk_xts: Non-numeric columns automatically dropped; No need to specify date column</span>
 <span class='fu'>tk_xts</span>(<span class='no'>data_tbl</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Non-numeric columns being dropped: date, x</span></div><div class='output co'>#&gt; <span class='message'>Using column `date` for date_var.</span></div><div class='output co'>#&gt;             y          z
-#&gt; 2016-01-01  1  -2.720578
-#&gt; 2016-01-02  3  -5.688482
-#&gt; 2016-01-03  6  -8.903711
-#&gt; 2016-01-04 10 -12.366265
-#&gt; 2016-01-05 15 -16.076145</div><div class='input'>
+#&gt; 2016-01-01  1  -20.03999
+#&gt; 2016-01-02  3  -41.90181
+#&gt; 2016-01-03  6  -65.58544
+#&gt; 2016-01-04 10  -91.09088
+#&gt; 2016-01-05 15 -118.41815</div><div class='input'>
 <span class='co'># ts can be coerced back to xts</span>
 <span class='no'>data_tbl</span> <span class='kw'>%&gt;%</span>
     <span class='fu'><a href='tk_ts.html'>tk_ts</a></span>(<span class='kw'>start</span> <span class='kw'>=</span> <span class='fl'>2016</span>, <span class='kw'>freq</span> <span class='kw'>=</span> <span class='fl'>365</span>) <span class='kw'>%&gt;%</span>
     <span class='fu'>tk_xts</span>()</div><div class='output co'>#&gt; <span class='warning'>Warning: Non-numeric columns being dropped: date, x</span></div><div class='output co'>#&gt;             y          z
-#&gt; 2016-01-01  1  -2.720578
-#&gt; 2016-01-02  3  -5.688482
-#&gt; 2016-01-03  6  -8.903711
-#&gt; 2016-01-04 10 -12.366265
-#&gt; 2016-01-05 15 -16.076145</div><div class='input'>
+#&gt; 2016-01-01  1  -20.03999
+#&gt; 2016-01-02  3  -41.90181
+#&gt; 2016-01-03  6  -65.58544
+#&gt; 2016-01-04 10  -91.09088
+#&gt; 2016-01-05 15 -118.41815</div><div class='input'>
 <span class='co'>### Using select and date_var</span>
 <span class='fu'>tk_xts</span>(<span class='no'>data_tbl</span>, <span class='kw'>select</span> <span class='kw'>=</span> <span class='no'>y</span>, <span class='kw'>date_var</span> <span class='kw'>=</span> <span class='no'>date</span>)</div><div class='output co'>#&gt;             y
 #&gt; 2016-01-01  1

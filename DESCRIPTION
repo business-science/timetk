@@ -1,8 +1,8 @@
 Package: timetk
 Type: Package
 Title: A Collection of Tools for Working with Time Series in R
-Version: 0.3.1.9000
-Date: 2017-06-30
+Version: 0.3.1.9001
+Date: 2017-07-12
 Authors@R: c(
     person("Matt", "Dancho", email = "mdancho@business-science.io", role = c("aut", "cre")),
     person("Davis", "Vaughan", email = "dvaughan@business-science.io", role = c("aut"))
@@ -38,6 +38,7 @@ Suggests:
     forcats,
     knitr,
     rmarkdown,
+    robets,
     scales,
     stringr,
     testthat,
