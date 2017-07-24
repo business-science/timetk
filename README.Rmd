@@ -183,6 +183,7 @@ A lot of innovative time series and forecasting work is going on that ultimately
 * [`xts`](https://github.com/joshuaulrich/xts) and `zoo`: Fundamental packages for working with time series enabling creation of a time series index for `ts` class and calculating periodicity. 
 
 
+
 ## Further Information
 
 The `timetk` package includes a vignette to help users get up to speed quickly:
