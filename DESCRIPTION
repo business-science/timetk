@@ -38,6 +38,7 @@ Suggests:
     forcats,
     knitr,
     rmarkdown,
+    robets,
     scales,
     stringr,
     testthat,
