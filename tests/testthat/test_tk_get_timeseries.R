@@ -149,3 +149,12 @@ test_that("tk_get_timeseries_variables() test returns correct format.", {
     expect_equal(tk_get_timeseries_variables(test_date_vars),
                  c("my.date", "my.datetime", "my.yearmon", "my.yearqtr"))
 })
+
+
+# tk_get_timeseries_unit_frequency -----
+
+test <- tk_get_timeseries_unit_frequency()
+
+test_that("tk_get_timeseries_unit_frequency() test returns correct format.", {
+    expect_equal(nrow(test), 1)
+})
