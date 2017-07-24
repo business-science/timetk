@@ -1,9 +1,9 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-timekit
-=======
+timetk
+======
 
-[![Travis-CI Build Status](https://travis-ci.org/business-science/timekit.svg?branch=master)](https://travis-ci.org/business-science/timekit.svg?branch=master) [![codecov](https://codecov.io/gh/business-science/timekit/branch/master/graph/badge.svg)](https://codecov.io/gh/business-science/timekit) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/timekit)](https://cran.r-project.org/package=timekit) ![](http://cranlogs.r-pkg.org/badges/timekit?color=brightgreen) ![](http://cranlogs.r-pkg.org/badges/grand-total/timekit?color=brightgreen)
+[![Travis-CI Build Status](https://travis-ci.org/business-science/timetk.svg?branch=master)](https://travis-ci.org/business-science/timetk.svg?branch=master) [![codecov](https://codecov.io/gh/business-science/timetk/branch/master/graph/badge.svg)](https://codecov.io/gh/business-science/timetk) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/timetk)](https://cran.r-project.org/package=timetk) ![](http://cranlogs.r-pkg.org/badges/timetk?color=brightgreen) ![](http://cranlogs.r-pkg.org/badges/grand-total/timetk?color=brightgreen)
 
 <img src="tools/logo.png" width="147" height="170" align="right" />
 
@@ -12,14 +12,14 @@ timekit
 Benefits
 --------
 
-The `timekit` package enables a user to more easily work with time series objects in R. The package has tools for inspecting and manipulating the time-based index, expanding the time features for data mining and machine learning, and converting time-based objects to and from the many time series classes. The following are key benefits:
+The `timetk` package enables a user to more easily work with time series objects in R. The package has tools for inspecting and manipulating the time-based index, expanding the time features for data mining and machine learning, and converting time-based objects to and from the many time series classes. The following are key benefits:
 
 -   **Index extraction**: get the time series index from any time series object.
 -   **Understand time series**: create a signature and summary from a time series index.
 -   **Build future time series**: create a future time series from an index.
 -   **Coerce between time-based tibbles (`tbl`) and the major time series data types `xts`, `zoo`, `zooreg`, and `ts`**: Simplifies coercion and maximizes time-based data retention during coercion to regularized time series (e.g. `ts`).
 
-An example of the forecasting capabilities as shown in vignette TK03 - Forecasting Using a Time Series Signature with `timekit`.
+An example of the forecasting capabilities as shown in vignette TK03 - Forecasting Using a Time Series Signature with `timetk`.
 
 <img src="tools/bikes_forecast.png" width="100%" />
 
@@ -28,7 +28,7 @@ Tools
 
 The package contains the following functions:
 
-1.  **Get an index**: `tk_index` returns the time series index of time series objects, models. The argument `timekit_idx` can be used to return a special timekit "index" attribute for regularized `ts` objects that returns a non-regularized date / date-time index if present.
+1.  **Get an index**: `tk_index` returns the time series index of time series objects, models. The argument `timetk_idx` can be used to return a special timetk "index" attribute for regularized `ts` objects that returns a non-regularized date / date-time index if present.
 
 2.  **Get critical timeseries information**: `tk_get_timeseries_signature` and `tk_get_timeseries_summary` takes an index and provides a time series decomposition and key summary attributes of the index, respectively. The `tk_augment_timeseries_signature` expedites adding the time series decomposition to the time series object.
 
@@ -42,7 +42,7 @@ Getting started
 Load libraries and start with some time series data
 
 ``` r
-library(timekit)
+library(timetk)
 library(tidyquant)
 ```
 
@@ -87,24 +87,24 @@ Get the time series signature from the index, a tibble of decomposed features th
 
 ``` r
 tk_get_timeseries_signature(idx)
-#> # A tibble: 1,008 x 28
-#>         index  index.num   diff  year  half quarter month month.xts
-#>        <date>      <int>  <int> <int> <int>   <int> <int>     <int>
-#>  1 2013-01-02 1357084800     NA  2013     1       1     1         0
-#>  2 2013-01-03 1357171200  86400  2013     1       1     1         0
-#>  3 2013-01-04 1357257600  86400  2013     1       1     1         0
-#>  4 2013-01-07 1357516800 259200  2013     1       1     1         0
-#>  5 2013-01-08 1357603200  86400  2013     1       1     1         0
-#>  6 2013-01-09 1357689600  86400  2013     1       1     1         0
-#>  7 2013-01-10 1357776000  86400  2013     1       1     1         0
-#>  8 2013-01-11 1357862400  86400  2013     1       1     1         0
-#>  9 2013-01-14 1358121600 259200  2013     1       1     1         0
-#> 10 2013-01-15 1358208000  86400  2013     1       1     1         0
-#> # ... with 998 more rows, and 20 more variables: month.lbl <ord>,
-#> #   day <int>, hour <int>, minute <int>, second <int>, hour12 <int>,
-#> #   am.pm <int>, wday <int>, wday.xts <int>, wday.lbl <ord>, mday <int>,
-#> #   qday <int>, yday <int>, mweek <int>, week <int>, week.iso <int>,
-#> #   week2 <int>, week3 <int>, week4 <int>, mday7 <dbl>
+#> # A tibble: 1,008 x 29
+#>         index  index.num   diff  year year.iso  half quarter month
+#>        <date>      <int>  <int> <int>    <int> <int>   <int> <int>
+#>  1 2013-01-02 1357084800     NA  2013     2013     1       1     1
+#>  2 2013-01-03 1357171200  86400  2013     2013     1       1     1
+#>  3 2013-01-04 1357257600  86400  2013     2013     1       1     1
+#>  4 2013-01-07 1357516800 259200  2013     2013     1       1     1
+#>  5 2013-01-08 1357603200  86400  2013     2013     1       1     1
+#>  6 2013-01-09 1357689600  86400  2013     2013     1       1     1
+#>  7 2013-01-10 1357776000  86400  2013     2013     1       1     1
+#>  8 2013-01-11 1357862400  86400  2013     2013     1       1     1
+#>  9 2013-01-14 1358121600 259200  2013     2013     1       1     1
+#> 10 2013-01-15 1358208000  86400  2013     2013     1       1     1
+#> # ... with 998 more rows, and 21 more variables: month.xts <int>,
+#> #   month.lbl <ord>, day <int>, hour <int>, minute <int>, second <int>,
+#> #   hour12 <int>, am.pm <int>, wday <int>, wday.xts <int>, wday.lbl <ord>,
+#> #   mday <int>, qday <int>, yday <int>, mweek <int>, week <int>,
+#> #   week.iso <int>, week2 <int>, week3 <int>, week4 <int>, mday7 <int>
 ```
 
 Get a summary of the time series
@@ -176,7 +176,7 @@ FB_zoo <- tk_zoo(FB_tbl, silent = TRUE)
 FB_ts <- tk_ts(FB_tbl, start = 2013, freq = 252, silent = TRUE)
 ```
 
-This covers the basics of the `timekit` package capabilities. Here's how to get started.
+This covers the basics of the `timetk` package capabilities. Here's how to get started.
 
 Installation
 ------------
@@ -185,30 +185,30 @@ Installation
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("business-science/timekit")
+devtools::install_github("business-science/timetk")
 ```
 
 *Or, download CRAN approved version*:
 
 ``` r
-install.packages("timekit")
+install.packages("timetk")
 ```
 
 Acknowledgements: Standing On Shoulders
 ---------------------------------------
 
-A lot of innovative time series and forecasting work is going on that ultimately benefits the community. We'd like to thank the following people and packages that came before `timekit` in time series analysis and machine learning.
+A lot of innovative time series and forecasting work is going on that ultimately benefits the community. We'd like to thank the following people and packages that came before `timetk` in time series analysis and machine learning.
 
--   [`maltese`](https://github.com/bearloga/maltese): Similar in respect to `timekit` in that it enables machine learning-friendly data frame generation exposing a number of critical features that can be used for forecasting.
+-   [`maltese`](https://github.com/bearloga/maltese): Similar in respect to `timetk` in that it enables machine learning-friendly data frame generation exposing a number of critical features that can be used for forecasting.
 -   [`lubridate`](https://github.com/hadley/lubridate): Contains an excellent set of functions to extract components of the date and datetime index.
 -   [`xts`](https://github.com/joshuaulrich/xts) and `zoo`: Fundamental packages for working with time series enabling creation of a time series index for `ts` class and calculating periodicity.
 
 Further Information
 -------------------
 
-The `timekit` package includes a vignette to help users get up to speed quickly:
+The `timetk` package includes a vignette to help users get up to speed quickly:
 
--   TK00 - Time Series Coercion Using `timekit`
--   TK01 - Working with the Time Series Index using `timekit`
--   TK02 - Making a Future Time Series Index using `timekit`
--   TK03 - Forecasting Using a Time Series Signature with `timekit`
+-   TK00 - Time Series Coercion Using `timetk`
+-   TK01 - Working with the Time Series Index using `timetk`
+-   TK02 - Making a Future Time Series Index using `timetk`
+-   TK03 - Forecasting Using a Time Series Signature with `timetk`
