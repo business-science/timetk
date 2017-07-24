@@ -5,6 +5,7 @@ timetk
 
 [![Travis-CI Build Status](https://travis-ci.org/business-science/timetk.svg?branch=master)](https://travis-ci.org/business-science/timetk.svg?branch=master) [![codecov](https://codecov.io/gh/business-science/timetk/branch/master/graph/badge.svg)](https://codecov.io/gh/business-science/timetk) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/timetk)](https://cran.r-project.org/package=timetk) ![](http://cranlogs.r-pkg.org/badges/timetk?color=brightgreen) ![](http://cranlogs.r-pkg.org/badges/grand-total/timetk?color=brightgreen)
 
+
 <img src="tools/logo.png" width="147" height="170" align="right" />
 
 > A collection of tools for working with time series in R
