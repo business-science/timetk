@@ -1,5 +1,5 @@
 ## Release Summary
-This is the fourth release of `timekit` for CRAN review. Minor changes were made to incorporate feature requests and clean up DESCRIPTION.
+This is the first release of `timetk` for CRAN review. The package was formerly called `timekit`, and the major change is the name. 
 
 
 ## Test environments

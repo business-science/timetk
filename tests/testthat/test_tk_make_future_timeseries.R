@@ -1,4 +1,4 @@
-library(timekit)
+library(timetk)
 library(tidyquant)
 context("Testing tk_make_future_timeseries")
 

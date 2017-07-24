@@ -1,5 +1,5 @@
 ---
-title: "Making a Future Time Series Index using timekit"
+title: "Making a Future Time Series Index using timetk"
 author: "Matt Dancho"
 date: "`r Sys.Date()`"
 output: 
@@ -7,7 +7,7 @@ output:
     toc: true
     toc_depth: 2
 vignette: >
-  %\VignetteIndexEntry{Making a Future Time Series Index using timekit}
+  %\VignetteIndexEntry{Making a Future Time Series Index using timetk}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -23,7 +23,7 @@ knitr::opts_chunk$set(
     dpi = 200
 )
 library(tidyquant)
-library(timekit)
+library(timetk)
 # devtools::load_all() # Travis CI fails on load_all()
 ```
 
@@ -41,7 +41,7 @@ Before we get started, load the following packages.
 
 ```{r, eval = F}
 library(tidyquant)
-library(timekit)
+library(timetk)
 ```
 
 # Example 1: Remove Weekends and Last Two Weeks of Year
@@ -298,6 +298,6 @@ idx_future %>%
 
 # Parting Thoughts
 
-Building the future date sequence is an essential part of forecasting using `timekit`. An innaccurate date sequence can hurt the performance of the forecast. The `tk_make_future_index()` function has methods to remove frequently missing dates. However, the user should always review the output to ensure an accurate future date sequence is achieved.
+Building the future date sequence is an essential part of forecasting using `timetk`. An innaccurate date sequence can hurt the performance of the forecast. The `tk_make_future_index()` function has methods to remove frequently missing dates. However, the user should always review the output to ensure an accurate future date sequence is achieved.
 
 Further, holidays are difficult to predict using `inspect_months` due to the irregular nature. It is likely better for the user to select `inspect_weekdays = TRUE` and use `skip_values` to remove irregular holidays. Use `inspect_months` when there are missing dates that occur on a monthly, quarterly, or yearly frequency as part of a regular pattern. Use `skip_values` and `insert_values` to remove and add dates as necessary to account for irregular missing days. 

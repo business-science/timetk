@@ -1,4 +1,4 @@
-library(timekit)
+library(timetk)
 library(forecast)
 context("Test tk_tbl")
 
@@ -48,7 +48,7 @@ test_that("zooreg to tbl test returns tibble with correct rows and columns.", {
 
     # zooreg reverse coercion test ----
     test_tbl_3b <- AAPL_zooreg %>%
-        tk_tbl(rename_index = "date", timekit_idx = TRUE)
+        tk_tbl(rename_index = "date", timetk_idx = TRUE)
     expect_identical(test_tbl_3b, AAPL_tbl)
 
     # Test different start/end types
@@ -79,15 +79,15 @@ test_that("mts to tbl test returns tibble with correct rows and columns.", {
     # Warning if no index to preserve
     expect_warning(tk_tbl(tk_ts(AAPL_mts, start = 1), select = -date, preserve_index = T))
 
-    # Warning if no timekit index attribute
+    # Warning if no timetk index attribute
     expect_warning(
         WWWusage %>%
-            tk_tbl(timekit_idx = TRUE)
+            tk_tbl(timetk_idx = TRUE)
         )
 
     # ts reverse coercion test ----
     test_tbl_4b <- AAPL_mts %>%
-        tk_tbl(rename_index = "date", timekit_idx = TRUE)
+        tk_tbl(rename_index = "date", timetk_idx = TRUE)
     expect_identical(test_tbl_4b, AAPL_tbl)
 })
 

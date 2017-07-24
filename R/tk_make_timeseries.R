@@ -48,7 +48,7 @@
 #'
 #' @examples
 #' library(tidyquant)
-#' library(timekit)
+#' library(timetk)
 #'
 #' # Basic example
 #' idx <- c("2016-01-01 00:00:00",

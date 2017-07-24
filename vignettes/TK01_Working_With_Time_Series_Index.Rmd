@@ -1,5 +1,5 @@
 ---
-title: "Working with the Time Series Index using timekit"
+title: "Working with the Time Series Index using timetk"
 author: "Matt Dancho"
 date: "`r Sys.Date()`"
 output: 
@@ -7,7 +7,7 @@ output:
     toc: true
     toc_depth: 2
 vignette: >
-  %\VignetteIndexEntry{Working with the Time Series Index using timekit}
+  %\VignetteIndexEntry{Working with the Time Series Index using timetk}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -23,7 +23,7 @@ knitr::opts_chunk$set(
     dpi = 200
 )
 library(tidyquant)
-library(timekit)
+library(timetk)
 library(forecast)
 # devtools::load_all() # Travis CI fails on load_all()
 ```
@@ -40,7 +40,7 @@ Before we get started, load the following packages.
 
 ```{r, eval = F}
 library(tidyquant)
-library(timekit)
+library(timetk)
 ```
 
 # Data

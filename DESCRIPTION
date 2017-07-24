@@ -1,4 +1,4 @@
-Package: timekit
+Package: timetk
 Type: Package
 Title: A Collection of Tools for Working with Time Series in R
 Version: 0.3.1.9000
@@ -12,8 +12,8 @@ Description:
     time-based tibbles. Create future time series based on properties of 
     existing time series index.  
     Coerce between time-based tibbles ('tbl') and 'xts', 'zoo', and 'ts'. 
-URL: https://github.com/business-science/timekit
-BugReports: https://github.com/business-science/timekit/issues
+URL: https://github.com/business-science/timetk
+BugReports: https://github.com/business-science/timetk/issues
 License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true

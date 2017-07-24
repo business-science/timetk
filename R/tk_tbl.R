@@ -3,8 +3,8 @@
 #' @param data A time-series object.
 #' @param preserve_index Attempts to preserve a time series index. Default is `TRUE`.
 #' @param rename_index Enables the index column to be renamed.
-#' @param timekit_idx Used to return a date / datetime index for
-#' regularized objects that contain a timekit "index" attribute.
+#' @param timetk_idx Used to return a date / datetime index for
+#' regularized objects that contain a timetk "index" attribute.
 #' Refer to [tk_index()] for more information on returning index information
 #' from regularized timeseries objects (i.e. `ts`).
 #' @param silent Used to toggle printing of messages and warnings.
@@ -22,17 +22,17 @@
 #' the date or date-time information. The date / date-time column name
 #' can be changed using the `rename_index` argument.
 #'
-#' The `timekit_idx` argument is applicable when coercing `ts` objects that were
+#' The `timetk_idx` argument is applicable when coercing `ts` objects that were
 #' created using `tk_ts()` from an object that had a time base
 #' (e.g. `tbl`, `xts`, `zoo`).
-#' Setting `timekit_idx = TRUE` enables returning the timekit "index" attribute if present,
+#' Setting `timetk_idx = TRUE` enables returning the timetk "index" attribute if present,
 #' which is the original (non-regularized) time-based index.
 #'
 #' @seealso [tk_xts()], [tk_zoo()], [tk_zooreg()], [tk_ts()]
 #'
 #' @examples
 #' library(tidyverse)
-#' library(timekit)
+#' library(timetk)
 #'
 #' data_tbl <- tibble(
 #'     date = seq.Date(from = as.Date("2010-01-01"), by = 1, length.out = 5),
@@ -50,7 +50,7 @@
 #' tk_tbl(data_ts)
 #'
 #' # Original date index returned (Only possible if original data has time-based index)
-#' tk_tbl(data_ts, timekit_idx = TRUE)
+#' tk_tbl(data_ts, timetk_idx = TRUE)
 #'
 #'
 #' ### xts to tibble: Comparison between as.data.frame() and tk_tbl()
@@ -86,12 +86,12 @@
 #'
 #'
 #' @export
-tk_tbl <- function(data, preserve_index = TRUE, rename_index = "index", timekit_idx = FALSE, silent = FALSE, ...) {
+tk_tbl <- function(data, preserve_index = TRUE, rename_index = "index", timetk_idx = FALSE, silent = FALSE, ...) {
     UseMethod("tk_tbl", data)
 }
 
 #' @export
-tk_tbl.data.frame <- function(data, preserve_index = TRUE, rename_index = "index", timekit_idx = FALSE, silent = FALSE, ...) {
+tk_tbl.data.frame <- function(data, preserve_index = TRUE, rename_index = "index", timetk_idx = FALSE, silent = FALSE, ...) {
 
     if (preserve_index == TRUE) {
 
@@ -126,24 +126,24 @@ tk_tbl.data.frame <- function(data, preserve_index = TRUE, rename_index = "index
 }
 
 #' @export
-tk_tbl.xts <- function(data, preserve_index = TRUE, rename_index = "index", timekit_idx = FALSE, silent = FALSE, ...) {
+tk_tbl.xts <- function(data, preserve_index = TRUE, rename_index = "index", timetk_idx = FALSE, silent = FALSE, ...) {
 
     # Coerce to zoo, then to tbl
-    ret <- tk_tbl(zoo::as.zoo(data), preserve_index, rename_index, timekit_idx, silent, ...)
+    ret <- tk_tbl(zoo::as.zoo(data), preserve_index, rename_index, timetk_idx, silent, ...)
     return(ret)
 }
 
 #' @export
-tk_tbl.matrix <- function(data, preserve_index = TRUE, rename_index = "index", timekit_idx = FALSE, silent = FALSE, ...) {
+tk_tbl.matrix <- function(data, preserve_index = TRUE, rename_index = "index", timetk_idx = FALSE, silent = FALSE, ...) {
 
     # Coerce to data frame, then to tbl
-    ret <- tk_tbl(as.data.frame(data), preserve_index, rename_index, timekit_idx, silent, ...)
+    ret <- tk_tbl(as.data.frame(data), preserve_index, rename_index, timetk_idx, silent, ...)
     return(ret)
 
 }
 
 #' @export
-tk_tbl.zoo <- function(data, preserve_index = TRUE, rename_index = "index", timekit_idx = FALSE, silent = FALSE, ...) {
+tk_tbl.zoo <- function(data, preserve_index = TRUE, rename_index = "index", timetk_idx = FALSE, silent = FALSE, ...) {
 
     if (preserve_index == TRUE) {
 
@@ -183,60 +183,60 @@ tk_tbl.zoo <- function(data, preserve_index = TRUE, rename_index = "index", time
 }
 
 #' @export
-tk_tbl.zooreg <- function(data, preserve_index = TRUE, rename_index = "index", timekit_idx = FALSE, silent = FALSE, ...) {
+tk_tbl.zooreg <- function(data, preserve_index = TRUE, rename_index = "index", timetk_idx = FALSE, silent = FALSE, ...) {
 
-    # Handle timekit index
-    if (timekit_idx && preserve_index) {
+    # Handle timetk index
+    if (timetk_idx && preserve_index) {
 
         # Index attribute found?
         first_val <- rownames(data)[[1]]
         if (!is.null(first_val)) {
             # Coerce to xts then to tbl
-            index <- tk_index(data, timekit_idx = TRUE)
+            index <- tk_index(data, timetk_idx = TRUE)
             ret <- tk_xts(data, order.by = index) %>%
                 tk_tbl(preserve_index = preserve_index,
                        rename_index   = rename_index,
-                       timekit_idx     = timekit_idx,
+                       timetk_idx     = timetk_idx,
                        silent         = silent,
                        ...            = ...)
         } else {
-            if (!silent) warning("No `timekit index` attribute found. Using regularized index.")
-            ret <- tk_tbl(zoo::as.zoo(data), preserve_index, rename_index, timekit_idx, silent, ...)
+            if (!silent) warning("No `timetk index` attribute found. Using regularized index.")
+            ret <- tk_tbl(zoo::as.zoo(data), preserve_index, rename_index, timetk_idx, silent, ...)
         }
 
     } else {
         # Coerce to zoo then convert to tibble
-        ret <- tk_tbl(zoo::as.zoo(data), preserve_index, rename_index, timekit_idx, silent, ...)
+        ret <- tk_tbl(zoo::as.zoo(data), preserve_index, rename_index, timetk_idx, silent, ...)
     }
 
     return(ret)
 }
 
 #' @export
-tk_tbl.ts <- function(data, preserve_index = TRUE, rename_index = "index", timekit_idx = FALSE, silent = FALSE, ...) {
+tk_tbl.ts <- function(data, preserve_index = TRUE, rename_index = "index", timetk_idx = FALSE, silent = FALSE, ...) {
 
-    # Handle timekit index
-    if (timekit_idx && preserve_index) {
+    # Handle timetk index
+    if (timetk_idx && preserve_index) {
 
         # Index attribute found?
         index_attr <- attr(data, "index")
         if (!is.null(index_attr)) {
             # Coerce to xts then to tbl
-            index <- tk_index(data, timekit_idx = TRUE)
+            index <- tk_index(data, timetk_idx = TRUE)
             ret <- tk_xts(data, order.by = index) %>%
                 tk_tbl(preserve_index = preserve_index,
                        rename_index   = rename_index,
-                       timekit_idx     = timekit_idx,
+                       timetk_idx     = timetk_idx,
                        silent         = silent,
                        ...            = ...)
         } else {
-            # if (!silent) warning("No timekit `index` attribute found. Using regularized index.")
-            ret <- tk_tbl(zoo::as.zoo(data), preserve_index, rename_index, timekit_idx, silent, ...)
+            # if (!silent) warning("No timetk `index` attribute found. Using regularized index.")
+            ret <- tk_tbl(zoo::as.zoo(data), preserve_index, rename_index, timetk_idx, silent, ...)
         }
 
     } else {
         # Coerce to zoo then convert to tibble
-        ret <- tk_tbl(zoo::as.zoo(data), preserve_index, rename_index, timekit_idx, silent, ...)
+        ret <- tk_tbl(zoo::as.zoo(data), preserve_index, rename_index, timetk_idx, silent, ...)
     }
 
     return(ret)
@@ -246,34 +246,34 @@ tk_tbl.ts <- function(data, preserve_index = TRUE, rename_index = "index", timek
 
 
 #' @export
-tk_tbl.msts <- function(data, preserve_index = TRUE, rename_index = "index", timekit_idx = FALSE, silent = FALSE, ...) {
+tk_tbl.msts <- function(data, preserve_index = TRUE, rename_index = "index", timetk_idx = FALSE, silent = FALSE, ...) {
 
     # Coerce to zoo then convert to tibble
-    ret <- tk_tbl(zoo::as.zoo(data), preserve_index, rename_index, timekit_idx, silent, ...)
+    ret <- tk_tbl(zoo::as.zoo(data), preserve_index, rename_index, timetk_idx, silent, ...)
     return(ret)
 }
 
 #' @export
-tk_tbl.timeSeries <- function(data, preserve_index = TRUE, rename_index = "index", timekit_idx = FALSE, silent = FALSE, ...) {
+tk_tbl.timeSeries <- function(data, preserve_index = TRUE, rename_index = "index", timetk_idx = FALSE, silent = FALSE, ...) {
 
     # Coerce to data frame, then to tbl (No index to coerce to zoo)
-    ret <- tk_tbl(as.data.frame(data), preserve_index, rename_index, timekit_idx, silent, ...)
+    ret <- tk_tbl(as.data.frame(data), preserve_index, rename_index, timetk_idx, silent, ...)
     return(ret)
 }
 
 #' @export
-tk_tbl.irts <- function(data, preserve_index = TRUE, rename_index = "index", timekit_idx = FALSE, silent = FALSE, ...) {
+tk_tbl.irts <- function(data, preserve_index = TRUE, rename_index = "index", timetk_idx = FALSE, silent = FALSE, ...) {
 
     # Coerce to zoo then convert to tibble
-    ret <- tk_tbl(zoo::as.zoo(data), preserve_index, rename_index, timekit_idx, silent, ...)
+    ret <- tk_tbl(zoo::as.zoo(data), preserve_index, rename_index, timetk_idx, silent, ...)
     return(ret)
 }
 
 
 #' @export
-tk_tbl.default <- function(data, preserve_index = TRUE, rename_index = "index", timekit_idx = FALSE, silent = FALSE, ...) {
+tk_tbl.default <- function(data, preserve_index = TRUE, rename_index = "index", timetk_idx = FALSE, silent = FALSE, ...) {
 
-    ret <- tk_tbl(as.data.frame(data), preserve_index, rename_index, timekit_idx, silent, ...)
+    ret <- tk_tbl(as.data.frame(data), preserve_index, rename_index, timetk_idx, silent, ...)
     return(ret)
 
 }

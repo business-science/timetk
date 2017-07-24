@@ -24,7 +24,7 @@ See \href{https://github.com/EdwinTh/padr/blob/master/R/helpers.R}{padr helpers.
 }
 \examples{
 library(tidyquant)
-library(timekit)
+library(timetk)
 
 FANG \%>\%
     tk_get_timeseries_variables()

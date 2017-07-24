@@ -1,8 +1,9 @@
-# timekit 0.3.1.9000
+# timetk 0.3.1.9000
+* Renamed package `timetk`. Was formerly `timekit`. 
 * Improvements:
     * Fixed issue with back-ticked date columns
 
-# timekit 0.3.1
+# timetk 0.3.1
 * Improvements:
     * `tk_index` and `tk_has_index`: Added `decomposed.ts` 
     * `tk_get_timeseries_signature` and `tk_augment_timeseries_signature`:
@@ -13,7 +14,7 @@
     
 
 
-# timekit 0.3.0
+# timetk 0.3.0
 * Improvements:
     * `tk_make_future_timeseries`: 
         * Improved future date picking algorithm to look for seasonal trends by way of `inspect_months`. The data must span at least two calendar years to gain this benefit. 
@@ -21,11 +22,11 @@
         * Includes a new argument, `insert_values` to add time-based values into a time series. Before you could remove via `skip_values`, and now you can add via `insert_values`.
         * Changed `n_future` to be inclusive of skip_values and weekends, which means that the end date of the future period is the same regardless of `inspect_weekdays`, `inspect_months`, `skip_values`, and now `insert_values`. Now the end dates are fixed which helps when manipulating future days.
 * Documentation:
-    * (New Vignette) TK02 - Making a Future Time Series Index using timekit
-    * (New Vignette) TK03 - Forecasting Using a Time Series Signature with timekit
+    * (New Vignette) TK02 - Making a Future Time Series Index using timetk
+    * (New Vignette) TK03 - Forecasting Using a Time Series Signature with timetk
          
 
-# timekit 0.2.0
+# timetk 0.2.0
 
 * New Functions:
     * `tk_make_future_timeseries` creates a future time-based index from an existing time-based index. 
@@ -39,6 +40,6 @@
     
 
 
-# timekit 0.1.0 
+# timetk 0.1.0 
 
-* Initial release of `timekit`, a time series toolkit that simplifies coercion between time series classes and time-based tibbles ("tidy" data frames).
+* Initial release of `timetk`, a time series toolkit that simplifies coercion between time series classes and time-based tibbles ("tidy" data frames).

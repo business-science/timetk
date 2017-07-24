@@ -1,5 +1,5 @@
 ---
-title: "Forecasting Using a Time Series Signature with timekit"
+title: "Forecasting Using a Time Series Signature with timetk"
 author: "Matt Dancho"
 date: "`r Sys.Date()`"
 output: 
@@ -7,7 +7,7 @@ output:
     toc: true
     toc_depth: 2
 vignette: >
-  %\VignetteIndexEntry{Forecasting Using a Time Series Signature with timekit}
+  %\VignetteIndexEntry{Forecasting Using a Time Series Signature with timetk}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -23,14 +23,14 @@ knitr::opts_chunk$set(
     dpi = 200
 )
 library(tidyquant)
-library(timekit)
+library(timetk)
 library(broom)
 # devtools::load_all() # Travis CI fails on load_all()
 ```
 
 > A collection of tools for working with time series in R
 
-The time series signature is a collection of useful features that describe the time series index of a time-based data set. It contains a wealth of features that can be used to forecast time series that contain patterns. In this vignette, the user will learn methods to implement machine learning to predict future outcomes in a time-based data set. The vignette example uses a well known time series dataset, the Bike Sharing Dataset, from the UCI Machine Learning Repository. The vignette follows an example where we'll use `timekit` to build a basic Machine Learning model to predict future values using the time series signature. The objective is to build a model and predict the next six months of Bike Sharing daily counts.  
+The time series signature is a collection of useful features that describe the time series index of a time-based data set. It contains a wealth of features that can be used to forecast time series that contain patterns. In this vignette, the user will learn methods to implement machine learning to predict future outcomes in a time-based data set. The vignette example uses a well known time series dataset, the Bike Sharing Dataset, from the UCI Machine Learning Repository. The vignette follows an example where we'll use `timetk` to build a basic Machine Learning model to predict future values using the time series signature. The objective is to build a model and predict the next six months of Bike Sharing daily counts.  
 
 
 # Prerequisites
@@ -39,7 +39,7 @@ Before we get started, load the following packages.
 
 ```{r, eval = F}
 library(tidyquant)
-library(timekit)
+library(timetk)
 library(broom)
 ```
 

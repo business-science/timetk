@@ -1,4 +1,4 @@
 library(testthat)
-library(timekit)
+library(timetk)
 
-test_check("timekit")
+test_check("timetk")

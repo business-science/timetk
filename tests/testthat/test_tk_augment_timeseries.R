@@ -1,4 +1,4 @@
-library(timekit)
+library(timetk)
 library(tidyquant)
 context("Testing tk_augment_timeseries_signature function")
 

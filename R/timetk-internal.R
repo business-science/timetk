@@ -1,10 +1,10 @@
-#' Internal Functions Used in timekit
+#' Internal Functions Used in timetk
 #'
 #' The following are internal functions that are not meant to be used by
 #' users.
 #'
 #' @inheritParams tk_zooreg
 #'
-#' @name timekit_internal
+#' @name timetk_internal
 #'
 NULL

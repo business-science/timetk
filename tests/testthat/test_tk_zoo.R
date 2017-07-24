@@ -1,4 +1,4 @@
-library(timekit)
+library(timetk)
 context("Test tk_zoo")
 
 AAPL_tbl <- tidyquant::tq_get("AAPL", from = "2015-01-01", to = "2016-12-31")

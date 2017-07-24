@@ -1,4 +1,4 @@
-library(timekit)
+library(timetk)
 context("Test tk_ts")
 
 AAPL_tbl <- tidyquant::tq_get("AAPL", from = "2015-01-01", to = "2016-12-31")
@@ -16,7 +16,7 @@ test_that("tbl to ts test returns ts with correct rows and columns.", {
 
     # Reverse coercion
     test_ts_2 <- test_ts_1 %>%
-        tk_tbl(rename_index = "date", timekit_idx = TRUE)
+        tk_tbl(rename_index = "date", timetk_idx = TRUE)
     expect_identical(AAPL_tbl, test_ts_2)
 
     # Auto-drop columns

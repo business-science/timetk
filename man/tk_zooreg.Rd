@@ -92,9 +92,9 @@ rownames(data_zooreg)      # NULL, no dates retained
 data_tk_zooreg <- tk_zooreg(data_tbl, start = 2016, freq = 365)
 data_tk_zooreg             # No inadvertent coercion to character class
 
-# timekit index
-tk_index(data_tk_zooreg, timekit_idx = FALSE)   # Regularized index returned
-tk_index(data_tk_zooreg, timekit_idx = TRUE)    # Original date index returned
+# timetk index
+tk_index(data_tk_zooreg, timetk_idx = FALSE)   # Regularized index returned
+tk_index(data_tk_zooreg, timetk_idx = TRUE)    # Original date index returned
 
 ### Using select and date_var
 tk_zooreg(data_tbl, select = y, date_var = date, start = 2016, freq = 365)

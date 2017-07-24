@@ -49,8 +49,8 @@ to coerce \code{tibble} objects that have a "time-base" (meaning the values vary
 to \code{ts} class objects. There are two main advantages:
 \enumerate{
 \item Non-numeric columns get removed instead of being populated by NA's.
-\item The returned \code{ts} object retains a "timekit index" (and various other attributes) if detected.
-The "timekit index" can be used to coerce between \code{tbl}, \code{xts}, \code{zoo}, and \code{ts} data types.
+\item The returned \code{ts} object retains a "timetk index" (and various other attributes) if detected.
+The "timetk index" can be used to coerce between \code{tbl}, \code{xts}, \code{zoo}, and \code{ts} data types.
 }
 
 The \code{select} argument is used to select subsets
@@ -65,7 +65,7 @@ using \code{stats::ts()}.
 }
 \examples{
 library(tidyverse)
-library(timekit)
+library(timetk)
 
 ### tibble to ts: Comparison between tk_ts() and stats::ts()
 data_tbl <- tibble::tibble(
@@ -81,12 +81,12 @@ stats::ts(data_tbl[,-1], start = 2016)
 data_ts <- tk_ts(data_tbl, start = 2016)
 data_ts
 
-# timekit index
-tk_index(data_ts, timekit_idx = FALSE)   # Regularized index returned
-tk_index(data_ts, timekit_idx = TRUE)    # Original date index returned
+# timetk index
+tk_index(data_ts, timetk_idx = FALSE)   # Regularized index returned
+tk_index(data_ts, timetk_idx = TRUE)    # Original date index returned
 
 # Coerce back to tibble
-data_ts \%>\% tk_tbl(timekit_idx = TRUE)
+data_ts \%>\% tk_tbl(timetk_idx = TRUE)
 
 
 ### Using select

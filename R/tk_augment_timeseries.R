@@ -16,7 +16,7 @@
 #'
 #' @examples
 #' library(tidyquant)
-#' library(timekit)
+#' library(timetk)
 #'
 #' FANG %>%
 #'     filter(symbol == "FB") %>%

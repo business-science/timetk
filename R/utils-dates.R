@@ -18,7 +18,7 @@
 #'
 #' @examples
 #' library(tidyquant)
-#' library(timekit)
+#' library(timetk)
 #'
 #' FANG %>%
 #'     tk_get_timeseries_variables()

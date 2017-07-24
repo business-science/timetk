@@ -21,7 +21,7 @@
 #' This prevents an error or coercion issue from occurring.
 #' 2. The date column is auto-detected if not specified by `date_var`. This takes
 #' the effort off the user to assign a date vector during coercion.
-#' 3. `ts` objects are automatically coerced if a "timekit index" is present. Refer to [tk_ts()].
+#' 3. `ts` objects are automatically coerced if a "timetk index" is present. Refer to [tk_ts()].
 #'
 #' The `select` argument can be used to select subsets
 #' of columns from the incoming data.frame.
@@ -40,7 +40,7 @@
 #'
 #' @examples
 #' library(tidyverse)
-#' library(timekit)
+#' library(timetk)
 #'
 #' ### tibble to xts: Comparison between tk_xts() and xts::xts()
 #' data_tbl <- tibble::tibble(
@@ -164,8 +164,8 @@ tk_xts_.ts <- function(data, select = NULL, date_var = NULL, silent = FALSE, ...
 
     # Interpret the order.by
     if (!("order.by" %in% names(xts_args))) {
-        if (has_timekit_idx(data)) {
-            xts_args$order.by <- tk_index(data, timekit_idx = TRUE)
+        if (has_timetk_idx(data)) {
+            xts_args$order.by <- tk_index(data, timetk_idx = TRUE)
         } else {
             stop("No date or date-time index found. Object must contain an unambigous date or date-time column.")
         }
@@ -196,8 +196,8 @@ tk_xts_.zooreg <- function(data, select = NULL, date_var = NULL, silent = FALSE,
 
     # Interpret the order.by
     if (!("order.by" %in% names(xts_args))) {
-        if (has_timekit_idx(data)) {
-            xts_args$order.by <- tk_index(data, timekit_idx = TRUE)
+        if (has_timetk_idx(data)) {
+            xts_args$order.by <- tk_index(data, timetk_idx = TRUE)
         } else {
             stop("No date or date-time index found. Object must contain an unambigous date or date-time column.")
         }

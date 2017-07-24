@@ -15,8 +15,8 @@
 #' to `ts` class objects. There are two main advantages:
 #'
 #' 1. Non-numeric columns get removed instead of being populated by NA's.
-#' 2. The returned `ts` object retains a "timekit index" (and various other attributes) if detected.
-#' The "timekit index" can be used to coerce between `tbl`, `xts`, `zoo`, and `ts` data types.
+#' 2. The returned `ts` object retains a "timetk index" (and various other attributes) if detected.
+#' The "timetk index" can be used to coerce between `tbl`, `xts`, `zoo`, and `ts` data types.
 #'
 #' The `select` argument is used to select subsets
 #' of columns from the incoming data.frame.
@@ -32,7 +32,7 @@
 #'
 #' @examples
 #' library(tidyverse)
-#' library(timekit)
+#' library(timetk)
 #'
 #' ### tibble to ts: Comparison between tk_ts() and stats::ts()
 #' data_tbl <- tibble::tibble(
@@ -48,12 +48,12 @@
 #' data_ts <- tk_ts(data_tbl, start = 2016)
 #' data_ts
 #'
-#' # timekit index
-#' tk_index(data_ts, timekit_idx = FALSE)   # Regularized index returned
-#' tk_index(data_ts, timekit_idx = TRUE)    # Original date index returned
+#' # timetk index
+#' tk_index(data_ts, timetk_idx = FALSE)   # Regularized index returned
+#' tk_index(data_ts, timetk_idx = TRUE)    # Original date index returned
 #'
 #' # Coerce back to tibble
-#' data_ts %>% tk_tbl(timekit_idx = TRUE)
+#' data_ts %>% tk_tbl(timetk_idx = TRUE)
 #'
 #'
 #' ### Using select
@@ -154,7 +154,7 @@ tk_ts_dispatch_ <- function(data, select, start, end, frequency, deltat, ts.eps,
 
 
 
-#' @rdname timekit_internal
+#' @rdname timetk_internal
 #' @export
 tk_ts_.data.frame <- function(data, select, start, end, frequency, deltat, ts.eps, silent) {
 
@@ -170,7 +170,7 @@ tk_ts_.data.frame <- function(data, select, start, end, frequency, deltat, ts.ep
 
 }
 
-#' @rdname timekit_internal
+#' @rdname timetk_internal
 #' @export
 tk_ts_.default <- function(data, select, start, end, frequency, deltat, ts.eps, silent) {
 

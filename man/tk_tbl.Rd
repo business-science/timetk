@@ -5,7 +5,7 @@
 \title{Coerce time-series objects to tibble.}
 \usage{
 tk_tbl(data, preserve_index = TRUE, rename_index = "index",
-  timekit_idx = FALSE, silent = FALSE, ...)
+  timetk_idx = FALSE, silent = FALSE, ...)
 }
 \arguments{
 \item{data}{A time-series object.}
@@ -14,8 +14,8 @@ tk_tbl(data, preserve_index = TRUE, rename_index = "index",
 
 \item{rename_index}{Enables the index column to be renamed.}
 
-\item{timekit_idx}{Used to return a date / datetime index for
-regularized objects that contain a timekit "index" attribute.
+\item{timetk_idx}{Used to return a date / datetime index for
+regularized objects that contain a timetk "index" attribute.
 Refer to \code{\link[=tk_index]{tk_index()}} for more information on returning index information
 from regularized timeseries objects (i.e. \code{ts}).}
 
@@ -40,15 +40,15 @@ When \code{preserve_index = TRUE} is specified, a new column,
 the date or date-time information. The date / date-time column name
 can be changed using the \code{rename_index} argument.
 
-The \code{timekit_idx} argument is applicable when coercing \code{ts} objects that were
+The \code{timetk_idx} argument is applicable when coercing \code{ts} objects that were
 created using \code{tk_ts()} from an object that had a time base
 (e.g. \code{tbl}, \code{xts}, \code{zoo}).
-Setting \code{timekit_idx = TRUE} enables returning the timekit "index" attribute if present,
+Setting \code{timetk_idx = TRUE} enables returning the timetk "index" attribute if present,
 which is the original (non-regularized) time-based index.
 }
 \examples{
 library(tidyverse)
-library(timekit)
+library(timetk)
 
 data_tbl <- tibble(
     date = seq.Date(from = as.Date("2010-01-01"), by = 1, length.out = 5),
@@ -66,7 +66,7 @@ as.data.frame(data_ts)
 tk_tbl(data_ts)
 
 # Original date index returned (Only possible if original data has time-based index)
-tk_tbl(data_ts, timekit_idx = TRUE)
+tk_tbl(data_ts, timetk_idx = TRUE)
 
 
 ### xts to tibble: Comparison between as.data.frame() and tk_tbl()

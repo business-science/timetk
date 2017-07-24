@@ -38,7 +38,7 @@ to \code{xts} class objects. There are three main advantages:
 This prevents an error or coercion issue from occurring.
 \item The date column is auto-detected if not specified by \code{date_var}. This takes
 the effort off the user to assign a date vector during coercion.
-\item \code{ts} objects are automatically coerced if a "timekit index" is present. Refer to \code{\link[=tk_ts]{tk_ts()}}.
+\item \code{ts} objects are automatically coerced if a "timetk index" is present. Refer to \code{\link[=tk_ts]{tk_ts()}}.
 }
 
 The \code{select} argument can be used to select subsets
@@ -56,7 +56,7 @@ using \code{xts::xts()}.
 }
 \examples{
 library(tidyverse)
-library(timekit)
+library(timetk)
 
 ### tibble to xts: Comparison between tk_xts() and xts::xts()
 data_tbl <- tibble::tibble(

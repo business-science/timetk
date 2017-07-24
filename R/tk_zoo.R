@@ -21,7 +21,7 @@
 #' This prevents an error or coercion issue from occurring.
 #' 2. The date column is auto-detected if not specified by `date_var`. This takes
 #' the effort off the user to assign a date vector during coercion.
-#' 3. `ts` objects are automatically coerced if a "timekit index" is present. Refer to [tk_ts()].
+#' 3. `ts` objects are automatically coerced if a "timetk index" is present. Refer to [tk_ts()].
 #'
 #' The `select` argument can be used to select subsets
 #' of columns from the incoming data.frame.
@@ -42,7 +42,7 @@
 #'
 #' @examples
 #' library(tidyverse)
-#' library(timekit)
+#' library(timetk)
 #'
 #' ### tibble to zoo: Comparison between tk_zoo() and zoo::zoo()
 #' data_tbl <- tibble::tibble(
