@@ -46,7 +46,7 @@ that occur on a weekly frequency such as every week, every other week, and so on
 It's recommended to have at least 60 days to use this option.
 The \code{inspect_months} argument is useful in determining missing days of the month, quarter
 or year; however, the algorithm can inadvertently select incorrect dates if the pattern
-is irratic.
+is erratic.
 For example, some holidays do not occur on the same day of each month, and
 as a result the incorrect day may be selected in certain years.
 It's recommended to always review the date results to ensure the future days match

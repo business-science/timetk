@@ -29,10 +29,10 @@ day of year, hour, minute, second.
 \code{tk_get_timeseries_summary} returns the summary returns the
 start, end, units, scale, and a "summary" of the timeseries differences
 in seconds including
-the minmum, 1st quartile, median, mean, 3rd quartile, and maximum frequency.
+the minimum, 1st quartile, median, mean, 3rd quartile, and maximum frequency.
 The timeseries
 differences give the user a better picture of the index frequency
-so the user can understand the level of regularity or irregulairity.
+so the user can understand the level of regularity or irregularity.
 A perfectly regular time series will have equal values in seconds for each metric.
 However, this is not often the case.
 
