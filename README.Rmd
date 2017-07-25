@@ -30,7 +30,7 @@ library(timetk)
 
 <img src="tools/logo.png" width="147" height="170" align="right" />
 
-> A collection of tools for working with time series in R
+> A toolkit for working with time series in R
 
 ## Benefits
 
