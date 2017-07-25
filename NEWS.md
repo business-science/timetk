@@ -1,10 +1,13 @@
 
-# timetk 0.3.1.9000
+# timetk 0.1.0
 * Renamed package `timetk`. Was formerly `timekit`. 
 * Improvements:
     * Fixed issue with back-ticked date columns
     * Update pkgdown
     * support for `robets`
+
+<!-- 
+The information below is kept for historical reasons since this package was converted from the previous `timekit` package
 
 # timetk 0.3.1
 * Improvements:
@@ -46,3 +49,5 @@
 # timetk 0.1.0 
 
 * Initial release of `timetk`, a time series toolkit that simplifies coercion between time series classes and time-based tibbles ("tidy" data frames).
+
+-->
