@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>A Collection of Tools for Working with Time Series in R • timekit</title>
+<title>A Tool Kit for Working with Time Series in R • timetk</title>
 <!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 <!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
@@ -24,7 +24,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">timekit</a>
+      <a class="navbar-brand" href="index.html">timetk</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -51,7 +51,7 @@
       <a href="articles/TK02_Making_A_Future_Time_Series_Index.html">Creating future time series indices</a>
     </li>
     <li>
-      <a href="articles/TK03_Forecasting_Using_Time_Series_Signature.html">Forecasting with timekit</a>
+      <a href="articles/TK03_Forecasting_Using_Time_Series_Signature.html">Forecasting with timetk</a>
     </li>
   </ul>
 </li>
@@ -61,7 +61,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/business-science/timekit">
+  <a href="https://github.com/business-science/timetk">
     <span class="fa fa-github"></span>
      
   </a>
@@ -83,10 +83,10 @@
     
 <div class="contents">
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-<div id="timekit" class="section level1">
+<div id="timetk" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
-<a href="#timekit" class="anchor"></a>timekit</h1></div>
-<p><a href="https://travis-ci.org/business-science/timekit.svg?branch=master"><img src="https://travis-ci.org/business-science/timekit.svg?branch=master" alt="Travis-CI Build Status"></a> <a href="https://codecov.io/gh/business-science/timekit"><img src="https://codecov.io/gh/business-science/timekit/branch/master/graph/badge.svg" alt="codecov"></a> <a href="https://cran.r-project.org/package=timekit"><img src="http://www.r-pkg.org/badges/version/timekit" alt="CRAN_Status_Badge"></a> <img src="http://cranlogs.r-pkg.org/badges/timekit?color=brightgreen"><img src="http://cranlogs.r-pkg.org/badges/grand-total/timekit?color=brightgreen"></p>
+<a href="#timetk" class="anchor"></a>timetk</h1></div>
+<p><a href="https://travis-ci.org/business-science/timetk.svg?branch=master"><img src="https://travis-ci.org/business-science/timetk.svg?branch=master" alt="Travis-CI Build Status"></a> <a href="https://codecov.io/gh/business-science/timetk"><img src="https://codecov.io/gh/business-science/timetk/branch/master/graph/badge.svg" alt="codecov"></a> <a href="https://cran.r-project.org/package=timetk"><img src="http://www.r-pkg.org/badges/version/timetk" alt="CRAN_Status_Badge"></a> <img src="http://cranlogs.r-pkg.org/badges/timetk?color=brightgreen"><img src="http://cranlogs.r-pkg.org/badges/grand-total/timetk?color=brightgreen"></p>
 <p><img src="README_0_logo.png" width="147" height="170" align="right"></p>
 <blockquote>
 <p>A collection of tools for working with time series in R</p>
@@ -94,7 +94,7 @@
 <div id="benefits" class="section level2">
 <h2 class="hasAnchor">
 <a href="#benefits" class="anchor"></a>Benefits</h2>
-<p>The <code>timekit</code> package enables a user to more easily work with time series objects in R. The package has tools for inspecting and manipulating the time-based index, expanding the time features for data mining and machine learning, and converting time-based objects to and from the many time series classes. The following are key benefits:</p>
+<p>The <code>timetk</code> package enables a user to more easily work with time series objects in R. The package has tools for inspecting and manipulating the time-based index, expanding the time features for data mining and machine learning, and converting time-based objects to and from the many time series classes. The following are key benefits:</p>
 <ul>
 <li>
 <strong>Index extraction</strong>: get the time series index from any time series object.</li>
@@ -105,7 +105,7 @@
 <li>
 <strong>Coerce between time-based tibbles (<code>tbl</code>) and the major time series data types <code>xts</code>, <code>zoo</code>, <code>zooreg</code>, and <code>ts</code></strong>: Simplifies coercion and maximizes time-based data retention during coercion to regularized time series (e.g. <code>ts</code>).</li>
 </ul>
-<p>An example of the forecasting capabilities as shown in vignette TK03 - Forecasting Using a Time Series Signature with <code>timekit</code>.</p>
+<p>An example of the forecasting capabilities as shown in vignette TK03 - Forecasting Using a Time Series Signature with <code>timetk</code>.</p>
 <p><img src="README_1_bikes_forecast.png" width="100%"></p>
 </div>
 <div id="tools" class="section level2">
@@ -113,7 +113,7 @@
 <a href="#tools" class="anchor"></a>Tools</h2>
 <p>The package contains the following functions:</p>
 <ol style="list-style-type: decimal">
-<li><p><strong>Get an index</strong>: <code>tk_index</code> returns the time series index of time series objects, models. The argument <code>timekit_idx</code> can be used to return a special timekit “index” attribute for regularized <code>ts</code> objects that returns a non-regularized date / date-time index if present.</p></li>
+<li><p><strong>Get an index</strong>: <code>tk_index</code> returns the time series index of time series objects, models. The argument <code>timetk_idx</code> can be used to return a special timetk “index” attribute for regularized <code>ts</code> objects that returns a non-regularized date / date-time index if present.</p></li>
 <li><p><strong>Get critical timeseries information</strong>: <code>tk_get_timeseries_signature</code> and <code>tk_get_timeseries_summary</code> takes an index and provides a time series decomposition and key summary attributes of the index, respectively. The <code>tk_augment_timeseries_signature</code> expedites adding the time series decomposition to the time series object.</p></li>
 <li><p><strong>Make a future timeseries</strong>: <code>tk_make_future_timeseries</code> models a future time series after an existing time series index.</p></li>
 <li><p><strong>Coercion functions</strong>: <code>tk_tbl</code>, <code>tk_ts</code>, <code>tk_xts</code>, <code>tk_zoo</code>, and <code>tk_zooreg</code> coerce time-based tibbles <code>tbl</code> to and from each of the main time-series data types <code>xts</code>, <code>zoo</code>, <code>zooreg</code>, <code>ts</code>, maintaining the time-based index.</p></li>
@@ -123,7 +123,7 @@
 <h2 class="hasAnchor">
 <a href="#getting-started" class="anchor"></a>Getting started</h2>
 <p>Load libraries and start with some time series data</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(timekit)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(timetk)
 <span class="kw">library</span>(tidyquant)</code></pre></div>
 <p>Use the FB time series.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">FB_tbl &lt;-<span class="st"> </span>FANG <span class="op">%&gt;%</span>
@@ -148,7 +148,7 @@ FB_tbl
 <h2 class="hasAnchor">
 <a href="#extract-a-time-series-index" class="anchor"></a>Extract a time series index</h2>
 <p>Get the timeseries index.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">idx &lt;-<span class="st"> </span><span class="kw">tk_index</span>(FB_tbl)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">idx &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/timetk/topics/tk_index">tk_index</a></span>(FB_tbl)
 <span class="kw">head</span>(idx)
 <span class="co">#&gt; [1] "2013-01-02" "2013-01-03" "2013-01-04" "2013-01-07" "2013-01-08"</span>
 <span class="co">#&gt; [6] "2013-01-09"</span></code></pre></div>
@@ -227,24 +227,24 @@ FB_xts &lt;-<span class="st"> </span><span class="kw"><a href="reference/tk_xts.
 FB_zoo &lt;-<span class="st"> </span><span class="kw"><a href="reference/tk_zoo.html">tk_zoo</a></span>(FB_tbl, <span class="dt">silent =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># ts</span>
 FB_ts &lt;-<span class="st"> </span><span class="kw"><a href="reference/tk_ts.html">tk_ts</a></span>(FB_tbl, <span class="dt">start =</span> <span class="dv">2013</span>, <span class="dt">freq =</span> <span class="dv">252</span>, <span class="dt">silent =</span> <span class="ot">TRUE</span>)</code></pre></div>
-<p>This covers the basics of the <code>timekit</code> package capabilities. Here’s how to get started.</p>
+<p>This covers the basics of the <code>timetk</code> package capabilities. Here’s how to get started.</p>
 </div>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p><em>Download development version with latest features</em>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># install.packages("devtools")</span>
-devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"business-science/timekit"</span>)</code></pre></div>
+devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"business-science/timetk"</span>)</code></pre></div>
 <p><em>Or, download CRAN approved version</em>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">"timekit"</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">"timetk"</span>)</code></pre></div>
 </div>
 <div id="acknowledgements-standing-on-shoulders" class="section level2">
 <h2 class="hasAnchor">
 <a href="#acknowledgements-standing-on-shoulders" class="anchor"></a>Acknowledgements: Standing On Shoulders</h2>
-<p>A lot of innovative time series and forecasting work is going on that ultimately benefits the community. We’d like to thank the following people and packages that came before <code>timekit</code> in time series analysis and machine learning.</p>
+<p>A lot of innovative time series and forecasting work is going on that ultimately benefits the community. We’d like to thank the following people and packages that came before <code>timetk</code> in time series analysis and machine learning.</p>
 <ul>
 <li>
-<a href="https://github.com/bearloga/maltese"><code>maltese</code></a>: Similar in respect to <code>timekit</code> in that it enables machine learning-friendly data frame generation exposing a number of critical features that can be used for forecasting.</li>
+<a href="https://github.com/bearloga/maltese"><code>maltese</code></a>: Similar in respect to <code>timetk</code> in that it enables machine learning-friendly data frame generation exposing a number of critical features that can be used for forecasting.</li>
 <li>
 <a href="https://github.com/hadley/lubridate"><code>lubridate</code></a>: Contains an excellent set of functions to extract components of the date and datetime index.</li>
 <li>
@@ -254,15 +254,15 @@ devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocument
 <div id="further-information" class="section level2">
 <h2 class="hasAnchor">
 <a href="#further-information" class="anchor"></a>Further Information</h2>
-<p>The <code>timekit</code> package includes a vignette to help users get up to speed quickly:</p>
+<p>The <code>timetk</code> package includes a vignette to help users get up to speed quickly:</p>
 <ul>
-<li>TK00 - Time Series Coercion Using <code>timekit</code>
+<li>TK00 - Time Series Coercion Using <code>timetk</code>
 </li>
-<li>TK01 - Working with the Time Series Index using <code>timekit</code>
+<li>TK01 - Working with the Time Series Index using <code>timetk</code>
 </li>
-<li>TK02 - Making a Future Time Series Index using <code>timekit</code>
+<li>TK02 - Making a Future Time Series Index using <code>timetk</code>
 </li>
-<li>TK03 - Forecasting Using a Time Series Signature with <code>timekit</code>
+<li>TK03 - Forecasting Using a Time Series Signature with <code>timetk</code>
 </li>
 </ul>
 </div>
@@ -274,11 +274,11 @@ devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocument
     <h2 class="hasAnchor">
 <a href="#sidebar" class="anchor"></a>Links</h2>
 <ul class="list-unstyled">
-<li>Download from CRAN at <br><a href="https://cran.r-project.org/package=timekit">https://​cran.r-project.org/​package=timekit</a>
+<li>Download from CRAN at <br><a href="https://cran.r-project.org/package=timetk">https://​cran.r-project.org/​package=timetk</a>
 </li>
-<li>Browse source code at <br><a href="https://github.com/business-science/timekit">https://​github.com/​business-science/​timekit</a>
+<li>Browse source code at <br><a href="https://github.com/business-science/timetk">https://​github.com/​business-science/​timetk</a>
 </li>
-<li>Report a bug at <br><a href="https://github.com/business-science/timekit/issues">https://​github.com/​business-science/​timekit/​issues</a>
+<li>Report a bug at <br><a href="https://github.com/business-science/timetk/issues">https://​github.com/​business-science/​timetk/​issues</a>
 </li>
 </ul>
 <h2>License</h2>

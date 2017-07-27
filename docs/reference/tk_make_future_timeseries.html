@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Make a future time series from an existing time series — tk_make_future_timeseries • timekit</title>
+<title>Make a future time series from an existing time series — tk_make_future_timeseries • timetk</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -47,7 +47,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">timekit</a>
+      <a class="navbar-brand" href="../index.html">timetk</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -74,7 +74,7 @@
       <a href="../articles/TK02_Making_A_Future_Time_Series_Index.html">Creating future time series indices</a>
     </li>
     <li>
-      <a href="../articles/TK03_Forecasting_Using_Time_Series_Signature.html">Forecasting with timekit</a>
+      <a href="../articles/TK03_Forecasting_Using_Time_Series_Signature.html">Forecasting with timetk</a>
     </li>
   </ul>
 </li>
@@ -85,7 +85,7 @@
       
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/business-science/timekit">
+  <a href="https://github.com/business-science/timetk">
     <span class="fa fa-github"></span>
      
   </a>
@@ -163,7 +163,7 @@ that occur on a weekly frequency such as every week, every other week, and so on
 It's recommended to have at least 60 days to use this option.
 The <code>inspect_months</code> argument is useful in determining missing days of the month, quarter
 or year; however, the algorithm can inadvertently select incorrect dates if the pattern
-is irratic.
+is erratic.
 For example, some holidays do not occur on the same day of each month, and
 as a result the incorrect day may be selected in certain years.
 It's recommended to always review the date results to ensure the future days match
@@ -183,7 +183,7 @@ excluded.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>library</span>(<span class='no'>tidyquant</span>)
-<span class='fu'>library</span>(<span class='no'>timekit</span>)
+<span class='fu'>library</span>(<span class='no'>timetk</span>)
 
 <span class='co'># Basic example</span>
 <span class='no'>idx</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='st'>"2016-01-01 00:00:00"</span>,

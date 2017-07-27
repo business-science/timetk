@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Coerce time-series objects to tibble. — tk_tbl • timekit</title>
+<title>Coerce time-series objects to tibble. — tk_tbl • timetk</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -47,7 +47,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">timekit</a>
+      <a class="navbar-brand" href="../index.html">timetk</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -74,7 +74,7 @@
       <a href="../articles/TK02_Making_A_Future_Time_Series_Index.html">Creating future time series indices</a>
     </li>
     <li>
-      <a href="../articles/TK03_Forecasting_Using_Time_Series_Signature.html">Forecasting with timekit</a>
+      <a href="../articles/TK03_Forecasting_Using_Time_Series_Signature.html">Forecasting with timetk</a>
     </li>
   </ul>
 </li>
@@ -85,7 +85,7 @@
       
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/business-science/timekit">
+  <a href="https://github.com/business-science/timetk">
     <span class="fa fa-github"></span>
      
   </a>
@@ -109,7 +109,7 @@
     
 
     <pre class="usage"><span class='fu'>tk_tbl</span>(<span class='no'>data</span>, <span class='kw'>preserve_index</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>rename_index</span> <span class='kw'>=</span> <span class='st'>"index"</span>,
-  <span class='kw'>timekit_idx</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>silent</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
+  <span class='kw'>timetk_idx</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>silent</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -127,9 +127,9 @@
       <td><p>Enables the index column to be renamed.</p></td>
     </tr>
     <tr>
-      <th>timekit_idx</th>
+      <th>timetk_idx</th>
       <td><p>Used to return a date / datetime index for
-regularized objects that contain a timekit "index" attribute.
+regularized objects that contain a timetk "index" attribute.
 Refer to <code>tk_index()</code> for more information on returning index information
 from regularized timeseries objects (i.e. <code>ts</code>).</p></td>
     </tr>
@@ -157,10 +157,10 @@ date / date-time information from the underlying time-series object.</p>
 <code>index</code>, is created during object coercion, and the function attempts to preserve
 the date or date-time information. The date / date-time column name
 can be changed using the <code>rename_index</code> argument.</p>
-<p>The <code>timekit_idx</code> argument is applicable when coercing <code>ts</code> objects that were
+<p>The <code>timetk_idx</code> argument is applicable when coercing <code>ts</code> objects that were
 created using <code><a href='tk_ts.html'>tk_ts()</a></code> from an object that had a time base
 (e.g. <code>tbl</code>, <code>xts</code>, <code>zoo</code>).
-Setting <code>timekit_idx = TRUE</code> enables returning the timekit "index" attribute if present,
+Setting <code>timetk_idx = TRUE</code> enables returning the timetk "index" attribute if present,
 which is the original (non-regularized) time-based index.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
@@ -170,7 +170,7 @@ which is the original (non-regularized) time-based index.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>library</span>(<span class='no'>tidyverse</span>)
-<span class='fu'>library</span>(<span class='no'>timekit</span>)
+<span class='fu'>library</span>(<span class='no'>timetk</span>)
 
 <span class='no'>data_tbl</span> <span class='kw'>&lt;-</span> <span class='fu'>tibble</span>(
     <span class='kw'>date</span> <span class='kw'>=</span> <span class='fu'>seq.Date</span>(<span class='kw'>from</span> <span class='kw'>=</span> <span class='fu'>as.Date</span>(<span class='st'>"2010-01-01"</span>), <span class='kw'>by</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>length.out</span> <span class='kw'>=</span> <span class='fl'>5</span>),
@@ -197,7 +197,7 @@ which is the original (non-regularized) time-based index.</p>
 #&gt; 4 2010.008   115
 #&gt; 5 2010.011   120</div><div class='input'>
 <span class='co'># Original date index returned (Only possible if original data has time-based index)</span>
-<span class='fu'>tk_tbl</span>(<span class='no'>data_ts</span>, <span class='kw'>timekit_idx</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; # A tibble: 5 x 2
+<span class='fu'>tk_tbl</span>(<span class='no'>data_ts</span>, <span class='kw'>timetk_idx</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; # A tibble: 5 x 2
 #&gt;        index     x
 #&gt;       &lt;date&gt; &lt;dbl&gt;
 #&gt; 1 2010-01-01   100

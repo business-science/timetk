@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Making a Future Time Series Index using timekit • timekit</title>
+<title>Making a Future Time Series Index using timetk • timetk</title>
 <!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 <!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
@@ -24,7 +24,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">timekit</a>
+      <a class="navbar-brand" href="../index.html">timetk</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -51,7 +51,7 @@
       <a href="../articles/TK02_Making_A_Future_Time_Series_Index.html">Creating future time series indices</a>
     </li>
     <li>
-      <a href="../articles/TK03_Forecasting_Using_Time_Series_Signature.html">Forecasting with timekit</a>
+      <a href="../articles/TK03_Forecasting_Using_Time_Series_Signature.html">Forecasting with timetk</a>
     </li>
   </ul>
 </li>
@@ -61,7 +61,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/business-science/timekit">
+  <a href="https://github.com/business-science/timetk">
     <span class="fa fa-github"></span>
      
   </a>
@@ -78,10 +78,10 @@
       </header><div class="row">
   <div class="col-md-9">
     <div class="page-header toc-ignore">
-      <h1>Making a Future Time Series Index using timekit</h1>
+      <h1>Making a Future Time Series Index using timetk</h1>
                         <h4 class="author">Matt Dancho</h4>
             
-            <h4 class="date">2017-07-12</h4>
+            <h4 class="date">2017-07-27</h4>
           </div>
 
     
@@ -100,7 +100,7 @@
 <a href="#prerequisites" class="anchor"></a>Prerequisites</h1>
 <p>Before we get started, load the following packages.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyquant)
-<span class="kw">library</span>(timekit)</code></pre></div>
+<span class="kw">library</span>(timetk)</code></pre></div>
 </div>
 <div id="example-1-remove-weekends-and-last-two-weeks-of-year" class="section level1">
 <h1 class="hasAnchor">
@@ -315,7 +315,7 @@ idx_future <span class="op">%&gt;%</span>
 <div id="parting-thoughts" class="section level1">
 <h1 class="hasAnchor">
 <a href="#parting-thoughts" class="anchor"></a>Parting Thoughts</h1>
-<p>Building the future date sequence is an essential part of forecasting using <code>timekit</code>. An innaccurate date sequence can hurt the performance of the forecast. The <code>tk_make_future_index()</code> function has methods to remove frequently missing dates. However, the user should always review the output to ensure an accurate future date sequence is achieved.</p>
+<p>Building the future date sequence is an essential part of forecasting using <code>timetk</code>. An innaccurate date sequence can hurt the performance of the forecast. The <code>tk_make_future_index()</code> function has methods to remove frequently missing dates. However, the user should always review the output to ensure an accurate future date sequence is achieved.</p>
 <p>Further, holidays are difficult to predict using <code>inspect_months</code> due to the irregular nature. It is likely better for the user to select <code>inspect_weekdays = TRUE</code> and use <code>skip_values</code> to remove irregular holidays. Use <code>inspect_months</code> when there are missing dates that occur on a monthly, quarterly, or yearly frequency as part of a regular pattern. Use <code>skip_values</code> and <code>insert_values</code> to remove and add dates as necessary to account for irregular missing days.</p>
 </div>
 </div>

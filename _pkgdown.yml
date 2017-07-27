@@ -3,7 +3,7 @@ template:
     bootswatch: flatly
 
 navbar:
-  title: "timekit"
+  title: "timetk"
   left:
     - text: "Home"
       href: index.html
@@ -18,14 +18,14 @@ navbar:
           href: articles/TK01_Working_With_Time_Series_Index.html
         - text: "Creating future time series indices"
           href: articles/TK02_Making_A_Future_Time_Series_Index.html
-        - text: "Forecasting with timekit"
+        - text: "Forecasting with timetk"
           href: articles/TK03_Forecasting_Using_Time_Series_Signature.html
     - text: "News"
       href: news/index.html
 
   right:
     - icon: fa-github
-      href: https://github.com/business-science/timekit
+      href: https://github.com/business-science/timetk
 
 reference:
   - title: Future series
@@ -45,10 +45,10 @@ reference:
     - "tk_zooreg"
     - "tk_zooreg_"
   - title: Index
-    desc: __Functions for extracting or checking for a timekit index.__
+    desc: __Functions for extracting or checking for a timetk index.__
     contents:
     - starts_with("tk_index")
-    - starts_with("has_timekit_idx")
+    - starts_with("has_timetk_idx")
   - title: Augment
     desc: __Add a time series signature to the original data.__
     contents:
@@ -58,13 +58,13 @@ reference:
     contents:
     - starts_with("tk_get")
   - title: Internal
-    desc: __Internal functions used in timekit.__
+    desc: __Internal functions used in timetk.__
     contents:
     - starts_with("tk_ts_.")
     - starts_with("tk_zooreg_.")
-  - title: Timekit
+  - title: Timetk
     desc: __Package level information.__
     contents:
-    - "timekit"
+    - "timetk"
 
 

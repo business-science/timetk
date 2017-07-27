@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Authors • timetk</title>
+<title>timetk: a toolkit for time series — timetk • timetk</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -20,9 +20,9 @@
 
 
 <!-- pkgdown -->
-<link href="pkgdown.css" rel="stylesheet">
-<script src="jquery.sticky-kit.min.js"></script>
-<script src="pkgdown.js"></script>
+<link href="../pkgdown.css" rel="stylesheet">
+<script src="../jquery.sticky-kit.min.js"></script>
+<script src="../pkgdown.js"></script>
   
   
 <!-- mathjax -->
@@ -37,7 +37,7 @@
   </head>
 
   <body>
-    <div class="container template-authors">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -47,15 +47,15 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">timetk</a>
+      <a class="navbar-brand" href="../index.html">timetk</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="index.html">Home</a>
+  <a href="../index.html">Home</a>
 </li>
 <li>
-  <a href="reference/index.html">Function Reference</a>
+  <a href="../reference/index.html">Function Reference</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -65,21 +65,21 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="articles/TK00_Time_Series_Coercion.html">Time series coercion</a>
+      <a href="../articles/TK00_Time_Series_Coercion.html">Time series coercion</a>
     </li>
     <li>
-      <a href="articles/TK01_Working_With_Time_Series_Index.html">Time series index</a>
+      <a href="../articles/TK01_Working_With_Time_Series_Index.html">Time series index</a>
     </li>
     <li>
-      <a href="articles/TK02_Making_A_Future_Time_Series_Index.html">Creating future time series indices</a>
+      <a href="../articles/TK02_Making_A_Future_Time_Series_Index.html">Creating future time series indices</a>
     </li>
     <li>
-      <a href="articles/TK03_Forecasting_Using_Time_Series_Signature.html">Forecasting with timetk</a>
+      <a href="../articles/TK03_Forecasting_Using_Time_Series_Signature.html">Forecasting with timetk</a>
     </li>
   </ul>
 </li>
 <li>
-  <a href="news/index.html">News</a>
+  <a href="../news/index.html">News</a>
 </li>
       </ul>
       
@@ -99,26 +99,39 @@
       </header>
 
       <div class="row">
-  <div class="contents col-md-12">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Authors</h1>
+    <h1>timetk: a toolkit for time series</h1>
     </div>
 
-    <ul class="list-unstyled">
-      <li>
-        <p><strong>Matt Dancho</strong>. Author, maintainer.
-        </p>
-      </li>
-      <li>
-        <p><strong>Davis Vaughan</strong>. Author.
-        </p>
-      </li>
-    </ul>
+    
+    <p>The <code>timetk</code> package combines a collection of coercion tools for
+time series analysis.</p>
+    
+
+        
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>The <code>timetk</code> package has several benefits:</p><ol>
+<li><p>Index extraction: get the time series index from any time series object.</p></li>
+<li><p>Understand time series: create a signature and summary from a time series index.</p></li>
+<li><p>Build future time series: create a future time series from an index.</p></li>
+<li><p>Coerce between time-based tibbles (tbl) and the major time series data types xts, zoo, zooreg, and ts: Simplifies coercion and maximizes time-based data retention during coercion to regularized time series (e.g. ts).</p></li>
+</ol>
+    <p>To learn more about <code>timetk</code>, start with the vignettes:
+<code>browseVignettes(package = "timetk")</code></p>
+    
 
   </div>
+  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+    <h2>Contents</h2>
+    <ul class="nav nav-pills nav-stacked">
+      
+      <li><a href="#details">Details</a></li>
+          </ul>
 
+  </div>
 </div>
-
 
       <footer>
       <div class="copyright">

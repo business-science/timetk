@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get summary attributes from a time-series index — tk_get_timeseries • timekit</title>
+<title>Get summary attributes from a time-series index — tk_get_timeseries • timetk</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -47,7 +47,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">timekit</a>
+      <a class="navbar-brand" href="../index.html">timetk</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -74,7 +74,7 @@
       <a href="../articles/TK02_Making_A_Future_Time_Series_Index.html">Creating future time series indices</a>
     </li>
     <li>
-      <a href="../articles/TK03_Forecasting_Using_Time_Series_Signature.html">Forecasting with timekit</a>
+      <a href="../articles/TK03_Forecasting_Using_Time_Series_Signature.html">Forecasting with timetk</a>
     </li>
   </ul>
 </li>
@@ -85,7 +85,7 @@
       
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/business-science/timekit">
+  <a href="https://github.com/business-science/timetk">
     <span class="fa fa-github"></span>
      
   </a>
@@ -135,10 +135,10 @@ day of year, hour, minute, second.
     <code>tk_get_timeseries_summary</code> returns the summary returns the
 start, end, units, scale, and a "summary" of the timeseries differences
 in seconds including
-the minmum, 1st quartile, median, mean, 3rd quartile, and maximum frequency.
+the minimum, 1st quartile, median, mean, 3rd quartile, and maximum frequency.
 The timeseries
 differences give the user a better picture of the index frequency
-so the user can understand the level of regularity or irregulairity.
+so the user can understand the level of regularity or irregularity.
 A perfectly regular time series will have equal values in seconds for each metric.
 However, this is not often the case.
     <strong>Important Note</strong>: These functions only work with time-based indexes in
@@ -151,7 +151,7 @@ datetime, date, yearmon, and yearqtr values. Regularized dates cannot be decompo
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>library</span>(<span class='no'>tidyquant</span>)
-<span class='fu'>library</span>(<span class='no'>timekit</span>)
+<span class='fu'>library</span>(<span class='no'>timetk</span>)
 
 <span class='co'># Works with time-based tibbles</span>
 <span class='no'>FB_tbl</span> <span class='kw'>&lt;-</span> <span class='no'>FANG</span> <span class='kw'>%&gt;%</span> <span class='fu'>filter</span>(<span class='no'>symbol</span> <span class='kw'>==</span> <span class='st'>"FB"</span>)

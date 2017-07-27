@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>All news • timekit</title>
+<title>All news • timetk</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -47,7 +47,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">timekit</a>
+      <a class="navbar-brand" href="../index.html">timetk</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -74,7 +74,7 @@
       <a href="../articles/TK02_Making_A_Future_Time_Series_Index.html">Creating future time series indices</a>
     </li>
     <li>
-      <a href="../articles/TK03_Forecasting_Using_Time_Series_Signature.html">Forecasting with timekit</a>
+      <a href="../articles/TK03_Forecasting_Using_Time_Series_Signature.html">Forecasting with timetk</a>
     </li>
   </ul>
 </li>
@@ -85,7 +85,7 @@
       
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/business-science/timekit">
+  <a href="https://github.com/business-science/timetk">
     <span class="fa fa-github"></span>
      
   </a>
@@ -106,102 +106,65 @@
     </div>
 
     <div class="contents">
-    <div id="timekit-0-3-1-9001" class="section level1">
+    <div id="timetk-0-1-0" class="section level1">
 <h1 class="hasAnchor">
-<a href="#timekit-0-3-1-9001" class="anchor"></a>timekit 0.3.1.9001</h1>
+<a href="#timetk-0-1-0" class="anchor"></a>timetk 0.1.0</h1>
 <ul>
+<li>Renamed package <code>timetk</code>. Was formerly <code>timekit</code>.</li>
 <li>Improvements:
 <ul>
 <li>Fixed issue with back-ticked date columns</li>
 <li>Update pkgdown</li>
-</ul>
-</li>
-</ul>
-</div>
-    <div id="timekit-0-3-1" class="section level1">
-<h1 class="hasAnchor">
-<a href="#timekit-0-3-1" class="anchor"></a>timekit 0.3.1</h1>
-<ul>
-<li>Improvements:
-<ul>
-<li>
-<code>tk_index</code> and <code>tk_has_index</code>: Added <code>decomposed.ts</code>
-</li>
-<li>
-<code>tk_get_timeseries_signature</code> and <code>tk_augment_timeseries_signature</code>:
-<ul>
-<li>Added “year.iso” (Issue #4)</li>
-</ul>
-</li>
-<li>Cleaned up Imports:
-<ul>
-<li>Moved <code>tidyquant</code>, <code>broom</code>, <code>forcats</code>, <code>scales</code> to Suggests</li>
-<li>Removed <code>quantmod</code>, <code>TTR</code>, <code>timeSeries</code> and <code>tseries</code> from Imports</li>
-</ul>
+<li>support for <code>robets</code>
 </li>
 </ul>
 </li>
 </ul>
-</div>
-    <div id="timekit-0-3-0" class="section level1">
-<h1 class="hasAnchor">
-<a href="#timekit-0-3-0" class="anchor"></a>timekit 0.3.0</h1>
-<ul>
-<li>Improvements:
-<ul>
-<li>
-<code>tk_make_future_timeseries</code>:
-<ul>
-<li>Improved future date picking algorithm to look for seasonal trends by way of <code>inspect_months</code>. The data must span at least two calendar years to gain this benefit.</li>
-<li>Improved handling of index in situations with units = days and scale greater than day (e.g. weekly, monthly, quarterly, +). Now values returned will be a regular series of the appropriate scale versus an irregular series indexed by regularly spaced seconds. For example, monthly dates in units = days will be predicted as the first day of each month rather than by the median frequency in seconds.</li>
-<li>Includes a new argument, <code>insert_values</code> to add time-based values into a time series. Before you could remove via <code>skip_values</code>, and now you can add via <code>insert_values</code>.</li>
-<li>Changed <code>n_future</code> to be inclusive of skip_values and weekends, which means that the end date of the future period is the same regardless of <code>inspect_weekdays</code>, <code>inspect_months</code>, <code>skip_values</code>, and now <code>insert_values</code>. Now the end dates are fixed which helps when manipulating future days.</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>Documentation:
-<ul>
-<li>(New Vignette) TK02 - Making a Future Time Series Index using timekit</li>
-<li>(New Vignette) TK03 - Forecasting Using a Time Series Signature with timekit</li>
-</ul>
-</li>
-</ul>
-</div>
-    <div id="timekit-0-2-0" class="section level1">
-<h1 class="hasAnchor">
-<a href="#timekit-0-2-0" class="anchor"></a>timekit 0.2.0</h1>
-<ul>
-<li>New Functions:
-<ul>
-<li>
-<code>tk_make_future_timeseries</code> creates a future time-based index from an existing time-based index.</li>
-<li>
-<code>tk_get_timeseries_signature</code> returns a tibble with the time series index decomposed into year, quarter, month, etc.</li>
-<li>
-<code>tk_get_timeseries_summary</code> returns summary metrics for the time series index including number of observations, start, end, units, scale, diff summary (summary for frequency in seconds), etc.</li>
-<li>
-<code>tk_augment_timeseries_signature</code> adds the time series signature to a <code>tbl</code> (with time base), <code>xts</code> or <code>zoo</code> object.</li>
-<li>
-<code>tk_get_timeseries_variables</code> returns the variable column names for date, datetime, yearmon, or yearqtr variables in a data frame.</li>
-</ul>
-</li>
-<li>Fixes:
-<ul>
-<li>
-<code>tk_index</code>: Fixed timezone issue with yearmon and yearqtr classes.</li>
-<li>
-<code>tk_tbl</code>: Changed argument from <code>index_rename</code> to <code>rename_index</code> for consistency.</li>
-</ul>
-</li>
-</ul>
-</div>
-    <div id="timekit-0-1-0" class="section level1">
-<h1 class="hasAnchor">
-<a href="#timekit-0-1-0" class="anchor"></a>timekit 0.1.0</h1>
-<ul>
-<li>Initial release of <code>timekit</code>, a time series toolkit that simplifies coercion between time series classes and time-based tibbles (“tidy” data frames).</li>
-</ul>
+<!-- 
+The information below is kept for historical reasons since this package was converted from the previous `timekit` package
+
+# timetk 0.3.1
+* Improvements:
+    * `tk_index` and `tk_has_index`: Added `decomposed.ts` 
+    * `tk_get_timeseries_signature` and `tk_augment_timeseries_signature`:
+        * Added "year.iso" (Issue #4)
+    * Cleaned up Imports:
+        * Moved `tidyquant`, `broom`, `forcats`, `scales` to Suggests 
+        * Removed `quantmod`, `TTR`, `timeSeries` and `tseries` from Imports
+    
+
+
+# timetk 0.3.0
+* Improvements:
+    * `tk_make_future_timeseries`: 
+        * Improved future date picking algorithm to look for seasonal trends by way of `inspect_months`. The data must span at least two calendar years to gain this benefit. 
+        * Improved handling of index in situations with units = days and scale greater than day (e.g. weekly, monthly, quarterly, +). Now values returned will be a regular series of the appropriate scale versus an irregular series indexed by regularly spaced seconds. For example, monthly dates in units = days will be predicted as the first day of each month rather than by the median frequency in seconds.
+        * Includes a new argument, `insert_values` to add time-based values into a time series. Before you could remove via `skip_values`, and now you can add via `insert_values`.
+        * Changed `n_future` to be inclusive of skip_values and weekends, which means that the end date of the future period is the same regardless of `inspect_weekdays`, `inspect_months`, `skip_values`, and now `insert_values`. Now the end dates are fixed which helps when manipulating future days.
+* Documentation:
+    * (New Vignette) TK02 - Making a Future Time Series Index using timetk
+    * (New Vignette) TK03 - Forecasting Using a Time Series Signature with timetk
+         
+
+# timetk 0.2.0
+
+* New Functions:
+    * `tk_make_future_timeseries` creates a future time-based index from an existing time-based index. 
+    * `tk_get_timeseries_signature` returns a tibble with the time series index decomposed into year, quarter, month, etc.
+    * `tk_get_timeseries_summary` returns summary metrics for the time series index including number of observations, start, end, units, scale, diff summary (summary for frequency in seconds), etc.
+    * `tk_augment_timeseries_signature` adds the time series signature to a `tbl` (with time base), `xts` or `zoo` object.
+    * `tk_get_timeseries_variables` returns the variable column names for date, datetime, yearmon, or yearqtr variables in a data frame. 
+* Fixes:
+    * `tk_index`: Fixed timezone issue with yearmon and yearqtr classes. 
+    * `tk_tbl`: Changed argument from `index_rename` to `rename_index` for consistency.
+    
+
+
+# timetk 0.1.0 
+
+* Initial release of `timetk`, a time series toolkit that simplifies coercion between time series classes and time-based tibbles ("tidy" data frames).
+
+-->
 </div>
     </div>
   </div>
@@ -210,11 +173,7 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-        <li><a href="#timekit-0-3-1-9001">0.3.1.9001</a></li>
-        <li><a href="#timekit-0-3-1">0.3.1</a></li>
-        <li><a href="#timekit-0-3-0">0.3.0</a></li>
-        <li><a href="#timekit-0-2-0">0.2.0</a></li>
-        <li><a href="#timekit-0-1-0">0.1.0</a></li>
+        <li><a href="#timetk-0-1-0">0.1.0</a></li>
       </ul>
     </div>
   </div>

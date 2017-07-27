@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get date or datetime variables (column names) — tk_get_timeseries_variables • timetk</title>
+<title>Internal Functions Used in timetk — timetk_internal • timetk</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -101,56 +101,88 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Get date or datetime variables (column names)</h1>
+    <h1>Internal Functions Used in timetk</h1>
     </div>
 
     
-    <p>Get date or datetime variables (column names)</p>
+    <p>The following are internal functions that are not meant to be used by
+users.</p>
     
 
-    <pre class="usage"><span class='fu'>tk_get_timeseries_variables</span>(<span class='no'>data</span>)</pre>
+    <pre class="usage"><span class='fu'>tk_ts_.data.frame</span>(<span class='no'>data</span>, <span class='no'>select</span>, <span class='no'>start</span>, <span class='no'>end</span>, <span class='no'>frequency</span>, <span class='no'>deltat</span>, <span class='no'>ts.eps</span>, <span class='no'>silent</span>)
+
+<span class='fu'>tk_ts_.default</span>(<span class='no'>data</span>, <span class='no'>select</span>, <span class='no'>start</span>, <span class='no'>end</span>, <span class='no'>frequency</span>, <span class='no'>deltat</span>, <span class='no'>ts.eps</span>, <span class='no'>silent</span>)
+
+<span class='fu'>tk_zooreg_.data.frame</span>(<span class='no'>data</span>, <span class='no'>select</span>, <span class='no'>date_var</span>, <span class='no'>start</span>, <span class='no'>end</span>, <span class='no'>frequency</span>, <span class='no'>deltat</span>,
+  <span class='no'>ts.eps</span>, <span class='no'>order.by</span>, <span class='no'>silent</span>)
+
+<span class='fu'>tk_zooreg_.default</span>(<span class='no'>data</span>, <span class='no'>select</span>, <span class='no'>date_var</span>, <span class='no'>start</span>, <span class='no'>end</span>, <span class='no'>frequency</span>, <span class='no'>deltat</span>,
+  <span class='no'>ts.eps</span>, <span class='no'>order.by</span>, <span class='no'>silent</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>data</th>
-      <td><p>An object of class <code>data.frame</code></p></td>
+      <td><p>A time-based tibble or time-series object.</p></td>
+    </tr>
+    <tr>
+      <th>select</th>
+      <td><p><strong>Applicable to tibbles and data frames only</strong>.
+The column or set of columns to be coerced to <code>zooreg</code> class.</p></td>
+    </tr>
+    <tr>
+      <th>start</th>
+      <td><p>the time of the first observation.  Either a single number or
+    a vector of two integers, which specify a natural time unit
+    and a (1-based) number of samples into the time unit.</p></td>
+    </tr>
+    <tr>
+      <th>end</th>
+      <td><p>the time of the last observation, specified in the same way
+    as <code>start</code>.</p></td>
+    </tr>
+    <tr>
+      <th>frequency</th>
+      <td><p>the number of observations per unit of time.</p></td>
+    </tr>
+    <tr>
+      <th>deltat</th>
+      <td><p>the fraction of the sampling period between successive
+    observations; e.g., 1/12 for monthly data.  Only one of
+    <code>frequency</code> or <code>deltat</code> should be provided.</p></td>
+    </tr>
+    <tr>
+      <th>ts.eps</th>
+      <td><p>time series comparison tolerance.  Frequencies are considered
+    equal if their absolute difference is less than <code>ts.eps</code>.</p></td>
+    </tr>
+    <tr>
+      <th>silent</th>
+      <td><p>Used to toggle printing of messages and warnings.</p></td>
+    </tr>
+    <tr>
+      <th>date_var</th>
+      <td><p><strong>Applicable to tibbles and data frames only</strong>.
+Column name to be used to <code>order.by</code>.
+<code>NULL</code> by default. If <code>NULL</code>, function will find the date or date-time column.</p></td>
+    </tr>
+    <tr>
+      <th>order.by</th>
+      <td><p>a vector by which the observations in <code>x</code>
+    are ordered. If this is specified the arguments <code>start</code> and
+    <code>end</code> are ignored and <code>zoo(data, order.by, frequency)</code> is
+    called. See <code>zoo</code> for more information.</p></td>
     </tr>
     </table>
     
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>tk_get_timeseries_variables</code> returns a vector containing column names of date-like classes.</p>
-    
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p><code>tk_get_timeseries_variables</code> returns the column names of date or datetime variables
-in a data frame.
-Classes that meet criteria for return include those that inherit
-<code>POSIXt</code>, <code>Date</code>, <code><a href='http://www.rdocumentation.org/packages/zoo/topics/yearmon'>zoo::yearmon</a></code>, <code><a href='http://www.rdocumentation.org/packages/zoo/topics/yearqtr'>zoo::yearqtr</a></code>. Function was adapted from <code>padr:::get_date_variables()</code>.
-See <a href='https://github.com/EdwinTh/padr/blob/master/R/helpers.R'>padr helpers.R</a></p>
-    
-
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>library</span>(<span class='no'>tidyquant</span>)
-<span class='fu'>library</span>(<span class='no'>timetk</span>)
-
-<span class='no'>FANG</span> <span class='kw'>%&gt;%</span>
-    <span class='fu'>tk_get_timeseries_variables</span>()</div><div class='output co'>#&gt; [1] "date"</div><div class='input'>
-</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#details">Details</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
+                </ul>
 
   </div>
 </div>
