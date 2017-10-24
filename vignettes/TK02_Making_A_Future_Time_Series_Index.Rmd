@@ -139,7 +139,7 @@ idx_test[!(idx_test %in% idx_future_wdays_and_months)]
 
 ### Type II Errors
 
-__Errorst that algorithm failed to remove__. These errors are the eaisest to manage because typically the analyst generally knows which days should be removed. These errors can be addressed with `skip_values` provided prediction length is manageable. 
+__Errors that algorithm failed to remove__. These errors are the eaisest to manage because typically the analyst generally knows which days should be removed. These errors can be addressed with `skip_values` provided prediction length is manageable. 
 
 ```{r}
 idx_future_wdays_and_months[!(idx_future_wdays_and_months %in% idx_test)]
@@ -177,8 +177,10 @@ The FB data from the FANG data set has missing dates that follow primarily a wee
 FB_tbl <- FANG %>%
     filter(symbol %in% "FB") 
 
-FB_train <- filter(FB_tbl, year(date) < 2016)
-FB_test  <- filter(FB_tbl, year(date) >= 2016)
+FB_train <- FB_tbl %>%
+    filter(year(date) < 2016)
+FB_test  <- FB_tbl %>%
+    filter(year(date) >= 2016)
 
 idx_train <- tk_index(FB_train)
 idx_test  <- tk_index(FB_test)
