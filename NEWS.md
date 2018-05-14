@@ -1,3 +1,6 @@
+# timetk 0.1.1
+
+* Added `timeSeries` to Suggests to satisfy a CRAN issue.
 
 # timetk 0.1.0
 * Renamed package `timetk`. Was formerly `timekit`. 
