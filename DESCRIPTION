@@ -43,7 +43,8 @@ Suggests:
     stringr,
     testthat,
     tidyverse,
-    tidyquant
+    tidyquant,
+    timeSeries
 RoxygenNote: 6.0.1
 Roxygen: list(markdown = TRUE)
 VignetteBuilder: knitr
