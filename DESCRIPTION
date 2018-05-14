@@ -1,8 +1,8 @@
 Package: timetk
 Type: Package
 Title: A Tool Kit for Working with Time Series in R
-Version: 0.1.0
-Date: 2017-07-25
+Version: 0.1.1
+Date: 2018-05-14
 Authors@R: c(
     person("Matt", "Dancho", email = "mdancho@business-science.io", role = c("aut", "cre")),
     person("Davis", "Vaughan", email = "dvaughan@business-science.io", role = c("aut"))
@@ -43,7 +43,8 @@ Suggests:
     stringr,
     testthat,
     tidyverse,
-    tidyquant
+    tidyquant,
+    timeSeries
 RoxygenNote: 6.0.1
 Roxygen: list(markdown = TRUE)
 VignetteBuilder: knitr

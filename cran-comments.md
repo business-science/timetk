@@ -1,10 +1,11 @@
 ## Release Summary
-This is the first release of `timetk` for CRAN review. The package was formerly called `timekit`, and the major change is the name. 
+This is a bug fix release of timetk. It now includes the 'timeSeries' package in 
+Suggests since we removed it from 'tidyquant'.
 
 
 ## Test environments
-* local Windows install, R 3.4.0
-* ubuntu 12.04 (on travis-ci), R 3.4.0
+* local Mac install, R 3.4.4
+* ubuntu 12.04 (on travis-ci), R 3.5.0
 * win-builder (devel and release)
 
 
