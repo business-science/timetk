@@ -173,7 +173,7 @@ get_timeseries_summary_date <- function(idx) {
     idx_diff <- diff(idx_numeric)
     idx_diff_summary <- idx_diff %>%
         summary() %>%
-        broom::tidy() %>%
+        as.list() %>%
         tibble::as_tibble()
 
     colnames(idx_diff_summary) <- stringr::str_c("diff.", colnames(idx_diff_summary), sep = "")
