@@ -176,7 +176,7 @@ get_timeseries_summary_date <- function(idx) {
         as.list() %>%
         tibble::as_tibble()
 
-    colnames(idx_diff_summary) <- stringr::str_c("diff.", colnames(idx_diff_summary), sep = "")
+    colnames(idx_diff_summary) <- paste0("diff.", c("minimum", "q1", "median","mean","q3","maximum"))
 
     idx_periodicity <- xts::periodicity(idx)
     idx_period_summary <- tibble::tibble(
