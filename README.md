@@ -1,9 +1,10 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# timetk <img src="tools/logo.png" width="147" height="170" align="right" />
+# timetk <img src="man/figures/logo.png" width="147" height="170" align="right" />
 
-<https://travis-ci.org/business-science/timetk.svg?branch=master>
+[![Travis build
+status](https://travis-ci.org/business-science/timetk.svg?branch=master)](https://travis-ci.org/business-science/timetk)
 [![codecov](https://codecov.io/gh/business-science/timetk/branch/master/graph/badge.svg)](https://codecov.io/gh/business-science/timetk)
 [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/timetk)](https://cran.r-project.org/package=timetk)
 ![](http://cranlogs.r-pkg.org/badges/timetk?color=brightgreen)
@@ -33,7 +34,7 @@ time series classes. The following are key benefits:
 An example of the forecasting capabilities as shown in vignette TK03 -
 Forecasting Using a Time Series Signature with `timetk`.
 
-<img src="tools/bikes_forecast.png" width="100%" />
+<img src="man/figures/bikes_forecast.png" width="100%" />
 
 ## Tools
 
