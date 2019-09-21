@@ -22,9 +22,7 @@ knitr::opts_chunk$set(
     out.width='95%', 
     dpi = 200
 )
-library(tidyquant)
-library(timetk)
-library(broom)
+
 # devtools::load_all() # Travis CI fails on load_all()
 ```
 
@@ -37,7 +35,8 @@ The time series signature is a collection of useful features that describe the t
 
 Before we get started, load the following packages.
 
-```{r, eval = F}
+```{r, message = FALSE}
+library(tidyverse)
 library(tidyquant)
 library(timetk)
 library(broom)

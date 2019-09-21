@@ -46,7 +46,6 @@
 #' @seealso [tk_ts()], [tk_tbl()], [tk_xts()], [tk_zoo()], [tk_zooreg()]
 #'
 #' @examples
-#' library(tidyverse)
 #' library(timetk)
 #'
 #' # Create time-based tibble

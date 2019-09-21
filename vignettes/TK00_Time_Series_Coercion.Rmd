@@ -22,9 +22,7 @@ knitr::opts_chunk$set(
     out.width='95%', 
     dpi = 200
 )
-library(tidyquant)
-library(timetk)
-library(forecast)
+
 # devtools::load_all() # Travis CI fails on load_all()
 ```
 
@@ -44,7 +42,8 @@ This vignette includes a brief case study on coercion issues and then a detailed
 
 Before we get started, load the following packages.
 
-```{r, eval = F}
+```{r, message=FALSE}
+library(tidyverse)
 library(tidyquant)
 library(timetk)
 ```

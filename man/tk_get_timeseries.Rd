@@ -40,6 +40,7 @@ However, this is not often the case.
 datetime, date, yearmon, and yearqtr values. Regularized dates cannot be decomposed.
 }
 \examples{
+library(dplyr)
 library(tidyquant)
 library(timetk)
 

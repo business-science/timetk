@@ -1,5 +1,3 @@
-library(timetk)
-library(tidyquant)
 context("Testing tk_make_future_timeseries")
 
 # tk_make_future_timeseries_signature -----
@@ -432,3 +430,4 @@ test_that("tk_make_future_timeseries(predict_random) test returns correct format
     expect_warning(test <- tk_make_future_timeseries(idx_random, n_future = 4 * 7, inspect_weekdays = TRUE))
     expect_equal(test, expect_random)
 })
+

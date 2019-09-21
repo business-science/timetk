@@ -1,5 +1,3 @@
-library(timetk)
-library(tidyquant)
 context("Testing tk_get_timeseries functions")
 
 n <- 29

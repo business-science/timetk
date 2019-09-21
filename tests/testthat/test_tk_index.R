@@ -1,8 +1,3 @@
-library(forecast)
-library(timetk)
-library(tidyquant)
-library(forecast)
-library(robets)
 context("Testing tk_index")
 
 AAPL_tbl    <- tq_get("AAPL", from = "2015-01-01", to = "2016-12-31")

@@ -15,12 +15,13 @@ knitr::opts_chunk$set(
 ```
 
 ```{r, echo=FALSE}
+library(tidyverse)
 library(tidyquant)
 library(timetk)
 ```
 
 
-# timetk
+# timetk <img src="tools/logo.png" width="147" height="170" align="right" />
 
 [![Travis-CI Build Status](https://travis-ci.org/business-science/timetk.svg?branch=master)](https://travis-ci.org/business-science/timetk.svg?branch=master)
 [![codecov](https://codecov.io/gh/business-science/timetk/branch/master/graph/badge.svg)](https://codecov.io/gh/business-science/timetk)
@@ -28,7 +29,7 @@ library(timetk)
 ![](http://cranlogs.r-pkg.org/badges/timetk?color=brightgreen)
 ![](http://cranlogs.r-pkg.org/badges/grand-total/timetk?color=brightgreen)
 
-<img src="tools/logo.png" width="147" height="170" align="right" />
+
 
 > A toolkit for working with time series in R
 

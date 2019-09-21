@@ -61,6 +61,7 @@ The \code{insert_values} argument is useful for adding values back that the algo
 excluded.
 }
 \examples{
+library(dplyr)
 library(tidyquant)
 library(timetk)
 

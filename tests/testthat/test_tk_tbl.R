@@ -1,5 +1,3 @@
-library(timetk)
-library(forecast)
 context("Test tk_tbl")
 
 

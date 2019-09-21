@@ -1,8 +1,8 @@
 Package: timetk
 Type: Package
 Title: A Tool Kit for Working with Time Series in R
-Version: 0.1.1
-Date: 2018-05-14
+Version: 0.1.2
+Date: 2018-09-20
 Authors@R: c(
     person("Matt", "Dancho", email = "mdancho@business-science.io", role = c("aut", "cre")),
     person("Davis", "Vaughan", email = "dvaughan@business-science.io", role = c("aut"))
@@ -20,9 +20,7 @@ LazyData: true
 Depends:
     R (>= 3.3.0)
 Imports:
-    devtools (>= 1.12.0),
     dplyr (>= 0.7.0),
-    forecast (>= 0.8.0),
     lazyeval (>= 0.2.0),
     lubridate (>= 1.6.0),
     padr (>= 0.3.0),
@@ -34,17 +32,18 @@ Imports:
     xts (>= 0.9-7),
     zoo (>= 1.7-14)
 Suggests:
+    tidyverse,
     broom,
     forcats,
+    forecast,
     knitr,
     rmarkdown,
     robets,
     scales,
     stringr,
     testthat,
-    tidyverse,
     tidyquant,
     timeSeries
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.1
 Roxygen: list(markdown = TRUE)
 VignetteBuilder: knitr

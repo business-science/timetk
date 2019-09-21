@@ -2,7 +2,6 @@
 % Please edit documentation in R/tk_index.R
 \name{tk_index}
 \alias{tk_index}
-\alias{tk_index}
 \alias{has_timetk_idx}
 \title{Extract an index of date or datetime from time series objects, models, forecasts}
 \usage{
@@ -56,7 +55,6 @@ Refer to \code{\link[=tk_ts]{tk_ts()}} for creating persistent date / datetime i
 during coercion to \code{ts}.
 }
 \examples{
-library(tidyverse)
 library(timetk)
 
 # Create time-based tibble

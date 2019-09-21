@@ -22,9 +22,7 @@ knitr::opts_chunk$set(
     out.width='95%', 
     dpi = 200
 )
-library(tidyquant)
-library(timetk)
-library(forecast)
+
 # devtools::load_all() # Travis CI fails on load_all()
 ```
 
@@ -38,7 +36,8 @@ In this vignette the user will be exposed to the time series index, tools to gai
 
 Before we get started, load the following packages.
 
-```{r, eval = F}
+```{r, message = F}
+library(tidyverse)
 library(tidyquant)
 library(timetk)
 ```

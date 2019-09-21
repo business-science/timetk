@@ -47,6 +47,7 @@
 #' @seealso [tk_index()], [tk_get_timeseries_summary()], [tk_get_timeseries_signature()]
 #'
 #' @examples
+#' library(dplyr)
 #' library(tidyquant)
 #' library(timetk)
 #'

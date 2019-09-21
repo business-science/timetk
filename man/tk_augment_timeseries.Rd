@@ -25,6 +25,7 @@ day of year, hour, minute, second
 to the input data.
 }
 \examples{
+library(dplyr)
 library(tidyquant)
 library(timetk)
 

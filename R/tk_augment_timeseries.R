@@ -15,6 +15,7 @@
 #' @seealso [tk_get_timeseries_signature()], [tk_get_timeseries_summary()]
 #'
 #' @examples
+#' library(dplyr)
 #' library(tidyquant)
 #' library(timetk)
 #'

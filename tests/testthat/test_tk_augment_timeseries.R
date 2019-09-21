@@ -1,5 +1,3 @@
-library(timetk)
-library(tidyquant)
 context("Testing tk_augment_timeseries_signature function")
 
 FB_tbl <- FANG %>%
@@ -32,6 +30,7 @@ test_that("tk_augment_timeseries_signature(xts) test returns correct format.", {
 # Test zoo
 test_zoo <- FB_tbl %>%
     tk_zoo(silent = TRUE)
+
 test_that("tk_augment_timeseries_signature(zoo) test returns correct format.", {
     test <- tk_augment_timeseries_signature(test_zoo)
     expect_true(inherits(test, "zoo"))

@@ -22,8 +22,7 @@ knitr::opts_chunk$set(
     out.width='95%', 
     dpi = 200
 )
-library(tidyquant)
-library(timetk)
+
 # devtools::load_all() # Travis CI fails on load_all()
 ```
 
@@ -39,7 +38,8 @@ A common task in forecasting is generating a future date sequence that mimics th
 
 Before we get started, load the following packages.
 
-```{r, eval = F}
+```{r, message=FALSE}
+library(tidyverse)
 library(tidyquant)
 library(timetk)
 ```

@@ -27,6 +27,7 @@
 #' @seealso [tk_index()], [tk_augment_timeseries_signature()], [tk_make_future_timeseries()]
 #'
 #' @examples
+#' library(dplyr)
 #' library(tidyquant)
 #' library(timetk)
 #'

@@ -8,12 +8,13 @@
 \alias{tk_zooreg_.default}
 \title{Internal Functions Used in timetk}
 \usage{
-tk_ts_.data.frame(data, select, start, end, frequency, deltat, ts.eps, silent)
+tk_ts_.data.frame(data, select, start, end, frequency, deltat, ts.eps,
+  silent)
 
 tk_ts_.default(data, select, start, end, frequency, deltat, ts.eps, silent)
 
-tk_zooreg_.data.frame(data, select, date_var, start, end, frequency, deltat,
-  ts.eps, order.by, silent)
+tk_zooreg_.data.frame(data, select, date_var, start, end, frequency,
+  deltat, ts.eps, order.by, silent)
 
 tk_zooreg_.default(data, select, date_var, start, end, frequency, deltat,
   ts.eps, order.by, silent)

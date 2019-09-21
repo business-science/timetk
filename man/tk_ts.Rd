@@ -5,11 +5,13 @@
 \alias{tk_ts_}
 \title{Coerce time series objects and tibbles with date/date-time columns to ts.}
 \usage{
-tk_ts(data, select = NULL, start = 1, end = numeric(), frequency = 1,
-  deltat = 1, ts.eps = getOption("ts.eps"), silent = FALSE)
+tk_ts(data, select = NULL, start = 1, end = numeric(),
+  frequency = 1, deltat = 1, ts.eps = getOption("ts.eps"),
+  silent = FALSE)
 
-tk_ts_(data, select = NULL, start = 1, end = numeric(), frequency = 1,
-  deltat = 1, ts.eps = getOption("ts.eps"), silent = FALSE)
+tk_ts_(data, select = NULL, start = 1, end = numeric(),
+  frequency = 1, deltat = 1, ts.eps = getOption("ts.eps"),
+  silent = FALSE)
 }
 \arguments{
 \item{data}{A time-based tibble or time-series object.}
