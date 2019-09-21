@@ -72,6 +72,7 @@ index.
 Load libraries and start with some time series data
 
 ```{r}
+library(tidyverse)
 library(timetk)
 library(tidyquant)
 ```

@@ -66,6 +66,7 @@ The package contains the following functions:
 Load libraries and start with some time series data
 
 ``` r
+library(tidyverse)
 library(timetk)
 library(tidyquant)
 ```
