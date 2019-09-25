@@ -12,3 +12,4 @@ img
 ^index\.Rmd$
 ^docs$
 ^pkgdown$
+^CRAN-RELEASE$
