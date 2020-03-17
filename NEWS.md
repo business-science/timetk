@@ -1,10 +1,13 @@
 # timetk 0.1.2.9000 (Development)
 
+__New Feature:__
+* `recipes` Integration - New `step_timeseries_signature()` for adding date and date-time features.
+* New Vignette - _"Time Series Machine Learning"_ (previously forecasting using the time series signature)
 
-
-Bug Fixes:
+__Bug Fixes:__
 * `xts::indexTZ` is deprecated. Use `tzone` instead.
-* Replace `arrange_` with `arrange`
+* Replace `arrange_` with `arrange`.
+* Fix failing tests due to `tidyquant` 1.0.0 upagrade (single stocks now return an extra symbol column).
 
 # timetk 0.1.2
 

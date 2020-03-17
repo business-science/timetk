@@ -21,5 +21,6 @@
 #'
 #' @importFrom dplyr %>%
 #' @importFrom xts xts
+#' @import recipes
 
 NULL

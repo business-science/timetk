@@ -23,7 +23,8 @@ License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true
 Depends:
-    R (>= 3.3.0)
+    R (>= 3.3.0),
+    recipes (>= 0.1.4)
 Imports:
     dplyr (>= 0.7.0),
     lazyeval (>= 0.2.0),
@@ -38,6 +39,10 @@ Imports:
     zoo (>= 1.7-14),
     rlang (>= 0.1.2)
 Suggests:
+    workflows,
+    parnsip,
+    rsample,
+    yardstick, 
     tidyverse,
     broom,
     forcats,
