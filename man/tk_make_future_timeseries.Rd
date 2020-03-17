@@ -4,8 +4,14 @@
 \alias{tk_make_future_timeseries}
 \title{Make a future time series from an existing time series}
 \usage{
-tk_make_future_timeseries(idx, n_future, inspect_weekdays = FALSE,
-  inspect_months = FALSE, skip_values = NULL, insert_values = NULL)
+tk_make_future_timeseries(
+  idx,
+  n_future,
+  inspect_weekdays = FALSE,
+  inspect_months = FALSE,
+  skip_values = NULL,
+  insert_values = NULL
+)
 }
 \arguments{
 \item{idx}{A vector of dates}

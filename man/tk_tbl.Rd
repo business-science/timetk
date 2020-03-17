@@ -4,8 +4,14 @@
 \alias{tk_tbl}
 \title{Coerce time-series objects to tibble.}
 \usage{
-tk_tbl(data, preserve_index = TRUE, rename_index = "index",
-  timetk_idx = FALSE, silent = FALSE, ...)
+tk_tbl(
+  data,
+  preserve_index = TRUE,
+  rename_index = "index",
+  timetk_idx = FALSE,
+  silent = FALSE,
+  ...
+)
 }
 \arguments{
 \item{data}{A time-series object.}

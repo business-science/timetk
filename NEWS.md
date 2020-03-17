@@ -1,3 +1,11 @@
+# timetk 0.1.2.9000 (Development)
+
+
+
+Bug Fixes:
+* `xts::indexTZ` is deprecated. Use `tzone` instead.
+* Replace `arrange_` with `arrange`
+
 # timetk 0.1.2
 
 * Compatability with `tidyquant` v0.5.7 - Removed dependency on `tidyverse`

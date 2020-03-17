@@ -5,13 +5,31 @@
 \alias{tk_zooreg_}
 \title{Coerce time series objects and tibbles with date/date-time columns to ts.}
 \usage{
-tk_zooreg(data, select = NULL, date_var = NULL, start = 1,
-  end = numeric(), frequency = 1, deltat = 1,
-  ts.eps = getOption("ts.eps"), order.by = NULL, silent = FALSE)
+tk_zooreg(
+  data,
+  select = NULL,
+  date_var = NULL,
+  start = 1,
+  end = numeric(),
+  frequency = 1,
+  deltat = 1,
+  ts.eps = getOption("ts.eps"),
+  order.by = NULL,
+  silent = FALSE
+)
 
-tk_zooreg_(data, select = NULL, date_var = NULL, start = 1,
-  end = numeric(), frequency = 1, deltat = 1,
-  ts.eps = getOption("ts.eps"), order.by = NULL, silent = FALSE)
+tk_zooreg_(
+  data,
+  select = NULL,
+  date_var = NULL,
+  start = 1,
+  end = numeric(),
+  frequency = 1,
+  deltat = 1,
+  ts.eps = getOption("ts.eps"),
+  order.by = NULL,
+  silent = FALSE
+)
 }
 \arguments{
 \item{data}{A time-based tibble or time-series object.}
@@ -42,7 +60,7 @@ Column name to be used to \code{order.by}.
 \item{order.by}{a vector by which the observations in \code{x}
     are ordered. If this is specified the arguments \code{start} and
     \code{end} are ignored and \code{zoo(data, order.by, frequency)} is
-    called. See \code{\link{zoo}} for more information.}
+    called. See \code{\link[zoo]{zoo}} for more information.}
 
 \item{silent}{Used to toggle printing of messages and warnings.}
 }

@@ -3,7 +3,6 @@
 \docType{package}
 \name{timetk}
 \alias{timetk}
-\alias{timetk-package}
 \title{timetk: a toolkit for time series}
 \description{
 The \code{timetk} package combines a collection of coercion tools for

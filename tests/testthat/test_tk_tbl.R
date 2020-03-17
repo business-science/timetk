@@ -1,53 +1,53 @@
 context("Test tk_tbl")
 
-
-AAPL_tbl <- tidyquant::tq_get("AAPL", from = "2015-01-01", to = "2016-12-31")
+FB_tbl <- FANG %>% filter(symbol == "FB")
+# FB_tbl <- tidyquant::tq_get("AAPL", from = "2015-01-01", to = "2016-12-31")
 
 # FUNCTION: tk_tbl -----
 
 # tbl to tbl -----
 test_that("tbl tot tbl test returns tibble with correct rows and columns.", {
-    test_tbl_1 <- tk_tbl(AAPL_tbl, preserve_index = F, rename_index = "date")
+    test_tbl_1 <- tk_tbl(FB_tbl, preserve_index = F, rename_index = "date")
     expect_is(test_tbl_1, "tbl")
-    expect_equal(nrow(test_tbl_1), 504)
-    expect_equal(ncol(test_tbl_1), 7)
-    expect_equal(colnames(test_tbl_1)[[1]], "date")
-    expect_warning(tk_tbl(AAPL_tbl, preserve_index = T)) # Expect warning - No index to preserve
+    expect_equal(nrow(test_tbl_1), 1008)
+    expect_equal(ncol(test_tbl_1), 8)
+    expect_equal(colnames(test_tbl_1)[[2]], "date")
+    expect_warning(tk_tbl(FB_tbl, preserve_index = T)) # Expect warning - No index to preserve
 })
 
 # xts to tbl -----
-AAPL_xts <- tk_xts(AAPL_tbl, select = -date, date_var = date)
+FB_xts <- tk_xts(FB_tbl, select = -c(date, symbol), date_var = date)
 test_that("xts to tbl test returns tibble with correct rows and columns.", {
-    test_tbl_2 <- tk_tbl(AAPL_xts, preserve_index = T, rename_index = "date")
-    expect_equal(nrow(test_tbl_2), 504)
+    test_tbl_2 <- tk_tbl(FB_xts, preserve_index = T, rename_index = "date")
+    expect_equal(nrow(test_tbl_2), 1008)
     expect_equal(ncol(test_tbl_2), 7)
     expect_equal(colnames(test_tbl_2)[[1]], "date")
-    expect_equal(ncol(tk_tbl(AAPL_xts, preserve_index = F, rename_index = "date")), 6)
+    expect_equal(ncol(tk_tbl(FB_xts, preserve_index = F, rename_index = "date")), 6)
 })
 
 # zoo to tbl -----
-AAPL_zoo <- tk_zoo(AAPL_tbl, select = -date, date_var = date)
+FB_zoo <- tk_zoo(FB_tbl, silent = TRUE)
 test_that("zoo to tbl test returns tibble with correct rows and columns.", {
-    test_tbl_3 <- tk_tbl(AAPL_zoo, preserve_index = T, rename_index = "date")
-    expect_equal(nrow(test_tbl_3), 504)
+    test_tbl_3 <- tk_tbl(FB_zoo, preserve_index = T, rename_index = "date")
+    expect_equal(nrow(test_tbl_3), 1008)
     expect_equal(ncol(test_tbl_3), 7)
     expect_equal(colnames(test_tbl_3)[[1]], "date")
-    expect_equal(ncol(tk_tbl(AAPL_zoo, preserve_index = F, rename_index = "date")), 6)
+    expect_equal(ncol(tk_tbl(FB_zoo, preserve_index = F, rename_index = "date")), 6)
 })
 
 # zooreg to tbl -----
-AAPL_zooreg <- tk_zooreg(AAPL_tbl, select = -date, start = 2015, frequency = 250)
+FB_zooreg <- tk_zooreg(FB_tbl, start = 2015, frequency = 250, silent = TRUE)
 test_that("zooreg to tbl test returns tibble with correct rows and columns.", {
-    test_tbl_3a <- tk_tbl(AAPL_zooreg, preserve_index = T, rename_index = "date")
-    expect_equal(nrow(test_tbl_3a), 504)
+    test_tbl_3a <- tk_tbl(FB_zooreg, preserve_index = T, rename_index = "date")
+    expect_equal(nrow(test_tbl_3a), 1008)
     expect_equal(ncol(test_tbl_3a), 7)
     expect_equal(colnames(test_tbl_3a)[[1]], "date")
-    expect_equal(ncol(tk_tbl(AAPL_zooreg, preserve_index = F, rename_index = "date")), 6)
+    expect_equal(ncol(tk_tbl(FB_zooreg, preserve_index = F, rename_index = "date")), 6)
 
     # zooreg reverse coercion test ----
-    test_tbl_3b <- AAPL_zooreg %>%
+    test_tbl_3b <- FB_zooreg %>%
         tk_tbl(rename_index = "date", timetk_idx = TRUE)
-    expect_identical(test_tbl_3b, AAPL_tbl)
+    expect_identical(test_tbl_3b, FB_tbl %>% select(-symbol))
 
     # Test different start/end types
 
@@ -66,16 +66,16 @@ test_that("zooreg to tbl test returns tibble with correct rows and columns.", {
 })
 
 # ts to tbl -----
-AAPL_mts <- tk_ts(AAPL_tbl, select = -date, start = 2015, frequency = 252)
+FB_mts <- tk_ts(FB_tbl, select = -c(date, symbol), start = 2015, frequency = 252)
 test_that("mts to tbl test returns tibble with correct rows and columns.", {
-    test_tbl_4 <- tk_tbl(AAPL_mts, preserve_index = T, rename_index = "date")
-    expect_equal(nrow(test_tbl_4), 504)
+    test_tbl_4 <- tk_tbl(FB_mts, preserve_index = T, rename_index = "date")
+    expect_equal(nrow(test_tbl_4), 1008)
     expect_equal(ncol(test_tbl_4), 7)
     expect_equal(colnames(test_tbl_4)[[1]], "date")
-    expect_equal(ncol(tk_tbl(AAPL_mts, preserve_index = F, rename_index = "date")), 6)
+    expect_equal(ncol(tk_tbl(FB_mts, preserve_index = F, rename_index = "date")), 6)
 
     # Warning if no index to preserve
-    expect_warning(tk_tbl(tk_ts(AAPL_mts, start = 1), select = -date, preserve_index = T))
+    expect_warning(tk_tbl(tk_ts(FB_mts, start = 1), select = -date, preserve_index = T))
 
     # Warning if no timetk index attribute
     expect_warning(
@@ -84,22 +84,22 @@ test_that("mts to tbl test returns tibble with correct rows and columns.", {
         )
 
     # ts reverse coercion test ----
-    test_tbl_4b <- AAPL_mts %>%
+    test_tbl_4b <- FB_mts %>%
         tk_tbl(rename_index = "date", timetk_idx = TRUE)
-    expect_identical(test_tbl_4b, AAPL_tbl)
+    expect_identical(test_tbl_4b, FB_tbl %>% select(-symbol))
 })
 
 # matrix to tbl -----
-AAPL_matrix <- AAPL_xts %>% as.matrix()
+FB_matrix <- FB_xts %>% as.matrix()
 test_that("matrix to tbl test returns tibble with correct rows and columns.", {
-    test_tbl_5 <- tk_tbl(AAPL_matrix, preserve_index = T, rename_index = "date")
-    expect_equal(nrow(test_tbl_5), 504)
+    test_tbl_5 <- tk_tbl(FB_matrix, preserve_index = T, rename_index = "date")
+    expect_equal(nrow(test_tbl_5), 1008)
     expect_equal(ncol(test_tbl_5), 7)
     expect_equal(colnames(test_tbl_5)[[1]], "date")
-    expect_equal(ncol(tk_tbl(AAPL_matrix, preserve_index = F, rename_index = "date")), 6)
+    expect_equal(ncol(tk_tbl(FB_matrix, preserve_index = F, rename_index = "date")), 6)
     # Warning if no index to prserve
-    rownames(AAPL_matrix) <- NULL
-    expect_warning(tk_tbl(AAPL_matrix))
+    rownames(FB_matrix) <- NULL
+    expect_warning(tk_tbl(FB_matrix))
 })
 
 

@@ -205,7 +205,7 @@ tk_index.xts <- function(data, timetk_idx = FALSE, silent = FALSE) {
     if ("yearqtr" %in% tclass) ret <- zoo::as.yearqtr(ret)
 
     # Set the timezone
-    tzone <- xts::indexTZ(data)
+    tzone <- xts::tzone(data)
     if (!is.null(tzone))
         if (!(tclass[[1]] %in% c("yearmon", "yearqtr")))
             lubridate::tz(ret) <- tzone[[1]]

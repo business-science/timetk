@@ -8,16 +8,35 @@
 \alias{tk_zooreg_.default}
 \title{Internal Functions Used in timetk}
 \usage{
-tk_ts_.data.frame(data, select, start, end, frequency, deltat, ts.eps,
-  silent)
+tk_ts_.data.frame(data, select, start, end, frequency, deltat, ts.eps, silent)
 
 tk_ts_.default(data, select, start, end, frequency, deltat, ts.eps, silent)
 
-tk_zooreg_.data.frame(data, select, date_var, start, end, frequency,
-  deltat, ts.eps, order.by, silent)
+tk_zooreg_.data.frame(
+  data,
+  select,
+  date_var,
+  start,
+  end,
+  frequency,
+  deltat,
+  ts.eps,
+  order.by,
+  silent
+)
 
-tk_zooreg_.default(data, select, date_var, start, end, frequency, deltat,
-  ts.eps, order.by, silent)
+tk_zooreg_.default(
+  data,
+  select,
+  date_var,
+  start,
+  end,
+  frequency,
+  deltat,
+  ts.eps,
+  order.by,
+  silent
+)
 }
 \arguments{
 \item{data}{A time-based tibble or time-series object.}
@@ -50,7 +69,7 @@ Column name to be used to \code{order.by}.
 \item{order.by}{a vector by which the observations in \code{x}
     are ordered. If this is specified the arguments \code{start} and
     \code{end} are ignored and \code{zoo(data, order.by, frequency)} is
-    called. See \code{\link{zoo}} for more information.}
+    called. See \code{\link[zoo]{zoo}} for more information.}
 }
 \description{
 The following are internal functions that are not meant to be used by

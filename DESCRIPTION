@@ -1,8 +1,7 @@
 Package: timetk
 Type: Package
 Title: A Tool Kit for Working with Time Series
-Version: 0.1.2
-Date: 2019-09-21
+Version: 0.1.2.9000
 Authors@R: c(
     person("Matt", "Dancho", email = "mdancho@business-science.io", role = c("aut", "cre")),
     person("Davis", "Vaughan", email = "dvaughan@business-science.io", role = c("aut"))
@@ -36,7 +35,8 @@ Imports:
     tibble (>= 1.2),
     tidyr (>= 0.6.1),
     xts (>= 0.9-7),
-    zoo (>= 1.7-14)
+    zoo (>= 1.7-14),
+    rlang (>= 0.1.2)
 Suggests:
     tidyverse,
     broom,
@@ -52,7 +52,8 @@ Suggests:
     fracdiff,
     timeDate,
     timeSeries,
-    tseries
-RoxygenNote: 6.1.1
+    tseries,
+    roxygen2
+RoxygenNote: 7.1.0
 Roxygen: list(markdown = TRUE)
 VignetteBuilder: knitr

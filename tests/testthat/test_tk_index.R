@@ -1,10 +1,10 @@
 context("Testing tk_index")
 
-AAPL_tbl    <- tq_get("AAPL", from = "2015-01-01", to = "2016-12-31")
-AAPL_xts    <- tk_xts(AAPL_tbl, select = -date, date_var = date)
-AAPL_zoo    <- tk_zoo(AAPL_tbl, select = -date, date_var = date)
-AAPL_zooreg <- tk_zooreg(AAPL_tbl, select = -date, start = 2015, freq = 252)
-AAPL_ts     <- tk_ts(AAPL_tbl, select = -date, start = 2015, freq = 252)
+FB_tbl    <- FANG %>% filter(symbol == "FB")
+FB_xts    <- FB_tbl %>% tk_xts(silent = TRUE)
+FB_zoo    <- FB_tbl %>% tk_zoo(silent = TRUE)
+FB_zooreg <- FB_tbl %>% tk_zooreg(start = 2015, freq = 252, silent = TRUE)
+FB_ts     <- FB_tbl %>% tk_ts(start = 2015, freq = 252, silent = TRUE)
 
 # FUNCTION tk_index -----
 
@@ -23,20 +23,20 @@ test_that("tk_index(default) test returns correct format.", {
 test_that("tk_index(ts) test returns correct format.", {
 
     # Test if object has timetk index
-    expect_true(tk_ts(AAPL_tbl, select = -date, freq = 252, start = 2015) %>%
+    expect_true(tk_ts(FB_tbl, freq = 252, start = 2015, silent = TRUE) %>%
                     has_timetk_idx())
 
     # Return regularized dates
-    test_index_1 <- tk_ts(AAPL_tbl, select = -date, freq = 252, start = 2015) %>%
+    test_index_1 <- tk_ts(FB_tbl, freq = 252, start = 2015, silent = TRUE) %>%
         tk_index(timetk_idx = FALSE)
     expect_equal(class(test_index_1), "numeric")
-    expect_equal(length(test_index_1), 504)
+    expect_equal(length(test_index_1), 1008)
 
     # Return non-regularized dates (aka timetk index)
-    test_index_2 <- tk_ts(AAPL_tbl, select = -date, freq = 252, start = 2015) %>%
+    test_index_2 <- tk_ts(FB_tbl, freq = 252, start = 2015, silent = TRUE) %>%
         tk_index(timetk_idx = TRUE)
     expect_equal(class(test_index_2), "Date")
-    expect_equal(length(test_index_2), 504)
+    expect_equal(length(test_index_2), 1008)
 
     # No timetk index
     expect_warning(
@@ -51,34 +51,32 @@ test_that("tk_index(ts) test returns correct format.", {
 test_that("tk_index(zooreg) test returns correct format.", {
 
     # Test if object has timetk index
-    expect_true(tk_zooreg(AAPL_tbl, select = -date, freq = 252, start = 2015) %>%
+    expect_true(tk_zooreg(FB_tbl, freq = 252, start = 2015, silent = TRUE) %>%
                           has_timetk_idx())
 
     # Return regularized dates
-    test_index_3 <- tk_zooreg(AAPL_tbl, select = -date, freq = 252, start = 2015) %>%
+    test_index_3 <- tk_zooreg(FB_tbl, freq = 252, start = 2015, silent = TRUE) %>%
         tk_index(timetk_idx = FALSE)
     expect_equal(class(test_index_3), "numeric")
-    expect_equal(length(test_index_3), 504)
+    expect_equal(length(test_index_3), 1008)
 
     # Return non-regularized dates (aka timetk index)
-    test_index_4 <- tk_zooreg(AAPL_tbl, select = -date, freq = 252, start = 2015) %>%
+    test_index_4 <- tk_zooreg(FB_tbl, freq = 252, start = 2015, silent = TRUE) %>%
         tk_index(timetk_idx = TRUE)
     expect_equal(class(test_index_4), "Date")
-    expect_equal(length(test_index_4), 504)
+    expect_equal(length(test_index_4), 1008)
 
 })
 
 test_that("tk_index(tbl) test returns correct format.", {
 
     # Test if object has timetk index
-    expect_false(AAPL_tbl %>%
-                    has_timetk_idx())
+    expect_false(FB_tbl %>% has_timetk_idx())
 
     # Return vector of dates
-    test_index_3 <- AAPL_tbl %>%
-        tk_index(timetk_idx = FALSE)
+    test_index_3 <- FB_tbl %>% tk_index(timetk_idx = FALSE)
     expect_equal(class(test_index_3), "Date")
-    expect_equal(length(test_index_3), 504)
+    expect_equal(length(test_index_3), 1008)
 
     # No date or date time
     expect_error(tk_index(mtcars))
@@ -88,28 +86,25 @@ test_that("tk_index(tbl) test returns correct format.", {
 test_that("tk_index(xts) test returns correct format.", {
 
     # Test if object has timetk index
-    expect_false(AAPL_xts %>%
-                     has_timetk_idx())
+    expect_false(FB_xts %>% has_timetk_idx())
 
     # Return vector of dates
-    test_index_5 <- AAPL_xts %>%
-        tk_index(timetk_idx = FALSE)
+    test_index_5 <- FB_xts %>% tk_index(timetk_idx = FALSE)
     expect_equal(class(test_index_5), "Date")
-    expect_equal(length(test_index_5), 504)
+    expect_equal(length(test_index_5), 1008)
 
 })
 
 test_that("tk_index(zoo) test returns correct format.", {
 
     # Test if object has timetk index
-    expect_false(AAPL_zoo %>%
-                     has_timetk_idx())
+    expect_false(FB_zoo %>% has_timetk_idx())
 
     # Return vector of dates
-    test_index_6 <- AAPL_zoo %>%
+    test_index_6 <- FB_zoo %>%
         tk_index(timetk_idx = FALSE)
     expect_equal(class(test_index_6), "Date")
-    expect_equal(length(test_index_6), 504)
+    expect_equal(length(test_index_6), 1008)
 
 })
 

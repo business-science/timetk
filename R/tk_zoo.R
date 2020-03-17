@@ -1,6 +1,5 @@
 #' Coerce time series objects and tibbles with date/date-time columns to xts.
 #'
-#' @name tk_zoo
 #'
 #' @param data A time-based tibble or time-series object.
 #' @param select __Applicable to tibbles and data frames only__.
@@ -76,7 +75,7 @@
 #' @export
 tk_zoo <- function(data, select = NULL, date_var = NULL, silent = FALSE, ...) {
 
-    select <- lazyeval::expr_text(select)
+    select   <- lazyeval::expr_text(select)
     date_var <- lazyeval::expr_text(date_var)
 
     # Coerce to xts then to zoo

@@ -1,6 +1,5 @@
 #' Coerce time series objects and tibbles with date/date-time columns to xts.
 #'
-#' @name tk_xts
 #'
 #' @param data A time-based tibble or time-series object.
 #' @param select __Applicable to tibbles and data frames only__.
@@ -105,7 +104,7 @@ tk_xts_.data.frame <- function(data, select = NULL, date_var = NULL, silent = FA
     # Provide warning if columns are dropped
     names_dropped <- names_to_check[!(names_to_check %in% colnames(ret))]
     if (length(names_dropped) > 0)
-        if (!silent) warning(paste0("Non-numeric columns being dropped: ", stringr::str_c(names_dropped, collapse = ", ")))
+        if (!silent) warning(call. = FALSE, paste0("Non-numeric columns being dropped: ", stringr::str_c(names_dropped, collapse = ", ")))
 
     # Collect xts args
     xts_args <- list(x = ret)
