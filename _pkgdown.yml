@@ -8,8 +8,6 @@ navbar:
   left:
     - text: "Home"
       href: index.html
-    - text: "Function Reference"
-      href: reference/index.html
     - text: "Tutorials"
       href: articles/index.html
       menu:
@@ -23,7 +21,8 @@ navbar:
           href: articles/TK01_Working_With_Time_Series_Index.html
         - text: "Creating future time series indices"
           href: articles/TK02_Making_A_Future_Time_Series_Index.html
-
+    - text: "Function Reference"
+      href: reference/index.html
     - text: "News"
       href: news/index.html
 
@@ -32,23 +31,23 @@ navbar:
       href: https://github.com/business-science/timetk
 
 reference:
-  - title: Future series
-    desc: __Functions for creating future time series from existing time series allowing for holidays, weekends, and regularly skipped days to be removed.__
-    contents:
-    - starts_with("tk_make")
   - title: Time Series Index
     desc: __Functions for extracting or checking for a timetk index.__
     contents:
     - starts_with("tk_index")
     - starts_with("has_timetk_idx")
-  - title: Augment
-    desc: __Add a time series signature to the original data.__
+  - title: Future series
+    desc: __Functions for creating future time series from existing time series allowing for holidays, weekends, and regularly skipped days to be removed.__
     contents:
-    - starts_with("tk_augment")
+    - starts_with("tk_make")
   - title: Getters
     desc: __Functions for getting variables, frequencies, and signatures from time series.__
     contents:
     - starts_with("tk_get")
+  - title: Augment
+    desc: __Add a time series signature to the original data.__
+    contents:
+    - starts_with("tk_augment")
   - title: Recipes Preprocessing
     desc: __Steps for machine learning preprocessing recipes and workflows__
     contents:

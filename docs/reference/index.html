@@ -86,7 +86,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">timetk</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.2.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.3</span>
       </span>
     </div>
 
@@ -94,9 +94,6 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">Home</a>
-</li>
-<li>
-  <a href="../reference/index.html">Function Reference</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -120,6 +117,9 @@
       <a href="../articles/TK02_Making_A_Future_Time_Series_Index.html">Creating future time series indices</a>
     </li>
   </ul>
+</li>
+<li>
+  <a href="../reference/index.html">Function Reference</a>
 </li>
 <li>
   <a href="../news/index.html">News</a>
@@ -159,20 +159,6 @@
     <tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-future-series" class="hasAnchor"><a href="#section-future-series" class="anchor"></a>Future series</h2>
-          <p class="section-desc"><p><strong>Functions for creating future time series from existing time series allowing for holidays, weekends, and regularly skipped days to be removed.</strong></p></p>
-        </th>
-      </tr>
-      <tr>
-        
-        <td>
-          <p><code><a href="tk_make_future_timeseries.html">tk_make_future_timeseries()</a></code> </p>
-        </td>
-        <td><p>Make a future time series from an existing time series</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
           <h2 id="section-time-series-index" class="hasAnchor"><a href="#section-time-series-index" class="anchor"></a>Time Series Index</h2>
           <p class="section-desc"><p><strong>Functions for extracting or checking for a timetk index.</strong></p></p>
         </th>
@@ -187,16 +173,16 @@
     </tbody><tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-augment" class="hasAnchor"><a href="#section-augment" class="anchor"></a>Augment</h2>
-          <p class="section-desc"><p><strong>Add a time series signature to the original data.</strong></p></p>
+          <h2 id="section-future-series" class="hasAnchor"><a href="#section-future-series" class="anchor"></a>Future series</h2>
+          <p class="section-desc"><p><strong>Functions for creating future time series from existing time series allowing for holidays, weekends, and regularly skipped days to be removed.</strong></p></p>
         </th>
       </tr>
       <tr>
         
         <td>
-          <p><code><a href="tk_augment_timeseries.html">tk_augment_timeseries_signature()</a></code> </p>
+          <p><code><a href="tk_make_future_timeseries.html">tk_make_future_timeseries()</a></code> </p>
         </td>
-        <td><p>Augment the time series signature to the data</p></td>
+        <td><p>Make a future time series from an existing time series</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -223,6 +209,20 @@
           <p><code><a href="tk_get_timeseries_variables.html">tk_get_timeseries_variables()</a></code> </p>
         </td>
         <td><p>Get date or datetime variables (column names)</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-augment" class="hasAnchor"><a href="#section-augment" class="anchor"></a>Augment</h2>
+          <p class="section-desc"><p><strong>Add a time series signature to the original data.</strong></p></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="tk_augment_timeseries.html">tk_augment_timeseries_signature()</a></code> </p>
+        </td>
+        <td><p>Augment the time series signature to the data</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -283,10 +283,10 @@
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#section-future-series">Future series</a></li>
       <li><a href="#section-time-series-index">Time Series Index</a></li>
-      <li><a href="#section-augment">Augment</a></li>
+      <li><a href="#section-future-series">Future series</a></li>
       <li><a href="#section-getters">Getters</a></li>
+      <li><a href="#section-augment">Augment</a></li>
       <li><a href="#section-recipes-preprocessing">Recipes Preprocessing</a></li>
       <li><a href="#section-convert-from-to-time-series-structures">Convert From-To Time Series Structures</a></li>
     </ul>
