@@ -158,13 +158,15 @@ workflow_glmnet
 
 ## Training
 
+The workflow can be trained with the `fit()` function. 
+
 ```{r}
 workflow_trained <- workflow_glmnet %>% fit(data = train_tbl)
 ```
 
 
 
-# Test Validation
+## Test (Validation)
 
 With a suitable model in hand, we can forecast using the "test" set for validation purposes. 
 
@@ -200,7 +202,7 @@ ggplot(aes(x = date), data = bikes_tbl) +
 
 
 
-# Test Accuracy
+## Validation Accuracy (Out of Sample)
 
 The Out-of-Sample Forecast Accuracy can be measured with `yardstick`. 
 

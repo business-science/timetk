@@ -1,4 +1,4 @@
-# timetk 0.1.2.9000 (Development)
+# timetk 0.1.3 
 
 __New Feature:__
 * `recipes` Integration - New `step_timeseries_signature()` for adding date and date-time features.
