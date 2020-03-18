@@ -41,6 +41,7 @@ Imports:
 Suggests:
     workflows,
     parnsip,
+    glmnet,
     rsample,
     yardstick, 
     tidyverse,

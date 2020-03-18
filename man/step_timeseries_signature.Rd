@@ -2,8 +2,6 @@
 % Please edit documentation in R/recipes-step_timeseries_signature.R
 \name{step_timeseries_signature}
 \alias{step_timeseries_signature}
-\alias{prep.step_timeseries_signature}
-\alias{bake.step_timeseries_signature}
 \alias{tidy.step_timeseries_signature}
 \title{Time Series Feature (Signature) Generator}
 \usage{
@@ -16,10 +14,6 @@ step_timeseries_signature(
   skip = FALSE,
   id = rand_id("timeseries_signature")
 )
-
-\method{prep}{step_timeseries_signature}(x, training, info = NULL, ...)
-
-\method{bake}{step_timeseries_signature}(object, new_data, ...)
 
 \method{tidy}{step_timeseries_signature}(x, ...)
 }

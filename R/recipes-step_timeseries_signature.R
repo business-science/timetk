@@ -26,7 +26,6 @@
 #'  (e.g. processing the outcome variable(s)). Care should be taken when
 #'  using skip = TRUE as it may affect the computations for subsequent operations.
 #' @param id A character string that is unique to this step to identify it.
-#' @param x A `step_timeseries_signature` object.
 #'
 #' @return For `step_timeseries_signature`, an updated version of recipe with
 #'  the new step added to the sequence of existing steps (if any).
@@ -87,8 +86,9 @@
 #'   [recipes::recipe()] [recipes::prep.recipe()]
 #'   [recipes::bake.recipe()]
 #'
+#'
+#' @importFrom recipes rand_id
 #' @export
-#' @importFrom recipes rand_id add_step ellipse_check
 step_timeseries_signature <-
     function(recipe,
              ...,
@@ -99,10 +99,10 @@ step_timeseries_signature <-
              id = rand_id("timeseries_signature")
     ) {
 
-        add_step(
+        recipes::add_step(
             recipe,
             step_timeseries_signature_new(
-                terms = ellipse_check(...),
+                terms = recipes::ellipse_check(...),
                 role = role,
                 trained = trained,
                 columns = columns,
@@ -127,8 +127,6 @@ step_timeseries_signature_new <-
 
 
 #' @export
-#' @importFrom recipes terms_select
-#' @rdname step_timeseries_signature
 prep.step_timeseries_signature <- function(x, training, info = NULL, ...) {
 
     col_names <- recipes::terms_select(x$terms, info = info)
@@ -156,7 +154,6 @@ prep.step_timeseries_signature <- function(x, training, info = NULL, ...) {
 
 
 #' @export
-#' @rdname step_timeseries_signature
 bake.step_timeseries_signature <- function(object, new_data, ...) {
 
     # feature length - subtract index and diff columns (2 columns)
@@ -210,6 +207,7 @@ bake.step_timeseries_signature <- function(object, new_data, ...) {
 }
 
 
+#' @export
 print.step_timeseries_signature <-
     function(x, width = max(20, options()$width - 29), ...) {
         cat("Timeseries signature features from ")

@@ -23,7 +23,7 @@ knitr::opts_chunk$set(
     dpi = 200
 )
 
-devtools::load_all() # Travis CI fails on load_all()
+# devtools::load_all() # Travis CI fails on load_all()
 ```
 
 > A collection of tools for working with time series in R
@@ -40,8 +40,10 @@ library(workflows)
 library(parsnip)
 library(recipes)
 library(yardstick)
+library(glmnet)
 library(tidyverse)
 library(tidyquant)
+library(timetk)
 ```
 
 # Data
@@ -118,7 +120,7 @@ We can see what happens when we apply a prepared recipe `prep()` using the `bake
 bake(prep(recipe_spec_timeseries), new_data = train_tbl)
 ```
 
-Next, I apply various preprocessing steps to improve the modeling behavior. If you wish to learn more, I have an [Advanced Time Series course]() that will help you learn these techniques.  
+Next, I apply various preprocessing steps to improve the modeling behavior. If you wish to learn more, I have an [Advanced Time Series course](https://mailchi.mp/business-science/time-series-forecasting-course-coming-soon) that will help you learn these techniques.  
 
 ```{r}
 recipe_spec_final <- recipe_spec_timeseries %>%
@@ -344,7 +346,7 @@ Forecasting using the time series signature can be very accurate especially when
 
 One benefit to the machine learning approach that was not covered in this vignette but is an significant advantage is that other features (including non-time-based) can be included in the analysis if the values are present in the training and test sets and can be determined with some level of accuracy in the future. For example, one can expect that experts in Bike Sharing analytics have access to historical temperature and weather patterns, wind speeds, and so on that could have a significant affect on bicycle sharing. The beauty of this method is these features can easily be incorporated into the model and prediction.
 
-Last, a few points on the modeling process. Important modeling steps have not been discussed:
+__Last, a few points on the modeling process - The following modeling steps are absolutely critical to developing forecasts that will return ROI to your company:__
 
 - Preprocessing 
 - Feature engineering using lagged variables 
@@ -353,6 +355,6 @@ Last, a few points on the modeling process. Important modeling steps have not be
 - Using Multiple Modeling Techniques
 - and more. 
 
-These will be covered in my upcoming [Advanced Time Series Course (Register Here)](). 
+These will be covered in my upcoming [__Advanced Time Series Course (Register Here)__](https://mailchi.mp/business-science/time-series-forecasting-course-coming-soon). 
 
 
