@@ -62,13 +62,13 @@ users." />
 
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-76139189-1"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-76139189-2"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-  gtag('config', 'UA-76139189-1');
+  gtag('config', 'UA-76139189-2');
 </script>
 
 
@@ -88,7 +88,7 @@ users." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">timetk</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.2.9000</span>
       </span>
     </div>
 
@@ -102,22 +102,24 @@ users." />
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Vignettes
+    Tutorials
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/TK00_Time_Series_Coercion.html">Time series coercion</a>
+      <a href="../articles/TK03_Forecasting_Using_Time_Series_Signature.html">Time Series Machine Learning</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Time Series Helpers</li>
+    <li>
+      <a href="../articles/TK00_Time_Series_Coercion.html">Time series conversion</a>
     </li>
     <li>
       <a href="../articles/TK01_Working_With_Time_Series_Index.html">Time series index</a>
     </li>
     <li>
       <a href="../articles/TK02_Making_A_Future_Time_Series_Index.html">Creating future time series indices</a>
-    </li>
-    <li>
-      <a href="../articles/TK03_Forecasting_Using_Time_Series_Signature.html">Forecasting with timetk</a>
     </li>
   </ul>
 </li>
@@ -155,16 +157,35 @@ users." />
 users.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>tk_ts_.data.frame</span>(<span class='no'>data</span>, <span class='no'>select</span>, <span class='no'>start</span>, <span class='no'>end</span>, <span class='no'>frequency</span>, <span class='no'>deltat</span>, <span class='no'>ts.eps</span>,
-  <span class='no'>silent</span>)
+    <pre class="usage"><span class='fu'>tk_ts_.data.frame</span>(<span class='no'>data</span>, <span class='no'>select</span>, <span class='no'>start</span>, <span class='no'>end</span>, <span class='no'>frequency</span>, <span class='no'>deltat</span>, <span class='no'>ts.eps</span>, <span class='no'>silent</span>)
 
 <span class='fu'>tk_ts_.default</span>(<span class='no'>data</span>, <span class='no'>select</span>, <span class='no'>start</span>, <span class='no'>end</span>, <span class='no'>frequency</span>, <span class='no'>deltat</span>, <span class='no'>ts.eps</span>, <span class='no'>silent</span>)
 
-<span class='fu'>tk_zooreg_.data.frame</span>(<span class='no'>data</span>, <span class='no'>select</span>, <span class='no'>date_var</span>, <span class='no'>start</span>, <span class='no'>end</span>, <span class='no'>frequency</span>,
-  <span class='no'>deltat</span>, <span class='no'>ts.eps</span>, <span class='no'>order.by</span>, <span class='no'>silent</span>)
+<span class='fu'>tk_zooreg_.data.frame</span>(
+  <span class='no'>data</span>,
+  <span class='no'>select</span>,
+  <span class='no'>date_var</span>,
+  <span class='no'>start</span>,
+  <span class='no'>end</span>,
+  <span class='no'>frequency</span>,
+  <span class='no'>deltat</span>,
+  <span class='no'>ts.eps</span>,
+  <span class='no'>order.by</span>,
+  <span class='no'>silent</span>
+)
 
-<span class='fu'>tk_zooreg_.default</span>(<span class='no'>data</span>, <span class='no'>select</span>, <span class='no'>date_var</span>, <span class='no'>start</span>, <span class='no'>end</span>, <span class='no'>frequency</span>, <span class='no'>deltat</span>,
-  <span class='no'>ts.eps</span>, <span class='no'>order.by</span>, <span class='no'>silent</span>)</pre>
+<span class='fu'>tk_zooreg_.default</span>(
+  <span class='no'>data</span>,
+  <span class='no'>select</span>,
+  <span class='no'>date_var</span>,
+  <span class='no'>start</span>,
+  <span class='no'>end</span>,
+  <span class='no'>frequency</span>,
+  <span class='no'>deltat</span>,
+  <span class='no'>ts.eps</span>,
+  <span class='no'>order.by</span>,
+  <span class='no'>silent</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -219,7 +240,7 @@ Column name to be used to <code>order.by</code>.
       <td><p>a vector by which the observations in <code>x</code>
     are ordered. If this is specified the arguments <code>start</code> and
     <code>end</code> are ignored and <code>zoo(data, order.by, frequency)</code> is
-    called. See <code>zoo</code> for more information.</p></td>
+    called. See <code><a href='https://rdrr.io/pkg/zoo/man/zoo.html'>zoo</a></code> for more information.</p></td>
     </tr>
     </table>
 

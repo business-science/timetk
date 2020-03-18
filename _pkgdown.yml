@@ -1,7 +1,7 @@
 template:
   params:
     bootswatch: flatly
-    ganalytics: UA-76139189-1
+    ganalytics: UA-76139189-2
 
 navbar:
   title: "timetk"
@@ -10,17 +10,20 @@ navbar:
       href: index.html
     - text: "Function Reference"
       href: reference/index.html
-    - text: "Vignettes"
+    - text: "Tutorials"
       href: articles/index.html
       menu:
-        - text: "Time series coercion"
+        - text: "Time Series Machine Learning"
+          href: articles/TK03_Forecasting_Using_Time_Series_Signature.html
+        - text: '---'
+        - text: 'Time Series Helpers'
+        - text: "Time series conversion"
           href: articles/TK00_Time_Series_Coercion.html
         - text: "Time series index"
           href: articles/TK01_Working_With_Time_Series_Index.html
         - text: "Creating future time series indices"
           href: articles/TK02_Making_A_Future_Time_Series_Index.html
-        - text: "Forecasting with timetk"
-          href: articles/TK03_Forecasting_Using_Time_Series_Signature.html
+
     - text: "News"
       href: news/index.html
 
@@ -33,19 +36,7 @@ reference:
     desc: __Functions for creating future time series from existing time series allowing for holidays, weekends, and regularly skipped days to be removed.__
     contents:
     - starts_with("tk_make")
-  - title: Coercion
-    desc: __Functions for moving between common time series formats.__
-    contents:
-    - "tk_tbl"
-    - "tk_ts"
-    - "tk_ts_"
-    - "tk_xts"
-    - "tk_xts_"
-    - "tk_zoo"
-    - "tk_zoo_"
-    - "tk_zooreg"
-    - "tk_zooreg_"
-  - title: Index
+  - title: Time Series Index
     desc: __Functions for extracting or checking for a timetk index.__
     contents:
     - starts_with("tk_index")
@@ -58,14 +49,22 @@ reference:
     desc: __Functions for getting variables, frequencies, and signatures from time series.__
     contents:
     - starts_with("tk_get")
-  - title: Internal
-    desc: __Internal functions used in timetk.__
+  - title: Recipes Preprocessing
+    desc: __Steps for machine learning preprocessing recipes and workflows__
     contents:
-    - starts_with("tk_ts_.")
-    - starts_with("tk_zooreg_.")
-  - title: Timetk
-    desc: __Package level information.__
+    - contains("step_")
+  - title: Convert From-To Time Series Structures
+    desc: __Functions for moving between common time series formats.__
     contents:
-    - "timetk"
+    - "tk_tbl"
+    - "tk_ts"
+    - "tk_ts_"
+    - "tk_xts"
+    - "tk_xts_"
+    - "tk_zoo"
+    - "tk_zoo_"
+    - "tk_zooreg"
+    - "tk_zooreg_"
+
 
 

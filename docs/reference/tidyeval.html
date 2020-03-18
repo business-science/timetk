@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Changelog • timetk</title>
+<title>Tidy eval helpers — tidyeval • timetk</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -42,7 +42,40 @@
 
 
 
-<meta property="og:title" content="Changelog" />
+<meta property="og:title" content="Tidy eval helpers — tidyeval" />
+<meta property="og:description" content="
+
+sym() creates a symbol from a string and
+syms() creates a list of symbols from a
+character vector.
+enquo() and
+enquos() delay the execution of one or
+several function arguments. enquo() returns a single quoted
+expression, which is like a blueprint for the delayed computation.
+enquos() returns a list of such quoted expressions.
+expr() quotes a new expression locally. It
+is mostly useful to build new expressions around arguments
+captured with enquo() or enquos():
+expr(mean(!!enquo(arg), na.rm = TRUE)).
+as_name() transforms a quoted variable name
+into a string. Supplying something else than a quoted variable
+name is an error.
+That's unlike as_label() which also returns
+a single string but supports any kind of R object as input,
+including quoted function calls and vectors. Its purpose is to
+summarise that object into a single label. That label is often
+suitable as a default name.
+If you don't know what a quoted expression contains (for instance
+expressions captured with enquo() could be a variable
+name, a call to a function, or an unquoted constant), then use
+as_label(). If you know you have quoted a simple variable
+name, or would like to enforce this, use as_name().
+
+
+To learn more about tidy eval and how to use these tools, visit
+https://tidyeval.tidyverse.org and the
+Metaprogramming
+section of Advanced R." />
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -73,7 +106,7 @@
   </head>
 
   <body>
-    <div class="container template-news">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -145,121 +178,57 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Changelog <small></small></h1>
-      <small>Source: <a href='https://github.com/business-science/timetk/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
+    <h1>Tidy eval helpers</h1>
+    <small class="dont-index">Source: <a href='https://github.com/business-science/timetk/blob/master/R/utils-tidy-eval.R'><code>R/utils-tidy-eval.R</code></a></small>
+    <div class="hidden name"><code>tidyeval.Rd</code></div>
     </div>
 
-    <div id="timetk-0-1-2-9000-development" class="section level1">
-<h1 class="page-header">
-<a href="#timetk-0-1-2-9000-development" class="anchor"></a>timetk 0.1.2.9000 (Development)<small> Unreleased </small>
-</h1>
-<p><strong>New Feature:</strong></p>
-<ul>
-<li>
-<code>recipes</code> Integration - New <code><a href="../reference/step_timeseries_signature.html">step_timeseries_signature()</a></code> for adding date and date-time features.</li>
-<li>New Vignette - <em>“Time Series Machine Learning”</em> (previously forecasting using the time series signature)</li>
-</ul>
-<p><strong>Bug Fixes:</strong></p>
-<ul>
-<li>
-<code><a href="https://rdrr.io/pkg/xts/man/tzone.html">xts::indexTZ</a></code> is deprecated. Use <code>tzone</code> instead.</li>
-<li>Replace <code>arrange_</code> with <code>arrange</code>.</li>
-<li>Fix failing tests due to <code>tidyquant</code> 1.0.0 upagrade (single stocks now return an extra symbol column).</li>
-</ul>
-</div>
-    <div id="timetk-0-1-2" class="section level1">
-<h1 class="page-header">
-<a href="#timetk-0-1-2" class="anchor"></a>timetk 0.1.2<small> 2019-09-25 </small>
-</h1>
-<ul>
-<li>Compatability with <code>tidyquant</code> v0.5.7 - Removed dependency on <code>tidyverse</code>
-</li>
-<li>Dependency cleanup - removed devtools and other unncessary dependencies.</li>
-</ul>
-</div>
-    <div id="timetk-0-1-1" class="section level1">
-<h1 class="page-header">
-<a href="#timetk-0-1-1" class="anchor"></a>timetk 0.1.1<small> 2018-05-14 </small>
-</h1>
-<ul>
-<li>Added <code>timeSeries</code> to Suggests to satisfy a CRAN issue.</li>
-</ul>
-</div>
-    <div id="timetk-0-1-0" class="section level1">
-<h1 class="page-header">
-<a href="#timetk-0-1-0" class="anchor"></a>timetk 0.1.0<small> 2017-07-25 </small>
-</h1>
-<ul>
-<li>Renamed package <code>timetk</code>. Was formerly <code>timekit</code>.</li>
-<li>Improvements:
-<ul>
-<li>Fixed issue with back-ticked date columns</li>
-<li>Update pkgdown</li>
-<li>support for <code>robets</code>
-</li>
-</ul>
-</li>
-</ul>
-<!-- 
-The information below is kept for historical reasons since this package was converted from the previous `timekit` package
-
-# timetk 0.3.1
-* Improvements:
-    * `tk_index` and `tk_has_index`: Added `decomposed.ts` 
-    * `tk_get_timeseries_signature` and `tk_augment_timeseries_signature`:
-        * Added "year.iso" (Issue <a href='https://github.com/business-science/timetk/issues/4'>#4</a>)
-    * Cleaned up Imports:
-        * Moved `tidyquant`, `broom`, `forcats`, `scales` to Suggests 
-        * Removed `quantmod`, `TTR`, `timeSeries` and `tseries` from Imports
+    <div class="ref-description">
     
+<ul>
+<li><p><code><a href='https://rlang.r-lib.org/reference/nse-defuse.html'>sym</a>()</code> creates a symbol from a string and
+<code><a href='https://rlang.r-lib.org/reference/nse-defuse.html'>syms</a>()</code> creates a list of symbols from a
+character vector.</p></li>
+<li><p><code><a href='https://rlang.r-lib.org/reference/nse-defuse.html'>enquo</a>()</code> and
+<code><a href='https://rlang.r-lib.org/reference/nse-defuse.html'>enquos</a>()</code> delay the execution of one or
+several function arguments. <code>enquo()</code> returns a single quoted
+expression, which is like a blueprint for the delayed computation.
+<code>enquos()</code> returns a list of such quoted expressions.</p></li>
+<li><p><code><a href='https://rlang.r-lib.org/reference/nse-defuse.html'>expr</a>()</code> quotes a new expression <em>locally</em>. It
+is mostly useful to build new expressions around arguments
+captured with <code>enquo()</code> or <code>enquos()</code>:
+<code>expr(mean(!!enquo(arg), na.rm = TRUE))</code>.</p></li>
+<li><p><code><a href='https://rlang.r-lib.org/reference/as_name.html'>as_name</a>()</code> transforms a quoted variable name
+into a string. Supplying something else than a quoted variable
+name is an error.</p>
+<p>That's unlike <code><a href='https://rlang.r-lib.org/reference/as_label.html'>as_label</a>()</code> which also returns
+a single string but supports any kind of R object as input,
+including quoted function calls and vectors. Its purpose is to
+summarise that object into a single label. That label is often
+suitable as a default name.</p>
+<p>If you don't know what a quoted expression contains (for instance
+expressions captured with <code>enquo()</code> could be a variable
+name, a call to a function, or an unquoted constant), then use
+<code>as_label()</code>. If you know you have quoted a simple variable
+name, or would like to enforce this, use <code>as_name()</code>.</p></li>
+</ul>
+
+<p>To learn more about tidy eval and how to use these tools, visit
+<a href='https://tidyeval.tidyverse.org'>https://tidyeval.tidyverse.org</a> and the
+<a href='https://adv-r.hadley.nz/metaprogramming.html'>Metaprogramming
+section</a> of <a href='https://adv-r.hadley.nz'>Advanced R</a>.</p>
+    </div>
 
 
-# timetk 0.3.0
-* Improvements:
-    * `tk_make_future_timeseries`: 
-        * Improved future date picking algorithm to look for seasonal trends by way of `inspect_months`. The data must span at least two calendar years to gain this benefit. 
-        * Improved handling of index in situations with units = days and scale greater than day (e.g. weekly, monthly, quarterly, +). Now values returned will be a regular series of the appropriate scale versus an irregular series indexed by regularly spaced seconds. For example, monthly dates in units = days will be predicted as the first day of each month rather than by the median frequency in seconds.
-        * Includes a new argument, `insert_values` to add time-based values into a time series. Before you could remove via `skip_values`, and now you can add via `insert_values`.
-        * Changed `n_future` to be inclusive of skip_values and weekends, which means that the end date of the future period is the same regardless of `inspect_weekdays`, `inspect_months`, `skip_values`, and now `insert_values`. Now the end dates are fixed which helps when manipulating future days.
-* Documentation:
-    * (New Vignette) TK02 - Making a Future Time Series Index using timetk
-    * (New Vignette) TK03 - Forecasting Using a Time Series Signature with timetk
-         
-
-# timetk 0.2.0
-
-* New Functions:
-    * `tk_make_future_timeseries` creates a future time-based index from an existing time-based index. 
-    * `tk_get_timeseries_signature` returns a tibble with the time series index decomposed into year, quarter, month, etc.
-    * `tk_get_timeseries_summary` returns summary metrics for the time series index including number of observations, start, end, units, scale, diff summary (summary for frequency in seconds), etc.
-    * `tk_augment_timeseries_signature` adds the time series signature to a `tbl` (with time base), `xts` or `zoo` object.
-    * `tk_get_timeseries_variables` returns the variable column names for date, datetime, yearmon, or yearqtr variables in a data frame. 
-* Fixes:
-    * `tk_index`: Fixed timezone issue with yearmon and yearqtr classes. 
-    * `tk_tbl`: Changed argument from `index_rename` to `rename_index` for consistency.
-    
 
 
-# timetk 0.1.0 
-
-* Initial release of `timetk`, a time series toolkit that simplifies coercion between time series classes and time-based tibbles ("tidy" data frames).
-
--->
-</div>
   </div>
-
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <div id="tocnav">
-      <h2>Contents</h2>
-      <ul class="nav nav-pills nav-stacked">
-        <li><a href="#timetk-0-1-2-9000-development">0.1.2.9000</a></li>
-        <li><a href="#timetk-0-1-2">0.1.2</a></li>
-        <li><a href="#timetk-0-1-1">0.1.1</a></li>
-        <li><a href="#timetk-0-1-0">0.1.0</a></li>
-      </ul>
-    </div>
-  </div>
+    <h2>Contents</h2>
+    <ul class="nav nav-pills nav-stacked">
+    </ul>
 
+  </div>
 </div>
 
 

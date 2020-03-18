@@ -60,13 +60,13 @@
 
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-76139189-1"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-76139189-2"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-  gtag('config', 'UA-76139189-1');
+  gtag('config', 'UA-76139189-2');
 </script>
 
 
@@ -86,7 +86,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">timetk</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.2.9000</span>
       </span>
     </div>
 
@@ -100,22 +100,24 @@
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Vignettes
+    Tutorials
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/TK00_Time_Series_Coercion.html">Time series coercion</a>
+      <a href="../articles/TK03_Forecasting_Using_Time_Series_Signature.html">Time Series Machine Learning</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Time Series Helpers</li>
+    <li>
+      <a href="../articles/TK00_Time_Series_Coercion.html">Time series conversion</a>
     </li>
     <li>
       <a href="../articles/TK01_Working_With_Time_Series_Index.html">Time series index</a>
     </li>
     <li>
       <a href="../articles/TK02_Making_A_Future_Time_Series_Index.html">Creating future time series indices</a>
-    </li>
-    <li>
-      <a href="../articles/TK03_Forecasting_Using_Time_Series_Signature.html">Forecasting with timetk</a>
     </li>
   </ul>
 </li>
@@ -171,45 +173,7 @@
     </tbody><tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-coercion" class="hasAnchor"><a href="#section-coercion" class="anchor"></a>Coercion</h2>
-          <p class="section-desc"><p><strong>Functions for moving between common time series formats.</strong></p></p>
-        </th>
-      </tr>
-      <tr>
-        
-        <td>
-          <p><code><a href="tk_tbl.html">tk_tbl()</a></code> </p>
-        </td>
-        <td><p>Coerce time-series objects to tibble.</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="tk_ts.html">tk_ts()</a></code> <code><a href="tk_ts.html">tk_ts_()</a></code> </p>
-        </td>
-        <td><p>Coerce time series objects and tibbles with date/date-time columns to ts.</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="tk_xts.html">tk_xts()</a></code> <code><a href="tk_xts.html">tk_xts_()</a></code> </p>
-        </td>
-        <td><p>Coerce time series objects and tibbles with date/date-time columns to xts.</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="tk_zoo.html">tk_zoo()</a></code> <code><a href="tk_zoo.html">tk_zoo_()</a></code> </p>
-        </td>
-        <td><p>Coerce time series objects and tibbles with date/date-time columns to xts.</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="tk_zooreg.html">tk_zooreg()</a></code> <code><a href="tk_zooreg.html">tk_zooreg_()</a></code> </p>
-        </td>
-        <td><p>Coerce time series objects and tibbles with date/date-time columns to ts.</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-index" class="hasAnchor"><a href="#section-index" class="anchor"></a>Index</h2>
+          <h2 id="section-time-series-index" class="hasAnchor"><a href="#section-time-series-index" class="anchor"></a>Time Series Index</h2>
           <p class="section-desc"><p><strong>Functions for extracting or checking for a timetk index.</strong></p></p>
         </th>
       </tr>
@@ -263,30 +227,54 @@
     </tbody><tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-internal" class="hasAnchor"><a href="#section-internal" class="anchor"></a>Internal</h2>
-          <p class="section-desc"><p><strong>Internal functions used in timetk.</strong></p></p>
+          <h2 id="section-recipes-preprocessing" class="hasAnchor"><a href="#section-recipes-preprocessing" class="anchor"></a>Recipes Preprocessing</h2>
+          <p class="section-desc"><p><strong>Steps for machine learning preprocessing recipes and workflows</strong></p></p>
         </th>
       </tr>
       <tr>
         
         <td>
-          <p><code><a href="timetk_internal.html">tk_ts_.data.frame()</a></code> <code><a href="timetk_internal.html">tk_ts_.default()</a></code> <code><a href="timetk_internal.html">tk_zooreg_.data.frame()</a></code> <code><a href="timetk_internal.html">tk_zooreg_.default()</a></code> </p>
+          <p><code><a href="step_timeseries_signature.html">step_timeseries_signature()</a></code> <code><a href="step_timeseries_signature.html">tidy(<i>&lt;step_timeseries_signature&gt;</i>)</a></code> </p>
         </td>
-        <td><p>Internal Functions Used in timetk</p></td>
+        <td><p>Time Series Feature (Signature) Generator</p></td>
       </tr>
     </tbody><tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-timetk" class="hasAnchor"><a href="#section-timetk" class="anchor"></a>Timetk</h2>
-          <p class="section-desc"><p><strong>Package level information.</strong></p></p>
+          <h2 id="section-convert-from-to-time-series-structures" class="hasAnchor"><a href="#section-convert-from-to-time-series-structures" class="anchor"></a>Convert From-To Time Series Structures</h2>
+          <p class="section-desc"><p><strong>Functions for moving between common time series formats.</strong></p></p>
         </th>
       </tr>
       <tr>
         
         <td>
-          <p><code><a href="timetk.html">timetk</a></code> </p>
+          <p><code><a href="tk_tbl.html">tk_tbl()</a></code> </p>
         </td>
-        <td><p>timetk: a toolkit for time series</p></td>
+        <td><p>Coerce time-series objects to tibble.</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="tk_ts.html">tk_ts()</a></code> <code><a href="tk_ts.html">tk_ts_()</a></code> </p>
+        </td>
+        <td><p>Coerce time series objects and tibbles with date/date-time columns to ts.</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="tk_xts.html">tk_xts()</a></code> <code><a href="tk_xts.html">tk_xts_()</a></code> </p>
+        </td>
+        <td><p>Coerce time series objects and tibbles with date/date-time columns to xts.</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="tk_zoo.html">tk_zoo()</a></code> <code><a href="tk_zoo.html">tk_zoo_()</a></code> </p>
+        </td>
+        <td><p>Coerce time series objects and tibbles with date/date-time columns to xts.</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="tk_zooreg.html">tk_zooreg()</a></code> <code><a href="tk_zooreg.html">tk_zooreg_()</a></code> </p>
+        </td>
+        <td><p>Coerce time series objects and tibbles with date/date-time columns to ts.</p></td>
       </tr>
     </tbody>
     </table>
@@ -296,12 +284,11 @@
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#section-future-series">Future series</a></li>
-      <li><a href="#section-coercion">Coercion</a></li>
-      <li><a href="#section-index">Index</a></li>
+      <li><a href="#section-time-series-index">Time Series Index</a></li>
       <li><a href="#section-augment">Augment</a></li>
       <li><a href="#section-getters">Getters</a></li>
-      <li><a href="#section-internal">Internal</a></li>
-      <li><a href="#section-timetk">Timetk</a></li>
+      <li><a href="#section-recipes-preprocessing">Recipes Preprocessing</a></li>
+      <li><a href="#section-convert-from-to-time-series-structures">Convert From-To Time Series Structures</a></li>
     </ul>
   </div>
 </div>
