@@ -1,7 +1,7 @@
 Package: timetk
 Type: Package
 Title: A Tool Kit for Working with Time Series
-Version: 0.1.3
+Version: 0.1.3.9000
 Authors@R: c(
     person("Matt", "Dancho", email = "mdancho@business-science.io", role = c("aut", "cre")),
     person("Davis", "Vaughan", email = "dvaughan@business-science.io", role = c("aut"))
@@ -37,7 +37,8 @@ Imports:
     tidyr (>= 0.6.1),
     xts (>= 0.9-7),
     zoo (>= 1.7-14),
-    rlang (>= 0.1.2)
+    rlang (>= 0.1.2),
+    forecast
 Suggests:
     workflows,
     parsnip,
@@ -47,7 +48,6 @@ Suggests:
     tidyverse,
     broom,
     forcats,
-    forecast,
     knitr,
     rmarkdown,
     robets,

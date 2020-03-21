@@ -1,7 +1,14 @@
+# timetk 0.1.3.9000
+
+__New Recipes:__
+* `step_fourier_series` - New experimental recipe step for adding fourier transforms
+
+
 # timetk 0.1.3 
 
-__New Feature:__
-* `recipes` Integration - New `step_timeseries_signature()` for adding date and date-time features.
+__New Features:__
+* `recipes` Integration - Ability to apply ___time series feature engineering___ in the `tidymodels` machine learning workflow. 
+    * `step_timeseries_signature()` - New `step_timeseries_signature()` for adding date and date-time features.
 * New Vignette - _"Time Series Machine Learning"_ (previously forecasting using the time series signature)
 
 __Bug Fixes:__

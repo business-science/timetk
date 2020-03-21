@@ -225,7 +225,7 @@ tidy.step_timeseries_signature <- function(x, ...) {
         dplyr::select(-index, -diff) %>%
         colnames()
 
-    if (is_trained(x)) {
+    if (recipes::is_trained(x)) {
         res <- expand.grid(
             terms = x$columns,
             value = features
