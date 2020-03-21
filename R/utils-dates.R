@@ -63,3 +63,13 @@ tk_get_timeseries_unit_frequency <- function() {
     return(units)
 }
 
+
+is_date_class <- function(x) {
+    classes <- class(x)
+
+    (sapply(classes, function(x) 'POSIXt' %in% x) |
+            sapply(classes, function(x) 'Date' %in% x) |
+            sapply(classes, function(x) 'yearmon' %in% x) |
+            sapply(classes, function(x) 'yearqtr' %in% x)) %>%
+        any()
+}
