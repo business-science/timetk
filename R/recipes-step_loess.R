@@ -9,12 +9,17 @@ step_loess <-
              ...,
              x,
              span = 0.75,
+             names = NULL,
              role = "predictor",
              trained = FALSE,
              columns = NULL,
              objects = NULL,
              skip = FALSE,
              id = rand_id("loess")) {
+
+        if (rlang::quo_is_missing(enquo(x))) {
+            message("The `x` parameter is missing. This is normally provided as a date or numeric index.")
+        }
 
         # if (!is_tune(degree) & !is_varying(degree)) {
         #     degree <- as.integer(degree)
@@ -39,6 +44,7 @@ step_loess <-
                 terms = ellipse_check(...),
                 x = x_name,
                 span = span,
+                names = names,
                 trained = trained,
                 role = role,
                 columns = columns,
@@ -50,11 +56,12 @@ step_loess <-
     }
 
 step_loess_new <-
-    function(terms, role, trained, columns, objects, x, span, skip, id) {
+    function(terms, role, trained, columns, objects, x, span, names, skip, id) {
         step(
             subclass = "loess",
             terms = terms,
             role = role,
+            names = names,
             trained = trained,
             columns = columns,
             objects = objects,
@@ -101,13 +108,11 @@ prep.step_loess <- function(x, training, info = NULL, ...) {
 
     col_names <- terms_select(x$terms, info = info)
 
-    obj <- model_loess_2(training, x$x, y = col_names[1], span = x$span)
-    attr(obj[[1]], "var") <- col_names[1]
-
-    # for (i in seq(along = col_names)) {
-    #     obj[[i]] <- model_loess_2(training, x$x, y = col_names[i], span = x$span)
-    #     attr(obj[[i]], "var") <- col_names[i]
-    # }
+    obj <- list()
+    for (i in seq_along(col_names)) {
+        obj[[i]] <- model_loess_2(training, x$x, y = col_names[i], span = x$span)
+        attr(obj[[i]], "var") <- col_names[i]
+    }
 
     step_loess_new(
         terms = x$terms,
@@ -117,6 +122,7 @@ prep.step_loess <- function(x, training, info = NULL, ...) {
         objects = obj,
         x = x$x,
         span = x$span,
+        names = x$names,
         skip = x$skip,
         id = x$id
     )
@@ -124,17 +130,6 @@ prep.step_loess <- function(x, training, info = NULL, ...) {
 
 #' @export
 bake.step_loess <- function(object, new_data, ...) {
-    # col_names <- names(object$objects)
-    # new_names <- purrr::map(object$objects, ~ paste(attr(.x, "var"), "loess", 1:ncol(.x), sep = "_"))
-    # loess_values <-
-    #     purrr::map2(new_data[, col_names], object$objects, ~ predict(.y, .x)) %>%
-    #     purrr::map(as_tibble) %>%
-    #     purrr::map2_dfc(new_names, ~ setNames(.x, .y))
-    # new_data <- dplyr::bind_cols(new_data, loess_values)
-    # new_data <- dplyr::select(new_data, -col_names)
-    # new_data
-
-    models <- object$objects
 
     # If x is a timestamp (date or date-time) convert to numeric sequence
     x_vec <- new_data %>% pull(object$x)
@@ -142,10 +137,20 @@ bake.step_loess <- function(object, new_data, ...) {
         x_vec <- as.POSIXct(x_vec) %>% as.numeric() %>% as.integer()
     }
 
-    preds <- predict(models, x_vec)
-
+    # Loop through and create variables
     col_names <- object$columns
-    new_data[,col_names[1]] <- preds
+    models    <- object$objects
+
+    if (!is.null(object$names)) {
+        for (i in seq_along(models)) {
+            new_data[,object$names[i]] <- predict(models[[i]], x_vec)
+        }
+    } else {
+        for (i in seq_along(models)) {
+            new_data[,col_names[i]] <- predict(models[[i]], x_vec)
+        }
+    }
+
     new_data
 }
 

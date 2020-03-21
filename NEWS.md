@@ -1,8 +1,14 @@
 # timetk 0.1.3.9000
 
 __New Recipes:__
-* `step_fourier_series` - New experimental recipe step for adding fourier transforms
+* `step_fourier_series` - New recipe step for adding fourier transforms
 
+TODO:
+- Loess Smoothing Function - `step_smooth_loess`
+- Tidy lag automation
+- Tidy acf
+- Tidy pacf
+- Tidy ccf
 
 # timetk 0.1.3 
 
