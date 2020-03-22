@@ -1,23 +1,34 @@
 # timetk 0.1.3.9000
 
 __New Recipes:__
-* `step_fourier_series` - New recipe step for adding fourier transforms
+
+* `step_smooth` - New recipe step for adding Local Polynomial Regression (LOESS) for smoothing noisy time series
+* `step_fourier_series` - New recipe step for adding fourier transforms for adding seasonal features to time series data
+
+__Bug Fixes:__
+
+* [Don't set timezone on date](https://github.com/business-science/timetk/pull/32) - Accommodate recent changes to `lubridate::tz<-` which now returns POSIXct when used Date objects. Fixed in PR32 by @vspinu. 
 
 TODO:
-- Loess Smoothing Function - `step_smooth_loess`
+
 - Tidy lag automation
 - Tidy acf
 - Tidy pacf
 - Tidy ccf
+- Tidy dft
+- Add tests
+
 
 # timetk 0.1.3 
 
 __New Features:__
+
 * `recipes` Integration - Ability to apply ___time series feature engineering___ in the `tidymodels` machine learning workflow. 
     * `step_timeseries_signature()` - New `step_timeseries_signature()` for adding date and date-time features.
 * New Vignette - _"Time Series Machine Learning"_ (previously forecasting using the time series signature)
 
 __Bug Fixes:__
+
 * `xts::indexTZ` is deprecated. Use `tzone` instead.
 * Replace `arrange_` with `arrange`.
 * Fix failing tests due to `tidyquant` 1.0.0 upagrade (single stocks now return an extra symbol column).
