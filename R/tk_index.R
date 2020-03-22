@@ -121,7 +121,7 @@ tk_index.ts <- function(data, timetk_idx = FALSE, silent = FALSE) {
         # Set the timezone
         tzone <- attr(attr(data, "index"), "tzone")
         if (!is.null(tzone))
-            if (!(tclass[[1]] %in% c("yearmon", "yearqtr")))
+            if (!(tclass[[1]] %in% c("yearmon", "yearqtr", "Date")))
                 lubridate::tz(ret) <- tzone[[1]]
 
     }
@@ -207,7 +207,7 @@ tk_index.xts <- function(data, timetk_idx = FALSE, silent = FALSE) {
     # Set the timezone
     tzone <- xts::tzone(data)
     if (!is.null(tzone))
-        if (!(tclass[[1]] %in% c("yearmon", "yearqtr")))
+        if (!(tclass[[1]] %in% c("yearmon", "yearqtr", "Date")))
             lubridate::tz(ret) <- tzone[[1]]
 
     return(ret)

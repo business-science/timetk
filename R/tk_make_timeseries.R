@@ -231,7 +231,6 @@ predict_future_timeseries_daily <- function(idx, n_future, inspect_weekdays, ins
 
     date_sequence <- lubridate::as_datetime(numeric_sequence) %>%
         lubridate::as_date()
-    lubridate::tz(date_sequence) <- lubridate::tz(idx)
 
     # Create new_data data frame with future obs timeseries signature
     new_data <- date_sequence %>%
@@ -291,7 +290,6 @@ make_sequential_timeseries_irregular_freq <- function(idx, n_future, skip_values
         # Date
         date_sequence <- lubridate::as_datetime(numeric_sequence) %>%
             lubridate::as_date()
-        lubridate::tz(date_sequence) <- lubridate::tz(idx)
     } else {
         # Datetime
         date_sequence <- lubridate::as_datetime(numeric_sequence)
@@ -404,8 +402,6 @@ add_insert_values <- function(date_sequence, insert_values) {
                 sort() %>%
                 lubridate::as_datetime() %>%
                 lubridate::as_date()
-
-            lubridate::tz(ret) <- lubridate::tz(date_sequence)
 
         } else if (inherits(date_sequence, "POSIXt")) {
 
