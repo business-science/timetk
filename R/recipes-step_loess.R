@@ -3,7 +3,7 @@
 #' `step_smooth` creates a a *specification* of a recipe
 #'  step that will apply local polynomial regression
 #'  to one or more a Numeric column(s). The effect is smoothing the time series
-#'  similar to a moving average __without creating missing values.__
+#'  __similar to a moving average without creating missing values.__
 #'
 #' @param recipe A recipe object. The step will be added to the
 #'  sequence of operations for this recipe.
@@ -59,7 +59,6 @@
 #'
 #' __Why Period vs Span?__
 #' The `period` is fixed whereas the `span` changes as the number of observations change.
-#'
 #'
 #' __When to use Period?__
 #' The effect of using a `period` is similar to a Moving Average where the Window Size

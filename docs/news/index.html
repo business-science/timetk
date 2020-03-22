@@ -86,7 +86,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">timetk</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.3.9000</span>
       </span>
     </div>
 
@@ -149,14 +149,45 @@
       <small>Source: <a href='https://github.com/business-science/timetk/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="timetk-0-1-3" class="section level1">
+    <div id="timetk-0-1-3-9000" class="section level1">
 <h1 class="page-header">
-<a href="#timetk-0-1-3" class="anchor"></a>timetk 0.1.3<small> Unreleased </small>
+<a href="#timetk-0-1-3-9000" class="anchor"></a>timetk 0.1.3.9000<small> Unreleased </small>
 </h1>
-<p><strong>New Feature:</strong></p>
+<p><strong>New Recipes:</strong></p>
 <ul>
 <li>
-<code>recipes</code> Integration - New <code><a href="../reference/step_timeseries_signature.html">step_timeseries_signature()</a></code> for adding date and date-time features.</li>
+<code>step_smooth</code> - New recipe step for adding Local Polynomial Regression (LOESS) for smoothing noisy time series</li>
+<li>
+<code>step_fourier_series</code> - New recipe step for adding fourier transforms for adding seasonal features to time series data</li>
+</ul>
+<p><strong>Bug Fixes:</strong></p>
+<ul>
+<li>
+<a href="https://github.com/business-science/timetk/pull/32">Don’t set timezone on date</a> - Accommodate recent changes to <code>lubridate::tz&lt;-</code> which now returns POSIXct when used Date objects. Fixed in PR32 by <a href='https://github.com/vspinu'>@vspinu</a>.</li>
+</ul>
+<p>TODO:</p>
+<ul>
+<li>Tidy lag automation</li>
+<li>Tidy acf</li>
+<li>Tidy pacf</li>
+<li>Tidy ccf</li>
+<li>Tidy dft</li>
+<li>Add tests</li>
+</ul>
+</div>
+    <div id="timetk-0-1-3" class="section level1">
+<h1 class="page-header">
+<a href="#timetk-0-1-3" class="anchor"></a>timetk 0.1.3<small> 2020-03-18 </small>
+</h1>
+<p><strong>New Features:</strong></p>
+<ul>
+<li>
+<code>recipes</code> Integration - Ability to apply <strong><em>time series feature engineering</em></strong> in the <code>tidymodels</code> machine learning workflow.
+<ul>
+<li>
+<code><a href="../reference/step_timeseries_signature.html">step_timeseries_signature()</a></code> - New <code><a href="../reference/step_timeseries_signature.html">step_timeseries_signature()</a></code> for adding date and date-time features.</li>
+</ul>
+</li>
 <li>New Vignette - <em>“Time Series Machine Learning”</em> (previously forecasting using the time series signature)</li>
 </ul>
 <p><strong>Bug Fixes:</strong></p>
@@ -252,6 +283,7 @@ The information below is kept for historical reasons since this package was conv
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
+        <li><a href="#timetk-0-1-3-9000">0.1.3.9000</a></li>
         <li><a href="#timetk-0-1-3">0.1.3</a></li>
         <li><a href="#timetk-0-1-2">0.1.2</a></li>
         <li><a href="#timetk-0-1-1">0.1.1</a></li>

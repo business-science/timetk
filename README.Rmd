@@ -33,6 +33,13 @@ library(timetk)
 
 > A toolkit for working with time series in R
 
+## Documentation
+
+
+- [Full Time Series Machine Learning and Feature Engineering Tutorial:](https://www.business-science.io/time-series/2020/03/18/time-series-machine-learning.html) Showcases the (NEW) `step_timeseries_signature()` for building ___200+ time series features.___
+
+- [Visit the timetk website documentation](https://business-science.github.io/timetk/) for tutorials and a complete list of function references. 
+
 ## Benefits
 
 The `timetk` package enables a user to more easily work with time series objects in R. The package has tools for inspecting and manipulating the time-based index, expanding the time features for data mining and machine learning, and converting time-based objects to and from the many time series classes. The following are key benefits:
@@ -48,6 +55,8 @@ An example of the forecasting capabilities as shown in vignette TK03 - Forecasti
 knitr::include_graphics("man/figures/bikes_forecast.png")
 ```
 
+
+
 ## Tools
 
 The package contains the following functions:
@@ -62,8 +71,8 @@ non-regularized date / date-time index if present.
 3. __Make a future timeseries__: `tk_make_future_timeseries` models a
 future time series after an existing time series index.  
 
-4. __Coercion functions__: `tk_tbl`, `tk_ts`, `tk_xts`, `tk_zoo`, and
-`tk_zooreg` coerce time-based tibbles `tbl` to and from each of the main
+4. __Conversion functions__: `tk_tbl`, `tk_ts`, `tk_xts`, `tk_zoo`, and
+`tk_zooreg` convert time-based tibbles `tbl` to and from each of the main
 time-series data types `xts`, `zoo`, `zooreg`, `ts`, maintaining the time-based
 index.
 

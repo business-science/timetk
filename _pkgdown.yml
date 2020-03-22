@@ -48,8 +48,8 @@ reference:
     desc: __Add a time series signature to the original data.__
     contents:
     - starts_with("tk_augment")
-  - title: Recipes Preprocessing
-    desc: __Steps for machine learning preprocessing recipes and workflows__
+  - title: Feature Engineering for Time Series
+    desc: __Using `recipes`, `workflows`, and `parsnip` (machine learning)__
     contents:
     - contains("step_")
   - title: Convert From-To Time Series Structures
