@@ -101,13 +101,13 @@
 #'
 #' # Tidy shows which features have been added during the 1st step
 #' #  in this case, step 1 is the step_timeseries_signature step
-#' tidy(rec_obj)
-#' tidy(rec_obj, number = 1)
+#' tidy(prep(rec_obj))
+#' tidy(prep(rec_obj), number = 1)
 #'
-#' @seealso [step_timeseries_signature()] [recipes::step_holiday()] [recipes::step_date()]
-#'   [recipes::step_rm()]
-#'   [recipes::recipe()] [recipes::prep.recipe()]
-#'   [recipes::bake.recipe()]
+#' @seealso
+#'
+#'  - Date Features: [step_timeseries_signature()], [recipes::step_holiday()], [recipes::step_date()]
+#'  - Main Recipe Functions: [recipes::recipe()], [recipes::prep.recipe()], [recipes::bake.recipe()]
 #'
 #'
 #' @importFrom recipes rand_id

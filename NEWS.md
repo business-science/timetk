@@ -1,5 +1,9 @@
 # timetk 0.1.3.9000
 
+__New Functions:__
+
+* `smooth_vec` - Vectorized smoothing function - Applies Local Polynomial Regression (LOESS)
+
 __New Recipes:__
 
 * `step_smooth` - New recipe step for adding Local Polynomial Regression (LOESS) for smoothing noisy time series
@@ -11,10 +15,10 @@ __Bug Fixes:__
 
 TODO:
 
-- Tidy lag automation
-- Tidy acf
-- Tidy pacf
-- Tidy ccf
+- Tidy lag automation - `step_lag_series()`
+- Rolling functionality? `slider`, `tibbletime::rollify`
+- Transition - `tidyquant::summarise_by_time`
+- Tidy acf, pacf, ccf
 - Tidy dft
 - Add tests
 

@@ -130,15 +130,15 @@ bake(prep(rec_obj), FB_tbl)
 
 # Tidy shows which features have been added during the 1st step
 #  in this case, step 1 is the step_timeseries_signature step
-tidy(rec_obj)
-tidy(rec_obj, number = 1)
+tidy(prep(rec_obj))
+tidy(prep(rec_obj), number = 1)
 
 }
 \seealso{
-\code{\link[=step_timeseries_signature]{step_timeseries_signature()}} \code{\link[recipes:step_holiday]{recipes::step_holiday()}} \code{\link[recipes:step_date]{recipes::step_date()}}
-\code{\link[recipes:step_rm]{recipes::step_rm()}}
-\code{\link[recipes:recipe]{recipes::recipe()}} \code{\link[recipes:prep.recipe]{recipes::prep.recipe()}}
-\code{\link[recipes:bake.recipe]{recipes::bake.recipe()}}
+\itemize{
+\item Date Features: \code{\link[=step_timeseries_signature]{step_timeseries_signature()}}, \code{\link[recipes:step_holiday]{recipes::step_holiday()}}, \code{\link[recipes:step_date]{recipes::step_date()}}
+\item Main Recipe Functions: \code{\link[recipes:recipe]{recipes::recipe()}}, \code{\link[recipes:prep.recipe]{recipes::prep.recipe()}}, \code{\link[recipes:bake.recipe]{recipes::bake.recipe()}}
+}
 }
 \concept{dates}
 \concept{model_specification}
