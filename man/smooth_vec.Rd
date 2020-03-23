@@ -57,7 +57,7 @@ using a window of 75\% of the data.
 }
 \examples{
 library(tidyverse)
-library(tidyquant, quietly = TRUE)
+library(tidyquant)
 library(timetk)
 
 # Training Data

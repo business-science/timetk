@@ -13,6 +13,10 @@ __Bug Fixes:__
 
 * [Don't set timezone on date](https://github.com/business-science/timetk/pull/32) - Accommodate recent changes to `lubridate::tz<-` which now returns POSIXct when used Date objects. Fixed in PR32 by @vspinu. 
 
+__(Potential) Breaking Changes:__
+
+* `tk_augment_timeseries_signature()` - Changed from `data` to `.data` to prevent name collisions when piping. 
+
 TODO:
 
 - Tidy lag automation - `step_lag_series()`

@@ -1,6 +1,6 @@
 #' Augment the time series signature to the data
 #'
-#' @param data A time-based tibble or time-series object.
+#' @param .data A time-based tibble or time-series object.
 #'
 #' @return Returns a `tibble` object describing the timeseries.
 #'
@@ -28,22 +28,22 @@ NULL
 
 #' @export
 #' @rdname tk_augment_timeseries
-tk_augment_timeseries_signature <- function(data) {
-    UseMethod("tk_augment_timeseries_signature", data)
+tk_augment_timeseries_signature <- function(.data) {
+    UseMethod("tk_augment_timeseries_signature", .data)
 }
 
 #' @export
-tk_augment_timeseries_signature.data.frame <- function(data) {
+tk_augment_timeseries_signature.data.frame <- function(.data) {
 
-    date_var <- tk_get_timeseries_variables(data)[[1]]
+    date_var <- tk_get_timeseries_variables(.data)[[1]]
 
     # Arrange by date_var
-    data <- data %>% dplyr::arrange(!! sym(date_var))
+    .data <- .data %>% dplyr::arrange(!! sym(date_var))
 
     # Bind Time Series Signature
-    ret_1 <- data
+    ret_1 <- .data
 
-    ret_2 <- data %>%
+    ret_2 <- .data %>%
         tk_index() %>%
         tk_get_timeseries_signature() %>%
         dplyr::select(-1)
@@ -55,11 +55,11 @@ tk_augment_timeseries_signature.data.frame <- function(data) {
 }
 
 #' @export
-tk_augment_timeseries_signature.xts <- function(data) {
+tk_augment_timeseries_signature.xts <- function(.data) {
 
-    ret_1 <- data
+    ret_1 <- .data
 
-    ret_2 <- data %>%
+    ret_2 <- .data %>%
         tk_index() %>%
         tk_get_timeseries_signature() %>%
         tk_xts(silent = TRUE)
@@ -71,12 +71,12 @@ tk_augment_timeseries_signature.xts <- function(data) {
 }
 
 #' @export
-tk_augment_timeseries_signature.zoo <- function(data) {
+tk_augment_timeseries_signature.zoo <- function(.data) {
 
-    ret_1 <- data %>%
+    ret_1 <- .data %>%
         tk_xts(silent = TRUE)
 
-    ret_2 <- data %>%
+    ret_2 <- .data %>%
         tk_index() %>%
         tk_get_timeseries_signature() %>%
         tk_xts(silent = TRUE)
@@ -89,6 +89,6 @@ tk_augment_timeseries_signature.zoo <- function(data) {
 }
 
 #' @export
-tk_augment_timeseries_signature.default <- function(data) {
-    stop(paste0("`tk_augment_timeseries_signature` has no method for class ", class(data)[[1]]))
+tk_augment_timeseries_signature.default <- function(.data) {
+    stop(paste0("`tk_augment_timeseries_signature` has no method for class ", class(.data)[[1]]))
 }
