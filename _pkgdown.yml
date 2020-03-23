@@ -53,7 +53,7 @@ reference:
     contents:
     - contains("_vec")
   - title: Recipe Operations (Feature Engineering Steps)
-    desc: __Preprocessing & Feature Engineering operations for use with `recipes`__
+    desc: __Preprocessing & feature engineering operations for use with `recipes` and the `tidymodels` ecosystem__
     contents:
     - contains("step_")
   - title: Conversion Operations

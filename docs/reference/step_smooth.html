@@ -46,7 +46,7 @@
 <meta property="og:description" content="step_smooth creates a a specification of a recipe
 step that will apply local polynomial regression
 to one or more a Numeric column(s). The effect is smoothing the time series
-similar to a moving average without creating missing values." />
+similar to a moving average without creating missing values or using partial smoothing." />
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -158,7 +158,7 @@ similar to a moving average without creating missing values." />
     <p><code>step_smooth</code> creates a a <em>specification</em> of a recipe
 step that will apply local polynomial regression
 to one or more a Numeric column(s). The effect is smoothing the time series
-<strong>similar to a moving average without creating missing values.</strong></p>
+<strong>similar to a moving average without creating missing values or using partial smoothing.</strong></p>
     </div>
 
     <pre class="usage"><span class='fu'>step_smooth</span>(
