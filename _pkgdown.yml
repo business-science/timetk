@@ -31,29 +31,33 @@ navbar:
       href: https://github.com/business-science/timetk
 
 reference:
-  - title: Time Series Index
-    desc: __Functions for extracting or checking for a timetk index.__
+  - title: Index Operations
+    desc: __Extract and check the index.__
     contents:
     - starts_with("tk_index")
     - starts_with("has_timetk_idx")
-  - title: Future series
-    desc: __Functions for creating future time series from existing time series allowing for holidays, weekends, and regularly skipped days to be removed.__
+  - title: Make Operations
+    desc: __Creating future time series allowing for holidays, weekends, and regularly skipped days to be removed.__
     contents:
     - starts_with("tk_make")
-  - title: Getters
-    desc: __Functions for getting variables, frequencies, and signatures from time series.__
+  - title: Get Operations
+    desc: __Get summaries, frequency, and signatures from the time series index.__
     contents:
-    - starts_with("tk_get")
-  - title: Augment
-    desc: __Add a time series signature to the original data.__
+    - contains("tk_get")
+  - title: Augment Operations
+    desc: __Add columns to the original data.__
     contents:
-    - starts_with("tk_augment")
-  - title: Feature Engineering for Time Series
-    desc: __Using `recipes`, `workflows`, and `parsnip` (machine learning)__
+    - contains("augment")
+  - title: Vector Operations
+    desc: __Apply vectorized operations to time series data__
+    contents:
+    - contains("_vec")
+  - title: Recipes Feature Engineering Operations
+    desc: __Preprocessing & Feature Engineering operations for use with `recipes`__
     contents:
     - contains("step_")
-  - title: Convert From-To Time Series Structures
-    desc: __Functions for moving between common time series formats.__
+  - title: Conversion Operations
+    desc: __Functions for converting between common time series formats.__
     contents:
     - "tk_tbl"
     - "tk_ts"

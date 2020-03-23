@@ -18,6 +18,7 @@ TODO:
 - Tidy lag automation - `step_lag_series()`
 - Rolling functionality? `slider`, `tibbletime::rollify`
 - Transition - `tidyquant::summarise_by_time`
+- Support `grouped_df`
 - Tidy acf, pacf, ccf
 - Tidy dft
 - Add tests

@@ -153,6 +153,11 @@
 <h1 class="page-header">
 <a href="#timetk-0-1-3-9000" class="anchor"></a>timetk 0.1.3.9000<small> Unreleased </small>
 </h1>
+<p><strong>New Functions:</strong></p>
+<ul>
+<li>
+<code>smooth_vec</code> - Vectorized smoothing function - Applies Local Polynomial Regression (LOESS)</li>
+</ul>
 <p><strong>New Recipes:</strong></p>
 <ul>
 <li>
@@ -167,10 +172,15 @@
 </ul>
 <p>TODO:</p>
 <ul>
-<li>Tidy lag automation</li>
-<li>Tidy acf</li>
-<li>Tidy pacf</li>
-<li>Tidy ccf</li>
+<li>Tidy lag automation - <code>step_lag_series()</code>
+</li>
+<li>Rolling functionality? <code>slider</code>, <code><a href="https://rdrr.io/pkg/tibbletime/man/rollify.html">tibbletime::rollify</a></code>
+</li>
+<li>Transition - <code><a href="https://rdrr.io/pkg/tidyquant/man/summarise_by_time.html">tidyquant::summarise_by_time</a></code>
+</li>
+<li>Support <code>grouped_df</code>
+</li>
+<li>Tidy acf, pacf, ccf</li>
 <li>Tidy dft</li>
 <li>Add tests</li>
 </ul>

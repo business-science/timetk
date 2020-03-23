@@ -150,7 +150,7 @@ similar to a moving average without creating missing values." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Smoother Transformation using Loess (Local Polynomial Regressing Fitting)</h1>
-    <small class="dont-index">Source: <a href='https://github.com/business-science/timetk/blob/master/R/recipes-step_loess.R'><code>R/recipes-step_loess.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/business-science/timetk/blob/master/R/recipes-step_smooth.R'><code>R/recipes-step_smooth.R</code></a></small>
     <div class="hidden name"><code>step_smooth.Rd</code></div>
     </div>
 
@@ -166,6 +166,7 @@ to one or more a Numeric column(s). The effect is smoothing the time series
   <span class='no'>...</span>,
   <span class='kw'>period</span> <span class='kw'>=</span> <span class='fl'>30</span>,
   <span class='kw'>span</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>degree</span> <span class='kw'>=</span> <span class='fl'>2</span>,
   <span class='kw'>names</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>role</span> <span class='kw'>=</span> <span class='st'>"predictor"</span>,
   <span class='kw'>trained</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
@@ -203,6 +204,11 @@ See details for an explanation <code>period</code> vs <code>span</code> specific
 in the smoothing window. Period is preferred for shorter windows
 to fix the window size.
 See details for an explanation <code>period</code> vs <code>span</code> specification.</p></td>
+    </tr>
+    <tr>
+      <th>degree</th>
+      <td><p>The degree of the polynomials to be used.
+Set to 2 by default for 2nd order polynomial.</p></td>
     </tr>
     <tr>
       <th>names</th>
