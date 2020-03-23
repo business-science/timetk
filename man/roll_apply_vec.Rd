@@ -19,7 +19,7 @@ roll_apply_vec(
 \item{.period}{The number of periods to include in the local rolling window.
 This is effectively the "window size".}
 
-\item{.f}{\verb{[function / formula]}
+\item{.f}{A summary \verb{[function / formula]}
 \itemize{
 \item If a \strong{function}, e.g. \code{mean}, the function is used with any
 additional arguments, \code{...}.

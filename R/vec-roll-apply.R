@@ -5,7 +5,7 @@
 #' @param .x A vector to have a rolling window transformation applied.
 #' @param .period The number of periods to include in the local rolling window.
 #'  This is effectively the "window size".
-#' @param .f `[function / formula]`
+#' @param .f A summary `[function / formula]`
 #'
 #'   - If a __function__, e.g. `mean`, the function is used with any
 #'    additional arguments, `...`.
