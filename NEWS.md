@@ -1,13 +1,29 @@
 # timetk 0.1.3.9000
 
-__New Functions:__
+__TODO:__
 
-* `smooth_vec` - Vectorized smoothing function - Applies Local Polynomial Regression (LOESS)
+- Tidy lag automation - `step_lag_series()`, `tk_augment_lags()`
+- Rolling functionality? `step_roll_apply()`. `tk_augment_roll_apply()` (DONE)
+- Smooth Loess functionality - `step_smooth()`, `tk_augment_smoothers()`
+- Transition - `tidyquant::summarise_by_time`
+- Support `grouped_df`
+- Tidy acf, pacf, ccf
+- Tidy dft
+- Add tests
 
-__New Recipes:__
+__New Augment Functions__:
 
-* `step_smooth` - New recipe step for adding Local Polynomial Regression (LOESS) for smoothing noisy time series
-* `step_fourier_series` - New recipe step for adding fourier transforms for adding seasonal features to time series data
+* `tk_augment_roll_apply()` - Add multiple columns of rolling window calculations to a `data.frame`.
+
+__New Vector Functions:__
+
+* `roll_apply_vec()` - Vectorized rolling apply function - wraps `slider::slide_vec()`
+* `smooth_vec()` - Vectorized smoothing function - Applies Local Polynomial Regression (LOESS)
+
+__New Recipes Functions:__
+
+* `step_smooth()` - New recipe step for adding Local Polynomial Regression (LOESS) for smoothing noisy time series
+* `step_fourier_series()` - New recipe step for adding fourier transforms for adding seasonal features to time series data
 
 __Bug Fixes:__
 
@@ -17,15 +33,7 @@ __(Potential) Breaking Changes:__
 
 * `tk_augment_timeseries_signature()` - Changed from `data` to `.data` to prevent name collisions when piping. 
 
-TODO:
 
-- Tidy lag automation - `step_lag_series()`
-- Rolling functionality? `slider`, `tibbletime::rollify`
-- Transition - `tidyquant::summarise_by_time`
-- Support `grouped_df`
-- Tidy acf, pacf, ccf
-- Tidy dft
-- Add tests
 
 
 # timetk 0.1.3 

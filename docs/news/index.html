@@ -153,17 +153,40 @@
 <h1 class="page-header">
 <a href="#timetk-0-1-3-9000" class="anchor"></a>timetk 0.1.3.9000<small> Unreleased </small>
 </h1>
-<p><strong>New Functions:</strong></p>
+<p><strong>TODO:</strong></p>
 <ul>
-<li>
-<code>smooth_vec</code> - Vectorized smoothing function - Applies Local Polynomial Regression (LOESS)</li>
+<li>Tidy lag automation - <code>step_lag_series()</code>, <code>tk_augment_lags()</code>
+</li>
+<li>Rolling functionality? <code>step_roll_apply()</code>. <code><a href="../reference/tk_augment_roll_apply.html">tk_augment_roll_apply()</a></code> (DONE)</li>
+<li>Smooth Loess functionality - <code><a href="../reference/step_smooth.html">step_smooth()</a></code>, <code>tk_augment_smoothers()</code>
+</li>
+<li>Transition - <code><a href="https://rdrr.io/pkg/tidyquant/man/summarise_by_time.html">tidyquant::summarise_by_time</a></code>
+</li>
+<li>Support <code>grouped_df</code>
+</li>
+<li>Tidy acf, pacf, ccf</li>
+<li>Tidy dft</li>
+<li>Add tests</li>
 </ul>
-<p><strong>New Recipes:</strong></p>
+<p><strong>New Augment Functions</strong>:</p>
 <ul>
 <li>
-<code>step_smooth</code> - New recipe step for adding Local Polynomial Regression (LOESS) for smoothing noisy time series</li>
+<code><a href="../reference/tk_augment_roll_apply.html">tk_augment_roll_apply()</a></code> - Add multiple columns of rolling window calculations to a <code>data.frame</code>.</li>
+</ul>
+<p><strong>New Vector Functions:</strong></p>
+<ul>
 <li>
-<code>step_fourier_series</code> - New recipe step for adding fourier transforms for adding seasonal features to time series data</li>
+<code><a href="../reference/roll_apply_vec.html">roll_apply_vec()</a></code> - Vectorized rolling apply function - wraps <code><a href="https://rdrr.io/pkg/slider/man/slide.html">slider::slide_vec()</a></code>
+</li>
+<li>
+<code><a href="../reference/smooth_vec.html">smooth_vec()</a></code> - Vectorized smoothing function - Applies Local Polynomial Regression (LOESS)</li>
+</ul>
+<p><strong>New Recipes Functions:</strong></p>
+<ul>
+<li>
+<code><a href="../reference/step_smooth.html">step_smooth()</a></code> - New recipe step for adding Local Polynomial Regression (LOESS) for smoothing noisy time series</li>
+<li>
+<code><a href="../reference/step_fourier_series.html">step_fourier_series()</a></code> - New recipe step for adding fourier transforms for adding seasonal features to time series data</li>
 </ul>
 <p><strong>Bug Fixes:</strong></p>
 <ul>
@@ -174,20 +197,6 @@
 <ul>
 <li>
 <code><a href="../reference/tk_augment_timeseries.html">tk_augment_timeseries_signature()</a></code> - Changed from <code>data</code> to <code>.data</code> to prevent name collisions when piping.</li>
-</ul>
-<p>TODO:</p>
-<ul>
-<li>Tidy lag automation - <code>step_lag_series()</code>
-</li>
-<li>Rolling functionality? <code>slider</code>, <code><a href="https://rdrr.io/pkg/tibbletime/man/rollify.html">tibbletime::rollify</a></code>
-</li>
-<li>Transition - <code><a href="https://rdrr.io/pkg/tidyquant/man/summarise_by_time.html">tidyquant::summarise_by_time</a></code>
-</li>
-<li>Support <code>grouped_df</code>
-</li>
-<li>Tidy acf, pacf, ccf</li>
-<li>Tidy dft</li>
-<li>Add tests</li>
 </ul>
 </div>
     <div id="timetk-0-1-3" class="section level1">
