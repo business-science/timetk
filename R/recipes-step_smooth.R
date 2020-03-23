@@ -298,13 +298,13 @@ bake.step_smooth <- function(object, new_data, ...) {
         for (i in seq_along(object$names)) {
             # model_loess <- model_loess_1(new_data, y = col_names[i], span = span)
             # new_data[,object$names[i]] <- stats::predict(model_loess, 1:nrow(new_data))
-            new_data[,object$names[i]] <- new_data %>% dplyr::pull(col_names[i]) %>% smooth_vec(span = span, degree = degree)
+            new_data[,object$names[i]] <- new_data %>% dplyr::pull(col_names[i]) %>% smooth_vec(.span = span, .degree = degree)
         }
     } else {
         for (i in seq_along(col_names)) {
             # model_loess <- model_loess_1(new_data, y = col_names[i], span = span)
             # new_data[,col_names[i]] <- stats::predict(model_loess, 1:nrow(new_data))
-            new_data[,col_names[i]] <- new_data %>% dplyr::pull(col_names[i]) %>% smooth_vec(span = span, degree = degree)
+            new_data[,col_names[i]] <- new_data %>% dplyr::pull(col_names[i]) %>% smooth_vec(.span = span, .degree = degree)
         }
     }
 
