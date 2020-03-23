@@ -71,7 +71,7 @@ is \code{\link[=smooth_vec]{smooth_vec()}}, which implements local polynomial re
 }
 \examples{
 library(tidyverse)
-library(tidyquant)
+library(tidyquant, quietly = TRUE)
 library(timetk)
 
 # Training Data
@@ -132,16 +132,12 @@ FB_tbl \%>\%
     geom_line(aes(y = adjusted_ma_30), color = "blue") +
     labs(title = "Loess vs Moving Average")
 
+
+
 }
 \seealso{
 \itemize{
 \item Loess Modeling: \code{\link[=smooth_vec]{smooth_vec()}}
 \item Rolling Window Calculations: \code{\link[slider:slide_vec]{slider::slide_vec()}}, \code{\link[zoo:rollapply]{zoo::rollapply()}}
-}
-
-\itemize{
-\item Smoothing Transformation by Loess: \code{\link[=smooth_vec]{smooth_vec()}}
-\item Rolling Window Calculations: \code{\link[slider:slide_vec]{slider::slide_vec()}}, \code{\link[zoo:rollapply]{zoo::rollapply()}}
-\item Loess Modeling: \code{\link[stats:loess]{stats::loess()}}
 }
 }

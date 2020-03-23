@@ -116,10 +116,6 @@
 #'     geom_line(aes(y = adjusted_ma_30), color = "blue") +
 #'     labs(title = "Loess vs Moving Average")
 #'
-#' @seealso
-#'   - Smoothing Transformation by Loess: [smooth_vec()]
-#'   - Rolling Window Calculations: [slider::slide_vec()], [zoo::rollapply()]
-#'   - Loess Modeling: [stats::loess()]
 #'
 #'
 #' @export
