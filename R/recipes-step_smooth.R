@@ -177,10 +177,6 @@ step_smooth <-
              skip = FALSE,
              id = rand_id("smooth")) {
 
-        # if (rlang::quo_is_missing(enquo(x))) {
-        #     message("The `x` parameter is missing. This is normally provided as a date or numeric index.")
-        # }
-
         recipes::add_step(
             recipe,
             step_smooth_new(
@@ -214,36 +210,6 @@ step_smooth_new <-
             id = id
         )
     }
-
-# model_loess_1 <- function(data, y, span) {
-#
-#     y_vec <- data %>% dplyr::pull(!! rlang::enquo(y))
-#
-#     model_loess <- stats::loess(
-#         y_vec ~ seq_along(y_vec),
-#         span = span
-#     )
-#
-#     model_loess
-# }
-
-# model_loess_2 <- function(data, x, y, span) {
-#
-#     x_vec <- data %>% pull(!! enquo(x))
-#     y_vec <- data %>% pull(!! enquo(y))
-#
-#     # If x is a timestamp (date or date-time) convert to numeric sequence
-#     if (is_date_class(x_vec)) {
-#         x_vec <- as.POSIXct(x_vec) %>% as.numeric() %>% as.integer()
-#     }
-#
-#     model_loess <- stats::loess(
-#         y_vec ~ x_vec,
-#         span = span
-#     )
-#
-#     model_loess
-# }
 
 
 #' @export
@@ -295,15 +261,13 @@ bake.step_smooth <- function(object, new_data, ...) {
     degree <- object$degree
 
     if (!is.null(object$names)) {
+        # New columns provided
         for (i in seq_along(object$names)) {
-            # model_loess <- model_loess_1(new_data, y = col_names[i], span = span)
-            # new_data[,object$names[i]] <- stats::predict(model_loess, 1:nrow(new_data))
             new_data[,object$names[i]] <- new_data %>% dplyr::pull(col_names[i]) %>% smooth_vec(.span = span, .degree = degree)
         }
     } else {
+        # No new columns - overwrite existing
         for (i in seq_along(col_names)) {
-            # model_loess <- model_loess_1(new_data, y = col_names[i], span = span)
-            # new_data[,col_names[i]] <- stats::predict(model_loess, 1:nrow(new_data))
             new_data[,col_names[i]] <- new_data %>% dplyr::pull(col_names[i]) %>% smooth_vec(.span = span, .degree = degree)
         }
     }
