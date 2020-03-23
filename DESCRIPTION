@@ -38,6 +38,7 @@ Imports:
     xts (>= 0.9-7),
     zoo (>= 1.7-14),
     rlang (>= 0.1.2),
+    slider,
     forecast
 Suggests:
     workflows,

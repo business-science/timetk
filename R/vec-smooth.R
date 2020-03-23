@@ -71,6 +71,20 @@
 #'     geom_line() +
 #'     geom_line(aes(y = adjusted_30), color = "red")
 #'
+#' # ---- Loess vs Moving Average ----
+#' # - Loess: Using `.degree = 0` to make less flexible. Comperable to a moving average.
+#'
+#' FB_tbl %>%
+#'     mutate(
+#'         adjusted_loess_30 = smooth_vec(adjusted, .period = 30, .degree = 0),
+#'         adjusted_ma_30    = roll_apply_vec(adjusted, .period = 30,
+#'                                            .f = AVERAGE, .partial = TRUE)
+#'     ) %>%
+#'     ggplot(aes(date, adjusted)) +
+#'     geom_line() +
+#'     geom_line(aes(y = adjusted_loess_30), color = "red") +
+#'     geom_line(aes(y = adjusted_ma_30), color = "blue") +
+#'     labs(title = "Loess vs Moving Average")
 #'
 #' @seealso
 #'   - Rolling Window Calculations: [roll_apply_vec()], [slider::slide_vec()], [zoo::rollapply()]

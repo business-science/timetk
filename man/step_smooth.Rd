@@ -82,7 +82,7 @@ names).
 \code{step_smooth} creates a a \emph{specification} of a recipe
 step that will apply local polynomial regression
 to one or more a Numeric column(s). The effect is smoothing the time series
-\strong{similar to a moving average without creating missing values.}
+\strong{similar to a moving average without creating missing values or using partial smoothing.}
 }
 \details{
 \strong{Smoother Algorithm}

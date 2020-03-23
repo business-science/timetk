@@ -52,7 +52,7 @@ reference:
     desc: __Apply vectorized operations to time series data__
     contents:
     - contains("_vec")
-  - title: Recipes Feature Engineering Operations
+  - title: Recipe Operations (Feature Engineering Steps)
     desc: __Preprocessing & Feature Engineering operations for use with `recipes`__
     contents:
     - contains("step_")

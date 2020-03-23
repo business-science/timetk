@@ -3,7 +3,7 @@
 #' `step_smooth` creates a a *specification* of a recipe
 #'  step that will apply local polynomial regression
 #'  to one or more a Numeric column(s). The effect is smoothing the time series
-#'  __similar to a moving average without creating missing values.__
+#'  __similar to a moving average without creating missing values or using partial smoothing.__
 #'
 #' @param recipe A recipe object. The step will be added to the
 #'  sequence of operations for this recipe.
