@@ -77,7 +77,7 @@ tk_augment_roll_apply.data.frame <- function(.data,
     ret_1 <- .data
 
     ret_2 <- .period %>%
-        map_dfc(.f = function(period) {
+        purrr::map_dfc(.f = function(period) {
             .data %>%
                 dplyr::pull(!! column_expr) %>%
                 roll_apply_vec(
