@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Smoother Transformation using Loess — step_smooth • timetk</title>
+<title>Smoothing Transformation using Loess — step_smooth • timetk</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -42,7 +42,7 @@
 
 
 
-<meta property="og:title" content="Smoother Transformation using Loess — step_smooth" />
+<meta property="og:title" content="Smoothing Transformation using Loess — step_smooth" />
 <meta property="og:description" content="step_smooth creates a a specification of a recipe
 step that will apply local polynomial regression
 to one or more a Numeric column(s). The effect is smoothing the time series
@@ -149,7 +149,7 @@ similar to a moving average without creating missing values or using partial smo
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Smoother Transformation using Loess</h1>
+    <h1>Smoothing Transformation using Loess</h1>
     <small class="dont-index">Source: <a href='https://github.com/business-science/timetk/blob/master/R/recipes-step_smooth.R'><code>R/recipes-step_smooth.R</code></a></small>
     <div class="hidden name"><code>step_smooth.Rd</code></div>
     </div>
@@ -306,7 +306,7 @@ polynomial regression (loess) as the training data.</p>
 <span class='co'># New Data</span>
 <span class='no'>new_data</span> <span class='kw'>&lt;-</span> <span class='no'>FB_tbl</span> <span class='kw'>%&gt;%</span>
     <span class='fu'><a href='tk_index.html'>tk_index</a></span>() <span class='kw'>%&gt;%</span>
-    <span class='fu'><a href='tk_make_future_timeseries.html'>tk_make_future_timeseries</a></span>(<span class='kw'>n_future</span> <span class='kw'>=</span> <span class='fl'>90</span>) <span class='kw'>%&gt;%</span>
+    <span class='fu'><a href='tk_make_timeseries.html'>tk_make_future_timeseries</a></span>(<span class='kw'>n_future</span> <span class='kw'>=</span> <span class='fl'>90</span>) <span class='kw'>%&gt;%</span>
     <span class='fu'>tibble</span>(<span class='kw'>date</span> <span class='kw'>=</span> <span class='no'>.</span>)  <span class='kw'>%&gt;%</span>
     <span class='fu'>mutate</span>(<span class='kw'>date</span> <span class='kw'>=</span> <span class='no'>date</span>) <span class='kw'>%&gt;%</span>
     <span class='fu'>bind_cols</span>(<span class='no'>FB_tbl</span> <span class='kw'>%&gt;%</span> <span class='fu'>slice</span>((<span class='fu'>n</span>() - <span class='fl'>90</span> + <span class='fl'>1</span>):<span class='fu'>n</span>()))
