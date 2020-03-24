@@ -2,14 +2,30 @@
 
 __TODO:__
 
-- Tidy lag automation - `step_lag_series()`, `tk_augment_lags()`
-- Rolling functionality? `step_roll_apply()`. `tk_augment_roll_apply()` (DONE)
-- Smooth Loess functionality - `step_smooth()`, `tk_augment_smoothers()`
-- Transition - `tidyquant::summarise_by_time`
-- Support `grouped_df`
-- Tidy acf, pacf, ccf
-- Tidy dft
-- Add tests
+- Tidy lag automation 
+    - `step_lag_series()` (is this possible?)
+    - `tk_augment_lags()`
+- Rolling functionality 
+    - `step_roll_apply()`
+    - (DONE) `tk_augment_roll_apply()` 
+    - (DONE) `roll_apply_vec()` 
+- Smooth Loess functionality 
+    - (DONE) `step_smooth()` 
+    - `tk_augment_smooth()`
+    - (DONE) `smooth_vec()` 
+- Dplyr Transition 
+    - `tidyquant::summarise_by_time`
+    - `tibbletime::filter_by_time`
+- Holiday Transition 
+    - `tk_make_holiday_series()`
+- Support for `grouped_df`
+    - (DONE) `tk_augment_roll_apply()`
+    - `tk_augment_lags()`
+    - `tk_augment_smooth()`
+- Diagnostics
+    - Tidy acf, pacf, ccf
+    - Tidy dft
+- Tests
 
 __New Augment Functions__:
 

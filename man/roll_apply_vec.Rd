@@ -71,7 +71,7 @@ is \code{\link[=smooth_vec]{smooth_vec()}}, which implements local polynomial re
 }
 \examples{
 library(tidyverse)
-library(tidyquant, quietly = TRUE)
+library(tidyquant)
 library(timetk)
 
 # Training Data
