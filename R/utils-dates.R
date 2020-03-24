@@ -73,3 +73,43 @@ is_date_class <- function(x) {
             sapply(classes, function(x) 'yearqtr' %in% x)) %>%
         any()
 }
+
+add_subtract_sequence <- function(index_sequence, skip_values = NULL, insert_values = NULL) {
+
+    # Remove skip values
+    if (!is.null(skip_values)) index_sequence <- index_sequence[!index_sequence %in% skip_values]
+
+    # Insert values
+    if (!is.null(insert_values)) index_sequence <- c(index_sequence, insert_values) %>% sort()
+
+    return(index_sequence)
+
+}
+
+check_class_match <- function(...) {
+
+    element_list <- list(...)
+
+    element_list <- element_list[lengths(element_list) != 0]
+
+    unique_classes <- element_list %>%
+        purrr::map(function(x) class(x)[1]) %>%
+        unlist() %>%
+        unique()
+
+    length(unique_classes) == 1
+}
+
+is_holiday <- function(date_sequence, calendar = c("NYSE", "LONDON", "NERC", "TSX", "ZURICH")) {
+
+    date_sequence <- lubridate::as_date(date_sequence)
+
+    start_date <- min(date_sequence)
+    end_date   <- max(date_sequence)
+
+    holidays <- tk_make_holiday_sequence(start_date, end_date, calendar = calendar[1])
+
+    date_sequence %in% holidays
+
+}
+

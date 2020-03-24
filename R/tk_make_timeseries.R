@@ -1,20 +1,23 @@
-#' Make a future time series from an existing time series
+#' Make future time series from existing
 #'
 #' @param idx A vector of dates
 #' @param n_future Number of future observations
 #' @param inspect_weekdays Uses a logistic regression algorithm to inspect
-#' whether certain weekdays (e.g. weekends) should be excluded from the future dates.
-#' Default is `FALSE`.
+#'  whether certain weekdays (e.g. weekends) should be excluded from the future dates.
+#'  Default is `FALSE`.
 #' @param inspect_months Uses a logistic regression algorithm to inspect
-#' whether certain days of months (e.g. last two weeks of year or seasonal days)
-#' should be excluded from the future dates.
-#' Default is `FALSE`.
+#'  whether certain days of months (e.g. last two weeks of year or seasonal days)
+#'  should be excluded from the future dates.
+#'  Default is `FALSE`.
 #' @param skip_values A vector of same class as `idx` of timeseries
-#' values to skip.
+#'  values to skip.
 #' @param insert_values A vector of same class as `idx` of timeseries
-#' values to insert.
+#'  values to insert.
 #'
 #' @details
+#'
+#' __Future Sequences__
+#'
 #' `tk_make_future_timeseries` returns a time series based
 #' on the input index frequency and attributes.
 #'
@@ -28,6 +31,7 @@
 #' The `inspect_months` argument is useful in determining missing days of the month, quarter
 #' or year; however, the algorithm can inadvertently select incorrect dates if the pattern
 #' is erratic.
+#'
 #' For example, some holidays do not occur on the same day of each month, and
 #' as a result the incorrect day may be selected in certain years.
 #' It's recommended to always review the date results to ensure the future days match
@@ -41,10 +45,15 @@
 #' The `insert_values` argument is useful for adding values back that the algorithm may have
 #' excluded.
 #'
+#' __Holiday Sequences__
 #'
-#' @return A vector containing future dates
 #'
-#' @seealso [tk_index()], [tk_get_timeseries_summary()], [tk_get_timeseries_signature()]
+#'
+#' @return A vector containing future index of the same class as the incoming index `idx`
+#'
+#' @seealso
+#' - Working with Holidays: [tk_make_holiday_sequence()]
+#' - Working with Timestamp Index: [tk_index()], [tk_get_timeseries_summary()], [tk_get_timeseries_signature()]
 #'
 #' @examples
 #' library(dplyr)
@@ -63,10 +72,12 @@
 #'
 #' # Create index of days that FB stock will be traded in 2017 based on 2016 + holidays
 #' FB_tbl <- FANG %>% filter(symbol == "FB")
-#' holidays <- c("2017-01-02", "2017-01-16", "2017-02-20",
-#'               "2017-04-14", "2017-05-29", "2017-07-04",
-#'               "2017-09-04", "2017-11-23", "2017-12-25") %>%
-#'     ymd()
+#'
+#' holidays <- tk_make_holiday_sequence(
+#'     start_date = "2017-01-01",
+#'     end_date   = "2017-12-31",
+#'     calendar   = "NYSE")
+#'
 #' # Remove holidays with skip_values, and remove weekends with inspect_weekdays = TRUE
 #' FB_tbl %>%
 #'     tk_index() %>%
@@ -84,7 +95,13 @@
 #'     tk_make_future_timeseries(n_future = 4)
 #'
 #'
+#' @name tk_make_timeseries
+NULL
+
+# FUTURE TIMESERIES ----
+
 #' @export
+#' @rdname tk_make_timeseries
 tk_make_future_timeseries <- function(idx, n_future, inspect_weekdays = FALSE, inspect_months = FALSE, skip_values = NULL, insert_values = NULL) {
     UseMethod("tk_make_future_timeseries", idx)
 }
@@ -176,6 +193,7 @@ tk_make_future_timeseries.yearqtr <- function(idx, n_future, inspect_weekdays = 
 tk_make_future_timeseries.numeric <- function(idx, n_future, inspect_weekdays = FALSE, inspect_months = FALSE, skip_values = NULL, insert_values = NULL) {
     return(make_sequential_timeseries_regular_freq(idx = idx, n_future = n_future, skip_values = skip_values, insert_values = insert_values))
 }
+
 
 # UTILITIY FUNCTIONS -----
 

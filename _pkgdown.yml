@@ -37,7 +37,7 @@ reference:
     - starts_with("tk_index")
     - starts_with("has_timetk_idx")
   - title: Make Operations
-    desc: __Creating future time series allowing for holidays, weekends, and regularly skipped days to be removed.__
+    desc: __Make time series allowing for holidays, weekends, and regularly skipped days to be removed.__
     contents:
     - starts_with("tk_make")
   - title: Get Operations

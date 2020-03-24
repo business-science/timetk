@@ -39,6 +39,7 @@ Imports:
     zoo (>= 1.7-14),
     rlang (>= 0.1.2),
     slider,
+    timeDate,
     forecast
 Suggests:
     workflows,
@@ -57,7 +58,6 @@ Suggests:
     testthat,
     tidyquant,
     fracdiff,
-    timeDate,
     timeSeries,
     tseries,
     roxygen2
