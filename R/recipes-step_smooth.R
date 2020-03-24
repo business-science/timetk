@@ -1,4 +1,4 @@
-#' Smoother Transformation using Loess (Local Polynomial Regressing Fitting)
+#' Smoothing Transformation using Loess
 #'
 #' `step_smooth` creates a a *specification* of a recipe
 #'  step that will apply local polynomial regression

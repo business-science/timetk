@@ -1,4 +1,4 @@
-#' Smoothing Transformation using Loess (Local Polynomial Regressing Fitting)
+#' Smoothing Transformation using Loess
 #'
 #' `smooth_vec()` applies a LOESS transformation to a numeric vector.
 #'

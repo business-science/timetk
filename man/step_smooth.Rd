@@ -3,7 +3,7 @@
 \name{step_smooth}
 \alias{step_smooth}
 \alias{tidy.step_smooth}
-\title{Smoother Transformation using Loess (Local Polynomial Regressing Fitting)}
+\title{Smoother Transformation using Loess}
 \usage{
 step_smooth(
   recipe,

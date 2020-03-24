@@ -155,18 +155,58 @@
 </h1>
 <p><strong>TODO:</strong></p>
 <ul>
-<li>Tidy lag automation - <code>step_lag_series()</code>, <code>tk_augment_lags()</code>
+<li>Lag automation
+<ul>
+<li>
+<code>step_lag_series()</code> (is this possible?)</li>
+<li><code>tk_augment_lags()</code></li>
+</ul>
 </li>
-<li>Rolling functionality? <code>step_roll_apply()</code>. <code><a href="../reference/tk_augment_roll_apply.html">tk_augment_roll_apply()</a></code> (DONE)</li>
-<li>Smooth Loess functionality - <code><a href="../reference/step_smooth.html">step_smooth()</a></code>, <code>tk_augment_smoothers()</code>
+<li>(DONE) Rolling functionality
+<ul>
+<li>(DONE) <code><a href="../reference/step_roll_apply.html">step_roll_apply()</a></code>
 </li>
-<li>Transition - <code><a href="https://rdrr.io/pkg/tidyquant/man/summarise_by_time.html">tidyquant::summarise_by_time</a></code>
+<li>(DONE) <code><a href="../reference/tk_augment_roll_apply.html">tk_augment_roll_apply()</a></code>
 </li>
-<li>Support <code>grouped_df</code>
+<li>(DONE) <code><a href="../reference/roll_apply_vec.html">roll_apply_vec()</a></code>
 </li>
+</ul>
+</li>
+<li>Smooth Loess functionality
+<ul>
+<li>(DONE) <code><a href="../reference/step_smooth.html">step_smooth()</a></code>
+</li>
+<li><code>tk_augment_smooth()</code></li>
+<li>(DONE) <code><a href="../reference/smooth_vec.html">smooth_vec()</a></code>
+</li>
+</ul>
+</li>
+<li>Dplyr Transition
+<ul>
+<li><code><a href="https://rdrr.io/pkg/tidyquant/man/summarise_by_time.html">tidyquant::summarise_by_time</a></code></li>
+<li><code>tibbletime::filter_by_time</code></li>
+</ul>
+</li>
+<li>Holiday Transition
+<ul>
+<li><code>tk_make_holiday_series()</code></li>
+</ul>
+</li>
+<li>Support for <code>grouped_df</code>
+<ul>
+<li>(DONE) <code><a href="../reference/tk_augment_roll_apply.html">tk_augment_roll_apply()</a></code>
+</li>
+<li><code>tk_augment_lags()</code></li>
+<li><code>tk_augment_smooth()</code></li>
+</ul>
+</li>
+<li>Diagnostics
+<ul>
 <li>Tidy acf, pacf, ccf</li>
 <li>Tidy dft</li>
-<li>Add tests</li>
+</ul>
+</li>
+<li>Tests</li>
 </ul>
 <p><strong>New Augment Functions</strong>:</p>
 <ul>
@@ -183,6 +223,8 @@
 </ul>
 <p><strong>New Recipes Functions:</strong></p>
 <ul>
+<li>
+<code><a href="../reference/step_roll_apply.html">step_roll_apply()</a></code> - New recipe step for adding rolling summary functions</li>
 <li>
 <code><a href="../reference/step_smooth.html">step_smooth()</a></code> - New recipe step for adding Local Polynomial Regression (LOESS) for smoothing noisy time series</li>
 <li>

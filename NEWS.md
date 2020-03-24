@@ -2,11 +2,11 @@
 
 __TODO:__
 
-- Tidy lag automation 
+- Lag automation 
     - `step_lag_series()` (is this possible?)
     - `tk_augment_lags()`
-- Rolling functionality 
-    - `step_roll_apply()`
+- (DONE) Rolling functionality 
+    - (DONE) `step_roll_apply()`
     - (DONE) `tk_augment_roll_apply()` 
     - (DONE) `roll_apply_vec()` 
 - Smooth Loess functionality 
@@ -38,6 +38,7 @@ __New Vector Functions:__
 
 __New Recipes Functions:__
 
+* `step_roll_apply()` - New recipe step for adding rolling summary functions
 * `step_smooth()` - New recipe step for adding Local Polynomial Regression (LOESS) for smoothing noisy time series
 * `step_fourier_series()` - New recipe step for adding fourier transforms for adding seasonal features to time series data
 

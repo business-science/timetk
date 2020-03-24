@@ -2,7 +2,7 @@
 % Please edit documentation in R/vec-smooth.R
 \name{smooth_vec}
 \alias{smooth_vec}
-\title{Smoothing Transformation using Loess (Local Polynomial Regressing Fitting)}
+\title{Smoothing Transformation using Loess}
 \usage{
 smooth_vec(.x, .period = 30, .span = NULL, .degree = 2)
 }
