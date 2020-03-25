@@ -187,9 +187,14 @@
 <li><code>tibbletime::filter_by_time</code></li>
 </ul>
 </li>
-<li>Holiday Transition
+<li>Date Sequence &amp; Holiday Transition
 <ul>
-<li><code>tk_make_holiday_series()</code></li>
+<li>(DONE) <code>tk_make_holiday_series()</code>
+</li>
+<li>(DONE) <code><a href="../reference/tk_get_holiday.html">tk_get_holiday_signature()</a></code>, <code>tk_augment_holiday_signature()</code>
+</li>
+<li>
+</li>
 </ul>
 </li>
 <li>Support for <code>grouped_df</code>
@@ -207,6 +212,20 @@
 </ul>
 </li>
 <li>Tests</li>
+</ul>
+<p><strong>New Make Functions</strong>:</p>
+<p>Make date and date-time sequences between start and end dates.</p>
+<ul>
+<li>
+<code><a href="../reference/tk_make_index_sequence.html">tk_make_index_sequence()</a></code> - Super flexible - Makes both daily and subdaily time series.</li>
+<li>
+<code><a href="../reference/tk_make_index_sequence.html">tk_make_weekday_sequence()</a></code> - Weekday sequence that accounts for both <strong>stripping weekends and holidays!</strong>
+</li>
+<li>
+<code><a href="../reference/tk_make_index_sequence.html">tk_make_holiday_sequence()</a></code> - Makes a sequence of dates corresponding to holidays in calendars from <code>timeDate</code>
+</li>
+<li>
+<code><a href="../reference/tk_make_index_sequence.html">tk_make_weekend_sequence()</a></code> - Weekday sequence of dates for Saturday and Sunday (common non-working days)</li>
 </ul>
 <p><strong>New Augment Functions</strong>:</p>
 <ul>

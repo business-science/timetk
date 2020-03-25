@@ -12,22 +12,33 @@
 #' @return Returns a `tibble` object describing the timeseries holidays.
 #'
 #' @details
-#' TODO
-#'
-#' 3 Sets in 1:
+#' Feature engineering holidays can help identify critical patterns for
+#' machine learning algorithms. `tk_get_holiday_signature()` helps by providing
+#' feature sets for 3 types of features:
 #'
 #' __1. Individual Holidays__
 #'
+#' These are __single holiday features__ that can be filtered using a pattern.
+#' This helps in identifying which holidays are important to a machine learning model.
+#' This can be useful for example in __e-commerce initiatives__
+#' (e.g. sales during Christmas and Thanskgiving).
+#'
 #' __2. Locale-Based Summary Sets__
+#'
+#' Locale-based holdiay sets are useful for __e-commerce initiatives__
+#' (e.g. sales during Christmas and Thanskgiving). Filter on a locale to
+#' identify all holidays in that locale.
 #'
 #' __3. Stock Exchange Calendar Summary Sets__
 #'
+#' Exchange-based holdiay sets are useful for identifying __non-working days.__
+#' Filter on an index to identify all holidays that are commonly non-working.
 #'
 #' @seealso
-#' TODO
+#'
 #'
 #' @examples
-#' library(dplyr)
+#' library(tidyverse)
 #' library(tidyquant)
 #' library(timetk)
 #'
@@ -41,24 +52,25 @@
 #' # ---- FILTERING WITH PATTERNS & SETS ----
 #'
 #' # List available holidays - see patterns
-#' tk_get_holidays_by_year(2020)
+#' tk_get_holidays_by_year(2020) %>%
+#'     filter(holiday_name %>% str_detect("US_"))
 #'
 #' # Filter using holiday patterns
-#' # - Get Christmas and Thanksgiving Features in US
+#' # - Get New Years, Christmas and Thanksgiving Features in US
 #' tk_get_holiday_signature(
 #'     idx,
-#'     holiday_pattern = "(US_Christmas)|(US_Thanks)",
+#'     holiday_pattern = "(US_NewYears)|(US_Christmas)|(US_Thanks)",
 #'     locale_set      = "none",
 #'     exchange_set    = "none")
 #'
-#' # Filter with locale sets
+#' # Filter with locale sets - Signals all holidays in a locale
 #' tk_get_holiday_signature(
 #'     idx,
 #'     holiday_pattern = "$^", # Matches nothing on purpose
 #'     locale_set      = "US",
 #'     exchange_set    = "none")
 #'
-#' # Filter with exchange sets
+#' # Filter with exchange sets - Signals Common Non-Business Days
 #' tk_get_holiday_signature(
 #'     idx,
 #'     holiday_pattern = "$^", # Matches nothing on purpose
@@ -229,6 +241,7 @@ get_holiday_signature <- function(idx,
 }
 
 #' @rdname tk_get_holiday
+#' @export
 #' @importFrom lubridate year today
 tk_get_holidays_by_year <- function(years = year(today())) {
 

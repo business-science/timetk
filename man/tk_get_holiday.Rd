@@ -36,18 +36,30 @@ Returns a \code{tibble} object describing the timeseries holidays.
 Get holiday features from a time-series index
 }
 \details{
-TODO
-
-3 Sets in 1:
+Feature engineering holidays can help identify critical patterns for
+machine learning algorithms. \code{tk_get_holiday_signature()} helps by providing
+feature sets for 3 types of features:
 
 \strong{1. Individual Holidays}
 
+These are \strong{single holiday features} that can be filtered using a pattern.
+This helps in identifying which holidays are important to a machine learning model.
+This can be useful for example in \strong{e-commerce initiatives}
+(e.g. sales during Christmas and Thanskgiving).
+
 \strong{2. Locale-Based Summary Sets}
 
+Locale-based holdiay sets are useful for \strong{e-commerce initiatives}
+(e.g. sales during Christmas and Thanskgiving). Filter on a locale to
+identify all holidays in that locale.
+
 \strong{3. Stock Exchange Calendar Summary Sets}
+
+Exchange-based holdiay sets are useful for identifying \strong{non-working days.}
+Filter on an index to identify all holidays that are commonly non-working.
 }
 \examples{
-library(dplyr)
+library(tidyverse)
 library(tidyquant)
 library(timetk)
 
@@ -61,24 +73,25 @@ tk_get_holiday_signature(idx)
 # ---- FILTERING WITH PATTERNS & SETS ----
 
 # List available holidays - see patterns
-tk_get_holidays_by_year(2020)
+tk_get_holidays_by_year(2020) \%>\%
+    filter(holiday_name \%>\% str_detect("US_"))
 
 # Filter using holiday patterns
-# - Get Christmas and Thanksgiving Features in US
+# - Get New Years, Christmas and Thanksgiving Features in US
 tk_get_holiday_signature(
     idx,
-    holiday_pattern = "(US_Christmas)|(US_Thanks)",
+    holiday_pattern = "(US_NewYears)|(US_Christmas)|(US_Thanks)",
     locale_set      = "none",
     exchange_set    = "none")
 
-# Filter with locale sets
+# Filter with locale sets - Signals all holidays in a locale
 tk_get_holiday_signature(
     idx,
     holiday_pattern = "$^", # Matches nothing on purpose
     locale_set      = "US",
     exchange_set    = "none")
 
-# Filter with exchange sets
+# Filter with exchange sets - Signals Common Non-Business Days
 tk_get_holiday_signature(
     idx,
     holiday_pattern = "$^", # Matches nothing on purpose
@@ -87,5 +100,5 @@ tk_get_holiday_signature(
 
 }
 \seealso{
-TODO
+
 }

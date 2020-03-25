@@ -18,6 +18,8 @@ __TODO:__
     - `tibbletime::filter_by_time`
 - Date Sequence & Holiday Transition 
     - (DONE) `tk_make_holiday_series()`
+    - (DONE) `tk_get_holiday_signature()`, `tk_augment_holiday_signature()`
+    - 
 - Support for `grouped_df`
     - (DONE) `tk_augment_roll_apply()`
     - `tk_augment_lags()`
