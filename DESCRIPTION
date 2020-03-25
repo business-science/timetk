@@ -24,8 +24,8 @@ Encoding: UTF-8
 LazyData: true
 Depends:
     R (>= 3.3.0),
-    recipes (>= 0.1.4)
 Imports:
+    recipes (>= 0.1.4),
     dplyr (>= 0.7.0),
     lazyeval (>= 0.2.0),
     lubridate (>= 1.6.0),

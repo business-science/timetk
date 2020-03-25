@@ -16,8 +16,8 @@ __TODO:__
 - Dplyr Transition 
     - `tidyquant::summarise_by_time`
     - `tibbletime::filter_by_time`
-- Holiday Transition 
-    - `tk_make_holiday_series()`
+- Date Sequence & Holiday Transition 
+    - (DONE) `tk_make_holiday_series()`
 - Support for `grouped_df`
     - (DONE) `tk_augment_roll_apply()`
     - `tk_augment_lags()`
@@ -26,6 +26,15 @@ __TODO:__
     - Tidy acf, pacf, ccf
     - Tidy dft
 - Tests
+
+__New Make Functions__:
+
+Make date and date-time sequences between start and end dates.
+
+* `tk_make_index_sequence()` -  Super flexible - Makes both daily and subdaily time series. 
+* `tk_make_weekday_sequence()` - Weekday sequence that accounts for both __stripping weekends and holidays!__
+* `tk_make_holiday_sequence()` - Makes a sequence of dates corresponding to holidays in calendars from `timeDate`
+* `tk_make_weekend_sequence()` - Weekday sequence of dates for Saturday and Sunday (common non-working days)
 
 __New Augment Functions__:
 
