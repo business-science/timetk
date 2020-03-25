@@ -36,6 +36,7 @@
 #'
 #' @seealso
 #'
+#' - [tk_augment_holiday_signature()] -
 #'
 #' @examples
 #' library(tidyverse)

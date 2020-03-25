@@ -100,5 +100,7 @@ tk_get_holiday_signature(
 
 }
 \seealso{
-
+\itemize{
+\item \code{\link[=tk_augment_holiday_signature]{tk_augment_holiday_signature()}} -
+}
 }
