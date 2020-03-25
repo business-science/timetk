@@ -1,4 +1,4 @@
-#' Get summary attributes from a time-series index
+#' Get date features from a time-series index
 #'
 #' @param idx A time-series index that is a vector of dates or datetimes.
 #'

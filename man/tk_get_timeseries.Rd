@@ -4,7 +4,7 @@
 \alias{tk_get_timeseries}
 \alias{tk_get_timeseries_signature}
 \alias{tk_get_timeseries_summary}
-\title{Get summary attributes from a time-series index}
+\title{Get date features from a time-series index}
 \usage{
 tk_get_timeseries_signature(idx)
 
@@ -17,7 +17,7 @@ tk_get_timeseries_summary(idx)
 Returns a \code{tibble} object describing the timeseries.
 }
 \description{
-Get summary attributes from a time-series index
+Get date features from a time-series index
 }
 \details{
 \code{tk_get_timeseries_signature} decomposes the timeseries into commonly
