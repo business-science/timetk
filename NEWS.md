@@ -2,9 +2,15 @@
 
 __TODO:__
 
+
 - Lag automation 
     - `step_lag_series()` (is this possible?)
     - `tk_augment_lags()`
+    - `tk_get_lags()`
+- Fourier series
+    - (DONE) `step_fourier_series()`
+    - `tk_get_fourier_series()` (is this needed?)
+    - `tk_augment_fourier_series()` (is this needed?)
 - (DONE) Rolling functionality 
     - (DONE) `step_roll_apply()`
     - (DONE) `tk_augment_roll_apply()` 
@@ -16,16 +22,18 @@ __TODO:__
 - Dplyr Transition 
     - `tidyquant::summarise_by_time`
     - `tibbletime::filter_by_time`
+    - `tibbletime::as_period`
 - Date Sequence & Holiday Transition 
-    - (DONE) `tk_make_holiday_series()`
+    - (DONE) `tk_make_holiday_sequence()`
     - (DONE) `tk_get_holiday_signature()`, `tk_augment_holiday_signature()`
-    - 
+    - `step_holiday_signature()`
 - Support for `grouped_df`
     - (DONE) `tk_augment_roll_apply()`
     - `tk_augment_lags()`
     - `tk_augment_smooth()`
 - Diagnostics
-    - Tidy acf, pacf, ccf
+    - Missing values - Weekends, Holidays - Correlation Funnel???
+    - Tidy acf, pacf, ccf https://github.com/robjhyndman/forecast/blob/master/R/acf.R
     - Tidy dft
 - Tests
 
@@ -38,8 +46,13 @@ Make date and date-time sequences between start and end dates.
 * `tk_make_holiday_sequence()` - Makes a sequence of dates corresponding to holidays in calendars from `timeDate`
 * `tk_make_weekend_sequence()` - Weekday sequence of dates for Saturday and Sunday (common non-working days)
 
+__New Get Functions__:
+
+* `tk_get_holiday_signature()` - Get 100+ holiday features using only a time-series index.
+
 __New Augment Functions__:
 
+* `tk_augment_holiday_signature()` - Add holiday features to a `data.frame` using only a time-series index.
 * `tk_augment_roll_apply()` - Add multiple columns of rolling window calculations to a `data.frame`.
 
 __New Vector Functions:__
@@ -47,7 +60,7 @@ __New Vector Functions:__
 * `roll_apply_vec()` - Vectorized rolling apply function - wraps `slider::slide_vec()`
 * `smooth_vec()` - Vectorized smoothing function - Applies Local Polynomial Regression (LOESS)
 
-__New Recipes Functions:__
+__New Recipe Functions:__
 
 * `step_roll_apply()` - New recipe step for adding rolling summary functions
 * `step_smooth()` - New recipe step for adding Local Polynomial Regression (LOESS) for smoothing noisy time series

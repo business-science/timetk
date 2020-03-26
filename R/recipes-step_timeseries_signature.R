@@ -81,10 +81,12 @@
 #' tidy(rec_obj)
 #' tidy(rec_obj, number = 1)
 #'
-#' @seealso [recipes::step_holiday()] [recipes::step_date()]
-#'   [recipes::step_rm()]
-#'   [recipes::recipe()] [recipes::prep.recipe()]
-#'   [recipes::bake.recipe()]
+#' @seealso
+#'  - Underlying Functions: [tk_get_timeseries_signature()], [tk_augment_timeseries_signature()]
+#'  - Holiday Recipes: [step_holiday_signature()]
+#'  - Remove features: [recipes::step_rm()]
+#'  - Creating Recipes: [recipes::recipe()] [recipes::prep.recipe()]
+#'  - Applying Recipes: [recipes::bake.recipe()]
 #'
 #'
 #' @importFrom recipes rand_id

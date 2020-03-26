@@ -58,9 +58,31 @@ library(dplyr)
 library(tidyquant)
 library(timetk)
 
-FANG \%>\%
-    filter(symbol == "FB") \%>\%
-    tk_augment_holiday_signature()
+dates_in_2017_tbl <- tibble(index = tk_make_index_sequence("2017-01-01", "2017-12-31", by = "day"))
+
+# Non-working days in US due to Holidays using NYSE stock exchange calendar
+dates_in_2017_tbl \%>\%
+    tk_augment_holiday_signature(
+        .holiday_pattern = "^$",   # Returns nothing on purpose
+        .locale_set      = "none",
+        .exchange_set    = "NYSE")
+
+# All holidays in US
+dates_in_2017_tbl \%>\%
+    tk_augment_holiday_signature(
+        .holiday_pattern = "US_",
+        .locale_set      = "US",
+        .exchange_set    = "none")
+
+# All holidays for World and Italy-specific Holidays
+# - Note that Italy celebrates specific holidays in addition to many World Holidays
+dates_in_2017_tbl \%>\%
+    tk_augment_holiday_signature(
+        .holiday_pattern = "(World)|(IT_)",
+        .locale_set      = c("World", "IT"),
+        .exchange_set    = "none")
+
+
 
 }
 \seealso{

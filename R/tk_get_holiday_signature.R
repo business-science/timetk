@@ -36,7 +36,8 @@
 #'
 #' @seealso
 #'
-#' - [tk_augment_holiday_signature()] -
+#' - [tk_augment_holiday_signature()] - A quick way to add holiday features to a data.frame
+#' - [step_holiday_signature()] - Preprocessing and feature engineering steps for use with `recipes`
 #'
 #' @examples
 #' library(tidyverse)
@@ -137,8 +138,14 @@ get_holiday_signature <- function(idx,
     # Setup
     idx          <- lubridate::as_date(idx)
     years        <- lubridate::year(idx) %>% unique()
-    locale_set   <- locale_set[1] %>% tolower()
-    exchange_set <- exchange_set[1] %>% tolower()
+    locale_set   <- locale_set %>% tolower()
+    exchange_set <- exchange_set %>% tolower()
+
+    if (any("all" %in% locale_set)) locale_set <- "all"
+    if (any("all" %in% exchange_set)) exchange_set <- "all"
+
+    if (any("none" %in% locale_set)) locale_set <- "none"
+    if (any("none" %in% exchange_set)) exchange_set <- "none"
 
     initial_index_tbl <- tibble::tibble(index = idx)
 
@@ -171,7 +178,9 @@ get_holiday_signature <- function(idx,
         # Not all or none - must have a locale selected
         holiday_table_locale <- holiday_table_locale %>%
             dplyr::mutate(value = 1) %>%
-            dplyr::filter(tolower(locale) == tolower(locale_set[1])) %>%
+
+            dplyr::filter(tolower(locale) %in% tolower(locale_set)) %>%
+
             dplyr::mutate(locale = stringr::str_c("locale_", locale)) %>%
             dplyr::group_by(date, locale) %>%
             dplyr::summarize(value = min(value)) %>%
@@ -181,6 +190,7 @@ get_holiday_signature <- function(idx,
         # All selected - Just pivot
         holiday_table_locale <- holiday_table_locale %>%
             dplyr::mutate(value = 1) %>%
+            dplyr::mutate(locale = stringr::str_c("locale_", locale)) %>%
             dplyr::group_by(date, locale) %>%
             dplyr::summarize(value = min(value)) %>%
             dplyr::ungroup() %>%

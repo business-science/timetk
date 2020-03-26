@@ -103,10 +103,13 @@ tidy(rec_obj, number = 1)
 
 }
 \seealso{
-\code{\link[recipes:step_holiday]{recipes::step_holiday()}} \code{\link[recipes:step_date]{recipes::step_date()}}
-\code{\link[recipes:step_rm]{recipes::step_rm()}}
-\code{\link[recipes:recipe]{recipes::recipe()}} \code{\link[recipes:prep.recipe]{recipes::prep.recipe()}}
-\code{\link[recipes:bake.recipe]{recipes::bake.recipe()}}
+\itemize{
+\item Underlying Functions: \code{\link[=tk_get_timeseries_signature]{tk_get_timeseries_signature()}}, \code{\link[=tk_augment_timeseries_signature]{tk_augment_timeseries_signature()}}
+\item Holiday Recipes: \code{\link[=step_holiday_signature]{step_holiday_signature()}}
+\item Remove features: \code{\link[recipes:step_rm]{recipes::step_rm()}}
+\item Creating Recipes: \code{\link[recipes:recipe]{recipes::recipe()}} \code{\link[recipes:prep.recipe]{recipes::prep.recipe()}}
+\item Applying Recipes: \code{\link[recipes:bake.recipe]{recipes::bake.recipe()}}
+}
 }
 \concept{dates}
 \concept{model_specification}

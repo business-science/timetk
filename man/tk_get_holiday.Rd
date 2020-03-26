@@ -101,6 +101,7 @@ tk_get_holiday_signature(
 }
 \seealso{
 \itemize{
-\item \code{\link[=tk_augment_holiday_signature]{tk_augment_holiday_signature()}} -
+\item \code{\link[=tk_augment_holiday_signature]{tk_augment_holiday_signature()}} - A quick way to add holiday features to a data.frame
+\item \code{\link[=step_holiday_signature]{step_holiday_signature()}} - Preprocessing and feature engineering steps for use with \code{recipes}
 }
 }
