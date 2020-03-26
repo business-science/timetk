@@ -19,6 +19,11 @@ __TODO:__
     - (DONE) `step_smooth()` 
     - `tk_augment_smooth()`
     - (DONE) `smooth_vec()` 
+- Box Cox functionality
+    - `box_cox_vec`
+    - `box_cox_inv_vec`
+    - `guerrero`
+    - `step_box_cox`
 - Dplyr Transition 
     - `tidyquant::summarise_by_time`
     - `tibbletime::filter_by_time`
@@ -26,7 +31,7 @@ __TODO:__
 - Date Sequence & Holiday Transition 
     - (DONE) `tk_make_holiday_sequence()`
     - (DONE) `tk_get_holiday_signature()`, `tk_augment_holiday_signature()`
-    - `step_holiday_signature()`
+    - (DONE) `step_holiday_signature()`
 - Support for `grouped_df`
     - (DONE) `tk_augment_roll_apply()`
     - `tk_augment_lags()`
@@ -62,9 +67,11 @@ __New Vector Functions:__
 
 __New Recipe Functions:__
 
+* `step_holiday_signature()` - New recipe step for adding 130 holiday features based on individual holidays, locales, and stock exchanges / business holidays. 
+* `step_fourier_series()` - New recipe step for adding fourier transforms for adding seasonal features to time series data
 * `step_roll_apply()` - New recipe step for adding rolling summary functions
 * `step_smooth()` - New recipe step for adding Local Polynomial Regression (LOESS) for smoothing noisy time series
-* `step_fourier_series()` - New recipe step for adding fourier transforms for adding seasonal features to time series data
+
 
 __Bug Fixes:__
 

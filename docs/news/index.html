@@ -160,6 +160,17 @@
 <li>
 <code>step_lag_series()</code> (is this possible?)</li>
 <li><code>tk_augment_lags()</code></li>
+<li><code>tk_get_lags()</code></li>
+</ul>
+</li>
+<li>Fourier series
+<ul>
+<li>(DONE) <code><a href="../reference/step_fourier_series.html">step_fourier_series()</a></code>
+</li>
+<li>
+<code>tk_get_fourier_series()</code> (is this needed?)</li>
+<li>
+<code>tk_augment_fourier_series()</code> (is this needed?)</li>
 </ul>
 </li>
 <li>(DONE) Rolling functionality
@@ -181,19 +192,28 @@
 </li>
 </ul>
 </li>
+<li>Box Cox functionality
+<ul>
+<li><code>box_cox_vec</code></li>
+<li><code>box_cox_inv_vec</code></li>
+<li><code>guerrero</code></li>
+<li><code>step_box_cox</code></li>
+</ul>
+</li>
 <li>Dplyr Transition
 <ul>
 <li><code><a href="https://rdrr.io/pkg/tidyquant/man/summarise_by_time.html">tidyquant::summarise_by_time</a></code></li>
 <li><code>tibbletime::filter_by_time</code></li>
+<li><code><a href="https://rdrr.io/pkg/tibbletime/man/as_period.html">tibbletime::as_period</a></code></li>
 </ul>
 </li>
 <li>Date Sequence &amp; Holiday Transition
 <ul>
-<li>(DONE) <code>tk_make_holiday_series()</code>
+<li>(DONE) <code><a href="../reference/tk_make_index_sequence.html">tk_make_holiday_sequence()</a></code>
 </li>
 <li>(DONE) <code><a href="../reference/tk_get_holiday.html">tk_get_holiday_signature()</a></code>, <code><a href="../reference/tk_augment_holiday.html">tk_augment_holiday_signature()</a></code>
 </li>
-<li>
+<li>(DONE) <code><a href="../reference/step_holiday_signature.html">step_holiday_signature()</a></code>
 </li>
 </ul>
 </li>
@@ -207,7 +227,9 @@
 </li>
 <li>Diagnostics
 <ul>
-<li>Tidy acf, pacf, ccf</li>
+<li>Missing values - Weekends, Holidays - Correlation Funnel???</li>
+<li>Tidy acf, pacf, ccf <a href="https://github.com/robjhyndman/forecast/blob/master/R/acf.R" class="uri">https://github.com/robjhyndman/forecast/blob/master/R/acf.R</a>
+</li>
 <li>Tidy dft</li>
 </ul>
 </li>
@@ -227,8 +249,15 @@
 <li>
 <code><a href="../reference/tk_make_index_sequence.html">tk_make_weekend_sequence()</a></code> - Weekday sequence of dates for Saturday and Sunday (common non-working days)</li>
 </ul>
+<p><strong>New Get Functions</strong>:</p>
+<ul>
+<li>
+<code><a href="../reference/tk_get_holiday.html">tk_get_holiday_signature()</a></code> - Get 100+ holiday features using only a time-series index.</li>
+</ul>
 <p><strong>New Augment Functions</strong>:</p>
 <ul>
+<li>
+<code><a href="../reference/tk_augment_holiday.html">tk_augment_holiday_signature()</a></code> - Add holiday features to a <code>data.frame</code> using only a time-series index.</li>
 <li>
 <code><a href="../reference/tk_augment_roll_apply.html">tk_augment_roll_apply()</a></code> - Add multiple columns of rolling window calculations to a <code>data.frame</code>.</li>
 </ul>
@@ -240,14 +269,16 @@
 <li>
 <code><a href="../reference/smooth_vec.html">smooth_vec()</a></code> - Vectorized smoothing function - Applies Local Polynomial Regression (LOESS)</li>
 </ul>
-<p><strong>New Recipes Functions:</strong></p>
+<p><strong>New Recipe Functions:</strong></p>
 <ul>
+<li>
+<code><a href="../reference/step_holiday_signature.html">step_holiday_signature()</a></code> - New recipe step for adding 130 holiday features based on individual holidays, locales, and stock exchanges / business holidays.</li>
+<li>
+<code><a href="../reference/step_fourier_series.html">step_fourier_series()</a></code> - New recipe step for adding fourier transforms for adding seasonal features to time series data</li>
 <li>
 <code><a href="../reference/step_roll_apply.html">step_roll_apply()</a></code> - New recipe step for adding rolling summary functions</li>
 <li>
 <code><a href="../reference/step_smooth.html">step_smooth()</a></code> - New recipe step for adding Local Polynomial Regression (LOESS) for smoothing noisy time series</li>
-<li>
-<code><a href="../reference/step_fourier_series.html">step_fourier_series()</a></code> - New recipe step for adding fourier transforms for adding seasonal features to time series data</li>
 </ul>
 <p><strong>Bug Fixes:</strong></p>
 <ul>
