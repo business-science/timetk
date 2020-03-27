@@ -23,12 +23,15 @@ License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true
 Depends:
-    R (>= 3.3.0),
+    R (>= 3.3.0)
 Imports:
     recipes (>= 0.1.4),
     rsample,
+    broom,
     dplyr (>= 0.7.0),
     ggplot2,
+    forcats,
+    stringr,
     plotly, 
     lazyeval (>= 0.2.0),
     lubridate (>= 1.6.0),
@@ -50,13 +53,10 @@ Suggests:
     glmnet,
     yardstick, 
     tidyverse,
-    broom,
-    forcats,
     knitr,
     rmarkdown,
     robets,
     scales,
-    stringr,
     testthat,
     tidyquant,
     fracdiff,

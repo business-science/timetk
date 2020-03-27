@@ -124,7 +124,7 @@ plot_time_series <- function(.data, .date_var, .value, .facets = NULL,
         if (length(facet_names) > 1) message("plot_time_series(facets > 1 & .line_color = 'scale_color'): Using the first facet only:", facet_names[1])
         g <- g +
             ggplot2::geom_line(
-                aes_string(color = facet_names[1]),
+                ggplot2::aes_string(color = facet_names[1]),
                 size = .line_size) +
             scale_color_tq()
     } else {

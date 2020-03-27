@@ -87,7 +87,7 @@ tk_lag_diagnostics.data.frame <- function(.data, .value, ..., .lags = 0:60) {
             plot      = FALSE,
             type      = "correlation",
             demean    = TRUE,
-            na.action = na.fail
+            na.action = stats::na.fail
         ) %>%
         .$acf %>%
         .[,,1]
@@ -113,7 +113,7 @@ tk_lag_diagnostics.data.frame <- function(.data, .value, ..., .lags = 0:60) {
                 lag.max   = lag_max,
                 type      = "correlation",
                 plot      = FALSE,
-                na.action = na.fail
+                na.action = stats::na.fail
             ) %>%
                 .$acf %>%
                 .[,,1] %>%
@@ -139,7 +139,7 @@ tk_lag_diagnostics.data.frame <- function(.data, .value, ..., .lags = 0:60) {
 tk_lag_diagnostics.grouped_df <- function(.data, .value, ..., .lags = 0:60) {
 
     # Tidy Eval Setup
-    value_expr <- rlang::enquo(.value)
+    value_expr  <- rlang::enquo(.value)
     group_names <- dplyr::group_vars(.data)
 
     # Process groups individually

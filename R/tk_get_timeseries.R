@@ -176,6 +176,10 @@ get_timeseries_summary_date <- function(idx) {
         summary() %>%
         broom::tidy() %>%
         tibble::as_tibble()
+        # dplyr::bind_cols() %>%
+        # purrr::set_names(
+        #     c("minimum", "q1", "median", "mean", "q3", "maximum")
+        # )
 
     colnames(idx_diff_summary) <- stringr::str_c("diff.", colnames(idx_diff_summary), sep = "")
 
