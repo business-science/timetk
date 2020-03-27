@@ -105,6 +105,7 @@ tk_augment_roll_apply.grouped_df <- function(.data,
                                              .partial = FALSE,
                                              .names = paste0("roll_apply_", .period)) {
 
+    # Tidy Eval Setup
     column_expr <- enquo(.column)
     group_names <- dplyr::group_vars(.data)
 

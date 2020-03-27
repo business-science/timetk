@@ -1,20 +1,86 @@
-
-
-tk_lag_diagnostics <- function(.data, .value, ..., .lags = 0:20) {
-
+#' Get ACF, PACF, and CCF in 1 Data Frame
+#'
+#' The `tk_lag_diagnostics()` function provides a simple interface to
+#' detect Autocorrelation, Partial ACF, and Cross Correlation of Lagged
+#' Predictors in one `tibble`. This function powers the [plot_lag_diagnostics()]
+#' visualization.
+#'
+#' @param .data A data frame or tibble with numeric features (values) in descending
+#'  chronological order
+#' @param .value A numeric column with a value to have ACF and PACF calculations
+#'  performed.
+#' @param ... Additional features to perform Lag Cross Correlations (CCFs)
+#' versus the `.value`. Useful for evaluating external lagged regressors.
+#' @param .lags A seqence of one or more lags to evaluate.
+#'
+#' @details
+#'
+#' __Simplified ACF, PACF, & CCF__
+#'
+#' We are often interested in all 3 of these functions. Why not get all 3 at once?
+#' Now you can!
+#'
+#' - __ACF__ - Autocorrelation between a target variable and lagged versions of itself
+#'
+#' - __PACF__ - Partial Autocorrelation removes the dependence of lags on
+#'  other lags highlighting key seasonalities.
+#'
+#' - __CCF__ - Shows how lagged predictors can be used for prediction of a target
+#'  variable.
+#'
+#' __Works with Grouped Data Frames__
+#'
+#' The `tk_lag_diagnostics()` works with `grouped_df`'s, meaning you can
+#' group your time series by one or more categorical columns with `group_by()`
+#' and then apply `tk_lag_diagnostics()` to return group-wise lag diagnostics.
+#'
+#' @seealso
+#' - __Visualizing ACF, PACF, & CCF:__ [plot_lag_diagnostics()]
+#'
+#' @examples
+#' library(tidyverse)
+#' library(tidyquant)
+#' library(timetk)
+#'
+#' # ACF, PACF, & CCF in 1 Data Frame
+#' # - Get ACF & PACF for target (adjusted)
+#' # - Get CCF between adjusted and volume and close
+#' FANG %>%
+#'     filter(symbol == "FB") %>%
+#'     tk_lag_diagnostics(.value = adjusted, volume, close, .lags = 0:500)
+#'
+#' # Do the same thing for groups with group_by()
+#' FANG %>%
+#'     group_by(symbol) %>%
+#'     tk_lag_diagnostics(.value = adjusted, volume, close, .lags = 0:500)
+#'
+#'
+#' @export
+tk_lag_diagnostics <- function(.data, .value, ..., .lags = 0:60) {
+    # Checks
     value_expr <- enquo(.value)
-    dots_exprs <- enquos(...)
+    if (rlang::quo_is_missing(value_expr)) stop(call. = FALSE, "tk_lag_diagnostics(.value), Please provide a .value.")
+    if (!is.data.frame(.data)) {
+        stop(call. = FALSE, "tk_lag_diagnostics(.data) is not a data-frame or tibble. Please supply a data.frame or tibble.")
+    }
+    UseMethod("tk_lag_diagnostics", .data)
+}
 
-    # ccf_variabls <- .data %>% select(!!! dots_exprs) %>% colnames()
+#' @export
+tk_lag_diagnostics.data.frame <- function(.data, .value, ..., .lags = 0:60) {
 
-    if (rlang::quo_is_missing(value_expr)) stop(call. = FALSE, "tk_lag_diagnostics(), Please provide a .value.")
+    # Tidyeval Setup
+    value_expr <- rlang::enquo(.value)
+    dots_exprs <- rlang::enquos(...)
 
     # Calcs
-    x <- .data %>% pull(!! value_expr)
+    .lags   <- sort(.lags)
+    x       <- .data %>% dplyr::pull(!! value_expr)
     lag_max <- max(.lags)
     lag_min <- min(.lags)
 
-    # ACF
+    # ---- ACF ----
+
     acf_values <- x %>%
         stats::acf(
             lag.max   = lag_max,
@@ -26,155 +92,72 @@ tk_lag_diagnostics <- function(.data, .value, ..., .lags = 0:20) {
         .$acf %>%
         .[,,1]
 
-    # PACF
+    # ---- PACF ----
     pacf_values <- x %>%
         stats::pacf(
-            lag.max = lag_max,
-            plot    = FALSE) %>%
+            lag.max  = lag_max,
+            plot     = FALSE
+        ) %>%
         .$acf %>%
         .[,,1]
 
     pacf_values <- c(1, pacf_values)
 
-    # pacf_length <- length(pacf_values)
-    # acf_length  <- length(acf_values)
-    # if (pacf_length < acf_length) {
-    #     pacf_values <- c(rep(NA, acf_length - pacf_length), pacf_values)
-    # }
-
-    # CCF
+    # ---- CCF ----
     ccf_tbl <- .data %>%
-        select(!!! dots_exprs) %>%
-        map(.f = function(y) {
+        dplyr::select(!!! dots_exprs) %>%
+        purrr::map(.f = function(y) {
             stats::ccf(
-                x = x,
-                y = y,
-                lag.max = tail(.lags, 1),
-                type = "correlation",
-                plot = FALSE,
+                x         = x,
+                y         = y,
+                lag.max   = lag_max,
+                type      = "correlation",
+                plot      = FALSE,
                 na.action = na.fail
             ) %>%
                 .$acf %>%
                 .[,,1] %>%
                 .[(length(.) - (lag_max - lag_min)):length(.)]
         }) %>%
-        bind_cols() %>%
-        rename_all(~ str_c("ccf_", .))
+        dplyr::bind_cols() %>%
+        dplyr::rename_all(~ str_c("ccf_", .))
 
-    ret <- tibble(
+    ret <- tibble::tibble(
         acf  = acf_values,
         pacf = pacf_values
     ) %>%
-        bind_cols(ccf_tbl) %>%
-        rowid_to_column(var = "lag") %>%
-        mutate(lag = lag - 1) %>%
-        filter(lag %in% .lags)
+        dplyr::bind_cols(ccf_tbl) %>%
+        tibble::rowid_to_column(var = "lag") %>%
+        dplyr::mutate(lag = lag - 1) %>%
+        dplyr::filter(lag %in% .lags)
 
     return(ret)
 }
 
-plot_lag_diagnostics <- function(.data, .value, ..., .lags = 0:20,
-                                 .ncol = 1, .scales = "fixed",
-                                 .interactive = TRUE,
-                                 .title = "Lag Diagnostics",
-                                 .y_lab = "Correlation", .x_lab = "Lag") {
 
-    data_prepared <- tk_lag_diagnostics(
-        .data   = .data,
-        .value  = !! enquo(.value),
-        ...     = ...
-    )
+#' @export
+tk_lag_diagnostics.grouped_df <- function(.data, .value, ..., .lags = 0:60) {
 
-    g <- data_prepared %>%
-        pivot_longer(cols = -lag, values_to = "value", names_to = "name") %>%
-        mutate(name = as_factor(name)) %>%
-        ggplot(aes(lag, value, color = name)) +
-        geom_hline(yintercept = 0, color = "#2c3e50") +
-        geom_point() +
-        geom_line() +
-        facet_wrap(~ name, ncol = .ncol, scales = .scales) +
-        expand_limits(y = 0) +
-        theme_tq() +
-        scale_color_tq() +
-        labs(x = .x_lab, y = .y_lab, title = .title)
+    # Tidy Eval Setup
+    value_expr <- rlang::enquo(.value)
+    group_names <- dplyr::group_vars(.data)
 
-    if (.interactive) {
-        return(plotly::ggplotly(g))
-    } else {
-        return(g)
-    }
+    # Process groups individually
+    .data %>%
+        tidyr::nest() %>%
+        dplyr::mutate(nested.col = purrr::map(
+            .x         = data,
+            .f         = function(df) tk_lag_diagnostics(
+                .data      = df,
+                .value     = !! value_expr,
+                ...,
+                .lags      = .lags
+            )
+        )) %>%
+        dplyr::select(-data) %>%
+        tidyr::unnest(cols = nested.col) %>%
+        dplyr::group_by_at(.vars = group_names)
+
 }
 
 
-plot_time_series <- function(.data, .date_var, .value, .facets = NULL,
-                             .ncol = 1, .scales = "free_y", .color = "#2c3e50",
-                             .interactive = TRUE,
-                             .yintercept = NULL,
-                             .smooth = TRUE, .smooth_period = NULL, .smooth_degree = 2,
-                             .smooth_color = "dodgerblue",
-                             .title = "Time Series Plot", .x_lab = "", .y_lab = "") {
-
-
-
-    date_var_expr <- enquo(.date_var)
-    value_expr    <- enquo(.value)
-    facets_expr   <- enquos(.facets)
-
-    # Data Setup
-    data_formatted <- .data %>%
-        ungroup() %>%
-        select(!! date_var_expr, !! value_expr, !!! facets_expr)
-
-    facet_names <- data_formatted %>% select(!!! facets_expr) %>% colnames()
-
-    if (.smooth) {
-        if (!rlang::quo_is_null(facets_expr[[1]])) {
-            data_formatted <- data_formatted %>%
-                group_by(!!! syms(facet_names))
-        }
-
-        .smooth_span <- NULL
-        if (is.null(.smooth_period)) {
-            .smooth_span <- 0.75
-        }
-
-        data_formatted <- data_formatted %>%
-            mutate(value_smooth = smooth_vec(
-                !! value_expr,
-                .period = .smooth_period,
-                .span   = .smooth_span,
-                .degree = .smooth_degree)
-            ) %>%
-            ungroup()
-    }
-
-    # data_formatted
-
-    # Plot Setup
-    g <- data_formatted %>%
-        ggplot(aes(!!date_var_expr, !! value_expr)) +
-        geom_line(color = "#2c3e50") +
-        theme_tq() +
-        labs(x = .x_lab, y = .y_lab, title = .title)
-
-    if (length(facet_names) > 0) {
-        g <- g +
-            facet_wrap(vars(!!! syms(facet_names)), ncol = .ncol, scales = .scales)
-    }
-
-    if (.smooth) {
-        g <- g +
-            geom_line(aes(y = value_smooth), color = .smooth_color, size = 1)
-    }
-
-    if (!is.null(.yintercept)) {
-        g <- g +
-            geom_hline(yintercept = .yintercept, color = "#2c3e50")
-    }
-
-    if (.interactive) {
-        return(plotly::ggplotly(g))
-    } else {
-        return(g)
-    }
-}

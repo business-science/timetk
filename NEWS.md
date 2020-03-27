@@ -6,6 +6,7 @@ __TODO:__
     - Plot Time Series
     - Plot Lag Diagnostics
     - Plot Seasonality Diagnostics - Correlation Funnel
+    - Missing Data Diagnostics
 - Lag automation 
     - [Rsample PR #136](https://github.com/tidymodels/rsample/pull/136)
     - Until accepted: `initial_time_split_2()`, `rolling_origin_2()`
@@ -45,7 +46,7 @@ __TODO:__
     - Missing values - Weekends, Holidays - Correlation Funnel???
     - Tidy acf, pacf, ccf
     - Tidy dft
-- Tests
+- Tests (Boooo)
 
 __New Make Functions__:
 

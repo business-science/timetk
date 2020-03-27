@@ -31,6 +31,11 @@ navbar:
       href: https://github.com/business-science/timetk
 
 reference:
+  - title: Plotting Time Series
+    desc: __Detect relationships through visualizations__
+    contents:
+    - "plot_time_series"
+    - contains("plot_")
   - title: Index Operations
     desc: __Extract and check the index.__
     contents:
@@ -49,6 +54,9 @@ reference:
     desc: __Add columns to the original data.__
     contents:
     - contains("augment")
+  - title: Diagnostic Operations
+    desc: __Investigate time series relationships__
+    - "tk_lag_diagnostics"
   - title: Vector Operations
     desc: __Apply vectorized operations to time series data__
     contents:
