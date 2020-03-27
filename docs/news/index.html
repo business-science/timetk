@@ -155,6 +155,14 @@
 </h1>
 <p><strong>TODO:</strong></p>
 <ul>
+<li>Plot Diagnostics
+<ul>
+<li>Plot Time Series</li>
+<li>Plot Lag Diagnostics</li>
+<li>Plot Seasonality Diagnostics - Correlation Funnel</li>
+<li>Missing Data Diagnostics</li>
+</ul>
+</li>
 <li>Lag automation
 <ul>
 <li><a href="https://github.com/tidymodels/rsample/pull/136">Rsample PR <a href='https://github.com/business-science/timetk/issues/136'>#136</a></a></li>
@@ -230,12 +238,11 @@
 <li>Diagnostics
 <ul>
 <li>Missing values - Weekends, Holidays - Correlation Funnel???</li>
-<li>Tidy acf, pacf, ccf <a href="https://github.com/robjhyndman/forecast/blob/master/R/acf.R" class="uri">https://github.com/robjhyndman/forecast/blob/master/R/acf.R</a>
-</li>
+<li>Tidy acf, pacf, ccf</li>
 <li>Tidy dft</li>
 </ul>
 </li>
-<li>Tests</li>
+<li>Tests (Boooo)</li>
 </ul>
 <p><strong>New Make Functions</strong>:</p>
 <p>Make date and date-time sequences between start and end dates.</p>
@@ -285,7 +292,7 @@
 <p><strong>New Rsample Functions</strong></p>
 <ul>
 <li>
-<code><a href="../reference/initial_time_split_2.html">initial_time_split_2()</a></code> and <code><a href="../reference/rolling_origin_2.html">rolling_origin_2()</a></code> - Added parameter <code>overlap</code> to better handle lagged predictors.</li>
+<code><a href="../reference/initial_time_split_2.html">initial_time_split_2()</a></code> and <code><a href="../reference/rolling_origin_2.html">rolling_origin_2()</a></code> - Added parameter <code>overlap</code> to accomodate lagged predictors.</li>
 </ul>
 <p><strong>Bug Fixes:</strong></p>
 <ul>

@@ -56,6 +56,7 @@ reference:
     - contains("augment")
   - title: Diagnostic Operations
     desc: __Investigate time series relationships__
+    contents:
     - "tk_lag_diagnostics"
   - title: Vector Operations
     desc: __Apply vectorized operations to time series data__

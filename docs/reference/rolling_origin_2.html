@@ -240,12 +240,12 @@ using lagged predictors.</p>
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>timetk</span>)
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>tidyverse</span>)
 
-<span class='co'># 5-years of monthly data</span>
+<span class='co'># Monthly sales data</span>
 <span class='no'>drinks_tbl</span> <span class='kw'>&lt;-</span> <span class='no'>drinks</span> <span class='kw'>%&gt;%</span>
     <span class='fu'>rename</span>(<span class='kw'>sales</span> <span class='kw'>=</span> <span class='no'>S4248SM144NCEN</span>) <span class='kw'>%&gt;%</span>
     <span class='fu'>as_tibble</span>()
 
-<span class='co'># Resample with a 12-month overlap</span>
+<span class='co'># 5-year resample with a 12-month overlap and 12-month forecast horizon</span>
 <span class='co'># - Allows use of a 12-month or longer lag</span>
 <span class='no'>resample_spec</span> <span class='kw'>&lt;-</span> <span class='fu'>rolling_origin_2</span>(
     <span class='no'>drinks_tbl</span>,
