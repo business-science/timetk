@@ -26,6 +26,7 @@ Depends:
     R (>= 3.3.0),
 Imports:
     recipes (>= 0.1.4),
+    rsample,
     dplyr (>= 0.7.0),
     lazyeval (>= 0.2.0),
     lubridate (>= 1.6.0),
@@ -45,7 +46,6 @@ Suggests:
     workflows,
     parsnip,
     glmnet,
-    rsample,
     yardstick, 
     tidyverse,
     broom,

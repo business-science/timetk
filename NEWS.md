@@ -2,9 +2,10 @@
 
 __TODO:__
 
-
 - Lag automation 
-    - `step_lag_series()` (is this possible?)
+    - [Rsample PR #136](https://github.com/tidymodels/rsample/pull/136)
+    - Until acceplted: `initial_time_split_2()`, `rolling_origin_2()`
+    - `recipes::step_lag()` 
     - `tk_augment_lags()`
     - `tk_get_lags()`
 - Fourier series

@@ -223,7 +223,7 @@ predict_future_timeseries_daily <- function(idx, n_future, inspect_weekdays, ins
 
     # Find start and end
     start <- min(idx)
-    end <- max(idx)
+    end   <- max(idx)
 
     # Format data frame
     train <- tibble::tibble(
