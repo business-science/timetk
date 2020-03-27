@@ -2,7 +2,7 @@
 #'
 #' This resampling method is useful when the data set has a strong time
 #'  component. The resamples contain data points that are
-#'  _consecutive values_. This version differs from `rsample::initial_time_split()` in
+#'  _consecutive values_. This version differs from `rsample::rolling_origin()` in
 #'  that it has an `overlap` parameter which is useful for prediction with
 #'  lagged predictors.
 #'

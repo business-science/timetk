@@ -44,7 +44,7 @@ identifier.
 \description{
 This resampling method is useful when the data set has a strong time
 component. The resamples contain data points that are
-\emph{consecutive values}. This version differs from \code{rsample::initial_time_split()} in
+\emph{consecutive values}. This version differs from \code{rsample::rolling_origin()} in
 that it has an \code{overlap} parameter which is useful for prediction with
 lagged predictors.
 }
