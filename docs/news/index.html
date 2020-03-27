@@ -157,8 +157,10 @@
 <ul>
 <li>Lag automation
 <ul>
-<li>
-<code>step_lag_series()</code> (is this possible?)</li>
+<li><a href="https://github.com/tidymodels/rsample/pull/136">Rsample PR <a href='https://github.com/business-science/timetk/issues/136'>#136</a></a></li>
+<li>Until accepted: <code><a href="../reference/initial_time_split_2.html">initial_time_split_2()</a></code>, <code><a href="../reference/rolling_origin_2.html">rolling_origin_2()</a></code>
+</li>
+<li><code><a href="https://rdrr.io/pkg/recipes/man/step_lag.html">recipes::step_lag()</a></code></li>
 <li><code>tk_augment_lags()</code></li>
 <li><code>tk_get_lags()</code></li>
 </ul>
@@ -279,6 +281,11 @@
 <code><a href="../reference/step_roll_apply.html">step_roll_apply()</a></code> - New recipe step for adding rolling summary functions</li>
 <li>
 <code><a href="../reference/step_smooth.html">step_smooth()</a></code> - New recipe step for adding Local Polynomial Regression (LOESS) for smoothing noisy time series</li>
+</ul>
+<p><strong>New Rsample Functions</strong></p>
+<ul>
+<li>
+<code><a href="../reference/initial_time_split_2.html">initial_time_split_2()</a></code> and <code><a href="../reference/rolling_origin_2.html">rolling_origin_2()</a></code> - Added parameter <code>overlap</code> to better handle lagged predictors.</li>
 </ul>
 <p><strong>Bug Fixes:</strong></p>
 <ul>

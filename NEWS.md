@@ -4,7 +4,7 @@ __TODO:__
 
 - Lag automation 
     - [Rsample PR #136](https://github.com/tidymodels/rsample/pull/136)
-    - Until acceplted: `initial_time_split_2()`, `rolling_origin_2()`
+    - Until accepted: `initial_time_split_2()`, `rolling_origin_2()`
     - `recipes::step_lag()` 
     - `tk_augment_lags()`
     - `tk_get_lags()`
@@ -73,6 +73,9 @@ __New Recipe Functions:__
 * `step_roll_apply()` - New recipe step for adding rolling summary functions
 * `step_smooth()` - New recipe step for adding Local Polynomial Regression (LOESS) for smoothing noisy time series
 
+__New Rsample Functions__
+
+* `initial_time_split_2()` and `rolling_origin_2()` - Added parameter `overlap` to better handle lagged predictors. 
 
 __Bug Fixes:__
 
