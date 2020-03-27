@@ -2,6 +2,10 @@
 
 __TODO:__
 
+- Plot Diagnostics
+    - Plot Time Series
+    - Plot Lag Diagnostics
+    - Plot Seasonality Diagnostics - Correlation Funnel
 - Lag automation 
     - [Rsample PR #136](https://github.com/tidymodels/rsample/pull/136)
     - Until accepted: `initial_time_split_2()`, `rolling_origin_2()`
@@ -39,7 +43,7 @@ __TODO:__
     - `tk_augment_smooth()`
 - Diagnostics
     - Missing values - Weekends, Holidays - Correlation Funnel???
-    - Tidy acf, pacf, ccf https://github.com/robjhyndman/forecast/blob/master/R/acf.R
+    - Tidy acf, pacf, ccf
     - Tidy dft
 - Tests
 
@@ -75,7 +79,7 @@ __New Recipe Functions:__
 
 __New Rsample Functions__
 
-* `initial_time_split_2()` and `rolling_origin_2()` - Added parameter `overlap` to better handle lagged predictors. 
+* `initial_time_split_2()` and `rolling_origin_2()` - Added parameter `overlap` to accomodate lagged predictors. 
 
 __Bug Fixes:__
 

@@ -71,12 +71,12 @@ library(rsample)
 library(timetk)
 library(tidyverse)
 
-# 5-years of monthly data
+# Monthly sales data
 drinks_tbl <- drinks \%>\%
     rename(sales = S4248SM144NCEN) \%>\%
     as_tibble()
 
-# Resample with a 12-month overlap
+# 5-year resample with a 12-month overlap and 12-month forecast horizon
 # - Allows use of a 12-month or longer lag
 resample_spec <- rolling_origin_2(
     drinks_tbl,

@@ -28,6 +28,8 @@ Imports:
     recipes (>= 0.1.4),
     rsample,
     dplyr (>= 0.7.0),
+    ggplot2,
+    plotly, 
     lazyeval (>= 0.2.0),
     lubridate (>= 1.6.0),
     padr (>= 0.3.0),
