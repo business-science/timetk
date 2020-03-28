@@ -53,7 +53,12 @@
 #'  - `group_b()` - If groups are detected, multiple facets are returned
 #'  - `plot_time_series(.facets)` - You can manually supply facets as well.
 #'
+#' __Can Transform Values just like ggplot__
 #'
+#' The `.values` argument accepts transformations just like `ggplot2`.
+#' For example, if you want to take the log of sales you can use
+#' a call like `plot_time_series(date, log(sales))` and the log transformation
+#' will be applied.
 #'
 #'
 #' @examples

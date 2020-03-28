@@ -102,8 +102,12 @@ By default, an interactive \code{plotly} visualization is returned.
 \item \code{plot_time_series(.facets)} - You can manually supply facets as well.
 }
 
-Multiple groups are collapsed into one group to return a single facet that is
-the distinct combination of multiple groups.
+\strong{Can Transform Values just like ggplot}
+
+The \code{.values} argument accepts transformations just like \code{ggplot2}.
+For example, if you want to take the log of sales you can use
+a call like \code{plot_time_series(date, log(sales))} and the log transformation
+will be applied.
 }
 \examples{
 library(tidyverse)
@@ -134,7 +138,7 @@ FANG \%>\%
 
 # Can apply .value mutations
 FANG \%>\%
-    plot_time_series(date, log10(adjusted), symbol,
+    plot_time_series(date, log(adjusted), symbol,
                      .facet_ncol   = 4,
                      .facet_scales = "free",
                      .interactive  = FALSE)
