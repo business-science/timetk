@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Plot a Time Series — plot_time_series • timetk</title>
+<title>Simple Interactive Time Series Plotting — plot_time_series • timetk</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -42,7 +42,7 @@
 
 
 
-<meta property="og:title" content="Plot a Time Series — plot_time_series" />
+<meta property="og:title" content="Simple Interactive Time Series Plotting — plot_time_series" />
 <meta property="og:description" content="plot_time_series() returns a time series visualization in either static (ggplot2) or
 interactive (plotly) formats." />
 <meta property="og:image" content="/logo.png" />
@@ -147,7 +147,7 @@ interactive (plotly) formats." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Plot a Time Series</h1>
+    <h1>Simple Interactive Time Series Plotting</h1>
     <small class="dont-index">Source: <a href='https://github.com/business-science/timetk/blob/master/R/plot-time_series.R'><code>R/plot-time_series.R</code></a></small>
     <div class="hidden name"><code>plot_time_series.Rd</code></div>
     </div>
@@ -267,18 +267,46 @@ Either 0, 1, 2 (0 = lest flexible, 2 = more flexible).</p></td>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A static <code>ggplot2</code> plot or an interactive <code>plotly</code> plot</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p><code>plot_time_series()</code> is a scalable function that works with both <em>ungrouped</em> and <em>grouped</em>
+<code>data.frame</code> objects (and <code>tibbles</code>!).</p>
+<p><strong>Interactive by Default</strong></p>
+<p><code>plot_time_series()</code> is built for exploration using:</p><ul>
+<li><p><strong>Interactive Plots:</strong> <code>plotly</code> (default) - Great for exploring!</p></li>
+<li><p><strong>Static Plots:</strong> <code>ggplot2</code> (set <code>.interactive = FALSE</code>) - Great for PDF Reports</p></li>
+</ul>
+
+<p>By default, an interactive <code>plotly</code> visualization is returned.</p>
+<p><strong>Scalable with Facets &amp; Dplyr Groups</strong></p>
+<p><code>plot_time_series()</code> returns multiple time series plots using <code>ggplot2</code> facets:</p><ul>
+<li><p><code>group_b()</code> - If groups are detected, multiple facets are returned</p></li>
+<li><p><code>plot_time_series(.facets)</code> - You can manually supply facets as well.</p></li>
+</ul>
+
+<p>Multiple groups are collapsed into one group to return a single facet that is
+the distinct combination of multiple groups.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>tidyverse</span>)
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>tidyquant</span>)
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>timetk</span>)
 
-
-<span class='co'># Plotly - Interactive Visualization (Good for Exploration)</span>
+<span class='co'># Worsk with individual time series</span>
+<span class='no'>FANG</span> <span class='kw'>%&gt;%</span>
+    <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span>(<span class='no'>symbol</span> <span class='kw'>==</span> <span class='st'>"FB"</span>) <span class='kw'>%&gt;%</span>
+    <span class='fu'>plot_time_series</span>(<span class='no'>date</span>, <span class='no'>adjusted</span>,
+                     <span class='kw'>.facet_ncol</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>.interactive</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='plot_time_series-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># Works with groups</span>
+<span class='no'>FANG</span> <span class='kw'>%&gt;%</span>
+    <span class='fu'>group_by</span>(<span class='no'>symbol</span>) <span class='kw'>%&gt;%</span>
+    <span class='fu'>plot_time_series</span>(<span class='no'>date</span>, <span class='no'>adjusted</span>,
+                     <span class='kw'>.facet_ncol</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>.interactive</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='plot_time_series-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># Plotly - Interactive Visualization By Default (Great for Exploration)</span>
 <span class='no'>FANG</span> <span class='kw'>%&gt;%</span>
     <span class='fu'>plot_time_series</span>(<span class='no'>date</span>, <span class='no'>adjusted</span>, <span class='kw'>.facets</span> <span class='kw'>=</span> <span class='fu'>contains</span>(<span class='st'>"symbol"</span>))
 
-<span class='co'># ggplot2 - static visualization (Good for PDF Reports)</span>
+<span class='co'># ggplot2 - static visualization (Great for PDF Reports)</span>
 <span class='no'>FANG</span> <span class='kw'>%&gt;%</span>
     <span class='fu'>plot_time_series</span>(
          <span class='no'>date</span>, <span class='no'>adjusted</span>,
@@ -290,7 +318,7 @@ Either 0, 1, 2 (0 = lest flexible, 2 = more flexible).</p></td>
    <span class='fu'><a href='https://rdrr.io/pkg/tidyquant/man/theme_tq.html'>theme_tq_dark</a></span>() +
    <span class='fu'>scale_color_viridis_d</span>() +
    <span class='fu'>theme</span>(<span class='kw'>legend.position</span> <span class='kw'>=</span> <span class='st'>"bottom"</span>)</div><div class='output co'>#&gt; <span class='message'>Scale for 'colour' is already present. Adding another scale for 'colour',</span>
-#&gt; <span class='message'>which will replace the existing scale.</span></div><div class='img'><img src='plot_time_series-1.png' alt='' width='700' height='433' /></div><div class='input'>
+#&gt; <span class='message'>which will replace the existing scale.</span></div><div class='img'><img src='plot_time_series-3.png' alt='' width='700' height='433' /></div><div class='input'>
 
 </div></pre>
   </div>
@@ -299,6 +327,7 @@ Either 0, 1, 2 (0 = lest flexible, 2 = more flexible).</p></td>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       <li><a href="#value">Value</a></li>
+      <li><a href="#details">Details</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 

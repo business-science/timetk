@@ -74,7 +74,7 @@
 #'
 #' # Plotly - Interactive Visualization By Default (Great for Exploration)
 #' FANG %>%
-#'     plot_time_series(date, adjusted, .facets = contains("symbol"))
+#'     plot_time_series(date, adjusted, symbol)
 #'
 #' # ggplot2 - static visualization (Great for PDF Reports)
 #' FANG %>%
