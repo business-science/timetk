@@ -8,7 +8,7 @@ plot_time_series(
   .data,
   .date_var,
   .value,
-  .facets = NULL,
+  ...,
   .facet_ncol = 1,
   .facet_scales = "free_y",
   .line_color = "#2c3e50",
@@ -33,7 +33,7 @@ plot_time_series(
 
 \item{.value}{A column containing numeric values}
 
-\item{.facets}{One or more grouping columns that broken out into \code{ggplot2} facets.
+\item{...}{One or more grouping columns that broken out into \code{ggplot2} facets.
 These can be selected using \code{tidyselect()} helpers (e.g \code{contains()}).}
 
 \item{.facet_ncol}{Facets: Number of facet columns.}
@@ -106,7 +106,7 @@ library(tidyverse)
 library(tidyquant)
 library(timetk)
 
-# Worsk with individual time series
+# Works with individual time series
 FANG \%>\%
     filter(symbol == "FB") \%>\%
     plot_time_series(date, adjusted,
@@ -118,22 +118,29 @@ FANG \%>\%
     plot_time_series(date, adjusted,
                      .facet_ncol = 2, .interactive = FALSE)
 
+# Can also group inside
+FANG \%>\%
+    mutate(year = year(date)) \%>\%
+    plot_time_series(date, adjusted,
+                     symbol, year, # add groups
+                     .facet_ncol = 4,
+                     .facet_scales = "free",
+                     .interactive = FALSE)
+
 # Plotly - Interactive Visualization By Default (Great for Exploration)
 FANG \%>\%
-    plot_time_series(date, adjusted, .facets = contains("symbol"))
+    plot_time_series(date, adjusted, symbol)
 
 # ggplot2 - static visualization (Great for PDF Reports)
 FANG \%>\%
     plot_time_series(
-         date, adjusted,
-        .facets        = symbol,
+         date, adjusted, symbol,
         .facet_ncol    = 2,
         .line_color    = "scale_color",
         .smooth_period = 180,
         .interactive   = FALSE) +
    theme_tq_dark() +
-   scale_color_viridis_d() +
-   theme(legend.position = "bottom")
+   scale_color_viridis_d()
 
 
 }

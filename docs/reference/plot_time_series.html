@@ -161,7 +161,7 @@ interactive (<code>plotly</code>) formats.</p>
   <span class='no'>.data</span>,
   <span class='no'>.date_var</span>,
   <span class='no'>.value</span>,
-  <span class='kw'>.facets</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='no'>...</span>,
   <span class='kw'>.facet_ncol</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>.facet_scales</span> <span class='kw'>=</span> <span class='st'>"free_y"</span>,
   <span class='kw'>.line_color</span> <span class='kw'>=</span> <span class='st'>"#2c3e50"</span>,
@@ -195,7 +195,7 @@ interactive (<code>plotly</code>) formats.</p>
       <td><p>A column containing numeric values</p></td>
     </tr>
     <tr>
-      <th>.facets</th>
+      <th>...</th>
       <td><p>One or more grouping columns that broken out into <code>ggplot2</code> facets.
 These can be selected using <code>tidyselect()</code> helpers (e.g <code>contains()</code>).</p></td>
     </tr>
@@ -292,7 +292,7 @@ the distinct combination of multiple groups.</p>
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>tidyquant</span>)
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>timetk</span>)
 
-<span class='co'># Worsk with individual time series</span>
+<span class='co'># Works with individual time series</span>
 <span class='no'>FANG</span> <span class='kw'>%&gt;%</span>
     <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span>(<span class='no'>symbol</span> <span class='kw'>==</span> <span class='st'>"FB"</span>) <span class='kw'>%&gt;%</span>
     <span class='fu'>plot_time_series</span>(<span class='no'>date</span>, <span class='no'>adjusted</span>,
@@ -302,23 +302,29 @@ the distinct combination of multiple groups.</p>
     <span class='fu'>group_by</span>(<span class='no'>symbol</span>) <span class='kw'>%&gt;%</span>
     <span class='fu'>plot_time_series</span>(<span class='no'>date</span>, <span class='no'>adjusted</span>,
                      <span class='kw'>.facet_ncol</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>.interactive</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='plot_time_series-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># Can also group inside</span>
+<span class='no'>FANG</span> <span class='kw'>%&gt;%</span>
+    <span class='fu'>mutate</span>(<span class='kw'>year</span> <span class='kw'>=</span> <span class='fu'>year</span>(<span class='no'>date</span>)) <span class='kw'>%&gt;%</span>
+    <span class='fu'>plot_time_series</span>(<span class='no'>date</span>, <span class='no'>adjusted</span>,
+                     <span class='no'>symbol</span>, <span class='no'>year</span>, <span class='co'># add groups</span>
+                     <span class='kw'>.facet_ncol</span> <span class='kw'>=</span> <span class='fl'>4</span>,
+                     <span class='kw'>.facet_scales</span> <span class='kw'>=</span> <span class='st'>"free"</span>,
+                     <span class='kw'>.interactive</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='plot_time_series-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Plotly - Interactive Visualization By Default (Great for Exploration)</span>
 <span class='no'>FANG</span> <span class='kw'>%&gt;%</span>
-    <span class='fu'>plot_time_series</span>(<span class='no'>date</span>, <span class='no'>adjusted</span>, <span class='kw'>.facets</span> <span class='kw'>=</span> <span class='fu'>contains</span>(<span class='st'>"symbol"</span>))
+    <span class='fu'>plot_time_series</span>(<span class='no'>date</span>, <span class='no'>adjusted</span>, <span class='no'>symbol</span>)
 
 <span class='co'># ggplot2 - static visualization (Great for PDF Reports)</span>
 <span class='no'>FANG</span> <span class='kw'>%&gt;%</span>
     <span class='fu'>plot_time_series</span>(
-         <span class='no'>date</span>, <span class='no'>adjusted</span>,
-        <span class='kw'>.facets</span>        <span class='kw'>=</span> <span class='no'>symbol</span>,
+         <span class='no'>date</span>, <span class='no'>adjusted</span>, <span class='no'>symbol</span>,
         <span class='kw'>.facet_ncol</span>    <span class='kw'>=</span> <span class='fl'>2</span>,
         <span class='kw'>.line_color</span>    <span class='kw'>=</span> <span class='st'>"scale_color"</span>,
         <span class='kw'>.smooth_period</span> <span class='kw'>=</span> <span class='fl'>180</span>,
         <span class='kw'>.interactive</span>   <span class='kw'>=</span> <span class='fl'>FALSE</span>) +
    <span class='fu'><a href='https://rdrr.io/pkg/tidyquant/man/theme_tq.html'>theme_tq_dark</a></span>() +
-   <span class='fu'>scale_color_viridis_d</span>() +
-   <span class='fu'>theme</span>(<span class='kw'>legend.position</span> <span class='kw'>=</span> <span class='st'>"bottom"</span>)</div><div class='output co'>#&gt; <span class='message'>Scale for 'colour' is already present. Adding another scale for 'colour',</span>
-#&gt; <span class='message'>which will replace the existing scale.</span></div><div class='img'><img src='plot_time_series-3.png' alt='' width='700' height='433' /></div><div class='input'>
+   <span class='fu'>scale_color_viridis_d</span>()</div><div class='output co'>#&gt; <span class='message'>Scale for 'colour' is already present. Adding another scale for 'colour',</span>
+#&gt; <span class='message'>which will replace the existing scale.</span></div><div class='img'><img src='plot_time_series-4.png' alt='' width='700' height='433' /></div><div class='input'>
 
 </div></pre>
   </div>

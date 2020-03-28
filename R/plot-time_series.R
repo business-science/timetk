@@ -7,7 +7,7 @@
 #' @param .data A `tibble` or `data.frame`
 #' @param .date_var A column containing either date or date-time values
 #' @param .value A column containing numeric values
-#' @param .facets One or more grouping columns that broken out into `ggplot2` facets.
+#' @param ... One or more grouping columns that broken out into `ggplot2` facets.
 #'  These can be selected using `tidyselect()` helpers (e.g `contains()`).
 #' @param .facet_ncol Facets: Number of facet columns.
 #' @param .facet_scales Facets: Options include "fixed", "free", "free_y", "free_x"
@@ -58,9 +58,10 @@
 #' @examples
 #' library(tidyverse)
 #' library(tidyquant)
+#' library(lubridate)
 #' library(timetk)
 #'
-#' # Worsk with individual time series
+#' # Works with individual time series
 #' FANG %>%
 #'     filter(symbol == "FB") %>%
 #'     plot_time_series(date, adjusted,
@@ -72,6 +73,15 @@
 #'     plot_time_series(date, adjusted,
 #'                      .facet_ncol = 2, .interactive = FALSE)
 #'
+#' # Can also group inside
+#' FANG %>%
+#'     mutate(year = year(date)) %>%
+#'     plot_time_series(date, adjusted,
+#'                      symbol, year, # add groups
+#'                      .facet_ncol   = 4,
+#'                      .facet_scales = "free",
+#'                      .interactive  = FALSE)
+#'
 #' # Plotly - Interactive Visualization By Default (Great for Exploration)
 #' FANG %>%
 #'     plot_time_series(date, adjusted, symbol)
@@ -79,19 +89,17 @@
 #' # ggplot2 - static visualization (Great for PDF Reports)
 #' FANG %>%
 #'     plot_time_series(
-#'          date, adjusted,
-#'         .facets        = symbol,
+#'          date, adjusted, symbol,
 #'         .facet_ncol    = 2,
 #'         .line_color    = "scale_color",
 #'         .smooth_period = 180,
 #'         .interactive   = FALSE) +
 #'    theme_tq_dark() +
-#'    scale_color_viridis_d() +
-#'    theme(legend.position = "bottom")
+#'    scale_color_viridis_d()
 #'
 #'
 #' @export
-plot_time_series <- function(.data, .date_var, .value, .facets = NULL,
+plot_time_series <- function(.data, .date_var, .value, ...,
                              .facet_ncol = 1, .facet_scales = "free_y",
                              .line_color = "#2c3e50", .line_size = 0.5,
                              .y_intercept = NULL, .y_intercept_color = "#2c3e50",
@@ -119,7 +127,7 @@ plot_time_series <- function(.data, .date_var, .value, .facets = NULL,
 }
 
 #' @export
-plot_time_series.data.frame <- function(.data, .date_var, .value, .facets = NULL,
+plot_time_series.data.frame <- function(.data, .date_var, .value, ...,
                              .facet_ncol = 1, .facet_scales = "free_y",
                              .line_color = "#2c3e50", .line_size = 0.5,
                              .y_intercept = NULL, .y_intercept_color = "#2c3e50",
@@ -132,7 +140,7 @@ plot_time_series.data.frame <- function(.data, .date_var, .value, .facets = NULL
     # Tidyeval Setup
     date_var_expr <- rlang::enquo(.date_var)
     value_expr    <- rlang::enquo(.value)
-    facets_expr   <- rlang::enquos(.facets)
+    facets_expr   <- rlang::enquos(...)
 
     # ---- DATA SETUP ----
 
@@ -142,7 +150,7 @@ plot_time_series.data.frame <- function(.data, .date_var, .value, .facets = NULL
     facet_names <- data_formatted %>% dplyr::select(!!! facets_expr) %>% colnames()
 
     if (.smooth) {
-        if (!rlang::quo_is_null(facets_expr[[1]])) {
+        if (length(facet_names) > 0) {
             data_formatted <- data_formatted %>%
                 dplyr::group_by(!!! rlang::syms(facet_names))
         }
@@ -217,7 +225,7 @@ plot_time_series.data.frame <- function(.data, .date_var, .value, .facets = NULL
 }
 
 #' @export
-plot_time_series.grouped_df <- function(.data, .date_var, .value, .facets = NULL,
+plot_time_series.grouped_df <- function(.data, .date_var, .value, ...,
                                         .facet_ncol = 1, .facet_scales = "free_y",
                                         .line_color = "#2c3e50", .line_size = 0.5,
                                         .y_intercept = NULL, .y_intercept_color = "#2c3e50",
@@ -229,38 +237,50 @@ plot_time_series.grouped_df <- function(.data, .date_var, .value, .facets = NULL
     # Tidy Eval Setup
     group_names   <- dplyr::group_vars(.data)
     value_expr    <- rlang::enquo(.value)
-    facets_expr   <- rlang::enquos(.facets)
+    facets_expr   <- rlang::enquos(...)
 
-    # ---- DATA PREPARATION ----
-    if (!rlang::quo_is_null(facets_expr[[1]])) message("plot_time_series(.facets): Groups are detected. Overiding facets with groups.")
+    # Checks
+    facet_names <- .data %>% ungroup() %>% dplyr::select(!!! facets_expr) %>% colnames()
+    if (length(facet_names) > 0) message("plot_time_series(...): Groups are previously detected. Grouping by: ",
+                                          stringr::str_c(group_names, collapse = ", "))
+
+    # ---- DATA SETUP ----
 
     # Collapse Groups
     data_formatted <- .data %>%
         dplyr::ungroup() %>%
         dplyr::mutate(groups_consolidated = stringr::str_c(!!! rlang::syms(group_names), sep = "_")) %>%
+        dplyr::mutate(groups_consolidated = forcats::as_factor(groups_consolidated)) %>%
         dplyr::select(-(!!! rlang::syms(group_names)))
 
-    data_formatted %>%
-        plot_time_series(
-            .date_var          = !! enquo(.date_var),
-            .value             = !! enquo(.value),
-            .facets            = groups_consolidated,
-            .facet_ncol        = .facet_ncol,
-            .facet_scales      = .facet_scales,
-            .line_color        = .line_color,
-            .line_size         = .line_size,
-            .y_intercept       = .y_intercept,
-            .y_intercept_color = .y_intercept_color,
-            .smooth            = .smooth,
-            .smooth_period     = .smooth_period,
-            .smooth_degree     = .smooth_degree,
-            .smooth_color      = .smooth_color,
-            .smooth_size       = .smooth_size,
-            .title             = .title,
-            .x_lab             = .x_lab,
-            .y_lab             = .y_lab,
-            .interactive       = .interactive
-        )
+    # ---- PLOT SETUP ----
+
+    # data_formatted
+
+    plot_time_series(
+        .data              = data_formatted,
+        .date_var          = !! enquo(.date_var),
+        .value             = !! enquo(.value),
+
+        # ...
+        groups_consolidated,
+
+        .facet_ncol        = .facet_ncol,
+        .facet_scales      = .facet_scales,
+        .line_color        = .line_color,
+        .line_size         = .line_size,
+        .y_intercept       = .y_intercept,
+        .y_intercept_color = .y_intercept_color,
+        .smooth            = .smooth,
+        .smooth_period     = .smooth_period,
+        .smooth_degree     = .smooth_degree,
+        .smooth_color      = .smooth_color,
+        .smooth_size       = .smooth_size,
+        .title             = .title,
+        .x_lab             = .x_lab,
+        .y_lab             = .y_lab,
+        .interactive       = .interactive
+    )
 
 
 }
