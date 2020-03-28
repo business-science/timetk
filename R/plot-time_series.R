@@ -240,7 +240,7 @@ plot_time_series.grouped_df <- function(.data, .date_var, .value, ...,
     facets_expr   <- rlang::enquos(...)
 
     # Checks
-    facet_names <- .data %>% ungroup() %>% dplyr::select(!!! facets_expr) %>% colnames()
+    facet_names <- .data %>% dplyr::ungroup() %>% dplyr::select(!!! facets_expr) %>% colnames()
     if (length(facet_names) > 0) message("plot_time_series(...): Groups are previously detected. Grouping by: ",
                                           stringr::str_c(group_names, collapse = ", "))
 
@@ -248,14 +248,14 @@ plot_time_series.grouped_df <- function(.data, .date_var, .value, ...,
 
     # Collapse Groups
     data_formatted <- .data %>%
-        dplyr::ungroup() %>%
-        dplyr::mutate(groups_consolidated = stringr::str_c(!!! rlang::syms(group_names), sep = "_")) %>%
-        dplyr::mutate(groups_consolidated = forcats::as_factor(groups_consolidated)) %>%
-        dplyr::select(-(!!! rlang::syms(group_names)))
+        dplyr::ungroup()
+    # data_formatted <- .data %>%
+    #     dplyr::ungroup() %>%
+    #     dplyr::mutate(groups_consolidated = stringr::str_c(!!! rlang::syms(group_names), sep = "_")) %>%
+    #     dplyr::mutate(groups_consolidated = forcats::as_factor(groups_consolidated)) %>%
+    #     dplyr::select(-(!!! rlang::syms(group_names)))
 
     # ---- PLOT SETUP ----
-
-    # data_formatted
 
     plot_time_series(
         .data              = data_formatted,
@@ -263,7 +263,7 @@ plot_time_series.grouped_df <- function(.data, .date_var, .value, ...,
         .value             = !! enquo(.value),
 
         # ...
-        groups_consolidated,
+        !!! syms(group_names),
 
         .facet_ncol        = .facet_ncol,
         .facet_scales      = .facet_scales,

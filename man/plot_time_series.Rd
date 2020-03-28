@@ -104,6 +104,7 @@ the distinct combination of multiple groups.
 \examples{
 library(tidyverse)
 library(tidyquant)
+library(lubridate)
 library(timetk)
 
 # Works with individual time series
@@ -123,9 +124,9 @@ FANG \%>\%
     mutate(year = year(date)) \%>\%
     plot_time_series(date, adjusted,
                      symbol, year, # add groups
-                     .facet_ncol = 4,
+                     .facet_ncol   = 4,
                      .facet_scales = "free",
-                     .interactive = FALSE)
+                     .interactive  = FALSE)
 
 # Plotly - Interactive Visualization By Default (Great for Exploration)
 FANG \%>\%
