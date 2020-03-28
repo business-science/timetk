@@ -1,4 +1,4 @@
-#' Plot a Time Series
+#' Simple Interactive Time Series Plotting
 #'
 #' `plot_time_series()` returns a time series visualization in either static (`ggplot2`) or
 #' interactive (`plotly`) formats.
@@ -30,17 +30,53 @@
 #'
 #' @return A static `ggplot2` plot or an interactive `plotly` plot
 #'
+#' @details
+#'
+#' `plot_time_series()` is a scalable function that works with both _ungrouped_ and _grouped_
+#' `data.frame` objects (and `tibbles`!).
+#'
+#' __Interactive by Default__
+#'
+#' `plot_time_series()` is built for exploration using:
+#'
+#'  - __Interactive Plots:__ `plotly` (default) - Great for exploring!
+#'  - __Static Plots:__ `ggplot2` (set `.interactive = FALSE`) - Great for PDF Reports
+#'
+#' By default, an interactive `plotly` visualization is returned.
+#'
+#' __Scalable with Facets & Dplyr Groups__
+#'
+#' `plot_time_series()` returns multiple time series plots using `ggplot2` facets:
+#'
+#'  - `group_b()` - If groups are detected, multiple facets are returned
+#'  - `plot_time_series(.facets)` - You can manually supply facets as well.
+#'
+#'  Multiple groups are collapsed into one group to return a single facet that is
+#'  the distinct combination of multiple groups.
+#'
+#'
 #' @examples
 #' library(tidyverse)
 #' library(tidyquant)
 #' library(timetk)
 #'
+#' # Worsk with individual time series
+#' FANG %>%
+#'     filter(symbol == "FB") %>%
+#'     plot_time_series(date, adjusted,
+#'                      .facet_ncol = 2, .interactive = FALSE)
 #'
-#' # Plotly - Interactive Visualization (Good for Exploration)
+#' # Works with groups
+#' FANG %>%
+#'     group_by(symbol) %>%
+#'     plot_time_series(date, adjusted,
+#'                      .facet_ncol = 2, .interactive = FALSE)
+#'
+#' # Plotly - Interactive Visualization By Default (Great for Exploration)
 #' FANG %>%
 #'     plot_time_series(date, adjusted, .facets = contains("symbol"))
 #'
-#' # ggplot2 - static visualization (Good for PDF Reports)
+#' # ggplot2 - static visualization (Great for PDF Reports)
 #' FANG %>%
 #'     plot_time_series(
 #'          date, adjusted,
@@ -64,12 +100,9 @@ plot_time_series <- function(.data, .date_var, .value, .facets = NULL,
                              .title = "Time Series Plot", .x_lab = "", .y_lab = "",
                              .interactive = TRUE) {
 
-
     # Tidyeval Setup
     date_var_expr <- rlang::enquo(.date_var)
     value_expr    <- rlang::enquo(.value)
-    facets_expr   <- rlang::enquos(.facets)
-
 
     # Checks
     if (!is.data.frame(.data)) {
@@ -82,10 +115,28 @@ plot_time_series <- function(.data, .date_var, .value, .facets = NULL,
         stop(call. = FALSE, "plot_time_series(.value) is missing. Please a numeric column.")
     }
 
+    UseMethod("plot_time_series", .data)
+}
+
+#' @export
+plot_time_series.data.frame <- function(.data, .date_var, .value, .facets = NULL,
+                             .facet_ncol = 1, .facet_scales = "free_y",
+                             .line_color = "#2c3e50", .line_size = 0.5,
+                             .y_intercept = NULL, .y_intercept_color = "#2c3e50",
+                             .smooth = TRUE, .smooth_period = NULL, .smooth_degree = 2,
+                             .smooth_color = "#3366FF", .smooth_size = 1,
+                             .title = "Time Series Plot", .x_lab = "", .y_lab = "",
+                             .interactive = TRUE) {
+
+
+    # Tidyeval Setup
+    date_var_expr <- rlang::enquo(.date_var)
+    value_expr    <- rlang::enquo(.value)
+    facets_expr   <- rlang::enquos(.facets)
+
     # ---- DATA SETUP ----
 
     data_formatted <- .data %>%
-        dplyr::ungroup() %>%
         dplyr::select(!! date_var_expr, !! value_expr, !!! facets_expr)
 
     facet_names <- data_formatted %>% dplyr::select(!!! facets_expr) %>% colnames()
@@ -163,4 +214,53 @@ plot_time_series <- function(.data, .date_var, .value, .facets = NULL,
     } else {
         return(g)
     }
+}
+
+#' @export
+plot_time_series.grouped_df <- function(.data, .date_var, .value, .facets = NULL,
+                                        .facet_ncol = 1, .facet_scales = "free_y",
+                                        .line_color = "#2c3e50", .line_size = 0.5,
+                                        .y_intercept = NULL, .y_intercept_color = "#2c3e50",
+                                        .smooth = TRUE, .smooth_period = NULL, .smooth_degree = 2,
+                                        .smooth_color = "#3366FF", .smooth_size = 1,
+                                        .title = "Time Series Plot", .x_lab = "", .y_lab = "",
+                                        .interactive = TRUE) {
+
+    # Tidy Eval Setup
+    group_names   <- dplyr::group_vars(.data)
+    value_expr    <- rlang::enquo(.value)
+    facets_expr   <- rlang::enquos(.facets)
+
+    # ---- DATA PREPARATION ----
+    if (!rlang::quo_is_null(facets_expr[[1]])) message("plot_time_series(.facets): Groups are detected. Overiding facets with groups.")
+
+    # Collapse Groups
+    data_formatted <- .data %>%
+        dplyr::ungroup() %>%
+        dplyr::mutate(groups_consolidated = stringr::str_c(!!! rlang::syms(group_names), sep = "_")) %>%
+        dplyr::select(-(!!! rlang::syms(group_names)))
+
+    data_formatted %>%
+        plot_time_series(
+            .date_var          = !! enquo(.date_var),
+            .value             = !! enquo(.value),
+            .facets            = groups_consolidated,
+            .facet_ncol        = .facet_ncol,
+            .facet_scales      = .facet_scales,
+            .line_color        = .line_color,
+            .line_size         = .line_size,
+            .y_intercept       = .y_intercept,
+            .y_intercept_color = .y_intercept_color,
+            .smooth            = .smooth,
+            .smooth_period     = .smooth_period,
+            .smooth_degree     = .smooth_degree,
+            .smooth_color      = .smooth_color,
+            .smooth_size       = .smooth_size,
+            .title             = .title,
+            .x_lab             = .x_lab,
+            .y_lab             = .y_lab,
+            .interactive       = .interactive
+        )
+
+
 }

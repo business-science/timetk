@@ -79,16 +79,14 @@
 #'
 #'
 #' @export
-plot_lag_diagnostics <- function(
-    .data, .value, ..., .lags = 0:20,
-    .facet_ncol = 1, .facet_scales = "fixed",
-    .line_color = "#2c3e50", .line_size = 0.5,
-    .point_color = "#2c3e50", .point_size = 1,
-    .hline_color = "#2c3e50",
-
-    .title = "Lag Diagnostics",
-    .x_lab = "Lag", .y_lab = "Correlation",
-    .interactive = TRUE) {
+plot_lag_diagnostics <- function(.data, .value, ..., .lags = 0:20,
+                                 .facet_ncol = 1, .facet_scales = "fixed",
+                                 .line_color = "#2c3e50", .line_size = 0.5,
+                                 .point_color = "#2c3e50", .point_size = 1,
+                                 .hline_color = "#2c3e50",
+                                 .title = "Lag Diagnostics",
+                                 .x_lab = "Lag", .y_lab = "Correlation",
+                                 .interactive = TRUE) {
 
     # Checks
     value_expr <- enquo(.value)
@@ -103,15 +101,14 @@ plot_lag_diagnostics <- function(
 }
 
 #' @export
-plot_lag_diagnostics.data.frame <- function(
-    .data, .value, ..., .lags = 0:20,
-    .facet_ncol = 1, .facet_scales = "fixed",
-    .line_color = "#2c3e50", .line_size = 0.5,
-    .point_color = "#2c3e50", .point_size = 1,
-    .hline_color = "#2c3e50",
-    .title = "Lag Diagnostics",
-    .x_lab = "Lag", .y_lab = "Correlation",
-    .interactive = TRUE) {
+plot_lag_diagnostics.data.frame <- function(.data, .value, ..., .lags = 0:20,
+                                            .facet_ncol = 1, .facet_scales = "fixed",
+                                            .line_color = "#2c3e50", .line_size = 0.5,
+                                            .point_color = "#2c3e50", .point_size = 1,
+                                            .hline_color = "#2c3e50",
+                                            .title = "Lag Diagnostics",
+                                            .x_lab = "Lag", .y_lab = "Correlation",
+                                            .interactive = TRUE) {
 
     # Tidy Eval Setup
     value_expr    <- rlang::enquo(.value)
@@ -171,17 +168,14 @@ plot_lag_diagnostics.data.frame <- function(
 }
 
 #' @export
-plot_lag_diagnostics.grouped_df <- function(
-
-    .data, .value, ..., .lags = 0:20,
-    .facet_ncol = 1, .facet_scales = "fixed",
-    .line_color = "#2c3e50", .line_size = 0.5,
-    .point_color = "#2c3e50", .point_size = 1,
-    .hline_color = "#2c3e50",
-
-    .title = "Lag Diagnostics",
-    .x_lab = "Lag", .y_lab = "Correlation",
-    .interactive = TRUE) {
+plot_lag_diagnostics.grouped_df <- function(.data, .value, ..., .lags = 0:20,
+                                            .facet_ncol = 1, .facet_scales = "fixed",
+                                            .line_color = "#2c3e50", .line_size = 0.5,
+                                            .point_color = "#2c3e50", .point_size = 1,
+                                            .hline_color = "#2c3e50",
+                                            .title = "Lag Diagnostics",
+                                            .x_lab = "Lag", .y_lab = "Correlation",
+                                            .interactive = TRUE) {
 
     # Tidy Eval Setup
     group_names   <- dplyr::group_vars(.data)

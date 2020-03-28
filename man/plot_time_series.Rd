@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot-time_series.R
 \name{plot_time_series}
 \alias{plot_time_series}
-\title{Plot a Time Series}
+\title{Simple Interactive Time Series Plotting}
 \usage{
 plot_time_series(
   .data,
@@ -76,17 +76,53 @@ A static \code{ggplot2} plot or an interactive \code{plotly} plot
 \code{plot_time_series()} returns a time series visualization in either static (\code{ggplot2}) or
 interactive (\code{plotly}) formats.
 }
+\details{
+\code{plot_time_series()} is a scalable function that works with both \emph{ungrouped} and \emph{grouped}
+\code{data.frame} objects (and \code{tibbles}!).
+
+\strong{Interactive by Default}
+
+\code{plot_time_series()} is built for exploration using:
+\itemize{
+\item \strong{Interactive Plots:} \code{plotly} (default) - Great for exploring!
+\item \strong{Static Plots:} \code{ggplot2} (set \code{.interactive = FALSE}) - Great for PDF Reports
+}
+
+By default, an interactive \code{plotly} visualization is returned.
+
+\strong{Scalable with Facets & Dplyr Groups}
+
+\code{plot_time_series()} returns multiple time series plots using \code{ggplot2} facets:
+\itemize{
+\item \code{group_b()} - If groups are detected, multiple facets are returned
+\item \code{plot_time_series(.facets)} - You can manually supply facets as well.
+}
+
+Multiple groups are collapsed into one group to return a single facet that is
+the distinct combination of multiple groups.
+}
 \examples{
 library(tidyverse)
 library(tidyquant)
 library(timetk)
 
+# Worsk with individual time series
+FANG \%>\%
+    filter(symbol == "FB") \%>\%
+    plot_time_series(date, adjusted,
+                     .facet_ncol = 2, .interactive = FALSE)
 
-# Plotly - Interactive Visualization (Good for Exploration)
+# Works with groups
+FANG \%>\%
+    group_by(symbol) \%>\%
+    plot_time_series(date, adjusted,
+                     .facet_ncol = 2, .interactive = FALSE)
+
+# Plotly - Interactive Visualization By Default (Great for Exploration)
 FANG \%>\%
     plot_time_series(date, adjusted, .facets = contains("symbol"))
 
-# ggplot2 - static visualization (Good for PDF Reports)
+# ggplot2 - static visualization (Great for PDF Reports)
 FANG \%>\%
     plot_time_series(
          date, adjusted,
