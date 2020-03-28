@@ -3,8 +3,8 @@
 __TODO:__
 
 - Plot Diagnostics
-    - Plot Time Series
-    - Plot Lag Diagnostics
+    - (DONE) Plot Time Series
+    - (DONE) Plot Lag (ACF, PACF, & CCF) Diagnostics
     - Plot Seasonality Diagnostics - Correlation Funnel
     - Missing Data Diagnostics
 - Lag automation 

@@ -18,7 +18,9 @@
 #' @param .smooth Logical - Whether or not to include a trendline smoother.
 #'  Uses See [smooth_vec()] to apply a LOESS smoother.
 #' @param .smooth_period Number of observations to include in the Loess Smoother.
-#'  See [smooth_vec()].
+#'  You can use either period or span. See [smooth_vec()].
+#' @param .smooth_span Percentage of observations to include in the Loess Smoother.
+#'  You can use either period or span. See [smooth_vec()].
 #' @param .smooth_degree Flexibility of Loess Polynomial.
 #'  Either 0, 1, 2 (0 = lest flexible, 2 = more flexible).
 #' @param .smooth_color Smoother line color
@@ -51,8 +53,7 @@
 #'  - `group_b()` - If groups are detected, multiple facets are returned
 #'  - `plot_time_series(.facets)` - You can manually supply facets as well.
 #'
-#'  Multiple groups are collapsed into one group to return a single facet that is
-#'  the distinct combination of multiple groups.
+#'
 #'
 #'
 #' @examples
@@ -82,6 +83,13 @@
 #'                      .facet_scales = "free",
 #'                      .interactive  = FALSE)
 #'
+#' # Can apply .value mutations
+#' FANG %>%
+#'     plot_time_series(date, log(adjusted), symbol,
+#'                      .facet_ncol   = 4,
+#'                      .facet_scales = "free",
+#'                      .interactive  = FALSE)
+#'
 #' # Plotly - Interactive Visualization By Default (Great for Exploration)
 #' FANG %>%
 #'     plot_time_series(date, adjusted, symbol)
@@ -103,7 +111,8 @@ plot_time_series <- function(.data, .date_var, .value, ...,
                              .facet_ncol = 1, .facet_scales = "free_y",
                              .line_color = "#2c3e50", .line_size = 0.5,
                              .y_intercept = NULL, .y_intercept_color = "#2c3e50",
-                             .smooth = TRUE, .smooth_period = NULL, .smooth_degree = 2,
+                             .smooth = TRUE, .smooth_period = NULL,
+                             .smooth_span = 0.75, .smooth_degree = 2,
                              .smooth_color = "#3366FF", .smooth_size = 1,
                              .title = "Time Series Plot", .x_lab = "", .y_lab = "",
                              .interactive = TRUE) {
@@ -131,7 +140,8 @@ plot_time_series.data.frame <- function(.data, .date_var, .value, ...,
                              .facet_ncol = 1, .facet_scales = "free_y",
                              .line_color = "#2c3e50", .line_size = 0.5,
                              .y_intercept = NULL, .y_intercept_color = "#2c3e50",
-                             .smooth = TRUE, .smooth_period = NULL, .smooth_degree = 2,
+                             .smooth = TRUE, .smooth_period = NULL,
+                             .smooth_span = 0.75, .smooth_degree = 2,
                              .smooth_color = "#3366FF", .smooth_size = 1,
                              .title = "Time Series Plot", .x_lab = "", .y_lab = "",
                              .interactive = TRUE) {
@@ -143,26 +153,29 @@ plot_time_series.data.frame <- function(.data, .date_var, .value, ...,
     facets_expr   <- rlang::enquos(...)
 
     # ---- DATA SETUP ----
-
     data_formatted <- .data %>%
-        dplyr::select(!! date_var_expr, !! value_expr, !!! facets_expr)
+        dplyr::mutate(.value_mod = !! value_expr) %>%
+        dplyr::select(!! date_var_expr, .value_mod, !!! facets_expr)
+
+    # Evaluate Formulas
+
 
     facet_names <- data_formatted %>% dplyr::select(!!! facets_expr) %>% colnames()
 
+    # Smooth calculation
     if (.smooth) {
         if (length(facet_names) > 0) {
             data_formatted <- data_formatted %>%
                 dplyr::group_by(!!! rlang::syms(facet_names))
         }
 
-        .smooth_span <- NULL
-        if (is.null(.smooth_period)) {
-            .smooth_span <- 0.75
+        if (!is.null(.smooth_period)) {
+            .smooth_span <- NULL
         }
 
         data_formatted <- data_formatted %>%
-            dplyr::mutate(value_smooth = smooth_vec(
-                !! value_expr,
+            dplyr::mutate(.value_smooth = smooth_vec(
+                .value_mod,
                 .period = .smooth_period,
                 .span   = .smooth_span,
                 .degree = .smooth_degree)
@@ -174,7 +187,7 @@ plot_time_series.data.frame <- function(.data, .date_var, .value, ...,
     # ---- PLOT SETUP ----
 
     g <- data_formatted %>%
-        ggplot2::ggplot(ggplot2::aes(!! date_var_expr, !! value_expr)) +
+        ggplot2::ggplot(ggplot2::aes(!! date_var_expr, .value_mod)) +
         theme_tq() +
         ggplot2::labs(x = .x_lab, y = .y_lab, title = .title)
 
@@ -206,7 +219,7 @@ plot_time_series.data.frame <- function(.data, .date_var, .value, ...,
     if (.smooth) {
         g <- g +
             ggplot2::geom_line(
-                ggplot2::aes(y = value_smooth),
+                ggplot2::aes(y = .value_smooth),
                 color = .smooth_color,
                 size  = .smooth_size)
     }
@@ -229,7 +242,8 @@ plot_time_series.grouped_df <- function(.data, .date_var, .value, ...,
                                         .facet_ncol = 1, .facet_scales = "free_y",
                                         .line_color = "#2c3e50", .line_size = 0.5,
                                         .y_intercept = NULL, .y_intercept_color = "#2c3e50",
-                                        .smooth = TRUE, .smooth_period = NULL, .smooth_degree = 2,
+                                        .smooth = TRUE, .smooth_period = NULL,
+                                        .smooth_span = 0.75, .smooth_degree = 2,
                                         .smooth_color = "#3366FF", .smooth_size = 1,
                                         .title = "Time Series Plot", .x_lab = "", .y_lab = "",
                                         .interactive = TRUE) {
@@ -273,6 +287,7 @@ plot_time_series.grouped_df <- function(.data, .date_var, .value, ...,
         .y_intercept_color = .y_intercept_color,
         .smooth            = .smooth,
         .smooth_period     = .smooth_period,
+        .smooth_span       = .smooth_span,
         .smooth_degree     = .smooth_degree,
         .smooth_color      = .smooth_color,
         .smooth_size       = .smooth_size,

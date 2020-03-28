@@ -170,6 +170,7 @@ interactive (<code>plotly</code>) formats.</p>
   <span class='kw'>.y_intercept_color</span> <span class='kw'>=</span> <span class='st'>"#2c3e50"</span>,
   <span class='kw'>.smooth</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>.smooth_period</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>.smooth_span</span> <span class='kw'>=</span> <span class='fl'>0.75</span>,
   <span class='kw'>.smooth_degree</span> <span class='kw'>=</span> <span class='fl'>2</span>,
   <span class='kw'>.smooth_color</span> <span class='kw'>=</span> <span class='st'>"#3366FF"</span>,
   <span class='kw'>.smooth_size</span> <span class='kw'>=</span> <span class='fl'>1</span>,
@@ -231,7 +232,12 @@ Uses See <code><a href='smooth_vec.html'>smooth_vec()</a></code> to apply a LOES
     <tr>
       <th>.smooth_period</th>
       <td><p>Number of observations to include in the Loess Smoother.
-See <code><a href='smooth_vec.html'>smooth_vec()</a></code>.</p></td>
+You can use either period or span. See <code><a href='smooth_vec.html'>smooth_vec()</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>.smooth_span</th>
+      <td><p>Percentage of observations to include in the Loess Smoother.
+You can use either period or span. See <code><a href='smooth_vec.html'>smooth_vec()</a></code>.</p></td>
     </tr>
     <tr>
       <th>.smooth_degree</th>
@@ -311,6 +317,12 @@ the distinct combination of multiple groups.</p>
                      <span class='kw'>.facet_ncol</span>   <span class='kw'>=</span> <span class='fl'>4</span>,
                      <span class='kw'>.facet_scales</span> <span class='kw'>=</span> <span class='st'>"free"</span>,
                      <span class='kw'>.interactive</span>  <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='plot_time_series-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># Can apply .value mutations</span>
+<span class='no'>FANG</span> <span class='kw'>%&gt;%</span>
+    <span class='fu'>plot_time_series</span>(<span class='no'>date</span>, <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span>(<span class='no'>adjusted</span>), <span class='no'>symbol</span>,
+                     <span class='kw'>.facet_ncol</span>   <span class='kw'>=</span> <span class='fl'>4</span>,
+                     <span class='kw'>.facet_scales</span> <span class='kw'>=</span> <span class='st'>"free"</span>,
+                     <span class='kw'>.interactive</span>  <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='plot_time_series-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Plotly - Interactive Visualization By Default (Great for Exploration)</span>
 <span class='no'>FANG</span> <span class='kw'>%&gt;%</span>
     <span class='fu'>plot_time_series</span>(<span class='no'>date</span>, <span class='no'>adjusted</span>, <span class='no'>symbol</span>)
@@ -325,7 +337,7 @@ the distinct combination of multiple groups.</p>
         <span class='kw'>.interactive</span>   <span class='kw'>=</span> <span class='fl'>FALSE</span>) +
    <span class='fu'><a href='https://rdrr.io/pkg/tidyquant/man/theme_tq.html'>theme_tq_dark</a></span>() +
    <span class='fu'>scale_color_viridis_d</span>()</div><div class='output co'>#&gt; <span class='message'>Scale for 'colour' is already present. Adding another scale for 'colour',</span>
-#&gt; <span class='message'>which will replace the existing scale.</span></div><div class='img'><img src='plot_time_series-4.png' alt='' width='700' height='433' /></div><div class='input'>
+#&gt; <span class='message'>which will replace the existing scale.</span></div><div class='img'><img src='plot_time_series-5.png' alt='' width='700' height='433' /></div><div class='input'>
 
 </div></pre>
   </div>

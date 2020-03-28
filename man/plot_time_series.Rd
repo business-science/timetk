@@ -17,6 +17,7 @@ plot_time_series(
   .y_intercept_color = "#2c3e50",
   .smooth = TRUE,
   .smooth_period = NULL,
+  .smooth_span = 0.75,
   .smooth_degree = 2,
   .smooth_color = "#3366FF",
   .smooth_size = 1,
@@ -52,7 +53,10 @@ These can be selected using \code{tidyselect()} helpers (e.g \code{contains()}).
 Uses See \code{\link[=smooth_vec]{smooth_vec()}} to apply a LOESS smoother.}
 
 \item{.smooth_period}{Number of observations to include in the Loess Smoother.
-See \code{\link[=smooth_vec]{smooth_vec()}}.}
+You can use either period or span. See \code{\link[=smooth_vec]{smooth_vec()}}.}
+
+\item{.smooth_span}{Percentage of observations to include in the Loess Smoother.
+You can use either period or span. See \code{\link[=smooth_vec]{smooth_vec()}}.}
 
 \item{.smooth_degree}{Flexibility of Loess Polynomial.
 Either 0, 1, 2 (0 = lest flexible, 2 = more flexible).}
@@ -124,6 +128,13 @@ FANG \%>\%
     mutate(year = year(date)) \%>\%
     plot_time_series(date, adjusted,
                      symbol, year, # add groups
+                     .facet_ncol   = 4,
+                     .facet_scales = "free",
+                     .interactive  = FALSE)
+
+# Can apply .value mutations
+FANG \%>\%
+    plot_time_series(date, log10(adjusted), symbol,
                      .facet_ncol   = 4,
                      .facet_scales = "free",
                      .interactive  = FALSE)
