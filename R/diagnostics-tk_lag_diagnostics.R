@@ -120,11 +120,11 @@ tk_lag_diagnostics.data.frame <- function(.data, .value, ..., .lags = 0:60) {
                 .[(length(.) - (lag_max - lag_min)):length(.)]
         }) %>%
         dplyr::bind_cols() %>%
-        dplyr::rename_all(~ str_c("ccf_", .))
+        dplyr::rename_all(~ str_c("CCF_", .))
 
     ret <- tibble::tibble(
-        acf  = acf_values,
-        pacf = pacf_values
+        ACF  = acf_values,
+        PACF = pacf_values
     ) %>%
         dplyr::bind_cols(ccf_tbl) %>%
         tibble::rowid_to_column(var = "lag") %>%

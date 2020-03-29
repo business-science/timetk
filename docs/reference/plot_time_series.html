@@ -164,6 +164,8 @@ interactive (<code>plotly</code>) formats.</p>
   <span class='no'>...</span>,
   <span class='kw'>.facet_ncol</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>.facet_scales</span> <span class='kw'>=</span> <span class='st'>"free_y"</span>,
+  <span class='kw'>.facet_collapse</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>.facet_collapse_sep</span> <span class='kw'>=</span> <span class='st'>" "</span>,
   <span class='kw'>.line_color</span> <span class='kw'>=</span> <span class='st'>"#2c3e50"</span>,
   <span class='kw'>.line_size</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
   <span class='kw'>.y_intercept</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
@@ -202,11 +204,20 @@ These can be selected using <code>tidyselect()</code> helpers (e.g <code>contain
     </tr>
     <tr>
       <th>.facet_ncol</th>
-      <td><p>Facets: Number of facet columns.</p></td>
+      <td><p>Number of facet columns.</p></td>
     </tr>
     <tr>
       <th>.facet_scales</th>
-      <td><p>Facets: Options include "fixed", "free", "free_y", "free_x"</p></td>
+      <td><p>Options include "fixed", "free", "free_y", "free_x"</p></td>
+    </tr>
+    <tr>
+      <th>.facet_collapse</th>
+      <td><p>Multiple facets included on one facet strip instead of
+multiple facet strips.</p></td>
+    </tr>
+    <tr>
+      <th>.facet_collapse_sep</th>
+      <td><p>The separator used for collapsing facets.</p></td>
     </tr>
     <tr>
       <th>.line_color</th>
@@ -290,8 +301,11 @@ Either 0, 1, 2 (0 = lest flexible, 2 = more flexible).</p></td>
 <li><p><code>plot_time_series(.facets)</code> - You can manually supply facets as well.</p></li>
 </ul>
 
-<p>Multiple groups are collapsed into one group to return a single facet that is
-the distinct combination of multiple groups.</p>
+<p><strong>Can Transform Values just like ggplot</strong></p>
+<p>The <code>.values</code> argument accepts transformations just like <code>ggplot2</code>.
+For example, if you want to take the log of sales you can use
+a call like <code>plot_time_series(date, log(sales))</code> and the log transformation
+will be applied.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>tidyverse</span>)

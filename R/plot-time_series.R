@@ -9,8 +9,11 @@
 #' @param .value A column containing numeric values
 #' @param ... One or more grouping columns that broken out into `ggplot2` facets.
 #'  These can be selected using `tidyselect()` helpers (e.g `contains()`).
-#' @param .facet_ncol Facets: Number of facet columns.
-#' @param .facet_scales Facets: Options include "fixed", "free", "free_y", "free_x"
+#' @param .facet_ncol Number of facet columns.
+#' @param .facet_scales Options include "fixed", "free", "free_y", "free_x"
+#' @param .facet_collapse Multiple facets included on one facet strip instead of
+#'  multiple facet strips.
+#' @param .facet_collapse_sep The separator used for collapsing facets.
 #' @param .line_color Line color. Use keyword: "scale_color" to change the color by the facet.
 #' @param .line_size Line size
 #' @param .y_intercept Value for a y-intercept on the plot
@@ -114,6 +117,7 @@
 #' @export
 plot_time_series <- function(.data, .date_var, .value, ...,
                              .facet_ncol = 1, .facet_scales = "free_y",
+                             .facet_collapse = TRUE, .facet_collapse_sep = " ",
                              .line_color = "#2c3e50", .line_size = 0.5,
                              .y_intercept = NULL, .y_intercept_color = "#2c3e50",
                              .smooth = TRUE, .smooth_period = NULL,
@@ -143,6 +147,7 @@ plot_time_series <- function(.data, .date_var, .value, ...,
 #' @export
 plot_time_series.data.frame <- function(.data, .date_var, .value, ...,
                              .facet_ncol = 1, .facet_scales = "free_y",
+                             .facet_collapse = TRUE, .facet_collapse_sep = " ",
                              .line_color = "#2c3e50", .line_size = 0.5,
                              .y_intercept = NULL, .y_intercept_color = "#2c3e50",
                              .smooth = TRUE, .smooth_period = NULL,
@@ -158,21 +163,37 @@ plot_time_series.data.frame <- function(.data, .date_var, .value, ...,
     facets_expr   <- rlang::enquos(...)
 
     # ---- DATA SETUP ----
+
+    # Evaluate Formula
     data_formatted <- .data %>%
         dplyr::mutate(.value_mod = !! value_expr) %>%
         dplyr::select(!! date_var_expr, .value_mod, !!! facets_expr)
 
-    # Evaluate Formulas
-
-
+    # Facet setup
     facet_names <- data_formatted %>% dplyr::select(!!! facets_expr) %>% colnames()
 
-    # Smooth calculation
-    if (.smooth) {
-        if (length(facet_names) > 0) {
+    if (length(facet_names) > 0) {
+        if (.facet_collapse) {
+
+            data_formatted <- data_formatted %>%
+                dplyr::ungroup() %>%
+                dplyr::mutate(.facets_collapsed = stringr::str_c(!!! rlang::syms(facet_names),
+                                                                sep = .facet_collapse_sep)) %>%
+                dplyr::mutate(.facets_collapsed = forcats::as_factor(.facets_collapsed)) %>%
+                dplyr::select(-(!!! rlang::syms(facet_names))) %>%
+                dplyr::group_by(.facets_collapsed)
+
+            facet_names <- ".facets_collapsed"
+
+        } else {
             data_formatted <- data_formatted %>%
                 dplyr::group_by(!!! rlang::syms(facet_names))
         }
+    }
+
+
+    # Smooth calculation
+    if (.smooth) {
 
         if (!is.null(.smooth_period)) {
             .smooth_span <- NULL
@@ -245,6 +266,7 @@ plot_time_series.data.frame <- function(.data, .date_var, .value, ...,
 #' @export
 plot_time_series.grouped_df <- function(.data, .date_var, .value, ...,
                                         .facet_ncol = 1, .facet_scales = "free_y",
+                                        .facet_collapse = TRUE, .facet_collapse_sep = " ",
                                         .line_color = "#2c3e50", .line_size = 0.5,
                                         .y_intercept = NULL, .y_intercept_color = "#2c3e50",
                                         .smooth = TRUE, .smooth_period = NULL,
@@ -270,8 +292,8 @@ plot_time_series.grouped_df <- function(.data, .date_var, .value, ...,
         dplyr::ungroup()
     # data_formatted <- .data %>%
     #     dplyr::ungroup() %>%
-    #     dplyr::mutate(groups_consolidated = stringr::str_c(!!! rlang::syms(group_names), sep = "_")) %>%
-    #     dplyr::mutate(groups_consolidated = forcats::as_factor(groups_consolidated)) %>%
+    #     dplyr::mutate(groups_collapsed = stringr::str_c(!!! rlang::syms(group_names), sep = "_")) %>%
+    #     dplyr::mutate(groups_collapsed = forcats::as_factor(groups_collapsed)) %>%
     #     dplyr::select(-(!!! rlang::syms(group_names)))
 
     # ---- PLOT SETUP ----
@@ -284,22 +306,24 @@ plot_time_series.grouped_df <- function(.data, .date_var, .value, ...,
         # ...
         !!! syms(group_names),
 
-        .facet_ncol        = .facet_ncol,
-        .facet_scales      = .facet_scales,
-        .line_color        = .line_color,
-        .line_size         = .line_size,
-        .y_intercept       = .y_intercept,
-        .y_intercept_color = .y_intercept_color,
-        .smooth            = .smooth,
-        .smooth_period     = .smooth_period,
-        .smooth_span       = .smooth_span,
-        .smooth_degree     = .smooth_degree,
-        .smooth_color      = .smooth_color,
-        .smooth_size       = .smooth_size,
-        .title             = .title,
-        .x_lab             = .x_lab,
-        .y_lab             = .y_lab,
-        .interactive       = .interactive
+        .facet_ncol         = .facet_ncol,
+        .facet_scales       = .facet_scales,
+        .facet_collapse     = .facet_collapse,
+        .facet_collapse_sep = .facet_collapse_sep,
+        .line_color         = .line_color,
+        .line_size          = .line_size,
+        .y_intercept        = .y_intercept,
+        .y_intercept_color  = .y_intercept_color,
+        .smooth             = .smooth,
+        .smooth_period      = .smooth_period,
+        .smooth_span        = .smooth_span,
+        .smooth_degree      = .smooth_degree,
+        .smooth_color       = .smooth_color,
+        .smooth_size        = .smooth_size,
+        .title              = .title,
+        .x_lab              = .x_lab,
+        .y_lab              = .y_lab,
+        .interactive        = .interactive
     )
 
 

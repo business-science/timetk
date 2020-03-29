@@ -11,6 +11,8 @@ plot_time_series(
   ...,
   .facet_ncol = 1,
   .facet_scales = "free_y",
+  .facet_collapse = TRUE,
+  .facet_collapse_sep = " ",
   .line_color = "#2c3e50",
   .line_size = 0.5,
   .y_intercept = NULL,
@@ -37,9 +39,14 @@ plot_time_series(
 \item{...}{One or more grouping columns that broken out into \code{ggplot2} facets.
 These can be selected using \code{tidyselect()} helpers (e.g \code{contains()}).}
 
-\item{.facet_ncol}{Facets: Number of facet columns.}
+\item{.facet_ncol}{Number of facet columns.}
 
-\item{.facet_scales}{Facets: Options include "fixed", "free", "free_y", "free_x"}
+\item{.facet_scales}{Options include "fixed", "free", "free_y", "free_x"}
+
+\item{.facet_collapse}{Multiple facets included on one facet strip instead of
+multiple facet strips.}
+
+\item{.facet_collapse_sep}{The separator used for collapsing facets.}
 
 \item{.line_color}{Line color. Use keyword: "scale_color" to change the color by the facet.}
 

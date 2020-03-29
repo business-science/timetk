@@ -193,10 +193,10 @@ plot_lag_diagnostics.grouped_df <- function(.data, .value, ..., .lags = 0:20,
     # dont_pivot_these <- c(group_names, "lag")
     data_formatted <- data_formatted %>%
         dplyr::ungroup() %>%
-        dplyr::mutate(groups_consolidated = stringr::str_c(!!! rlang::syms(group_names), sep = "_")) %>%
+        dplyr::mutate(.groups_consolidated = stringr::str_c(!!! rlang::syms(group_names), sep = "_")) %>%
         dplyr::select(-(!!! rlang::syms(group_names))) %>%
-        dplyr::select(groups_consolidated, lag, dplyr::everything()) %>%
-        tidyr::pivot_longer(cols      = -c(groups_consolidated, lag),
+        dplyr::select(.groups_consolidated, lag, dplyr::everything()) %>%
+        tidyr::pivot_longer(cols      = -c(.groups_consolidated, lag),
                             values_to = "value",
                             names_to  = "name") %>%
         dplyr::mutate(name = forcats::as_factor(name))
@@ -204,10 +204,10 @@ plot_lag_diagnostics.grouped_df <- function(.data, .value, ..., .lags = 0:20,
     # data_formatted
 
     g <- data_formatted %>%
-        ggplot2::ggplot(ggplot2::aes(lag, value, color = groups_consolidated)) +
+        ggplot2::ggplot(ggplot2::aes(lag, value, color = .groups_consolidated)) +
         ggplot2::geom_hline(yintercept = 0, color = .hline_color) +
         ggplot2::facet_grid(rows   = ggplot2::vars(name),
-                            cols   = ggplot2::vars(groups_consolidated),
+                            cols   = ggplot2::vars(.groups_consolidated),
                             scales = .facet_scales) +
         ggplot2::expand_limits(y = 0) +
         ggplot2::labs(x = .x_lab, y = .y_lab, title = .title)
@@ -215,7 +215,7 @@ plot_lag_diagnostics.grouped_df <- function(.data, .value, ..., .lags = 0:20,
     # Add line
     if (.line_color == "scale_color") {
         g <- g +
-            ggplot2::geom_line(ggplot2::aes(color = groups_consolidated),
+            ggplot2::geom_line(ggplot2::aes(color = .groups_consolidated),
                                size = .line_size) +
             scale_color_tq()
     } else {
@@ -226,7 +226,7 @@ plot_lag_diagnostics.grouped_df <- function(.data, .value, ..., .lags = 0:20,
     # Add points
     if (.point_color == "scale_color") {
         g <- g +
-            ggplot2::geom_point(ggplot2::aes(color = groups_consolidated),
+            ggplot2::geom_point(ggplot2::aes(color = .groups_consolidated),
                                 size = .point_size) +
             scale_color_tq()
     } else {
