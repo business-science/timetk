@@ -1,45 +1,50 @@
-#' Flexible range filtering for date or date-time sequences
+#' Flexible range detection for date or date-time sequences
 #'
-#' The easiest way to filter time series date or date-time vectors. See [filter_by_time()]
+#' The easiest way to filter time series date or date-time vectors. Returns a
+#' logical
+#' See [filter_by_time()]
 #' for the `data.frame` (`tibble`) implementation.
 #'
 #' @param .index A date or date-time vector.
-#' @param .start The starting date
-#' @param .end The ending date
+#' @param .start_date The starting date
+#' @param .end_date The ending date
+#'
+#' @return A `logical` vector the same length as `.index` indicating whether or not
+#' the timestamp value was within the `start_date` and `.end_date` range.
 #'
 #' @details
 #'
 #' __Pure Time Series Filtering Flexibilty__
 #'
-#' The `.start`  and `.end` parameters are designed with flexibility in mind.
+#' The `.start_date`  and `.end_date` parameters are designed with flexibility in mind.
 #'
 #' Each side of the `time_formula` is specified as the character
 #' `'YYYY-MM-DD HH:MM:SS'`, but powerful shorthand is available.
 #' Some examples are:
-#' * __Year:__ `.start = '2013', .end = '2015'`
-#' * __Month:__ `.start = '2013-01', .end = '2016-06'`
-#' * __Day:__ `.start = '2013-01-05', .end = '2016-06-04'`
-#' * __Second:__ `.start = '2013-01-05 10:22:15', .end = '2018-06-03 12:14:22'`
-#' * __Variations:__ `.start = '2013', .end = '2016-06'`
+#' * __Year:__ `.start_date = '2013', .end_date = '2015'`
+#' * __Month:__ `.start_date = '2013-01', .end_date = '2016-06'`
+#' * __Day:__ `.start_date = '2013-01-05', .end_date = '2016-06-04'`
+#' * __Second:__ `.start_date = '2013-01-05 10:22:15', .end_date = '2018-06-03 12:14:22'`
+#' * __Variations:__ `.start_date = '2013', .end_date = '2016-06'`
 #'
 #' __Key Words: "start" and "end"__
 #'
 #' Use the keywords "start" and "end" as shorthand, instead of specifying the
 #' actual start and end values. Here are some examples:
 #'
-#' * __Start of the series to end of 2015:__ `.start = 'start', .end = '2015'`
-#' * __Start of 2014 to end of series:__ `.start = '2014', .end = 'end'`
+#' * __Start of the series to end of 2015:__ `.start_date = 'start', .end_date = '2015'`
+#' * __Start of 2014 to end of series:__ `.start_date = '2014', .end_date = 'end'`
 #'
 #' __Internal Calculations__
 #'
 #' All shorthand dates are expanded:
-#' * The `.start` is expanded to be the _first date_ in that period
-#' * The `.end` side is expanded to be the _last date_ in that period
+#' * The `.start_date` is expanded to be the _first date_ in that period
+#' * The `.end_date` side is expanded to be the _last date_ in that period
 #'
 #' This means that the following examples are equivalent (assuming your
 #' index is a POSIXct):
-#' * `.start = '2015'` is equivalent to `.start = '2015-01-01 + 00:00:00' `
-#' * `.end = '2016'` is equivalent to `2016-12-31 + 23:59:59'`
+#' * `.start_date = '2015'` is equivalent to `.start_date = '2015-01-01 + 00:00:00' `
+#' * `.end_date = '2016'` is equivalent to `2016-12-31 + 23:59:59'`
 #'
 #' @seealso
 #' - [filter_by_time()] - A time-based variant of `dplyr::filter()` that is powered by
@@ -78,47 +83,47 @@
 #'
 #' @name between_time
 #' @export
-between_time <- function(.index, .start = "start", .end = "end") {
+between_time <- function(.index, .start_date = "start", .end_date = "end") {
     UseMethod("between_time", .index)
 }
 
 #' @export
-between_time.default <- function(.index, .start = "start", .end = "end") {
+between_time.default <- function(.index, .start_date = "start", .end_date = "end") {
     stop(call. = FALSE, paste0("`between_time(.index)` has no method for class ", class(.index)[[1]]))
 }
 
 #' @export
-between_time.POSIXct <- function(.index, .start = "start", .end = "end") {
-    between_time_vec(.index, .start, .end)
+between_time.POSIXct <- function(.index, .start_date = "start", .end_date = "end") {
+    between_time_vec(.index, .start_date, .end_date)
 }
 
 #' @export
-between_time.Date <- function(.index, .start = "start", .end = "end") {
-    between_time_vec(.index, .start, .end)
+between_time.Date <- function(.index, .start_date = "start", .end_date = "end") {
+    between_time_vec(.index, .start_date, .end_date)
 }
 
 #' @export
-between_time.yearmon <- function(.index, .start = "start", .end = "end") {
-    between_time_vec(.index, .start, .end)
+between_time.yearmon <- function(.index, .start_date = "start", .end_date = "end") {
+    between_time_vec(.index, .start_date, .end_date)
 }
 
 #' @export
-between_time.yearqtr <- function(.index, .start = "start", .end = "end") {
-    between_time_vec(.index, .start, .end)
+between_time.yearqtr <- function(.index, .start_date = "start", .end_date = "end") {
+    between_time_vec(.index, .start_date, .end_date)
 }
 
 #' @export
-between_time.hms <- function(.index, .start = "start", .end = "end") {
-    between_time_vec(.index, .start, .end)
+between_time.hms <- function(.index, .start_date = "start", .end_date = "end") {
+    between_time_vec(.index, .start_date, .end_date)
 }
 
-between_time_vec <- function(.index, .start = "start", .end = "end") {
+between_time_vec <- function(.index, .start_date = "start", .end_date = "end") {
 
     tz     <- lubridate::tz(.index)
-    .start <- as.character(.start)
-    .end   <- as.character(.end)
+    .start_date <- as.character(.start_date)
+    .end_date   <- as.character(.end_date)
 
-    time_formula <- rlang::new_formula(.start, .end)
+    time_formula <- rlang::new_formula(.start_date, .end_date)
 
     # Parse the time_formula, don't convert to dates yet
     tf_list <- parse_time_formula(.index, time_formula)
