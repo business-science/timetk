@@ -1,9 +1,8 @@
-#' Plot Lag Diagnostics: ACF, PACF, and CCF
+#' Plot the ACF, PACF, and CCF in one visualization
 #'
-#' `plot_lag_diagnostics()` returns the ACF and PACF of a
-#' target and optionally any CCF's of lagged predictors.
-#' The lag visualization is available in static (`ggplot2`) and
-#' interactive (`plotly`) formats.
+#' Returns the __ACF and PACF of a target__ and
+#' optionally __CCF's of one or more lagged predictors__ in interactive `plotly` plots. Scales
+#' to multiple time series with `group_by()`.
 #'
 #'
 #' @param .data A data frame or tibble with numeric features (values) in descending
@@ -24,6 +23,7 @@
 #' @param .x_lab X-axis label for the plot
 #' @param .y_lab Y-axis label for the plot
 #' @param .interactive Returns either a static (`ggplot2`) visualization or an interactive (`plotly`) visualization
+#' @param .plotly_slider If TRUE, returns a plotly x-axis range slider.
 #'
 #' @return A static `ggplot2` plot or an interactive `plotly` plot
 #'
@@ -32,7 +32,7 @@
 #' __Simplified ACF, PACF, & CCF__
 #'
 #' We are often interested in all 3 of these functions. Why not get all 3 at once?
-#' Now you can!
+#' Now you can.
 #'
 #' - __ACF__ - Autocorrelation between a target variable and lagged versions of itself
 #'
@@ -42,14 +42,14 @@
 #' - __CCF__ - Shows how lagged predictors can be used for prediction of a target
 #'  variable.
 #'
-#' __Works with Grouped Data Frames__
+#' __Scales to many time series with Grouped Data Frames__
 #'
-#' The `tk_lag_diagnostics()` works with `grouped_df`'s, meaning you can
+#' The `plot_acf_diagnostics()` works with `grouped_df`'s, meaning you can
 #' group your time series by one or more categorical columns with `group_by()`
-#' and then apply `tk_lag_diagnostics()` to return group-wise lag diagnostics.
+#' and then user `plot_acf_diagnostics()` to return facetted visualizations.
 #'
 #' @seealso
-#' - [tk_lag_diagnostics()]: Function that returns ACF, PACF, & CCF data
+#' - [tk_acf_diagnostics()]: Function that returns ACF, PACF, & CCF data
 #' - [plot_time_series()]: A useful interactive plotting function
 #'
 #' @examples
@@ -61,7 +61,7 @@
 #' # Plotly - Interactive Visualization (Good for Exploration)
 #' FANG %>%
 #'     group_by(symbol) %>%
-#'     plot_lag_diagnostics(
+#'     plot_acf_diagnostics(
 #'         .value  = adjusted,  # ACF & PACF
 #'         volume, close,       # CCF
 #'         .lags   = 0:180
@@ -70,7 +70,7 @@
 #' # ggplot2 - static visualization (Good for PDF Reports)
 #' FANG %>%
 #'     group_by(symbol) %>%
-#'     plot_lag_diagnostics(
+#'     plot_acf_diagnostics(
 #'         .value  = adjusted,  # ACF & PACF
 #'         volume, close,       # CCF
 #'         .lags   = 0:180,
@@ -79,43 +79,43 @@
 #'
 #'
 #' @export
-plot_lag_diagnostics <- function(.data, .value, ..., .lags = 0:20,
+plot_acf_diagnostics <- function(.data, .value, ..., .lags = 0:20,
                                  .facet_ncol = 1, .facet_scales = "fixed",
                                  .line_color = "#2c3e50", .line_size = 0.5,
                                  .point_color = "#2c3e50", .point_size = 1,
                                  .hline_color = "#2c3e50",
                                  .title = "Lag Diagnostics",
                                  .x_lab = "Lag", .y_lab = "Correlation",
-                                 .interactive = TRUE) {
+                                 .interactive = TRUE, .plotly_slider = FALSE) {
 
     # Checks
     value_expr <- enquo(.value)
-    if (rlang::quo_is_missing(value_expr)) stop(call. = FALSE, "tk_lag_diagnostics(.value), Please provide a .value.")
+    if (rlang::quo_is_missing(value_expr)) stop(call. = FALSE, "tk_acf_diagnostics(.value), Please provide a .value.")
     if (!is.data.frame(.data)) {
         stop(call. = FALSE, "plot_diagnostics(.data) is not a data-frame or tibble. Please supply a data.frame or tibble.")
     }
     # if (is_grouped_df(.data)) {
     #     stop(call. = FALSE, "plot_diagnostics(.data) does not currently support grouped data frames.")
     # }
-    UseMethod("plot_lag_diagnostics", .data)
+    UseMethod("plot_acf_diagnostics", .data)
 }
 
 #' @export
-plot_lag_diagnostics.data.frame <- function(.data, .value, ..., .lags = 0:20,
+plot_acf_diagnostics.data.frame <- function(.data, .value, ..., .lags = 0:20,
                                             .facet_ncol = 1, .facet_scales = "fixed",
                                             .line_color = "#2c3e50", .line_size = 0.5,
                                             .point_color = "#2c3e50", .point_size = 1,
                                             .hline_color = "#2c3e50",
                                             .title = "Lag Diagnostics",
                                             .x_lab = "Lag", .y_lab = "Correlation",
-                                            .interactive = TRUE) {
+                                            .interactive = TRUE, .plotly_slider = FALSE) {
 
     # Tidy Eval Setup
     value_expr    <- rlang::enquo(.value)
 
     # ---- DATA PREPARATION ----
 
-    data_formatted <- tk_lag_diagnostics(
+    data_formatted <- tk_acf_diagnostics(
         .data   = .data,
         .value  = !! value_expr,
         ...     = ...,
@@ -161,21 +161,32 @@ plot_lag_diagnostics.data.frame <- function(.data, .value, ..., .lags = 0:20,
     g <- g + theme_tq()
 
     if (.interactive) {
-        return(plotly::ggplotly(g))
+
+        p <- plotly::ggplotly(g, dynamicTicks = TRUE)
+
+        if (.plotly_slider) {
+            p <- p %>%
+                plotly::layout(
+                    xaxis = list(
+                        rangeslider = list(autorange = TRUE)
+                    )
+                )
+        }
+        return(p)
     } else {
         return(g)
     }
 }
 
 #' @export
-plot_lag_diagnostics.grouped_df <- function(.data, .value, ..., .lags = 0:20,
+plot_acf_diagnostics.grouped_df <- function(.data, .value, ..., .lags = 0:20,
                                             .facet_ncol = 1, .facet_scales = "fixed",
                                             .line_color = "#2c3e50", .line_size = 0.5,
                                             .point_color = "#2c3e50", .point_size = 1,
                                             .hline_color = "#2c3e50",
                                             .title = "Lag Diagnostics",
                                             .x_lab = "Lag", .y_lab = "Correlation",
-                                            .interactive = TRUE) {
+                                            .interactive = TRUE, .plotly_slider = FALSE) {
 
     # Tidy Eval Setup
     group_names   <- dplyr::group_vars(.data)
@@ -183,7 +194,7 @@ plot_lag_diagnostics.grouped_df <- function(.data, .value, ..., .lags = 0:20,
 
     # ---- DATA PREPARATION ----
 
-    data_formatted <- tk_lag_diagnostics(
+    data_formatted <- tk_acf_diagnostics(
         .data   = .data,
         .value  = !! value_expr,
         ...     = ...,

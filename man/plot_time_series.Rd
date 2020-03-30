@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot-time_series.R
 \name{plot_time_series}
 \alias{plot_time_series}
-\title{Simple Interactive Time Series Plotting}
+\title{Scalable Interactive Time Series Plotting}
 \usage{
 plot_time_series(
   .data,
@@ -26,7 +26,8 @@ plot_time_series(
   .title = "Time Series Plot",
   .x_lab = "",
   .y_lab = "",
-  .interactive = TRUE
+  .interactive = TRUE,
+  .plotly_slider = FALSE
 )
 }
 \arguments{
@@ -79,13 +80,15 @@ Either 0, 1, 2 (0 = lest flexible, 2 = more flexible).}
 \item{.y_lab}{Y-axis label for the plot}
 
 \item{.interactive}{Returns either a static (\code{ggplot2}) visualization or an interactive (\code{plotly}) visualization}
+
+\item{.plotly_slider}{If TRUE, returns a plotly date range slider.}
 }
 \value{
 A static \code{ggplot2} plot or an interactive \code{plotly} plot
 }
 \description{
-\code{plot_time_series()} returns a time series visualization in either static (\code{ggplot2}) or
-interactive (\code{plotly}) formats.
+A workhorse time-series plotting function that generates interactive \code{plotly} plots,
+consolidates 20+ lines of \code{ggplot2} code, and scales well to many time series.
 }
 \details{
 \code{plot_time_series()} is a scalable function that works with both \emph{ungrouped} and \emph{grouped}
@@ -105,7 +108,7 @@ By default, an interactive \code{plotly} visualization is returned.
 
 \code{plot_time_series()} returns multiple time series plots using \code{ggplot2} facets:
 \itemize{
-\item \code{group_b()} - If groups are detected, multiple facets are returned
+\item \code{group_by()} - If groups are detected, multiple facets are returned
 \item \code{plot_time_series(.facets)} - You can manually supply facets as well.
 }
 
@@ -125,14 +128,14 @@ library(timetk)
 # Works with individual time series
 FANG \%>\%
     filter(symbol == "FB") \%>\%
-    plot_time_series(date, adjusted,
-                     .facet_ncol = 2, .interactive = FALSE)
+    plot_time_series(date, adjusted, .interactive = FALSE)
 
 # Works with groups
 FANG \%>\%
     group_by(symbol) \%>\%
     plot_time_series(date, adjusted,
-                     .facet_ncol = 2, .interactive = FALSE)
+                     .facet_ncol  = 2,     # 2-column layout
+                     .interactive = FALSE)
 
 # Can also group inside
 FANG \%>\%

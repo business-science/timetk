@@ -1,8 +1,8 @@
-#' Get ACF, PACF, and CCF in 1 Data Frame
+#' Get ACF, PACF, and CCF in One Data Frame
 #'
-#' The `tk_lag_diagnostics()` function provides a simple interface to
+#' The `tk_acf_diagnostics()` function provides a simple interface to
 #' detect Autocorrelation, Partial ACF, and Cross Correlation of Lagged
-#' Predictors in one `tibble`. This function powers the [plot_lag_diagnostics()]
+#' Predictors in one `tibble`. This function powers the [plot_acf_diagnostics()]
 #' visualization.
 #'
 #' @param .data A data frame or tibble with numeric features (values) in descending
@@ -30,12 +30,12 @@
 #'
 #' __Works with Grouped Data Frames__
 #'
-#' The `tk_lag_diagnostics()` works with `grouped_df`'s, meaning you can
+#' The `tk_acf_diagnostics()` works with `grouped_df`'s, meaning you can
 #' group your time series by one or more categorical columns with `group_by()`
-#' and then apply `tk_lag_diagnostics()` to return group-wise lag diagnostics.
+#' and then apply `tk_acf_diagnostics()` to return group-wise lag diagnostics.
 #'
 #' @seealso
-#' - __Visualizing ACF, PACF, & CCF:__ [plot_lag_diagnostics()]
+#' - __Visualizing ACF, PACF, & CCF:__ [plot_acf_diagnostics()]
 #'
 #' @examples
 #' library(tidyverse)
@@ -47,27 +47,27 @@
 #' # - Get CCF between adjusted and volume and close
 #' FANG %>%
 #'     filter(symbol == "FB") %>%
-#'     tk_lag_diagnostics(.value = adjusted, volume, close, .lags = 0:500)
+#'     tk_acf_diagnostics(.value = adjusted, volume, close, .lags = 0:500)
 #'
 #' # Do the same thing for groups with group_by()
 #' FANG %>%
 #'     group_by(symbol) %>%
-#'     tk_lag_diagnostics(.value = adjusted, volume, close, .lags = 0:500)
+#'     tk_acf_diagnostics(.value = adjusted, volume, close, .lags = 0:500)
 #'
 #'
 #' @export
-tk_lag_diagnostics <- function(.data, .value, ..., .lags = 0:60) {
+tk_acf_diagnostics <- function(.data, .value, ..., .lags = 0:60) {
     # Checks
     value_expr <- enquo(.value)
-    if (rlang::quo_is_missing(value_expr)) stop(call. = FALSE, "tk_lag_diagnostics(.value), Please provide a .value.")
+    if (rlang::quo_is_missing(value_expr)) stop(call. = FALSE, "tk_acf_diagnostics(.value), Please provide a .value.")
     if (!is.data.frame(.data)) {
-        stop(call. = FALSE, "tk_lag_diagnostics(.data) is not a data-frame or tibble. Please supply a data.frame or tibble.")
+        stop(call. = FALSE, "tk_acf_diagnostics(.data) is not a data-frame or tibble. Please supply a data.frame or tibble.")
     }
-    UseMethod("tk_lag_diagnostics", .data)
+    UseMethod("tk_acf_diagnostics", .data)
 }
 
 #' @export
-tk_lag_diagnostics.data.frame <- function(.data, .value, ..., .lags = 0:60) {
+tk_acf_diagnostics.data.frame <- function(.data, .value, ..., .lags = 0:60) {
 
     # Tidyeval Setup
     value_expr <- rlang::enquo(.value)
@@ -136,7 +136,7 @@ tk_lag_diagnostics.data.frame <- function(.data, .value, ..., .lags = 0:60) {
 
 
 #' @export
-tk_lag_diagnostics.grouped_df <- function(.data, .value, ..., .lags = 0:60) {
+tk_acf_diagnostics.grouped_df <- function(.data, .value, ..., .lags = 0:60) {
 
     # Tidy Eval Setup
     value_expr  <- rlang::enquo(.value)
@@ -147,7 +147,7 @@ tk_lag_diagnostics.grouped_df <- function(.data, .value, ..., .lags = 0:60) {
         tidyr::nest() %>%
         dplyr::mutate(nested.col = purrr::map(
             .x         = data,
-            .f         = function(df) tk_lag_diagnostics(
+            .f         = function(df) tk_acf_diagnostics(
                 .data      = df,
                 .value     = !! value_expr,
                 ...,

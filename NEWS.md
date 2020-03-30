@@ -31,7 +31,7 @@ __TODO:__
     - `guerrero`
     - `step_box_cox`
 - Dplyr Transition 
-    - `tidyquant::summarise_by_time`
+    - (DONE) `tidyquant::summarise_by_time`
     - `tibbletime::filter_by_time`
     - `tibbletime::as_period`
 - Date Sequence & Holiday Transition 
@@ -50,14 +50,29 @@ __TODO:__
 
 __New Interactive Plotting Functions__:
 
-* `plot_time_series()` - A workhorse time-series plotting function that generates interactive plots, consolidates 20+ lines of `ggplot2` code, scales to many time series. 
-* `plot_lag_diagnostics()` - 
+* `plot_time_series()` - A workhorse time-series plotting function that generates interactive `plotly` plots, consolidates 20+ lines of `ggplot2` code, and scales well to many time series. 
+* `plot_acf_diagnostics()` - 
+
+__New Time Series Data Wrangling__:
+
+* `between_time()` - A time-based variant of `dplyr::between()` for flexible time-series filtering. 
+
+__New Recipe Functions:__
+
+* `step_holiday_signature()` - New recipe step for adding 130 holiday features based on individual holidays, locales, and stock exchanges / business holidays. 
+* `step_fourier_series()` - New recipe step for adding fourier transforms for adding seasonal features to time series data
+* `step_roll_apply()` - New recipe step for adding rolling summary functions
+* `step_smooth()` - New recipe step for adding Local Polynomial Regression (LOESS) for smoothing noisy time series
+
+__New Rsample Functions__
+
+* `initial_time_split_2()` and `rolling_origin_2()` - Added parameter `overlap` to accomodate lagged predictors.
 
 __New Make Functions__:
 
 Make date and date-time sequences between start and end dates.
 
-* `tk_make_date_sequence()` -  Super flexible - Makes both daily and subdaily time series. 
+* `tk_make_date_sequence()` -  Super flexible - Makes both daily and sub-daily time series. 
 * `tk_make_weekday_sequence()` - Weekday sequence that accounts for both __stripping weekends and holidays__
 * `tk_make_holiday_sequence()` - Makes a sequence of dates corresponding to holidays in calendars from `timeDate`
 * `tk_make_weekend_sequence()` - Weekday sequence of dates for Saturday and Sunday (common non-working days)
@@ -73,20 +88,12 @@ __New Augment Functions__:
 
 __New Vector Functions:__
 
+These functions are useful on their own inside of `mutate()` and power many of the new plotting and recipes functions.
+
 * `roll_apply_vec()` - Vectorized rolling apply function - wraps `slider::slide_vec()`
 * `smooth_vec()` - Vectorized smoothing function - Applies Local Polynomial Regression (LOESS)
 
-__New Recipe Functions:__
-
-* `step_holiday_signature()` - New recipe step for adding 130 holiday features based on individual holidays, locales, and stock exchanges / business holidays. 
-* `step_fourier_series()` - New recipe step for adding fourier transforms for adding seasonal features to time series data
-* `step_roll_apply()` - New recipe step for adding rolling summary functions
-* `step_smooth()` - New recipe step for adding Local Polynomial Regression (LOESS) for smoothing noisy time series
-
-__New Rsample Functions__
-
-* `initial_time_split_2()` and `rolling_origin_2()` - Added parameter `overlap` to accomodate lagged predictors. 
-
+ 
 __Bug Fixes:__
 
 * [Don't set timezone on date](https://github.com/business-science/timetk/pull/32) - Accommodate recent changes to `lubridate::tz<-` which now returns POSIXct when used Date objects. Fixed in PR32 by @vspinu. 

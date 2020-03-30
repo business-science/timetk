@@ -46,8 +46,10 @@ Imports:
     rlang (>= 0.1.2),
     slider,
     timeDate,
-    forecast
+    forecast,
+    hms
 Suggests:
+    tidyquant,
     workflows,
     parsnip,
     glmnet,
@@ -58,7 +60,6 @@ Suggests:
     robets,
     scales,
     testthat,
-    tidyquant,
     fracdiff,
     timeSeries,
     tseries,

@@ -1,7 +1,7 @@
-#' Simple Interactive Time Series Plotting
+#' Scalable Interactive Time Series Plotting
 #'
-#' `plot_time_series()` returns a time series visualization in either static (`ggplot2`) or
-#' interactive (`plotly`) formats.
+#' A workhorse time-series plotting function that generates interactive `plotly` plots,
+#' consolidates 20+ lines of `ggplot2` code, and scales well to many time series.
 #'
 #'
 #' @param .data A `tibble` or `data.frame`
@@ -32,6 +32,7 @@
 #' @param .x_lab X-axis label for the plot
 #' @param .y_lab Y-axis label for the plot
 #' @param .interactive Returns either a static (`ggplot2`) visualization or an interactive (`plotly`) visualization
+#' @param .plotly_slider If TRUE, returns a plotly date range slider.
 #'
 #' @return A static `ggplot2` plot or an interactive `plotly` plot
 #'
@@ -53,7 +54,7 @@
 #'
 #' `plot_time_series()` returns multiple time series plots using `ggplot2` facets:
 #'
-#'  - `group_b()` - If groups are detected, multiple facets are returned
+#'  - `group_by()` - If groups are detected, multiple facets are returned
 #'  - `plot_time_series(.facets)` - You can manually supply facets as well.
 #'
 #' __Can Transform Values just like ggplot__
@@ -73,14 +74,14 @@
 #' # Works with individual time series
 #' FANG %>%
 #'     filter(symbol == "FB") %>%
-#'     plot_time_series(date, adjusted,
-#'                      .facet_ncol = 2, .interactive = FALSE)
+#'     plot_time_series(date, adjusted, .interactive = FALSE)
 #'
 #' # Works with groups
 #' FANG %>%
 #'     group_by(symbol) %>%
 #'     plot_time_series(date, adjusted,
-#'                      .facet_ncol = 2, .interactive = FALSE)
+#'                      .facet_ncol  = 2,     # 2-column layout
+#'                      .interactive = FALSE)
 #'
 #' # Can also group inside
 #' FANG %>%
@@ -124,7 +125,7 @@ plot_time_series <- function(.data, .date_var, .value, ...,
                              .smooth_span = 0.75, .smooth_degree = 2,
                              .smooth_color = "#3366FF", .smooth_size = 1,
                              .title = "Time Series Plot", .x_lab = "", .y_lab = "",
-                             .interactive = TRUE) {
+                             .interactive = TRUE, .plotly_slider = FALSE) {
 
     # Tidyeval Setup
     date_var_expr <- rlang::enquo(.date_var)
@@ -154,7 +155,7 @@ plot_time_series.data.frame <- function(.data, .date_var, .value, ...,
                              .smooth_span = 0.75, .smooth_degree = 2,
                              .smooth_color = "#3366FF", .smooth_size = 1,
                              .title = "Time Series Plot", .x_lab = "", .y_lab = "",
-                             .interactive = TRUE) {
+                             .interactive = TRUE, .plotly_slider = FALSE) {
 
 
     # Tidyeval Setup
@@ -213,7 +214,8 @@ plot_time_series.data.frame <- function(.data, .date_var, .value, ...,
     # ---- PLOT SETUP ----
 
     g <- data_formatted %>%
-        ggplot2::ggplot(ggplot2::aes(!! date_var_expr, .value_mod)) +
+        dplyr::rename(.value = .value_mod) %>%
+        ggplot2::ggplot(ggplot2::aes(!! date_var_expr, .value)) +
         theme_tq() +
         ggplot2::labs(x = .x_lab, y = .y_lab, title = .title)
 
@@ -257,7 +259,19 @@ plot_time_series.data.frame <- function(.data, .date_var, .value, ...,
     }
 
     if (.interactive) {
-        return(plotly::ggplotly(g))
+
+        p <- plotly::ggplotly(g, dynamicTicks = TRUE)
+
+        if (.plotly_slider) {
+            p <- p %>%
+                plotly::layout(
+                    xaxis = list(
+                        rangeslider = list(type = "date")
+                    )
+                )
+        }
+
+        return(p)
     } else {
         return(g)
     }
@@ -273,7 +287,7 @@ plot_time_series.grouped_df <- function(.data, .date_var, .value, ...,
                                         .smooth_span = 0.75, .smooth_degree = 2,
                                         .smooth_color = "#3366FF", .smooth_size = 1,
                                         .title = "Time Series Plot", .x_lab = "", .y_lab = "",
-                                        .interactive = TRUE) {
+                                        .interactive = TRUE, .plotly_slider = FALSE) {
 
     # Tidy Eval Setup
     group_names   <- dplyr::group_vars(.data)
@@ -323,7 +337,8 @@ plot_time_series.grouped_df <- function(.data, .date_var, .value, ...,
         .title              = .title,
         .x_lab              = .x_lab,
         .y_lab              = .y_lab,
-        .interactive        = .interactive
+        .interactive        = .interactive,
+        .plotly_slider      = .plotly_slider
     )
 
 
