@@ -233,7 +233,7 @@ excluded.</p>
 
     <div class='dont-index'>
 <ul>
-<li><p>Working with Holidays: <code><a href='tk_make_index_sequence.html'>tk_make_holiday_sequence()</a></code></p></li>
+<li><p>Working with Holidays: <code><a href='tk_make_date_sequence.html'>tk_make_holiday_sequence()</a></code></p></li>
 <li><p>Working with Timestamp Index: <code><a href='tk_index.html'>tk_index()</a></code>, <code><a href='tk_get_timeseries.html'>tk_get_timeseries_summary()</a></code>, <code><a href='tk_get_timeseries.html'>tk_get_timeseries_signature()</a></code></p></li>
 </ul>
 </div>
@@ -256,7 +256,7 @@ excluded.</p>
 <span class='co'># Create index of days that FB stock will be traded in 2017 based on 2016 + holidays</span>
 <span class='no'>FB_tbl</span> <span class='kw'>&lt;-</span> <span class='no'>FANG</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='no'>symbol</span> <span class='kw'>==</span> <span class='st'>"FB"</span>)
 
-<span class='no'>holidays</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='tk_make_index_sequence.html'>tk_make_holiday_sequence</a></span>(
+<span class='no'>holidays</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='tk_make_date_sequence.html'>tk_make_holiday_sequence</a></span>(
     <span class='kw'>start_date</span> <span class='kw'>=</span> <span class='st'>"2017-01-01"</span>,
     <span class='kw'>end_date</span>   <span class='kw'>=</span> <span class='st'>"2017-12-31"</span>,
     <span class='kw'>calendar</span>   <span class='kw'>=</span> <span class='st'>"NYSE"</span>)

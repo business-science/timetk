@@ -21,7 +21,7 @@
 #'
 #' __Daily Sequences__
 #'
-#' Make a daily sequence with `tk_make_index_sequence(by)`. Examples:
+#' Make a daily sequence with `tk_make_date_sequence(by)`. Examples:
 #'
 #'  - Every Day: `by = "day"`
 #'  - Every 2-Weeks: `by = "2 weeks"`
@@ -29,7 +29,7 @@
 #'
 #' __Sub-Daily Sequences__
 #'
-#' Make a sub-daily sequence with `tk_make_index_sequence(by)`. Examples:
+#' Make a sub-daily sequence with `tk_make_date_sequence(by)`. Examples:
 #'
 #' - Every minute: `by = "min"`
 #' - Every 30-seconds: `by = "30 sec"`
@@ -64,10 +64,10 @@
 #' # ---- BASIC EXAMPLES ----
 #'
 #' # Date Sequence
-#' tk_make_index_sequence("2017-01-01", "2017-12-31", by = "day")
+#' tk_make_date_sequence("2017-01-01", "2017-12-31", by = "day")
 #'
 #' # Date-Time Sequence
-#' tk_make_index_sequence("2017-01-01", "2017-12-31", by = "10 min")
+#' tk_make_date_sequence("2017-01-01", "2017-12-31", by = "10 min")
 #'
 #' # Holiday Sequence
 #' tk_make_holiday_sequence("2017-01-01", "2017-12-31", calendar = "NYSE")
@@ -99,14 +99,14 @@
 #'
 #'
 #'
-#' @name tk_make_index_sequence
+#' @name tk_make_date_sequence
 NULL
 
 # DATE SEQUENCE ----
 
-#' @rdname tk_make_index_sequence
+#' @rdname tk_make_date_sequence
 #' @export
-tk_make_index_sequence <- function(start_date, end_date, by = "day",
+tk_make_date_sequence <- function(start_date, end_date, by = "day",
                                    skip_values = NULL, insert_values = NULL) {
 
     if (stringr::str_detect(tolower(by), pattern = "(sec)|(min)|(hour)")) {
@@ -136,7 +136,7 @@ tk_make_index_sequence <- function(start_date, end_date, by = "day",
 
 # HOLIDAYS -----
 
-#' @rdname tk_make_index_sequence
+#' @rdname tk_make_date_sequence
 #' @export
 tk_make_holiday_sequence <- function(start_date, end_date,
                                      calendar = c("NYSE", "LONDON", "NERC", "TSX", "ZURICH"),
@@ -151,7 +151,7 @@ tk_make_holiday_sequence <- function(start_date, end_date,
         "zurich"   = timeDate::holidayZURICH
     )
 
-    date_seq <- tk_make_index_sequence(start_date, end_date, by   = "day")
+    date_seq <- tk_make_date_sequence(start_date, end_date, by   = "day")
 
     # Find holidays
     years            <- date_seq %>% lubridate::year() %>% unique()
@@ -166,11 +166,11 @@ tk_make_holiday_sequence <- function(start_date, end_date,
 
 # WEEKENDS ----
 
-#' @rdname tk_make_index_sequence
+#' @rdname tk_make_date_sequence
 #' @export
 tk_make_weekend_sequence <- function(start_date, end_date) {
 
-    date_sequence <-  tk_make_index_sequence(start_date, end_date, by = "day")
+    date_sequence <-  tk_make_date_sequence(start_date, end_date, by = "day")
 
     ret_tbl <- tibble::tibble(date_sequence = date_sequence) %>%
         dplyr::mutate(weekday = lubridate::wday(date_sequence, label = TRUE)) %>%
@@ -181,7 +181,7 @@ tk_make_weekend_sequence <- function(start_date, end_date) {
 
 # WEEKDAYS ----
 
-#' @rdname tk_make_index_sequence
+#' @rdname tk_make_date_sequence
 #' @export
 tk_make_weekday_sequence <- function(start_date, end_date,
                                      remove_weekends = TRUE, remove_holidays = FALSE,
@@ -189,7 +189,7 @@ tk_make_weekday_sequence <- function(start_date, end_date,
                                      skip_values = NULL, insert_values = NULL
                                      ) {
 
-    date_sequence <-  tk_make_index_sequence(start_date, end_date, by = "day")
+    date_sequence <-  tk_make_date_sequence(start_date, end_date, by = "day")
 
     # Remove weekends
     if (remove_weekends) {

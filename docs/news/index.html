@@ -219,7 +219,7 @@
 </li>
 <li>Date Sequence &amp; Holiday Transition
 <ul>
-<li>(DONE) <code><a href="../reference/tk_make_index_sequence.html">tk_make_holiday_sequence()</a></code>
+<li>(DONE) <code><a href="../reference/tk_make_date_sequence.html">tk_make_holiday_sequence()</a></code>
 </li>
 <li>(DONE) <code><a href="../reference/tk_get_holiday.html">tk_get_holiday_signature()</a></code>, <code><a href="../reference/tk_augment_holiday.html">tk_augment_holiday_signature()</a></code>
 </li>
@@ -244,19 +244,26 @@
 </li>
 <li>Tests (Boooo)</li>
 </ul>
+<p><strong>New Interactive Plotting Functions</strong>:</p>
+<ul>
+<li>
+<code><a href="../reference/plot_time_series.html">plot_time_series()</a></code> - A workhorse time-series plotting function that generates interactive plots, consolidates 20+ lines of <code>ggplot2</code> code, scales to many time series.</li>
+<li>
+<code><a href="../reference/plot_lag_diagnostics.html">plot_lag_diagnostics()</a></code> -</li>
+</ul>
 <p><strong>New Make Functions</strong>:</p>
 <p>Make date and date-time sequences between start and end dates.</p>
 <ul>
 <li>
-<code><a href="../reference/tk_make_index_sequence.html">tk_make_index_sequence()</a></code> - Super flexible - Makes both daily and subdaily time series.</li>
+<code><a href="../reference/tk_make_date_sequence.html">tk_make_date_sequence()</a></code> - Super flexible - Makes both daily and subdaily time series.</li>
 <li>
-<code><a href="../reference/tk_make_index_sequence.html">tk_make_weekday_sequence()</a></code> - Weekday sequence that accounts for both <strong>stripping weekends and holidays!</strong>
+<code><a href="../reference/tk_make_date_sequence.html">tk_make_weekday_sequence()</a></code> - Weekday sequence that accounts for both <strong>stripping weekends and holidays</strong>
 </li>
 <li>
-<code><a href="../reference/tk_make_index_sequence.html">tk_make_holiday_sequence()</a></code> - Makes a sequence of dates corresponding to holidays in calendars from <code>timeDate</code>
+<code><a href="../reference/tk_make_date_sequence.html">tk_make_holiday_sequence()</a></code> - Makes a sequence of dates corresponding to holidays in calendars from <code>timeDate</code>
 </li>
 <li>
-<code><a href="../reference/tk_make_index_sequence.html">tk_make_weekend_sequence()</a></code> - Weekday sequence of dates for Saturday and Sunday (common non-working days)</li>
+<code><a href="../reference/tk_make_date_sequence.html">tk_make_weekend_sequence()</a></code> - Weekday sequence of dates for Saturday and Sunday (common non-working days)</li>
 </ul>
 <p><strong>New Get Functions</strong>:</p>
 <ul>

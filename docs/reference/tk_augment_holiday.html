@@ -147,7 +147,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Augment the holiday signature to the data</h1>
-    <small class="dont-index">Source: <a href='https://github.com/business-science/timetk/blob/master/R/tk_augment_holiday.R'><code>R/tk_augment_holiday.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/business-science/timetk/blob/master/R/tk_augment_holiday_signature.R'><code>R/tk_augment_holiday_signature.R</code></a></small>
     <div class="hidden name"><code>tk_augment_holiday.Rd</code></div>
     </div>
 
@@ -219,7 +219,7 @@ Filter on an index to identify all holidays that are commonly non-working.</p>
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>tidyquant</span>)
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>timetk</span>)
 
-<span class='no'>dates_in_2017_tbl</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/reexports.html'>tibble</a></span>(<span class='kw'>index</span> <span class='kw'>=</span> <span class='fu'><a href='tk_make_index_sequence.html'>tk_make_index_sequence</a></span>(<span class='st'>"2017-01-01"</span>, <span class='st'>"2017-12-31"</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"day"</span>))
+<span class='no'>dates_in_2017_tbl</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/reexports.html'>tibble</a></span>(<span class='kw'>index</span> <span class='kw'>=</span> <span class='fu'><a href='tk_make_date_sequence.html'>tk_make_date_sequence</a></span>(<span class='st'>"2017-01-01"</span>, <span class='st'>"2017-12-31"</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"day"</span>))
 
 <span class='co'># Non-working days in US due to Holidays using NYSE stock exchange calendar</span>
 <span class='no'>dates_in_2017_tbl</span> <span class='kw'>%&gt;%</span>

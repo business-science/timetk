@@ -45,7 +45,7 @@
 #' library(timetk)
 #'
 #' # Works with time-based tibbles
-#' idx <- tk_make_index_sequence("2017-01-01", "2017-12-31", by = "day")
+#' idx <- tk_make_date_sequence("2017-01-01", "2017-12-31", by = "day")
 #'
 #' # --- BASIC USAGE ----
 #'
@@ -275,8 +275,3 @@ tk_get_holidays_by_year <- function(years = year(today())) {
         dplyr::select(-holidays)
 }
 
-# idx = tk_make_index_sequence("2016-01-01", "2017-02-28", by = "day")
-# exchange_set = c("all", "none", "NYSE", "LONDON", "NERC", "TSX", "ZURICH")
-# locale_set =  c("all", "none", "World", "US", "CA", "GB", "FR", "IT", "JP", "CH", "DE")
-# tk_get_holiday_signature(idx)
-# tk_get_holiday_signature(idx, holiday_pattern = "US_", locale_set = "US", exchange_set = "NYSE")

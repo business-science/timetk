@@ -222,7 +222,7 @@ and then apply <code>tk_lag_diagnostics()</code> to return group-wise lag diagno
 <span class='no'>FANG</span> <span class='kw'>%&gt;%</span>
     <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span>(<span class='no'>symbol</span> <span class='kw'>==</span> <span class='st'>"FB"</span>) <span class='kw'>%&gt;%</span>
     <span class='fu'>tk_lag_diagnostics</span>(<span class='kw'>.value</span> <span class='kw'>=</span> <span class='no'>adjusted</span>, <span class='no'>volume</span>, <span class='no'>close</span>, <span class='kw'>.lags</span> <span class='kw'>=</span> <span class='fl'>0</span>:<span class='fl'>500</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 501 x 5</span><span>
-#&gt;      lag   acf      pacf ccf_volume ccf_close
+#&gt;      lag   ACF      PACF CCF_volume CCF_close
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
 #&gt; </span><span style='color: #555555;'> 1</span><span>     0 1.00   1            -</span><span style='color: #BB0000;'>0.447</span><span>     1.00 
 #&gt; </span><span style='color: #555555;'> 2</span><span>     1 0.997  0.997        -</span><span style='color: #BB0000;'>0.444</span><span>     0.997
@@ -240,7 +240,7 @@ and then apply <code>tk_lag_diagnostics()</code> to return group-wise lag diagno
     <span class='fu'>group_by</span>(<span class='no'>symbol</span>) <span class='kw'>%&gt;%</span>
     <span class='fu'>tk_lag_diagnostics</span>(<span class='kw'>.value</span> <span class='kw'>=</span> <span class='no'>adjusted</span>, <span class='no'>volume</span>, <span class='no'>close</span>, <span class='kw'>.lags</span> <span class='kw'>=</span> <span class='fl'>0</span>:<span class='fl'>500</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 2,004 x 6</span><span>
 #&gt; </span><span style='color: #555555;'># Groups:   symbol [4]</span><span>
-#&gt;    symbol   lag   acf      pacf ccf_volume ccf_close
+#&gt;    symbol   lag   ACF      PACF CCF_volume CCF_close
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
 #&gt; </span><span style='color: #555555;'> 1</span><span> FB         0 1.00   1            -</span><span style='color: #BB0000;'>0.447</span><span>     1.00 
 #&gt; </span><span style='color: #555555;'> 2</span><span> FB         1 0.997  0.997        -</span><span style='color: #BB0000;'>0.444</span><span>     0.997

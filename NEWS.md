@@ -48,12 +48,17 @@ __TODO:__
     - Tidy dft
 - Tests (Boooo)
 
+__New Interactive Plotting Functions__:
+
+* `plot_time_series()` - A workhorse time-series plotting function that generates interactive plots, consolidates 20+ lines of `ggplot2` code, scales to many time series. 
+* `plot_lag_diagnostics()` - 
+
 __New Make Functions__:
 
 Make date and date-time sequences between start and end dates.
 
-* `tk_make_index_sequence()` -  Super flexible - Makes both daily and subdaily time series. 
-* `tk_make_weekday_sequence()` - Weekday sequence that accounts for both __stripping weekends and holidays!__
+* `tk_make_date_sequence()` -  Super flexible - Makes both daily and subdaily time series. 
+* `tk_make_weekday_sequence()` - Weekday sequence that accounts for both __stripping weekends and holidays__
 * `tk_make_holiday_sequence()` - Makes a sequence of dates corresponding to holidays in calendars from `timeDate`
 * `tk_make_weekend_sequence()` - Weekday sequence of dates for Saturday and Sunday (common non-working days)
 
