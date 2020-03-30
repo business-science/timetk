@@ -1,7 +1,7 @@
 #' Flexible time-series filtering for tibbles with date or date-time columns
 #'
-#' The easiest way to filter time series date or date-time vectors. See [between_time()]
-#' for the `vectorized` date and date-time implementation.
+#' The easiest way to filter time-based tibbles using shorthand timeseries notation.
+#' See [between_time()] for the date and date-time vector implementation.
 #'
 #' @param .data A tibble with a time-based column.
 #' @param .date_var A column containing date or date-time values to filter
@@ -43,7 +43,7 @@
 #' * `.end_date = '2016'` is equivalent to `2016-12-31 + 23:59:59'`
 #'
 #' @seealso
-#' - [between_time()] - A time-based variant of `dplyr::between()` that is powers by
+#' - [between_time()] - A time-based variant of `dplyr::between()` that powers by
 #' `filter_by_time()`
 #'
 #'
@@ -56,7 +56,7 @@
 #' FANG %>%
 #'     group_by(symbol) %>%
 #'     filter_by_time(date, "start", "2013-02") %>%
-#'     plot_time_series(date, adjusted, .facet_col = 2, .interactive = FALSE)
+#'     plot_time_series(date, adjusted, .facet_ncol = 2, .interactive = FALSE)
 #'
 #' @name filter_by_time
 #' @export

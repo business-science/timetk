@@ -198,24 +198,17 @@ is useful for predictions needing access to prior history such as when
 using lagged predictors.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>recipes</span>)</div><div class='output co'>#&gt; <span class='message'>Loading required package: dplyr</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Attaching package: ‘dplyr’</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:stats’:</span>
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>recipes</span>)</div><div class='output co'>#&gt; <span class='message'></span>
+#&gt; <span class='message'>Attaching package: ‘recipes’</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:stringr’:</span>
 #&gt; <span class='message'></span>
-#&gt; <span class='message'>    filter, lag</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:base’:</span>
+#&gt; <span class='message'>    fixed</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:stats’:</span>
 #&gt; <span class='message'></span>
-#&gt; <span class='message'>    intersect, setdiff, setequal, union</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Attaching package: ‘recipes’</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:stats’:</span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'>    step</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>rsample</span>)</div><div class='output co'>#&gt; <span class='message'>Loading required package: tidyr</span></div><div class='output co'>#&gt; <span class='message'>Registered S3 methods overwritten by 'rsample':</span>
+#&gt; <span class='message'>    step</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>rsample</span>)</div><div class='output co'>#&gt; <span class='message'>Registered S3 methods overwritten by 'rsample':</span>
 #&gt; <span class='message'>  method               from  </span>
 #&gt; <span class='message'>  print.rolling_origin timetk</span>
 #&gt; <span class='message'>  print.rsplit         timetk</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>timetk</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>tidyverse</span>)</div><div class='output co'>#&gt; <span class='message'>── <span style='font-weight: bold;'>Attaching packages</span><span> ──────────────────────────────────────────────────────────── tidyverse 1.3.0 ──</span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> </span><span style='color: #0000BB;'>ggplot2</span><span> 3.3.0     </span><span style='color: #00BB00;'>✓</span><span> </span><span style='color: #0000BB;'>purrr  </span><span> 0.3.3</span>
-#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> </span><span style='color: #0000BB;'>tibble </span><span> 2.1.3     </span><span style='color: #00BB00;'>✓</span><span> </span><span style='color: #0000BB;'>stringr</span><span> 1.4.0</span>
-#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> </span><span style='color: #0000BB;'>readr  </span><span> 1.3.1     </span><span style='color: #00BB00;'>✓</span><span> </span><span style='color: #0000BB;'>forcats</span><span> 0.5.0</span></div><div class='output co'>#&gt; <span class='message'>── </span><span style='font-weight: bold;'>Conflicts</span><span> ─────────────────────────────────────────────────────────────── tidyverse_conflicts() ──</span>
-#&gt; <span class='message'></span><span style='color: #BB0000;'>x</span><span> </span><span style='color: #0000BB;'>dplyr</span><span>::</span><span style='color: #00BB00;'>filter()</span><span>  masks </span><span style='color: #0000BB;'>stats</span><span>::filter()</span>
-#&gt; <span class='message'></span><span style='color: #BB0000;'>x</span><span> </span><span style='color: #0000BB;'>stringr</span><span>::</span><span style='color: #00BB00;'>fixed()</span><span> masks </span><span style='color: #0000BB;'>recipes</span><span>::fixed()</span>
-#&gt; <span class='message'></span><span style='color: #BB0000;'>x</span><span> </span><span style='color: #0000BB;'>dplyr</span><span>::</span><span style='color: #00BB00;'>lag()</span><span>     masks </span><span style='color: #0000BB;'>stats</span><span>::lag()</span></div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>tidyverse</span>)
+
 <span class='co'># 5-years of monthly data</span>
 <span class='no'>drinks_subset</span> <span class='kw'>&lt;-</span> <span class='no'>drinks</span> <span class='kw'>%&gt;%</span>
     <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>tail</a></span>(<span class='fl'>5</span>*<span class='fl'>12</span>) <span class='kw'>%&gt;%</span>
@@ -234,7 +227,7 @@ using lagged predictors.</p>
 <span class='no'>test_data</span>  <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/rsample/man/initial_split.html'>testing</a></span>(<span class='no'>drinks_overlap_split</span>)
 
 <span class='co'># Note 12 period overlap</span>
-<span class='no'>train_data</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>tail</a></span>(<span class='fl'>12</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 12 x 2</span><span>
+<span class='no'>train_data</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>tail</a></span>(<span class='fl'>12</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 12 x 2</span><span>
 #&gt;    date       sales
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
 #&gt; </span><span style='color: #555555;'> 1</span><span> 2015-10-01 </span><span style='text-decoration: underline;'>11</span><span>983

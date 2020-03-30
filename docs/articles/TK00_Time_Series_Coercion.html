@@ -802,11 +802,11 @@
 <pre><code>## # A tibble: 5 x 2
 ##   date            x
 ##   &lt;date&gt;      &lt;dbl&gt;
-## 1 2016-01-01  -7.71
-## 2 2016-01-02 -16.1 
-## 3 2016-01-03 -25.2 
-## 4 2016-01-04 -35.1 
-## 5 2016-01-05 -45.6</code></pre>
+## 1 2016-01-01  -7.28
+## 2 2016-01-02 -15.2 
+## 3 2016-01-03 -23.8 
+## 4 2016-01-04 -33.1 
+## 5 2016-01-05 -43.0</code></pre>
 <p>Coerce to <code>ts</code> class using the <code><a href="../reference/tk_ts.html">tk_ts()</a></code> function. Note that the non-numeric column “date” is being dropped, and the <code>silent = TRUE</code> hides the message.</p>
 <div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb93-1" data-line-number="1"><span class="co"># Coerce to ts </span></a>
 <a class="sourceLine" id="cb93-2" data-line-number="2">data_ts &lt;-<span class="st"> </span><span class="kw"><a href="../reference/tk_ts.html">tk_ts</a></span>(data_tbl, <span class="dt">start =</span> <span class="dv">2016</span>, <span class="dt">freq =</span> <span class="dv">365</span>, <span class="dt">silent =</span> <span class="ot">TRUE</span>)</a>
@@ -816,11 +816,11 @@
 ## End = c(2016, 5) 
 ## Frequency = 365 
 ##               x
-## [1,]  -7.714155
-## [2,] -16.129596
-## [3,] -25.246324
-## [4,] -35.064339
-## [5,] -45.583641
+## [1,]  -7.277615
+## [2,] -15.216830
+## [3,] -23.817648
+## [4,] -33.080066
+## [5,] -43.004086
 ## attr(,"index")
 ## [1] 1451606400 1451692800 1451779200 1451865600 1451952000
 ## attr(,"index")attr(,"tzone")
@@ -836,15 +836,15 @@
 <a class="sourceLine" id="cb97-2" data-line-number="2">data_xts &lt;-<span class="st"> </span><span class="kw"><a href="../reference/tk_xts.html">tk_xts</a></span>(data_ts)</a>
 <a class="sourceLine" id="cb97-3" data-line-number="3">data_xts</a></code></pre></div>
 <pre><code>##                     x
-## 2016-01-01  -7.714155
-## 2016-01-02 -16.129596
-## 2016-01-03 -25.246324
-## 2016-01-04 -35.064339
-## 2016-01-05 -45.583641</code></pre>
+## 2016-01-01  -7.277615
+## 2016-01-02 -15.216830
+## 2016-01-03 -23.817648
+## 2016-01-04 -33.080066
+## 2016-01-05 -43.004086</code></pre>
 <p>We can see that the <code>xts</code> structure is maintained.</p>
 <div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb99-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(data_xts)</a></code></pre></div>
 <pre><code>## An 'xts' object on 2016-01-01/2016-01-05 containing:
-##   Data: num [1:5, 1] -7.71 -16.13 -25.25 -35.06 -45.58
+##   Data: num [1:5, 1] -7.28 -15.22 -23.82 -33.08 -43
 ##  - attr(*, "dimnames")=List of 2
 ##   ..$ : NULL
 ##   ..$ : chr "x"
@@ -856,15 +856,15 @@
 <a class="sourceLine" id="cb101-2" data-line-number="2">data_zoo &lt;-<span class="st"> </span><span class="kw"><a href="../reference/tk_zoo.html">tk_zoo</a></span>(data_ts)</a>
 <a class="sourceLine" id="cb101-3" data-line-number="3">data_zoo</a></code></pre></div>
 <pre><code>##                     x
-## 2016-01-01  -7.714155
-## 2016-01-02 -16.129596
-## 2016-01-03 -25.246324
-## 2016-01-04 -35.064339
-## 2016-01-05 -45.583641</code></pre>
+## 2016-01-01  -7.277615
+## 2016-01-02 -15.216830
+## 2016-01-03 -23.817648
+## 2016-01-04 -33.080066
+## 2016-01-05 -43.004086</code></pre>
 <p>We can see that the <code>zoo</code> structure is maintained.</p>
 <div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb103-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(data_zoo)</a></code></pre></div>
 <pre><code>## 'zoo' series from 2016-01-01 to 2016-01-05
-##   Data: num [1:5, 1] -7.71 -16.13 -25.25 -35.06 -45.58
+##   Data: num [1:5, 1] -7.28 -15.22 -23.82 -33.08 -43
 ##  - attr(*, "dimnames")=List of 2
 ##   ..$ : chr [1:5] "2016-01-01" "2016-01-02" "2016-01-03" "2016-01-04" ...
 ##   ..$ : chr "x"
@@ -874,11 +874,11 @@
 <pre><code>## # A tibble: 5 x 2
 ##   index           x
 ##   &lt;date&gt;      &lt;dbl&gt;
-## 1 2016-01-01  -7.71
-## 2 2016-01-02 -16.1 
-## 3 2016-01-03 -25.2 
-## 4 2016-01-04 -35.1 
-## 5 2016-01-05 -45.6</code></pre>
+## 1 2016-01-01  -7.28
+## 2 2016-01-02 -15.2 
+## 3 2016-01-03 -23.8 
+## 4 2016-01-04 -33.1 
+## 5 2016-01-05 -43.0</code></pre>
 </div>
 <div id="working-with-yearmon-and-yearqtr-index" class="section level2">
 <h2 class="hasAnchor">

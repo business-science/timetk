@@ -40,6 +40,8 @@ reference:
     desc: __Extension for `dplyr` for time-series data manipulations__
     contents:
     - contains("summarise")
+    - contains("filter")
+    - contains("between")
   - title: Index Operations
     desc: __Extract and check the date or date-time index.__
     contents:
@@ -61,7 +63,7 @@ reference:
   - title: Diagnostic Operations
     desc: __Investigate time series relationships__
     contents:
-    - "tk_lag_diagnostics"
+    - "tk_acf_diagnostics"
   - title: Vector Operations
     desc: __Apply vectorized operations to time series data__
     contents:

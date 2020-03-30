@@ -212,7 +212,8 @@
 </li>
 <li>Dplyr Transition
 <ul>
-<li><code><a href="https://rdrr.io/pkg/tidyquant/man/summarise_by_time.html">tidyquant::summarise_by_time</a></code></li>
+<li>(DONE) <code><a href="https://rdrr.io/pkg/tidyquant/man/summarise_by_time.html">tidyquant::summarise_by_time</a></code>
+</li>
 <li><code>tibbletime::filter_by_time</code></li>
 <li><code><a href="https://rdrr.io/pkg/tibbletime/man/as_period.html">tibbletime::as_period</a></code></li>
 </ul>
@@ -247,15 +248,36 @@
 <p><strong>New Interactive Plotting Functions</strong>:</p>
 <ul>
 <li>
-<code><a href="../reference/plot_time_series.html">plot_time_series()</a></code> - A workhorse time-series plotting function that generates interactive plots, consolidates 20+ lines of <code>ggplot2</code> code, scales to many time series.</li>
+<code><a href="../reference/plot_time_series.html">plot_time_series()</a></code> - A workhorse time-series plotting function that generates interactive <code>plotly</code> plots, consolidates 20+ lines of <code>ggplot2</code> code, and scales well to many time series.</li>
 <li>
-<code><a href="../reference/plot_lag_diagnostics.html">plot_lag_diagnostics()</a></code> -</li>
+<code><a href="../reference/plot_acf_diagnostics.html">plot_acf_diagnostics()</a></code> -</li>
+</ul>
+<p><strong>New Time Series Data Wrangling</strong>:</p>
+<ul>
+<li>
+<code><a href="../reference/between_time.html">between_time()</a></code> - A time-based variant of <code><a href="https://dplyr.tidyverse.org/reference/between.html">dplyr::between()</a></code> for flexible time-series filtering.</li>
+</ul>
+<p><strong>New Recipe Functions:</strong></p>
+<ul>
+<li>
+<code><a href="../reference/step_holiday_signature.html">step_holiday_signature()</a></code> - New recipe step for adding 130 holiday features based on individual holidays, locales, and stock exchanges / business holidays.</li>
+<li>
+<code><a href="../reference/step_fourier_series.html">step_fourier_series()</a></code> - New recipe step for adding fourier transforms for adding seasonal features to time series data</li>
+<li>
+<code><a href="../reference/step_roll_apply.html">step_roll_apply()</a></code> - New recipe step for adding rolling summary functions</li>
+<li>
+<code><a href="../reference/step_smooth.html">step_smooth()</a></code> - New recipe step for adding Local Polynomial Regression (LOESS) for smoothing noisy time series</li>
+</ul>
+<p><strong>New Rsample Functions</strong></p>
+<ul>
+<li>
+<code><a href="../reference/initial_time_split_2.html">initial_time_split_2()</a></code> and <code><a href="../reference/rolling_origin_2.html">rolling_origin_2()</a></code> - Added parameter <code>overlap</code> to accomodate lagged predictors.</li>
 </ul>
 <p><strong>New Make Functions</strong>:</p>
 <p>Make date and date-time sequences between start and end dates.</p>
 <ul>
 <li>
-<code><a href="../reference/tk_make_date_sequence.html">tk_make_date_sequence()</a></code> - Super flexible - Makes both daily and subdaily time series.</li>
+<code><a href="../reference/tk_make_date_sequence.html">tk_make_date_sequence()</a></code> - Super flexible - Makes both daily and sub-daily time series.</li>
 <li>
 <code><a href="../reference/tk_make_date_sequence.html">tk_make_weekday_sequence()</a></code> - Weekday sequence that accounts for both <strong>stripping weekends and holidays</strong>
 </li>
@@ -278,28 +300,13 @@
 <code><a href="../reference/tk_augment_roll_apply.html">tk_augment_roll_apply()</a></code> - Add multiple columns of rolling window calculations to a <code>data.frame</code>.</li>
 </ul>
 <p><strong>New Vector Functions:</strong></p>
+<p>These functions are useful on their own inside of <code>mutate()</code> and power many of the new plotting and recipes functions.</p>
 <ul>
 <li>
 <code><a href="../reference/roll_apply_vec.html">roll_apply_vec()</a></code> - Vectorized rolling apply function - wraps <code><a href="https://rdrr.io/pkg/slider/man/slide.html">slider::slide_vec()</a></code>
 </li>
 <li>
 <code><a href="../reference/smooth_vec.html">smooth_vec()</a></code> - Vectorized smoothing function - Applies Local Polynomial Regression (LOESS)</li>
-</ul>
-<p><strong>New Recipe Functions:</strong></p>
-<ul>
-<li>
-<code><a href="../reference/step_holiday_signature.html">step_holiday_signature()</a></code> - New recipe step for adding 130 holiday features based on individual holidays, locales, and stock exchanges / business holidays.</li>
-<li>
-<code><a href="../reference/step_fourier_series.html">step_fourier_series()</a></code> - New recipe step for adding fourier transforms for adding seasonal features to time series data</li>
-<li>
-<code><a href="../reference/step_roll_apply.html">step_roll_apply()</a></code> - New recipe step for adding rolling summary functions</li>
-<li>
-<code><a href="../reference/step_smooth.html">step_smooth()</a></code> - New recipe step for adding Local Polynomial Regression (LOESS) for smoothing noisy time series</li>
-</ul>
-<p><strong>New Rsample Functions</strong></p>
-<ul>
-<li>
-<code><a href="../reference/initial_time_split_2.html">initial_time_split_2()</a></code> and <code><a href="../reference/rolling_origin_2.html">rolling_origin_2()</a></code> - Added parameter <code>overlap</code> to accomodate lagged predictors.</li>
 </ul>
 <p><strong>Bug Fixes:</strong></p>
 <ul>

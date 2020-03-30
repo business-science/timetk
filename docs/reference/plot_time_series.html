@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Simple Interactive Time Series Plotting — plot_time_series • timetk</title>
+<title>Scalable Interactive Time Series Plotting — plot_time_series • timetk</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -42,9 +42,9 @@
 
 
 
-<meta property="og:title" content="Simple Interactive Time Series Plotting — plot_time_series" />
-<meta property="og:description" content="plot_time_series() returns a time series visualization in either static (ggplot2) or
-interactive (plotly) formats." />
+<meta property="og:title" content="Scalable Interactive Time Series Plotting — plot_time_series" />
+<meta property="og:description" content="A workhorse time-series plotting function that generates interactive plotly plots,
+consolidates 20+ lines of ggplot2 code, and scales well to many time series." />
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -147,14 +147,14 @@ interactive (plotly) formats." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Simple Interactive Time Series Plotting</h1>
+    <h1>Scalable Interactive Time Series Plotting</h1>
     <small class="dont-index">Source: <a href='https://github.com/business-science/timetk/blob/master/R/plot-time_series.R'><code>R/plot-time_series.R</code></a></small>
     <div class="hidden name"><code>plot_time_series.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><code>plot_time_series()</code> returns a time series visualization in either static (<code>ggplot2</code>) or
-interactive (<code>plotly</code>) formats.</p>
+    <p>A workhorse time-series plotting function that generates interactive <code>plotly</code> plots,
+consolidates 20+ lines of <code>ggplot2</code> code, and scales well to many time series.</p>
     </div>
 
     <pre class="usage"><span class='fu'>plot_time_series</span>(
@@ -179,7 +179,8 @@ interactive (<code>plotly</code>) formats.</p>
   <span class='kw'>.title</span> <span class='kw'>=</span> <span class='st'>"Time Series Plot"</span>,
   <span class='kw'>.x_lab</span> <span class='kw'>=</span> <span class='st'>""</span>,
   <span class='kw'>.y_lab</span> <span class='kw'>=</span> <span class='st'>""</span>,
-  <span class='kw'>.interactive</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+  <span class='kw'>.interactive</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>.plotly_slider</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -279,6 +280,10 @@ Either 0, 1, 2 (0 = lest flexible, 2 = more flexible).</p></td>
       <th>.interactive</th>
       <td><p>Returns either a static (<code>ggplot2</code>) visualization or an interactive (<code>plotly</code>) visualization</p></td>
     </tr>
+    <tr>
+      <th>.plotly_slider</th>
+      <td><p>If TRUE, returns a plotly date range slider.</p></td>
+    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -297,7 +302,7 @@ Either 0, 1, 2 (0 = lest flexible, 2 = more flexible).</p></td>
 <p>By default, an interactive <code>plotly</code> visualization is returned.</p>
 <p><strong>Scalable with Facets &amp; Dplyr Groups</strong></p>
 <p><code>plot_time_series()</code> returns multiple time series plots using <code>ggplot2</code> facets:</p><ul>
-<li><p><code>group_b()</code> - If groups are detected, multiple facets are returned</p></li>
+<li><p><code>group_by()</code> - If groups are detected, multiple facets are returned</p></li>
 <li><p><code>plot_time_series(.facets)</code> - You can manually supply facets as well.</p></li>
 </ul>
 
@@ -316,13 +321,13 @@ will be applied.</p>
 <span class='co'># Works with individual time series</span>
 <span class='no'>FANG</span> <span class='kw'>%&gt;%</span>
     <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span>(<span class='no'>symbol</span> <span class='kw'>==</span> <span class='st'>"FB"</span>) <span class='kw'>%&gt;%</span>
-    <span class='fu'>plot_time_series</span>(<span class='no'>date</span>, <span class='no'>adjusted</span>,
-                     <span class='kw'>.facet_ncol</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>.interactive</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='plot_time_series-1.png' alt='' width='700' height='433' /></div><div class='input'>
+    <span class='fu'>plot_time_series</span>(<span class='no'>date</span>, <span class='no'>adjusted</span>, <span class='kw'>.interactive</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='plot_time_series-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Works with groups</span>
 <span class='no'>FANG</span> <span class='kw'>%&gt;%</span>
     <span class='fu'>group_by</span>(<span class='no'>symbol</span>) <span class='kw'>%&gt;%</span>
     <span class='fu'>plot_time_series</span>(<span class='no'>date</span>, <span class='no'>adjusted</span>,
-                     <span class='kw'>.facet_ncol</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>.interactive</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='plot_time_series-2.png' alt='' width='700' height='433' /></div><div class='input'>
+                     <span class='kw'>.facet_ncol</span>  <span class='kw'>=</span> <span class='fl'>2</span>,     <span class='co'># 2-column layout</span>
+                     <span class='kw'>.interactive</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='plot_time_series-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Can also group inside</span>
 <span class='no'>FANG</span> <span class='kw'>%&gt;%</span>
     <span class='fu'>mutate</span>(<span class='kw'>year</span> <span class='kw'>=</span> <span class='fu'><a href='http://lubridate.tidyverse.org/reference/year.html'>year</a></span>(<span class='no'>date</span>)) <span class='kw'>%&gt;%</span>

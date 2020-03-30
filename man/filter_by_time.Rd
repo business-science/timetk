@@ -16,8 +16,8 @@ filter_by_time(.data, .date_var, .start_date = "start", .end_date = "end")
 \item{.end_date}{The ending date for the filter sequence}
 }
 \description{
-The easiest way to filter time series date or date-time vectors. See \code{\link[=between_time]{between_time()}}
-for the \code{vectorized} date and date-time implementation.
+The easiest way to filter time-based tibbles using shorthand timeseries notation.
+See \code{\link[=between_time]{between_time()}} for the date and date-time vector implementation.
 }
 \details{
 \strong{Pure Time Series Filtering Flexibilty}
@@ -68,12 +68,12 @@ library(timetk)
 FANG \%>\%
     group_by(symbol) \%>\%
     filter_by_time(date, "start", "2013-02") \%>\%
-    plot_time_series(date, adjusted, .facet_col = 2, .interactive = FALSE)
+    plot_time_series(date, adjusted, .facet_ncol = 2, .interactive = FALSE)
 
 }
 \seealso{
 \itemize{
-\item \code{\link[=between_time]{between_time()}} - A time-based variant of \code{dplyr::between()} that is powers by
+\item \code{\link[=between_time]{between_time()}} - A time-based variant of \code{dplyr::between()} that powers by
 \code{filter_by_time()}
 }
 }
