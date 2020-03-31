@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Visualize the ACF, PACF, and CCFs for One or More Time Series — plot_acf_diagnostics • timetk</title>
+<title>Visualize Multiple Seasonality Features for One or More Time Series — plot_seasonal_diagnostics • timetk</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -42,10 +42,9 @@
 
 
 
-<meta property="og:title" content="Visualize the ACF, PACF, and CCFs for One or More Time Series — plot_acf_diagnostics" />
-<meta property="og:description" content="Returns the ACF and PACF of a target and
-optionally CCF's of one or more lagged predictors in interactive plotly plots. Scales
-to multiple time series with group_by()." />
+<meta property="og:title" content="Visualize Multiple Seasonality Features for One or More Time Series — plot_seasonal_diagnostics" />
+<meta property="og:description" content="An interactive and scalable function for visualizing time series seasonality.
+Plots are available in interactive plotly (default) and static ggplot2 format." />
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -148,34 +147,29 @@ to multiple time series with group_by()." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Visualize the ACF, PACF, and CCFs for One or More Time Series</h1>
-    <small class="dont-index">Source: <a href='https://github.com/business-science/timetk/blob/master/R/plot-acf_diagnostics.R'><code>R/plot-acf_diagnostics.R</code></a></small>
-    <div class="hidden name"><code>plot_acf_diagnostics.Rd</code></div>
+    <h1>Visualize Multiple Seasonality Features for One or More Time Series</h1>
+    <small class="dont-index">Source: <a href='https://github.com/business-science/timetk/blob/master/R/plot-seasonal_diagnostics.R'><code>R/plot-seasonal_diagnostics.R</code></a></small>
+    <div class="hidden name"><code>plot_seasonal_diagnostics.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Returns the <strong>ACF and PACF of a target</strong> and
-optionally <strong>CCF's of one or more lagged predictors</strong> in interactive <code>plotly</code> plots. Scales
-to multiple time series with <code>group_by()</code>.</p>
+    <p>An interactive and scalable function for visualizing time series seasonality.
+Plots are available in interactive <code>plotly</code> (default) and static <code>ggplot2</code> format.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>plot_acf_diagnostics</span>(
+    <pre class="usage"><span class='fu'>plot_seasonal_diagnostics</span>(
   <span class='no'>.data</span>,
+  <span class='no'>.date_var</span>,
   <span class='no'>.value</span>,
   <span class='no'>...</span>,
-  <span class='kw'>.lags</span> <span class='kw'>=</span> <span class='fl'>0</span>:<span class='fl'>20</span>,
-  <span class='kw'>.facet_ncol</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>.facet_scales</span> <span class='kw'>=</span> <span class='st'>"fixed"</span>,
-  <span class='kw'>.line_color</span> <span class='kw'>=</span> <span class='st'>"#2c3e50"</span>,
-  <span class='kw'>.line_size</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
-  <span class='kw'>.point_color</span> <span class='kw'>=</span> <span class='st'>"#2c3e50"</span>,
-  <span class='kw'>.point_size</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>.hline_color</span> <span class='kw'>=</span> <span class='st'>"#2c3e50"</span>,
-  <span class='kw'>.title</span> <span class='kw'>=</span> <span class='st'>"Lag Diagnostics"</span>,
-  <span class='kw'>.x_lab</span> <span class='kw'>=</span> <span class='st'>"Lag"</span>,
-  <span class='kw'>.y_lab</span> <span class='kw'>=</span> <span class='st'>"Correlation"</span>,
-  <span class='kw'>.interactive</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>.plotly_slider</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+  <span class='kw'>.feature_set</span> <span class='kw'>=</span> <span class='st'>"auto"</span>,
+  <span class='kw'>.geom</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"boxplot"</span>, <span class='st'>"violin"</span>),
+  <span class='kw'>.geom_color</span> <span class='kw'>=</span> <span class='st'>"#2c3e50"</span>,
+  <span class='kw'>.geom_outlier_color</span> <span class='kw'>=</span> <span class='st'>"#2c3e50"</span>,
+  <span class='kw'>.title</span> <span class='kw'>=</span> <span class='st'>"Seasonality Diagnostics"</span>,
+  <span class='kw'>.x_lab</span> <span class='kw'>=</span> <span class='st'>""</span>,
+  <span class='kw'>.y_lab</span> <span class='kw'>=</span> <span class='st'>""</span>,
+  <span class='kw'>.interactive</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -183,127 +177,118 @@ to multiple time series with <code>group_by()</code>.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>.data</th>
-      <td><p>A data frame or tibble with numeric features (values) in descending
-chronological order</p></td>
+      <td><p>A <code>tibble</code> or <code>data.frame</code> with a time-based column</p></td>
+    </tr>
+    <tr>
+      <th>.date_var</th>
+      <td><p>A column containing either date or date-time values</p></td>
     </tr>
     <tr>
       <th>.value</th>
-      <td><p>A numeric column with a value to have ACF and PACF calculations
-performed.</p></td>
+      <td><p>A column containing numeric values</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Additional features to perform Lag Cross Correlations (CCFs)
-versus the <code>.value</code>. Useful for evaluating external lagged regressors.</p></td>
+      <td><p>One or more grouping columns that broken out into <code>ggplot2</code> facets.
+These can be selected using <code>tidyselect()</code> helpers (e.g <code>contains()</code>).</p></td>
     </tr>
     <tr>
-      <th>.lags</th>
-      <td><p>A seqence of one or more lags to evaluate.</p></td>
+      <th>.feature_set</th>
+      <td><p>One or multiple selections to analyze for seasonality. Choices include:</p><ul>
+<li><p>"auto" - Automatically selects features based on the time stamps and length of the series.</p></li>
+<li><p>"second" - Good for analyzing seasonality by second of each minute.</p></li>
+<li><p>"minute" - Good for analyzing seasonality by minute of the hour</p></li>
+<li><p>"hour" - Good for analyzing seasonality by hour of the day</p></li>
+<li><p>"wday.lbl" - Labeled weekdays. Good for analyzing seasonality by day of the week.</p></li>
+<li><p>"week" - Good for analyzing seasonality by week of the year.</p></li>
+<li><p>"month.lbl" - Labeled months. Good for analyzing seasonality by month of the year.</p></li>
+<li><p>"quarter" - Good for analyzing seasonality by quarter of the year</p></li>
+<li><p>"year" - Good for analyzing seasonality over multiple years.</p></li>
+</ul></td>
     </tr>
     <tr>
-      <th>.facet_ncol</th>
-      <td><p>Facets: Number of facet columns. Has no effect if using <code>grouped_df</code>.</p></td>
+      <th>.geom</th>
+      <td><p>Either "boxplot" or "violin"</p></td>
     </tr>
     <tr>
-      <th>.facet_scales</th>
-      <td><p>Facets: Options include "fixed", "free", "free_y", "free_x"</p></td>
+      <th>.geom_color</th>
+      <td><p>Geometry color. Line color.
+Use keyword: "scale_color" to change the color by the facet.</p></td>
     </tr>
     <tr>
-      <th>.line_color</th>
-      <td><p>Line color. Use keyword: "scale_color" to change the color by the facet.</p></td>
-    </tr>
-    <tr>
-      <th>.line_size</th>
-      <td><p>Line size</p></td>
-    </tr>
-    <tr>
-      <th>.point_color</th>
-      <td><p>Point color. Use keyword: "scale_color" to change the color by the facet.</p></td>
-    </tr>
-    <tr>
-      <th>.point_size</th>
-      <td><p>Point size</p></td>
-    </tr>
-    <tr>
-      <th>.hline_color</th>
-      <td><p>Color for the y-intercept = 0 line.</p></td>
+      <th>.geom_outlier_color</th>
+      <td><p>Color used to highlight outliers.</p></td>
     </tr>
     <tr>
       <th>.title</th>
-      <td><p>Title for the plot</p></td>
+      <td><p>Plot title.</p></td>
     </tr>
     <tr>
       <th>.x_lab</th>
-      <td><p>X-axis label for the plot</p></td>
+      <td><p>Plot x-axis label</p></td>
     </tr>
     <tr>
       <th>.y_lab</th>
-      <td><p>Y-axis label for the plot</p></td>
+      <td><p>Plot y-axis label</p></td>
     </tr>
     <tr>
       <th>.interactive</th>
-      <td><p>Returns either a static (<code>ggplot2</code>) visualization or an interactive (<code>plotly</code>) visualization</p></td>
-    </tr>
-    <tr>
-      <th>.plotly_slider</th>
-      <td><p>If TRUE, returns a plotly x-axis range slider.</p></td>
+      <td><p>If TRUE, returns a <code>plotly</code> interactive plot.
+If FALSE, returns a static <code>ggplot2</code> plot.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A static <code>ggplot2</code> plot or an interactive <code>plotly</code> plot</p>
+    <p>A <code>plotly</code> or <code>ggplot2</code> visualization</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p><strong>Simplified ACF, PACF, &amp; CCF</strong></p>
-<p>We are often interested in all 3 of these functions. Why not get all 3 at once?
-Now you can.</p><ul>
-<li><p><strong>ACF</strong> - Autocorrelation between a target variable and lagged versions of itself</p></li>
-<li><p><strong>PACF</strong> - Partial Autocorrelation removes the dependence of lags on
-other lags highlighting key seasonalities.</p></li>
-<li><p><strong>CCF</strong> - Shows how lagged predictors can be used for prediction of a target
-variable.</p></li>
+    <p><strong>Automatic Feature Selection</strong></p>
+<p>Internal calculations are performed to detect a sub-range of features to include
+useing the following logic:</p><ul>
+<li><p>The <em>minimum</em> feature is selected based on the median difference between consecutive
+timestamps</p></li>
+<li><p>The <em>maximum</em> feature is selected based on having 2 full periods.</p></li>
 </ul>
 
-<p><strong>Scales to many time series with Grouped Data Frames</strong></p>
-<p>The <code>plot_acf_diagnostics()</code> works with <code>grouped_df</code>'s, meaning you can
-group your time series by one or more categorical columns with <code>group_by()</code>
-and then user <code>plot_acf_diagnostics()</code> to return facetted visualizations.</p>
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'>
-<ul>
-<li><p><code><a href='tk_acf_diagnostics.html'>tk_acf_diagnostics()</a></code>: Function that returns ACF, PACF, &amp; CCF data</p></li>
-<li><p><code><a href='plot_time_series.html'>plot_time_series()</a></code>: A useful interactive plotting function</p></li>
-</ul>
-</div>
+<p>Example: Hourly timestamp data that lasts more than 2 weeks will have the following features:
+"hour", "wday.lbl", and "week".</p>
+<p><strong>Scalable with Grouped Data Frames</strong></p>
+<p>This function respects grouped <code>data.frame</code> and <code>tibbles</code> that were made with <code><a href='https://dplyr.tidyverse.org/reference/group_by.html'>dplyr::group_by()</a></code>.</p>
+<p>For grouped data, the automatic feature selection returned is a collection of all
+features within the sub-groups. This means extra features are returned even though
+they may be meaningless for some of the groups.</p>
+<p><strong>Transformations</strong></p>
+<p>The <code>.value</code> parameter respects transformations (e.g. <code>.value = log(sales)</code>).</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>tidyverse</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>tidyquant</span>)
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>)
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>timetk</span>)
 
+<span class='co'># ---- GROUPED EXAMPLES ----</span>
 
-<span class='co'># Plotly - Interactive Visualization (Good for Exploration)</span>
-<span class='no'>FANG</span> <span class='kw'>%&gt;%</span>
-    <span class='fu'>group_by</span>(<span class='no'>symbol</span>) <span class='kw'>%&gt;%</span>
-    <span class='fu'>plot_acf_diagnostics</span>(
-        <span class='kw'>.value</span>  <span class='kw'>=</span> <span class='no'>adjusted</span>,  <span class='co'># ACF &amp; PACF</span>
-        <span class='no'>volume</span>, <span class='no'>close</span>,       <span class='co'># CCF</span>
-        <span class='kw'>.lags</span>   <span class='kw'>=</span> <span class='fl'>0</span>:<span class='fl'>180</span>
-    )
+<span class='co'># Hourly Data</span>
+<span class='no'>m4_hourly</span> <span class='kw'>%&gt;%</span>
+    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>id</span>) <span class='kw'>%&gt;%</span>
+    <span class='fu'>plot_seasonal_diagnostics</span>(<span class='no'>date</span>, <span class='no'>value</span>, <span class='kw'>.interactive</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='plot_seasonal_diagnostics-1.png' alt='' width='700' height='433' /></div><div class='input'>
 
-<span class='co'># ggplot2 - static visualization (Good for PDF Reports)</span>
-<span class='no'>FANG</span> <span class='kw'>%&gt;%</span>
-    <span class='fu'>group_by</span>(<span class='no'>symbol</span>) <span class='kw'>%&gt;%</span>
-    <span class='fu'>plot_acf_diagnostics</span>(
-        <span class='kw'>.value</span>  <span class='kw'>=</span> <span class='no'>adjusted</span>,  <span class='co'># ACF &amp; PACF</span>
-        <span class='no'>volume</span>, <span class='no'>close</span>,       <span class='co'># CCF</span>
-        <span class='kw'>.lags</span>   <span class='kw'>=</span> <span class='fl'>0</span>:<span class='fl'>180</span>,
-        <span class='kw'>.interactive</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
-    )</div><div class='img'><img src='plot_acf_diagnostics-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># ---- TRANSFORMATION ----</span>
 
-</div></pre>
+<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='no'>m4_hourly</span> <span class='kw'>%&gt;%</span>
+    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>id</span>) <span class='kw'>%&gt;%</span>
+    <span class='fu'>plot_seasonal_diagnostics</span>(<span class='no'>date</span>, <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span>(<span class='no'>value</span>),
+                              <span class='kw'>.geom</span> <span class='kw'>=</span> <span class='st'>"violin"</span>,
+                              <span class='kw'>.interactive</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+}
+
+<span class='co'># ---- CUSTOM FEATURE SELECTION ----</span>
+
+<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='no'>m4_hourly</span> <span class='kw'>%&gt;%</span>
+    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>id</span>) <span class='kw'>%&gt;%</span>
+    <span class='fu'>plot_seasonal_diagnostics</span>(<span class='no'>date</span>, <span class='no'>value</span>, <span class='kw'>.feature_set</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"hour"</span>, <span class='st'>"week"</span>))
+}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -311,7 +296,6 @@ and then user <code>plot_acf_diagnostics()</code> to return facetted visualizati
       <li><a href="#arguments">Arguments</a></li>
       <li><a href="#value">Value</a></li>
       <li><a href="#details">Details</a></li>
-      <li><a href="#see-also">See also</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 

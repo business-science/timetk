@@ -168,6 +168,7 @@ consolidates 20+ lines of <code>ggplot2</code> code, and scales well to many tim
   <span class='kw'>.facet_collapse_sep</span> <span class='kw'>=</span> <span class='st'>" "</span>,
   <span class='kw'>.line_color</span> <span class='kw'>=</span> <span class='st'>"#2c3e50"</span>,
   <span class='kw'>.line_size</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
+  <span class='kw'>.line_alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>.y_intercept</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>.y_intercept_color</span> <span class='kw'>=</span> <span class='st'>"#2c3e50"</span>,
   <span class='kw'>.smooth</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
@@ -188,7 +189,7 @@ consolidates 20+ lines of <code>ggplot2</code> code, and scales well to many tim
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>.data</th>
-      <td><p>A <code>tibble</code> or <code>data.frame</code></p></td>
+      <td><p>A <code>tibble</code> or <code>data.frame</code> with a time-based column</p></td>
     </tr>
     <tr>
       <th>.date_var</th>
@@ -227,6 +228,10 @@ multiple facet strips.</p></td>
     <tr>
       <th>.line_size</th>
       <td><p>Line size</p></td>
+    </tr>
+    <tr>
+      <th>.line_alpha</th>
+      <td><p>Line alpha (opacity)</p></td>
     </tr>
     <tr>
       <th>.y_intercept</th>

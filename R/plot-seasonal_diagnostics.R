@@ -1,4 +1,4 @@
-#' Visualize Multiple Seasonality Attributes for One or Multiple Time Series
+#' Visualize Multiple Seasonality Features for One or More Time Series
 #'
 #' An interactive and scalable function for visualizing time series seasonality.
 #' Plots are available in interactive `plotly` (default) and static `ggplot2` format.

@@ -1,4 +1,4 @@
-#' Plot the ACF, PACF, and CCF in one visualization
+#' Visualize the ACF, PACF, and CCFs for One or More Time Series
 #'
 #' Returns the __ACF and PACF of a target__ and
 #' optionally __CCF's of one or more lagged predictors__ in interactive `plotly` plots. Scales

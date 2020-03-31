@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot-seasonal_diagnostics.R
 \name{plot_seasonal_diagnostics}
 \alias{plot_seasonal_diagnostics}
-\title{Visualize Multiple Seasonality Attributes for One or Multiple Time Series}
+\title{Visualize Multiple Seasonality Features for One or More Time Series}
 \usage{
 plot_seasonal_diagnostics(
   .data,

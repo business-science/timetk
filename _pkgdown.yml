@@ -61,9 +61,10 @@ reference:
     contents:
     - contains("augment")
   - title: Diagnostic Operations
-    desc: __Investigate time series relationships__
+    desc: __These power the time series plotting functions__
     contents:
     - "tk_acf_diagnostics"
+    - "tk_seasonal_diagnostics"
   - title: Vector Operations
     desc: __Apply vectorized operations to time series data__
     contents:

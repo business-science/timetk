@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot-acf_diagnostics.R
 \name{plot_acf_diagnostics}
 \alias{plot_acf_diagnostics}
-\title{Plot the ACF, PACF, and CCF in one visualization}
+\title{Visualize the ACF, PACF, and CCFs for One or More Time Series}
 \usage{
 plot_acf_diagnostics(
   .data,
