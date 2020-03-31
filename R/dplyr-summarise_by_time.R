@@ -1,8 +1,8 @@
 #' Summarise each group by time
 #'
 #' @description
-#' `summarise_by_time()` is a time-series variant of the popular `dplyr::summarise()` function.
-#' This time-series variant uses `.date_var` to specify a date or date-time column and `.by` to group the
+#' `summarise_by_time()` is a time-based variant of the popular `dplyr::summarise()` function.
+#' This time-based variant uses `.date_var` to specify a date or date-time column and `.by` to group the
 #' calculation.
 #'
 #' `summarise_by_time()` and `summarize_by_time()` are synonyms.

@@ -214,8 +214,12 @@
 <ul>
 <li>(DONE) <code><a href="https://rdrr.io/pkg/tidyquant/man/summarise_by_time.html">tidyquant::summarise_by_time</a></code>
 </li>
-<li><code>tibbletime::filter_by_time</code></li>
-<li><code><a href="https://rdrr.io/pkg/tibbletime/man/as_period.html">tibbletime::as_period</a></code></li>
+<li>(DONE) <code>tibbletime::filter_by_time</code>
+</li>
+<li>(DONE) <code><a href="../reference/between_time.html">between_time()</a></code>
+</li>
+<li>
+<code><a href="https://rdrr.io/pkg/tibbletime/man/as_period.html">tibbletime::as_period</a></code> - Can use <code><a href="../reference/summarise_by_time.html">summarise_by_time()</a></code> for this.</li>
 </ul>
 </li>
 <li>Date Sequence &amp; Holiday Transition
@@ -238,8 +242,9 @@
 </li>
 <li>Diagnostics
 <ul>
-<li>Missing values - Weekends, Holidays - Correlation Funnel???</li>
-<li>Tidy acf, pacf, ccf</li>
+<li>Missing Value Diagnostics - Weekends, Holidays - Correlation Funnel???</li>
+<li>(DONE) ACF Diagnostics - <code>tk_acf_diagnostics</code> - Tidy acf, pacf, ccf</li>
+<li>Seasonality Diagnostics - Review FB Prophet Plot Components</li>
 <li>Tidy dft</li>
 </ul>
 </li>
@@ -248,14 +253,18 @@
 <p><strong>New Interactive Plotting Functions</strong>:</p>
 <ul>
 <li>
-<code><a href="../reference/plot_time_series.html">plot_time_series()</a></code> - A workhorse time-series plotting function that generates interactive <code>plotly</code> plots, consolidates 20+ lines of <code>ggplot2</code> code, and scales well to many time series.</li>
+<code><a href="../reference/plot_time_series.html">plot_time_series()</a></code> - <strong>A workhorse time-series plotting function</strong> that generates interactive <code>plotly</code> plots, consolidates 20+ lines of <code>ggplot2</code> code, and scales well to many time series using dplyr groups.</li>
 <li>
-<code><a href="../reference/plot_acf_diagnostics.html">plot_acf_diagnostics()</a></code> -</li>
+<code><a href="../reference/plot_acf_diagnostics.html">plot_acf_diagnostics()</a></code> - Plot the ACF, PACF, and any number of CCFs in one plot. Scalable to multiple time series. Interactive <code>plotly</code> by default.</li>
 </ul>
 <p><strong>New Time Series Data Wrangling</strong>:</p>
 <ul>
 <li>
-<code><a href="../reference/between_time.html">between_time()</a></code> - A time-based variant of <code><a href="https://dplyr.tidyverse.org/reference/between.html">dplyr::between()</a></code> for flexible time-series filtering.</li>
+<code><a href="../reference/summarise_by_time.html">summarise_by_time()</a></code> - A time-based variant of <code><a href="https://dplyr.tidyverse.org/reference/summarise.html">dplyr::summarise()</a></code> for flexible summarization using common time-based criteria.</li>
+<li>
+<code><a href="../reference/filter_by_time.html">filter_by_time()</a></code> - A time-based variant of <code><a href="https://dplyr.tidyverse.org/reference/filter.html">dplyr::filter()</a></code> for flexible filtering by time-ranges.</li>
+<li>
+<code><a href="../reference/between_time.html">between_time()</a></code> - A time-based variant of <code><a href="https://dplyr.tidyverse.org/reference/between.html">dplyr::between()</a></code> for flexible time-range detection.</li>
 </ul>
 <p><strong>New Recipe Functions:</strong></p>
 <ul>
@@ -277,13 +286,12 @@
 <p>Make date and date-time sequences between start and end dates.</p>
 <ul>
 <li>
-<code><a href="../reference/tk_make_date_sequence.html">tk_make_date_sequence()</a></code> - Super flexible - Makes both daily and sub-daily time series.</li>
+<code><a href="../reference/tk_make_date_sequence.html">tk_make_date_sequence()</a></code> - Super flexible function for creating daily and sub-daily time series.</li>
 <li>
 <code><a href="../reference/tk_make_date_sequence.html">tk_make_weekday_sequence()</a></code> - Weekday sequence that accounts for both <strong>stripping weekends and holidays</strong>
 </li>
 <li>
-<code><a href="../reference/tk_make_date_sequence.html">tk_make_holiday_sequence()</a></code> - Makes a sequence of dates corresponding to holidays in calendars from <code>timeDate</code>
-</li>
+<code><a href="../reference/tk_make_date_sequence.html">tk_make_holiday_sequence()</a></code> - Makes a sequence of dates corresponding to business holidays in calendars from <code>timeDate</code> (common non-working days)</li>
 <li>
 <code><a href="../reference/tk_make_date_sequence.html">tk_make_weekend_sequence()</a></code> - Weekday sequence of dates for Saturday and Sunday (common non-working days)</li>
 </ul>
@@ -307,6 +315,15 @@
 </li>
 <li>
 <code><a href="../reference/smooth_vec.html">smooth_vec()</a></code> - Vectorized smoothing function - Applies Local Polynomial Regression (LOESS)</li>
+</ul>
+<p><strong>New Datasets</strong></p>
+<ul>
+<li>
+<strong>M4 Competition</strong> - Sample “economic” datasets from hourly, daily, weekly, monthly, quarterly, and yearly.</li>
+<li>
+<strong>Kaggle Walmart Recruiting Retail Sales Forecasting Competition</strong> - Sample of 7 retail time series</li>
+<li>
+<strong>Kaggle Web Traffic Forecasting (Wikipedia) Competition</strong> - Sample of 10 website time series</li>
 </ul>
 <p><strong>Bug Fixes:</strong></p>
 <ul>

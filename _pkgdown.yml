@@ -89,6 +89,15 @@ reference:
     - "tk_zoo_"
     - "tk_zooreg"
     - "tk_zooreg_"
+  - title: Time Series Datasets
+    desc: __Time series from various forecasting competitions. Domains include economic, retail, and web (google analytics)__
+    contents:
+    - "m4_hourly"
+    - "m4_daily"
+    - "m4_weekly"
+    - contains("m4_")
+    - contains("walmart")
+    - contains("wikipedia")
 
 
 

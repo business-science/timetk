@@ -73,8 +73,8 @@ fundamentally creates a new data frame.
 }
 }
 \description{
-\code{summarise_by_time()} is a time-series variant of the popular \code{dplyr::summarise()} function.
-This time-series variant uses \code{.date_var} to specify a date or date-time column and \code{.by} to group the
+\code{summarise_by_time()} is a time-based variant of the popular \code{dplyr::summarise()} function.
+This time-based variant uses \code{.date_var} to specify a date or date-time column and \code{.by} to group the
 calculation.
 
 \code{summarise_by_time()} and \code{summarize_by_time()} are synonyms.

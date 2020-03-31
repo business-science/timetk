@@ -32,8 +32,9 @@ __TODO:__
     - `step_box_cox`
 - Dplyr Transition 
     - (DONE) `tidyquant::summarise_by_time`
-    - `tibbletime::filter_by_time`
-    - `tibbletime::as_period`
+    - (DONE) `tibbletime::filter_by_time`
+    - (DONE) `between_time()`
+    - `tibbletime::as_period` - Can use `summarise_by_time()` for this. 
 - Date Sequence & Holiday Transition 
     - (DONE) `tk_make_holiday_sequence()`
     - (DONE) `tk_get_holiday_signature()`, `tk_augment_holiday_signature()`
@@ -43,19 +44,22 @@ __TODO:__
     - `tk_augment_lags()`
     - `tk_augment_smooth()`
 - Diagnostics
-    - Missing values - Weekends, Holidays - Correlation Funnel???
-    - Tidy acf, pacf, ccf
+    - Missing Value Diagnostics - Weekends, Holidays - Correlation Funnel???
+    - (DONE) ACF Diagnostics - `tk_acf_diagnostics` - Tidy acf, pacf, ccf
+    - Seasonality Diagnostics - Review FB Prophet Plot Components
     - Tidy dft
 - Tests (Boooo)
 
 __New Interactive Plotting Functions__:
 
-* `plot_time_series()` - A workhorse time-series plotting function that generates interactive `plotly` plots, consolidates 20+ lines of `ggplot2` code, and scales well to many time series. 
-* `plot_acf_diagnostics()` - 
+* `plot_time_series()` - __A workhorse time-series plotting function__ that generates interactive `plotly` plots, consolidates 20+ lines of `ggplot2` code, and scales well to many time series using dplyr groups. 
+* `plot_acf_diagnostics()` - Plot the ACF, PACF, and any number of CCFs in one plot. Scalable to multiple time series. Interactive `plotly` by default. 
 
 __New Time Series Data Wrangling__:
 
-* `between_time()` - A time-based variant of `dplyr::between()` for flexible time-series filtering. 
+* `summarise_by_time()` - A time-based variant of `dplyr::summarise()` for flexible summarization using common time-based criteria. 
+* `filter_by_time()` - A time-based variant of `dplyr::filter()` for flexible filtering by time-ranges. 
+* `between_time()` - A time-based variant of `dplyr::between()` for flexible time-range detection. 
 
 __New Recipe Functions:__
 
@@ -72,9 +76,9 @@ __New Make Functions__:
 
 Make date and date-time sequences between start and end dates.
 
-* `tk_make_date_sequence()` -  Super flexible - Makes both daily and sub-daily time series. 
+* `tk_make_date_sequence()` -  Super flexible function for creating daily and sub-daily time series. 
 * `tk_make_weekday_sequence()` - Weekday sequence that accounts for both __stripping weekends and holidays__
-* `tk_make_holiday_sequence()` - Makes a sequence of dates corresponding to holidays in calendars from `timeDate`
+* `tk_make_holiday_sequence()` - Makes a sequence of dates corresponding to business holidays in calendars from `timeDate` (common non-working days)
 * `tk_make_weekend_sequence()` - Weekday sequence of dates for Saturday and Sunday (common non-working days)
 
 __New Get Functions__:
@@ -93,6 +97,11 @@ These functions are useful on their own inside of `mutate()` and power many of t
 * `roll_apply_vec()` - Vectorized rolling apply function - wraps `slider::slide_vec()`
 * `smooth_vec()` - Vectorized smoothing function - Applies Local Polynomial Regression (LOESS)
 
+__New Datasets__
+
+- __M4 Competition__ - Sample "economic" datasets from hourly, daily, weekly, monthly, quarterly, and yearly.
+- __Kaggle Walmart Recruiting Retail Sales Forecasting Competition__ - Sample of 7 retail time series
+- __Kaggle Web Traffic Forecasting (Wikipedia) Competition__ - Sample of 10 website time series
  
 __Bug Fixes:__
 

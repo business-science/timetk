@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Flexible time-series filtering for tibbles with date or date-time columns — filter_by_time • timetk</title>
+<title>Sample of 4 Hourly Time Series Datasets from the M4 Competition — m4_hourly • timetk</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -42,9 +42,11 @@
 
 
 
-<meta property="og:title" content="Flexible time-series filtering for tibbles with date or date-time columns — filter_by_time" />
-<meta property="og:description" content="The easiest way to filter time-based tibbles using shorthand timeseries notation.
-See between_time() for the date and date-time vector implementation." />
+<meta property="og:title" content="Sample of 4 Hourly Time Series Datasets from the M4 Competition — m4_hourly" />
+<meta property="og:description" content="The fourth M Competition.
+M4, started on 1 January 2018 and ended in 31 May 2018.
+The competition included 100,000 time series datasets.
+This dataset includes a sample of 4 hourly time series from the competition." />
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -147,99 +149,63 @@ See between_time() for the date and date-time vector implementation." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Flexible time-series filtering for tibbles with date or date-time columns</h1>
-    <small class="dont-index">Source: <a href='https://github.com/business-science/timetk/blob/master/R/dplyr-filter_by_time.R'><code>R/dplyr-filter_by_time.R</code></a></small>
-    <div class="hidden name"><code>filter_by_time.Rd</code></div>
+    <h1>Sample of 4 Hourly Time Series Datasets from the M4 Competition</h1>
+    <small class="dont-index">Source: <a href='https://github.com/business-science/timetk/blob/master/R/data-m4_hourly.R'><code>R/data-m4_hourly.R</code></a></small>
+    <div class="hidden name"><code>m4_hourly.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>The easiest way to filter time-based tibbles using shorthand timeseries notation.
-See <code><a href='between_time.html'>between_time()</a></code> for the date and date-time vector implementation.</p>
+    <p>The fourth M Competition.
+M4, started on 1 January 2018 and ended in 31 May 2018.
+The competition included 100,000 time series datasets.
+This dataset includes <strong>a sample of 4 hourly time series from the competition.</strong></p>
     </div>
 
-    <pre class="usage"><span class='fu'>filter_by_time</span>(<span class='no'>.data</span>, <span class='no'>.date_var</span>, <span class='kw'>.start_date</span> <span class='kw'>=</span> <span class='st'>"start"</span>, <span class='kw'>.end_date</span> <span class='kw'>=</span> <span class='st'>"end"</span>)</pre>
+    <pre class="usage"><span class='no'>m4_hourly</span></pre>
 
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>.data</th>
-      <td><p>A tibble with a time-based column.</p></td>
-    </tr>
-    <tr>
-      <th>.date_var</th>
-      <td><p>A column containing date or date-time values to filter</p></td>
-    </tr>
-    <tr>
-      <th>.start_date</th>
-      <td><p>The starting date for the filter sequence</p></td>
-    </tr>
-    <tr>
-      <th>.end_date</th>
-      <td><p>The ending date for the filter sequence</p></td>
-    </tr>
-    </table>
+
+    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
+
+    <p>A tibble: 3,060 x 3</p><ul>
+<li><p><code>id</code> Factor. Unique series identifier (4 total)</p></li>
+<li><p><code>date</code> Date-time. Timestamp information. Hourly format.</p></li>
+<li><p><code>value</code> Numeric. Value at the corresponding timestamp.</p></li>
+</ul>
+
+    <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
+
+    
+<ul>
+<li><p><a href='https://mofc.unic.ac.cy/m4/'>M4 Competition Website</a></p></li>
+</ul>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p><strong>Pure Time Series Filtering Flexibilty</strong></p>
-<p>The <code>.start_date</code>  and <code>.end_date</code> parameters are designed with flexibility in mind.</p>
-<p>Each side of the <code>time_formula</code> is specified as the character
-<code>'YYYY-MM-DD HH:MM:SS'</code>, but powerful shorthand is available.
-Some examples are:</p><ul>
-<li><p><strong>Year:</strong> <code>.start_date = '2013', .end_date = '2015'</code></p></li>
-<li><p><strong>Month:</strong> <code>.start_date = '2013-01', .end_date = '2016-06'</code></p></li>
-<li><p><strong>Day:</strong> <code>.start_date = '2013-01-05', .end_date = '2016-06-04'</code></p></li>
-<li><p><strong>Second:</strong> <code>.start_date = '2013-01-05 10:22:15', .end_date = '2018-06-03 12:14:22'</code></p></li>
-<li><p><strong>Variations:</strong> <code>.start_date = '2013', .end_date = '2016-06'</code></p></li>
-</ul>
-
-<p><strong>Key Words: "start" and "end"</strong></p>
-<p>Use the keywords "start" and "end" as shorthand, instead of specifying the
-actual start and end values. Here are some examples:</p><ul>
-<li><p><strong>Start of the series to end of 2015:</strong> <code>.start_date = 'start', .end_date = '2015'</code></p></li>
-<li><p><strong>Start of 2014 to end of series:</strong> <code>.start_date = '2014', .end_date = 'end'</code></p></li>
-</ul>
-
-<p><strong>Internal Calculations</strong></p>
-<p>All shorthand dates are expanded:</p><ul>
-<li><p>The <code>.start_date</code> is expanded to be the <em>first date</em> in that period</p></li>
-<li><p>The <code>.end_date</code> side is expanded to be the <em>last date</em> in that period</p></li>
-</ul>
-
-<p>This means that the following examples are equivalent (assuming your
-index is a POSIXct):</p><ul>
-<li><p><code>.start_date = '2015'</code> is equivalent to <code>.start_date = '2015-01-01 + 00:00:00' </code></p></li>
-<li><p><code>.end_date = '2016'</code> is equivalent to <code>2016-12-31 + 23:59:59'</code></p></li>
-</ul>
-
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'>
-<ul>
-<li><p><code><a href='between_time.html'>between_time()</a></code> - A time-based variant of <code><a href='https://dplyr.tidyverse.org/reference/between.html'>dplyr::between()</a></code> that powers by
-<code>filter_by_time()</code></p></li>
-</ul>
-</div>
+    <p>This is a sample of 4 hourly data sets from the M4 competition.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>tidyverse</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>tidyquant</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>timetk</span>)
-
-<span class='co'># Filter values in January 1st through end of February, 2013</span>
-<span class='no'>FANG</span> <span class='kw'>%&gt;%</span>
-    <span class='fu'>group_by</span>(<span class='no'>symbol</span>) <span class='kw'>%&gt;%</span>
-    <span class='fu'>filter_by_time</span>(<span class='no'>date</span>, <span class='st'>"start"</span>, <span class='st'>"2013-02"</span>) <span class='kw'>%&gt;%</span>
-    <span class='fu'><a href='plot_time_series.html'>plot_time_series</a></span>(<span class='no'>date</span>, <span class='no'>adjusted</span>, <span class='kw'>.facet_ncol</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>.interactive</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='filter_by_time-1.png' alt='' width='700' height='433' /></div><div class='input'>
-</div></pre>
+    <pre class="examples"><div class='input'><span class='no'>m4_hourly</span></div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 3,060 x 3</span><span>
+#&gt;    id    date                value
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dttm&gt;</span><span>              </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> H10   2015-07-01 </span><span style='color: #555555;'>12:00:00</span><span>   513
+#&gt; </span><span style='color: #555555;'> 2</span><span> H10   2015-07-01 </span><span style='color: #555555;'>13:00:00</span><span>   512
+#&gt; </span><span style='color: #555555;'> 3</span><span> H10   2015-07-01 </span><span style='color: #555555;'>14:00:00</span><span>   506
+#&gt; </span><span style='color: #555555;'> 4</span><span> H10   2015-07-01 </span><span style='color: #555555;'>15:00:00</span><span>   500
+#&gt; </span><span style='color: #555555;'> 5</span><span> H10   2015-07-01 </span><span style='color: #555555;'>16:00:00</span><span>   490
+#&gt; </span><span style='color: #555555;'> 6</span><span> H10   2015-07-01 </span><span style='color: #555555;'>17:00:00</span><span>   484
+#&gt; </span><span style='color: #555555;'> 7</span><span> H10   2015-07-01 </span><span style='color: #555555;'>18:00:00</span><span>   467
+#&gt; </span><span style='color: #555555;'> 8</span><span> H10   2015-07-01 </span><span style='color: #555555;'>19:00:00</span><span>   446
+#&gt; </span><span style='color: #555555;'> 9</span><span> H10   2015-07-01 </span><span style='color: #555555;'>20:00:00</span><span>   434
+#&gt; </span><span style='color: #555555;'>10</span><span> H10   2015-07-01 </span><span style='color: #555555;'>21:00:00</span><span>   422
+#&gt; </span><span style='color: #555555;'># … with 3,050 more rows</span><span></div><div class='input'>
+</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#format">Format</a></li>
+      <li><a href="#source">Source</a></li>
       <li><a href="#details">Details</a></li>
-      <li><a href="#see-also">See also</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 
