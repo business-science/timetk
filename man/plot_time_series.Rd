@@ -15,6 +15,7 @@ plot_time_series(
   .facet_collapse_sep = " ",
   .line_color = "#2c3e50",
   .line_size = 0.5,
+  .line_alpha = 1,
   .y_intercept = NULL,
   .y_intercept_color = "#2c3e50",
   .smooth = TRUE,
@@ -31,7 +32,7 @@ plot_time_series(
 )
 }
 \arguments{
-\item{.data}{A \code{tibble} or \code{data.frame}}
+\item{.data}{A \code{tibble} or \code{data.frame} with a time-based column}
 
 \item{.date_var}{A column containing either date or date-time values}
 
@@ -52,6 +53,8 @@ multiple facet strips.}
 \item{.line_color}{Line color. Use keyword: "scale_color" to change the color by the facet.}
 
 \item{.line_size}{Line size}
+
+\item{.line_alpha}{Line alpha (opacity)}
 
 \item{.y_intercept}{Value for a y-intercept on the plot}
 

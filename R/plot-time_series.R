@@ -4,7 +4,7 @@
 #' consolidates 20+ lines of `ggplot2` code, and scales well to many time series.
 #'
 #'
-#' @param .data A `tibble` or `data.frame`
+#' @param .data A `tibble` or `data.frame` with a time-based column
 #' @param .date_var A column containing either date or date-time values
 #' @param .value A column containing numeric values
 #' @param ... One or more grouping columns that broken out into `ggplot2` facets.
@@ -16,6 +16,7 @@
 #' @param .facet_collapse_sep The separator used for collapsing facets.
 #' @param .line_color Line color. Use keyword: "scale_color" to change the color by the facet.
 #' @param .line_size Line size
+#' @param .line_alpha Line alpha (opacity)
 #' @param .y_intercept Value for a y-intercept on the plot
 #' @param .y_intercept_color Color for the y-intercept
 #' @param .smooth Logical - Whether or not to include a trendline smoother.
@@ -120,6 +121,7 @@ plot_time_series <- function(.data, .date_var, .value, ...,
                              .facet_ncol = 1, .facet_scales = "free_y",
                              .facet_collapse = TRUE, .facet_collapse_sep = " ",
                              .line_color = "#2c3e50", .line_size = 0.5,
+                             .line_alpha = 1,
                              .y_intercept = NULL, .y_intercept_color = "#2c3e50",
                              .smooth = TRUE, .smooth_period = NULL,
                              .smooth_span = 0.75, .smooth_degree = 2,
@@ -150,6 +152,7 @@ plot_time_series.data.frame <- function(.data, .date_var, .value, ...,
                              .facet_ncol = 1, .facet_scales = "free_y",
                              .facet_collapse = TRUE, .facet_collapse_sep = " ",
                              .line_color = "#2c3e50", .line_size = 0.5,
+                             .line_alpha = 1,
                              .y_intercept = NULL, .y_intercept_color = "#2c3e50",
                              .smooth = TRUE, .smooth_period = NULL,
                              .smooth_span = 0.75, .smooth_degree = 2,
@@ -228,7 +231,10 @@ plot_time_series.data.frame <- function(.data, .date_var, .value, ...,
                 size = .line_size) +
             scale_color_tq()
     } else {
-        if (.line_color == "scale_color") message("plot_time_series(.line_color = 'scale_color'): Cannot scale color without a faceting column.")
+        if (.line_color == "scale_color") {
+            message("plot_time_series(.line_color = 'scale_color'): Cannot scale color without a faceting column.")
+            .line_color <- "#2c3e50"
+        }
         g <- g +
             ggplot2::geom_line(color = .line_color, size = .line_size)
     }
@@ -282,6 +288,7 @@ plot_time_series.grouped_df <- function(.data, .date_var, .value, ...,
                                         .facet_ncol = 1, .facet_scales = "free_y",
                                         .facet_collapse = TRUE, .facet_collapse_sep = " ",
                                         .line_color = "#2c3e50", .line_size = 0.5,
+                                        .line_alpha = 1,
                                         .y_intercept = NULL, .y_intercept_color = "#2c3e50",
                                         .smooth = TRUE, .smooth_period = NULL,
                                         .smooth_span = 0.75, .smooth_degree = 2,
@@ -301,14 +308,8 @@ plot_time_series.grouped_df <- function(.data, .date_var, .value, ...,
 
     # ---- DATA SETUP ----
 
-    # Collapse Groups
-    data_formatted <- .data %>%
-        dplyr::ungroup()
-    # data_formatted <- .data %>%
-    #     dplyr::ungroup() %>%
-    #     dplyr::mutate(groups_collapsed = stringr::str_c(!!! rlang::syms(group_names), sep = "_")) %>%
-    #     dplyr::mutate(groups_collapsed = forcats::as_factor(groups_collapsed)) %>%
-    #     dplyr::select(-(!!! rlang::syms(group_names)))
+    # Ungroup Data
+    data_formatted <- .data %>% dplyr::ungroup()
 
     # ---- PLOT SETUP ----
 
@@ -326,6 +327,7 @@ plot_time_series.grouped_df <- function(.data, .date_var, .value, ...,
         .facet_collapse_sep = .facet_collapse_sep,
         .line_color         = .line_color,
         .line_size          = .line_size,
+        .line_alpha         = .line_alpha,
         .y_intercept        = .y_intercept,
         .y_intercept_color  = .y_intercept_color,
         .smooth             = .smooth,

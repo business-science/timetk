@@ -94,9 +94,7 @@ plot_acf_diagnostics <- function(.data, .value, ..., .lags = 0:20,
     if (!is.data.frame(.data)) {
         stop(call. = FALSE, "plot_diagnostics(.data) is not a data-frame or tibble. Please supply a data.frame or tibble.")
     }
-    # if (is_grouped_df(.data)) {
-    #     stop(call. = FALSE, "plot_diagnostics(.data) does not currently support grouped data frames.")
-    # }
+
     UseMethod("plot_acf_diagnostics", .data)
 }
 
@@ -184,7 +182,7 @@ plot_acf_diagnostics.grouped_df <- function(.data, .value, ..., .lags = 0:20,
                                             .line_color = "#2c3e50", .line_size = 0.5,
                                             .point_color = "#2c3e50", .point_size = 1,
                                             .hline_color = "#2c3e50",
-                                            .title = "Lag Diagnostics",
+                                            .title = "ACF Diagnostics",
                                             .x_lab = "Lag", .y_lab = "Correlation",
                                             .interactive = TRUE, .plotly_slider = FALSE) {
 
