@@ -1,5 +1,93 @@
-
-
+#' Visualize Multiple Seasonality Attributes for One or Multiple Time Series
+#'
+#' An interactive and scalable function for visualizing time series seasonality.
+#' Plots are available in interactive `plotly` (default) and static `ggplot2` format.
+#'
+#' @param .data A `tibble` or `data.frame` with a time-based column
+#' @param .date_var A column containing either date or date-time values
+#' @param .value A column containing numeric values
+#' @param ... One or more grouping columns that broken out into `ggplot2` facets.
+#'  These can be selected using `tidyselect()` helpers (e.g `contains()`).
+#' @param .feature_set One or multiple selections to analyze for seasonality. Choices include:
+#'  - "auto" - Automatically selects features based on the time stamps and length of the series.
+#'  - "second" - Good for analyzing seasonality by second of each minute.
+#'  - "minute" - Good for analyzing seasonality by minute of the hour
+#'  - "hour" - Good for analyzing seasonality by hour of the day
+#'  - "wday.lbl" - Labeled weekdays. Good for analyzing seasonality by day of the week.
+#'  - "week" - Good for analyzing seasonality by week of the year.
+#'  - "month.lbl" - Labeled months. Good for analyzing seasonality by month of the year.
+#'  - "quarter" - Good for analyzing seasonality by quarter of the year
+#'  - "year" - Good for analyzing seasonality over multiple years.
+#' @param .geom Either "boxplot" or "violin"
+#' @param .geom_color Geometry color. Line color.
+#'  Use keyword: "scale_color" to change the color by the facet.
+#' @param .geom_outlier_color Color used to highlight outliers.
+#' @param .title Plot title.
+#' @param .x_lab Plot x-axis label
+#' @param .y_lab Plot y-axis label
+#' @param .interactive If TRUE, returns a `plotly` interactive plot.
+#'  If FALSE, returns a static `ggplot2` plot.
+#'
+#'
+#' @return A `plotly` or `ggplot2` visualization
+#'
+#' @details
+#'
+#' __Automatic Feature Selection__
+#'
+#' Internal calculations are performed to detect a sub-range of features to include
+#' useing the following logic:
+#'
+#' - The _minimum_ feature is selected based on the median difference between consecutive
+#' timestamps
+#' - The _maximum_ feature is selected based on having 2 full periods.
+#'
+#' Example: Hourly timestamp data that lasts more than 2 weeks will have the following features:
+#' "hour", "wday.lbl", and "week".
+#'
+#' __Scalable with Grouped Data Frames__
+#'
+#' This function respects grouped `data.frame` and `tibbles` that were made with `dplyr::group_by()`.
+#'
+#' For grouped data, the automatic feature selection returned is a collection of all
+#' features within the sub-groups. This means extra features are returned even though
+#' they may be meaningless for some of the groups.
+#'
+#' __Transformations__
+#'
+#' The `.value` parameter respects transformations (e.g. `.value = log(sales)`).
+#'
+#' @examples
+#' library(dplyr)
+#' library(timetk)
+#'
+#' # ---- GROUPED EXAMPLES ----
+#'
+#' # Hourly Data
+#' m4_hourly %>%
+#'     group_by(id) %>%
+#'     plot_seasonal_diagnostics(date, value, .interactive = FALSE)
+#'
+#'
+#' # ---- TRANSFORMATION ----
+#'
+#' \dontrun{
+#' m4_hourly %>%
+#'     group_by(id) %>%
+#'     plot_seasonal_diagnostics(date, log(value),
+#'                               .geom = "violin",
+#'                               .interactive = FALSE)
+#' }
+#'
+#' # ---- CUSTOM FEATURE SELECTION ----
+#'
+#' \dontrun{
+#' m4_hourly %>%
+#'     group_by(id) %>%
+#'     plot_seasonal_diagnostics(date, value, .feature_set = c("hour", "week"))
+#' }
+#'
+#' @name plot_seasonal_diagnostics
 #' @export
 plot_seasonal_diagnostics <- function(.data, .date_var, .value, ...,
                                       .feature_set = "auto",

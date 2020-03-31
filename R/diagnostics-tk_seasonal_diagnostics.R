@@ -7,7 +7,7 @@
 #' @param .date_var A column containing either date or date-time values
 #' @param .value A column containing numeric values
 #' @param .feature_set One or multiple selections to analyze for seasonality. Choices include:
-#'  - "auto" - Picks a set of features based on the time stamps and length of the series.
+#'  - "auto" - Automatically selects features based on the time stamps and length of the series.
 #'  - "second" - Good for analyzing seasonality by second of each minute.
 #'  - "minute" - Good for analyzing seasonality by minute of the hour
 #'  - "hour" - Good for analyzing seasonality by hour of the day
