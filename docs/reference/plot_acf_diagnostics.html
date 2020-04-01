@@ -109,6 +109,8 @@ to multiple time series with group_by()." />
       <a href="../articles/TK03_Forecasting_Using_Time_Series_Signature.html">Time Series Machine Learning</a>
     </li>
     <li class="divider"></li>
+    <li class="dropdown-header">Plotting</li>
+    <li class="divider"></li>
     <li class="dropdown-header">Time Series Helpers</li>
     <li>
       <a href="../articles/TK00_Time_Series_Coercion.html">Time series conversion</a>
@@ -161,6 +163,7 @@ to multiple time series with <code>group_by()</code>.</p>
 
     <pre class="usage"><span class='fu'>plot_acf_diagnostics</span>(
   <span class='no'>.data</span>,
+  <span class='no'>.date_var</span>,
   <span class='no'>.value</span>,
   <span class='no'>...</span>,
   <span class='kw'>.lags</span> <span class='kw'>=</span> <span class='fl'>0</span>:<span class='fl'>20</span>,
@@ -168,8 +171,10 @@ to multiple time series with <code>group_by()</code>.</p>
   <span class='kw'>.facet_scales</span> <span class='kw'>=</span> <span class='st'>"fixed"</span>,
   <span class='kw'>.line_color</span> <span class='kw'>=</span> <span class='st'>"#2c3e50"</span>,
   <span class='kw'>.line_size</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
+  <span class='kw'>.line_alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>.point_color</span> <span class='kw'>=</span> <span class='st'>"#2c3e50"</span>,
   <span class='kw'>.point_size</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>.point_alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>.hline_color</span> <span class='kw'>=</span> <span class='st'>"#2c3e50"</span>,
   <span class='kw'>.title</span> <span class='kw'>=</span> <span class='st'>"Lag Diagnostics"</span>,
   <span class='kw'>.x_lab</span> <span class='kw'>=</span> <span class='st'>"Lag"</span>,
@@ -185,6 +190,10 @@ to multiple time series with <code>group_by()</code>.</p>
       <th>.data</th>
       <td><p>A data frame or tibble with numeric features (values) in descending
 chronological order</p></td>
+    </tr>
+    <tr>
+      <th>.date_var</th>
+      <td><p>A column containing either date or date-time values</p></td>
     </tr>
     <tr>
       <th>.value</th>
@@ -217,12 +226,20 @@ versus the <code>.value</code>. Useful for evaluating external lagged regressors
       <td><p>Line size</p></td>
     </tr>
     <tr>
+      <th>.line_alpha</th>
+      <td><p>Line opacity. Adjust the transparency of the line. Range: (0, 1)</p></td>
+    </tr>
+    <tr>
       <th>.point_color</th>
       <td><p>Point color. Use keyword: "scale_color" to change the color by the facet.</p></td>
     </tr>
     <tr>
       <th>.point_size</th>
       <td><p>Point size</p></td>
+    </tr>
+    <tr>
+      <th>.point_alpha</th>
+      <td><p>Opacity. Adjust the transparency of the points. Range: (0, 1)</p></td>
     </tr>
     <tr>
       <th>.hline_color</th>
@@ -265,16 +282,21 @@ other lags highlighting key seasonalities.</p></li>
 variable.</p></li>
 </ul>
 
-<p><strong>Scales to many time series with Grouped Data Frames</strong></p>
+<p><strong>Scales to Multiple Time Series with Groupes</strong></p>
 <p>The <code>plot_acf_diagnostics()</code> works with <code>grouped_df</code>'s, meaning you can
-group your time series by one or more categorical columns with <code>group_by()</code>
-and then user <code>plot_acf_diagnostics()</code> to return facetted visualizations.</p>
+group your time series by one or more categorical columns with <code><a href='https://dplyr.tidyverse.org/reference/group_by.html'>dplyr::group_by()</a></code>
+and then apply <code>plot_acf_diagnostics()</code> to return group-wise lag diagnostics.</p>
+<p><strong>Special Note on Dots (...)</strong></p>
+<p>Unlike other plotting utilities, the <code>...</code> arguments is NOT used for
+group-wise analysis. Rather, it's used for processing Cross Correlations (CCFs).</p>
+<p>Use <code><a href='https://dplyr.tidyverse.org/reference/group_by.html'>dplyr::group_by()</a></code> for processing multiple time series groups.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'>
 <ul>
-<li><p><code><a href='tk_acf_diagnostics.html'>tk_acf_diagnostics()</a></code>: Function that returns ACF, PACF, &amp; CCF data</p></li>
-<li><p><code><a href='plot_time_series.html'>plot_time_series()</a></code>: A useful interactive plotting function</p></li>
+<li><p><strong>Visualizing ACF, PACF, &amp; CCF:</strong> <code>plot_acf_diagnostics()</code></p></li>
+<li><p><strong>Visualizing Seasonality:</strong> <code><a href='plot_seasonal_diagnostics.html'>plot_seasonal_diagnostics()</a></code></p></li>
+<li><p><strong>Visualizing Time Series:</strong> <code><a href='plot_time_series.html'>plot_time_series()</a></code></p></li>
 </ul>
 </div>
 
@@ -288,17 +310,17 @@ and then user <code>plot_acf_diagnostics()</code> to return facetted visualizati
 <span class='no'>FANG</span> <span class='kw'>%&gt;%</span>
     <span class='fu'>group_by</span>(<span class='no'>symbol</span>) <span class='kw'>%&gt;%</span>
     <span class='fu'>plot_acf_diagnostics</span>(
-        <span class='kw'>.value</span>  <span class='kw'>=</span> <span class='no'>adjusted</span>,  <span class='co'># ACF &amp; PACF</span>
-        <span class='no'>volume</span>, <span class='no'>close</span>,       <span class='co'># CCF</span>
-        <span class='kw'>.lags</span>   <span class='kw'>=</span> <span class='fl'>0</span>:<span class='fl'>180</span>
+        <span class='no'>date</span>, <span class='no'>adjusted</span>,   <span class='co'># ACF &amp; PACF</span>
+        <span class='no'>volume</span>, <span class='no'>close</span>,    <span class='co'># CCF</span>
+        <span class='kw'>.lags</span> <span class='kw'>=</span> <span class='fl'>0</span>:<span class='fl'>180</span>
     )
 
 <span class='co'># ggplot2 - static visualization (Good for PDF Reports)</span>
 <span class='no'>FANG</span> <span class='kw'>%&gt;%</span>
     <span class='fu'>group_by</span>(<span class='no'>symbol</span>) <span class='kw'>%&gt;%</span>
     <span class='fu'>plot_acf_diagnostics</span>(
-        <span class='kw'>.value</span>  <span class='kw'>=</span> <span class='no'>adjusted</span>,  <span class='co'># ACF &amp; PACF</span>
-        <span class='no'>volume</span>, <span class='no'>close</span>,       <span class='co'># CCF</span>
+        <span class='no'>date</span>, <span class='no'>adjusted</span>,  <span class='co'># ACF &amp; PACF</span>
+        <span class='no'>volume</span>, <span class='no'>close</span>,   <span class='co'># CCF</span>
         <span class='kw'>.lags</span>   <span class='kw'>=</span> <span class='fl'>0</span>:<span class='fl'>180</span>,
         <span class='kw'>.interactive</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
     )</div><div class='img'><img src='plot_acf_diagnostics-1.png' alt='' width='700' height='433' /></div><div class='input'>

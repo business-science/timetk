@@ -106,6 +106,8 @@
       <a href="../articles/TK03_Forecasting_Using_Time_Series_Signature.html">Time Series Machine Learning</a>
     </li>
     <li class="divider"></li>
+    <li class="dropdown-header">Plotting</li>
+    <li class="divider"></li>
     <li class="dropdown-header">Time Series Helpers</li>
     <li>
       <a href="../articles/TK00_Time_Series_Coercion.html">Time series conversion</a>
@@ -153,109 +155,71 @@
 <h1 class="page-header">
 <a href="#timetk-0-1-3-9000" class="anchor"></a>timetk 0.1.3.9000<small> Unreleased </small>
 </h1>
-<p><strong>TODO:</strong></p>
-<ul>
-<li>Plot Diagnostics
-<ul>
-<li>(DONE) Plot Time Series</li>
-<li>(DONE) Plot Lag (ACF, PACF, &amp; CCF) Diagnostics</li>
-<li>Plot Seasonality Diagnostics - Correlation Funnel</li>
-<li>Missing Data Diagnostics</li>
-</ul>
-</li>
-<li>Lag automation
-<ul>
-<li><a href="https://github.com/tidymodels/rsample/pull/136">Rsample PR <a href='https://github.com/business-science/timetk/issues/136'>#136</a></a></li>
-<li>Until accepted: <code><a href="../reference/initial_time_split_2.html">initial_time_split_2()</a></code>, <code><a href="../reference/rolling_origin_2.html">rolling_origin_2()</a></code>
-</li>
-<li><code><a href="https://rdrr.io/pkg/recipes/man/step_lag.html">recipes::step_lag()</a></code></li>
-<li><code>tk_augment_lags()</code></li>
-<li><code>tk_get_lags()</code></li>
-</ul>
-</li>
-<li>Fourier series
-<ul>
-<li>(DONE) <code><a href="../reference/step_fourier_series.html">step_fourier_series()</a></code>
-</li>
-<li>
-<code>tk_get_fourier_series()</code> (is this needed?)</li>
-<li>
-<code>tk_augment_fourier_series()</code> (is this needed?)</li>
-</ul>
-</li>
-<li>(DONE) Rolling functionality
-<ul>
-<li>(DONE) <code><a href="../reference/step_roll_apply.html">step_roll_apply()</a></code>
-</li>
-<li>(DONE) <code><a href="../reference/tk_augment_roll_apply.html">tk_augment_roll_apply()</a></code>
-</li>
-<li>(DONE) <code><a href="../reference/roll_apply_vec.html">roll_apply_vec()</a></code>
-</li>
-</ul>
-</li>
-<li>Smooth Loess functionality
-<ul>
-<li>(DONE) <code><a href="../reference/step_smooth.html">step_smooth()</a></code>
-</li>
-<li><code>tk_augment_smooth()</code></li>
-<li>(DONE) <code><a href="../reference/smooth_vec.html">smooth_vec()</a></code>
-</li>
-</ul>
-</li>
-<li>Box Cox functionality
-<ul>
-<li><code>box_cox_vec</code></li>
-<li><code>box_cox_inv_vec</code></li>
-<li><code>guerrero</code></li>
-<li><code>step_box_cox</code></li>
-</ul>
-</li>
-<li>Dplyr Transition
-<ul>
-<li>(DONE) <code><a href="https://rdrr.io/pkg/tidyquant/man/summarise_by_time.html">tidyquant::summarise_by_time</a></code>
-</li>
-<li>(DONE) <code>tibbletime::filter_by_time</code>
-</li>
-<li>(DONE) <code><a href="../reference/between_time.html">between_time()</a></code>
-</li>
-<li>
-<code><a href="https://rdrr.io/pkg/tibbletime/man/as_period.html">tibbletime::as_period</a></code> - Can use <code><a href="../reference/summarise_by_time.html">summarise_by_time()</a></code> for this.</li>
-</ul>
-</li>
-<li>Date Sequence &amp; Holiday Transition
-<ul>
-<li>(DONE) <code><a href="../reference/tk_make_date_sequence.html">tk_make_holiday_sequence()</a></code>
-</li>
-<li>(DONE) <code><a href="../reference/tk_get_holiday.html">tk_get_holiday_signature()</a></code>, <code><a href="../reference/tk_augment_holiday.html">tk_augment_holiday_signature()</a></code>
-</li>
-<li>(DONE) <code><a href="../reference/step_holiday_signature.html">step_holiday_signature()</a></code>
-</li>
-</ul>
-</li>
-<li>Support for <code>grouped_df</code>
-<ul>
-<li>(DONE) <code><a href="../reference/tk_augment_roll_apply.html">tk_augment_roll_apply()</a></code>
-</li>
-<li><code>tk_augment_lags()</code></li>
-<li><code>tk_augment_smooth()</code></li>
-</ul>
-</li>
-<li>Diagnostics
-<ul>
-<li>Missing Value Diagnostics - Weekends, Holidays - Correlation Funnel???</li>
-<li>(DONE) ACF Diagnostics - <code>tk_acf_diagnostics</code> - Tidy acf, pacf, ccf</li>
-<li>Seasonality Diagnostics - Review FB Prophet Plot Components</li>
-<li>Tidy dft</li>
-</ul>
-</li>
-<li>Tests (Boooo)</li>
-</ul>
+<!--
+__TODO:__
+
+- Plot Diagnostics
+    - (DONE) Plot Time Series
+    - (DONE) Plot Lag (ACF, PACF, & CCF) Diagnostics
+    - (DONE) Plot Seasonality Diagnostics 
+    - Missing Data Diagnostics
+- Lag automation 
+    - [Rsample PR <a href='https://github.com/business-science/timetk/issues/136'>#136</a>](https://github.com/tidymodels/rsample/pull/136)
+    - Until accepted: `initial_time_split_2()`, `rolling_origin_2()`
+    - `recipes::step_lag()` 
+    - `tk_augment_lags()`
+    - `tk_get_lags()`
+- Fourier series
+    - (DONE) `step_fourier_series()`
+    - `tk_get_fourier_series()` (is this needed?)
+    - `tk_augment_fourier_series()` (is this needed?)
+- (DONE) Rolling functionality 
+    - (DONE) `step_roll_apply()`
+    - (DONE) `tk_augment_roll_apply()` 
+    - (DONE) `roll_apply_vec()` 
+- Smooth Loess functionality 
+    - (DONE) `step_smooth()` 
+    - `tk_augment_smooth()`
+    - (DONE) `smooth_vec()` 
+- Box Cox functionality
+    - `box_cox_vec`
+    - `box_cox_inv_vec`
+    - `guerrero`
+    - `step_box_cox`
+- Dplyr Transition 
+    - (DONE) `tidyquant::summarise_by_time`
+    - (DONE) `tibbletime::filter_by_time`
+    - (DONE) `between_time()`
+    - `tibbletime::as_period` - Can use `summarise_by_time()` for this. 
+- Date Sequence & Holiday Transition 
+    - (DONE) `tk_make_holiday_sequence()`
+    - (DONE) `tk_get_holiday_signature()`, `tk_augment_holiday_signature()`
+    - (DONE) `step_holiday_signature()`
+- Support for `grouped_df`
+    - (DONE) `tk_augment_roll_apply()`
+    - `tk_augment_lags()`
+    - `tk_augment_smooth()`
+- Diagnostics
+    - Missing Value Diagnostics - Weekends, Holidays - Correlation Funnel???
+    - (DONE) ACF Diagnostics - `tk_acf_diagnostics` - Tidy acf, pacf, ccf
+    - (DONE) Seasonality Diagnostics - Review FB Prophet Plot Components
+    - Tidy dft
+- Tests (Boooo)
+- Update Examples
+- Update Readme
+- New Vignettes
+  - Plotting
+  - Seasonality
+  - Correlation
+-->
 <p><strong>New Interactive Plotting Functions</strong>:</p>
 <ul>
 <li>
 <code><a href="../reference/plot_time_series.html">plot_time_series()</a></code> - <strong>A workhorse time-series plotting function</strong> that generates interactive <code>plotly</code> plots, consolidates 20+ lines of <code>ggplot2</code> code, and scales well to many time series using dplyr groups.</li>
 <li>
-<code><a href="../reference/plot_acf_diagnostics.html">plot_acf_diagnostics()</a></code> - Plot the ACF, PACF, and any number of CCFs in one plot. Scalable to multiple time series. Interactive <code>plotly</code> by default.</li>
+<code><a href="../reference/plot_acf_diagnostics.html">plot_acf_diagnostics()</a></code> - Visualize the ACF, PACF, and any number of CCFs in one plot for Multiple Time Series. Interactive <code>plotly</code> by default.</li>
+<li>
+<code><a href="../reference/plot_seasonal_diagnostics.html">plot_seasonal_diagnostics()</a></code> - Visualize Multiple Seasonality Features for One or More Time Series. Interactive <code>plotly</code> by default.</li>
 </ul>
 <p><strong>New Time Series Data Wrangling</strong>:</p>
 <ul>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Scalable Interactive Time Series Plotting — plot_time_series • timetk</title>
+<title>Interactive Plotting for One or More Time Series — plot_time_series • timetk</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -42,7 +42,7 @@
 
 
 
-<meta property="og:title" content="Scalable Interactive Time Series Plotting — plot_time_series" />
+<meta property="og:title" content="Interactive Plotting for One or More Time Series — plot_time_series" />
 <meta property="og:description" content="A workhorse time-series plotting function that generates interactive plotly plots,
 consolidates 20+ lines of ggplot2 code, and scales well to many time series." />
 <meta property="og:image" content="/logo.png" />
@@ -108,6 +108,8 @@ consolidates 20+ lines of ggplot2 code, and scales well to many time series." />
       <a href="../articles/TK03_Forecasting_Using_Time_Series_Signature.html">Time Series Machine Learning</a>
     </li>
     <li class="divider"></li>
+    <li class="dropdown-header">Plotting</li>
+    <li class="divider"></li>
     <li class="dropdown-header">Time Series Helpers</li>
     <li>
       <a href="../articles/TK00_Time_Series_Coercion.html">Time series conversion</a>
@@ -147,7 +149,7 @@ consolidates 20+ lines of ggplot2 code, and scales well to many time series." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Scalable Interactive Time Series Plotting</h1>
+    <h1>Interactive Plotting for One or More Time Series</h1>
     <small class="dont-index">Source: <a href='https://github.com/business-science/timetk/blob/master/R/plot-time_series.R'><code>R/plot-time_series.R</code></a></small>
     <div class="hidden name"><code>plot_time_series.Rd</code></div>
     </div>
@@ -177,6 +179,7 @@ consolidates 20+ lines of <code>ggplot2</code> code, and scales well to many tim
   <span class='kw'>.smooth_degree</span> <span class='kw'>=</span> <span class='fl'>2</span>,
   <span class='kw'>.smooth_color</span> <span class='kw'>=</span> <span class='st'>"#3366FF"</span>,
   <span class='kw'>.smooth_size</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>.smooth_alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>.title</span> <span class='kw'>=</span> <span class='st'>"Time Series Plot"</span>,
   <span class='kw'>.x_lab</span> <span class='kw'>=</span> <span class='st'>""</span>,
   <span class='kw'>.y_lab</span> <span class='kw'>=</span> <span class='st'>""</span>,
@@ -210,7 +213,8 @@ These can be selected using <code>tidyselect()</code> helpers (e.g <code>contain
     </tr>
     <tr>
       <th>.facet_scales</th>
-      <td><p>Options include "fixed", "free", "free_y", "free_x"</p></td>
+      <td><p>Control facet x &amp; y-axis ranges.
+Options include "fixed", "free", "free_y", "free_x"</p></td>
     </tr>
     <tr>
       <th>.facet_collapse</th>
@@ -231,7 +235,7 @@ multiple facet strips.</p></td>
     </tr>
     <tr>
       <th>.line_alpha</th>
-      <td><p>Line alpha (opacity)</p></td>
+      <td><p>Line alpha (opacity). Range: (0, 1).</p></td>
     </tr>
     <tr>
       <th>.y_intercept</th>
@@ -268,6 +272,10 @@ Either 0, 1, 2 (0 = lest flexible, 2 = more flexible).</p></td>
     <tr>
       <th>.smooth_size</th>
       <td><p>Smoother line size</p></td>
+    </tr>
+    <tr>
+      <th>.smooth_alpha</th>
+      <td><p>Smoother alpha (opacity). Range: (0, 1).</p></td>
     </tr>
     <tr>
       <th>.title</th>
@@ -349,7 +357,7 @@ will be applied.</p>
                      <span class='kw'>.interactive</span>  <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='plot_time_series-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Plotly - Interactive Visualization By Default (Great for Exploration)</span>
 <span class='no'>FANG</span> <span class='kw'>%&gt;%</span>
-    <span class='fu'>plot_time_series</span>(<span class='no'>date</span>, <span class='no'>adjusted</span>, <span class='no'>symbol</span>)
+    <span class='fu'>plot_time_series</span>(<span class='no'>date</span>, <span class='no'>adjusted</span>, <span class='no'>symbol</span>, <span class='kw'>.smooth_alpha</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>.plotly_slider</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
 <span class='co'># ggplot2 - static visualization (Great for PDF Reports)</span>
 <span class='no'>FANG</span> <span class='kw'>%&gt;%</span>

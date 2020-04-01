@@ -7,6 +7,7 @@
 #'
 #' @param .data A data frame or tibble with numeric features (values) in descending
 #'  chronological order
+#' @param .date_var A column containing either date or date-time values
 #' @param .value A numeric column with a value to have ACF and PACF calculations
 #'  performed.
 #' @param ... Additional features to perform Lag Cross Correlations (CCFs)
@@ -16,8 +17,10 @@
 #' @param .facet_scales Facets: Options include "fixed", "free", "free_y", "free_x"
 #' @param .line_color Line color. Use keyword: "scale_color" to change the color by the facet.
 #' @param .line_size Line size
+#' @param .line_alpha Line opacity. Adjust the transparency of the line. Range: (0, 1)
 #' @param .point_color Point color. Use keyword: "scale_color" to change the color by the facet.
 #' @param .point_size Point size
+#' @param .point_alpha Opacity. Adjust the transparency of the points. Range: (0, 1)
 #' @param .hline_color Color for the y-intercept = 0 line.
 #' @param .title Title for the plot
 #' @param .x_lab X-axis label for the plot
@@ -42,15 +45,24 @@
 #' - __CCF__ - Shows how lagged predictors can be used for prediction of a target
 #'  variable.
 #'
-#' __Scales to many time series with Grouped Data Frames__
+#'
+#' __Scales to Multiple Time Series with Groupes__
 #'
 #' The `plot_acf_diagnostics()` works with `grouped_df`'s, meaning you can
-#' group your time series by one or more categorical columns with `group_by()`
-#' and then user `plot_acf_diagnostics()` to return facetted visualizations.
+#' group your time series by one or more categorical columns with `dplyr::group_by()`
+#' and then apply `plot_acf_diagnostics()` to return group-wise lag diagnostics.
+#'
+#' __Special Note on Dots (...)__
+#'
+#' Unlike other plotting utilities, the `...` arguments is NOT used for
+#' group-wise analysis. Rather, it's used for processing Cross Correlations (CCFs).
+#'
+#' Use `dplyr::group_by()` for processing multiple time series groups.
 #'
 #' @seealso
-#' - [tk_acf_diagnostics()]: Function that returns ACF, PACF, & CCF data
-#' - [plot_time_series()]: A useful interactive plotting function
+#' - __Visualizing ACF, PACF, & CCF:__ [plot_acf_diagnostics()]
+#' - __Visualizing Seasonality:__ [plot_seasonal_diagnostics()]
+#' - __Visualizing Time Series:__ [plot_time_series()]
 #'
 #' @examples
 #' library(tidyverse)
@@ -62,35 +74,39 @@
 #' FANG %>%
 #'     group_by(symbol) %>%
 #'     plot_acf_diagnostics(
-#'         .value  = adjusted,  # ACF & PACF
-#'         volume, close,       # CCF
-#'         .lags   = 0:180
+#'         date, adjusted,   # ACF & PACF
+#'         volume, close,    # CCF
+#'         .lags = 0:180
 #'     )
 #'
 #' # ggplot2 - static visualization (Good for PDF Reports)
 #' FANG %>%
 #'     group_by(symbol) %>%
 #'     plot_acf_diagnostics(
-#'         .value  = adjusted,  # ACF & PACF
-#'         volume, close,       # CCF
+#'         date, adjusted,  # ACF & PACF
+#'         volume, close,   # CCF
 #'         .lags   = 0:180,
 #'         .interactive = FALSE
 #'     )
 #'
 #'
 #' @export
-plot_acf_diagnostics <- function(.data, .value, ..., .lags = 0:20,
+plot_acf_diagnostics <- function(.data, .date_var, .value, ..., .lags = 0:20,
                                  .facet_ncol = 1, .facet_scales = "fixed",
                                  .line_color = "#2c3e50", .line_size = 0.5,
+                                 .line_alpha = 1,
                                  .point_color = "#2c3e50", .point_size = 1,
+                                 .point_alpha = 1,
                                  .hline_color = "#2c3e50",
                                  .title = "Lag Diagnostics",
                                  .x_lab = "Lag", .y_lab = "Correlation",
                                  .interactive = TRUE, .plotly_slider = FALSE) {
 
     # Checks
-    value_expr <- enquo(.value)
-    if (rlang::quo_is_missing(value_expr)) stop(call. = FALSE, "tk_acf_diagnostics(.value), Please provide a .value.")
+    date_var_expr <- enquo(.date_var)
+    value_expr    <- enquo(.value)
+    if (rlang::quo_is_missing(date_var_expr)) stop(call. = FALSE, "plot_acf_diagnostics(.date_var), Please provide a .date_var column of class date or date-time.")
+    if (rlang::quo_is_missing(value_expr)) stop(call. = FALSE, "plot_acf_diagnostics(.value), Please provide a .value.")
     if (!is.data.frame(.data)) {
         stop(call. = FALSE, "plot_diagnostics(.data) is not a data-frame or tibble. Please supply a data.frame or tibble.")
     }
@@ -99,10 +115,12 @@ plot_acf_diagnostics <- function(.data, .value, ..., .lags = 0:20,
 }
 
 #' @export
-plot_acf_diagnostics.data.frame <- function(.data, .value, ..., .lags = 0:20,
+plot_acf_diagnostics.data.frame <- function(.data, .date_var, .value, ..., .lags = 0:20,
                                             .facet_ncol = 1, .facet_scales = "fixed",
                                             .line_color = "#2c3e50", .line_size = 0.5,
+                                            .line_alpha = 1,
                                             .point_color = "#2c3e50", .point_size = 1,
+                                            .point_alpha = 1,
                                             .hline_color = "#2c3e50",
                                             .title = "Lag Diagnostics",
                                             .x_lab = "Lag", .y_lab = "Correlation",
@@ -137,22 +155,22 @@ plot_acf_diagnostics.data.frame <- function(.data, .value, ..., .lags = 0:20,
     if (.line_color == "scale_color") {
         g <- g +
             ggplot2::geom_line(ggplot2::aes(color = name),
-                               size = .line_size) +
+                               size = .line_size, alpha = .line_alpha) +
             scale_color_tq()
     } else {
         g <- g +
-            ggplot2::geom_line(color = .line_color, size = .line_size)
+            ggplot2::geom_line(color = .line_color, size = .line_size, alpha = .line_alpha)
     }
 
     # Add points
     if (.point_color == "scale_color") {
         g <- g +
             ggplot2::geom_point(ggplot2::aes(color = name),
-                                size = .point_size) +
+                                size = .point_size, alpha = .point_alpha) +
             scale_color_tq()
     } else {
         g <- g +
-            ggplot2::geom_point(color = .point_color, size = .point_size)
+            ggplot2::geom_point(color = .point_color, size = .point_size, alpha = .point_alpha)
     }
 
     # Add theme
@@ -177,10 +195,12 @@ plot_acf_diagnostics.data.frame <- function(.data, .value, ..., .lags = 0:20,
 }
 
 #' @export
-plot_acf_diagnostics.grouped_df <- function(.data, .value, ..., .lags = 0:20,
+plot_acf_diagnostics.grouped_df <- function(.data, .date_var, .value, ..., .lags = 0:20,
                                             .facet_ncol = 1, .facet_scales = "fixed",
                                             .line_color = "#2c3e50", .line_size = 0.5,
+                                            .line_alpha = 1,
                                             .point_color = "#2c3e50", .point_size = 1,
+                                            .point_alpha = 1,
                                             .hline_color = "#2c3e50",
                                             .title = "ACF Diagnostics",
                                             .x_lab = "Lag", .y_lab = "Correlation",
@@ -203,6 +223,7 @@ plot_acf_diagnostics.grouped_df <- function(.data, .value, ..., .lags = 0:20,
     data_formatted <- data_formatted %>%
         dplyr::ungroup() %>%
         dplyr::mutate(.groups_consolidated = stringr::str_c(!!! rlang::syms(group_names), sep = "_")) %>%
+        dplyr::mutate(.groups_consolidated = forcats::as_factor(.groups_consolidated)) %>%
         dplyr::select(-(!!! rlang::syms(group_names))) %>%
         dplyr::select(.groups_consolidated, lag, dplyr::everything()) %>%
         tidyr::pivot_longer(cols      = -c(.groups_consolidated, lag),
@@ -225,22 +246,22 @@ plot_acf_diagnostics.grouped_df <- function(.data, .value, ..., .lags = 0:20,
     if (.line_color == "scale_color") {
         g <- g +
             ggplot2::geom_line(ggplot2::aes(color = .groups_consolidated),
-                               size = .line_size) +
+                               size = .line_size, alpha = .line_alpha) +
             scale_color_tq()
     } else {
         g <- g +
-            ggplot2::geom_line(color = .line_color, size = .line_size)
+            ggplot2::geom_line(color = .line_color, size = .line_size, alpha = .line_alpha)
     }
 
     # Add points
     if (.point_color == "scale_color") {
         g <- g +
             ggplot2::geom_point(ggplot2::aes(color = .groups_consolidated),
-                                size = .point_size) +
+                                size = .point_size, alpha = .point_alpha) +
             scale_color_tq()
     } else {
         g <- g +
-            ggplot2::geom_point(color = .point_color, size = .point_size)
+            ggplot2::geom_point(color = .point_color, size = .point_size, alpha = .point_alpha)
     }
 
     # Add theme

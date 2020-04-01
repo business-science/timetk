@@ -2,13 +2,15 @@
 % Please edit documentation in R/diagnostics-tk_acf_diagnostics.R
 \name{tk_acf_diagnostics}
 \alias{tk_acf_diagnostics}
-\title{Get ACF, PACF, and CCF in One Data Frame}
+\title{Group-wise ACF, PACF, and CCF Data Preparation}
 \usage{
-tk_acf_diagnostics(.data, .value, ..., .lags = 0:60)
+tk_acf_diagnostics(.data, .date_var, .value, ..., .lags = 0:60)
 }
 \arguments{
 \item{.data}{A data frame or tibble with numeric features (values) in descending
 chronological order}
+
+\item{.date_var}{A column containing either date or date-time values}
 
 \item{.value}{A numeric column with a value to have ACF and PACF calculations
 performed.}
@@ -20,7 +22,7 @@ versus the \code{.value}. Useful for evaluating external lagged regressors.}
 }
 \description{
 The \code{tk_acf_diagnostics()} function provides a simple interface to
-detect Autocorrelation, Partial ACF, and Cross Correlation of Lagged
+detect Autocorrelation (ACF), Partial Autocorrelation (PACF), and Cross Correlation (CCF) of Lagged
 Predictors in one \code{tibble}. This function powers the \code{\link[=plot_acf_diagnostics]{plot_acf_diagnostics()}}
 visualization.
 }
@@ -37,11 +39,18 @@ other lags highlighting key seasonalities.
 variable.
 }
 
-\strong{Works with Grouped Data Frames}
+\strong{Scales to Multiple Time Series with Groupes}
 
 The \code{tk_acf_diagnostics()} works with \code{grouped_df}'s, meaning you can
-group your time series by one or more categorical columns with \code{group_by()}
+group your time series by one or more categorical columns with \code{dplyr::group_by()}
 and then apply \code{tk_acf_diagnostics()} to return group-wise lag diagnostics.
+
+\strong{Special Note on Dots (...)}
+
+Unlike other plotting utilities, the \code{...} arguments is NOT used for
+group-wise analysis. Rather, it's used for processing Cross Correlations (CCFs).
+
+Use \code{dplyr::group_by()} for processing multiple time series groups.
 }
 \examples{
 library(tidyverse)
@@ -53,17 +62,24 @@ library(timetk)
 # - Get CCF between adjusted and volume and close
 FANG \%>\%
     filter(symbol == "FB") \%>\%
-    tk_acf_diagnostics(.value = adjusted, volume, close, .lags = 0:500)
+    tk_acf_diagnostics(date, adjusted, # ACF & PACF
+                       volume, close,  # CCFs
+                       .lags = 0:500)
 
-# Do the same thing for groups with group_by()
+# Scale with groups using group_by()
 FANG \%>\%
     group_by(symbol) \%>\%
-    tk_acf_diagnostics(.value = adjusted, volume, close, .lags = 0:500)
+    tk_acf_diagnostics(date, adjusted, volume, close, .lags = 0:500)
+
+# Apply Transformations
+
 
 
 }
 \seealso{
 \itemize{
 \item \strong{Visualizing ACF, PACF, & CCF:} \code{\link[=plot_acf_diagnostics]{plot_acf_diagnostics()}}
+\item \strong{Visualizing Seasonality:} \code{\link[=plot_seasonal_diagnostics]{plot_seasonal_diagnostics()}}
+\item \strong{Visualizing Time Series:} \code{\link[=plot_time_series]{plot_time_series()}}
 }
 }

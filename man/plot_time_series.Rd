@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot-time_series.R
 \name{plot_time_series}
 \alias{plot_time_series}
-\title{Scalable Interactive Time Series Plotting}
+\title{Interactive Plotting for One or More Time Series}
 \usage{
 plot_time_series(
   .data,
@@ -24,6 +24,7 @@ plot_time_series(
   .smooth_degree = 2,
   .smooth_color = "#3366FF",
   .smooth_size = 1,
+  .smooth_alpha = 1,
   .title = "Time Series Plot",
   .x_lab = "",
   .y_lab = "",
@@ -43,7 +44,8 @@ These can be selected using \code{tidyselect()} helpers (e.g \code{contains()}).
 
 \item{.facet_ncol}{Number of facet columns.}
 
-\item{.facet_scales}{Options include "fixed", "free", "free_y", "free_x"}
+\item{.facet_scales}{Control facet x & y-axis ranges.
+Options include "fixed", "free", "free_y", "free_x"}
 
 \item{.facet_collapse}{Multiple facets included on one facet strip instead of
 multiple facet strips.}
@@ -54,7 +56,7 @@ multiple facet strips.}
 
 \item{.line_size}{Line size}
 
-\item{.line_alpha}{Line alpha (opacity)}
+\item{.line_alpha}{Line alpha (opacity). Range: (0, 1).}
 
 \item{.y_intercept}{Value for a y-intercept on the plot}
 
@@ -75,6 +77,8 @@ Either 0, 1, 2 (0 = lest flexible, 2 = more flexible).}
 \item{.smooth_color}{Smoother line color}
 
 \item{.smooth_size}{Smoother line size}
+
+\item{.smooth_alpha}{Smoother alpha (opacity). Range: (0, 1).}
 
 \item{.title}{Title for the plot}
 
@@ -158,7 +162,7 @@ FANG \%>\%
 
 # Plotly - Interactive Visualization By Default (Great for Exploration)
 FANG \%>\%
-    plot_time_series(date, adjusted, symbol)
+    plot_time_series(date, adjusted, symbol, .smooth_alpha = 0.5, .plotly_slider = TRUE)
 
 # ggplot2 - static visualization (Great for PDF Reports)
 FANG \%>\%

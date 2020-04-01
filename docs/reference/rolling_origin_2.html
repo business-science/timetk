@@ -111,6 +111,8 @@ lagged predictors." />
       <a href="../articles/TK03_Forecasting_Using_Time_Series_Signature.html">Time Series Machine Learning</a>
     </li>
     <li class="divider"></li>
+    <li class="dropdown-header">Plotting</li>
+    <li class="divider"></li>
     <li class="dropdown-header">Time Series Helpers</li>
     <li>
       <a href="../articles/TK00_Time_Series_Coercion.html">Time series conversion</a>
@@ -257,19 +259,19 @@ using lagged predictors.</p>
 )
 
 <span class='no'>resample_spec</span></div><div class='output co'>#&gt; # Rolling origin forecast resampling 
-#&gt; <span style='color: #555555;'># A tibble: 10 x 2</span><span>
+#&gt; # A tibble: 10 x 2
 #&gt;    splits          id     
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>          </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  
-#&gt; </span><span style='color: #555555;'> 1</span><span> </span><span style='color: #555555;'>&lt;split [48/24]&gt;</span><span> Slice01
-#&gt; </span><span style='color: #555555;'> 2</span><span> </span><span style='color: #555555;'>&lt;split [48/24]&gt;</span><span> Slice02
-#&gt; </span><span style='color: #555555;'> 3</span><span> </span><span style='color: #555555;'>&lt;split [48/24]&gt;</span><span> Slice03
-#&gt; </span><span style='color: #555555;'> 4</span><span> </span><span style='color: #555555;'>&lt;split [48/24]&gt;</span><span> Slice04
-#&gt; </span><span style='color: #555555;'> 5</span><span> </span><span style='color: #555555;'>&lt;split [48/24]&gt;</span><span> Slice05
-#&gt; </span><span style='color: #555555;'> 6</span><span> </span><span style='color: #555555;'>&lt;split [48/24]&gt;</span><span> Slice06
-#&gt; </span><span style='color: #555555;'> 7</span><span> </span><span style='color: #555555;'>&lt;split [48/24]&gt;</span><span> Slice07
-#&gt; </span><span style='color: #555555;'> 8</span><span> </span><span style='color: #555555;'>&lt;split [48/24]&gt;</span><span> Slice08
-#&gt; </span><span style='color: #555555;'> 9</span><span> </span><span style='color: #555555;'>&lt;split [48/24]&gt;</span><span> Slice09
-#&gt; </span><span style='color: #555555;'>10</span><span> </span><span style='color: #555555;'>&lt;split [48/24]&gt;</span><span> Slice10</div><div class='input'>
+#&gt;    &lt;list&gt;          &lt;chr&gt;  
+#&gt;  1 &lt;split [48/24]&gt; Slice01
+#&gt;  2 &lt;split [48/24]&gt; Slice02
+#&gt;  3 &lt;split [48/24]&gt; Slice03
+#&gt;  4 &lt;split [48/24]&gt; Slice04
+#&gt;  5 &lt;split [48/24]&gt; Slice05
+#&gt;  6 &lt;split [48/24]&gt; Slice06
+#&gt;  7 &lt;split [48/24]&gt; Slice07
+#&gt;  8 &lt;split [48/24]&gt; Slice08
+#&gt;  9 &lt;split [48/24]&gt; Slice09
+#&gt; 10 &lt;split [48/24]&gt; Slice10</div><div class='input'>
 <span class='co'># Create a lag recipe using one of the training resamples</span>
 <span class='no'>resample_1</span> <span class='kw'>&lt;-</span> <span class='no'>resample_spec</span> <span class='kw'>%&gt;%</span> <span class='fu'>pluck</span>(<span class='fl'>1</span>, <span class='fl'>1</span>)
 
@@ -278,23 +280,23 @@ using lagged predictors.</p>
     <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/step_naomit.html'>step_naomit</a></span>(<span class='fu'><a href='https://rdrr.io/pkg/recipes/man/has_role.html'>all_predictors</a></span>())
 
 <span class='co'># Apply a lag recipe to one of the testing resamples to show the effect</span>
-<span class='fu'><a href='https://rdrr.io/pkg/recipes/man/bake.html'>bake</a></span>(<span class='fu'><a href='https://rdrr.io/pkg/recipes/man/prep.html'>prep</a></span>(<span class='no'>recipe_lag</span>), <span class='fu'><a href='https://rdrr.io/pkg/rsample/man/initial_split.html'>testing</a></span>(<span class='no'>resample_1</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 12 x 3</span><span>
+<span class='fu'><a href='https://rdrr.io/pkg/recipes/man/bake.html'>bake</a></span>(<span class='fu'><a href='https://rdrr.io/pkg/recipes/man/prep.html'>prep</a></span>(<span class='no'>recipe_lag</span>), <span class='fu'><a href='https://rdrr.io/pkg/rsample/man/initial_split.html'>testing</a></span>(<span class='no'>resample_1</span>))</div><div class='output co'>#&gt; # A tibble: 12 x 3
 #&gt;    date       sales lag_12_sales
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>        </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> 1996-01-01  </span><span style='text-decoration: underline;'>3</span><span>699         </span><span style='text-decoration: underline;'>3</span><span>370
-#&gt; </span><span style='color: #555555;'> 2</span><span> 1996-02-01  </span><span style='text-decoration: underline;'>3</span><span>983         </span><span style='text-decoration: underline;'>3</span><span>484
-#&gt; </span><span style='color: #555555;'> 3</span><span> 1996-03-01  </span><span style='text-decoration: underline;'>4</span><span>262         </span><span style='text-decoration: underline;'>4</span><span>269
-#&gt; </span><span style='color: #555555;'> 4</span><span> 1996-04-01  </span><span style='text-decoration: underline;'>4</span><span>619         </span><span style='text-decoration: underline;'>3</span><span>994
-#&gt; </span><span style='color: #555555;'> 5</span><span> 1996-05-01  </span><span style='text-decoration: underline;'>5</span><span>219         </span><span style='text-decoration: underline;'>4</span><span>715
-#&gt; </span><span style='color: #555555;'> 6</span><span> 1996-06-01  </span><span style='text-decoration: underline;'>4</span><span>836         </span><span style='text-decoration: underline;'>4</span><span>974
-#&gt; </span><span style='color: #555555;'> 7</span><span> 1996-07-01  </span><span style='text-decoration: underline;'>4</span><span>941         </span><span style='text-decoration: underline;'>4</span><span>223
-#&gt; </span><span style='color: #555555;'> 8</span><span> 1996-08-01  </span><span style='text-decoration: underline;'>5</span><span>062         </span><span style='text-decoration: underline;'>5</span><span>000
-#&gt; </span><span style='color: #555555;'> 9</span><span> 1996-09-01  </span><span style='text-decoration: underline;'>4</span><span>365         </span><span style='text-decoration: underline;'>4</span><span>235
-#&gt; </span><span style='color: #555555;'>10</span><span> 1996-10-01  </span><span style='text-decoration: underline;'>5</span><span>012         </span><span style='text-decoration: underline;'>4</span><span>554
-#&gt; </span><span style='color: #555555;'>11</span><span> 1996-11-01  </span><span style='text-decoration: underline;'>4</span><span>850         </span><span style='text-decoration: underline;'>4</span><span>851
-#&gt; </span><span style='color: #555555;'>12</span><span> 1996-12-01  </span><span style='text-decoration: underline;'>5</span><span>097         </span><span style='text-decoration: underline;'>4</span><span>826</div><div class='input'>
+#&gt;    &lt;date&gt;     &lt;dbl&gt;        &lt;dbl&gt;
+#&gt;  1 1996-01-01  3699         3370
+#&gt;  2 1996-02-01  3983         3484
+#&gt;  3 1996-03-01  4262         4269
+#&gt;  4 1996-04-01  4619         3994
+#&gt;  5 1996-05-01  5219         4715
+#&gt;  6 1996-06-01  4836         4974
+#&gt;  7 1996-07-01  4941         4223
+#&gt;  8 1996-08-01  5062         5000
+#&gt;  9 1996-09-01  4365         4235
+#&gt; 10 1996-10-01  5012         4554
+#&gt; 11 1996-11-01  4850         4851
+#&gt; 12 1996-12-01  5097         4826</div><div class='input'>
 
-</div></span></pre>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

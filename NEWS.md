@@ -1,11 +1,12 @@
 # timetk 0.1.3.9000
 
+<!--
 __TODO:__
 
 - Plot Diagnostics
     - (DONE) Plot Time Series
     - (DONE) Plot Lag (ACF, PACF, & CCF) Diagnostics
-    - Plot Seasonality Diagnostics - Correlation Funnel
+    - (DONE) Plot Seasonality Diagnostics 
     - Missing Data Diagnostics
 - Lag automation 
     - [Rsample PR #136](https://github.com/tidymodels/rsample/pull/136)
@@ -46,14 +47,22 @@ __TODO:__
 - Diagnostics
     - Missing Value Diagnostics - Weekends, Holidays - Correlation Funnel???
     - (DONE) ACF Diagnostics - `tk_acf_diagnostics` - Tidy acf, pacf, ccf
-    - Seasonality Diagnostics - Review FB Prophet Plot Components
+    - (DONE) Seasonality Diagnostics - Review FB Prophet Plot Components
     - Tidy dft
 - Tests (Boooo)
+- Update Examples
+- Update Readme
+- New Vignettes
+  - Plotting
+  - Seasonality
+  - Correlation
+-->
 
 __New Interactive Plotting Functions__:
 
 * `plot_time_series()` - __A workhorse time-series plotting function__ that generates interactive `plotly` plots, consolidates 20+ lines of `ggplot2` code, and scales well to many time series using dplyr groups. 
-* `plot_acf_diagnostics()` - Plot the ACF, PACF, and any number of CCFs in one plot. Scalable to multiple time series. Interactive `plotly` by default. 
+* `plot_acf_diagnostics()` - Visualize the ACF, PACF, and any number of CCFs in one plot for Multiple Time Series. Interactive `plotly` by default. 
+* `plot_seasonal_diagnostics()` - Visualize Multiple Seasonality Features for One or More Time Series. Interactive `plotly` by default. 
 
 __New Time Series Data Wrangling__:
 

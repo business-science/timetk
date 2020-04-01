@@ -14,6 +14,8 @@ navbar:
         - text: "Time Series Machine Learning"
           href: articles/TK03_Forecasting_Using_Time_Series_Signature.html
         - text: '---'
+        - text: 'Plotting'
+        - text: '---'
         - text: 'Time Series Helpers'
         - text: "Time series conversion"
           href: articles/TK00_Time_Series_Coercion.html
@@ -55,10 +57,12 @@ reference:
   - title: Get Operations
     desc: __Get summaries, frequency, and signatures from the time series index.__
     contents:
+    - "tk_get_timeseries_signature"
     - contains("tk_get")
   - title: Augment Operations
     desc: __Add columns to the original data.__
     contents:
+    - "tk_augment_timeseries_signature"
     - contains("augment")
   - title: Diagnostic Operations
     desc: __These power the time series plotting functions__
@@ -72,6 +76,8 @@ reference:
   - title: Recipe Operations (Feature Engineering Steps)
     desc: __Preprocessing & feature engineering operations for use with `recipes` and the `tidymodels` ecosystem__
     contents:
+    - "step_timeseries_signature"
+    - "step_holiday_signature"
     - contains("step_")
   - title: Rsample Operations (Cross Validation)
     desc: __Resampling for time series validation using `rsamples`__

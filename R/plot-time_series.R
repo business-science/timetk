@@ -1,4 +1,4 @@
-#' Scalable Interactive Time Series Plotting
+#' Interactive Plotting for One or More Time Series
 #'
 #' A workhorse time-series plotting function that generates interactive `plotly` plots,
 #' consolidates 20+ lines of `ggplot2` code, and scales well to many time series.
@@ -10,13 +10,14 @@
 #' @param ... One or more grouping columns that broken out into `ggplot2` facets.
 #'  These can be selected using `tidyselect()` helpers (e.g `contains()`).
 #' @param .facet_ncol Number of facet columns.
-#' @param .facet_scales Options include "fixed", "free", "free_y", "free_x"
+#' @param .facet_scales Control facet x & y-axis ranges.
+#'  Options include "fixed", "free", "free_y", "free_x"
 #' @param .facet_collapse Multiple facets included on one facet strip instead of
 #'  multiple facet strips.
 #' @param .facet_collapse_sep The separator used for collapsing facets.
 #' @param .line_color Line color. Use keyword: "scale_color" to change the color by the facet.
 #' @param .line_size Line size
-#' @param .line_alpha Line alpha (opacity)
+#' @param .line_alpha Line alpha (opacity). Range: (0, 1).
 #' @param .y_intercept Value for a y-intercept on the plot
 #' @param .y_intercept_color Color for the y-intercept
 #' @param .smooth Logical - Whether or not to include a trendline smoother.
@@ -29,6 +30,7 @@
 #'  Either 0, 1, 2 (0 = lest flexible, 2 = more flexible).
 #' @param .smooth_color Smoother line color
 #' @param .smooth_size Smoother line size
+#' @param .smooth_alpha Smoother alpha (opacity). Range: (0, 1).
 #' @param .title Title for the plot
 #' @param .x_lab X-axis label for the plot
 #' @param .y_lab Y-axis label for the plot
@@ -102,7 +104,7 @@
 #'
 #' # Plotly - Interactive Visualization By Default (Great for Exploration)
 #' FANG %>%
-#'     plot_time_series(date, adjusted, symbol)
+#'     plot_time_series(date, adjusted, symbol, .smooth_alpha = 0.5, .plotly_slider = TRUE)
 #'
 #' # ggplot2 - static visualization (Great for PDF Reports)
 #' FANG %>%
@@ -125,7 +127,7 @@ plot_time_series <- function(.data, .date_var, .value, ...,
                              .y_intercept = NULL, .y_intercept_color = "#2c3e50",
                              .smooth = TRUE, .smooth_period = NULL,
                              .smooth_span = 0.75, .smooth_degree = 2,
-                             .smooth_color = "#3366FF", .smooth_size = 1,
+                             .smooth_color = "#3366FF", .smooth_size = 1, .smooth_alpha = 1,
                              .title = "Time Series Plot", .x_lab = "", .y_lab = "",
                              .interactive = TRUE, .plotly_slider = FALSE) {
 
@@ -156,7 +158,7 @@ plot_time_series.data.frame <- function(.data, .date_var, .value, ...,
                              .y_intercept = NULL, .y_intercept_color = "#2c3e50",
                              .smooth = TRUE, .smooth_period = NULL,
                              .smooth_span = 0.75, .smooth_degree = 2,
-                             .smooth_color = "#3366FF", .smooth_size = 1,
+                             .smooth_color = "#3366FF", .smooth_size = 1, .smooth_alpha = 1,
                              .title = "Time Series Plot", .x_lab = "", .y_lab = "",
                              .interactive = TRUE, .plotly_slider = FALSE) {
 
@@ -170,8 +172,10 @@ plot_time_series.data.frame <- function(.data, .date_var, .value, ...,
 
     # Evaluate Formula
     data_formatted <- .data %>%
+        dplyr::group_by(!!! facets_expr) %>%
         dplyr::mutate(.value_mod = !! value_expr) %>%
-        dplyr::select(!! date_var_expr, .value_mod, !!! facets_expr)
+        dplyr::select(!! date_var_expr, .value_mod, !!! facets_expr) %>%
+        dplyr::ungroup()
 
     # Facet setup
     facet_names <- data_formatted %>% dplyr::select(!!! facets_expr) %>% colnames()
@@ -255,7 +259,8 @@ plot_time_series.data.frame <- function(.data, .date_var, .value, ...,
             ggplot2::geom_line(
                 ggplot2::aes(y = .value_smooth),
                 color = .smooth_color,
-                size  = .smooth_size)
+                size  = .smooth_size,
+                alpha = .smooth_alpha)
     }
 
     # Add a Y-Intercept if desired
@@ -291,7 +296,7 @@ plot_time_series.grouped_df <- function(.data, .date_var, .value, ...,
                                         .line_alpha = 1,
                                         .y_intercept = NULL, .y_intercept_color = "#2c3e50",
                                         .smooth = TRUE, .smooth_period = NULL,
-                                        .smooth_span = 0.75, .smooth_degree = 2,
+                                        .smooth_span = 0.75, .smooth_degree = 2, .smooth_alpha = 1,
                                         .smooth_color = "#3366FF", .smooth_size = 1,
                                         .title = "Time Series Plot", .x_lab = "", .y_lab = "",
                                         .interactive = TRUE, .plotly_slider = FALSE) {
@@ -336,6 +341,7 @@ plot_time_series.grouped_df <- function(.data, .date_var, .value, ...,
         .smooth_degree      = .smooth_degree,
         .smooth_color       = .smooth_color,
         .smooth_size        = .smooth_size,
+        .smooth_alpha       = .smooth_alpha,
         .title              = .title,
         .x_lab              = .x_lab,
         .y_lab              = .y_lab,

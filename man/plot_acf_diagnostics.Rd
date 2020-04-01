@@ -6,6 +6,7 @@
 \usage{
 plot_acf_diagnostics(
   .data,
+  .date_var,
   .value,
   ...,
   .lags = 0:20,
@@ -13,8 +14,10 @@ plot_acf_diagnostics(
   .facet_scales = "fixed",
   .line_color = "#2c3e50",
   .line_size = 0.5,
+  .line_alpha = 1,
   .point_color = "#2c3e50",
   .point_size = 1,
+  .point_alpha = 1,
   .hline_color = "#2c3e50",
   .title = "Lag Diagnostics",
   .x_lab = "Lag",
@@ -26,6 +29,8 @@ plot_acf_diagnostics(
 \arguments{
 \item{.data}{A data frame or tibble with numeric features (values) in descending
 chronological order}
+
+\item{.date_var}{A column containing either date or date-time values}
 
 \item{.value}{A numeric column with a value to have ACF and PACF calculations
 performed.}
@@ -43,9 +48,13 @@ versus the \code{.value}. Useful for evaluating external lagged regressors.}
 
 \item{.line_size}{Line size}
 
+\item{.line_alpha}{Line opacity. Adjust the transparency of the line. Range: (0, 1)}
+
 \item{.point_color}{Point color. Use keyword: "scale_color" to change the color by the facet.}
 
 \item{.point_size}{Point size}
+
+\item{.point_alpha}{Opacity. Adjust the transparency of the points. Range: (0, 1)}
 
 \item{.hline_color}{Color for the y-intercept = 0 line.}
 
@@ -80,11 +89,18 @@ other lags highlighting key seasonalities.
 variable.
 }
 
-\strong{Scales to many time series with Grouped Data Frames}
+\strong{Scales to Multiple Time Series with Groupes}
 
 The \code{plot_acf_diagnostics()} works with \code{grouped_df}'s, meaning you can
-group your time series by one or more categorical columns with \code{group_by()}
-and then user \code{plot_acf_diagnostics()} to return facetted visualizations.
+group your time series by one or more categorical columns with \code{dplyr::group_by()}
+and then apply \code{plot_acf_diagnostics()} to return group-wise lag diagnostics.
+
+\strong{Special Note on Dots (...)}
+
+Unlike other plotting utilities, the \code{...} arguments is NOT used for
+group-wise analysis. Rather, it's used for processing Cross Correlations (CCFs).
+
+Use \code{dplyr::group_by()} for processing multiple time series groups.
 }
 \examples{
 library(tidyverse)
@@ -96,17 +112,17 @@ library(timetk)
 FANG \%>\%
     group_by(symbol) \%>\%
     plot_acf_diagnostics(
-        .value  = adjusted,  # ACF & PACF
-        volume, close,       # CCF
-        .lags   = 0:180
+        date, adjusted,   # ACF & PACF
+        volume, close,    # CCF
+        .lags = 0:180
     )
 
 # ggplot2 - static visualization (Good for PDF Reports)
 FANG \%>\%
     group_by(symbol) \%>\%
     plot_acf_diagnostics(
-        .value  = adjusted,  # ACF & PACF
-        volume, close,       # CCF
+        date, adjusted,  # ACF & PACF
+        volume, close,   # CCF
         .lags   = 0:180,
         .interactive = FALSE
     )
@@ -115,7 +131,8 @@ FANG \%>\%
 }
 \seealso{
 \itemize{
-\item \code{\link[=tk_acf_diagnostics]{tk_acf_diagnostics()}}: Function that returns ACF, PACF, & CCF data
-\item \code{\link[=plot_time_series]{plot_time_series()}}: A useful interactive plotting function
+\item \strong{Visualizing ACF, PACF, & CCF:} \code{\link[=plot_acf_diagnostics]{plot_acf_diagnostics()}}
+\item \strong{Visualizing Seasonality:} \code{\link[=plot_seasonal_diagnostics]{plot_seasonal_diagnostics()}}
+\item \strong{Visualizing Time Series:} \code{\link[=plot_time_series]{plot_time_series()}}
 }
 }

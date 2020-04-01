@@ -1,12 +1,13 @@
-#' Get ACF, PACF, and CCF in One Data Frame
+#' Group-wise ACF, PACF, and CCF Data Preparation
 #'
 #' The `tk_acf_diagnostics()` function provides a simple interface to
-#' detect Autocorrelation, Partial ACF, and Cross Correlation of Lagged
+#' detect Autocorrelation (ACF), Partial Autocorrelation (PACF), and Cross Correlation (CCF) of Lagged
 #' Predictors in one `tibble`. This function powers the [plot_acf_diagnostics()]
 #' visualization.
 #'
 #' @param .data A data frame or tibble with numeric features (values) in descending
 #'  chronological order
+#' @param .date_var A column containing either date or date-time values
 #' @param .value A numeric column with a value to have ACF and PACF calculations
 #'  performed.
 #' @param ... Additional features to perform Lag Cross Correlations (CCFs)
@@ -28,14 +29,23 @@
 #' - __CCF__ - Shows how lagged predictors can be used for prediction of a target
 #'  variable.
 #'
-#' __Works with Grouped Data Frames__
+#' __Scales to Multiple Time Series with Groupes__
 #'
 #' The `tk_acf_diagnostics()` works with `grouped_df`'s, meaning you can
-#' group your time series by one or more categorical columns with `group_by()`
+#' group your time series by one or more categorical columns with `dplyr::group_by()`
 #' and then apply `tk_acf_diagnostics()` to return group-wise lag diagnostics.
+#'
+#' __Special Note on Dots (...)__
+#'
+#' Unlike other plotting utilities, the `...` arguments is NOT used for
+#' group-wise analysis. Rather, it's used for processing Cross Correlations (CCFs).
+#'
+#' Use `dplyr::group_by()` for processing multiple time series groups.
 #'
 #' @seealso
 #' - __Visualizing ACF, PACF, & CCF:__ [plot_acf_diagnostics()]
+#' - __Visualizing Seasonality:__ [plot_seasonal_diagnostics()]
+#' - __Visualizing Time Series:__ [plot_time_series()]
 #'
 #' @examples
 #' library(tidyverse)
@@ -47,18 +57,25 @@
 #' # - Get CCF between adjusted and volume and close
 #' FANG %>%
 #'     filter(symbol == "FB") %>%
-#'     tk_acf_diagnostics(.value = adjusted, volume, close, .lags = 0:500)
+#'     tk_acf_diagnostics(date, adjusted, # ACF & PACF
+#'                        volume, close,  # CCFs
+#'                        .lags = 0:500)
 #'
-#' # Do the same thing for groups with group_by()
+#' # Scale with groups using group_by()
 #' FANG %>%
 #'     group_by(symbol) %>%
-#'     tk_acf_diagnostics(.value = adjusted, volume, close, .lags = 0:500)
+#'     tk_acf_diagnostics(date, adjusted, volume, close, .lags = 0:500)
+#'
+#' # Apply Transformations
+#'
 #'
 #'
 #' @export
-tk_acf_diagnostics <- function(.data, .value, ..., .lags = 0:60) {
+tk_acf_diagnostics <- function(.data, .date_var, .value, ..., .lags = 0:60) {
     # Checks
-    value_expr <- enquo(.value)
+    date_var_expr <- enquo(.date_var)
+    value_expr    <- enquo(.value)
+    if (rlang::quo_is_missing(date_var_expr)) stop(call. = FALSE, "tk_acf_diagnostics(.date_var), Please provide a .date_var column of class date or date-time.")
     if (rlang::quo_is_missing(value_expr)) stop(call. = FALSE, "tk_acf_diagnostics(.value), Please provide a .value.")
     if (!is.data.frame(.data)) {
         stop(call. = FALSE, "tk_acf_diagnostics(.data) is not a data-frame or tibble. Please supply a data.frame or tibble.")
@@ -67,15 +84,18 @@ tk_acf_diagnostics <- function(.data, .value, ..., .lags = 0:60) {
 }
 
 #' @export
-tk_acf_diagnostics.data.frame <- function(.data, .value, ..., .lags = 0:60) {
+tk_acf_diagnostics.data.frame <- function(.data, .date_var, .value, ..., .lags = 0:60) {
 
     # Tidyeval Setup
     value_expr <- rlang::enquo(.value)
     dots_exprs <- rlang::enquos(...)
 
+    # Apply transformations
+    .data <- .data %>% dplyr::mutate(.value_mod = !! value_expr)
+
     # Calcs
     .lags   <- sort(.lags)
-    x       <- .data %>% dplyr::pull(!! value_expr)
+    x       <- .data %>% dplyr::pull(.value_mod)
     lag_max <- max(.lags)
     lag_min <- min(.lags)
 
@@ -87,16 +107,19 @@ tk_acf_diagnostics.data.frame <- function(.data, .value, ..., .lags = 0:60) {
             plot      = FALSE,
             type      = "correlation",
             demean    = TRUE,
-            na.action = stats::na.fail
+            na.action = stats::na.pass
         ) %>%
         .$acf %>%
         .[,,1]
 
     # ---- PACF ----
     pacf_values <- x %>%
-        stats::pacf(
-            lag.max  = lag_max,
-            plot     = FALSE
+        stats::acf(
+            lag.max   = lag_max,
+            plot      = FALSE,
+            type      = "partial",
+            demean    = TRUE,
+            na.action = stats::na.pass
         ) %>%
         .$acf %>%
         .[,,1]
@@ -113,7 +136,7 @@ tk_acf_diagnostics.data.frame <- function(.data, .value, ..., .lags = 0:60) {
                 lag.max   = lag_max,
                 type      = "correlation",
                 plot      = FALSE,
-                na.action = stats::na.fail
+                na.action = stats::na.pass
             ) %>%
                 .$acf %>%
                 .[,,1] %>%
@@ -136,7 +159,7 @@ tk_acf_diagnostics.data.frame <- function(.data, .value, ..., .lags = 0:60) {
 
 
 #' @export
-tk_acf_diagnostics.grouped_df <- function(.data, .value, ..., .lags = 0:60) {
+tk_acf_diagnostics.grouped_df <- function(.data, .date_var, .value, ..., .lags = 0:60) {
 
     # Tidy Eval Setup
     value_expr  <- rlang::enquo(.value)
@@ -157,6 +180,7 @@ tk_acf_diagnostics.grouped_df <- function(.data, .value, ..., .lags = 0:60) {
         dplyr::select(-data) %>%
         tidyr::unnest(cols = nested.col) %>%
         dplyr::group_by_at(.vars = group_names)
+
 
 }
 

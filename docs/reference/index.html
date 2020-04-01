@@ -106,6 +106,8 @@
       <a href="../articles/TK03_Forecasting_Using_Time_Series_Signature.html">Time Series Machine Learning</a>
     </li>
     <li class="divider"></li>
+    <li class="dropdown-header">Plotting</li>
+    <li class="divider"></li>
     <li class="dropdown-header">Time Series Helpers</li>
     <li>
       <a href="../articles/TK00_Time_Series_Coercion.html">Time series conversion</a>
@@ -168,7 +170,7 @@
         <td>
           <p><code><a href="plot_time_series.html">plot_time_series()</a></code> </p>
         </td>
-        <td><p>Scalable Interactive Time Series Plotting</p></td>
+        <td><p>Interactive Plotting for One or More Time Series</p></td>
       </tr><tr>
         
         <td>
@@ -252,15 +254,15 @@
       <tr>
         
         <td>
-          <p><code><a href="tk_get_holiday.html">tk_get_holiday_signature()</a></code> <code><a href="tk_get_holiday.html">tk_get_holidays_by_year()</a></code> </p>
-        </td>
-        <td><p>Get holiday features from a time-series index</p></td>
-      </tr><tr>
-        
-        <td>
           <p><code><a href="tk_get_timeseries.html">tk_get_timeseries_signature()</a></code> <code><a href="tk_get_timeseries.html">tk_get_timeseries_summary()</a></code> </p>
         </td>
         <td><p>Get date features from a time-series index</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="tk_get_holiday.html">tk_get_holiday_signature()</a></code> <code><a href="tk_get_holiday.html">tk_get_holidays_by_year()</a></code> </p>
+        </td>
+        <td><p>Get holiday features from a time-series index</p></td>
       </tr><tr>
         
         <td>
@@ -284,6 +286,12 @@
       <tr>
         
         <td>
+          <p><code><a href="tk_augment_timeseries.html">tk_augment_timeseries_signature()</a></code> </p>
+        </td>
+        <td><p>Augment the time series signature to the data</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="tk_augment_holiday.html">tk_augment_holiday_signature()</a></code> </p>
         </td>
         <td><p>Augment the holiday signature to the data</p></td>
@@ -293,18 +301,12 @@
           <p><code><a href="tk_augment_roll_apply.html">tk_augment_roll_apply()</a></code> </p>
         </td>
         <td><p>Augment columns with rolling windows to the data</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="tk_augment_timeseries.html">tk_augment_timeseries_signature()</a></code> </p>
-        </td>
-        <td><p>Augment the time series signature to the data</p></td>
       </tr>
     </tbody><tbody>
       <tr>
         <th colspan="2">
           <h2 id="section-diagnostic-operations" class="hasAnchor"><a href="#section-diagnostic-operations" class="anchor"></a>Diagnostic Operations</h2>
-          <p class="section-desc"><p><strong>Investigate time series relationships</strong></p></p>
+          <p class="section-desc"><p><strong>These power the time series plotting functions</strong></p></p>
         </th>
       </tr>
       <tr>
@@ -312,7 +314,7 @@
         <td>
           <p><code><a href="tk_acf_diagnostics.html">tk_acf_diagnostics()</a></code> </p>
         </td>
-        <td><p>Get ACF, PACF, and CCF in One Data Frame</p></td>
+        <td><p>Group-wise ACF, PACF, and CCF Data Preparation</p></td>
       </tr><tr>
         
         <td>
@@ -350,15 +352,21 @@
       <tr>
         
         <td>
-          <p><code><a href="step_fourier_series.html">step_fourier_series()</a></code> <code><a href="step_fourier_series.html">tidy(<i>&lt;step_fourier_series&gt;</i>)</a></code> </p>
+          <p><code><a href="step_timeseries_signature.html">step_timeseries_signature()</a></code> <code><a href="step_timeseries_signature.html">tidy(<i>&lt;step_timeseries_signature&gt;</i>)</a></code> </p>
         </td>
-        <td><p>Fourier Features for Modeling Seasonality</p></td>
+        <td><p>Time Series Feature (Signature) Generator</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="step_holiday_signature.html">step_holiday_signature()</a></code> <code><a href="step_holiday_signature.html">tidy(<i>&lt;step_holiday_signature&gt;</i>)</a></code> </p>
         </td>
         <td><p>Holiday Feature (Signature) Generator</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="step_fourier_series.html">step_fourier_series()</a></code> <code><a href="step_fourier_series.html">tidy(<i>&lt;step_fourier_series&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Fourier Features for Modeling Seasonality</p></td>
       </tr><tr>
         
         <td>
@@ -371,12 +379,6 @@
           <p><code><a href="step_smooth.html">step_smooth()</a></code> <code><a href="step_smooth.html">tidy(<i>&lt;step_smooth&gt;</i>)</a></code> </p>
         </td>
         <td><p>Smoothing Transformation using Loess</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="step_timeseries_signature.html">step_timeseries_signature()</a></code> <code><a href="step_timeseries_signature.html">tidy(<i>&lt;step_timeseries_signature&gt;</i>)</a></code> </p>
-        </td>
-        <td><p>Time Series Feature (Signature) Generator</p></td>
       </tr>
     </tbody><tbody>
       <tr>
