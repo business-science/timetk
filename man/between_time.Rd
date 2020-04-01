@@ -2,7 +2,7 @@
 % Please edit documentation in R/dplyr-between_time.R
 \name{between_time}
 \alias{between_time}
-\title{Flexible range detection for date or date-time sequences}
+\title{Between (For Time Series): Range detection for date or date-time sequences}
 \usage{
 between_time(.index, .start_date = "start", .end_date = "end")
 }

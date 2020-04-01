@@ -3,7 +3,7 @@
 \name{summarise_by_time}
 \alias{summarise_by_time}
 \alias{summarize_by_time}
-\title{Summarise each group by time}
+\title{Summarise for Time Series Data}
 \usage{
 summarise_by_time(
   .data,
@@ -59,18 +59,7 @@ Arbitrary unique English abbreviations as in the \code{lubridate::period()} cons
 \item{.type}{One of "floor", "ceiling", or "round. Defaults to "floor". See \code{lubridate::round_date}.}
 }
 \value{
-An object \emph{usually} of the same type as \code{.data}.
-\itemize{
-\item The rows come from the underlying \code{group_keys()}.
-\item The columns are a combination of the grouping keys and the summary
-expressions that you provide.
-\item If \code{x} is grouped by more than one variable, the output will be another
-\link{grouped_df} with the right-most group removed.
-\item If \code{x} is grouped by one variable, or is not grouped, the output will
-be a \link{tibble}.
-\item Data frame attributes are \strong{not} preserved, because \code{summarise()}
-fundamentally creates a new data frame.
-}
+A \code{tibble} or \code{data.frame}
 }
 \description{
 \code{summarise_by_time()} is a time-based variant of the popular \code{dplyr::summarise()} function.
@@ -92,13 +81,6 @@ calculation.
 }
 }
 
-\section{Methods}{
-
-This function is a \strong{generic}, which means that packages can provide
-implementations (methods) for other classes. See the documentation of
-individual methods for extra arguments and differences in behaviour.
-}
-
 \examples{
 # Libraries
 library(tidyquant)
@@ -113,7 +95,7 @@ FANG \%>\%
         adjusted  = FIRST(adjusted)
     )
 
-# Last adjused price in each month (day is last day of month with ceiling option)
+# Last adjused price in each month (day is first day of next month with ceiling option)
 FANG \%>\%
     group_by(symbol) \%>\%
     summarise_by_time(

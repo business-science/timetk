@@ -1,4 +1,4 @@
-#' Flexible time-series filtering for tibbles with date or date-time columns
+#' Filter for Time-Series Data
 #'
 #' The easiest way to filter time-based tibbles using shorthand timeseries notation.
 #' See [between_time()] for the date and date-time vector implementation.

@@ -72,7 +72,7 @@ FANG \%>\%
     tk_acf_diagnostics(date, adjusted, volume, close, .lags = 0:500)
 
 # Apply Transformations
-
+# TODO
 
 
 }

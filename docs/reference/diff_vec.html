@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Filter for Time-Series Data — filter_by_time • timetk</title>
+<title>Differencing Transformation — diff_vec • timetk</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -42,9 +42,8 @@
 
 
 
-<meta property="og:title" content="Filter for Time-Series Data — filter_by_time" />
-<meta property="og:description" content="The easiest way to filter time-based tibbles using shorthand timeseries notation.
-See between_time() for the date and date-time vector implementation." />
+<meta property="og:title" content="Differencing Transformation — diff_vec" />
+<meta property="og:description" content="diff_vec() applies a Differencing Transformation." />
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -149,97 +148,100 @@ See between_time() for the date and date-time vector implementation." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Filter for Time-Series Data</h1>
-    <small class="dont-index">Source: <a href='https://github.com/business-science/timetk/blob/master/R/dplyr-filter_by_time.R'><code>R/dplyr-filter_by_time.R</code></a></small>
-    <div class="hidden name"><code>filter_by_time.Rd</code></div>
+    <h1>Differencing Transformation</h1>
+    <small class="dont-index">Source: <a href='https://github.com/business-science/timetk/blob/master/R/vec-diff.R'><code>R/vec-diff.R</code></a></small>
+    <div class="hidden name"><code>diff_vec.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>The easiest way to filter time-based tibbles using shorthand timeseries notation.
-See <code><a href='between_time.html'>between_time()</a></code> for the date and date-time vector implementation.</p>
+    <p><code>diff_vec()</code> applies a Differencing Transformation.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>filter_by_time</span>(<span class='no'>.data</span>, <span class='no'>.date_var</span>, <span class='kw'>.start_date</span> <span class='kw'>=</span> <span class='st'>"start"</span>, <span class='kw'>.end_date</span> <span class='kw'>=</span> <span class='st'>"end"</span>)</pre>
+    <pre class="usage"><span class='fu'>diff_vec</span>(<span class='no'>.x</span>, <span class='kw'>.lag</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.differences</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.log</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+
+<span class='fu'>diff_inv_vec</span>(<span class='no'>.x</span>, <span class='kw'>.lag</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.differences</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.log</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>.lag_values</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>.data</th>
-      <td><p>A tibble with a time-based column.</p></td>
+      <th>.x</th>
+      <td><p>A numeric vector to be differenced or inverted.</p></td>
     </tr>
     <tr>
-      <th>.date_var</th>
-      <td><p>A column containing date or date-time values to filter</p></td>
+      <th>.lag</th>
+      <td><p>Which lag (how far back) to be included in the differencing calculation.</p></td>
     </tr>
     <tr>
-      <th>.start_date</th>
-      <td><p>The starting date for the filter sequence</p></td>
+      <th>.differences</th>
+      <td><p>The number of differences to perform.</p><ul>
+<li><p>1 Difference is equivalent to period change.</p></li>
+<li><p>2 Differences is equivalent to acceleration.</p></li>
+</ul></td>
     </tr>
     <tr>
-      <th>.end_date</th>
-      <td><p>The ending date for the filter sequence</p></td>
+      <th>.log</th>
+      <td><p>If log differences should be calculated.
+<em>Note that difference inversion of a log-difference is approximate.</em></p></td>
+    </tr>
+    <tr>
+      <th>.lag_values</th>
+      <td><p>A numeric vector of the initial values, which are used for difference inversion.</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>A numeric vector</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p><strong>Pure Time Series Filtering Flexibilty</strong></p>
-<p>The <code>.start_date</code>  and <code>.end_date</code> parameters are designed with flexibility in mind.</p>
-<p>Each side of the <code>time_formula</code> is specified as the character
-<code>'YYYY-MM-DD HH:MM:SS'</code>, but powerful shorthand is available.
-Some examples are:</p><ul>
-<li><p><strong>Year:</strong> <code>.start_date = '2013', .end_date = '2015'</code></p></li>
-<li><p><strong>Month:</strong> <code>.start_date = '2013-01', .end_date = '2016-06'</code></p></li>
-<li><p><strong>Day:</strong> <code>.start_date = '2013-01-05', .end_date = '2016-06-04'</code></p></li>
-<li><p><strong>Second:</strong> <code>.start_date = '2013-01-05 10:22:15', .end_date = '2018-06-03 12:14:22'</code></p></li>
-<li><p><strong>Variations:</strong> <code>.start_date = '2013', .end_date = '2016-06'</code></p></li>
-</ul>
-
-<p><strong>Key Words: "start" and "end"</strong></p>
-<p>Use the keywords "start" and "end" as shorthand, instead of specifying the
-actual start and end values. Here are some examples:</p><ul>
-<li><p><strong>Start of the series to end of 2015:</strong> <code>.start_date = 'start', .end_date = '2015'</code></p></li>
-<li><p><strong>Start of 2014 to end of series:</strong> <code>.start_date = '2014', .end_date = 'end'</code></p></li>
-</ul>
-
-<p><strong>Internal Calculations</strong></p>
-<p>All shorthand dates are expanded:</p><ul>
-<li><p>The <code>.start_date</code> is expanded to be the <em>first date</em> in that period</p></li>
-<li><p>The <code>.end_date</code> side is expanded to be the <em>last date</em> in that period</p></li>
-</ul>
-
-<p>This means that the following examples are equivalent (assuming your
-index is a POSIXct):</p><ul>
-<li><p><code>.start_date = '2015'</code> is equivalent to <code>.start_date = '2015-01-01 + 00:00:00' </code></p></li>
-<li><p><code>.end_date = '2016'</code> is equivalent to <code>2016-12-31 + 23:59:59'</code></p></li>
-</ul>
-
+    <p><strong>Benefits:</strong></p>
+<p>This function is <code>NA</code> padded by default so it works well with <code><a href='https://dplyr.tidyverse.org/reference/mutate.html'>dplyr::mutate()</a></code> operations.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'>
 <ul>
-<li><p><code><a href='between_time.html'>between_time()</a></code> - A time-based variant of <code><a href='https://dplyr.tidyverse.org/reference/between.html'>dplyr::between()</a></code> that powers by
-<code>filter_by_time()</code></p></li>
+<li><p>Rolling Window Calculations: <code><a href='roll_apply_vec.html'>roll_apply_vec()</a></code>, <code><a href='https://rdrr.io/pkg/slider/man/slide.html'>slider::slide_vec()</a></code>, <code><a href='https://rdrr.io/pkg/zoo/man/rollapply.html'>zoo::rollapply()</a></code></p></li>
+<li><p>Loess Modeling: <code><a href='https://rdrr.io/r/stats/loess.html'>stats::loess()</a></code></p></li>
 </ul>
 </div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>tidyverse</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>tidyquant</span>)
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>)
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>timetk</span>)
 
-<span class='co'># Filter values in January 1st through end of February, 2013</span>
-<span class='no'>FANG</span> <span class='kw'>%&gt;%</span>
-    <span class='fu'>group_by</span>(<span class='no'>symbol</span>) <span class='kw'>%&gt;%</span>
-    <span class='fu'>filter_by_time</span>(<span class='no'>date</span>, <span class='st'>"start"</span>, <span class='st'>"2013-02"</span>) <span class='kw'>%&gt;%</span>
-    <span class='fu'><a href='plot_time_series.html'>plot_time_series</a></span>(<span class='no'>date</span>, <span class='no'>adjusted</span>, <span class='kw'>.facet_ncol</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>.interactive</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='filter_by_time-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># --- MUTATE ----</span>
+<span class='no'>m4_daily</span> <span class='kw'>%&gt;%</span>
+    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>id</span>) <span class='kw'>%&gt;%</span>
+    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>difference</span> <span class='kw'>=</span> <span class='fu'>diff_vec</span>(<span class='no'>value</span>, <span class='kw'>.lag</span> <span class='kw'>=</span> <span class='fl'>1</span>)) <span class='kw'>%&gt;%</span>
+    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(
+        <span class='kw'>difference_inv</span> <span class='kw'>=</span> <span class='fu'>diff_inv_vec</span>(
+            <span class='no'>difference</span>,
+            <span class='kw'>.lag</span>        <span class='kw'>=</span> <span class='fl'>1</span>,
+            <span class='kw'>.lag_values</span> <span class='kw'>=</span> <span class='no'>value</span>[<span class='fl'>1</span>]
+        )
+    )</div><div class='output co'>#&gt; # A tibble: 9,743 x 5
+#&gt; # Groups:   id [4]
+#&gt;    id    date       value difference difference_inv
+#&gt;    &lt;fct&gt; &lt;date&gt;     &lt;dbl&gt;      &lt;dbl&gt;          &lt;dbl&gt;
+#&gt;  1 D10   2014-07-03 2076.      NA             2076.
+#&gt;  2 D10   2014-07-04 2073.      -2.80          2073.
+#&gt;  3 D10   2014-07-05 2049.     -24.7           2049.
+#&gt;  4 D10   2014-07-06 2049.       0.2           2049.
+#&gt;  5 D10   2014-07-07 2006.     -42.5           2006.
+#&gt;  6 D10   2014-07-08 2018.      11.2           2018.
+#&gt;  7 D10   2014-07-09 2019.       1.5           2019.
+#&gt;  8 D10   2014-07-10 2007.     -11.7           2007.
+#&gt;  9 D10   2014-07-11 2010        2.60          2010 
+#&gt; 10 D10   2014-07-12 2002.      -8.5           2002.
+#&gt; # … with 9,733 more rows</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#value">Value</a></li>
       <li><a href="#details">Details</a></li>
       <li><a href="#see-also">See also</a></li>
       <li><a href="#examples">Examples</a></li>

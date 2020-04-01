@@ -1,4 +1,4 @@
-#' Flexible range detection for date or date-time sequences
+#' Between (For Time Series): Range detection for date or date-time sequences
 #'
 #' The easiest way to filter time series date or date-time vectors. Returns a
 #' logical

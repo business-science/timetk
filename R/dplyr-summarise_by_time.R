@@ -1,4 +1,4 @@
-#' Summarise each group by time
+#' Summarise for Time Series Data
 #'
 #' @description
 #' `summarise_by_time()` is a time-based variant of the popular `dplyr::summarise()` function.
@@ -46,27 +46,14 @@
 #'   - `year`
 #'
 #'   Arbitrary unique English abbreviations as in the `lubridate::period()` constructor are allowed.
+#'
 #' @param .type One of "floor", "ceiling", or "round. Defaults to "floor". See `lubridate::round_date`.
 #'
 #' @family single table verbs
 #'
 #' @return
-#' An object _usually_ of the same type as `.data`.
+#' A `tibble` or `data.frame`
 #'
-#' * The rows come from the underlying `group_keys()`.
-#' * The columns are a combination of the grouping keys and the summary
-#'   expressions that you provide.
-#' * If `x` is grouped by more than one variable, the output will be another
-#'   [grouped_df] with the right-most group removed.
-#' * If `x` is grouped by one variable, or is not grouped, the output will
-#'   be a [tibble].
-#' * Data frame attributes are **not** preserved, because `summarise()`
-#'   fundamentally creates a new data frame.
-#'
-#' @section Methods:
-#' This function is a **generic**, which means that packages can provide
-#' implementations (methods) for other classes. See the documentation of
-#' individual methods for extra arguments and differences in behaviour.
 #'
 #' @examples
 #' # Libraries
@@ -82,7 +69,7 @@
 #'         adjusted  = FIRST(adjusted)
 #'     )
 #'
-#' # Last adjused price in each month (day is last day of month with ceiling option)
+#' # Last adjused price in each month (day is first day of next month with ceiling option)
 #' FANG %>%
 #'     group_by(symbol) %>%
 #'     summarise_by_time(

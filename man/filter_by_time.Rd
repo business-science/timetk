@@ -2,7 +2,7 @@
 % Please edit documentation in R/dplyr-filter_by_time.R
 \name{filter_by_time}
 \alias{filter_by_time}
-\title{Flexible time-series filtering for tibbles with date or date-time columns}
+\title{Filter for Time-Series Data}
 \usage{
 filter_by_time(.data, .date_var, .start_date = "start", .end_date = "end")
 }

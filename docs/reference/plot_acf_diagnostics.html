@@ -302,29 +302,39 @@ group-wise analysis. Rather, it's used for processing Cross Correlations (CCFs).
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>tidyverse</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>tidyquant</span>)
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>timetk</span>)
 
 
-<span class='co'># Plotly - Interactive Visualization (Good for Exploration)</span>
-<span class='no'>FANG</span> <span class='kw'>%&gt;%</span>
-    <span class='fu'>group_by</span>(<span class='no'>symbol</span>) <span class='kw'>%&gt;%</span>
+<span class='co'># Apply Transformations</span>
+<span class='co'># - Differencing transformation to identify ARIMA &amp; SARIMA Orders</span>
+<span class='no'>m4_hourly</span> <span class='kw'>%&gt;%</span>
+    <span class='fu'>group_by</span>(<span class='no'>id</span>) <span class='kw'>%&gt;%</span>
     <span class='fu'>plot_acf_diagnostics</span>(
-        <span class='no'>date</span>, <span class='no'>adjusted</span>,   <span class='co'># ACF &amp; PACF</span>
-        <span class='no'>volume</span>, <span class='no'>close</span>,    <span class='co'># CCF</span>
-        <span class='kw'>.lags</span> <span class='kw'>=</span> <span class='fl'>0</span>:<span class='fl'>180</span>
-    )
-
-<span class='co'># ggplot2 - static visualization (Good for PDF Reports)</span>
-<span class='no'>FANG</span> <span class='kw'>%&gt;%</span>
-    <span class='fu'>group_by</span>(<span class='no'>symbol</span>) <span class='kw'>%&gt;%</span>
-    <span class='fu'>plot_acf_diagnostics</span>(
-        <span class='no'>date</span>, <span class='no'>adjusted</span>,  <span class='co'># ACF &amp; PACF</span>
-        <span class='no'>volume</span>, <span class='no'>close</span>,   <span class='co'># CCF</span>
-        <span class='kw'>.lags</span>   <span class='kw'>=</span> <span class='fl'>0</span>:<span class='fl'>180</span>,
+        <span class='no'>date</span>, <span class='no'>value</span>,               <span class='co'># ACF &amp; PACF</span>
+        <span class='kw'>.lags</span> <span class='kw'>=</span> <span class='fl'>0</span>:(<span class='fl'>24</span>*<span class='fl'>7</span>),          <span class='co'># 7-Days of hourly lags</span>
         <span class='kw'>.interactive</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
     )</div><div class='img'><img src='plot_acf_diagnostics-1.png' alt='' width='700' height='433' /></div><div class='input'>
-
+<span class='co'># Apply Transformations</span>
+<span class='co'># - Differencing transformation to identify ARIMA &amp; SARIMA Orders</span>
+<span class='no'>m4_hourly</span> <span class='kw'>%&gt;%</span>
+    <span class='fu'>group_by</span>(<span class='no'>id</span>) <span class='kw'>%&gt;%</span>
+    <span class='fu'>plot_acf_diagnostics</span>(
+        <span class='no'>date</span>,
+        <span class='fu'><a href='diff_vec.html'>diff_vec</a></span>(<span class='no'>value</span>, <span class='kw'>.lag</span> <span class='kw'>=</span> <span class='fl'>1</span>), <span class='co'># Difference the value column</span>
+        <span class='kw'>.lags</span>        <span class='kw'>=</span> <span class='fl'>0</span>:(<span class='fl'>24</span>*<span class='fl'>7</span>),   <span class='co'># 7-Days of hourly lags</span>
+        <span class='kw'>.interactive</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+    ) +
+    <span class='fu'>ggtitle</span>(<span class='st'>"ACF Diagnostics"</span>,  <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='st'>"1st Difference"</span>)</div><div class='img'><img src='plot_acf_diagnostics-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># CCFs Too!</span>
+<span class='no'>walmart_sales_weekly</span> <span class='kw'>%&gt;%</span>
+    <span class='fu'>select</span>(<span class='no'>id</span>, <span class='no'>Date</span>, <span class='no'>Weekly_Sales</span>, <span class='no'>Temperature</span>, <span class='no'>Fuel_Price</span>) <span class='kw'>%&gt;%</span>
+    <span class='fu'>group_by</span>(<span class='no'>id</span>) <span class='kw'>%&gt;%</span>
+    <span class='fu'>plot_acf_diagnostics</span>(
+        <span class='no'>Date</span>, <span class='no'>Weekly_Sales</span>,        <span class='co'># ACF &amp; PACF</span>
+        <span class='no'>Temperature</span>, <span class='no'>Fuel_Price</span>,   <span class='co'># CCFs</span>
+        <span class='kw'>.lags</span>        <span class='kw'>=</span> <span class='fl'>0</span>:(<span class='fl'>4</span>*<span class='fl'>3</span>),    <span class='co'># 3 months of weekly lags</span>
+        <span class='kw'>.interactive</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+    )</div><div class='img'><img src='plot_acf_diagnostics-3.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

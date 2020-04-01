@@ -104,29 +104,41 @@ Use \code{dplyr::group_by()} for processing multiple time series groups.
 }
 \examples{
 library(tidyverse)
-library(tidyquant)
 library(timetk)
 
 
-# Plotly - Interactive Visualization (Good for Exploration)
-FANG \%>\%
-    group_by(symbol) \%>\%
+# Apply Transformations
+# - Differencing transformation to identify ARIMA & SARIMA Orders
+m4_hourly \%>\%
+    group_by(id) \%>\%
     plot_acf_diagnostics(
-        date, adjusted,   # ACF & PACF
-        volume, close,    # CCF
-        .lags = 0:180
-    )
-
-# ggplot2 - static visualization (Good for PDF Reports)
-FANG \%>\%
-    group_by(symbol) \%>\%
-    plot_acf_diagnostics(
-        date, adjusted,  # ACF & PACF
-        volume, close,   # CCF
-        .lags   = 0:180,
+        date, value,               # ACF & PACF
+        .lags = 0:(24*7),          # 7-Days of hourly lags
         .interactive = FALSE
     )
 
+# Apply Transformations
+# - Differencing transformation to identify ARIMA & SARIMA Orders
+m4_hourly \%>\%
+    group_by(id) \%>\%
+    plot_acf_diagnostics(
+        date,
+        diff_vec(value, .lag = 1), # Difference the value column
+        .lags        = 0:(24*7),   # 7-Days of hourly lags
+        .interactive = FALSE
+    ) +
+    ggtitle("ACF Diagnostics",  subtitle = "1st Difference")
+
+# CCFs Too!
+walmart_sales_weekly \%>\%
+    select(id, Date, Weekly_Sales, Temperature, Fuel_Price) \%>\%
+    group_by(id) \%>\%
+    plot_acf_diagnostics(
+        Date, Weekly_Sales,        # ACF & PACF
+        Temperature, Fuel_Price,   # CCFs
+        .lags        = 0:(4*3),    # 3 months of weekly lags
+        .interactive = FALSE
+    )
 
 }
 \seealso{

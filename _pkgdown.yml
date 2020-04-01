@@ -70,7 +70,7 @@ reference:
     - "tk_acf_diagnostics"
     - "tk_seasonal_diagnostics"
   - title: Vector Operations
-    desc: __Apply vectorized operations to time series data__
+    desc: __Use with `mutate` to apply vectorized operations to time series data__
     contents:
     - contains("_vec")
   - title: Recipe Operations (Feature Engineering Steps)

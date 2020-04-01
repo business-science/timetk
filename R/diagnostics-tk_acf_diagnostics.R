@@ -67,7 +67,7 @@
 #'     tk_acf_diagnostics(date, adjusted, volume, close, .lags = 0:500)
 #'
 #' # Apply Transformations
-#'
+#' # TODO
 #'
 #'
 #' @export
@@ -172,6 +172,7 @@ tk_acf_diagnostics.grouped_df <- function(.data, .date_var, .value, ..., .lags =
             .x         = data,
             .f         = function(df) tk_acf_diagnostics(
                 .data      = df,
+                .date_var  = !! rlang::enquo(.date_var),
                 .value     = !! value_expr,
                 ...,
                 .lags      = .lags

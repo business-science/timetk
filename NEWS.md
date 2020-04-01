@@ -26,6 +26,10 @@ __TODO:__
     - (DONE) `step_smooth()` 
     - `tk_augment_smooth()`
     - (DONE) `smooth_vec()` 
+- Differencing functionality
+    - `diff_vec`
+    - `diff_inv_vec`
+    - `step_diff`
 - Box Cox functionality
     - `box_cox_vec`
     - `box_cox_inv_vec`
