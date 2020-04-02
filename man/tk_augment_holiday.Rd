@@ -59,7 +59,6 @@ Filter on an index to identify all holidays that are commonly non-working.
 }
 \examples{
 library(dplyr)
-library(tidyquant)
 library(timetk)
 
 dates_in_2017_tbl <- tibble(index = tk_make_date_sequence("2017-01-01", "2017-12-31", by = "day"))

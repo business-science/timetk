@@ -65,6 +65,8 @@
 #'     locale_set      = "none",
 #'     exchange_set    = "none")
 #'
+#' # ---- APPLYING FILTERS ----
+#'
 #' # Filter with locale sets - Signals all holidays in a locale
 #' tk_get_holiday_signature(
 #'     idx,

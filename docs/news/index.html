@@ -297,6 +297,8 @@ __TODO:__
 <code><a href="../reference/diff_vec.html">diff_vec()</a></code> and <code><a href="../reference/diff_vec.html">diff_inv_vec()</a></code> - Vectorized differencing function. Pads <code>NA</code>’s by default (unlike <code>stats::diff</code>).</li>
 <li>
 <code><a href="../reference/lag_vec.html">lag_vec()</a></code> - Vectorized lag functions. Returns both lags and leads (negative lags) by adjusting the <code>.lag</code> argument.</li>
+<li>
+<code><a href="../reference/box_cox_vec.html">box_cox_vec()</a></code>, <code><a href="../reference/box_cox_vec.html">box_cox_inv_vec()</a></code>, &amp; <code><a href="../reference/box_cox_vec.html">auto_lambda()</a></code> - Vectorized Box Cox transformation. Leverages <code><a href="https://rdrr.io/pkg/forecast/man/BoxCox.lambda.html">forecast::BoxCox.lambda()</a></code> for automatic lambda selection.</li>
 </ul>
 <p><strong>New Datasets</strong></p>
 <ul>

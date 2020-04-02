@@ -120,6 +120,7 @@ These functions are useful on their own inside of `mutate()` and power many of t
 * `smooth_vec()` - Vectorized smoothing function - Applies Local Polynomial Regression (LOESS)
 * `diff_vec()` and `diff_inv_vec()` - Vectorized differencing function. Pads `NA`'s by default (unlike `stats::diff`).
 * `lag_vec()` - Vectorized lag functions. Returns both lags and leads (negative lags) by adjusting the `.lag` argument. 
+* `box_cox_vec()`, `box_cox_inv_vec()`, & `auto_lambda()` - Vectorized Box Cox transformation. Leverages `forecast::BoxCox.lambda()` for automatic lambda selection. 
 
 __New Datasets__
 
