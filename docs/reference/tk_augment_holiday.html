@@ -159,6 +159,7 @@
 
     <pre class="usage"><span class='fu'>tk_augment_holiday_signature</span>(
   <span class='no'>.data</span>,
+  <span class='kw'>.date_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>.holiday_pattern</span> <span class='kw'>=</span> <span class='st'>"."</span>,
   <span class='kw'>.locale_set</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"all"</span>, <span class='st'>"none"</span>, <span class='st'>"World"</span>, <span class='st'>"US"</span>, <span class='st'>"CA"</span>, <span class='st'>"GB"</span>, <span class='st'>"FR"</span>, <span class='st'>"IT"</span>, <span class='st'>"JP"</span>, <span class='st'>"CH"</span>,
     <span class='st'>"DE"</span>),
@@ -171,6 +172,11 @@
     <tr>
       <th>.data</th>
       <td><p>A time-based tibble or time-series object.</p></td>
+    </tr>
+    <tr>
+      <th>.date_var</th>
+      <td><p>A column containing either date or date-time values.
+If <code>NULL</code>, the time-based column will interpret from the object (tibble).</p></td>
     </tr>
     <tr>
       <th>.holiday_pattern</th>
@@ -233,6 +239,7 @@ Filter on an index to identify all holidays that are commonly non-working.</p>
 <span class='co'># Non-working days in US due to Holidays using NYSE stock exchange calendar</span>
 <span class='no'>dates_in_2017_tbl</span> <span class='kw'>%&gt;%</span>
     <span class='fu'>tk_augment_holiday_signature</span>(
+        <span class='no'>index</span>,
         <span class='kw'>.holiday_pattern</span> <span class='kw'>=</span> <span class='st'>"^$"</span>,   <span class='co'># Returns nothing on purpose</span>
         <span class='kw'>.locale_set</span>      <span class='kw'>=</span> <span class='st'>"none"</span>,
         <span class='kw'>.exchange_set</span>    <span class='kw'>=</span> <span class='st'>"NYSE"</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 365 x 2</span><span>
@@ -252,6 +259,7 @@ Filter on an index to identify all holidays that are commonly non-working.</p>
 <span class='co'># All holidays in US</span>
 <span class='no'>dates_in_2017_tbl</span> <span class='kw'>%&gt;%</span>
     <span class='fu'>tk_augment_holiday_signature</span>(
+        <span class='no'>index</span>,
         <span class='kw'>.holiday_pattern</span> <span class='kw'>=</span> <span class='st'>"US_"</span>,
         <span class='kw'>.locale_set</span>      <span class='kw'>=</span> <span class='st'>"US"</span>,
         <span class='kw'>.exchange_set</span>    <span class='kw'>=</span> <span class='st'>"none"</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 365 x 19</span><span>
@@ -277,6 +285,7 @@ Filter on an index to identify all holidays that are commonly non-working.</p>
 <span class='co'># - Note that Italy celebrates specific holidays in addition to many World Holidays</span>
 <span class='no'>dates_in_2017_tbl</span> <span class='kw'>%&gt;%</span>
     <span class='fu'>tk_augment_holiday_signature</span>(
+        <span class='no'>index</span>,
         <span class='kw'>.holiday_pattern</span> <span class='kw'>=</span> <span class='st'>"(World)|(IT_)"</span>,
         <span class='kw'>.locale_set</span>      <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"World"</span>, <span class='st'>"IT"</span>),
         <span class='kw'>.exchange_set</span>    <span class='kw'>=</span> <span class='st'>"none"</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 365 x 45</span><span>

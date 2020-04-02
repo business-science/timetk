@@ -342,7 +342,7 @@
 <p>It’s usually important to keep the index signature with the values (e.g. volume in our example). We can use an expedited approach with <code><a href="../reference/tk_augment_timeseries.html">tk_augment_timeseries_signature()</a></code>, which adds the signature to the end of the time series object. Note that <code>xts</code> and <code>zoo</code> objects only retain numeric columns and therefore “month.lbl” and “wday.lbl” columns will be dropped. We’ll use the <code><a href="../reference/tk_augment_timeseries.html">tk_augment_timeseries_signature()</a></code> function on the dataframe <code>FB_vol_date</code> which contains the date and volume columns.</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="co"># Augmenting a data frame</span></a>
 <a class="sourceLine" id="cb16-2" data-line-number="2">FB_vol_date_signature &lt;-<span class="st"> </span><span class="kw"><a href="../reference/tk_augment_timeseries.html">tk_augment_timeseries_signature</a></span>(FB_vol_date)</a></code></pre></div>
-<pre><code>## Using the following .date_var variable: date</code></pre>
+<pre><code>## tk_augment_timeseries_signature(): Using the following .date_var variable: date</code></pre>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1">FB_vol_date_signature</a></code></pre></div>
 <pre><code>## # A tibble: 1,008 x 30
 ##    date       volume index.num   diff  year year.iso  half quarter month
