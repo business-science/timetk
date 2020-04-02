@@ -157,7 +157,7 @@
     <p>Augment the time series signature to the data</p>
     </div>
 
-    <pre class="usage"><span class='fu'>tk_augment_timeseries_signature</span>(<span class='no'>.data</span>)</pre>
+    <pre class="usage"><span class='fu'>tk_augment_timeseries_signature</span>(<span class='no'>.data</span>, <span class='kw'>.date_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -166,6 +166,11 @@
       <th>.data</th>
       <td><p>A time-based tibble or time-series object.</p></td>
     </tr>
+    <tr>
+      <th>.date_var</th>
+      <td><p>For <code>tibbles</code>, a column containing either date or date-time values.
+If <code>NULL</code>, the time-based column will interpret from the object (tibble, xts, zoo, etc).</p></td>
+    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -173,12 +178,14 @@
     <p>Returns a <code>tibble</code> object describing the timeseries.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p><code>tk_augment_timeseries_signature</code> adds the time series signature
-features including
-numeric value, differences,
-year, month, day, day of week, day of month,
-day of year, hour, minute, second
-to the input data.</p>
+    <p><code>tk_augment_timeseries_signature()</code> adds 25+ time series features including:</p><ul>
+<li><p><strong>Trend in Seconds Granularity:</strong> index.num</p></li>
+<li><p><strong>Yearly Seasonality:</strong> Year, Month, Quarter</p></li>
+<li><p><strong>Weekly Seasonality:</strong> Week of Month, Day of Month, Day of Week, and more</p></li>
+<li><p><strong>Daily Seasonality:</strong> Hour, Minute, Second</p></li>
+<li><p><strong>Weekly Cyclic Patterns:</strong> 2 weeks, 3 weeks, 4 weeks</p></li>
+</ul>
+
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Augment Operations:</p><ul>
@@ -196,30 +203,29 @@ to the input data.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>tidyquant</span>)
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>timetk</span>)
 
-<span class='no'>FANG</span> <span class='kw'>%&gt;%</span>
-    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='no'>symbol</span> <span class='kw'>==</span> <span class='st'>"FB"</span>) <span class='kw'>%&gt;%</span>
-    <span class='fu'>tk_augment_timeseries_signature</span>()</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 1,008 x 36</span><span>
-#&gt;    symbol date        open  high   low close volume adjusted index.num   diff
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> FB     2013-01-02  27.4  28.2  27.4  28   6.98</span><span style='color: #555555;'>e</span><span>7     28      1.36</span><span style='color: #555555;'>e</span><span>9     </span><span style='color: #BB0000;'>NA</span><span>
-#&gt; </span><span style='color: #555555;'> 2</span><span> FB     2013-01-03  27.9  28.5  27.6  27.8 6.31</span><span style='color: #555555;'>e</span><span>7     27.8    1.36</span><span style='color: #555555;'>e</span><span>9  </span><span style='text-decoration: underline;'>86</span><span>400
-#&gt; </span><span style='color: #555555;'> 3</span><span> FB     2013-01-04  28.0  28.9  27.8  28.8 7.27</span><span style='color: #555555;'>e</span><span>7     28.8    1.36</span><span style='color: #555555;'>e</span><span>9  </span><span style='text-decoration: underline;'>86</span><span>400
-#&gt; </span><span style='color: #555555;'> 4</span><span> FB     2013-01-07  28.7  29.8  28.6  29.4 8.38</span><span style='color: #555555;'>e</span><span>7     29.4    1.36</span><span style='color: #555555;'>e</span><span>9 </span><span style='text-decoration: underline;'>259</span><span>200
-#&gt; </span><span style='color: #555555;'> 5</span><span> FB     2013-01-08  29.5  29.6  28.9  29.1 4.59</span><span style='color: #555555;'>e</span><span>7     29.1    1.36</span><span style='color: #555555;'>e</span><span>9  </span><span style='text-decoration: underline;'>86</span><span>400
-#&gt; </span><span style='color: #555555;'> 6</span><span> FB     2013-01-09  29.7  30.6  29.5  30.6 1.05</span><span style='color: #555555;'>e</span><span>8     30.6    1.36</span><span style='color: #555555;'>e</span><span>9  </span><span style='text-decoration: underline;'>86</span><span>400
-#&gt; </span><span style='color: #555555;'> 7</span><span> FB     2013-01-10  30.6  31.5  30.3  31.3 9.53</span><span style='color: #555555;'>e</span><span>7     31.3    1.36</span><span style='color: #555555;'>e</span><span>9  </span><span style='text-decoration: underline;'>86</span><span>400
-#&gt; </span><span style='color: #555555;'> 8</span><span> FB     2013-01-11  31.3  32.0  31.1  31.7 8.96</span><span style='color: #555555;'>e</span><span>7     31.7    1.36</span><span style='color: #555555;'>e</span><span>9  </span><span style='text-decoration: underline;'>86</span><span>400
-#&gt; </span><span style='color: #555555;'> 9</span><span> FB     2013-01-14  32.1  32.2  30.6  31.0 9.89</span><span style='color: #555555;'>e</span><span>7     31.0    1.36</span><span style='color: #555555;'>e</span><span>9 </span><span style='text-decoration: underline;'>259</span><span>200
-#&gt; </span><span style='color: #555555;'>10</span><span> FB     2013-01-15  30.6  31.7  29.9  30.1 1.73</span><span style='color: #555555;'>e</span><span>8     30.1    1.36</span><span style='color: #555555;'>e</span><span>9  </span><span style='text-decoration: underline;'>86</span><span>400
-#&gt; </span><span style='color: #555555;'># … with 998 more rows, and 26 more variables: year </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>, year.iso </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>,
-#&gt; #   half </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>, quarter </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>, month </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>, month.xts </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>, month.lbl </span><span style='color: #555555;font-style: italic;'>&lt;ord&gt;</span><span style='color: #555555;'>,
-#&gt; #   day </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>, hour </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>, minute </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>, second </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>, hour12 </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>,
-#&gt; #   am.pm </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>, wday </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>, wday.xts </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>, wday.lbl </span><span style='color: #555555;font-style: italic;'>&lt;ord&gt;</span><span style='color: #555555;'>, mday </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>,
-#&gt; #   qday </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>, yday </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>, mweek </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>, week </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>, week.iso </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>,
-#&gt; #   week2 </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>, week3 </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>, week4 </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>, mday7 </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span></div><div class='input'>
+<span class='no'>m4_daily</span> <span class='kw'>%&gt;%</span>
+    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>id</span>) <span class='kw'>%&gt;%</span>
+    <span class='fu'>tk_augment_timeseries_signature</span>(<span class='no'>date</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 9,743 x 31</span><span>
+#&gt; </span><span style='color: #555555;'># Groups:   id [4]</span><span>
+#&gt;    id    date       value index.num  diff  year year.iso  half quarter month
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> D410  1978-06-23 </span><span style='text-decoration: underline;'>9</span><span>109. 267</span><span style='text-decoration: underline;'>408</span><span>000    </span><span style='color: #BB0000;'>NA</span><span>  </span><span style='text-decoration: underline;'>1</span><span>978     </span><span style='text-decoration: underline;'>1</span><span>978     1       2     6
+#&gt; </span><span style='color: #555555;'> 2</span><span> D410  1978-06-24 </span><span style='text-decoration: underline;'>9</span><span>103. 267</span><span style='text-decoration: underline;'>494</span><span>400 </span><span style='text-decoration: underline;'>86</span><span>400  </span><span style='text-decoration: underline;'>1</span><span>978     </span><span style='text-decoration: underline;'>1</span><span>978     1       2     6
+#&gt; </span><span style='color: #555555;'> 3</span><span> D410  1978-06-25 </span><span style='text-decoration: underline;'>9</span><span>116. 267</span><span style='text-decoration: underline;'>580</span><span>800 </span><span style='text-decoration: underline;'>86</span><span>400  </span><span style='text-decoration: underline;'>1</span><span>978     </span><span style='text-decoration: underline;'>1</span><span>978     1       2     6
+#&gt; </span><span style='color: #555555;'> 4</span><span> D410  1978-06-26 </span><span style='text-decoration: underline;'>9</span><span>116. 267</span><span style='text-decoration: underline;'>667</span><span>200 </span><span style='text-decoration: underline;'>86</span><span>400  </span><span style='text-decoration: underline;'>1</span><span>978     </span><span style='text-decoration: underline;'>1</span><span>978     1       2     6
+#&gt; </span><span style='color: #555555;'> 5</span><span> D410  1978-06-27 </span><span style='text-decoration: underline;'>9</span><span>106. 267</span><span style='text-decoration: underline;'>753</span><span>600 </span><span style='text-decoration: underline;'>86</span><span>400  </span><span style='text-decoration: underline;'>1</span><span>978     </span><span style='text-decoration: underline;'>1</span><span>978     1       2     6
+#&gt; </span><span style='color: #555555;'> 6</span><span> D410  1978-06-28 </span><span style='text-decoration: underline;'>9</span><span>094. 267</span><span style='text-decoration: underline;'>840</span><span>000 </span><span style='text-decoration: underline;'>86</span><span>400  </span><span style='text-decoration: underline;'>1</span><span>978     </span><span style='text-decoration: underline;'>1</span><span>978     1       2     6
+#&gt; </span><span style='color: #555555;'> 7</span><span> D410  1978-06-29 </span><span style='text-decoration: underline;'>9</span><span>094. 267</span><span style='text-decoration: underline;'>926</span><span>400 </span><span style='text-decoration: underline;'>86</span><span>400  </span><span style='text-decoration: underline;'>1</span><span>978     </span><span style='text-decoration: underline;'>1</span><span>978     1       2     6
+#&gt; </span><span style='color: #555555;'> 8</span><span> D410  1978-06-30 </span><span style='text-decoration: underline;'>9</span><span>084. 268</span><span style='text-decoration: underline;'>012</span><span>800 </span><span style='text-decoration: underline;'>86</span><span>400  </span><span style='text-decoration: underline;'>1</span><span>978     </span><span style='text-decoration: underline;'>1</span><span>978     1       2     6
+#&gt; </span><span style='color: #555555;'> 9</span><span> D410  1978-07-01 </span><span style='text-decoration: underline;'>9</span><span>081. 268</span><span style='text-decoration: underline;'>099</span><span>200 </span><span style='text-decoration: underline;'>86</span><span>400  </span><span style='text-decoration: underline;'>1</span><span>978     </span><span style='text-decoration: underline;'>1</span><span>978     2       3     7
+#&gt; </span><span style='color: #555555;'>10</span><span> D410  1978-07-02 </span><span style='text-decoration: underline;'>9</span><span>047. 268</span><span style='text-decoration: underline;'>185</span><span>600 </span><span style='text-decoration: underline;'>86</span><span>400  </span><span style='text-decoration: underline;'>1</span><span>978     </span><span style='text-decoration: underline;'>1</span><span>978     2       3     7
+#&gt; </span><span style='color: #555555;'># … with 9,733 more rows, and 21 more variables: month.xts </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>,
+#&gt; #   month.lbl </span><span style='color: #555555;font-style: italic;'>&lt;ord&gt;</span><span style='color: #555555;'>, day </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>, hour </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>, minute </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>, second </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>,
+#&gt; #   hour12 </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>, am.pm </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>, wday </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>, wday.xts </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>, wday.lbl </span><span style='color: #555555;font-style: italic;'>&lt;ord&gt;</span><span style='color: #555555;'>,
+#&gt; #   mday </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>, qday </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>, yday </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>, mweek </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>, week </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>,
+#&gt; #   week.iso </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>, week2 </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>, week3 </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>, week4 </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>, mday7 </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span></div><div class='input'>
 </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

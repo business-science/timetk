@@ -180,8 +180,8 @@ __TODO:__
     - (DONE) `diff_inv_vec`
     - `step_differences`
 - Lag functionality
-    - `lag_vec()`
-    - `tk_augment_lags()`
+    - (DONE) `lag_vec()`
+    - (DONE) `tk_augment_lags()`
     - `recipes::step_lag()`
 - Rsample automation 
     - [Rsample PR <a href='https://github.com/business-science/timetk/issues/136'>#136</a>](https://github.com/tidymodels/rsample/pull/136)
@@ -312,7 +312,7 @@ __TODO:__
 <li>
 <a href="https://github.com/business-science/timetk/pull/32">Don’t set timezone on date</a> - Accommodate recent changes to <code>lubridate::tz&lt;-</code> which now returns POSIXct when used Date objects. Fixed in PR32 by <a href='https://github.com/vspinu'>@vspinu</a>.</li>
 </ul>
-<p><strong>(Potential) Breaking Changes:</strong></p>
+<p><strong>Potential Breaking Changes:</strong></p>
 <ul>
 <li>
 <code><a href="../reference/tk_augment_timeseries.html">tk_augment_timeseries_signature()</a></code> - Changed from <code>data</code> to <code>.data</code> to prevent name collisions when piping.</li>
