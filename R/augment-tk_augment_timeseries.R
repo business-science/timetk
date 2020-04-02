@@ -2,7 +2,7 @@
 #'
 #' @param .data A time-based tibble or time-series object.
 #' @param .date_var For `tibbles`, a column containing either date or date-time values.
-#'  If missing, the time-based column will interpret from the object (tibble, xts, zoo, etc).
+#'  If `NULL`, the time-based column will interpret from the object (tibble, xts, zoo, etc).
 #'
 #' @return Returns a `tibble` object describing the timeseries.
 #'
@@ -33,8 +33,8 @@
 #' library(dplyr)
 #' library(timetk)
 #'
-#' FANG %>%
-#'     filter(symbol == "FB") %>%
+#' m4_daily %>%
+#'     group_by(id) %>%
 #'     tk_augment_timeseries_signature(date)
 #'
 #' @name tk_augment_timeseries
@@ -50,7 +50,7 @@ tk_augment_timeseries_signature <- function(.data, .date_var = NULL) {
             # .date_var is NULL
             date_var <- tk_get_timeseries_variables(.data)[[1]]
             if (length(date_var) == 0 ) stop(call. = FALSE, "tk_augment_timeseries_signature(): No date variable detected.")
-            message("Using the following variable: ", date_var)
+            message("Using the following .date_var variable: ", date_var)
         }
     }
 
@@ -60,12 +60,17 @@ tk_augment_timeseries_signature <- function(.data, .date_var = NULL) {
 #' @export
 tk_augment_timeseries_signature.data.frame <- function(.data, .date_var = NULL) {
 
+    date_var_expr <- rlang::enquo(.date_var)
+
     # Get date_var
     if (rlang::quo_is_null(enquo(.date_var))) {
         # .date_var is NULL
         date_var <- tk_get_timeseries_variables(.data)[[1]]
     } else {
-        date_var <- .data %>% dplyr::select(!! enquo(.date_var)) %>% colnames()
+        date_var <- .data %>%
+            dplyr::ungroup() %>%
+            dplyr::select(!! date_var_expr) %>%
+            colnames()
     }
 
 
@@ -76,7 +81,7 @@ tk_augment_timeseries_signature.data.frame <- function(.data, .date_var = NULL) 
     ret_1 <- .data
 
     ret_2 <- .data %>%
-        pull(date_var) %>%
+        dplyr::pull(date_var) %>%
         tk_get_timeseries_signature() %>%
         dplyr::select(-1)
 
@@ -90,19 +95,38 @@ tk_augment_timeseries_signature.grouped_df <- function(.data, .date_var = NULL) 
 
     # Tidy Eval Setup
     group_names <- dplyr::group_vars(.data)
+    date_var_expr <- enquo(.date_var)
 
-    .data %>%
-        tidyr::nest() %>%
-        dplyr::mutate(nested.col = purrr::map(
-            .x         = data,
-            .f         = function(df) tk_augment_timeseries_signature.data.frame(
-                .data       = df,
-                .date_var   = !! enquo(.date_var)
-            )
-        )) %>%
-        dplyr::select(-data) %>%
-        tidyr::unnest(cols = nested.col) %>%
-        dplyr::group_by_at(.vars = group_names)
+    if (rlang::quo_is_null(date_var_expr)) {
+        ret_tbl <- .data %>%
+            tidyr::nest() %>%
+            dplyr::mutate(nested.col = purrr::map(
+                .x         = data,
+                .f         = function(df) tk_augment_timeseries_signature.data.frame(
+                    .data       = df,
+                    .date_var   = NULL
+                )
+            )) %>%
+            dplyr::select(-data) %>%
+            tidyr::unnest(cols = nested.col) %>%
+            dplyr::group_by_at(.vars = group_names)
+    } else {
+        ret_tbl <- .data %>%
+            tidyr::nest() %>%
+            dplyr::mutate(nested.col = purrr::map(
+                .x         = data,
+                .f         = function(df) tk_augment_timeseries_signature.data.frame(
+                    .data       = df,
+                    .date_var   = !! date_var_expr
+                )
+            )) %>%
+            dplyr::select(-data) %>%
+            tidyr::unnest(cols = nested.col) %>%
+            dplyr::group_by_at(.vars = group_names)
+    }
+
+    return(ret_tbl)
+
 }
 
 #' @export

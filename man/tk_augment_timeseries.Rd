@@ -11,7 +11,7 @@ tk_augment_timeseries_signature(.data, .date_var = NULL)
 \item{.data}{A time-based tibble or time-series object.}
 
 \item{.date_var}{For \code{tibbles}, a column containing either date or date-time values.
-If missing, the time-based column will interpret from the object (tibble, xts, zoo, etc).}
+If \code{NULL}, the time-based column will interpret from the object (tibble, xts, zoo, etc).}
 }
 \value{
 Returns a \code{tibble} object describing the timeseries.
@@ -33,8 +33,8 @@ Augment the time series signature to the data
 library(dplyr)
 library(timetk)
 
-FANG \%>\%
-    filter(symbol == "FB") \%>\%
+m4_daily \%>\%
+    group_by(id) \%>\%
     tk_augment_timeseries_signature(date)
 
 }
