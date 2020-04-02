@@ -1,16 +1,19 @@
 #' Augment the time series signature to the data
 #'
 #' @param .data A time-based tibble or time-series object.
+#' @param .date_var For `tibbles`, a column containing either date or date-time values.
+#'  If missing, the time-based column will interpret from the object (tibble, xts, zoo, etc).
 #'
 #' @return Returns a `tibble` object describing the timeseries.
 #'
 #' @details
-#' `tk_augment_timeseries_signature` adds the time series signature
-#' features including
-#' numeric value, differences,
-#' year, month, day, day of week, day of month,
-#' day of year, hour, minute, second
-#' to the input data.
+#' `tk_augment_timeseries_signature()` adds 25+ time series features including:
+#'
+#' - __Trend in Seconds Granularity:__ index.num
+#' - __Yearly Seasonality:__ Year, Month, Quarter
+#' - __Weekly Seasonality:__ Week of Month, Day of Month, Day of Week, and more
+#' - __Daily Seasonality:__ Hour, Minute, Second
+#' - __Weekly Cyclic Patterns:__ 2 weeks, 3 weeks, 4 weeks
 #'
 #' @seealso
 #'
@@ -28,26 +31,43 @@
 #'
 #' @examples
 #' library(dplyr)
-#' library(tidyquant)
 #' library(timetk)
 #'
 #' FANG %>%
 #'     filter(symbol == "FB") %>%
-#'     tk_augment_timeseries_signature()
+#'     tk_augment_timeseries_signature(date)
 #'
 #' @name tk_augment_timeseries
 NULL
 
 #' @export
 #' @rdname tk_augment_timeseries
-tk_augment_timeseries_signature <- function(.data) {
+tk_augment_timeseries_signature <- function(.data, .date_var = NULL) {
+
+    # Checks
+    if (is.data.frame(.data)) {
+        if (rlang::quo_is_null(enquo(.date_var))) {
+            # .date_var is NULL
+            date_var <- tk_get_timeseries_variables(.data)[[1]]
+            if (length(date_var) == 0 ) stop(call. = FALSE, "tk_augment_timeseries_signature(): No date variable detected.")
+            message("Using the following variable: ", date_var)
+        }
+    }
+
     UseMethod("tk_augment_timeseries_signature", .data)
 }
 
 #' @export
-tk_augment_timeseries_signature.data.frame <- function(.data) {
+tk_augment_timeseries_signature.data.frame <- function(.data, .date_var = NULL) {
 
-    date_var <- tk_get_timeseries_variables(.data)[[1]]
+    # Get date_var
+    if (rlang::quo_is_null(enquo(.date_var))) {
+        # .date_var is NULL
+        date_var <- tk_get_timeseries_variables(.data)[[1]]
+    } else {
+        date_var <- .data %>% dplyr::select(!! enquo(.date_var)) %>% colnames()
+    }
+
 
     # Arrange by date_var
     .data <- .data %>% dplyr::arrange(!! sym(date_var))
@@ -56,7 +76,7 @@ tk_augment_timeseries_signature.data.frame <- function(.data) {
     ret_1 <- .data
 
     ret_2 <- .data %>%
-        tk_index() %>%
+        pull(date_var) %>%
         tk_get_timeseries_signature() %>%
         dplyr::select(-1)
 
@@ -66,8 +86,27 @@ tk_augment_timeseries_signature.data.frame <- function(.data) {
 
 }
 
+tk_augment_timeseries_signature.grouped_df <- function(.data, .date_var = NULL) {
+
+    # Tidy Eval Setup
+    group_names <- dplyr::group_vars(.data)
+
+    .data %>%
+        tidyr::nest() %>%
+        dplyr::mutate(nested.col = purrr::map(
+            .x         = data,
+            .f         = function(df) tk_augment_timeseries_signature.data.frame(
+                .data       = df,
+                .date_var   = !! enquo(.date_var)
+            )
+        )) %>%
+        dplyr::select(-data) %>%
+        tidyr::unnest(cols = nested.col) %>%
+        dplyr::group_by_at(.vars = group_names)
+}
+
 #' @export
-tk_augment_timeseries_signature.xts <- function(.data) {
+tk_augment_timeseries_signature.xts <- function(.data, .date_var = NULL) {
 
     ret_1 <- .data
 
@@ -83,7 +122,7 @@ tk_augment_timeseries_signature.xts <- function(.data) {
 }
 
 #' @export
-tk_augment_timeseries_signature.zoo <- function(.data) {
+tk_augment_timeseries_signature.zoo <- function(.data, .date_var = NULL) {
 
     ret_1 <- .data %>%
         tk_xts(silent = TRUE)
@@ -101,6 +140,6 @@ tk_augment_timeseries_signature.zoo <- function(.data) {
 }
 
 #' @export
-tk_augment_timeseries_signature.default <- function(.data) {
+tk_augment_timeseries_signature.default <- function(.data, .date_var = NULL) {
     stop(paste0("`tk_augment_timeseries_signature` has no method for class ", class(.data)[[1]]))
 }

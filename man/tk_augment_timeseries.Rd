@@ -5,10 +5,13 @@
 \alias{tk_augment_timeseries_signature}
 \title{Augment the time series signature to the data}
 \usage{
-tk_augment_timeseries_signature(.data)
+tk_augment_timeseries_signature(.data, .date_var = NULL)
 }
 \arguments{
 \item{.data}{A time-based tibble or time-series object.}
+
+\item{.date_var}{For \code{tibbles}, a column containing either date or date-time values.
+If missing, the time-based column will interpret from the object (tibble, xts, zoo, etc).}
 }
 \value{
 Returns a \code{tibble} object describing the timeseries.
@@ -17,21 +20,22 @@ Returns a \code{tibble} object describing the timeseries.
 Augment the time series signature to the data
 }
 \details{
-\code{tk_augment_timeseries_signature} adds the time series signature
-features including
-numeric value, differences,
-year, month, day, day of week, day of month,
-day of year, hour, minute, second
-to the input data.
+\code{tk_augment_timeseries_signature()} adds 25+ time series features including:
+\itemize{
+\item \strong{Trend in Seconds Granularity:} index.num
+\item \strong{Yearly Seasonality:} Year, Month, Quarter
+\item \strong{Weekly Seasonality:} Week of Month, Day of Month, Day of Week, and more
+\item \strong{Daily Seasonality:} Hour, Minute, Second
+\item \strong{Weekly Cyclic Patterns:} 2 weeks, 3 weeks, 4 weeks
+}
 }
 \examples{
 library(dplyr)
-library(tidyquant)
 library(timetk)
 
 FANG \%>\%
     filter(symbol == "FB") \%>\%
-    tk_augment_timeseries_signature()
+    tk_augment_timeseries_signature(date)
 
 }
 \seealso{
