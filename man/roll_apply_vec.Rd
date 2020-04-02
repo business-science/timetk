@@ -137,7 +137,7 @@ FB_tbl \%>\%
 }
 \seealso{
 \itemize{
-\item Loess Modeling: \code{\link[=smooth_vec]{smooth_vec()}}
-\item Rolling Window Calculations: \code{\link[slider:slide_vec]{slider::slide_vec()}}, \code{\link[zoo:rollapply]{zoo::rollapply()}}
+\item Loess Smoothing: \code{\link[=smooth_vec]{smooth_vec()}}
+\item For more complex rolling operations, check out the \code{slider} R package.
 }
 }

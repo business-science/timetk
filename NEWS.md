@@ -8,12 +8,6 @@ __TODO:__
     - (DONE) Plot Lag (ACF, PACF, & CCF) Diagnostics
     - (DONE) Plot Seasonality Diagnostics 
     - Missing Data Diagnostics
-- Lag automation 
-    - [Rsample PR #136](https://github.com/tidymodels/rsample/pull/136)
-    - Until accepted: `initial_time_split_2()`, `rolling_origin_2()`
-    - `recipes::step_lag()` 
-    - `tk_augment_lags()`
-    - `tk_get_lags()`
 - Fourier series
     - (DONE) `step_fourier_series()`
     - `tk_get_fourier_series()` (is this needed?)
@@ -27,9 +21,16 @@ __TODO:__
     - `tk_augment_smooth()`
     - (DONE) `smooth_vec()` 
 - Differencing functionality
-    - `diff_vec`
-    - `diff_inv_vec`
-    - `step_diff`
+    - (DONE) `diff_vec`
+    - (DONE) `diff_inv_vec`
+    - `step_differences`
+- Lag functionality
+    - `lag_vec()`
+    - `tk_augment_lags()`
+    - `recipes::step_lag()`
+- Rsample automation 
+    - [Rsample PR #136](https://github.com/tidymodels/rsample/pull/136)
+    - Rewrite - for Backtesting: `initial_time_split_2()`, `rolling_origin_2()`
 - Box Cox functionality
     - `box_cox_vec`
     - `box_cox_inv_vec`
@@ -40,10 +41,14 @@ __TODO:__
     - (DONE) `tibbletime::filter_by_time`
     - (DONE) `between_time()`
     - `tibbletime::as_period` - Can use `summarise_by_time()` for this. 
-- Date Sequence & Holiday Transition 
+- Holidays 
     - (DONE) `tk_make_holiday_sequence()`
     - (DONE) `tk_get_holiday_signature()`, `tk_augment_holiday_signature()`
     - (DONE) `step_holiday_signature()`
+- Weather
+    - Reim integration
+    - `tk_get_weather_signature()`, `tk_augment_weather_signature()`
+    - `step_weather_signature()`
 - Support for `grouped_df`
     - (DONE) `tk_augment_roll_apply()`
     - `tk_augment_lags()`

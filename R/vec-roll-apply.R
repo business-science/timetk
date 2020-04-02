@@ -48,8 +48,8 @@
 #' is [`smooth_vec()`], which implements local polynomial regression.
 #'
 #' @seealso
-#'   - Loess Modeling: [smooth_vec()]
-#'   - Rolling Window Calculations: [slider::slide_vec()], [zoo::rollapply()]
+#'   - Loess Smoothing: [smooth_vec()]
+#'   - For more complex rolling operations, check out the `slider` R package.
 #'
 #'
 #'

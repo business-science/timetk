@@ -22,8 +22,8 @@ diff_inv_vec(
 
 \item{.difference}{The number of differences to perform.
 \itemize{
-\item 1 Difference is equivalent to period change.
-\item 2 Differences is equivalent to acceleration.
+\item 1 Difference is equivalent to measuring period change.
+\item 2 Differences is equivalent to measuring period acceleration.
 }}
 
 \item{.log}{If log differences should be calculated.
@@ -43,19 +43,52 @@ A numeric vector
 \strong{Benefits:}
 
 This function is \code{NA} padded by default so it works well with \code{dplyr::mutate()} operations.
+
+\strong{Difference Calculation}
+
+Single differencing, \code{diff_vec(x_t)} is equivalent to: \code{x_t - x_t1},
+where the subscript _t1 indicates the first lag.
+\emph{This transformation can be interpereted as change.}
+
+\strong{Double Differencing Calculation}
+
+Double differencing, \code{diff_vec(x_t, .difference = 2)} is equivalent to:
+\verb{(x_t - x_t1) - (x_t - x_t1)_t1}, where the subscript _t1 indicates the first lag.
+\emph{This transformation can be interpereted as acceleration.}
+
+\strong{Log Difference Calculation}
+
+Log differencing, \code{diff_vec(x_t, .log = TRUE)} is equivalent to:
+\code{log(x_t) - log(x_t1) = log(x_t / x_t1)}, where x_t is the series and x_t1 is the first lag.
+
+The 1st difference \code{diff_vec(.difference = 1, .log = TRUE)} has an interesting property
+where \code{diff_vec(.difference = 1, .log = TRUE) \%>\% exp()} is approximately \emph{1 + rate of change.}
 }
 \examples{
 library(dplyr)
 library(timetk)
 
+# --- VECTOR ----
+
+# Change
+1:10 \%>\% diff_vec()
+
+# Acceleration
+1:10 \%>\% diff_vec(.difference = 2)
+
+# Approximate rate of change
+1:10 \%>\% diff_vec(.log = TRUE) \%>\% exp() - 1
+
+
 # --- MUTATE ----
+
 m4_daily \%>\%
     group_by(id) \%>\%
     mutate(difference = diff_vec(value, .lag = 1)) \%>\%
     mutate(
         difference_inv = diff_inv_vec(
             difference,
-            .lag        = 1,
+            .lag = 1,
             # Add initial value to calculate the inverse difference
             .initial_values = value[1]
         )
