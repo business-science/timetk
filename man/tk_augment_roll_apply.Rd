@@ -64,8 +64,17 @@ FANG \%>\%
 
 }
 \seealso{
+Augment Operations:
+\itemize{
+\item \code{\link[=tk_augment_timeseries_signature]{tk_augment_timeseries_signature()}} - Group-wise augmentation of timestamp features
+\item \code{\link[=tk_augment_holiday_signature]{tk_augment_holiday_signature()}} - Group-wise augmentation of holiday features
+\item \code{\link[=tk_augment_roll_apply]{tk_augment_roll_apply()}} - Group-wise augmentation of rolling functions
+\item \code{\link[=tk_augment_lags]{tk_augment_lags()}} - Group-wise augmentation of lagged data
+\item \code{\link[=tk_augment_differences]{tk_augment_differences()}} - Group-wise augmentation of differenced data
+}
+
+Underlying Function:
 \itemize{
 \item \code{\link[=roll_apply_vec]{roll_apply_vec()}} - The underlying function that powers \code{tk_augment_roll_apply()}
-\item More Augment Operations: \code{\link{tk_augment_timeseries_signature}}
 }
 }

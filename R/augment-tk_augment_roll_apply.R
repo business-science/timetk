@@ -22,8 +22,18 @@
 #'
 #'
 #' @seealso
+#'
+#' Augment Operations:
+#'
+#' - [tk_augment_timeseries_signature()] - Group-wise augmentation of timestamp features
+#' - [tk_augment_holiday_signature()] - Group-wise augmentation of holiday features
+#' - [tk_augment_roll_apply()] - Group-wise augmentation of rolling functions
+#' - [tk_augment_lags()] - Group-wise augmentation of lagged data
+#' - [tk_augment_differences()] - Group-wise augmentation of differenced data
+#'
+#' Underlying Function:
+#'
 #' - [`roll_apply_vec()`] - The underlying function that powers `tk_augment_roll_apply()`
-#' - More Augment Operations: [`tk_augment_timeseries_signature`]
 #'
 #' @examples
 #' library(tidyverse)

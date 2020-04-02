@@ -25,8 +25,8 @@ __TODO:__
     - (DONE) `diff_inv_vec`
     - `step_differences`
 - Lag functionality
-    - `lag_vec()`
-    - `tk_augment_lags()`
+    - (DONE) `lag_vec()`
+    - (DONE) `tk_augment_lags()`
     - `recipes::step_lag()`
 - Rsample automation 
     - [Rsample PR #136](https://github.com/tidymodels/rsample/pull/136)
@@ -110,6 +110,7 @@ All of the functions are designed for scale. They respect `dplyr::group_by()`.
 * `tk_augment_holiday_signature()` - Add holiday features to a `data.frame` using only a time-series index.
 * `tk_augment_roll_apply()` - Add multiple columns of rolling window calculations to a `data.frame`.
 * `tk_augment_differences()` - Add multiple columns of differences to a `data.frame`. 
+* `tk_augment_lags()` - Add multiple columns of lags to a `data.frame`. 
 
 __New Vector Functions:__
 
@@ -118,6 +119,7 @@ These functions are useful on their own inside of `mutate()` and power many of t
 * `roll_apply_vec()` - Vectorized rolling apply function - wraps `slider::slide_vec()`
 * `smooth_vec()` - Vectorized smoothing function - Applies Local Polynomial Regression (LOESS)
 * `diff_vec()` and `diff_inv_vec()` - Vectorized differencing function. Pads `NA`'s by default (unlike `stats::diff`).
+* `lag_vec()` - Vectorized lag functions. Returns both lags and leads (negative lags) by adjusting the `.lag` argument. 
 
 __New Datasets__
 
@@ -129,7 +131,7 @@ __Bug Fixes:__
 
 * [Don't set timezone on date](https://github.com/business-science/timetk/pull/32) - Accommodate recent changes to `lubridate::tz<-` which now returns POSIXct when used Date objects. Fixed in PR32 by @vspinu. 
 
-__(Potential) Breaking Changes:__
+__Potential Breaking Changes:__
 
 * `tk_augment_timeseries_signature()` - Changed from `data` to `.data` to prevent name collisions when piping. 
 

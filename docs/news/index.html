@@ -282,6 +282,8 @@ __TODO:__
 <code><a href="../reference/tk_augment_roll_apply.html">tk_augment_roll_apply()</a></code> - Add multiple columns of rolling window calculations to a <code>data.frame</code>.</li>
 <li>
 <code><a href="../reference/tk_augment_differences.html">tk_augment_differences()</a></code> - Add multiple columns of differences to a <code>data.frame</code>.</li>
+<li>
+<code><a href="../reference/tk_augment_lags.html">tk_augment_lags()</a></code> - Add multiple columns of lags to a <code>data.frame</code>.</li>
 </ul>
 <p><strong>New Vector Functions:</strong></p>
 <p>These functions are useful on their own inside of <code>mutate()</code> and power many of the new plotting and recipes functions.</p>
@@ -293,6 +295,8 @@ __TODO:__
 <code><a href="../reference/smooth_vec.html">smooth_vec()</a></code> - Vectorized smoothing function - Applies Local Polynomial Regression (LOESS)</li>
 <li>
 <code><a href="../reference/diff_vec.html">diff_vec()</a></code> and <code><a href="../reference/diff_vec.html">diff_inv_vec()</a></code> - Vectorized differencing function. Pads <code>NA</code>’s by default (unlike <code>stats::diff</code>).</li>
+<li>
+<code><a href="../reference/lag_vec.html">lag_vec()</a></code> - Vectorized lag functions. Returns both lags and leads (negative lags) by adjusting the <code>.lag</code> argument.</li>
 </ul>
 <p><strong>New Datasets</strong></p>
 <ul>

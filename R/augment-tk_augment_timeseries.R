@@ -12,7 +12,19 @@
 #' day of year, hour, minute, second
 #' to the input data.
 #'
-#' @seealso [tk_get_timeseries_signature()], [tk_get_timeseries_summary()]
+#' @seealso
+#'
+#' Augment Operations:
+#'
+#' - [tk_augment_timeseries_signature()] - Group-wise augmentation of timestamp features
+#' - [tk_augment_holiday_signature()] - Group-wise augmentation of holiday features
+#' - [tk_augment_roll_apply()] - Group-wise augmentation of rolling functions
+#' - [tk_augment_lags()] - Group-wise augmentation of lagged data
+#' - [tk_augment_differences()] - Group-wise augmentation of differenced data
+#'
+#' Underlying Function:
+#'
+#' - [tk_get_timeseries_signature()] - Returns timeseries features from an index
 #'
 #' @examples
 #' library(dplyr)

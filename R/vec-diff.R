@@ -186,10 +186,9 @@ diff_inv_calc <- function(.x, .lag, .difference, .log, .initial_values = NULL) {
             x = x_trim,
             lag = .lag,
             differences = .difference
-        ) %>%
-            exp()
+        )
 
-        ret_vec <- ret_vec * .initial_values[1]
+        ret_vec <- exp(ret_vec) * .initial_values[1]
 
     }
 
