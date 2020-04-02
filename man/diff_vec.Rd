@@ -5,16 +5,22 @@
 \alias{diff_inv_vec}
 \title{Differencing Transformation}
 \usage{
-diff_vec(.x, .lag = 1, .differences = 1, .log = FALSE)
+diff_vec(.x, .lag = 1, .difference = 1, .log = FALSE)
 
-diff_inv_vec(.x, .lag = 1, .differences = 1, .log = FALSE, .lag_values = NULL)
+diff_inv_vec(
+  .x,
+  .lag = 1,
+  .difference = 1,
+  .log = FALSE,
+  .initial_values = NULL
+)
 }
 \arguments{
 \item{.x}{A numeric vector to be differenced or inverted.}
 
 \item{.lag}{Which lag (how far back) to be included in the differencing calculation.}
 
-\item{.differences}{The number of differences to perform.
+\item{.difference}{The number of differences to perform.
 \itemize{
 \item 1 Difference is equivalent to period change.
 \item 2 Differences is equivalent to acceleration.
@@ -23,13 +29,15 @@ diff_inv_vec(.x, .lag = 1, .differences = 1, .log = FALSE, .lag_values = NULL)
 \item{.log}{If log differences should be calculated.
 \emph{Note that difference inversion of a log-difference is approximate.}}
 
-\item{.lag_values}{A numeric vector of the initial values, which are used for difference inversion.}
+\item{.initial_values}{A numeric vector of the initial values, which are used for difference inversion.
+This vector is the original values that are the length of the \code{NA} missing differences.}
 }
 \value{
 A numeric vector
 }
 \description{
 \code{diff_vec()} applies a Differencing Transformation.
+\code{diff_inv_vec()} inverts the differencing transformation.
 }
 \details{
 \strong{Benefits:}
@@ -48,7 +56,8 @@ m4_daily \%>\%
         difference_inv = diff_inv_vec(
             difference,
             .lag        = 1,
-            .lag_values = value[1]
+            # Add initial value to calculate the inverse difference
+            .initial_values = value[1]
         )
     )
 

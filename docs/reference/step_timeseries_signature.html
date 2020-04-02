@@ -296,47 +296,47 @@ be removed using <code><a href='https://rdrr.io/pkg/recipes/man/step_rm.html'>re
 #&gt; 
 #&gt; Timeseries signature features from date [trained]</div><div class='input'>
 <span class='co'># Bake the recipe object - Adds the Time Series Signature</span>
-<span class='fu'><a href='https://rdrr.io/pkg/recipes/man/bake.html'>bake</a></span>(<span class='fu'><a href='https://rdrr.io/pkg/recipes/man/prep.html'>prep</a></span>(<span class='no'>rec_obj</span>), <span class='no'>FB_tbl</span>)</div><div class='output co'>#&gt; # A tibble: 1,008 x 35
+<span class='fu'><a href='https://rdrr.io/pkg/recipes/man/bake.html'>bake</a></span>(<span class='fu'><a href='https://rdrr.io/pkg/recipes/man/prep.html'>prep</a></span>(<span class='no'>rec_obj</span>), <span class='no'>FB_tbl</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 1,008 x 35</span><span>
 #&gt;    symbol date        open  high   low close volume adjusted date_index.num
-#&gt;    &lt;fct&gt;  &lt;date&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;          &lt;int&gt;
-#&gt;  1 FB     2013-01-02  27.4  28.2  27.4  28   6.98e7     28       1357084800
-#&gt;  2 FB     2013-01-03  27.9  28.5  27.6  27.8 6.31e7     27.8     1357171200
-#&gt;  3 FB     2013-01-04  28.0  28.9  27.8  28.8 7.27e7     28.8     1357257600
-#&gt;  4 FB     2013-01-07  28.7  29.8  28.6  29.4 8.38e7     29.4     1357516800
-#&gt;  5 FB     2013-01-08  29.5  29.6  28.9  29.1 4.59e7     29.1     1357603200
-#&gt;  6 FB     2013-01-09  29.7  30.6  29.5  30.6 1.05e8     30.6     1357689600
-#&gt;  7 FB     2013-01-10  30.6  31.5  30.3  31.3 9.53e7     31.3     1357776000
-#&gt;  8 FB     2013-01-11  31.3  32.0  31.1  31.7 8.96e7     31.7     1357862400
-#&gt;  9 FB     2013-01-14  32.1  32.2  30.6  31.0 9.89e7     31.0     1358121600
-#&gt; 10 FB     2013-01-15  30.6  31.7  29.9  30.1 1.73e8     30.1     1358208000
-#&gt; # … with 998 more rows, and 26 more variables: date_year &lt;int&gt;,
-#&gt; #   date_year.iso &lt;int&gt;, date_half &lt;int&gt;, date_quarter &lt;int&gt;, date_month &lt;int&gt;,
-#&gt; #   date_month.xts &lt;int&gt;, date_month.lbl &lt;ord&gt;, date_day &lt;int&gt;,
-#&gt; #   date_hour &lt;int&gt;, date_minute &lt;int&gt;, date_second &lt;int&gt;, date_hour12 &lt;int&gt;,
-#&gt; #   date_am.pm &lt;int&gt;, date_wday &lt;int&gt;, date_wday.xts &lt;int&gt;,
-#&gt; #   date_wday.lbl &lt;ord&gt;, date_mday &lt;int&gt;, date_qday &lt;int&gt;, date_yday &lt;int&gt;,
-#&gt; #   date_mweek &lt;int&gt;, date_week &lt;int&gt;, date_week.iso &lt;int&gt;, date_week2 &lt;int&gt;,
-#&gt; #   date_week3 &lt;int&gt;, date_week4 &lt;int&gt;, date_mday7 &lt;int&gt;</div><div class='input'>
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>          </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> FB     2013-01-02  27.4  28.2  27.4  28   6.98</span><span style='color: #555555;'>e</span><span>7     28       </span><span style='text-decoration: underline;'>1</span><span>357</span><span style='text-decoration: underline;'>084</span><span>800
+#&gt; </span><span style='color: #555555;'> 2</span><span> FB     2013-01-03  27.9  28.5  27.6  27.8 6.31</span><span style='color: #555555;'>e</span><span>7     27.8     </span><span style='text-decoration: underline;'>1</span><span>357</span><span style='text-decoration: underline;'>171</span><span>200
+#&gt; </span><span style='color: #555555;'> 3</span><span> FB     2013-01-04  28.0  28.9  27.8  28.8 7.27</span><span style='color: #555555;'>e</span><span>7     28.8     </span><span style='text-decoration: underline;'>1</span><span>357</span><span style='text-decoration: underline;'>257</span><span>600
+#&gt; </span><span style='color: #555555;'> 4</span><span> FB     2013-01-07  28.7  29.8  28.6  29.4 8.38</span><span style='color: #555555;'>e</span><span>7     29.4     </span><span style='text-decoration: underline;'>1</span><span>357</span><span style='text-decoration: underline;'>516</span><span>800
+#&gt; </span><span style='color: #555555;'> 5</span><span> FB     2013-01-08  29.5  29.6  28.9  29.1 4.59</span><span style='color: #555555;'>e</span><span>7     29.1     </span><span style='text-decoration: underline;'>1</span><span>357</span><span style='text-decoration: underline;'>603</span><span>200
+#&gt; </span><span style='color: #555555;'> 6</span><span> FB     2013-01-09  29.7  30.6  29.5  30.6 1.05</span><span style='color: #555555;'>e</span><span>8     30.6     </span><span style='text-decoration: underline;'>1</span><span>357</span><span style='text-decoration: underline;'>689</span><span>600
+#&gt; </span><span style='color: #555555;'> 7</span><span> FB     2013-01-10  30.6  31.5  30.3  31.3 9.53</span><span style='color: #555555;'>e</span><span>7     31.3     </span><span style='text-decoration: underline;'>1</span><span>357</span><span style='text-decoration: underline;'>776</span><span>000
+#&gt; </span><span style='color: #555555;'> 8</span><span> FB     2013-01-11  31.3  32.0  31.1  31.7 8.96</span><span style='color: #555555;'>e</span><span>7     31.7     </span><span style='text-decoration: underline;'>1</span><span>357</span><span style='text-decoration: underline;'>862</span><span>400
+#&gt; </span><span style='color: #555555;'> 9</span><span> FB     2013-01-14  32.1  32.2  30.6  31.0 9.89</span><span style='color: #555555;'>e</span><span>7     31.0     </span><span style='text-decoration: underline;'>1</span><span>358</span><span style='text-decoration: underline;'>121</span><span>600
+#&gt; </span><span style='color: #555555;'>10</span><span> FB     2013-01-15  30.6  31.7  29.9  30.1 1.73</span><span style='color: #555555;'>e</span><span>8     30.1     </span><span style='text-decoration: underline;'>1</span><span>358</span><span style='text-decoration: underline;'>208</span><span>000
+#&gt; </span><span style='color: #555555;'># … with 998 more rows, and 26 more variables: date_year </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>,
+#&gt; #   date_year.iso </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>, date_half </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>, date_quarter </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>, date_month </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>,
+#&gt; #   date_month.xts </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>, date_month.lbl </span><span style='color: #555555;font-style: italic;'>&lt;ord&gt;</span><span style='color: #555555;'>, date_day </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>,
+#&gt; #   date_hour </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>, date_minute </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>, date_second </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>, date_hour12 </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>,
+#&gt; #   date_am.pm </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>, date_wday </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>, date_wday.xts </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>,
+#&gt; #   date_wday.lbl </span><span style='color: #555555;font-style: italic;'>&lt;ord&gt;</span><span style='color: #555555;'>, date_mday </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>, date_qday </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>, date_yday </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>,
+#&gt; #   date_mweek </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>, date_week </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>, date_week.iso </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>, date_week2 </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>,
+#&gt; #   date_week3 </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>, date_week4 </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>, date_mday7 </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span></div><div class='input'>
 <span class='co'># Tidy shows which features have been added during the 1st step</span>
 <span class='co'>#  in this case, step 1 is the step_timeseries_signature step</span>
-<span class='fu'><a href='https://rdrr.io/pkg/recipes/man/reexports.html'>tidy</a></span>(<span class='no'>rec_obj</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 6
+<span class='fu'><a href='https://rdrr.io/pkg/recipes/man/reexports.html'>tidy</a></span>(<span class='no'>rec_obj</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 1 x 6</span><span>
 #&gt;   number operation type                 trained skip  id                        
-#&gt;    &lt;int&gt; &lt;chr&gt;     &lt;chr&gt;                &lt;lgl&gt;   &lt;lgl&gt; &lt;chr&gt;                     
-#&gt; 1      1 step      timeseries_signature FALSE   FALSE timeseries_signature_BBVkz</div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/recipes/man/reexports.html'>tidy</a></span>(<span class='no'>rec_obj</span>, <span class='kw'>number</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; # A tibble: 27 x 3
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                     
+#&gt; </span><span style='color: #555555;'>1</span><span>      1 step      timeseries_signature FALSE   FALSE timeseries_signature_BBVkz</div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/recipes/man/reexports.html'>tidy</a></span>(<span class='no'>rec_obj</span>, <span class='kw'>number</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 27 x 3</span><span>
 #&gt;    terms value     id                        
-#&gt;    &lt;fct&gt; &lt;fct&gt;     &lt;chr&gt;                     
-#&gt;  1 date  index.num timeseries_signature_BBVkz
-#&gt;  2 date  year      timeseries_signature_BBVkz
-#&gt;  3 date  year.iso  timeseries_signature_BBVkz
-#&gt;  4 date  half      timeseries_signature_BBVkz
-#&gt;  5 date  quarter   timeseries_signature_BBVkz
-#&gt;  6 date  month     timeseries_signature_BBVkz
-#&gt;  7 date  month.xts timeseries_signature_BBVkz
-#&gt;  8 date  month.lbl timeseries_signature_BBVkz
-#&gt;  9 date  day       timeseries_signature_BBVkz
-#&gt; 10 date  hour      timeseries_signature_BBVkz
-#&gt; # … with 17 more rows</div><div class='input'>
-</div></pre>
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                     
+#&gt; </span><span style='color: #555555;'> 1</span><span> date  index.num timeseries_signature_BBVkz
+#&gt; </span><span style='color: #555555;'> 2</span><span> date  year      timeseries_signature_BBVkz
+#&gt; </span><span style='color: #555555;'> 3</span><span> date  year.iso  timeseries_signature_BBVkz
+#&gt; </span><span style='color: #555555;'> 4</span><span> date  half      timeseries_signature_BBVkz
+#&gt; </span><span style='color: #555555;'> 5</span><span> date  quarter   timeseries_signature_BBVkz
+#&gt; </span><span style='color: #555555;'> 6</span><span> date  month     timeseries_signature_BBVkz
+#&gt; </span><span style='color: #555555;'> 7</span><span> date  month.xts timeseries_signature_BBVkz
+#&gt; </span><span style='color: #555555;'> 8</span><span> date  month.lbl timeseries_signature_BBVkz
+#&gt; </span><span style='color: #555555;'> 9</span><span> date  day       timeseries_signature_BBVkz
+#&gt; </span><span style='color: #555555;'>10</span><span> date  hour      timeseries_signature_BBVkz
+#&gt; </span><span style='color: #555555;'># … with 17 more rows</span><span></div><div class='input'>
+</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

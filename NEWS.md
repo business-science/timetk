@@ -100,8 +100,11 @@ __New Get Functions__:
 
 __New Augment Functions__:
 
+All of the functions are designed for scale. They respect `dplyr::group_by()`.
+
 * `tk_augment_holiday_signature()` - Add holiday features to a `data.frame` using only a time-series index.
 * `tk_augment_roll_apply()` - Add multiple columns of rolling window calculations to a `data.frame`.
+* `tk_augment_differences()` - Add multiple columns of differences to a `data.frame`. 
 
 __New Vector Functions:__
 
@@ -109,6 +112,7 @@ These functions are useful on their own inside of `mutate()` and power many of t
 
 * `roll_apply_vec()` - Vectorized rolling apply function - wraps `slider::slide_vec()`
 * `smooth_vec()` - Vectorized smoothing function - Applies Local Polynomial Regression (LOESS)
+* `diff_vec()` and `diff_inv_vec()` - Vectorized differencing function. Pads `NA`'s by default (unlike `stats::diff`).
 
 __New Datasets__
 

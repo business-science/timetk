@@ -58,11 +58,15 @@ reference:
     desc: __Get summaries, frequency, and signatures from the time series index.__
     contents:
     - "tk_get_timeseries_signature"
+    - "tk_get_holiday_signature"
     - contains("tk_get")
   - title: Augment Operations
     desc: __Add columns to the original data.__
     contents:
     - "tk_augment_timeseries_signature"
+    - "tk_augment_holiday_signature"
+    - "tk_augment_roll_apply"
+    - "tk_augment_differences"
     - contains("augment")
   - title: Diagnostic Operations
     desc: __These power the time series plotting functions__

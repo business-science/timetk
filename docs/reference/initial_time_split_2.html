@@ -229,56 +229,56 @@ using lagged predictors.</p>
 <span class='no'>test_data</span>  <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/rsample/man/initial_split.html'>testing</a></span>(<span class='no'>drinks_overlap_split</span>)
 
 <span class='co'># Note 12 period overlap</span>
-<span class='no'>train_data</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>tail</a></span>(<span class='fl'>12</span>)</div><div class='output co'>#&gt; # A tibble: 12 x 2
+<span class='no'>train_data</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>tail</a></span>(<span class='fl'>12</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 12 x 2</span><span>
 #&gt;    date       sales
-#&gt;    &lt;date&gt;     &lt;dbl&gt;
-#&gt;  1 2015-10-01 11983
-#&gt;  2 2015-11-01 11506
-#&gt;  3 2015-12-01 14183
-#&gt;  4 2016-01-01  8650
-#&gt;  5 2016-02-01 10323
-#&gt;  6 2016-03-01 12110
-#&gt;  7 2016-04-01 11424
-#&gt;  8 2016-05-01 12243
-#&gt;  9 2016-06-01 13686
-#&gt; 10 2016-07-01 10956
-#&gt; 11 2016-08-01 12706
-#&gt; 12 2016-09-01 12279</div><div class='input'><span class='no'>test_data</span></div><div class='output co'>#&gt; # A tibble: 24 x 2
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> 2015-10-01 </span><span style='text-decoration: underline;'>11</span><span>983
+#&gt; </span><span style='color: #555555;'> 2</span><span> 2015-11-01 </span><span style='text-decoration: underline;'>11</span><span>506
+#&gt; </span><span style='color: #555555;'> 3</span><span> 2015-12-01 </span><span style='text-decoration: underline;'>14</span><span>183
+#&gt; </span><span style='color: #555555;'> 4</span><span> 2016-01-01  </span><span style='text-decoration: underline;'>8</span><span>650
+#&gt; </span><span style='color: #555555;'> 5</span><span> 2016-02-01 </span><span style='text-decoration: underline;'>10</span><span>323
+#&gt; </span><span style='color: #555555;'> 6</span><span> 2016-03-01 </span><span style='text-decoration: underline;'>12</span><span>110
+#&gt; </span><span style='color: #555555;'> 7</span><span> 2016-04-01 </span><span style='text-decoration: underline;'>11</span><span>424
+#&gt; </span><span style='color: #555555;'> 8</span><span> 2016-05-01 </span><span style='text-decoration: underline;'>12</span><span>243
+#&gt; </span><span style='color: #555555;'> 9</span><span> 2016-06-01 </span><span style='text-decoration: underline;'>13</span><span>686
+#&gt; </span><span style='color: #555555;'>10</span><span> 2016-07-01 </span><span style='text-decoration: underline;'>10</span><span>956
+#&gt; </span><span style='color: #555555;'>11</span><span> 2016-08-01 </span><span style='text-decoration: underline;'>12</span><span>706
+#&gt; </span><span style='color: #555555;'>12</span><span> 2016-09-01 </span><span style='text-decoration: underline;'>12</span><span>279</div><div class='input'><span class='no'>test_data</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 24 x 2</span><span>
 #&gt;    date       sales
-#&gt;    &lt;date&gt;     &lt;dbl&gt;
-#&gt;  1 2015-10-01 11983
-#&gt;  2 2015-11-01 11506
-#&gt;  3 2015-12-01 14183
-#&gt;  4 2016-01-01  8650
-#&gt;  5 2016-02-01 10323
-#&gt;  6 2016-03-01 12110
-#&gt;  7 2016-04-01 11424
-#&gt;  8 2016-05-01 12243
-#&gt;  9 2016-06-01 13686
-#&gt; 10 2016-07-01 10956
-#&gt; # … with 14 more rows</div><div class='input'>
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> 2015-10-01 </span><span style='text-decoration: underline;'>11</span><span>983
+#&gt; </span><span style='color: #555555;'> 2</span><span> 2015-11-01 </span><span style='text-decoration: underline;'>11</span><span>506
+#&gt; </span><span style='color: #555555;'> 3</span><span> 2015-12-01 </span><span style='text-decoration: underline;'>14</span><span>183
+#&gt; </span><span style='color: #555555;'> 4</span><span> 2016-01-01  </span><span style='text-decoration: underline;'>8</span><span>650
+#&gt; </span><span style='color: #555555;'> 5</span><span> 2016-02-01 </span><span style='text-decoration: underline;'>10</span><span>323
+#&gt; </span><span style='color: #555555;'> 6</span><span> 2016-03-01 </span><span style='text-decoration: underline;'>12</span><span>110
+#&gt; </span><span style='color: #555555;'> 7</span><span> 2016-04-01 </span><span style='text-decoration: underline;'>11</span><span>424
+#&gt; </span><span style='color: #555555;'> 8</span><span> 2016-05-01 </span><span style='text-decoration: underline;'>12</span><span>243
+#&gt; </span><span style='color: #555555;'> 9</span><span> 2016-06-01 </span><span style='text-decoration: underline;'>13</span><span>686
+#&gt; </span><span style='color: #555555;'>10</span><span> 2016-07-01 </span><span style='text-decoration: underline;'>10</span><span>956
+#&gt; </span><span style='color: #555555;'># … with 14 more rows</span><span></div><div class='input'>
 <span class='co'># Make recipe</span>
 <span class='no'>rec_lag</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/recipe.html'>recipe</a></span>(<span class='no'>sales</span> ~ <span class='no'>.</span>, <span class='fu'><a href='https://rdrr.io/pkg/rsample/man/initial_split.html'>training</a></span>(<span class='no'>drinks_overlap_split</span>)) <span class='kw'>%&gt;%</span>
     <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/step_lag.html'>step_lag</a></span>(<span class='no'>sales</span>, <span class='kw'>lag</span> <span class='kw'>=</span> <span class='fl'>12</span>) <span class='kw'>%&gt;%</span>
     <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/step_naomit.html'>step_naomit</a></span>(<span class='fu'><a href='https://rdrr.io/pkg/recipes/man/has_role.html'>all_predictors</a></span>())
 
 <span class='co'># Apply recipe to test data - Correctly applies the lag</span>
-<span class='fu'><a href='https://rdrr.io/pkg/recipes/man/bake.html'>bake</a></span>(<span class='fu'><a href='https://rdrr.io/pkg/recipes/man/prep.html'>prep</a></span>(<span class='no'>rec_lag</span>), <span class='fu'><a href='https://rdrr.io/pkg/rsample/man/initial_split.html'>testing</a></span>(<span class='no'>drinks_overlap_split</span>))</div><div class='output co'>#&gt; # A tibble: 12 x 3
+<span class='fu'><a href='https://rdrr.io/pkg/recipes/man/bake.html'>bake</a></span>(<span class='fu'><a href='https://rdrr.io/pkg/recipes/man/prep.html'>prep</a></span>(<span class='no'>rec_lag</span>), <span class='fu'><a href='https://rdrr.io/pkg/rsample/man/initial_split.html'>testing</a></span>(<span class='no'>drinks_overlap_split</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 12 x 3</span><span>
 #&gt;    date       sales lag_12_sales
-#&gt;    &lt;date&gt;     &lt;dbl&gt;        &lt;dbl&gt;
-#&gt;  1 2016-10-01 11914        11983
-#&gt;  2 2016-11-01 13025        11506
-#&gt;  3 2016-12-01 14431        14183
-#&gt;  4 2017-01-01  9049         8650
-#&gt;  5 2017-02-01 10458        10323
-#&gt;  6 2017-03-01 12489        12110
-#&gt;  7 2017-04-01 11499        11424
-#&gt;  8 2017-05-01 13553        12243
-#&gt;  9 2017-06-01 14740        13686
-#&gt; 10 2017-07-01 11424        10956
-#&gt; 11 2017-08-01 13412        12706
-#&gt; 12 2017-09-01 11917        12279</div><div class='input'>
-</div></pre>
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>        </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> 2016-10-01 </span><span style='text-decoration: underline;'>11</span><span>914        </span><span style='text-decoration: underline;'>11</span><span>983
+#&gt; </span><span style='color: #555555;'> 2</span><span> 2016-11-01 </span><span style='text-decoration: underline;'>13</span><span>025        </span><span style='text-decoration: underline;'>11</span><span>506
+#&gt; </span><span style='color: #555555;'> 3</span><span> 2016-12-01 </span><span style='text-decoration: underline;'>14</span><span>431        </span><span style='text-decoration: underline;'>14</span><span>183
+#&gt; </span><span style='color: #555555;'> 4</span><span> 2017-01-01  </span><span style='text-decoration: underline;'>9</span><span>049         </span><span style='text-decoration: underline;'>8</span><span>650
+#&gt; </span><span style='color: #555555;'> 5</span><span> 2017-02-01 </span><span style='text-decoration: underline;'>10</span><span>458        </span><span style='text-decoration: underline;'>10</span><span>323
+#&gt; </span><span style='color: #555555;'> 6</span><span> 2017-03-01 </span><span style='text-decoration: underline;'>12</span><span>489        </span><span style='text-decoration: underline;'>12</span><span>110
+#&gt; </span><span style='color: #555555;'> 7</span><span> 2017-04-01 </span><span style='text-decoration: underline;'>11</span><span>499        </span><span style='text-decoration: underline;'>11</span><span>424
+#&gt; </span><span style='color: #555555;'> 8</span><span> 2017-05-01 </span><span style='text-decoration: underline;'>13</span><span>553        </span><span style='text-decoration: underline;'>12</span><span>243
+#&gt; </span><span style='color: #555555;'> 9</span><span> 2017-06-01 </span><span style='text-decoration: underline;'>14</span><span>740        </span><span style='text-decoration: underline;'>13</span><span>686
+#&gt; </span><span style='color: #555555;'>10</span><span> 2017-07-01 </span><span style='text-decoration: underline;'>11</span><span>424        </span><span style='text-decoration: underline;'>10</span><span>956
+#&gt; </span><span style='color: #555555;'>11</span><span> 2017-08-01 </span><span style='text-decoration: underline;'>13</span><span>412        </span><span style='text-decoration: underline;'>12</span><span>706
+#&gt; </span><span style='color: #555555;'>12</span><span> 2017-09-01 </span><span style='text-decoration: underline;'>11</span><span>917        </span><span style='text-decoration: underline;'>12</span><span>279</div><div class='input'>
+</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

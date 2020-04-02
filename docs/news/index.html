@@ -269,11 +269,14 @@ __TODO:__
 <code><a href="../reference/tk_get_holiday.html">tk_get_holiday_signature()</a></code> - Get 100+ holiday features using only a time-series index.</li>
 </ul>
 <p><strong>New Augment Functions</strong>:</p>
+<p>All of the functions are designed for scale. They respect <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">dplyr::group_by()</a></code>.</p>
 <ul>
 <li>
 <code><a href="../reference/tk_augment_holiday.html">tk_augment_holiday_signature()</a></code> - Add holiday features to a <code>data.frame</code> using only a time-series index.</li>
 <li>
 <code><a href="../reference/tk_augment_roll_apply.html">tk_augment_roll_apply()</a></code> - Add multiple columns of rolling window calculations to a <code>data.frame</code>.</li>
+<li>
+<code><a href="../reference/tk_augment_differences.html">tk_augment_differences()</a></code> - Add multiple columns of differences to a <code>data.frame</code>.</li>
 </ul>
 <p><strong>New Vector Functions:</strong></p>
 <p>These functions are useful on their own inside of <code>mutate()</code> and power many of the new plotting and recipes functions.</p>
@@ -283,6 +286,8 @@ __TODO:__
 </li>
 <li>
 <code><a href="../reference/smooth_vec.html">smooth_vec()</a></code> - Vectorized smoothing function - Applies Local Polynomial Regression (LOESS)</li>
+<li>
+<code><a href="../reference/diff_vec.html">diff_vec()</a></code> and <code><a href="../reference/diff_vec.html">diff_inv_vec()</a></code> - Vectorized differencing function. Pads <code>NA</code>’s by default (unlike <code>stats::diff</code>).</li>
 </ul>
 <p><strong>New Datasets</strong></p>
 <ul>

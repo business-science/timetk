@@ -228,83 +228,83 @@ Filter on an index to identify all holidays that are commonly non-working.</p>
     <span class='fu'>tk_augment_holiday_signature</span>(
         <span class='kw'>.holiday_pattern</span> <span class='kw'>=</span> <span class='st'>"^$"</span>,   <span class='co'># Returns nothing on purpose</span>
         <span class='kw'>.locale_set</span>      <span class='kw'>=</span> <span class='st'>"none"</span>,
-        <span class='kw'>.exchange_set</span>    <span class='kw'>=</span> <span class='st'>"NYSE"</span>)</div><div class='output co'>#&gt; # A tibble: 365 x 2
+        <span class='kw'>.exchange_set</span>    <span class='kw'>=</span> <span class='st'>"NYSE"</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 365 x 2</span><span>
 #&gt;    index      exch_NYSE
-#&gt;    &lt;date&gt;         &lt;dbl&gt;
-#&gt;  1 2017-01-01         0
-#&gt;  2 2017-01-02         1
-#&gt;  3 2017-01-03         0
-#&gt;  4 2017-01-04         0
-#&gt;  5 2017-01-05         0
-#&gt;  6 2017-01-06         0
-#&gt;  7 2017-01-07         0
-#&gt;  8 2017-01-08         0
-#&gt;  9 2017-01-09         0
-#&gt; 10 2017-01-10         0
-#&gt; # … with 355 more rows</div><div class='input'>
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> 2017-01-01         0
+#&gt; </span><span style='color: #555555;'> 2</span><span> 2017-01-02         1
+#&gt; </span><span style='color: #555555;'> 3</span><span> 2017-01-03         0
+#&gt; </span><span style='color: #555555;'> 4</span><span> 2017-01-04         0
+#&gt; </span><span style='color: #555555;'> 5</span><span> 2017-01-05         0
+#&gt; </span><span style='color: #555555;'> 6</span><span> 2017-01-06         0
+#&gt; </span><span style='color: #555555;'> 7</span><span> 2017-01-07         0
+#&gt; </span><span style='color: #555555;'> 8</span><span> 2017-01-08         0
+#&gt; </span><span style='color: #555555;'> 9</span><span> 2017-01-09         0
+#&gt; </span><span style='color: #555555;'>10</span><span> 2017-01-10         0
+#&gt; </span><span style='color: #555555;'># … with 355 more rows</span><span></div><div class='input'>
 <span class='co'># All holidays in US</span>
 <span class='no'>dates_in_2017_tbl</span> <span class='kw'>%&gt;%</span>
     <span class='fu'>tk_augment_holiday_signature</span>(
         <span class='kw'>.holiday_pattern</span> <span class='kw'>=</span> <span class='st'>"US_"</span>,
         <span class='kw'>.locale_set</span>      <span class='kw'>=</span> <span class='st'>"US"</span>,
-        <span class='kw'>.exchange_set</span>    <span class='kw'>=</span> <span class='st'>"none"</span>)</div><div class='output co'>#&gt; # A tibble: 365 x 19
+        <span class='kw'>.exchange_set</span>    <span class='kw'>=</span> <span class='st'>"none"</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 365 x 19</span><span>
 #&gt;    index      locale_US US_NewYearsDay US_MLKingsBirth… US_Inauguration…
-#&gt;    &lt;date&gt;         &lt;dbl&gt;          &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
-#&gt;  1 2017-01-01         1              1                0                0
-#&gt;  2 2017-01-02         0              0                0                0
-#&gt;  3 2017-01-03         0              0                0                0
-#&gt;  4 2017-01-04         0              0                0                0
-#&gt;  5 2017-01-05         0              0                0                0
-#&gt;  6 2017-01-06         0              0                0                0
-#&gt;  7 2017-01-07         0              0                0                0
-#&gt;  8 2017-01-08         0              0                0                0
-#&gt;  9 2017-01-09         0              0                0                0
-#&gt; 10 2017-01-10         0              0                0                0
-#&gt; # … with 355 more rows, and 14 more variables: US_LincolnsBirthday &lt;dbl&gt;,
-#&gt; #   US_PresidentsDay &lt;dbl&gt;, US_WashingtonsBirthday &lt;dbl&gt;,
-#&gt; #   US_CPulaskisBirthday &lt;dbl&gt;, US_GoodFriday &lt;dbl&gt;, US_MemorialDay &lt;dbl&gt;,
-#&gt; #   US_DecorationMemorialDay &lt;dbl&gt;, US_IndependenceDay &lt;dbl&gt;,
-#&gt; #   US_LaborDay &lt;dbl&gt;, US_ColumbusDay &lt;dbl&gt;, US_ElectionDay &lt;dbl&gt;,
-#&gt; #   US_VeteransDay &lt;dbl&gt;, US_ThanksgivingDay &lt;dbl&gt;, US_ChristmasDay &lt;dbl&gt;</div><div class='input'>
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>          </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>            </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>            </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> 2017-01-01         1              1                0                0
+#&gt; </span><span style='color: #555555;'> 2</span><span> 2017-01-02         0              0                0                0
+#&gt; </span><span style='color: #555555;'> 3</span><span> 2017-01-03         0              0                0                0
+#&gt; </span><span style='color: #555555;'> 4</span><span> 2017-01-04         0              0                0                0
+#&gt; </span><span style='color: #555555;'> 5</span><span> 2017-01-05         0              0                0                0
+#&gt; </span><span style='color: #555555;'> 6</span><span> 2017-01-06         0              0                0                0
+#&gt; </span><span style='color: #555555;'> 7</span><span> 2017-01-07         0              0                0                0
+#&gt; </span><span style='color: #555555;'> 8</span><span> 2017-01-08         0              0                0                0
+#&gt; </span><span style='color: #555555;'> 9</span><span> 2017-01-09         0              0                0                0
+#&gt; </span><span style='color: #555555;'>10</span><span> 2017-01-10         0              0                0                0
+#&gt; </span><span style='color: #555555;'># … with 355 more rows, and 14 more variables: US_LincolnsBirthday </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,
+#&gt; #   US_PresidentsDay </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, US_WashingtonsBirthday </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,
+#&gt; #   US_CPulaskisBirthday </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, US_GoodFriday </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, US_MemorialDay </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,
+#&gt; #   US_DecorationMemorialDay </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, US_IndependenceDay </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,
+#&gt; #   US_LaborDay </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, US_ColumbusDay </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, US_ElectionDay </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,
+#&gt; #   US_VeteransDay </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, US_ThanksgivingDay </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, US_ChristmasDay </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span></div><div class='input'>
 <span class='co'># All holidays for World and Italy-specific Holidays</span>
 <span class='co'># - Note that Italy celebrates specific holidays in addition to many World Holidays</span>
 <span class='no'>dates_in_2017_tbl</span> <span class='kw'>%&gt;%</span>
     <span class='fu'>tk_augment_holiday_signature</span>(
         <span class='kw'>.holiday_pattern</span> <span class='kw'>=</span> <span class='st'>"(World)|(IT_)"</span>,
         <span class='kw'>.locale_set</span>      <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"World"</span>, <span class='st'>"IT"</span>),
-        <span class='kw'>.exchange_set</span>    <span class='kw'>=</span> <span class='st'>"none"</span>)</div><div class='output co'>#&gt; # A tibble: 365 x 45
+        <span class='kw'>.exchange_set</span>    <span class='kw'>=</span> <span class='st'>"none"</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 365 x 45</span><span>
 #&gt;    index      locale_World locale_IT World_NewYearsD… World_Solemnity…
-#&gt;    &lt;date&gt;            &lt;dbl&gt;     &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
-#&gt;  1 2017-01-01            1         0                1                1
-#&gt;  2 2017-01-02            0         0                0                0
-#&gt;  3 2017-01-03            0         0                0                0
-#&gt;  4 2017-01-04            0         0                0                0
-#&gt;  5 2017-01-05            0         0                0                0
-#&gt;  6 2017-01-06            1         1                0                0
-#&gt;  7 2017-01-07            0         0                0                0
-#&gt;  8 2017-01-08            0         0                0                0
-#&gt;  9 2017-01-09            0         0                0                0
-#&gt; 10 2017-01-10            0         0                0                0
-#&gt; # … with 355 more rows, and 40 more variables: World_Epiphany &lt;dbl&gt;,
-#&gt; #   IT_Epiphany &lt;dbl&gt;, World_PresentationOfLord &lt;dbl&gt;,
-#&gt; #   World_Septuagesima &lt;dbl&gt;, World_Quinquagesima &lt;dbl&gt;,
-#&gt; #   World_AshWednesday &lt;dbl&gt;, World_Annunciation &lt;dbl&gt;, World_PalmSunday &lt;dbl&gt;,
-#&gt; #   World_GoodFriday &lt;dbl&gt;, World_Easter &lt;dbl&gt;, World_EasterSunday &lt;dbl&gt;,
-#&gt; #   World_EasterMonday &lt;dbl&gt;, IT_LiberationDay &lt;dbl&gt;, World_LaborDay &lt;dbl&gt;,
-#&gt; #   World_RogationSunday &lt;dbl&gt;, World_Ascension &lt;dbl&gt;, World_Pentecost &lt;dbl&gt;,
-#&gt; #   World_PentecostMonday &lt;dbl&gt;, World_TrinitySunday &lt;dbl&gt;,
-#&gt; #   World_CorpusChristi &lt;dbl&gt;, World_TransfigurationOfLord &lt;dbl&gt;,
-#&gt; #   World_AssumptionOfMary &lt;dbl&gt;, IT_AssumptionOfVirginMary &lt;dbl&gt;,
-#&gt; #   World_BirthOfVirginMary &lt;dbl&gt;, World_CelebrationOfHolyCross &lt;dbl&gt;,
-#&gt; #   World_MassOfArchangels &lt;dbl&gt;, World_AllSaints &lt;dbl&gt;, IT_AllSaints &lt;dbl&gt;,
-#&gt; #   World_AllSouls &lt;dbl&gt;, World_CaRemembranceDay &lt;dbl&gt;,
-#&gt; #   World_ChristTheKing &lt;dbl&gt;, World_Advent1st &lt;dbl&gt;, IT_StAmrose &lt;dbl&gt;,
-#&gt; #   IT_ImmaculateConception &lt;dbl&gt;, World_Advent2nd &lt;dbl&gt;,
-#&gt; #   World_Advent3rd &lt;dbl&gt;, World_Advent4th &lt;dbl&gt;, World_ChristmasEve &lt;dbl&gt;,
-#&gt; #   World_ChristmasDay &lt;dbl&gt;, World_BoxingDay &lt;dbl&gt;</div><div class='input'>
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>            </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>            </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>            </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> 2017-01-01            1         0                1                1
+#&gt; </span><span style='color: #555555;'> 2</span><span> 2017-01-02            0         0                0                0
+#&gt; </span><span style='color: #555555;'> 3</span><span> 2017-01-03            0         0                0                0
+#&gt; </span><span style='color: #555555;'> 4</span><span> 2017-01-04            0         0                0                0
+#&gt; </span><span style='color: #555555;'> 5</span><span> 2017-01-05            0         0                0                0
+#&gt; </span><span style='color: #555555;'> 6</span><span> 2017-01-06            1         1                0                0
+#&gt; </span><span style='color: #555555;'> 7</span><span> 2017-01-07            0         0                0                0
+#&gt; </span><span style='color: #555555;'> 8</span><span> 2017-01-08            0         0                0                0
+#&gt; </span><span style='color: #555555;'> 9</span><span> 2017-01-09            0         0                0                0
+#&gt; </span><span style='color: #555555;'>10</span><span> 2017-01-10            0         0                0                0
+#&gt; </span><span style='color: #555555;'># … with 355 more rows, and 40 more variables: World_Epiphany </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,
+#&gt; #   IT_Epiphany </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, World_PresentationOfLord </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,
+#&gt; #   World_Septuagesima </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, World_Quinquagesima </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,
+#&gt; #   World_AshWednesday </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, World_Annunciation </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, World_PalmSunday </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,
+#&gt; #   World_GoodFriday </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, World_Easter </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, World_EasterSunday </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,
+#&gt; #   World_EasterMonday </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, IT_LiberationDay </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, World_LaborDay </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,
+#&gt; #   World_RogationSunday </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, World_Ascension </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, World_Pentecost </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,
+#&gt; #   World_PentecostMonday </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, World_TrinitySunday </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,
+#&gt; #   World_CorpusChristi </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, World_TransfigurationOfLord </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,
+#&gt; #   World_AssumptionOfMary </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, IT_AssumptionOfVirginMary </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,
+#&gt; #   World_BirthOfVirginMary </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, World_CelebrationOfHolyCross </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,
+#&gt; #   World_MassOfArchangels </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, World_AllSaints </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, IT_AllSaints </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,
+#&gt; #   World_AllSouls </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, World_CaRemembranceDay </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,
+#&gt; #   World_ChristTheKing </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, World_Advent1st </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, IT_StAmrose </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,
+#&gt; #   IT_ImmaculateConception </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, World_Advent2nd </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,
+#&gt; #   World_Advent3rd </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, World_Advent4th </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, World_ChristmasEve </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,
+#&gt; #   World_ChristmasDay </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, World_BoxingDay </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span></div><div class='input'>
 
 
-</div></pre>
+</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
