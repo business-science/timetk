@@ -1,4 +1,7 @@
-#' Augment columns with rolling windows to the data
+#' Add many rolling window calculations to the data
+#'
+#' Quickly use any function as a rolling function and apply to multiple `.periods`.
+#' Works with `dplyr` groups too.
 #'
 #' @param .data A tibble.
 #' @param .column A column to have a rolling window transformation applied
@@ -46,10 +49,10 @@
 #'     tk_augment_roll_apply(
 #'         .column  = adjusted,
 #'         # Multiple rolling windows
-#'         .period  = c(10, 30),
+#'         .period  = c(10, 30, 60, 90),
 #'         .f       = AVERAGE,
 #'         .partial = TRUE,
-#'         .names   = str_c("MA_", c(10, 30))
+#'         .names   = str_c("MA_", c(10, 30, 60, 90))
 #'     )
 #'
 #' @name tk_augment_roll_apply

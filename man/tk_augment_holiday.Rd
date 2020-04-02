@@ -3,7 +3,7 @@
 \name{tk_augment_holiday}
 \alias{tk_augment_holiday}
 \alias{tk_augment_holiday_signature}
-\title{Augment the holiday signature to the data}
+\title{Add many holiday features to the data}
 \usage{
 tk_augment_holiday_signature(
   .data,
@@ -32,7 +32,8 @@ One of: "all", "none", "NYSE", "LONDON", "NERC", "TSX", "ZURICH".}
 Returns a \code{tibble} object describing the holiday timeseries.
 }
 \description{
-Augment the holiday signature to the data
+Quickly add the "holiday signature" - sets of holiday features that correspond
+to calendar dates. Works with \code{dplyr} groups too.
 }
 \details{
 \code{tk_augment_holiday_signature} adds the holiday signature

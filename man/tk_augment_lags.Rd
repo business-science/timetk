@@ -2,7 +2,7 @@
 % Please edit documentation in R/augment-tk_augment_lags.R
 \name{tk_augment_lags}
 \alias{tk_augment_lags}
-\title{Augment columns with lagged data}
+\title{Add many lags to the data}
 \usage{
 tk_augment_lags(.data, .column, .lags = 1, .names = paste0("lag_", .lags))
 }
@@ -20,7 +20,7 @@ Returns a \code{tibble} object describing the timeseries.
 }
 \description{
 A handy function for adding multiple lagged columns to a data frame.
-Works group-wise.
+Works with \code{dplyr} groups too.
 }
 \details{
 \strong{Benefits}

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Augment columns with lagged data — tk_augment_lags • timetk</title>
+<title>Add many lags to the data — tk_augment_lags • timetk</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -42,9 +42,9 @@
 
 
 
-<meta property="og:title" content="Augment columns with lagged data — tk_augment_lags" />
+<meta property="og:title" content="Add many lags to the data — tk_augment_lags" />
 <meta property="og:description" content="A handy function for adding multiple lagged columns to a data frame.
-Works group-wise." />
+Works with dplyr groups too." />
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -149,14 +149,14 @@ Works group-wise." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Augment columns with lagged data</h1>
+    <h1>Add many lags to the data</h1>
     <small class="dont-index">Source: <a href='https://github.com/business-science/timetk/blob/master/R/augment-tk_augment_lags.R'><code>R/augment-tk_augment_lags.R</code></a></small>
     <div class="hidden name"><code>tk_augment_lags.Rd</code></div>
     </div>
 
     <div class="ref-description">
     <p>A handy function for adding multiple lagged columns to a data frame.
-Works group-wise.</p>
+Works with <code>dplyr</code> groups too.</p>
     </div>
 
     <pre class="usage"><span class='fu'>tk_augment_lags</span>(<span class='no'>.data</span>, <span class='no'>.column</span>, <span class='kw'>.lags</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.names</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(<span class='st'>"lag_"</span>, <span class='no'>.lags</span>))</pre>

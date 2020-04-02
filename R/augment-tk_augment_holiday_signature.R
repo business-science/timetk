@@ -1,4 +1,7 @@
-#' Augment the holiday signature to the data
+#' Add many holiday features to the data
+#'
+#' Quickly add the "holiday signature" - sets of holiday features that correspond
+#' to calendar dates. Works with `dplyr` groups too.
 #'
 #' @param .data A time-based tibble or time-series object.
 #' @param .date_var A column containing either date or date-time values.

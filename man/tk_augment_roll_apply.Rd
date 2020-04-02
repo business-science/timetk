@@ -2,7 +2,7 @@
 % Please edit documentation in R/augment-tk_augment_roll_apply.R
 \name{tk_augment_roll_apply}
 \alias{tk_augment_roll_apply}
-\title{Augment columns with rolling windows to the data}
+\title{Add many rolling window calculations to the data}
 \usage{
 tk_augment_roll_apply(
   .data,
@@ -38,7 +38,8 @@ Set to FALSE by default, but can be switched to TRUE to remove \code{NA}'s.}
 Returns a \code{tibble} object describing the timeseries.
 }
 \description{
-Augment columns with rolling windows to the data
+Quickly use any function as a rolling function and apply to multiple \code{.periods}.
+Works with \code{dplyr} groups too.
 }
 \details{
 \code{tk_augment_roll_apply()} scales the \code{\link[=roll_apply_vec]{roll_apply_vec()}} function to multiple
@@ -56,10 +57,10 @@ FANG \%>\%
     tk_augment_roll_apply(
         .column  = adjusted,
         # Multiple rolling windows
-        .period  = c(10, 30),
+        .period  = c(10, 30, 60, 90),
         .f       = AVERAGE,
         .partial = TRUE,
-        .names   = str_c("MA_", c(10, 30))
+        .names   = str_c("MA_", c(10, 30, 60, 90))
     )
 
 }

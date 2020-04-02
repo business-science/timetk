@@ -3,7 +3,7 @@
 \name{tk_augment_timeseries}
 \alias{tk_augment_timeseries}
 \alias{tk_augment_timeseries_signature}
-\title{Augment the time series signature to the data}
+\title{Add many time series features to the data}
 \usage{
 tk_augment_timeseries_signature(.data, .date_var = NULL)
 }
@@ -17,7 +17,7 @@ If \code{NULL}, the time-based column will interpret from the object (tibble, xt
 Returns a \code{tibble} object describing the timeseries.
 }
 \description{
-Augment the time series signature to the data
+Add many time series features to the data
 }
 \details{
 \code{tk_augment_timeseries_signature()} adds 25+ time series features including:

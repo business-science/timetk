@@ -1,7 +1,7 @@
-#' Augment columns with differenced data
+#' Add many differenced columns to the data
 #'
 #' A handy function for adding multiple lagged difference values to a data frame.
-#' Works group-wise.
+#' Works with `dplyr` groups too.
 #'
 #' @param .data A tibble.
 #' @param .column A column to have a difference transformation applied

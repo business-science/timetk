@@ -44,6 +44,29 @@ reference:
     - contains("summarise")
     - contains("filter")
     - contains("between")
+  - title: Vector Operations (Transformations)
+    desc: __Use with `mutate` to apply vectorized transformations to time series data__
+    contents:
+    - contains("_vec")
+  - title: Augment Operations (Quickly Add Many Features)
+    desc: __Add multiple columns to the original data. Respects `dplyr` groups.__
+    contents:
+    - "tk_augment_timeseries_signature"
+    - "tk_augment_holiday_signature"
+    - "tk_augment_roll_apply"
+    - "tk_augment_differences"
+    - contains("augment")
+  - title: Recipe Operations (Feature Engineering Steps)
+    desc: __Preprocessing & feature engineering operations for use with `recipes` and the `tidymodels` ecosystem__
+    contents:
+    - "step_timeseries_signature"
+    - "step_holiday_signature"
+    - contains("step_")
+  - title: Rsample Operations (Cross Validation)
+    desc: __Resampling for time series validation using `rsamples`__
+    contents:
+    - "initial_time_split_2"
+    - "rolling_origin_2"
   - title: Index Operations
     desc: __Extract and check the date or date-time index.__
     contents:
@@ -60,34 +83,11 @@ reference:
     - "tk_get_timeseries_signature"
     - "tk_get_holiday_signature"
     - contains("tk_get")
-  - title: Augment Operations
-    desc: __Add columns to the original data.__
-    contents:
-    - "tk_augment_timeseries_signature"
-    - "tk_augment_holiday_signature"
-    - "tk_augment_roll_apply"
-    - "tk_augment_differences"
-    - contains("augment")
   - title: Diagnostic Operations
     desc: __These power the time series plotting functions__
     contents:
     - "tk_acf_diagnostics"
     - "tk_seasonal_diagnostics"
-  - title: Vector Operations (Transformations)
-    desc: __Use with `mutate` to apply vectorized transformations to time series data__
-    contents:
-    - contains("_vec")
-  - title: Recipe Operations (Feature Engineering Steps)
-    desc: __Preprocessing & feature engineering operations for use with `recipes` and the `tidymodels` ecosystem__
-    contents:
-    - "step_timeseries_signature"
-    - "step_holiday_signature"
-    - contains("step_")
-  - title: Rsample Operations (Cross Validation)
-    desc: __Resampling for time series validation using `rsamples`__
-    contents:
-    - "initial_time_split_2"
-    - "rolling_origin_2"
   - title: Conversion Operations
     desc: __Functions for converting between common time series formats.__
     contents:

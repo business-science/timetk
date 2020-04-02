@@ -1,7 +1,7 @@
-#' Augment columns with lagged data
+#' Add many lags to the data
 #'
 #' A handy function for adding multiple lagged columns to a data frame.
-#' Works group-wise.
+#' Works with `dplyr` groups too.
 #'
 #' @param .data A tibble.
 #' @param .column A column to have a difference transformation applied

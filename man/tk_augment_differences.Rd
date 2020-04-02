@@ -2,7 +2,7 @@
 % Please edit documentation in R/augment-tk_augment_differences.R
 \name{tk_augment_differences}
 \alias{tk_augment_differences}
-\title{Augment columns with differenced data}
+\title{Add many differenced columns to the data}
 \usage{
 tk_augment_differences(
   .data,
@@ -31,7 +31,7 @@ Returns a \code{tibble} object describing the timeseries.
 }
 \description{
 A handy function for adding multiple lagged difference values to a data frame.
-Works group-wise.
+Works with \code{dplyr} groups too.
 }
 \details{
 \strong{Benefits}

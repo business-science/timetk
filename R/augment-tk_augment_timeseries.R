@@ -1,4 +1,4 @@
-#' Augment the time series signature to the data
+#' Add many time series features to the data
 #'
 #' @param .data A time-based tibble or time-series object.
 #' @param .date_var For `tibbles`, a column containing either date or date-time values.

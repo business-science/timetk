@@ -213,6 +213,140 @@
     </tbody><tbody>
       <tr>
         <th colspan="2">
+          <h2 id="section-vector-operations-transformations-" class="hasAnchor"><a href="#section-vector-operations-transformations-" class="anchor"></a>Vector Operations (Transformations)</h2>
+          <p class="section-desc"><p><strong>Use with <code>mutate</code> to apply vectorized transformations to time series data</strong></p></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="box_cox_vec.html">box_cox_vec()</a></code> <code><a href="box_cox_vec.html">box_cox_inv_vec()</a></code> <code><a href="box_cox_vec.html">auto_lambda()</a></code> </p>
+        </td>
+        <td><p>Box Cox Transformation</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="diff_vec.html">diff_vec()</a></code> <code><a href="diff_vec.html">diff_inv_vec()</a></code> </p>
+        </td>
+        <td><p>Differencing Transformation</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="lag_vec.html">lag_vec()</a></code> </p>
+        </td>
+        <td><p>Lag Transformation</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="roll_apply_vec.html">roll_apply_vec()</a></code> </p>
+        </td>
+        <td><p>Rolling Window Transformation</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="smooth_vec.html">smooth_vec()</a></code> </p>
+        </td>
+        <td><p>Smoothing Transformation using Loess</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-augment-operations-quickly-add-many-features-" class="hasAnchor"><a href="#section-augment-operations-quickly-add-many-features-" class="anchor"></a>Augment Operations (Quickly Add Many Features)</h2>
+          <p class="section-desc"><p><strong>Add multiple columns to the original data. Respects <code>dplyr</code> groups.</strong></p></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="tk_augment_timeseries.html">tk_augment_timeseries_signature()</a></code> </p>
+        </td>
+        <td><p>Add many time series features to the data</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="tk_augment_holiday.html">tk_augment_holiday_signature()</a></code> </p>
+        </td>
+        <td><p>Add many holiday features to the data</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="tk_augment_roll_apply.html">tk_augment_roll_apply()</a></code> </p>
+        </td>
+        <td><p>Add many rolling window calculations to the data</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="tk_augment_differences.html">tk_augment_differences()</a></code> </p>
+        </td>
+        <td><p>Add many differenced columns to the data</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="tk_augment_lags.html">tk_augment_lags()</a></code> </p>
+        </td>
+        <td><p>Add many lags to the data</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-recipe-operations-feature-engineering-steps-" class="hasAnchor"><a href="#section-recipe-operations-feature-engineering-steps-" class="anchor"></a>Recipe Operations (Feature Engineering Steps)</h2>
+          <p class="section-desc"><p><strong>Preprocessing &amp; feature engineering operations for use with <code>recipes</code> and the <code>tidymodels</code> ecosystem</strong></p></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="step_timeseries_signature.html">step_timeseries_signature()</a></code> <code><a href="step_timeseries_signature.html">tidy(<i>&lt;step_timeseries_signature&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Time Series Feature (Signature) Generator</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="step_holiday_signature.html">step_holiday_signature()</a></code> <code><a href="step_holiday_signature.html">tidy(<i>&lt;step_holiday_signature&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Holiday Feature (Signature) Generator</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="step_fourier_series.html">step_fourier_series()</a></code> <code><a href="step_fourier_series.html">tidy(<i>&lt;step_fourier_series&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Fourier Features for Modeling Seasonality</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="step_roll_apply.html">step_roll_apply()</a></code> <code><a href="step_roll_apply.html">tidy(<i>&lt;step_roll_apply&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Rolling Window Transformation</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="step_smooth.html">step_smooth()</a></code> <code><a href="step_smooth.html">tidy(<i>&lt;step_smooth&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Smoothing Transformation using Loess</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-rsample-operations-cross-validation-" class="hasAnchor"><a href="#section-rsample-operations-cross-validation-" class="anchor"></a>Rsample Operations (Cross Validation)</h2>
+          <p class="section-desc"><p><strong>Resampling for time series validation using <code>rsamples</code></strong></p></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="initial_time_split_2.html">initial_time_split_2()</a></code> </p>
+        </td>
+        <td><p>Simple Training/Test Set Splitting for Time Series</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="rolling_origin_2.html">rolling_origin_2()</a></code> </p>
+        </td>
+        <td><p>Rolling Origin Forecast Resampling</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
           <h2 id="section-index-operations" class="hasAnchor"><a href="#section-index-operations" class="anchor"></a>Index Operations</h2>
           <p class="section-desc"><p><strong>Extract and check the date or date-time index.</strong></p></p>
         </th>
@@ -279,44 +413,6 @@
     </tbody><tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-augment-operations" class="hasAnchor"><a href="#section-augment-operations" class="anchor"></a>Augment Operations</h2>
-          <p class="section-desc"><p><strong>Add columns to the original data.</strong></p></p>
-        </th>
-      </tr>
-      <tr>
-        
-        <td>
-          <p><code><a href="tk_augment_timeseries.html">tk_augment_timeseries_signature()</a></code> </p>
-        </td>
-        <td><p>Augment the time series signature to the data</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="tk_augment_holiday.html">tk_augment_holiday_signature()</a></code> </p>
-        </td>
-        <td><p>Augment the holiday signature to the data</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="tk_augment_roll_apply.html">tk_augment_roll_apply()</a></code> </p>
-        </td>
-        <td><p>Augment columns with rolling windows to the data</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="tk_augment_differences.html">tk_augment_differences()</a></code> </p>
-        </td>
-        <td><p>Augment columns with differenced data</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="tk_augment_lags.html">tk_augment_lags()</a></code> </p>
-        </td>
-        <td><p>Augment columns with lagged data</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
           <h2 id="section-diagnostic-operations" class="hasAnchor"><a href="#section-diagnostic-operations" class="anchor"></a>Diagnostic Operations</h2>
           <p class="section-desc"><p><strong>These power the time series plotting functions</strong></p></p>
         </th>
@@ -333,102 +429,6 @@
           <p><code><a href="tk_seasonal_diagnostics.html">tk_seasonal_diagnostics()</a></code> </p>
         </td>
         <td><p>Group-wise Seasonality Data Preparation</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-vector-operations-transformations-" class="hasAnchor"><a href="#section-vector-operations-transformations-" class="anchor"></a>Vector Operations (Transformations)</h2>
-          <p class="section-desc"><p><strong>Use with <code>mutate</code> to apply vectorized transformations to time series data</strong></p></p>
-        </th>
-      </tr>
-      <tr>
-        
-        <td>
-          <p><code><a href="box_cox_vec.html">box_cox_vec()</a></code> <code><a href="box_cox_vec.html">box_cox_inv_vec()</a></code> <code><a href="box_cox_vec.html">auto_lambda()</a></code> </p>
-        </td>
-        <td><p>Box Cox Transformation</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="diff_vec.html">diff_vec()</a></code> <code><a href="diff_vec.html">diff_inv_vec()</a></code> </p>
-        </td>
-        <td><p>Differencing Transformation</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="lag_vec.html">lag_vec()</a></code> </p>
-        </td>
-        <td><p>Lag Transformation</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="roll_apply_vec.html">roll_apply_vec()</a></code> </p>
-        </td>
-        <td><p>Rolling Window Transformation</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="smooth_vec.html">smooth_vec()</a></code> </p>
-        </td>
-        <td><p>Smoothing Transformation using Loess</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-recipe-operations-feature-engineering-steps-" class="hasAnchor"><a href="#section-recipe-operations-feature-engineering-steps-" class="anchor"></a>Recipe Operations (Feature Engineering Steps)</h2>
-          <p class="section-desc"><p><strong>Preprocessing &amp; feature engineering operations for use with <code>recipes</code> and the <code>tidymodels</code> ecosystem</strong></p></p>
-        </th>
-      </tr>
-      <tr>
-        
-        <td>
-          <p><code><a href="step_timeseries_signature.html">step_timeseries_signature()</a></code> <code><a href="step_timeseries_signature.html">tidy(<i>&lt;step_timeseries_signature&gt;</i>)</a></code> </p>
-        </td>
-        <td><p>Time Series Feature (Signature) Generator</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="step_holiday_signature.html">step_holiday_signature()</a></code> <code><a href="step_holiday_signature.html">tidy(<i>&lt;step_holiday_signature&gt;</i>)</a></code> </p>
-        </td>
-        <td><p>Holiday Feature (Signature) Generator</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="step_fourier_series.html">step_fourier_series()</a></code> <code><a href="step_fourier_series.html">tidy(<i>&lt;step_fourier_series&gt;</i>)</a></code> </p>
-        </td>
-        <td><p>Fourier Features for Modeling Seasonality</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="step_roll_apply.html">step_roll_apply()</a></code> <code><a href="step_roll_apply.html">tidy(<i>&lt;step_roll_apply&gt;</i>)</a></code> </p>
-        </td>
-        <td><p>Rolling Window Transformation</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="step_smooth.html">step_smooth()</a></code> <code><a href="step_smooth.html">tidy(<i>&lt;step_smooth&gt;</i>)</a></code> </p>
-        </td>
-        <td><p>Smoothing Transformation using Loess</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-rsample-operations-cross-validation-" class="hasAnchor"><a href="#section-rsample-operations-cross-validation-" class="anchor"></a>Rsample Operations (Cross Validation)</h2>
-          <p class="section-desc"><p><strong>Resampling for time series validation using <code>rsamples</code></strong></p></p>
-        </th>
-      </tr>
-      <tr>
-        
-        <td>
-          <p><code><a href="initial_time_split_2.html">initial_time_split_2()</a></code> </p>
-        </td>
-        <td><p>Simple Training/Test Set Splitting for Time Series</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="rolling_origin_2.html">rolling_origin_2()</a></code> </p>
-        </td>
-        <td><p>Rolling Origin Forecast Resampling</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -533,14 +533,14 @@
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#section-plotting-time-series">Plotting Time Series</a></li>
       <li><a href="#section-time-series-data-wrangling-operations">Time Series Data Wrangling Operations</a></li>
+      <li><a href="#section-vector-operations-transformations-">Vector Operations (Transformations)</a></li>
+      <li><a href="#section-augment-operations-quickly-add-many-features-">Augment Operations (Quickly Add Many Features)</a></li>
+      <li><a href="#section-recipe-operations-feature-engineering-steps-">Recipe Operations (Feature Engineering Steps)</a></li>
+      <li><a href="#section-rsample-operations-cross-validation-">Rsample Operations (Cross Validation)</a></li>
       <li><a href="#section-index-operations">Index Operations</a></li>
       <li><a href="#section-make-operations">Make Operations</a></li>
       <li><a href="#section-get-operations">Get Operations</a></li>
-      <li><a href="#section-augment-operations">Augment Operations</a></li>
       <li><a href="#section-diagnostic-operations">Diagnostic Operations</a></li>
-      <li><a href="#section-vector-operations-transformations-">Vector Operations (Transformations)</a></li>
-      <li><a href="#section-recipe-operations-feature-engineering-steps-">Recipe Operations (Feature Engineering Steps)</a></li>
-      <li><a href="#section-rsample-operations-cross-validation-">Rsample Operations (Cross Validation)</a></li>
       <li><a href="#section-conversion-operations">Conversion Operations</a></li>
       <li><a href="#section-time-series-datasets">Time Series Datasets</a></li>
     </ul>
