@@ -48,7 +48,10 @@
 #' is [`smooth_vec()`], which implements local polynomial regression.
 #'
 #' @seealso
-#'   - Loess Smoothing: [smooth_vec()]
+#'   - Lag Transformation: [lag_vec()]
+#'   - Differencing Transformation: [diff_vec()]
+#'   - Rolling Window Transformation: [roll_apply_vec()]
+#'   - Loess Smoothing Transformation: [smooth_vec()]
 #'   - For more complex rolling operations, check out the `slider` R package.
 #'
 #'

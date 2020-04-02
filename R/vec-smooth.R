@@ -87,8 +87,10 @@
 #'     labs(title = "Loess vs Moving Average")
 #'
 #' @seealso
-#'   - Rolling Window Calculations: [roll_apply_vec()], [slider::slide_vec()], [zoo::rollapply()]
-#'   - Loess Modeling: [stats::loess()]
+#'   - Lag Transformation: [lag_vec()]
+#'   - Differencing Transformation: [diff_vec()]
+#'   - Rolling Window Transformation: [roll_apply_vec()]
+#'   - Loess Smoothing Transformation: [smooth_vec()]
 #'
 #'
 #' @export

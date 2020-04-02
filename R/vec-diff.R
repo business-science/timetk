@@ -42,6 +42,12 @@
 #' The 1st difference `diff_vec(.difference = 1, .log = TRUE)` has an interesting property
 #' where `diff_vec(.difference = 1, .log = TRUE) %>% exp()` is approximately _1 + rate of change._
 #'
+#' @seealso
+#'   - Lag Transformation: [lag_vec()]
+#'   - Differencing Transformation: [diff_vec()]
+#'   - Rolling Window Transformation: [roll_apply_vec()]
+#'   - Loess Smoothing Transformation: [smooth_vec()]
+#'
 #' @examples
 #' library(dplyr)
 #' library(timetk)
@@ -166,7 +172,11 @@ diff_inv_calc <- function(.x, .lag, .difference, .log, .initial_values = NULL) {
         }
     }  else {
         # Log transform
-        warning(call. = FALSE, "diff_inv_vec(.log = TRUE): Log-Difference Inversion is approximate.")
+
+        if (.difference > 1) {
+            stop(call. = FALSE, "diff_inv_vec(.log = TRUE): Log-Difference inversion for multiple differences is not yet implemented.")
+        }
+
 
         if (is.null(.initial_values)) {
             .initial_values <- rep(1, na_len)

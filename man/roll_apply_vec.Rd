@@ -137,7 +137,10 @@ FB_tbl \%>\%
 }
 \seealso{
 \itemize{
-\item Loess Smoothing: \code{\link[=smooth_vec]{smooth_vec()}}
+\item Lag Transformation: \code{\link[=lag_vec]{lag_vec()}}
+\item Differencing Transformation: \code{\link[=diff_vec]{diff_vec()}}
+\item Rolling Window Transformation: \code{\link[=roll_apply_vec]{roll_apply_vec()}}
+\item Loess Smoothing Transformation: \code{\link[=smooth_vec]{smooth_vec()}}
 \item For more complex rolling operations, check out the \code{slider} R package.
 }
 }

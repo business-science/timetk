@@ -99,7 +99,9 @@ FB_tbl \%>\%
 }
 \seealso{
 \itemize{
-\item Rolling Window Calculations: \code{\link[=roll_apply_vec]{roll_apply_vec()}}, \code{\link[slider:slide_vec]{slider::slide_vec()}}, \code{\link[zoo:rollapply]{zoo::rollapply()}}
-\item Loess Modeling: \code{\link[stats:loess]{stats::loess()}}
+\item Lag Transformation: \code{\link[=lag_vec]{lag_vec()}}
+\item Differencing Transformation: \code{\link[=diff_vec]{diff_vec()}}
+\item Rolling Window Transformation: \code{\link[=roll_apply_vec]{roll_apply_vec()}}
+\item Loess Smoothing Transformation: \code{\link[=smooth_vec]{smooth_vec()}}
 }
 }
