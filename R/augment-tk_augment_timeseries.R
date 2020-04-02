@@ -46,11 +46,11 @@ tk_augment_timeseries_signature <- function(.data, .date_var = NULL) {
 
     # Checks
     if (is.data.frame(.data)) {
-        if (rlang::quo_is_null(enquo(.date_var))) {
+        if (rlang::quo_is_null(rlang::enquo(.date_var))) {
             # .date_var is NULL
             date_var <- tk_get_timeseries_variables(.data)[[1]]
             if (length(date_var) == 0 ) stop(call. = FALSE, "tk_augment_timeseries_signature(): No date variable detected.")
-            message("Using the following .date_var variable: ", date_var)
+            message("tk_augment_timeseries_signature(): Using the following .date_var variable: ", date_var)
         }
     }
 
@@ -63,7 +63,7 @@ tk_augment_timeseries_signature.data.frame <- function(.data, .date_var = NULL) 
     date_var_expr <- rlang::enquo(.date_var)
 
     # Get date_var
-    if (rlang::quo_is_null(enquo(.date_var))) {
+    if (rlang::quo_is_null(date_var_expr)) {
         # .date_var is NULL
         date_var <- tk_get_timeseries_variables(.data)[[1]]
     } else {
@@ -75,7 +75,7 @@ tk_augment_timeseries_signature.data.frame <- function(.data, .date_var = NULL) 
 
 
     # Arrange by date_var
-    .data <- .data %>% dplyr::arrange(!! sym(date_var))
+    .data <- .data %>% dplyr::arrange(!! rlang::sym(date_var))
 
     # Bind Time Series Signature
     ret_1 <- .data

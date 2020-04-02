@@ -120,11 +120,11 @@ tk_get_holiday_signature.Date <- function(idx,
 }
 
 #' @export
-tk_get_timeseries_signature.default <- function(idx,
-                                                holiday_pattern = ".",
-                                                locale_set = c("all", "none", "World", "US", "CA", "GB", "FR", "IT", "JP", "CH", "DE"),
-                                                exchange_set = c("all", "none", "NYSE", "LONDON", "NERC", "TSX", "ZURICH")
-                                                ) {
+tk_get_holiday_signature.default <- function(idx,
+                                             holiday_pattern = ".",
+                                             locale_set = c("all", "none", "World", "US", "CA", "GB", "FR", "IT", "JP", "CH", "DE"),
+                                             exchange_set = c("all", "none", "NYSE", "LONDON", "NERC", "TSX", "ZURICH")
+                                             ) {
     stop(paste0("No method for class ", class(idx)[[1]], "."))
 }
 
@@ -148,6 +148,7 @@ get_holiday_signature <- function(idx,
     if (any("none" %in% exchange_set)) exchange_set <- "none"
 
     initial_index_tbl <- tibble::tibble(index = idx)
+    unique_index_tbl  <- initial_index_tbl %>% dplyr::distinct()
 
     # HOLIDAY & LOCALE FEATURES ----
 
@@ -214,7 +215,7 @@ get_holiday_signature <- function(idx,
     tsx_dates    <- timeDate::holidayTSX(years) %>% lubridate::ymd()
     zurich_dates <- timeDate::holidayZURICH(years) %>% lubridate::ymd()
 
-    holiday_table_exchange <- tibble::tibble(index = idx) %>%
+    holiday_table_exchange <- unique_index_tbl %>%
         dplyr::mutate(
             exch_NYSE   = ifelse(index %in% nyse_dates, 1, 0),
             exch_LONDON = ifelse(index %in% london_dates, 1, 0),
@@ -238,7 +239,7 @@ get_holiday_signature <- function(idx,
 
     # JOIN ALL TABLES
 
-    holidays_joined_tbl <- initial_index_tbl %>%
+    holidays_joined_tbl <- unique_index_tbl %>%
         dplyr::left_join(holiday_table_exchange, by = "index") %>%
         dplyr::left_join(holiday_table_locale, by = c("index" = "date")) %>%
         dplyr::left_join(holiday_table_name, by = c("index" = "date"))
@@ -246,6 +247,9 @@ get_holiday_signature <- function(idx,
     # Cleanup
     holidays_joined_tbl[is.na(holidays_joined_tbl)] <- 0
     holidays_joined_tbl[,"values"] <- NULL
+
+    # Join with initial index
+    holidays_joined_tbl <- dplyr::left_join(initial_index_tbl, holidays_joined_tbl, by = "index")
 
     return(holidays_joined_tbl)
 

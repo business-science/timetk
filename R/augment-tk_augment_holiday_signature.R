@@ -1,6 +1,8 @@
 #' Augment the holiday signature to the data
 #'
 #' @param .data A time-based tibble or time-series object.
+#' @param .date_var A column containing either date or date-time values.
+#'  If `NULL`, the time-based column will interpret from the object (tibble).
 #' @param .holiday_pattern A regular expression pattern to search the "Holiday Set".
 #' @param .locale_set Return binary holidays based on locale.
 #' One of: "all", "none", "World", "US", "CA", "GB", "FR", "IT", "JP", "CH", "DE".
@@ -49,7 +51,6 @@
 #'
 #' @examples
 #' library(dplyr)
-#' library(tidyquant)
 #' library(timetk)
 #'
 #' dates_in_2017_tbl <- tibble(index = tk_make_date_sequence("2017-01-01", "2017-12-31", by = "day"))
@@ -57,6 +58,7 @@
 #' # Non-working days in US due to Holidays using NYSE stock exchange calendar
 #' dates_in_2017_tbl %>%
 #'     tk_augment_holiday_signature(
+#'         index,
 #'         .holiday_pattern = "^$",   # Returns nothing on purpose
 #'         .locale_set      = "none",
 #'         .exchange_set    = "NYSE")
@@ -64,6 +66,7 @@
 #' # All holidays in US
 #' dates_in_2017_tbl %>%
 #'     tk_augment_holiday_signature(
+#'         index,
 #'         .holiday_pattern = "US_",
 #'         .locale_set      = "US",
 #'         .exchange_set    = "none")
@@ -72,6 +75,7 @@
 #' # - Note that Italy celebrates specific holidays in addition to many World Holidays
 #' dates_in_2017_tbl %>%
 #'     tk_augment_holiday_signature(
+#'         index,
 #'         .holiday_pattern = "(World)|(IT_)",
 #'         .locale_set      = c("World", "IT"),
 #'         .exchange_set    = "none")
@@ -84,30 +88,56 @@ NULL
 #' @export
 #' @rdname tk_augment_holiday
 tk_augment_holiday_signature <- function(.data,
+                                         .date_var = NULL,
                                          .holiday_pattern = ".",
                                          .locale_set = c("all", "none", "World", "US", "CA", "GB", "FR", "IT", "JP", "CH", "DE"),
                                          .exchange_set = c("all", "none", "NYSE", "LONDON", "NERC", "TSX", "ZURICH")
                                          ) {
+
+    # Checks
+    if (is.data.frame(.data)) {
+        if (rlang::quo_is_null(rlang::enquo(.date_var))) {
+            # .date_var is NULL
+            date_var <- tk_get_timeseries_variables(.data)[[1]]
+            if (length(date_var) == 0 ) stop(call. = FALSE, "tk_augment_holiday_signature(): No date variable detected.")
+            message("tk_augment_holiday_signature(): Using the following .date_var variable: ", date_var)
+        }
+    }
+
     UseMethod("tk_augment_holiday_signature", .data)
 }
 
 #' @export
 tk_augment_holiday_signature.data.frame <- function(.data,
+                                                    .date_var = NULL,
                                                     .holiday_pattern = ".",
                                                     .locale_set = c("all", "none", "World", "US", "CA", "GB", "FR", "IT", "JP", "CH", "DE"),
                                                     .exchange_set = c("all", "none", "NYSE", "LONDON", "NERC", "TSX", "ZURICH")
                                                     ) {
 
-    date_var <- tk_get_timeseries_variables(.data)[[1]]
+    date_var_expr <- rlang::enquo(.date_var)
+    group_names   <- dplyr::group_vars(.data)
+
+    # Get date_var
+    if (rlang::quo_is_null(date_var_expr)) {
+        # .date_var is NULL
+        date_var <- tk_get_timeseries_variables(.data)[[1]]
+    } else {
+        date_var <- .data %>%
+            dplyr::ungroup() %>%
+            dplyr::select(!! date_var_expr) %>%
+            colnames()
+    }
 
     # Arrange by date_var
-    .data <- .data %>% dplyr::arrange(!! sym(date_var))
+    # .data <- .data %>% dplyr::arrange(!! sym(date_var))
 
     # Bind Time Series Signature
-    ret_1 <- .data
+    ret_1 <- .data %>% dplyr::ungroup()
 
     ret_2 <- .data %>%
-        tk_index() %>%
+        dplyr::ungroup() %>%
+        dplyr::pull(date_var) %>%
         tk_get_holiday_signature(
             holiday_pattern = .holiday_pattern,
             locale_set      = .locale_set,
@@ -117,46 +147,19 @@ tk_augment_holiday_signature.data.frame <- function(.data,
 
     ret <- dplyr::bind_cols(ret_1, ret_2)
 
+    # Re-apply groups
+    if (length(group_names) > 0) {
+        ret <- ret %>%
+            dplyr::group_by(!!! rlang::syms(group_names))
+    }
+
     return(ret)
 
 }
 
-# #' @export
-# tk_augment_holiday_signature.xts <- function(.data) {
-#
-#     ret_1 <- .data
-#
-#     ret_2 <- .data %>%
-#         tk_index() %>%
-#         tk_get_timeseries_signature() %>%
-#         tk_xts(silent = TRUE)
-#
-#     ret <- xts::merge.xts(ret_1, ret_2)
-#
-#     return(ret)
-#
-# }
-
-# #' @export
-# tk_augment_holiday_signature.zoo <- function(.data) {
-#
-#     ret_1 <- .data %>%
-#         tk_xts(silent = TRUE)
-#
-#     ret_2 <- .data %>%
-#         tk_index() %>%
-#         tk_get_timeseries_signature() %>%
-#         tk_xts(silent = TRUE)
-#
-#     ret <- xts::merge.xts(ret_1, ret_2) %>%
-#         tk_zoo(silent = TRUE)
-#
-#     return(ret)
-#
-# }
-
 #' @export
 tk_augment_holiday_signature.default <- function(.data,
+                                                 .date_var = NULL,
                                                  .holiday_pattern = ".",
                                                  .locale_set = c("all", "none", "World", "US", "CA", "GB", "FR", "IT", "JP", "CH", "DE"),
                                                  .exchange_set = c("all", "none", "NYSE", "LONDON", "NERC", "TSX", "ZURICH")) {

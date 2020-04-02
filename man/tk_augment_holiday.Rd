@@ -7,6 +7,7 @@
 \usage{
 tk_augment_holiday_signature(
   .data,
+  .date_var = NULL,
   .holiday_pattern = ".",
   .locale_set = c("all", "none", "World", "US", "CA", "GB", "FR", "IT", "JP", "CH",
     "DE"),
@@ -15,6 +16,9 @@ tk_augment_holiday_signature(
 }
 \arguments{
 \item{.data}{A time-based tibble or time-series object.}
+
+\item{.date_var}{A column containing either date or date-time values.
+If \code{NULL}, the time-based column will interpret from the object (tibble).}
 
 \item{.holiday_pattern}{A regular expression pattern to search the "Holiday Set".}
 
@@ -63,6 +67,7 @@ dates_in_2017_tbl <- tibble(index = tk_make_date_sequence("2017-01-01", "2017-12
 # Non-working days in US due to Holidays using NYSE stock exchange calendar
 dates_in_2017_tbl \%>\%
     tk_augment_holiday_signature(
+        index,
         .holiday_pattern = "^$",   # Returns nothing on purpose
         .locale_set      = "none",
         .exchange_set    = "NYSE")
@@ -70,6 +75,7 @@ dates_in_2017_tbl \%>\%
 # All holidays in US
 dates_in_2017_tbl \%>\%
     tk_augment_holiday_signature(
+        index,
         .holiday_pattern = "US_",
         .locale_set      = "US",
         .exchange_set    = "none")
@@ -78,6 +84,7 @@ dates_in_2017_tbl \%>\%
 # - Note that Italy celebrates specific holidays in addition to many World Holidays
 dates_in_2017_tbl \%>\%
     tk_augment_holiday_signature(
+        index,
         .holiday_pattern = "(World)|(IT_)",
         .locale_set      = c("World", "IT"),
         .exchange_set    = "none")
