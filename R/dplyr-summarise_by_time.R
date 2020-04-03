@@ -1,9 +1,9 @@
-#' Summarise for Time Series Data
+#' Summarise (for Time Series Data)
 #'
 #' @description
-#' `summarise_by_time()` is a time-based variant of the popular `dplyr::summarise()` function.
-#' This time-based variant uses `.date_var` to specify a date or date-time column and `.by` to group the
-#' calculation.
+#' `summarise_by_time()` is a time-based variant of the popular `dplyr::summarise()` function
+#' that uses `.date_var` to specify a date or date-time column and `.by` to group the
+#' calculation by groups like "5 seconds", "week", or "3 months".
 #'
 #' `summarise_by_time()` and `summarize_by_time()` are synonyms.
 #'
@@ -49,11 +49,18 @@
 #'
 #' @param .type One of "floor", "ceiling", or "round. Defaults to "floor". See `lubridate::round_date`.
 #'
-#' @family single table verbs
+#'
 #'
 #' @return
 #' A `tibble` or `data.frame`
 #'
+#' @seealso
+#'
+#' Other Time-Based dplyr functions:
+#'
+#' - [summarise_by_time()] - Easily summarise using a date column.
+#' - [filter_by_time()] - Quickly filter using date ranges.
+#' - [between_time()] - Range detection for date or date-time sequences.
 #'
 #' @examples
 #' # Libraries

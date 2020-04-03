@@ -47,9 +47,15 @@
 #' * `.end_date = '2016'` is equivalent to `2016-12-31 + 23:59:59'`
 #'
 #' @seealso
-#' - [filter_by_time()] - A time-based variant of `dplyr::filter()` that is powered by
-#' `between_time()`
-#' - `between_time()` is a vectorized function based on `tibbletime::filter_time()`
+#'
+#' Other Time-Based dplyr functions:
+#'
+#' - [summarise_by_time()] - Easily summarise using a date column.
+#' - [filter_by_time()] - Quickly filter using date ranges.
+#' - [between_time()] - Range detection for date or date-time sequences.
+#'
+#' @references
+#' - This function is based on the `tibbletime::filter_time()` function developed by Davis Vaughan.
 #'
 #'
 #' @examples

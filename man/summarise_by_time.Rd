@@ -3,7 +3,7 @@
 \name{summarise_by_time}
 \alias{summarise_by_time}
 \alias{summarize_by_time}
-\title{Summarise for Time Series Data}
+\title{Summarise (for Time Series Data)}
 \usage{
 summarise_by_time(
   .data,
@@ -62,9 +62,9 @@ Arbitrary unique English abbreviations as in the \code{lubridate::period()} cons
 A \code{tibble} or \code{data.frame}
 }
 \description{
-\code{summarise_by_time()} is a time-based variant of the popular \code{dplyr::summarise()} function.
-This time-based variant uses \code{.date_var} to specify a date or date-time column and \code{.by} to group the
-calculation.
+\code{summarise_by_time()} is a time-based variant of the popular \code{dplyr::summarise()} function
+that uses \code{.date_var} to specify a date or date-time column and \code{.by} to group the
+calculation by groups like "5 seconds", "week", or "3 months".
 
 \code{summarise_by_time()} and \code{summarize_by_time()} are synonyms.
 }
@@ -114,4 +114,11 @@ FANG \%>\%
 
 
 }
-\concept{single table verbs}
+\seealso{
+Other Time-Based dplyr functions:
+\itemize{
+\item \code{\link[=summarise_by_time]{summarise_by_time()}} - Easily summarise using a date column.
+\item \code{\link[=filter_by_time]{filter_by_time()}} - Quickly filter using date ranges.
+\item \code{\link[=between_time]{between_time()}} - Range detection for date or date-time sequences.
+}
+}

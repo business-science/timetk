@@ -2,7 +2,7 @@
 % Please edit documentation in R/dplyr-filter_by_time.R
 \name{filter_by_time}
 \alias{filter_by_time}
-\title{Filter for Time-Series Data}
+\title{Filter (for Time-Series Data)}
 \usage{
 filter_by_time(.data, .date_var, .start_date = "start", .end_date = "end")
 }
@@ -71,9 +71,16 @@ FANG \%>\%
     plot_time_series(date, adjusted, .facet_ncol = 2, .interactive = FALSE)
 
 }
-\seealso{
+\references{
 \itemize{
-\item \code{\link[=between_time]{between_time()}} - A time-based variant of \code{dplyr::between()} that powers by
-\code{filter_by_time()}
+\item This function is based on the \code{tibbletime::filter_time()} function developed by Davis Vaughan.
+}
+}
+\seealso{
+Other Time-Based dplyr functions:
+\itemize{
+\item \code{\link[=summarise_by_time]{summarise_by_time()}} - Easily summarise using a date column.
+\item \code{\link[=filter_by_time]{filter_by_time()}} - Quickly filter using date ranges.
+\item \code{\link[=between_time]{between_time()}} - Range detection for date or date-time sequences.
 }
 }

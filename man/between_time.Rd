@@ -93,10 +93,16 @@ FANG \%>\%
     filter(date \%>\% between_time("2016-01", "2016-01"))
 
 }
-\seealso{
+\references{
 \itemize{
-\item \code{\link[=filter_by_time]{filter_by_time()}} - A time-based variant of \code{dplyr::filter()} that is powered by
-\code{between_time()}
-\item \code{between_time()} is a vectorized function based on \code{tibbletime::filter_time()}
+\item This function is based on the \code{tibbletime::filter_time()} function developed by Davis Vaughan.
+}
+}
+\seealso{
+Other Time-Based dplyr functions:
+\itemize{
+\item \code{\link[=summarise_by_time]{summarise_by_time()}} - Easily summarise using a date column.
+\item \code{\link[=filter_by_time]{filter_by_time()}} - Quickly filter using date ranges.
+\item \code{\link[=between_time]{between_time()}} - Range detection for date or date-time sequences.
 }
 }

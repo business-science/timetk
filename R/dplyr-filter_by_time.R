@@ -1,4 +1,4 @@
-#' Filter for Time-Series Data
+#' Filter (for Time-Series Data)
 #'
 #' The easiest way to filter time-based tibbles using shorthand timeseries notation.
 #' See [between_time()] for the date and date-time vector implementation.
@@ -43,9 +43,15 @@
 #' * `.end_date = '2016'` is equivalent to `2016-12-31 + 23:59:59'`
 #'
 #' @seealso
-#' - [between_time()] - A time-based variant of `dplyr::between()` that powers by
-#' `filter_by_time()`
 #'
+#' Other Time-Based dplyr functions:
+#'
+#' - [summarise_by_time()] - Easily summarise using a date column.
+#' - [filter_by_time()] - Quickly filter using date ranges.
+#' - [between_time()] - Range detection for date or date-time sequences.
+#'
+#' @references
+#' - This function is based on the `tibbletime::filter_time()` function developed by Davis Vaughan.
 #'
 #' @examples
 #' library(tidyverse)
