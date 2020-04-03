@@ -8,8 +8,8 @@ rollify(
   .f,
   .period = 1,
   .align = c("center", "left", "right"),
-  .unlist = TRUE,
-  .na_value = NULL
+  .partial = FALSE,
+  .unlist = TRUE
 )
 }
 \arguments{

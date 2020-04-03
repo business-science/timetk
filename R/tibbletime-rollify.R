@@ -162,7 +162,8 @@
 #'
 rollify <- function(.f, .period = 1,
                     .align = c("center", "left", "right"),
-                    .unlist = TRUE, .na_value = NULL) {
+                    .partial = FALSE,
+                    .unlist = TRUE) {
 
     # Checks
     .align <- tolower(.align[1])
@@ -170,21 +171,56 @@ rollify <- function(.f, .period = 1,
     # Mappify the function
     .f <- purrr::as_mapper(.f)
 
-    # Return function that calls roller
+    # Return function that calls slide
     function(...) {
-        roller(..., .f = .f, .period = .period, .align = .align, .unlist = .unlist, .na_value = .na_value)
+        # roller_1(..., .f = .f, .period = .period, .align = .align, .unlist = .unlist)
+
+        roller_2(
+            ...,
+            .slider_fun = slider::pslide,
+            .f          = .f,
+            .period     = .period,
+            .align      = .align,
+            .partial    = .partial,
+            .unlist     = .unlist
+        )
     }
 }
 
 
 # Utils ------------------------------------------------------------------------
 
-roller <- function(..., .f, .period, .align, .unlist = TRUE, .na_value = NULL) {
+roller_2 <- function(..., .slider_fun, .f, .period, .align, .partial, .unlist) {
 
-    # .na_value as NA if not specified
-    if(is.null(.na_value)) {
-        .na_value = NA
+    # Capture dots as list. These should be the arguments that are rolled
+    .dots <- rlang::dots_list(...)
+
+    # Error check the dots
+    check_dots(.dots, .period)
+
+    ret_vec <- roll_to_slide(
+        .slider_fun = .slider_fun,
+        .l          = .dots,
+        .f          = .f,
+        .period     = .period,
+        .align      = .align,
+        .partial    = .partial
+    )
+
+    # Don't .unlist if requested (when >1 value returned)
+    if(.unlist) {
+        unlist(ret_vec)
+    } else {
+        ret_vec
     }
+
+}
+
+
+roller_1 <- function(..., .f, .period, .align, .unlist = TRUE) {
+
+    # .na_value always NA
+    .na_value = NA
 
     # Capture dots as list. These should be the arguments that are rolled
     .dots <- rlang::dots_list(...)
@@ -265,3 +301,4 @@ check_dots <- function(x, .period) {
                             the rolling version with `rollify()`")
     }
 }
+

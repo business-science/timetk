@@ -138,60 +138,129 @@
 #' @export
 roll_apply_vec <- function(.x, .period, .f, ..., .align = c("center", "left", "right"), .partial = FALSE) {
 
-    if (.partial) {
-        # PARTIAL VALUES ACCEPTABLE (CENTERING REQUIRED)
-
-        # Calculate padding
-        .align <- .align[1]
-        if (.align == "center") {
-            split_period <- .period / 2
-            before <- floor(split_period)
-            after  <- ceiling(split_period)
-        } else if (.align == "left") {
-            before <- 0
-            after  <- .period
-        } else {
-            before <- .period
-            after  <- 0
-        }
-
-        vec <- slider::slide_vec(
-            .x = .x,
-            .f = .f, ...,
-            .before = before, .after = after, .step = 1L,
-            .complete = !.partial
-        )
-
-        # Return vec
-        return(vec)
-
-    } else {
-        # NO PARTIAL (NA'S PADDING REQUIRED)
-
-        # Calculate padding
-        .align <- .align[1]
-        if (.align == "center") {
-            split_period <- .period / 2
-            na_before <- rep(NA, floor(split_period))
-            na_after  <- rep(NA, ceiling(split_period))
-        } else if (.align == "left") {
-            na_before <- c()
-            na_after  <- rep(NA, .period)
-        } else {
-            na_before <- rep(NA, .period)
-            na_after  <- c()
-        }
-
-        vec <- slider::slide_vec(
-            .x = .x,
-            .f = .f, ...,
-            .before = .period, .step = 1L,
-            .complete = !.partial)
-
-        # Apply Padding
-        return({
-            c(na_before, vec, na_after)
-        })
-    }
+    roll_to_slide(
+        .slider_fun = slider::slide_vec,
+        .x          = .x,
+        .period     = .period,
+        .f          = .f,
+        ...,
+        .align      = .align,
+        .partial    = .partial
+    )
 
 }
+
+roll_to_slide <- function(.slider_fun, ..., .period = 1, .align = c("center", "left", "right"), .partial = FALSE) {
+
+    # Calculate alignment padding
+    .align <- .align[1]
+    if (.align == "center") {
+
+        split_period <- (.period - 1) / 2
+
+        before       <- floor(split_period)
+        after        <- ceiling(split_period)
+    } else if (.align == "left") {
+        before <- 0
+        after  <- .period - 1
+    } else {
+        before <- .period - 1
+        after  <- 0
+    }
+
+    # Get slide
+    vec <- .slider_fun(
+        ...,
+        .before   = before,
+        .after    = after,
+        .step     = 1L,
+        .complete = FALSE
+    )
+
+    # Apply NA padding if partial is not allowed
+    if (!.partial) {
+        if (before > 0) vec[1:before] <- NA
+        if (after > 0) {
+            vec[(length(vec) - after + 1):length(vec)] <- NA
+            # vec <- rev(vec)
+            # vec[1:after] <- NA
+            # vec <- rev(vec)
+        }
+
+    }
+
+    return(vec)
+
+}
+
+# roll_to_slide <- function(.slider_fun, ..., .period = 1, .align = c("center", "left", "right"), .partial = FALSE) {
+#
+#     # Calculate alignment padding
+#     .align <- .align[1]
+#     if (.align == "center") {
+#
+#         split_period <- .period / 2
+#
+#         before       <- floor(split_period)
+#         after        <- ceiling(split_period)
+#     } else if (.align == "left") {
+#         before <- 0
+#         after  <- .period - 1
+#     } else {
+#         before <- .period - 1
+#         after  <- 0
+#     }
+#
+#     # Get slide
+#     vec <- .slider_fun(
+#         ...,
+#         .before   = before,
+#         .after    = after,
+#         .step     = 1L,
+#         .complete = !.partial
+#     )
+#
+#     # Apply NA padding if returning only complete cases
+#     if (!.partial) {
+#         vec <- c(rep(NA, before), vec, rep(NA, after))
+#     }
+#
+#     return(vec)
+#
+# }
+
+# roll_to_slide <- function(.slider_fun, .x, .period, .f, ..., .align = c("center", "left", "right"), .partial = FALSE) {
+#
+#     # Calculate alignment padding
+#     .align <- .align[1]
+#     if (.align == "center") {
+#
+#         split_period <- .period / 2
+#
+#         before       <- floor(split_period)
+#         after        <- ceiling(split_period)
+#     } else if (.align == "left") {
+#         before <- 0
+#         after  <- .period - 1
+#     } else {
+#         before <- .period - 1
+#         after  <- 0
+#     }
+#
+#     # Get slide
+#     vec <- .slider_fun(
+#         .x = .x,
+#         .f = .f,
+#         ...,
+#         .before = before, .after = after, .step = 1L,
+#         .complete = !.partial
+#     )
+#
+#     # Apply NA padding if returning only complete cases
+#     if (!.partial) {
+#         vec <- c(rep(NA, before), vec, rep(NA, after))
+#     }
+#
+#     return(vec)
+#
+# }
