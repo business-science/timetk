@@ -30,7 +30,8 @@ This syntax allows you to create very compact anonymous functions.}
 
 \item{...}{Additional arguments passed on to the \code{.f} function.}
 
-\item{.align}{Rolling functions generate \code{.period - 1} fewer values than the incoming vector.
+\item{.align}{One of "center", "left" or "right.
+Rolling functions generate \code{.period - 1} fewer values than the incoming vector.
 Thus, the vector needs to be aligned. Alignment of the vector follows 3 types:
 \itemize{
 \item \strong{Center:} \code{NA} or \code{.partial} values are divided and added to the beginning and
@@ -135,12 +136,24 @@ FB_tbl \%>\%
 
 
 }
+\references{
+\itemize{
+\item \href{https://davisvaughan.github.io/slider/}{Slider R Package} by Davis Vaughan
+}
+}
 \seealso{
+Vectorized Transformation Functions:
 \itemize{
 \item Lag Transformation: \code{\link[=lag_vec]{lag_vec()}}
 \item Differencing Transformation: \code{\link[=diff_vec]{diff_vec()}}
 \item Rolling Window Transformation: \code{\link[=roll_apply_vec]{roll_apply_vec()}}
 \item Loess Smoothing Transformation: \code{\link[=smooth_vec]{smooth_vec()}}
+}
+
+More Complex Rolling Operations:
+\itemize{
+\item \code{\link[=rollify]{rollify()}} - Turn any function into a rolling function. Great for
+rolling cor, rolling mean, etc.
 \item For more complex rolling operations, check out the \code{slider} R package.
 }
 }

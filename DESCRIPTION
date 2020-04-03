@@ -47,7 +47,8 @@ Imports:
     slider,
     timeDate,
     forecast,
-    hms
+    hms,
+    assertthat
 Suggests:
     tidyquant,
     workflows,

@@ -15,7 +15,8 @@
 #'   This syntax allows you to create very compact anonymous functions.
 #'
 #' @param ... Additional arguments passed on to the `.f` function.
-#' @param .align Rolling functions generate `.period - 1` fewer values than the incoming vector.
+#' @param .align One of "center", "left" or "right.
+#' Rolling functions generate `.period - 1` fewer values than the incoming vector.
 #' Thus, the vector needs to be aligned. Alignment of the vector follows 3 types:
 #'
 #'  - __Center:__ `NA` or `.partial` values are divided and added to the beginning and
@@ -48,13 +49,23 @@
 #' is [`smooth_vec()`], which implements local polynomial regression.
 #'
 #' @seealso
+#'
+#' Vectorized Transformation Functions:
+#'
 #'   - Lag Transformation: [lag_vec()]
 #'   - Differencing Transformation: [diff_vec()]
 #'   - Rolling Window Transformation: [roll_apply_vec()]
 #'   - Loess Smoothing Transformation: [smooth_vec()]
+#'
+#' More Complex Rolling Operations:
+#'
+#'   - [rollify()] - Turn any function into a rolling function. Great for
+#'     rolling cor, rolling mean, etc.
 #'   - For more complex rolling operations, check out the `slider` R package.
 #'
+#' @references
 #'
+#' - [Slider R Package](https://davisvaughan.github.io/slider/) by Davis Vaughan
 #'
 #' @examples
 #' library(tidyverse)
