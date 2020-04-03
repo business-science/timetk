@@ -78,6 +78,7 @@ __New Time Series Data Wrangling__:
 * `summarise_by_time()` - A time-based variant of `dplyr::summarise()` for flexible summarization using common time-based criteria. 
 * `filter_by_time()` - A time-based variant of `dplyr::filter()` for flexible filtering by time-ranges. 
 * `between_time()` - A time-based variant of `dplyr::between()` for flexible time-range detection. 
+* `slidify()` - Make any function a rolling / sliding function. 
 
 __New Recipe Functions:__
 

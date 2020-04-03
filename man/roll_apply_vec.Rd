@@ -43,7 +43,7 @@ A numeric vector
 }
 \details{
 The \code{roll_apply_vec()} function is a wrapper for \code{slider::slide_vec()} with parameters
-made consistent with \code{smooth_vec()} and simplified center, left, right alignment.
+made consistent with \code{smooth_vec()} and simplified "center", "left", "right" alignment.
 
 \strong{Vector Length In == Vector Length Out} \code{NA} values or \code{.partial} values
 are always returned to ensure the length of the return vector
@@ -62,7 +62,7 @@ This is common for de-noising operations. See also \verb{[smooth_vec()]} for LOE
 Financial Applications such as moving average cross-overs.
 }
 
-\strong{De-Noising Time Series with Partial Values}
+\strong{Partial Values}
 \itemize{
 \item The advantage to using \code{.partial} values vs \code{NA} padding is that
 the series can be filled (good for time-series de-noising operations).
@@ -155,7 +155,7 @@ Vectorized Transformation Functions:
 
 More Complex Rolling Operations:
 \itemize{
-\item \code{\link[=rollify]{rollify()}} - Turn any function into a rolling function. Great for
+\item \code{\link[=slidify]{slidify()}} - Turn any function into a rolling function. Great for
 rolling cor, rolling mean, etc.
 \item For more complex rolling operations, check out the \code{slider} R package.
 }

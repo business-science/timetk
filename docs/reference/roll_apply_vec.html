@@ -194,15 +194,7 @@ additional arguments, <code>...</code>.</p></li>
     </tr>
     <tr>
       <th>.align</th>
-      <td><p>Rolling functions generate <code>.period - 1</code> fewer values than the incoming vector.
-Thus, the vector needs to be aligned. Alignment of the vector follows 3 types:</p><ul>
-<li><p><strong>Center:</strong> <code>NA</code> or <code>.partial</code> values are divided and added to the beginning and
-end of the series to "Center" the moving average.
-This is common for de-noising operations. See also <code>[smooth_vec()]</code> for LOESS without NA values.</p></li>
-<li><p><strong>Left:</strong> <code>NA</code> or <code>.partial</code> values are added to the end to shift the series to the Left.</p></li>
-<li><p><strong>Right:</strong> <code>NA</code> or <code>.partial</code> values are added to the beginning to shif the series to the Right. This is common in
-Financial Applications such as moving average cross-overs.</p></li>
-</ul></td>
+      <td><p>One of "center", "left" or "right.</p></td>
     </tr>
     <tr>
       <th>.partial</th>
@@ -217,11 +209,22 @@ Set to FALSE by default, but can be switched to TRUE to remove <code>NA</code>'s
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The <code>roll_apply_vec()</code> function is a wrapper for <code><a href='https://rdrr.io/pkg/slider/man/slide.html'>slider::slide_vec()</a></code> with parameters
-made consistent with <code><a href='smooth_vec.html'>smooth_vec()</a></code> and simplified center, left, right alignment.</p>
+made consistent with <code><a href='smooth_vec.html'>smooth_vec()</a></code> and simplified "center", "left", "right" alignment.</p>
 <p><strong>Vector Length In == Vector Length Out</strong> <code>NA</code> values or <code>.partial</code> values
 are always returned to ensure the length of the return vector
 is the same length of the incoming vector. This ensures easier use with <code><a href='https://dplyr.tidyverse.org/reference/mutate.html'>dplyr::mutate()</a></code>.</p>
-<p><strong>De-Noising Time Series with Partial Values</strong></p><ul>
+<p><strong>Alignment</strong></p>
+<p>Rolling functions generate <code>.period - 1</code> fewer values than the incoming vector.
+Thus, the vector needs to be aligned. Alignment of the vector follows 3 types:</p><ul>
+<li><p><strong>Center:</strong> <code>NA</code> or <code>.partial</code> values are divided and added to the beginning and
+end of the series to "Center" the moving average.
+This is common for de-noising operations. See also <code>[smooth_vec()]</code> for LOESS without NA values.</p></li>
+<li><p><strong>Left:</strong> <code>NA</code> or <code>.partial</code> values are added to the end to shift the series to the Left.</p></li>
+<li><p><strong>Right:</strong> <code>NA</code> or <code>.partial</code> values are added to the beginning to shif the series to the Right. This is common in
+Financial Applications such as moving average cross-overs.</p></li>
+</ul>
+
+<p><strong>Partial Values</strong></p><ul>
 <li><p>The advantage to using <code>.partial</code> values vs <code>NA</code> padding is that
 the series can be filled (good for time-series de-noising operations).</p></li>
 <li><p>The downside to partial values is that the partials can become less stable
@@ -230,14 +233,25 @@ at the regions where incomplete windows are used.</p></li>
 
 <p>If instability is not desirable for de-noising operations, a suitable alternative
 is <code><a href='smooth_vec.html'>smooth_vec()</a></code>, which implements local polynomial regression.</p>
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+
+    
+<ul>
+<li><p><a href='https://davisvaughan.github.io/slider/'>Slider R Package</a> by Davis Vaughan</p></li>
+</ul>
+
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'>
-<ul>
+    <div class='dont-index'><p>Vectorized Transformation Functions:</p><ul>
 <li><p>Lag Transformation: <code><a href='lag_vec.html'>lag_vec()</a></code></p></li>
 <li><p>Differencing Transformation: <code><a href='diff_vec.html'>diff_vec()</a></code></p></li>
 <li><p>Rolling Window Transformation: <code>roll_apply_vec()</code></p></li>
 <li><p>Loess Smoothing Transformation: <code><a href='smooth_vec.html'>smooth_vec()</a></code></p></li>
+</ul>
+
+<p>More Complex Rolling Operations:</p><ul>
+<li><p><code><a href='slidify.html'>slidify()</a></code> - Turn any function into a rolling function. Great for
+rolling cor, rolling mean, etc.</p></li>
 <li><p>For more complex rolling operations, check out the <code>slider</code> R package.</p></li>
 </ul>
 </div>
@@ -263,7 +277,7 @@ is <code><a href='smooth_vec.html'>smooth_vec()</a></code>, which implements loc
         <span class='kw'>.align</span>  <span class='kw'>=</span> <span class='st'>"center"</span>)) <span class='kw'>%&gt;%</span>
         <span class='fu'>ggplot</span>(<span class='fu'>aes</span>(<span class='no'>date</span>, <span class='no'>adjusted</span>)) +
         <span class='fu'>geom_line</span>() +
-        <span class='fu'>geom_line</span>(<span class='fu'>aes</span>(<span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>adjusted_30_ma</span>), <span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"blue"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 30 row(s) containing missing values (geom_path).</span></div><div class='img'><img src='roll_apply_vec-1.png' alt='' width='700' height='433' /></div><div class='input'>
+        <span class='fu'>geom_line</span>(<span class='fu'>aes</span>(<span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>adjusted_30_ma</span>), <span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"blue"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 29 row(s) containing missing values (geom_path).</span></div><div class='img'><img src='roll_apply_vec-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># ---- FORMULA FORMAT ----</span>
 <span class='co'># - Anonymous function `.f = ~ mean(., na.rm = TRUE)` is used</span>
 <span class='no'>FB_tbl</span> <span class='kw'>%&gt;%</span>
@@ -274,7 +288,7 @@ is <code><a href='smooth_vec.html'>smooth_vec()</a></code>, which implements loc
         <span class='kw'>.align</span>  <span class='kw'>=</span> <span class='st'>"center"</span>)) <span class='kw'>%&gt;%</span>
         <span class='fu'>ggplot</span>(<span class='fu'>aes</span>(<span class='no'>date</span>, <span class='no'>adjusted</span>)) +
         <span class='fu'>geom_line</span>() +
-        <span class='fu'>geom_line</span>(<span class='fu'>aes</span>(<span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>adjusted_30_ma</span>), <span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"blue"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 30 row(s) containing missing values (geom_path).</span></div><div class='img'><img src='roll_apply_vec-2.png' alt='' width='700' height='433' /></div><div class='input'>
+        <span class='fu'>geom_line</span>(<span class='fu'>aes</span>(<span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>adjusted_30_ma</span>), <span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"blue"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 29 row(s) containing missing values (geom_path).</span></div><div class='img'><img src='roll_apply_vec-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># ---- PARTIAL VALUES ----</span>
 <span class='co'># - set `.partial = TRUE`</span>
 <span class='no'>FB_tbl</span> <span class='kw'>%&gt;%</span>
@@ -311,6 +325,7 @@ is <code><a href='smooth_vec.html'>smooth_vec()</a></code>, which implements loc
       <li><a href="#arguments">Arguments</a></li>
       <li><a href="#value">Value</a></li>
       <li><a href="#details">Details</a></li>
+      <li><a href="#references">References</a></li>
       <li><a href="#see-also">See also</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>

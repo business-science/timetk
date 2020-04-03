@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Summarise for Time Series Data — summarise_by_time • timetk</title>
+<title>Summarise (for Time Series Data) — summarise_by_time • timetk</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -42,10 +42,10 @@
 
 
 
-<meta property="og:title" content="Summarise for Time Series Data — summarise_by_time" />
-<meta property="og:description" content="summarise_by_time() is a time-based variant of the popular dplyr::summarise() function.
-This time-based variant uses .date_var to specify a date or date-time column and .by to group the
-calculation.
+<meta property="og:title" content="Summarise (for Time Series Data) — summarise_by_time" />
+<meta property="og:description" content="summarise_by_time() is a time-based variant of the popular dplyr::summarise() function
+that uses .date_var to specify a date or date-time column and .by to group the
+calculation by groups like &quot;5 seconds&quot;, &quot;week&quot;, or &quot;3 months&quot;.
 summarise_by_time() and summarize_by_time() are synonyms." />
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -151,15 +151,15 @@ summarise_by_time() and summarize_by_time() are synonyms." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Summarise for Time Series Data</h1>
+    <h1>Summarise (for Time Series Data)</h1>
     <small class="dont-index">Source: <a href='https://github.com/business-science/timetk/blob/master/R/dplyr-summarise_by_time.R'><code>R/dplyr-summarise_by_time.R</code></a></small>
     <div class="hidden name"><code>summarise_by_time.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><code>summarise_by_time()</code> is a time-based variant of the popular <code><a href='https://dplyr.tidyverse.org/reference/summarise.html'>dplyr::summarise()</a></code> function.
-This time-based variant uses <code>.date_var</code> to specify a date or date-time column and <code>.by</code> to group the
-calculation.</p>
+    <p><code>summarise_by_time()</code> is a time-based variant of the popular <code><a href='https://dplyr.tidyverse.org/reference/summarise.html'>dplyr::summarise()</a></code> function
+that uses <code>.date_var</code> to specify a date or date-time column and <code>.by</code> to group the
+calculation by groups like "5 seconds", "week", or "3 months".</p>
 <p><code>summarise_by_time()</code> and <code>summarize_by_time()</code> are synonyms.</p>
     </div>
 
@@ -243,6 +243,14 @@ Time units are collapsed using <code><a href='http://lubridate.tidyverse.org/ref
 <li><p>Correlation: <code><a href='https://rdrr.io/r/stats/cor.html'>cor()</a></code>, <code><a href='https://rdrr.io/r/stats/cor.html'>cov()</a></code></p></li>
 </ul>
 
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p>Other Time-Based dplyr functions:</p><ul>
+<li><p><code>summarise_by_time()</code> - Easily summarise using a date column.</p></li>
+<li><p><code><a href='filter_by_time.html'>filter_by_time()</a></code> - Quickly filter using date ranges.</p></li>
+<li><p><code><a href='between_time.html'>between_time()</a></code> - Range detection for date or date-time sequences.</p></li>
+</ul>
+</div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Libraries</span>
@@ -328,6 +336,7 @@ Time units are collapsed using <code><a href='http://lubridate.tidyverse.org/ref
       <li><a href="#arguments">Arguments</a></li>
       <li><a href="#value">Value</a></li>
       <li><a href="#useful-summary-functions">Useful summary functions</a></li>
+      <li><a href="#see-also">See also</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 

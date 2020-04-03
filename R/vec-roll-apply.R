@@ -23,7 +23,7 @@
 #'
 #' @details
 #' The `roll_apply_vec()` function is a wrapper for `slider::slide_vec()` with parameters
-#' made consistent with `smooth_vec()` and simplified center, left, right alignment.
+#' made consistent with `smooth_vec()` and simplified "center", "left", "right" alignment.
 #'
 #' __Vector Length In == Vector Length Out__ `NA` values or `.partial` values
 #' are always returned to ensure the length of the return vector
@@ -41,7 +41,7 @@
 #'  - __Right:__ `NA` or `.partial` values are added to the beginning to shif the series to the Right. This is common in
 #'    Financial Applications such as moving average cross-overs.
 #'
-#' __De-Noising Time Series with Partial Values__
+#' __Partial Values__
 #'
 #' - The advantage to using `.partial` values vs `NA` padding is that
 #' the series can be filled (good for time-series de-noising operations).
@@ -62,7 +62,7 @@
 #'
 #' More Complex Rolling Operations:
 #'
-#'   - [rollify()] - Turn any function into a rolling function. Great for
+#'   - [slidify()] - Turn any function into a rolling function. Great for
 #'     rolling cor, rolling mean, etc.
 #'   - For more complex rolling operations, check out the `slider` R package.
 #'
@@ -180,87 +180,10 @@ roll_to_slide <- function(.slider_fun, ..., .period = 1, .align = c("center", "l
     # Apply NA padding if partial is not allowed
     if (!.partial) {
         if (before > 0) vec[1:before] <- NA
-        if (after > 0) {
-            vec[(length(vec) - after + 1):length(vec)] <- NA
-            # vec <- rev(vec)
-            # vec[1:after] <- NA
-            # vec <- rev(vec)
-        }
-
+        if (after > 0)  vec[(length(vec) - after + 1):length(vec)] <- NA
     }
 
     return(vec)
 
 }
 
-# roll_to_slide <- function(.slider_fun, ..., .period = 1, .align = c("center", "left", "right"), .partial = FALSE) {
-#
-#     # Calculate alignment padding
-#     .align <- .align[1]
-#     if (.align == "center") {
-#
-#         split_period <- .period / 2
-#
-#         before       <- floor(split_period)
-#         after        <- ceiling(split_period)
-#     } else if (.align == "left") {
-#         before <- 0
-#         after  <- .period - 1
-#     } else {
-#         before <- .period - 1
-#         after  <- 0
-#     }
-#
-#     # Get slide
-#     vec <- .slider_fun(
-#         ...,
-#         .before   = before,
-#         .after    = after,
-#         .step     = 1L,
-#         .complete = !.partial
-#     )
-#
-#     # Apply NA padding if returning only complete cases
-#     if (!.partial) {
-#         vec <- c(rep(NA, before), vec, rep(NA, after))
-#     }
-#
-#     return(vec)
-#
-# }
-
-# roll_to_slide <- function(.slider_fun, .x, .period, .f, ..., .align = c("center", "left", "right"), .partial = FALSE) {
-#
-#     # Calculate alignment padding
-#     .align <- .align[1]
-#     if (.align == "center") {
-#
-#         split_period <- .period / 2
-#
-#         before       <- floor(split_period)
-#         after        <- ceiling(split_period)
-#     } else if (.align == "left") {
-#         before <- 0
-#         after  <- .period - 1
-#     } else {
-#         before <- .period - 1
-#         after  <- 0
-#     }
-#
-#     # Get slide
-#     vec <- .slider_fun(
-#         .x = .x,
-#         .f = .f,
-#         ...,
-#         .before = before, .after = after, .step = 1L,
-#         .complete = !.partial
-#     )
-#
-#     # Apply NA padding if returning only complete cases
-#     if (!.partial) {
-#         vec <- c(rep(NA, before), vec, rep(NA, after))
-#     }
-#
-#     return(vec)
-#
-# }

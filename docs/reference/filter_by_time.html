@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Filter for Time-Series Data — filter_by_time • timetk</title>
+<title>Filter (for Time-Series Data) — filter_by_time • timetk</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -42,7 +42,7 @@
 
 
 
-<meta property="og:title" content="Filter for Time-Series Data — filter_by_time" />
+<meta property="og:title" content="Filter (for Time-Series Data) — filter_by_time" />
 <meta property="og:description" content="The easiest way to filter time-based tibbles using shorthand timeseries notation.
 See between_time() for the date and date-time vector implementation." />
 <meta property="og:image" content="/logo.png" />
@@ -149,7 +149,7 @@ See between_time() for the date and date-time vector implementation." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Filter for Time-Series Data</h1>
+    <h1>Filter (for Time-Series Data)</h1>
     <small class="dont-index">Source: <a href='https://github.com/business-science/timetk/blob/master/R/dplyr-filter_by_time.R'><code>R/dplyr-filter_by_time.R</code></a></small>
     <div class="hidden name"><code>filter_by_time.Rd</code></div>
     </div>
@@ -215,12 +215,19 @@ index is a POSIXct):</p><ul>
 <li><p><code>.end_date = '2016'</code> is equivalent to <code>2016-12-31 + 23:59:59'</code></p></li>
 </ul>
 
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+
+    
+<ul>
+<li><p>This function is based on the <code><a href='https://rdrr.io/pkg/tibbletime/man/filter_time.html'>tibbletime::filter_time()</a></code> function developed by Davis Vaughan.</p></li>
+</ul>
+
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'>
-<ul>
-<li><p><code><a href='between_time.html'>between_time()</a></code> - A time-based variant of <code><a href='https://dplyr.tidyverse.org/reference/between.html'>dplyr::between()</a></code> that powers by
-<code>filter_by_time()</code></p></li>
+    <div class='dont-index'><p>Other Time-Based dplyr functions:</p><ul>
+<li><p><code><a href='summarise_by_time.html'>summarise_by_time()</a></code> - Easily summarise using a date column.</p></li>
+<li><p><code>filter_by_time()</code> - Quickly filter using date ranges.</p></li>
+<li><p><code><a href='between_time.html'>between_time()</a></code> - Range detection for date or date-time sequences.</p></li>
 </ul>
 </div>
 
@@ -241,6 +248,7 @@ index is a POSIXct):</p><ul>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       <li><a href="#details">Details</a></li>
+      <li><a href="#references">References</a></li>
       <li><a href="#see-also">See also</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
