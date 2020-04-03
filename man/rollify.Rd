@@ -35,17 +35,7 @@ present, the value of \code{.default} will be returned.}
 
 \item{.period}{The period size to roll over}
 
-\item{.align}{One of "center", "left" or "right.
-Rolling functions generate \code{.period - 1} fewer values than the incoming vector.
-Thus, the vector needs to be aligned. Alignment of the vector follows 3 types:
-\itemize{
-\item \strong{Center:} \code{NA} or \code{.partial} values are divided and added to the beginning and
-end of the series to "Center" the moving average.
-This is common for de-noising operations. See also \verb{[smooth_vec()]} for LOESS without NA values.
-\item \strong{Left:} \code{NA} or \code{.partial} values are added to the end to shift the series to the Left.
-\item \strong{Right:} \code{NA} or \code{.partial} values are added to the beginning to shif the series to the Right. This is common in
-Financial Applications such as moving average cross-overs.
-}}
+\item{.align}{One of "center", "left" or "right.}
 
 \item{.unlist}{If the function returns a single value each time it is called,
 use \code{.unlist = TRUE}. If the function returns more than one value, or a more
@@ -66,12 +56,23 @@ rolling \code{.period} specified by the user.
 of itself for use inside of a call to \code{\link[dplyr:mutate]{dplyr::mutate()}}, however it works
 equally as well when called from \code{\link[purrr:map]{purrr::map()}}.
 
-__
-
 Because of it's intended use with \code{\link[dplyr:mutate]{dplyr::mutate()}}, \code{rollify}
 creates a function that always returns output with the same length of the
-input, aligned right, and filled with \code{NA} unless otherwise specified
-by \code{.na_value}.
+input
+
+\strong{Alignment}
+
+Rolling functions generate \code{.period - 1} fewer values than the incoming vector.
+Thus, the vector needs to be aligned. Alignment of the vector follows 3 types:
+\itemize{
+\item \strong{center (default):} \code{NA} or \code{.partial} values are divided and added to the beginning and
+end of the series to "Center" the moving average. This is common in Time Series applications (e.g. denoising).
+\item \strong{left:} \code{NA} or \code{.partial} values are added to the end to shift the series to the Left.
+\item \strong{right:} \code{NA} or \code{.partial} values are added to the beginning to shift the series to the Right. This is common in
+Financial Applications (e.g moving average cross-overs).
+}
+
+\strong{Functional Form (.f)}
 
 The form of the \code{.f} argument is the same as the form that can be passed
 to \code{\link[purrr:map]{purrr::map()}}. Use \code{.x} or \code{.} to refer to the first object to roll over,

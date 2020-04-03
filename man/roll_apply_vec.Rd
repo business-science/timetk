@@ -30,17 +30,7 @@ This syntax allows you to create very compact anonymous functions.}
 
 \item{...}{Additional arguments passed on to the \code{.f} function.}
 
-\item{.align}{One of "center", "left" or "right.
-Rolling functions generate \code{.period - 1} fewer values than the incoming vector.
-Thus, the vector needs to be aligned. Alignment of the vector follows 3 types:
-\itemize{
-\item \strong{Center:} \code{NA} or \code{.partial} values are divided and added to the beginning and
-end of the series to "Center" the moving average.
-This is common for de-noising operations. See also \verb{[smooth_vec()]} for LOESS without NA values.
-\item \strong{Left:} \code{NA} or \code{.partial} values are added to the end to shift the series to the Left.
-\item \strong{Right:} \code{NA} or \code{.partial} values are added to the beginning to shif the series to the Right. This is common in
-Financial Applications such as moving average cross-overs.
-}}
+\item{.align}{One of "center", "left" or "right.}
 
 \item{.partial}{Should the moving window be allowed to return partial (incomplete) windows instead of \code{NA} values.
 Set to FALSE by default, but can be switched to TRUE to remove \code{NA}'s.}
@@ -58,6 +48,19 @@ made consistent with \code{smooth_vec()} and simplified center, left, right alig
 \strong{Vector Length In == Vector Length Out} \code{NA} values or \code{.partial} values
 are always returned to ensure the length of the return vector
 is the same length of the incoming vector. This ensures easier use with \code{dplyr::mutate()}.
+
+\strong{Alignment}
+
+Rolling functions generate \code{.period - 1} fewer values than the incoming vector.
+Thus, the vector needs to be aligned. Alignment of the vector follows 3 types:
+\itemize{
+\item \strong{Center:} \code{NA} or \code{.partial} values are divided and added to the beginning and
+end of the series to "Center" the moving average.
+This is common for de-noising operations. See also \verb{[smooth_vec()]} for LOESS without NA values.
+\item \strong{Left:} \code{NA} or \code{.partial} values are added to the end to shift the series to the Left.
+\item \strong{Right:} \code{NA} or \code{.partial} values are added to the beginning to shif the series to the Right. This is common in
+Financial Applications such as moving average cross-overs.
+}
 
 \strong{De-Noising Time Series with Partial Values}
 \itemize{

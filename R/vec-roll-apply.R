@@ -16,15 +16,6 @@
 #'
 #' @param ... Additional arguments passed on to the `.f` function.
 #' @param .align One of "center", "left" or "right.
-#' Rolling functions generate `.period - 1` fewer values than the incoming vector.
-#' Thus, the vector needs to be aligned. Alignment of the vector follows 3 types:
-#'
-#'  - __Center:__ `NA` or `.partial` values are divided and added to the beginning and
-#'    end of the series to "Center" the moving average.
-#'    This is common for de-noising operations. See also `[smooth_vec()]` for LOESS without NA values.
-#'  - __Left:__ `NA` or `.partial` values are added to the end to shift the series to the Left.
-#'  - __Right:__ `NA` or `.partial` values are added to the beginning to shif the series to the Right. This is common in
-#'    Financial Applications such as moving average cross-overs.
 #' @param .partial Should the moving window be allowed to return partial (incomplete) windows instead of `NA` values.
 #'  Set to FALSE by default, but can be switched to TRUE to remove `NA`'s.
 #'
@@ -37,6 +28,18 @@
 #' __Vector Length In == Vector Length Out__ `NA` values or `.partial` values
 #' are always returned to ensure the length of the return vector
 #' is the same length of the incoming vector. This ensures easier use with `dplyr::mutate()`.
+#'
+#' __Alignment__
+#'
+#' Rolling functions generate `.period - 1` fewer values than the incoming vector.
+#' Thus, the vector needs to be aligned. Alignment of the vector follows 3 types:
+#'
+#'  - __Center:__ `NA` or `.partial` values are divided and added to the beginning and
+#'    end of the series to "Center" the moving average.
+#'    This is common for de-noising operations. See also `[smooth_vec()]` for LOESS without NA values.
+#'  - __Left:__ `NA` or `.partial` values are added to the end to shift the series to the Left.
+#'  - __Right:__ `NA` or `.partial` values are added to the beginning to shif the series to the Right. This is common in
+#'    Financial Applications such as moving average cross-overs.
 #'
 #' __De-Noising Time Series with Partial Values__
 #'

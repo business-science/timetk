@@ -3,18 +3,9 @@
 #' `rollify` returns a rolling version of the input function, with a
 #' rolling `.period` specified by the user.
 #'
-#' @inheritParams purrr::quietly
+#' @inheritParams purrr::as_mapper
 #' @param .period The period size to roll over
 #' @param .align One of "center", "left" or "right.
-#' Rolling functions generate `.period - 1` fewer values than the incoming vector.
-#' Thus, the vector needs to be aligned. Alignment of the vector follows 3 types:
-#'
-#'  - __Center:__ `NA` or `.partial` values are divided and added to the beginning and
-#'    end of the series to "Center" the moving average.
-#'    This is common for de-noising operations. See also `[smooth_vec()]` for LOESS without NA values.
-#'  - __Left:__ `NA` or `.partial` values are added to the end to shift the series to the Left.
-#'  - __Right:__ `NA` or `.partial` values are added to the beginning to shif the series to the Right. This is common in
-#'    Financial Applications such as moving average cross-overs.
 #' @param .unlist If the function returns a single value each time it is called,
 #' use `.unlist = TRUE`. If the function returns more than one value, or a more
 #' complicated object (like a linear model), use `.unlist = FALSE` to create
@@ -31,12 +22,22 @@
 #' of itself for use inside of a call to [dplyr::mutate()], however it works
 #' equally as well when called from [purrr::map()].
 #'
-#' __
-#'
 #' Because of it's intended use with [dplyr::mutate()], `rollify`
 #' creates a function that always returns output with the same length of the
-#' input, aligned right, and filled with `NA` unless otherwise specified
-#' by `.na_value`.
+#' input
+#'
+#' __Alignment__
+#'
+#' Rolling functions generate `.period - 1` fewer values than the incoming vector.
+#' Thus, the vector needs to be aligned. Alignment of the vector follows 3 types:
+#'
+#'  - __center (default):__ `NA` or `.partial` values are divided and added to the beginning and
+#'    end of the series to "Center" the moving average. This is common in Time Series applications (e.g. denoising).
+#'  - __left:__ `NA` or `.partial` values are added to the end to shift the series to the Left.
+#'  - __right:__ `NA` or `.partial` values are added to the beginning to shift the series to the Right. This is common in
+#'    Financial Applications (e.g moving average cross-overs).
+#'
+#' __Functional Form (.f)__
 #'
 #' The form of the `.f` argument is the same as the form that can be passed
 #' to [purrr::map()]. Use `.x` or `.` to refer to the first object to roll over,
