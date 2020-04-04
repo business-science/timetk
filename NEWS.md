@@ -35,7 +35,7 @@ __TODO:__
     - (DONE) `box_cox_vec`
     - (DONE) `box_cox_inv_vec`
     - (DONE) `auto_lambda`
-    - `step_box_cox`
+    - (DONE) `step_box_cox`
 - Dplyr Transition 
     - (DONE) `tidyquant::summarise_by_time`
     - (DONE) `tibbletime::filter_by_time`
@@ -83,11 +83,18 @@ __New Time Series Data Wrangling__:
 
 __New Recipe Functions:__
 
+Feature Generators:
+
 * `step_holiday_signature()` - New recipe step for adding 130 holiday features based on individual holidays, locales, and stock exchanges / business holidays. 
 * `step_fourier_series()` - New recipe step for adding fourier transforms for adding seasonal features to time series data
-* `step_roll_apply()` - New recipe step for adding rolling summary functions
+
+* `step_roll_apply()` - New recipe step for adding rolling summary functions. Similar to `recipes::step_window()` but is more flexible by enabling application of any summary function. 
 * `step_smooth()` - New recipe step for adding Local Polynomial Regression (LOESS) for smoothing noisy time series
-* `step_diff()` - New recipe for adding multiple differenced 
+* `step_diff()` - New recipe for adding multiple differenced columns. Similar to `recipes::step_lag()`.
+
+Transformations: 
+
+* `step_box_cox()` - New recipe for transforming predictors. Similar to `step_BoxCox()` with improvements for forecasting including "guerrero" method for lambda selection and handling of negative data. 
 
 __New Rsample Functions__
 

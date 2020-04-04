@@ -19,9 +19,8 @@ the timestamp value was within the \code{start_date} and \code{.end_date} range.
 }
 \description{
 The easiest way to filter time series date or date-time vectors. Returns a
-logical
-See \code{\link[=filter_by_time]{filter_by_time()}}
-for the \code{data.frame} (\code{tibble}) implementation.
+logical vector indicating which date or date-time values are within a range.
+See \code{\link[=filter_by_time]{filter_by_time()}} for the \code{data.frame} (\code{tibble}) implementation.
 }
 \details{
 \strong{Pure Time Series Filtering Flexibilty}
