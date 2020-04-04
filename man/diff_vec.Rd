@@ -5,31 +5,25 @@
 \alias{diff_inv_vec}
 \title{Differencing Transformation}
 \usage{
-diff_vec(.x, .lag = 1, .difference = 1, .log = FALSE)
+diff_vec(x, lag = 1, difference = 1, log = FALSE)
 
-diff_inv_vec(
-  .x,
-  .lag = 1,
-  .difference = 1,
-  .log = FALSE,
-  .initial_values = NULL
-)
+diff_inv_vec(x, lag = 1, difference = 1, log = FALSE, initial_values = NULL)
 }
 \arguments{
-\item{.x}{A numeric vector to be differenced or inverted.}
+\item{x}{A numeric vector to be differenced or inverted.}
 
-\item{.lag}{Which lag (how far back) to be included in the differencing calculation.}
+\item{lag}{Which lag (how far back) to be included in the differencing calculation.}
 
-\item{.difference}{The number of differences to perform.
+\item{difference}{The number of differences to perform.
 \itemize{
 \item 1 Difference is equivalent to measuring period change.
 \item 2 Differences is equivalent to measuring period acceleration.
 }}
 
-\item{.log}{If log differences should be calculated.
+\item{log}{If log differences should be calculated.
 \emph{Note that difference inversion of a log-difference is approximate.}}
 
-\item{.initial_values}{A numeric vector of the initial values, which are used for difference inversion.
+\item{initial_values}{A numeric vector of the initial values, which are used for difference inversion.
 This vector is the original values that are the length of the \code{NA} missing differences.}
 }
 \value{
@@ -52,17 +46,17 @@ where the subscript _t1 indicates the first lag.
 
 \strong{Double Differencing Calculation}
 
-Double differencing, \code{diff_vec(x_t, .difference = 2)} is equivalent to:
+Double differencing, \code{diff_vec(x_t, difference = 2)} is equivalent to:
 \verb{(x_t - x_t1) - (x_t - x_t1)_t1}, where the subscript _t1 indicates the first lag.
 \emph{This transformation can be interpereted as acceleration.}
 
 \strong{Log Difference Calculation}
 
-Log differencing, \code{diff_vec(x_t, .log = TRUE)} is equivalent to:
+Log differencing, \code{diff_vec(x_t, log = TRUE)} is equivalent to:
 \code{log(x_t) - log(x_t1) = log(x_t / x_t1)}, where x_t is the series and x_t1 is the first lag.
 
-The 1st difference \code{diff_vec(.difference = 1, .log = TRUE)} has an interesting property
-where \code{diff_vec(.difference = 1, .log = TRUE) \%>\% exp()} is approximately \emph{1 + rate of change.}
+The 1st difference \code{diff_vec(difference = 1, log = TRUE)} has an interesting property
+where \code{diff_vec(difference = 1, log = TRUE) \%>\% exp()} is approximately \emph{1 + rate of change.}
 }
 \examples{
 library(dplyr)
@@ -74,29 +68,30 @@ library(timetk)
 1:10 \%>\% diff_vec()
 
 # Acceleration
-1:10 \%>\% diff_vec(.difference = 2)
+1:10 \%>\% diff_vec(difference = 2)
 
 # Approximate rate of change
-1:10 \%>\% diff_vec(.log = TRUE) \%>\% exp() - 1
+1:10 \%>\% diff_vec(log = TRUE) \%>\% exp() - 1
 
 
 # --- MUTATE ----
 
 m4_daily \%>\%
     group_by(id) \%>\%
-    mutate(difference = diff_vec(value, .lag = 1)) \%>\%
+    mutate(difference = diff_vec(value, lag = 1)) \%>\%
     mutate(
         difference_inv = diff_inv_vec(
             difference,
-            .lag = 1,
+            lag = 1,
             # Add initial value to calculate the inverse difference
-            .initial_values = value[1]
+            initial_values = value[1]
         )
     )
 
 }
 \seealso{
 \itemize{
+\item Box Cox Transformation: \code{\link[=box_cox_vec]{box_cox_vec()}}
 \item Lag Transformation: \code{\link[=lag_vec]{lag_vec()}}
 \item Differencing Transformation: \code{\link[=diff_vec]{diff_vec()}}
 \item Rolling Window Transformation: \code{\link[=roll_apply_vec]{roll_apply_vec()}}

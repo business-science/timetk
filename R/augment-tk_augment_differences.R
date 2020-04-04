@@ -4,7 +4,7 @@
 #' Works with `dplyr` groups too.
 #'
 #' @param .data A tibble.
-#' @param .column A column to have a difference transformation applied
+#' @param .value A column to have a difference transformation applied
 #' @param .lags One or more lags for the difference(s)
 #' @param .difference The number of differences to apply.
 #' @param .log If TRUE, applies log-differences.
@@ -52,7 +52,7 @@ NULL
 #' @export
 #' @rdname tk_augment_differences
 tk_augment_differences <- function(.data,
-                                  .column,
+                                  .value,
                                   .lags = 1,
                                   .difference = 1,
                                   .log = FALSE,
@@ -62,15 +62,15 @@ tk_augment_differences <- function(.data,
 
 #' @export
 tk_augment_differences.data.frame <- function(.data,
-                                             .column,
+                                             .value,
                                              .lags = 1,
                                              .difference = 1,
                                              .log = FALSE,
                                              .names = paste0("diff_", .lags)) {
 
-    column_expr <- enquo(.column)
+    column_expr <- enquo(.value)
 
-    if (rlang::quo_is_missing(column_expr)) stop(call. = FALSE, "tk_augment_differences(.column) is missing.")
+    if (rlang::quo_is_missing(column_expr)) stop(call. = FALSE, "tk_augment_differences(.value) is missing.")
     if (rlang::is_missing(.lags)) stop(call. = FALSE, "tk_augment_differences(.lags) is missing.")
     if (rlang::is_missing(.difference)) stop(call. = FALSE, "tk_augment_differences(.difference) is missing.")
 
@@ -81,9 +81,9 @@ tk_augment_differences.data.frame <- function(.data,
             .data %>%
                 dplyr::pull(!! column_expr) %>%
                 diff_vec(
-                    .lag        = lag,
-                    .difference = .difference,
-                    .log        = .log
+                    lag        = lag,
+                    difference = .difference,
+                    log        = .log
                 )
         }) %>%
         purrr::set_names(.names)
@@ -95,18 +95,18 @@ tk_augment_differences.data.frame <- function(.data,
 }
 
 tk_augment_differences.grouped_df <- function(.data,
-                                             .column,
+                                             .value,
                                              .lags = 1,
                                              .difference = 1,
                                              .log = FALSE,
                                              .names = paste0("diff_", .lags)) {
 
     # Tidy Eval Setup
-    column_expr <- enquo(.column)
+    column_expr <- enquo(.value)
     group_names <- dplyr::group_vars(.data)
 
     # Checks
-    if (rlang::quo_is_missing(column_expr)) stop(call. = FALSE, "tk_augment_differences(.column) is missing.")
+    if (rlang::quo_is_missing(column_expr)) stop(call. = FALSE, "tk_augment_differences(.value) is missing.")
     if (rlang::is_missing(.lags)) stop(call. = FALSE, "tk_augment_differences(.lags) is missing.")
     if (rlang::is_missing(.difference)) stop(call. = FALSE, "tk_augment_differences(.difference) is missing.")
 
@@ -116,7 +116,7 @@ tk_augment_differences.grouped_df <- function(.data,
             .x         = data,
             .f         = function(df) tk_augment_differences(
                 .data       = df,
-                .column     = !! enquo(.column),
+                .value     = !! enquo(.value),
                 .lags       = .lags,
                 .difference = .difference,
                 .log        = .log,
@@ -131,7 +131,7 @@ tk_augment_differences.grouped_df <- function(.data,
 
 #' @export
 tk_augment_differences.default <- function(.data,
-                                          .column,
+                                          .value,
                                           .lags = 1,
                                           .difference = 1,
                                           .log = FALSE,

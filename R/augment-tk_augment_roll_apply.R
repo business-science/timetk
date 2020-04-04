@@ -4,7 +4,7 @@
 #' Works with `dplyr` groups too.
 #'
 #' @param .data A tibble.
-#' @param .column A column to have a rolling window transformation applied
+#' @param .value A numeric column to have a rolling window transformation applied
 #' @param .period One or more periods for the rolling window(s)
 #' @param .f A summary `[function / formula]`,
 #' @param ... Optional arguments for the summary function
@@ -47,7 +47,7 @@
 #'     select(symbol, date, adjusted) %>%
 #'     group_by(symbol) %>%
 #'     tk_augment_roll_apply(
-#'         .column  = adjusted,
+#'         .value  = adjusted,
 #'         # Multiple rolling windows
 #'         .period  = c(10, 30, 60, 90),
 #'         .f       = AVERAGE,
@@ -61,7 +61,7 @@ NULL
 #' @export
 #' @rdname tk_augment_roll_apply
 tk_augment_roll_apply <- function(.data,
-                                  .column,
+                                  .value,
                                   .period,
                                   .f,
                                   ...,
@@ -73,7 +73,7 @@ tk_augment_roll_apply <- function(.data,
 
 #' @export
 tk_augment_roll_apply.data.frame <- function(.data,
-                                             .column,
+                                             .value,
                                              .period,
                                              .f,
                                              ...,
@@ -81,9 +81,9 @@ tk_augment_roll_apply.data.frame <- function(.data,
                                              .partial = FALSE,
                                              .names = paste0("roll_apply_", .period)) {
 
-    column_expr <- enquo(.column)
+    column_expr <- enquo(.value)
 
-    if (rlang::quo_is_missing(column_expr)) stop(call. = FALSE, "tk_augment_roll_apply(.column) is missing.")
+    if (rlang::quo_is_missing(column_expr)) stop(call. = FALSE, "tk_augment_roll_apply(.value) is missing.")
     if (rlang::is_missing(.period)) stop(call. = FALSE, "tk_augment_roll_apply(.period) is missing.")
     if (rlang::is_missing(.f)) stop(call. = FALSE, "tk_augment_roll_apply(.f) is missing.")
 
@@ -110,7 +110,7 @@ tk_augment_roll_apply.data.frame <- function(.data,
 }
 
 tk_augment_roll_apply.grouped_df <- function(.data,
-                                             .column,
+                                             .value,
                                              .period,
                                              .f,
                                              ...,
@@ -119,11 +119,11 @@ tk_augment_roll_apply.grouped_df <- function(.data,
                                              .names = paste0("roll_apply_", .period)) {
 
     # Tidy Eval Setup
-    column_expr <- enquo(.column)
+    column_expr <- enquo(.value)
     group_names <- dplyr::group_vars(.data)
 
     # Checks
-    if (rlang::quo_is_missing(column_expr)) stop(call. = FALSE, "tk_augment_roll_apply(.column) is missing.")
+    if (rlang::quo_is_missing(column_expr)) stop(call. = FALSE, "tk_augment_roll_apply(.value) is missing.")
     if (rlang::is_missing(.period)) stop(call. = FALSE, "tk_augment_roll_apply(.period) is missing.")
     if (rlang::is_missing(.f)) stop(call. = FALSE, "tk_augment_roll_apply(.f) is missing.")
 
@@ -133,7 +133,7 @@ tk_augment_roll_apply.grouped_df <- function(.data,
             .x         = data,
             .f         = function(df) tk_augment_roll_apply(
                 .data      = df,
-                .column    = !! enquo(.column),
+                .value    = !! enquo(.value),
                 .period    = .period,
                 .f         = .f,
                 ...,
@@ -150,7 +150,7 @@ tk_augment_roll_apply.grouped_df <- function(.data,
 
 #' @export
 tk_augment_roll_apply.default <- function(.data,
-                                          .column,
+                                          .value,
                                           .period,
                                           .f,
                                           ...,

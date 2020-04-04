@@ -4,12 +4,12 @@
 \alias{lag_vec}
 \title{Lag Transformation}
 \usage{
-lag_vec(.x, .lag = 1)
+lag_vec(x, lag = 1)
 }
 \arguments{
-\item{.x}{A numeric vector to be lagged.}
+\item{x}{A numeric vector to be lagged.}
 
-\item{.lag}{Which lag (how far back) to be included in the differencing calculation.
+\item{lag}{Which lag (how far back) to be included in the differencing calculation.
 Negative lags are leads.}
 }
 \value{
@@ -26,7 +26,7 @@ The function allows both lags and leads (negative lags).
 
 \strong{Lag Calculation}
 
-A lag is an offset of \code{.lag} periods. \code{NA} values are returned for the number of \code{.lag} periods.
+A lag is an offset of \code{lag} periods. \code{NA} values are returned for the number of \code{lag} periods.
 
 \strong{Lead Calculation}
 
@@ -39,20 +39,28 @@ library(timetk)
 # --- VECTOR ----
 
 # Lag
-1:10 \%>\% lag_vec(.lag = 1)
+1:10 \%>\% lag_vec(lag = 1)
 
 # Lead
-1:10 \%>\% lag_vec(.lag = -1)
+1:10 \%>\% lag_vec(lag = -1)
 
 
 # --- MUTATE ----
 
 m4_daily \%>\%
     group_by(id) \%>\%
-    mutate(lag_1 = lag_vec(value, .lag = 1))
+    mutate(lag_1 = lag_vec(value, lag = 1))
 
 }
 \seealso{
+\itemize{
+\item Box Cox Transformation: \code{\link[=box_cox_vec]{box_cox_vec()}}
+\item Lag Transformation: \code{\link[=lag_vec]{lag_vec()}}
+\item Differencing Transformation: \code{\link[=diff_vec]{diff_vec()}}
+\item Rolling Window Transformation: \code{\link[=roll_apply_vec]{roll_apply_vec()}}
+\item Loess Smoothing Transformation: \code{\link[=smooth_vec]{smooth_vec()}}
+}
+
 \itemize{
 \item Lag Transformation: \code{\link[=lag_vec]{lag_vec()}}
 \item Differencing Transformation: \code{\link[=diff_vec]{diff_vec()}}

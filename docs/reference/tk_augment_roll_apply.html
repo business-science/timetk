@@ -161,7 +161,7 @@ Works with <code>dplyr</code> groups too.</p>
 
     <pre class="usage"><span class='fu'>tk_augment_roll_apply</span>(
   <span class='no'>.data</span>,
-  <span class='no'>.column</span>,
+  <span class='no'>.value</span>,
   <span class='no'>.period</span>,
   <span class='no'>.f</span>,
   <span class='no'>...</span>,
@@ -178,8 +178,8 @@ Works with <code>dplyr</code> groups too.</p>
       <td><p>A tibble.</p></td>
     </tr>
     <tr>
-      <th>.column</th>
-      <td><p>A column to have a rolling window transformation applied</p></td>
+      <th>.value</th>
+      <td><p>A numeric column to have a rolling window transformation applied</p></td>
     </tr>
     <tr>
       <th>.period</th>
@@ -241,7 +241,7 @@ arguments.</p>
     <span class='fu'>select</span>(<span class='no'>symbol</span>, <span class='no'>date</span>, <span class='no'>adjusted</span>) <span class='kw'>%&gt;%</span>
     <span class='fu'>group_by</span>(<span class='no'>symbol</span>) <span class='kw'>%&gt;%</span>
     <span class='fu'>tk_augment_roll_apply</span>(
-        <span class='kw'>.column</span>  <span class='kw'>=</span> <span class='no'>adjusted</span>,
+        <span class='kw'>.value</span>  <span class='kw'>=</span> <span class='no'>adjusted</span>,
         <span class='co'># Multiple rolling windows</span>
         <span class='kw'>.period</span>  <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>10</span>, <span class='fl'>30</span>, <span class='fl'>60</span>, <span class='fl'>90</span>),
         <span class='kw'>.f</span>       <span class='kw'>=</span> <span class='no'>AVERAGE</span>,

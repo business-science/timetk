@@ -44,9 +44,8 @@
 
 <meta property="og:title" content="Between (For Time Series): Range detection for date or date-time sequences — between_time" />
 <meta property="og:description" content="The easiest way to filter time series date or date-time vectors. Returns a
-logical
-See filter_by_time()
-for the data.frame (tibble) implementation." />
+logical vector indicating which date or date-time values are within a range.
+See filter_by_time() for the data.frame (tibble) implementation." />
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -158,65 +157,64 @@ for the data.frame (tibble) implementation." />
 
     <div class="ref-description">
     <p>The easiest way to filter time series date or date-time vectors. Returns a
-logical
-See <code><a href='filter_by_time.html'>filter_by_time()</a></code>
-for the <code>data.frame</code> (<code>tibble</code>) implementation.</p>
+logical vector indicating which date or date-time values are within a range.
+See <code><a href='filter_by_time.html'>filter_by_time()</a></code> for the <code>data.frame</code> (<code>tibble</code>) implementation.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>between_time</span>(<span class='no'>.index</span>, <span class='kw'>.start_date</span> <span class='kw'>=</span> <span class='st'>"start"</span>, <span class='kw'>.end_date</span> <span class='kw'>=</span> <span class='st'>"end"</span>)</pre>
+    <pre class="usage"><span class='fu'>between_time</span>(<span class='no'>index</span>, <span class='kw'>start_date</span> <span class='kw'>=</span> <span class='st'>"start"</span>, <span class='kw'>end_date</span> <span class='kw'>=</span> <span class='st'>"end"</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>.index</th>
+      <th>index</th>
       <td><p>A date or date-time vector.</p></td>
     </tr>
     <tr>
-      <th>.start_date</th>
+      <th>start_date</th>
       <td><p>The starting date</p></td>
     </tr>
     <tr>
-      <th>.end_date</th>
+      <th>end_date</th>
       <td><p>The ending date</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A <code>logical</code> vector the same length as <code>.index</code> indicating whether or not
-the timestamp value was within the <code>start_date</code> and <code>.end_date</code> range.</p>
+    <p>A <code>logical</code> vector the same length as <code>index</code> indicating whether or not
+the timestamp value was within the <code>start_date</code> and <code>end_date</code> range.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p><strong>Pure Time Series Filtering Flexibilty</strong></p>
-<p>The <code>.start_date</code>  and <code>.end_date</code> parameters are designed with flexibility in mind.</p>
+<p>The <code>start_date</code>  and <code>end_date</code> parameters are designed with flexibility in mind.</p>
 <p>Each side of the <code>time_formula</code> is specified as the character
 <code>'YYYY-MM-DD HH:MM:SS'</code>, but powerful shorthand is available.
 Some examples are:</p><ul>
-<li><p><strong>Year:</strong> <code>.start_date = '2013', .end_date = '2015'</code></p></li>
-<li><p><strong>Month:</strong> <code>.start_date = '2013-01', .end_date = '2016-06'</code></p></li>
-<li><p><strong>Day:</strong> <code>.start_date = '2013-01-05', .end_date = '2016-06-04'</code></p></li>
-<li><p><strong>Second:</strong> <code>.start_date = '2013-01-05 10:22:15', .end_date = '2018-06-03 12:14:22'</code></p></li>
-<li><p><strong>Variations:</strong> <code>.start_date = '2013', .end_date = '2016-06'</code></p></li>
+<li><p><strong>Year:</strong> <code>start_date = '2013', end_date = '2015'</code></p></li>
+<li><p><strong>Month:</strong> <code>start_date = '2013-01', end_date = '2016-06'</code></p></li>
+<li><p><strong>Day:</strong> <code>start_date = '2013-01-05', end_date = '2016-06-04'</code></p></li>
+<li><p><strong>Second:</strong> <code>start_date = '2013-01-05 10:22:15', end_date = '2018-06-03 12:14:22'</code></p></li>
+<li><p><strong>Variations:</strong> <code>start_date = '2013', end_date = '2016-06'</code></p></li>
 </ul>
 
 <p><strong>Key Words: "start" and "end"</strong></p>
 <p>Use the keywords "start" and "end" as shorthand, instead of specifying the
 actual start and end values. Here are some examples:</p><ul>
-<li><p><strong>Start of the series to end of 2015:</strong> <code>.start_date = 'start', .end_date = '2015'</code></p></li>
-<li><p><strong>Start of 2014 to end of series:</strong> <code>.start_date = '2014', .end_date = 'end'</code></p></li>
+<li><p><strong>Start of the series to end of 2015:</strong> <code>start_date = 'start', end_date = '2015'</code></p></li>
+<li><p><strong>Start of 2014 to end of series:</strong> <code>start_date = '2014', end_date = 'end'</code></p></li>
 </ul>
 
 <p><strong>Internal Calculations</strong></p>
 <p>All shorthand dates are expanded:</p><ul>
-<li><p>The <code>.start_date</code> is expanded to be the <em>first date</em> in that period</p></li>
-<li><p>The <code>.end_date</code> side is expanded to be the <em>last date</em> in that period</p></li>
+<li><p>The <code>start_date</code> is expanded to be the <em>first date</em> in that period</p></li>
+<li><p>The <code>end_date</code> side is expanded to be the <em>last date</em> in that period</p></li>
 </ul>
 
 <p>This means that the following examples are equivalent (assuming your
 index is a POSIXct):</p><ul>
-<li><p><code>.start_date = '2015'</code> is equivalent to <code>.start_date = '2015-01-01 + 00:00:00' </code></p></li>
-<li><p><code>.end_date = '2016'</code> is equivalent to <code>2016-12-31 + 23:59:59'</code></p></li>
+<li><p><code>start_date = '2015'</code> is equivalent to <code>start_date = '2015-01-01 + 00:00:00' </code></p></li>
+<li><p><code>end_date = '2016'</code> is equivalent to <code>2016-12-31 + 23:59:59'</code></p></li>
 </ul>
 
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
@@ -266,7 +264,7 @@ index is a POSIXct):</p><ul>
 <span class='no'>index_min</span>   <span class='kw'>&lt;-</span> <span class='fu'><a href='tk_make_date_sequence.html'>tk_make_date_sequence</a></span>(<span class='st'>"2016-01-01"</span>, <span class='st'>"2017-01-01"</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"min"</span>)
 
 <span class='co'># How it works</span>
-<span class='co'># - Returns TRUE/FALSE length of .index</span>
+<span class='co'># - Returns TRUE/FALSE length of index</span>
 <span class='co'># - Use sum() to tally the number of TRUE values</span>
 <span class='no'>index_daily</span> <span class='kw'>%&gt;%</span> <span class='fu'>between_time</span>(<span class='st'>"start"</span>, <span class='st'>"2016-01"</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>()</div><div class='output co'>#&gt; [1] 31</div><div class='input'>
 <span class='co'># ---- INDEX SLICING ----</span>

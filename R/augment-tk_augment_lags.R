@@ -4,7 +4,7 @@
 #' Works with `dplyr` groups too.
 #'
 #' @param .data A tibble.
-#' @param .column A column to have a difference transformation applied
+#' @param .value A column to have a difference transformation applied
 #' @param .lags One or more lags for the difference(s)
 #' @param .names A vector of names for the new columns. Must be of same length as `.lags`.
 #'
@@ -49,14 +49,14 @@ NULL
 #' @export
 #' @rdname tk_augment_lags
 tk_augment_lags <- function(.data,
-                            .column,
+                            .value,
                             .lags = 1,
                             .names = paste0("lag_", .lags)) {
 
     # Checks
-    column_expr <- enquo(.column)
+    column_expr <- enquo(.value)
 
-    if (rlang::quo_is_missing(column_expr)) stop(call. = FALSE, "tk_augment_lags(.column) is missing.")
+    if (rlang::quo_is_missing(column_expr)) stop(call. = FALSE, "tk_augment_lags(.value) is missing.")
     if (rlang::is_missing(.lags)) stop(call. = FALSE, "tk_augment_lags(.lags) is missing.")
 
     UseMethod("tk_augment_lags", .data)
@@ -64,11 +64,11 @@ tk_augment_lags <- function(.data,
 
 #' @export
 tk_augment_lags.data.frame <- function(.data,
-                                       .column,
+                                       .value,
                                        .lags = 1,
                                        .names = paste0("lag_", .lags)) {
 
-    column_expr <- enquo(.column)
+    column_expr <- enquo(.value)
 
     ret_1 <- .data
 
@@ -76,7 +76,7 @@ tk_augment_lags.data.frame <- function(.data,
         purrr::map_dfc(.f = function(lag) {
             .data %>%
                 dplyr::pull(!! column_expr) %>%
-                lag_vec(.lag = lag)
+                lag_vec(lag = lag)
         }) %>%
         purrr::set_names(.names)
 
@@ -87,12 +87,12 @@ tk_augment_lags.data.frame <- function(.data,
 }
 
 tk_augment_lags.grouped_df <- function(.data,
-                                       .column,
+                                       .value,
                                        .lags = 1,
                                        .names = paste0("lag_", .lags)) {
 
     # Tidy Eval Setup
-    column_expr <- enquo(.column)
+    column_expr <- enquo(.value)
     group_names <- dplyr::group_vars(.data)
 
     .data %>%
@@ -101,7 +101,7 @@ tk_augment_lags.grouped_df <- function(.data,
             .x         = data,
             .f         = function(df) tk_augment_lags(
                 .data       = df,
-                .column     = !! enquo(.column),
+                .value     = !! enquo(.value),
                 .lags       = .lags,
                 .names      = .names
             )
@@ -114,7 +114,7 @@ tk_augment_lags.grouped_df <- function(.data,
 
 #' @export
 tk_augment_lags.default <- function(.data,
-                                    .column,
+                                    .value,
                                     .lags = 1,
                                     .names = paste0("lag_", .lags)) {
     stop(paste0("`tk_augment_lags` has no method for class ", class(data)[[1]]))

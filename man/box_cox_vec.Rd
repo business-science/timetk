@@ -6,36 +6,36 @@
 \alias{auto_lambda}
 \title{Box Cox Transformation}
 \usage{
-box_cox_vec(.x, .lambda = NULL, .silent = FALSE)
+box_cox_vec(x, lambda = NULL, silent = FALSE)
 
-box_cox_inv_vec(.x, .lambda)
+box_cox_inv_vec(x, lambda)
 
 auto_lambda(
-  .x,
-  .method = c("guerrero", "loglik"),
-  .lambda_lower = -1,
-  .lambda_upper = 2
+  x,
+  method = c("guerrero", "loglik"),
+  lambda_lower = -1,
+  lambda_upper = 2
 )
 }
 \arguments{
-\item{.x}{A numeric vector.}
+\item{x}{A numeric vector.}
 
-\item{.lambda}{The box cox transformation parameter}
+\item{lambda}{The box cox transformation parameter}
 
-\item{.silent}{Whether or not to report the automated \code{.lambda} selection as a message.}
+\item{silent}{Whether or not to report the automated \code{lambda} selection as a message.}
 
-\item{.method}{The method used for automatic \code{.lambda} selection.
+\item{method}{The method used for automatic \code{lambda} selection.
 Either "guerrero" or "loglik".}
 
-\item{.lambda_lower}{A lower limit for automatic \code{.lambda} selection}
+\item{lambda_lower}{A lower limit for automatic \code{lambda} selection}
 
-\item{.lambda_upper}{An upper limit for automatic \code{.lambda} selection}
+\item{lambda_upper}{An upper limit for automatic \code{lambda} selection}
 }
 \description{
 This is mainly a wrapper for the BoxCox transformation from the \code{forecast}
 R package. The \code{box_cox_vec()} function performs the transformation.
 The \code{box_cox_inv_vec()} inverts the transformation.
-The \code{auto_lambda()} helps in selecting the optimal \code{.lambda} value.
+The \code{auto_lambda()} helps in selecting the optimal \code{lambda} value.
 }
 \details{
 The Box Cox transformation is a power transformation that is commonly
@@ -43,12 +43,12 @@ used to reduce variance of a time series.
 
 \strong{Automatic Lambda Selection}
 
-If desired, the \code{.lambda} argument can be selected using \code{auto_lambda()},
+If desired, the \code{lambda} argument can be selected using \code{auto_lambda()},
 a wrapper for the Forecast R Package's \code{forecast::BoxCox.lambda()} function.
 Use either of 2 methods:
 \enumerate{
 \item "guerrero" - Minimizes the non-seasonal variance
-\item "loglik" - Maximizes the log-likelihood of a linear model fit to \code{.x}
+\item "loglik" - Maximizes the log-likelihood of a linear model fit to \code{x}
 }
 }
 \examples{
@@ -60,7 +60,7 @@ d10_daily <- m4_daily \%>\% filter(id == "D10")
 # --- VECTOR ----
 
 value_bc <- box_cox_vec(d10_daily$value)
-value    <- box_cox_inv_vec(value_bc, .lambda = 1.25119350454964)
+value    <- box_cox_inv_vec(value_bc, lambda = 1.25119350454964)
 
 # --- MUTATE ----
 
@@ -77,9 +77,13 @@ m4_daily \%>\%
 }
 }
 \seealso{
-Other common transformations to reduce variance:
 \itemize{
-\item \code{log()}
-\item \code{log1p()}
+\item Box Cox Transformation: \code{\link[=box_cox_vec]{box_cox_vec()}}
+\item Lag Transformation: \code{\link[=lag_vec]{lag_vec()}}
+\item Differencing Transformation: \code{\link[=diff_vec]{diff_vec()}}
+\item Rolling Window Transformation: \code{\link[=roll_apply_vec]{roll_apply_vec()}}
+\item Loess Smoothing Transformation: \code{\link[=smooth_vec]{smooth_vec()}}
 }
+
+Other common transformations to reduce variance: \code{log()}, \code{log1p()} and \code{sqrt()}
 }

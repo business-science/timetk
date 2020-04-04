@@ -157,30 +157,30 @@
     <p><code>smooth_vec()</code> applies a LOESS transformation to a numeric vector.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>smooth_vec</span>(<span class='no'>.x</span>, <span class='kw'>.period</span> <span class='kw'>=</span> <span class='fl'>30</span>, <span class='kw'>.span</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>.degree</span> <span class='kw'>=</span> <span class='fl'>2</span>)</pre>
+    <pre class="usage"><span class='fu'>smooth_vec</span>(<span class='no'>x</span>, <span class='kw'>period</span> <span class='kw'>=</span> <span class='fl'>30</span>, <span class='kw'>span</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>degree</span> <span class='kw'>=</span> <span class='fl'>2</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>.x</th>
+      <th>x</th>
       <td><p>A numeric vector to have a smoothing transformation applied.</p></td>
     </tr>
     <tr>
-      <th>.period</th>
+      <th>period</th>
       <td><p>The number of periods to include in the local smoothing.
 Similar to window size for a moving average.
-See details for an explanation <code>.period</code> vs <code>.span</code> specification.</p></td>
+See details for an explanation <code>period</code> vs <code>span</code> specification.</p></td>
     </tr>
     <tr>
-      <th>.span</th>
+      <th>span</th>
       <td><p>The span is a percentage of data to be included
 in the smoothing window. Period is preferred for shorter windows
 to fix the window size.
-See details for an explanation <code>.period</code> vs <code>.span</code> specification.</p></td>
+See details for an explanation <code>period</code> vs <code>span</code> specification.</p></td>
     </tr>
     <tr>
-      <th>.degree</th>
+      <th>degree</th>
       <td><p>The degree of the polynomials to be used.
 Accetable values (least to most flexible): 0, 1, 2.
 Set to 2 by default for 2nd order polynomial (most flexible).</p></td>
@@ -193,29 +193,37 @@ Set to 2 by default for 2nd order polynomial (most flexible).</p></td>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p><strong>Benefits:</strong></p><ul>
-<li><p>When using <code>.period</code>, the effect is
+<li><p>When using <code>period</code>, the effect is
 <strong>similar to a moving average without creating missing values.</strong></p></li>
-<li><p>When using <code>.span</code>, the effect is to detect the trend in a series
+<li><p>When using <code>span</code>, the effect is to detect the trend in a series
 <strong>using a percentage of the total number of observations.</strong></p></li>
 </ul>
 
 <p><strong>Loess Smoother Algorithm</strong>
 This function is a simplified wrapper for the <code><a href='https://rdrr.io/r/stats/loess.html'>stats::loess()</a></code>
-with a modification to set a fixed <code>.period</code> rather than a percentage of
-data points via a <code>.span</code>.</p>
+with a modification to set a fixed <code>period</code> rather than a percentage of
+data points via a <code>span</code>.</p>
 <p><strong>Why Period vs Span?</strong>
-The <code>.period</code> is fixed whereas the <code>.span</code> changes as the number of observations change.</p>
+The <code>period</code> is fixed whereas the <code>span</code> changes as the number of observations change.</p>
 <p><strong>When to use Period?</strong>
-The effect of using a <code>.period</code> is similar to a Moving Average where the Window Size
+The effect of using a <code>period</code> is similar to a Moving Average where the Window Size
 is the <em><strong>Fixed Period</strong></em>. This helps when you are trying to smooth local trends.
-If you want a 30-day moving average, specify <code>.period = 30</code>.</p>
+If you want a 30-day moving average, specify <code>period = 30</code>.</p>
 <p><strong>When to use Span?</strong>
 Span is easier to specify when you want a <em><strong>Long-Term Trendline</strong></em> where the
-window size is unknown. You can specify <code>.span = 0.75</code> to locally regress
+window size is unknown. You can specify <code>span = 0.75</code> to locally regress
 using a window of 75% of the data.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'>
+<ul>
+<li><p>Box Cox Transformation: <code><a href='box_cox_vec.html'>box_cox_vec()</a></code></p></li>
+<li><p>Lag Transformation: <code><a href='lag_vec.html'>lag_vec()</a></code></p></li>
+<li><p>Differencing Transformation: <code><a href='diff_vec.html'>diff_vec()</a></code></p></li>
+<li><p>Rolling Window Transformation: <code><a href='roll_apply_vec.html'>roll_apply_vec()</a></code></p></li>
+<li><p>Loess Smoothing Transformation: <code>smooth_vec()</code></p></li>
+</ul>
+
 <ul>
 <li><p>Lag Transformation: <code><a href='lag_vec.html'>lag_vec()</a></code></p></li>
 <li><p>Differencing Transformation: <code><a href='diff_vec.html'>diff_vec()</a></code></p></li>
@@ -237,23 +245,23 @@ using a window of 75% of the data.</p>
 <span class='co'># ---- PERIOD ----</span>
 
 <span class='no'>FB_tbl</span> <span class='kw'>%&gt;%</span>
-    <span class='fu'>mutate</span>(<span class='kw'>adjusted_30</span> <span class='kw'>=</span> <span class='fu'>smooth_vec</span>(<span class='no'>adjusted</span>, <span class='kw'>.period</span> <span class='kw'>=</span> <span class='fl'>30</span>, <span class='kw'>.degree</span> <span class='kw'>=</span> <span class='fl'>2</span>)) <span class='kw'>%&gt;%</span>
+    <span class='fu'>mutate</span>(<span class='kw'>adjusted_30</span> <span class='kw'>=</span> <span class='fu'>smooth_vec</span>(<span class='no'>adjusted</span>, <span class='kw'>period</span> <span class='kw'>=</span> <span class='fl'>30</span>, <span class='kw'>degree</span> <span class='kw'>=</span> <span class='fl'>2</span>)) <span class='kw'>%&gt;%</span>
     <span class='fu'>ggplot</span>(<span class='fu'>aes</span>(<span class='no'>date</span>, <span class='no'>adjusted</span>)) +
     <span class='fu'>geom_line</span>() +
     <span class='fu'>geom_line</span>(<span class='fu'>aes</span>(<span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>adjusted_30</span>), <span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"red"</span>)</div><div class='img'><img src='smooth_vec-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># ---- SPAN ----</span>
 
 <span class='no'>FB_tbl</span> <span class='kw'>%&gt;%</span>
-    <span class='fu'>mutate</span>(<span class='kw'>adjusted_30</span> <span class='kw'>=</span> <span class='fu'>smooth_vec</span>(<span class='no'>adjusted</span>, <span class='kw'>.span</span> <span class='kw'>=</span> <span class='fl'>0.75</span>, <span class='kw'>.degree</span> <span class='kw'>=</span> <span class='fl'>2</span>)) <span class='kw'>%&gt;%</span>
+    <span class='fu'>mutate</span>(<span class='kw'>adjusted_30</span> <span class='kw'>=</span> <span class='fu'>smooth_vec</span>(<span class='no'>adjusted</span>, <span class='kw'>span</span> <span class='kw'>=</span> <span class='fl'>0.75</span>, <span class='kw'>degree</span> <span class='kw'>=</span> <span class='fl'>2</span>)) <span class='kw'>%&gt;%</span>
     <span class='fu'>ggplot</span>(<span class='fu'>aes</span>(<span class='no'>date</span>, <span class='no'>adjusted</span>)) +
     <span class='fu'>geom_line</span>() +
     <span class='fu'>geom_line</span>(<span class='fu'>aes</span>(<span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>adjusted_30</span>), <span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"red"</span>)</div><div class='img'><img src='smooth_vec-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># ---- Loess vs Moving Average ----</span>
-<span class='co'># - Loess: Using `.degree = 0` to make less flexible. Comperable to a moving average.</span>
+<span class='co'># - Loess: Using `degree = 0` to make less flexible. Comperable to a moving average.</span>
 
 <span class='no'>FB_tbl</span> <span class='kw'>%&gt;%</span>
     <span class='fu'>mutate</span>(
-        <span class='kw'>adjusted_loess_30</span> <span class='kw'>=</span> <span class='fu'>smooth_vec</span>(<span class='no'>adjusted</span>, <span class='kw'>.period</span> <span class='kw'>=</span> <span class='fl'>30</span>, <span class='kw'>.degree</span> <span class='kw'>=</span> <span class='fl'>0</span>),
+        <span class='kw'>adjusted_loess_30</span> <span class='kw'>=</span> <span class='fu'>smooth_vec</span>(<span class='no'>adjusted</span>, <span class='kw'>period</span> <span class='kw'>=</span> <span class='fl'>30</span>, <span class='kw'>degree</span> <span class='kw'>=</span> <span class='fl'>0</span>),
         <span class='kw'>adjusted_ma_30</span>    <span class='kw'>=</span> <span class='fu'><a href='roll_apply_vec.html'>roll_apply_vec</a></span>(<span class='no'>adjusted</span>, <span class='kw'>.period</span> <span class='kw'>=</span> <span class='fl'>30</span>,
                                            <span class='kw'>.f</span> <span class='kw'>=</span> <span class='no'>AVERAGE</span>, <span class='kw'>.partial</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
     ) <span class='kw'>%&gt;%</span>

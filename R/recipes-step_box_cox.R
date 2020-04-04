@@ -146,18 +146,18 @@ prep.step_box_cox <- function(x, training, info = NULL, ...) {
     # lambda_values <- vapply(
     #     training[, col_names],
     #     auto_lambda,
-    #     .method = x$method,
-    #     .lambda_lower = x$limits[1],
-    #     .lambda_upper = x$limits[2]
+    #     method = x$method,
+    #     lambda_lower = x$limits[1],
+    #     lambda_upper = x$limits[2]
     # )
 
     lambda_values <- training[, col_names] %>%
         purrr::map(.f = function(vals) {
             auto_lambda(
                 vals,
-                .method       = x$method,
-                .lambda_lower = x$limits[1],
-                .lambda_upper = x$limits[2]
+                method       = x$method,
+                lambda_lower = x$limits[1],
+                lambda_upper = x$limits[2]
             )
         })
 
@@ -184,8 +184,8 @@ bake.step_box_cox <- function(object, new_data, ...) {
 
     for (i in seq_along(object$lambdas)) {
         new_data[, param[i]] <- box_cox_vec(
-            .x      = new_data %>% purrr::pluck(param[i]),
-            .lambda = as.numeric(object$lambdas[i])
+            x      = new_data %>% purrr::pluck(param[i]),
+            lambda = as.numeric(object$lambdas[i])
         )
     }
 

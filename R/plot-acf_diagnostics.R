@@ -85,7 +85,7 @@
 #'     group_by(id) %>%
 #'     plot_acf_diagnostics(
 #'         date,
-#'         diff_vec(value, .lag = 1), # Difference the value column
+#'         diff_vec(value, lag = 1), # Difference the value column
 #'         .lags        = 0:(24*7),   # 7-Days of hourly lags
 #'         .interactive = FALSE
 #'     ) +

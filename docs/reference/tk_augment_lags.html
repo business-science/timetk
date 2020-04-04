@@ -159,7 +159,7 @@ Works with dplyr groups too." />
 Works with <code>dplyr</code> groups too.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>tk_augment_lags</span>(<span class='no'>.data</span>, <span class='no'>.column</span>, <span class='kw'>.lags</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.names</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(<span class='st'>"lag_"</span>, <span class='no'>.lags</span>))</pre>
+    <pre class="usage"><span class='fu'>tk_augment_lags</span>(<span class='no'>.data</span>, <span class='no'>.value</span>, <span class='kw'>.lags</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.names</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(<span class='st'>"lag_"</span>, <span class='no'>.lags</span>))</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -169,7 +169,7 @@ Works with <code>dplyr</code> groups too.</p>
       <td><p>A tibble.</p></td>
     </tr>
     <tr>
-      <th>.column</th>
+      <th>.value</th>
       <td><p>A column to have a difference transformation applied</p></td>
     </tr>
     <tr>

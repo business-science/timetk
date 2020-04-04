@@ -159,41 +159,35 @@ diff_inv_vec() inverts the differencing transformation." />
 <code>diff_inv_vec()</code> inverts the differencing transformation.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>diff_vec</span>(<span class='no'>.x</span>, <span class='kw'>.lag</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.difference</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>.log</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+    <pre class="usage"><span class='fu'>diff_vec</span>(<span class='no'>x</span>, <span class='kw'>lag</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>difference</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>log</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
-<span class='fu'>diff_inv_vec</span>(
-  <span class='no'>.x</span>,
-  <span class='kw'>.lag</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>.difference</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>.log</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>.initial_values</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
-)</pre>
+<span class='fu'>diff_inv_vec</span>(<span class='no'>x</span>, <span class='kw'>lag</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>difference</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>log</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>initial_values</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>.x</th>
+      <th>x</th>
       <td><p>A numeric vector to be differenced or inverted.</p></td>
     </tr>
     <tr>
-      <th>.lag</th>
+      <th>lag</th>
       <td><p>Which lag (how far back) to be included in the differencing calculation.</p></td>
     </tr>
     <tr>
-      <th>.difference</th>
+      <th>difference</th>
       <td><p>The number of differences to perform.</p><ul>
 <li><p>1 Difference is equivalent to measuring period change.</p></li>
 <li><p>2 Differences is equivalent to measuring period acceleration.</p></li>
 </ul></td>
     </tr>
     <tr>
-      <th>.log</th>
+      <th>log</th>
       <td><p>If log differences should be calculated.
 <em>Note that difference inversion of a log-difference is approximate.</em></p></td>
     </tr>
     <tr>
-      <th>.initial_values</th>
+      <th>initial_values</th>
       <td><p>A numeric vector of the initial values, which are used for difference inversion.
 This vector is the original values that are the length of the <code>NA</code> missing differences.</p></td>
     </tr>
@@ -211,18 +205,19 @@ This vector is the original values that are the length of the <code>NA</code> mi
 where the subscript _t1 indicates the first lag.
 <em>This transformation can be interpereted as change.</em></p>
 <p><strong>Double Differencing Calculation</strong></p>
-<p>Double differencing, <code>diff_vec(x_t, .difference = 2)</code> is equivalent to:
+<p>Double differencing, <code>diff_vec(x_t, difference = 2)</code> is equivalent to:
 <code>(x_t - x_t1) - (x_t - x_t1)_t1</code>, where the subscript _t1 indicates the first lag.
 <em>This transformation can be interpereted as acceleration.</em></p>
 <p><strong>Log Difference Calculation</strong></p>
-<p>Log differencing, <code>diff_vec(x_t, .log = TRUE)</code> is equivalent to:
+<p>Log differencing, <code>diff_vec(x_t, log = TRUE)</code> is equivalent to:
 <code>log(x_t) - log(x_t1) = log(x_t / x_t1)</code>, where x_t is the series and x_t1 is the first lag.</p>
-<p>The 1st difference <code>diff_vec(.difference = 1, .log = TRUE)</code> has an interesting property
-where <code>diff_vec(.difference = 1, .log = TRUE) %&gt;% exp()</code> is approximately <em>1 + rate of change.</em></p>
+<p>The 1st difference <code>diff_vec(difference = 1, log = TRUE)</code> has an interesting property
+where <code>diff_vec(difference = 1, log = TRUE) %&gt;% exp()</code> is approximately <em>1 + rate of change.</em></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'>
 <ul>
+<li><p>Box Cox Transformation: <code><a href='box_cox_vec.html'>box_cox_vec()</a></code></p></li>
 <li><p>Lag Transformation: <code><a href='lag_vec.html'>lag_vec()</a></code></p></li>
 <li><p>Differencing Transformation: <code>diff_vec()</code></p></li>
 <li><p>Rolling Window Transformation: <code><a href='roll_apply_vec.html'>roll_apply_vec()</a></code></p></li>
@@ -244,22 +239,22 @@ where <code>diff_vec(.difference = 1, .log = TRUE) %&gt;% exp()</code> is approx
 <span class='co'># Change</span>
 <span class='fl'>1</span>:<span class='fl'>10</span> <span class='kw'>%&gt;%</span> <span class='fu'>diff_vec</span>()</div><div class='output co'>#&gt;  [1] NA  1  1  1  1  1  1  1  1  1</div><div class='input'>
 <span class='co'># Acceleration</span>
-<span class='fl'>1</span>:<span class='fl'>10</span> <span class='kw'>%&gt;%</span> <span class='fu'>diff_vec</span>(<span class='kw'>.difference</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt;  [1] NA NA  0  0  0  0  0  0  0  0</div><div class='input'>
+<span class='fl'>1</span>:<span class='fl'>10</span> <span class='kw'>%&gt;%</span> <span class='fu'>diff_vec</span>(<span class='kw'>difference</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt;  [1] NA NA  0  0  0  0  0  0  0  0</div><div class='input'>
 <span class='co'># Approximate rate of change</span>
-<span class='fl'>1</span>:<span class='fl'>10</span> <span class='kw'>%&gt;%</span> <span class='fu'>diff_vec</span>(<span class='kw'>.log</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span>() - <span class='fl'>1</span></div><div class='output co'>#&gt;  [1]        NA 1.0000000 0.5000000 0.3333333 0.2500000 0.2000000 0.1666667
+<span class='fl'>1</span>:<span class='fl'>10</span> <span class='kw'>%&gt;%</span> <span class='fu'>diff_vec</span>(<span class='kw'>log</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span>() - <span class='fl'>1</span></div><div class='output co'>#&gt;  [1]        NA 1.0000000 0.5000000 0.3333333 0.2500000 0.2000000 0.1666667
 #&gt;  [8] 0.1428571 0.1250000 0.1111111</div><div class='input'>
 
 <span class='co'># --- MUTATE ----</span>
 
 <span class='no'>m4_daily</span> <span class='kw'>%&gt;%</span>
     <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>id</span>) <span class='kw'>%&gt;%</span>
-    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>difference</span> <span class='kw'>=</span> <span class='fu'>diff_vec</span>(<span class='no'>value</span>, <span class='kw'>.lag</span> <span class='kw'>=</span> <span class='fl'>1</span>)) <span class='kw'>%&gt;%</span>
+    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>difference</span> <span class='kw'>=</span> <span class='fu'>diff_vec</span>(<span class='no'>value</span>, <span class='kw'>lag</span> <span class='kw'>=</span> <span class='fl'>1</span>)) <span class='kw'>%&gt;%</span>
     <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(
         <span class='kw'>difference_inv</span> <span class='kw'>=</span> <span class='fu'>diff_inv_vec</span>(
             <span class='no'>difference</span>,
-            <span class='kw'>.lag</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+            <span class='kw'>lag</span> <span class='kw'>=</span> <span class='fl'>1</span>,
             <span class='co'># Add initial value to calculate the inverse difference</span>
-            <span class='kw'>.initial_values</span> <span class='kw'>=</span> <span class='no'>value</span>[<span class='fl'>1</span>]
+            <span class='kw'>initial_values</span> <span class='kw'>=</span> <span class='no'>value</span>[<span class='fl'>1</span>]
         )
     )</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 9,743 x 5</span><span>
 #&gt; </span><span style='color: #555555;'># Groups:   id [4]</span><span>

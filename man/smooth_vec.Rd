@@ -4,21 +4,21 @@
 \alias{smooth_vec}
 \title{Smoothing Transformation using Loess}
 \usage{
-smooth_vec(.x, .period = 30, .span = NULL, .degree = 2)
+smooth_vec(x, period = 30, span = NULL, degree = 2)
 }
 \arguments{
-\item{.x}{A numeric vector to have a smoothing transformation applied.}
+\item{x}{A numeric vector to have a smoothing transformation applied.}
 
-\item{.period}{The number of periods to include in the local smoothing.
+\item{period}{The number of periods to include in the local smoothing.
 Similar to window size for a moving average.
-See details for an explanation \code{.period} vs \code{.span} specification.}
+See details for an explanation \code{period} vs \code{span} specification.}
 
-\item{.span}{The span is a percentage of data to be included
+\item{span}{The span is a percentage of data to be included
 in the smoothing window. Period is preferred for shorter windows
 to fix the window size.
-See details for an explanation \code{.period} vs \code{.span} specification.}
+See details for an explanation \code{period} vs \code{span} specification.}
 
-\item{.degree}{The degree of the polynomials to be used.
+\item{degree}{The degree of the polynomials to be used.
 Accetable values (least to most flexible): 0, 1, 2.
 Set to 2 by default for 2nd order polynomial (most flexible).}
 }
@@ -31,28 +31,28 @@ A numeric vector
 \details{
 \strong{Benefits:}
 \itemize{
-\item When using \code{.period}, the effect is
+\item When using \code{period}, the effect is
 \strong{similar to a moving average without creating missing values.}
-\item When using \code{.span}, the effect is to detect the trend in a series
+\item When using \code{span}, the effect is to detect the trend in a series
 \strong{using a percentage of the total number of observations.}
 }
 
 \strong{Loess Smoother Algorithm}
 This function is a simplified wrapper for the \code{stats::loess()}
-with a modification to set a fixed \code{.period} rather than a percentage of
-data points via a \code{.span}.
+with a modification to set a fixed \code{period} rather than a percentage of
+data points via a \code{span}.
 
 \strong{Why Period vs Span?}
-The \code{.period} is fixed whereas the \code{.span} changes as the number of observations change.
+The \code{period} is fixed whereas the \code{span} changes as the number of observations change.
 
 \strong{When to use Period?}
-The effect of using a \code{.period} is similar to a Moving Average where the Window Size
+The effect of using a \code{period} is similar to a Moving Average where the Window Size
 is the \emph{\strong{Fixed Period}}. This helps when you are trying to smooth local trends.
-If you want a 30-day moving average, specify \code{.period = 30}.
+If you want a 30-day moving average, specify \code{period = 30}.
 
 \strong{When to use Span?}
 Span is easier to specify when you want a \emph{\strong{Long-Term Trendline}} where the
-window size is unknown. You can specify \code{.span = 0.75} to locally regress
+window size is unknown. You can specify \code{span = 0.75} to locally regress
 using a window of 75\% of the data.
 }
 \examples{
@@ -68,7 +68,7 @@ FB_tbl <- FANG \%>\%
 # ---- PERIOD ----
 
 FB_tbl \%>\%
-    mutate(adjusted_30 = smooth_vec(adjusted, .period = 30, .degree = 2)) \%>\%
+    mutate(adjusted_30 = smooth_vec(adjusted, period = 30, degree = 2)) \%>\%
     ggplot(aes(date, adjusted)) +
     geom_line() +
     geom_line(aes(y = adjusted_30), color = "red")
@@ -76,17 +76,17 @@ FB_tbl \%>\%
 # ---- SPAN ----
 
 FB_tbl \%>\%
-    mutate(adjusted_30 = smooth_vec(adjusted, .span = 0.75, .degree = 2)) \%>\%
+    mutate(adjusted_30 = smooth_vec(adjusted, span = 0.75, degree = 2)) \%>\%
     ggplot(aes(date, adjusted)) +
     geom_line() +
     geom_line(aes(y = adjusted_30), color = "red")
 
 # ---- Loess vs Moving Average ----
-# - Loess: Using `.degree = 0` to make less flexible. Comperable to a moving average.
+# - Loess: Using `degree = 0` to make less flexible. Comperable to a moving average.
 
 FB_tbl \%>\%
     mutate(
-        adjusted_loess_30 = smooth_vec(adjusted, .period = 30, .degree = 0),
+        adjusted_loess_30 = smooth_vec(adjusted, period = 30, degree = 0),
         adjusted_ma_30    = roll_apply_vec(adjusted, .period = 30,
                                            .f = AVERAGE, .partial = TRUE)
     ) \%>\%
@@ -98,6 +98,14 @@ FB_tbl \%>\%
 
 }
 \seealso{
+\itemize{
+\item Box Cox Transformation: \code{\link[=box_cox_vec]{box_cox_vec()}}
+\item Lag Transformation: \code{\link[=lag_vec]{lag_vec()}}
+\item Differencing Transformation: \code{\link[=diff_vec]{diff_vec()}}
+\item Rolling Window Transformation: \code{\link[=roll_apply_vec]{roll_apply_vec()}}
+\item Loess Smoothing Transformation: \code{\link[=smooth_vec]{smooth_vec()}}
+}
+
 \itemize{
 \item Lag Transformation: \code{\link[=lag_vec]{lag_vec()}}
 \item Differencing Transformation: \code{\link[=diff_vec]{diff_vec()}}

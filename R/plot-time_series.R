@@ -210,9 +210,9 @@ plot_time_series.data.frame <- function(.data, .date_var, .value, ...,
         data_formatted <- data_formatted %>%
             dplyr::mutate(.value_smooth = smooth_vec(
                 .value_mod,
-                .period = .smooth_period,
-                .span   = .smooth_span,
-                .degree = .smooth_degree)
+                period = .smooth_period,
+                span   = .smooth_span,
+                degree = .smooth_degree)
             ) %>%
             dplyr::ungroup()
     }

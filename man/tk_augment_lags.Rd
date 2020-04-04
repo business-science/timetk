@@ -4,12 +4,12 @@
 \alias{tk_augment_lags}
 \title{Add many lags to the data}
 \usage{
-tk_augment_lags(.data, .column, .lags = 1, .names = paste0("lag_", .lags))
+tk_augment_lags(.data, .value, .lags = 1, .names = paste0("lag_", .lags))
 }
 \arguments{
 \item{.data}{A tibble.}
 
-\item{.column}{A column to have a difference transformation applied}
+\item{.value}{A column to have a difference transformation applied}
 
 \item{.lags}{One or more lags for the difference(s)}
 

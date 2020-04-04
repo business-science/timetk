@@ -4,16 +4,16 @@
 \alias{filter_by_time}
 \title{Filter (for Time-Series Data)}
 \usage{
-filter_by_time(.data, .date_var, .start_date = "start", .end_date = "end")
+filter_by_time(.data, .date_var, start_date = "start", end_date = "end")
 }
 \arguments{
 \item{.data}{A tibble with a time-based column.}
 
 \item{.date_var}{A column containing date or date-time values to filter}
 
-\item{.start_date}{The starting date for the filter sequence}
+\item{start_date}{The starting date for the filter sequence}
 
-\item{.end_date}{The ending date for the filter sequence}
+\item{end_date}{The ending date for the filter sequence}
 }
 \description{
 The easiest way to filter time-based tibbles using shorthand timeseries notation.
@@ -22,17 +22,17 @@ See \code{\link[=between_time]{between_time()}} for the date and date-time vecto
 \details{
 \strong{Pure Time Series Filtering Flexibilty}
 
-The \code{.start_date}  and \code{.end_date} parameters are designed with flexibility in mind.
+The \code{start_date}  and \code{end_date} parameters are designed with flexibility in mind.
 
 Each side of the \code{time_formula} is specified as the character
 \code{'YYYY-MM-DD HH:MM:SS'}, but powerful shorthand is available.
 Some examples are:
 \itemize{
-\item \strong{Year:} \verb{.start_date = '2013', .end_date = '2015'}
-\item \strong{Month:} \verb{.start_date = '2013-01', .end_date = '2016-06'}
-\item \strong{Day:} \verb{.start_date = '2013-01-05', .end_date = '2016-06-04'}
-\item \strong{Second:} \verb{.start_date = '2013-01-05 10:22:15', .end_date = '2018-06-03 12:14:22'}
-\item \strong{Variations:} \verb{.start_date = '2013', .end_date = '2016-06'}
+\item \strong{Year:} \verb{start_date = '2013', end_date = '2015'}
+\item \strong{Month:} \verb{start_date = '2013-01', end_date = '2016-06'}
+\item \strong{Day:} \verb{start_date = '2013-01-05', end_date = '2016-06-04'}
+\item \strong{Second:} \verb{start_date = '2013-01-05 10:22:15', end_date = '2018-06-03 12:14:22'}
+\item \strong{Variations:} \verb{start_date = '2013', end_date = '2016-06'}
 }
 
 \strong{Key Words: "start" and "end"}
@@ -40,23 +40,23 @@ Some examples are:
 Use the keywords "start" and "end" as shorthand, instead of specifying the
 actual start and end values. Here are some examples:
 \itemize{
-\item \strong{Start of the series to end of 2015:} \verb{.start_date = 'start', .end_date = '2015'}
-\item \strong{Start of 2014 to end of series:} \verb{.start_date = '2014', .end_date = 'end'}
+\item \strong{Start of the series to end of 2015:} \verb{start_date = 'start', end_date = '2015'}
+\item \strong{Start of 2014 to end of series:} \verb{start_date = '2014', end_date = 'end'}
 }
 
 \strong{Internal Calculations}
 
 All shorthand dates are expanded:
 \itemize{
-\item The \code{.start_date} is expanded to be the \emph{first date} in that period
-\item The \code{.end_date} side is expanded to be the \emph{last date} in that period
+\item The \code{start_date} is expanded to be the \emph{first date} in that period
+\item The \code{end_date} side is expanded to be the \emph{last date} in that period
 }
 
 This means that the following examples are equivalent (assuming your
 index is a POSIXct):
 \itemize{
-\item \code{.start_date = '2015'} is equivalent to \code{.start_date = '2015-01-01 + 00:00:00' }
-\item \code{.end_date = '2016'} is equivalent to \verb{2016-12-31 + 23:59:59'}
+\item \code{start_date = '2015'} is equivalent to \code{start_date = '2015-01-01 + 00:00:00' }
+\item \code{end_date = '2016'} is equivalent to \verb{2016-12-31 + 23:59:59'}
 }
 }
 \examples{

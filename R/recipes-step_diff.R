@@ -146,11 +146,11 @@ bake.step_diff <- function(object, new_data, ...) {
     make_call <- function(col, lag_val, diff_val) {
         rlang::call2(
             "diff_vec",
-            .x          = rlang::sym(col),
-            .lag        = lag_val,
-            .difference = diff_val,
-            .log        = object$log,
-            .ns         = "timetk"
+            x          = rlang::sym(col),
+            lag        = lag_val,
+            difference = diff_val,
+            log        = object$log,
+            .ns        = "timetk"
         )
     }
 

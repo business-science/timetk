@@ -23,14 +23,14 @@ This is effectively the "window size".}
 \itemize{
 \item If a \strong{function}, e.g. \code{mean}, the function is used with any
 additional arguments, \code{...}.
-\item If a \strong{formula}, e.g. \code{~ mean(.x, na.rm = TRUE)}, it is converted to a function.
+\item If a \strong{formula}, e.g. \code{~ mean(., na.rm = TRUE)}, it is converted to a function.
 }
 
 This syntax allows you to create very compact anonymous functions.}
 
 \item{...}{Additional arguments passed on to the \code{.f} function.}
 
-\item{.align}{One of "center", "left" or "right.}
+\item{.align}{One of "center", "left" or "right".}
 
 \item{.partial}{Should the moving window be allowed to return partial (incomplete) windows instead of \code{NA} values.
 Set to FALSE by default, but can be switched to TRUE to remove \code{NA}'s.}
@@ -43,9 +43,11 @@ A numeric vector
 }
 \details{
 The \code{roll_apply_vec()} function is a wrapper for \code{slider::slide_vec()} with parameters
-made consistent with \code{smooth_vec()} and simplified "center", "left", "right" alignment.
+simplified "center", "left", "right" alignment.
 
-\strong{Vector Length In == Vector Length Out} \code{NA} values or \code{.partial} values
+\strong{Vector Length In == Vector Length Out}
+
+\code{NA} values or \code{.partial} values
 are always returned to ensure the length of the return vector
 is the same length of the incoming vector. This ensures easier use with \code{dplyr::mutate()}.
 
@@ -126,7 +128,7 @@ FB_tbl \%>\%
 
 FB_tbl \%>\%
     mutate(
-        adjusted_loess_30 = smooth_vec(adjusted, .period = 30, .degree = 0),
+        adjusted_loess_30 = smooth_vec(adjusted, period = 30, degree = 0),
         adjusted_ma_30    = roll_apply_vec(adjusted, .period = 30,
                                            .f = AVERAGE, .partial = TRUE)
     ) \%>\%
@@ -147,6 +149,7 @@ FB_tbl \%>\%
 \seealso{
 Vectorized Transformation Functions:
 \itemize{
+\item Box Cox Transformation: \code{\link[=box_cox_vec]{box_cox_vec()}}
 \item Lag Transformation: \code{\link[=lag_vec]{lag_vec()}}
 \item Differencing Transformation: \code{\link[=diff_vec]{diff_vec()}}
 \item Rolling Window Transformation: \code{\link[=roll_apply_vec]{roll_apply_vec()}}
@@ -156,7 +159,7 @@ Vectorized Transformation Functions:
 More Complex Rolling Operations:
 \itemize{
 \item \code{\link[=slidify]{slidify()}} - Turn any function into a rolling function. Great for
-rolling cor, rolling mean, etc.
+rolling cor, rolling mean, rolling regression, etc.
 \item For more complex rolling operations, check out the \code{slider} R package.
 }
 }

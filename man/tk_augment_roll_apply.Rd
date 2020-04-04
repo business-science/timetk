@@ -6,7 +6,7 @@
 \usage{
 tk_augment_roll_apply(
   .data,
-  .column,
+  .value,
   .period,
   .f,
   ...,
@@ -18,7 +18,7 @@ tk_augment_roll_apply(
 \arguments{
 \item{.data}{A tibble.}
 
-\item{.column}{A column to have a rolling window transformation applied}
+\item{.value}{A numeric column to have a rolling window transformation applied}
 
 \item{.period}{One or more periods for the rolling window(s)}
 
@@ -55,7 +55,7 @@ FANG \%>\%
     select(symbol, date, adjusted) \%>\%
     group_by(symbol) \%>\%
     tk_augment_roll_apply(
-        .column  = adjusted,
+        .value  = adjusted,
         # Multiple rolling windows
         .period  = c(10, 30, 60, 90),
         .f       = AVERAGE,

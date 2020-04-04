@@ -10,12 +10,12 @@
 #'   - If a __function__, e.g. `mean`, the function is used with any
 #'    additional arguments, `...`.
 #'
-#'   - If a __formula__, e.g. `~ mean(.x, na.rm = TRUE)`, it is converted to a function.
+#'   - If a __formula__, e.g. `~ mean(., na.rm = TRUE)`, it is converted to a function.
 #'
 #'   This syntax allows you to create very compact anonymous functions.
 #'
 #' @param ... Additional arguments passed on to the `.f` function.
-#' @param .align One of "center", "left" or "right.
+#' @param .align One of "center", "left" or "right".
 #' @param .partial Should the moving window be allowed to return partial (incomplete) windows instead of `NA` values.
 #'  Set to FALSE by default, but can be switched to TRUE to remove `NA`'s.
 #'
@@ -23,9 +23,11 @@
 #'
 #' @details
 #' The `roll_apply_vec()` function is a wrapper for `slider::slide_vec()` with parameters
-#' made consistent with `smooth_vec()` and simplified "center", "left", "right" alignment.
+#' simplified "center", "left", "right" alignment.
 #'
-#' __Vector Length In == Vector Length Out__ `NA` values or `.partial` values
+#' __Vector Length In == Vector Length Out__
+#'
+#' `NA` values or `.partial` values
 #' are always returned to ensure the length of the return vector
 #' is the same length of the incoming vector. This ensures easier use with `dplyr::mutate()`.
 #'
@@ -55,6 +57,7 @@
 #'
 #' Vectorized Transformation Functions:
 #'
+#'   - Box Cox Transformation: [box_cox_vec()]
 #'   - Lag Transformation: [lag_vec()]
 #'   - Differencing Transformation: [diff_vec()]
 #'   - Rolling Window Transformation: [roll_apply_vec()]
@@ -63,7 +66,7 @@
 #' More Complex Rolling Operations:
 #'
 #'   - [slidify()] - Turn any function into a rolling function. Great for
-#'     rolling cor, rolling mean, etc.
+#'     rolling cor, rolling mean, rolling regression, etc.
 #'   - For more complex rolling operations, check out the `slider` R package.
 #'
 #' @references
@@ -123,7 +126,7 @@
 #'
 #' FB_tbl %>%
 #'     mutate(
-#'         adjusted_loess_30 = smooth_vec(adjusted, .period = 30, .degree = 0),
+#'         adjusted_loess_30 = smooth_vec(adjusted, period = 30, degree = 0),
 #'         adjusted_ma_30    = roll_apply_vec(adjusted, .period = 30,
 #'                                            .f = AVERAGE, .partial = TRUE)
 #'     ) %>%
@@ -149,6 +152,8 @@ roll_apply_vec <- function(.x, .period, .f, ..., .align = c("center", "left", "r
     )
 
 }
+
+# UTILS -----
 
 roll_to_slide <- function(.slider_fun, ..., .period = 1, .align = c("center", "left", "right"), .partial = FALSE) {
 

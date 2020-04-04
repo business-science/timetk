@@ -3,15 +3,15 @@
 #' `smooth_vec()` applies a LOESS transformation to a numeric vector.
 #'
 #'
-#' @param .x A numeric vector to have a smoothing transformation applied.
-#' @param .period The number of periods to include in the local smoothing.
+#' @param x A numeric vector to have a smoothing transformation applied.
+#' @param period The number of periods to include in the local smoothing.
 #'  Similar to window size for a moving average.
-#'  See details for an explanation `.period` vs `.span` specification.
-#' @param .span The span is a percentage of data to be included
+#'  See details for an explanation `period` vs `span` specification.
+#' @param span The span is a percentage of data to be included
 #'  in the smoothing window. Period is preferred for shorter windows
 #'  to fix the window size.
-#'  See details for an explanation `.period` vs `.span` specification.
-#' @param .degree The degree of the polynomials to be used.
+#'  See details for an explanation `period` vs `span` specification.
+#' @param degree The degree of the polynomials to be used.
 #'  Accetable values (least to most flexible): 0, 1, 2.
 #'  Set to 2 by default for 2nd order polynomial (most flexible).
 #'
@@ -21,29 +21,36 @@
 #'
 #' __Benefits:__
 #'
-#' - When using `.period`, the effect is
+#' - When using `period`, the effect is
 #'  __similar to a moving average without creating missing values.__
-#' - When using `.span`, the effect is to detect the trend in a series
+#' - When using `span`, the effect is to detect the trend in a series
 #'  __using a percentage of the total number of observations.__
 #'
 #' __Loess Smoother Algorithm__
 #' This function is a simplified wrapper for the `stats::loess()`
-#' with a modification to set a fixed `.period` rather than a percentage of
-#' data points via a `.span`.
+#' with a modification to set a fixed `period` rather than a percentage of
+#' data points via a `span`.
 #'
 #' __Why Period vs Span?__
-#' The `.period` is fixed whereas the `.span` changes as the number of observations change.
+#' The `period` is fixed whereas the `span` changes as the number of observations change.
 #'
 #' __When to use Period?__
-#' The effect of using a `.period` is similar to a Moving Average where the Window Size
+#' The effect of using a `period` is similar to a Moving Average where the Window Size
 #' is the ___Fixed Period___. This helps when you are trying to smooth local trends.
-#' If you want a 30-day moving average, specify `.period = 30`.
+#' If you want a 30-day moving average, specify `period = 30`.
 #'
 #'  __When to use Span?__
 #'  Span is easier to specify when you want a ___Long-Term Trendline___ where the
-#'  window size is unknown. You can specify `.span = 0.75` to locally regress
+#'  window size is unknown. You can specify `span = 0.75` to locally regress
 #'  using a window of 75% of the data.
 #'
+#' @seealso
+#'
+#'   - Box Cox Transformation: [box_cox_vec()]
+#'   - Lag Transformation: [lag_vec()]
+#'   - Differencing Transformation: [diff_vec()]
+#'   - Rolling Window Transformation: [roll_apply_vec()]
+#'   - Loess Smoothing Transformation: [smooth_vec()]
 #'
 #' @examples
 #' library(tidyverse)
@@ -58,7 +65,7 @@
 #' # ---- PERIOD ----
 #'
 #' FB_tbl %>%
-#'     mutate(adjusted_30 = smooth_vec(adjusted, .period = 30, .degree = 2)) %>%
+#'     mutate(adjusted_30 = smooth_vec(adjusted, period = 30, degree = 2)) %>%
 #'     ggplot(aes(date, adjusted)) +
 #'     geom_line() +
 #'     geom_line(aes(y = adjusted_30), color = "red")
@@ -66,17 +73,17 @@
 #' # ---- SPAN ----
 #'
 #' FB_tbl %>%
-#'     mutate(adjusted_30 = smooth_vec(adjusted, .span = 0.75, .degree = 2)) %>%
+#'     mutate(adjusted_30 = smooth_vec(adjusted, span = 0.75, degree = 2)) %>%
 #'     ggplot(aes(date, adjusted)) +
 #'     geom_line() +
 #'     geom_line(aes(y = adjusted_30), color = "red")
 #'
 #' # ---- Loess vs Moving Average ----
-#' # - Loess: Using `.degree = 0` to make less flexible. Comperable to a moving average.
+#' # - Loess: Using `degree = 0` to make less flexible. Comperable to a moving average.
 #'
 #' FB_tbl %>%
 #'     mutate(
-#'         adjusted_loess_30 = smooth_vec(adjusted, .period = 30, .degree = 0),
+#'         adjusted_loess_30 = smooth_vec(adjusted, period = 30, degree = 0),
 #'         adjusted_ma_30    = roll_apply_vec(adjusted, .period = 30,
 #'                                            .f = AVERAGE, .partial = TRUE)
 #'     ) %>%
@@ -94,35 +101,35 @@
 #'
 #'
 #' @export
-smooth_vec <- function(.x, .period = 30, .span = NULL, .degree = 2) {
-    UseMethod("smooth_vec", .x)
+smooth_vec <- function(x, period = 30, span = NULL, degree = 2) {
+    UseMethod("smooth_vec", x)
 }
 
 #' @export
-smooth_vec.default <- function(.x, .period = 30, .span = NULL, .degree = 2) {
-    stop(paste0("smooth_vec: No method for class ", class(.x)[[1]], "."), call. = FALSE)
+smooth_vec.default <- function(x, period = 30, span = NULL, degree = 2) {
+    stop(paste0("smooth_vec: No method for class ", class(x)[[1]], "."), call. = FALSE)
 }
 
 #' @export
-smooth_vec.double <- function(.x, .period = 30, .span = NULL, .degree = 2) {
-    loess_smooth(.x, .period, .span, .degree)
+smooth_vec.double <- function(x, period = 30, span = NULL, degree = 2) {
+    loess_smooth(x, period, span, degree)
 }
 
 #' @export
-smooth_vec.integer <- function(.x, .period = 30, .span = NULL, .degree = 2) {
-    loess_smooth(.x, .period, .span, .degree)
+smooth_vec.integer <- function(x, period = 30, span = NULL, degree = 2) {
+    loess_smooth(x, period, span, degree)
 }
 
-loess_smooth <- function(.x, .period, .span, .degree) {
+loess_smooth <- function(x, period, span, degree) {
 
     # Span Calc
-    if (is.null(.span)) {
-        .span <- .period / length(.x)
+    if (is.null(span)) {
+        span <- period / length(x)
     }
 
     # Model
-    model_loess <- stats::loess(.x ~ seq_along(.x), span = .span, degree = .degree)
+    model_loess <- stats::loess(x ~ seq_along(x), span = span, degree = degree)
 
     # Predict
-    stats::predict(model_loess, 1:length(.x))
+    stats::predict(model_loess, 1:length(x))
 }

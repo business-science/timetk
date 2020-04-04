@@ -263,12 +263,12 @@ bake.step_smooth <- function(object, new_data, ...) {
     if (!is.null(object$names)) {
         # New columns provided
         for (i in seq_along(object$names)) {
-            new_data[,object$names[i]] <- new_data %>% dplyr::pull(col_names[i]) %>% smooth_vec(.span = span, .degree = degree)
+            new_data[,object$names[i]] <- new_data %>% dplyr::pull(col_names[i]) %>% smooth_vec(span = span, degree = degree)
         }
     } else {
         # No new columns - overwrite existing
         for (i in seq_along(col_names)) {
-            new_data[,col_names[i]] <- new_data %>% dplyr::pull(col_names[i]) %>% smooth_vec(.span = span, .degree = degree)
+            new_data[,col_names[i]] <- new_data %>% dplyr::pull(col_names[i]) %>% smooth_vec(span = span, degree = degree)
         }
     }
 

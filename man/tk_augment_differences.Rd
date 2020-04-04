@@ -6,7 +6,7 @@
 \usage{
 tk_augment_differences(
   .data,
-  .column,
+  .value,
   .lags = 1,
   .difference = 1,
   .log = FALSE,
@@ -16,7 +16,7 @@ tk_augment_differences(
 \arguments{
 \item{.data}{A tibble.}
 
-\item{.column}{A column to have a difference transformation applied}
+\item{.value}{A column to have a difference transformation applied}
 
 \item{.lags}{One or more lags for the difference(s)}
 
