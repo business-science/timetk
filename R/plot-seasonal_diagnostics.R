@@ -104,7 +104,7 @@ plot_seasonal_diagnostics <- function(.data, .date_var, .value, ...,
     # Checks
     value_expr <- rlang::enquo(.value)
 
-    if (rlang::quo_is_missing(value_expr)) stop(call. = FALSE, "tk_acf_diagnostics(.value), Please provide a .value.")
+    if (rlang::quo_is_missing(value_expr)) stop(call. = FALSE, "plog_seasonal_diagnostics(.value), Please provide a .value.")
     if (!is.data.frame(.data)) {
         stop(call. = FALSE, "plot_diagnostics(.data) is not a data-frame or tibble. Please supply a data.frame or tibble.")
     }
