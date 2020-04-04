@@ -32,15 +32,16 @@ __TODO:__
     - [Rsample PR #136](https://github.com/tidymodels/rsample/pull/136)
     - Rewrite - for Backtesting: `initial_time_split_2()`, `rolling_origin_2()`
 - Box Cox functionality
-    - `box_cox_vec`
-    - `box_cox_inv_vec`
-    - `guerrero`
+    - (DONE) `box_cox_vec`
+    - (DONE) `box_cox_inv_vec`
+    - (DONE) `auto_lambda`
     - `step_box_cox`
 - Dplyr Transition 
     - (DONE) `tidyquant::summarise_by_time`
     - (DONE) `tibbletime::filter_by_time`
     - (DONE) `between_time()`
     - `tibbletime::as_period` - Can use `summarise_by_time()` for this. 
+    - (DONE) `slidify` - `tibbletime::rollify`
 - Holidays 
     - (DONE) `tk_make_holiday_sequence()`
     - (DONE) `tk_get_holiday_signature()`, `tk_augment_holiday_signature()`

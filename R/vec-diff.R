@@ -177,7 +177,6 @@ diff_inv_calc <- function(.x, .lag, .difference, .log, .initial_values = NULL) {
             stop(call. = FALSE, "diff_inv_vec(.log = TRUE): Log-Difference inversion for multiple differences is not yet implemented.")
         }
 
-
         if (is.null(.initial_values)) {
             .initial_values <- rep(1, na_len)
         }

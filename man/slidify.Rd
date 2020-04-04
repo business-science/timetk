@@ -114,13 +114,14 @@ FB \%>\%
 mean_roll_10 <- slidify(mean, .period = 10, .align = "right")
 
 FB \%>\%
+    select(symbol, date, adjusted) \%>\%
     mutate(
         rolling_mean_5  = mean_roll_5(adjusted),
         rolling_mean_10 = mean_roll_10(adjusted)
     )
 
-# For summary operations like rolling means, we can accomplish the multi-roll with
-# tk_augment_roll_apply()
+# For summary operations like rolling means, we can accomplish large-scale
+# multi-rolls with tk_augment_roll_apply()
 
 FB \%>\%
     select(symbol, date, adjusted) \%>\%
