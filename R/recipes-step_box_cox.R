@@ -207,8 +207,10 @@ print.step_box_cox <-
 #' @export
 tidy.step_box_cox <- function(x, ...) {
     if (is_trained(x)) {
-        res <- tibble(terms  = names(x$lambdas),
-                      lambda = as.numeric(x$lambdas))
+        res <- tibble::tibble(
+            terms  = names(x$lambdas),
+            lambda = as.numeric(x$lambdas)
+        )
     } else {
         term_names <- recipes::sel2char(x$terms)
         res <- tibble::tibble(
