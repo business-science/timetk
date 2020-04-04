@@ -226,12 +226,15 @@ predict_future_timeseries_daily <- function(idx, n_future, inspect_weekdays, ins
     end   <- max(idx)
 
     # Format data frame
-    train <- tibble::tibble(
-        index = idx,
-        y     = rep(1, length(idx))) %>%
-        padr::pad(start_val = start, end_val = end) %>%
-        padr::fill_by_value(y, value = 0) %>%
-        tk_augment_timeseries_signature()
+    suppressMessages({
+        train <- tibble::tibble(
+            index = idx,
+            y     = rep(1, length(idx))) %>%
+            padr::pad(start_val = start, end_val = end) %>%
+            padr::fill_by_value(y, value = 0) %>%
+            tk_augment_timeseries_signature(.date_var = index)
+    })
+
 
     # fit model based on components
     f <- make_daily_prediction_formula(train, inspect_weekdays, inspect_months)
