@@ -180,11 +180,12 @@ print.step_diff <-
 tidy.step_diff <- function(x, ...) {
 
     res <- expand.grid(
-        col      = x$columns,
+        terms    = x$columns,
         lag      = x$lag,
         diff     = x$difference,
         log      = x$log,
         stringsAsFactors = FALSE)
     res$id <- x$id
+    res$terms <- paste0("diff_", res$terms, "_", res$lag, "_", res$diff)
     tibble::as_tibble(res)
 }
