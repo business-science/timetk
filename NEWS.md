@@ -23,7 +23,7 @@ __TODO:__
 - Differencing functionality
     - (DONE) `diff_vec`
     - (DONE) `diff_inv_vec`
-    - `step_differences`
+    - (DONE) `step_diff`
 - Lag functionality
     - (DONE) `lag_vec()`
     - (DONE) `tk_augment_lags()`
@@ -87,6 +87,7 @@ __New Recipe Functions:__
 * `step_fourier_series()` - New recipe step for adding fourier transforms for adding seasonal features to time series data
 * `step_roll_apply()` - New recipe step for adding rolling summary functions
 * `step_smooth()` - New recipe step for adding Local Polynomial Regression (LOESS) for smoothing noisy time series
+* `step_diff()` - New recipe for adding multiple differenced 
 
 __New Rsample Functions__
 

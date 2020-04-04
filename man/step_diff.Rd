@@ -81,13 +81,21 @@ FANG_wide <- FANG \%>\%
     select(symbol, date, adjusted) \%>\%
     pivot_wider(names_from = symbol, values_from = adjusted)
 
+
+# Make and apply recipe ----
+
 recipe_diff <- recipe(~ ., data = FANG_wide) \%>\%
   step_diff(FB, AMZN, NFLX, GOOG, lag = 1:3, difference = 1) \%>\%
   prep()
 
 recipe_diff \%>\% bake(FANG_wide)
 
+
+# Get information with tidy ----
+
 recipe_diff \%>\% tidy()
+
+recipe_diff \%>\% tidy(1)
 
 }
 \seealso{

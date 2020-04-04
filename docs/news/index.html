@@ -187,15 +187,16 @@ __TODO:__
     - [Rsample PR <a href='https://github.com/business-science/timetk/issues/136'>#136</a>](https://github.com/tidymodels/rsample/pull/136)
     - Rewrite - for Backtesting: `initial_time_split_2()`, `rolling_origin_2()`
 - Box Cox functionality
-    - `box_cox_vec`
-    - `box_cox_inv_vec`
-    - `guerrero`
+    - (DONE) `box_cox_vec`
+    - (DONE) `box_cox_inv_vec`
+    - (DONE) `auto_lambda`
     - `step_box_cox`
 - Dplyr Transition 
     - (DONE) `tidyquant::summarise_by_time`
     - (DONE) `tibbletime::filter_by_time`
     - (DONE) `between_time()`
     - `tibbletime::as_period` - Can use `summarise_by_time()` for this. 
+    - (DONE) `slidify` - `tibbletime::rollify`
 - Holidays 
     - (DONE) `tk_make_holiday_sequence()`
     - (DONE) `tk_get_holiday_signature()`, `tk_augment_holiday_signature()`
@@ -238,6 +239,8 @@ __TODO:__
 <code><a href="../reference/filter_by_time.html">filter_by_time()</a></code> - A time-based variant of <code><a href="https://dplyr.tidyverse.org/reference/filter.html">dplyr::filter()</a></code> for flexible filtering by time-ranges.</li>
 <li>
 <code><a href="../reference/between_time.html">between_time()</a></code> - A time-based variant of <code><a href="https://dplyr.tidyverse.org/reference/between.html">dplyr::between()</a></code> for flexible time-range detection.</li>
+<li>
+<code><a href="../reference/slidify.html">slidify()</a></code> - Make any function a rolling / sliding function.</li>
 </ul>
 <p><strong>New Recipe Functions:</strong></p>
 <ul>
