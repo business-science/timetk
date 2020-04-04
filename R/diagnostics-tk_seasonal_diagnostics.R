@@ -124,7 +124,7 @@ tk_seasonal_diagnostics.data.frame <- function(.data, .date_var, .value, .featur
 
     # Return the seasonal features
     data_formatted <- data_formatted %>%
-        tk_augment_timeseries_signature() %>%
+        tk_augment_timeseries_signature(.date_var = !! date_var_expr) %>%
         dplyr::select(!! date_var_expr, .value_mod, .feature_set) %>%
         dplyr::mutate_at(.vars = dplyr::vars(-(!! date_var_expr), -.value_mod), factor, ordered = FALSE) %>%
         dplyr::rename(.value = .value_mod)
