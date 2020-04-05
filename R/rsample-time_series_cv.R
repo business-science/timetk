@@ -77,10 +77,14 @@
 #'     initial = 150, assess = 50, skip = 50,
 #'     cumulative = FALSE,
 #'     lag = 30,
-#'     slice_limit = n())
+#'     slice_limit = 6)
 #'
 #' resample_spec %>%
-#'     plot_time_series_cv_plan(date, adjusted,)
+#'     plot_time_series_cv_plan(
+#'         date, adjusted,
+#'         .facet_ncol = 2,
+#'         .interactive = FALSE
+#'     )
 #'
 #' @export
 #' @importFrom dplyr n

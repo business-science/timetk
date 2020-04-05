@@ -62,7 +62,8 @@ resample_spec \%>\%
     plot_time_series_cv_plan(
         date, adjusted, # date variable and value variable
         # Additional arguments passed to plot_time_series()
-        .line_alpha = 0.5
+        .line_alpha = 0.5,
+        .interactive = FALSE
     )
 
 }

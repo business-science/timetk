@@ -158,6 +158,16 @@
 <!--
 __TODO:__
 
+MAJOR ITEMS:
+1. recipes steps - Split transformations from predictor creators
+2. rsample - backwards rolling origin
+3. tests
+4. vignettes
+
+SMALLER ITEMS:
+1. tk_augment_diffs: Change name, update for multi-diffs
+2. weather signature
+
 - Plot Diagnostics
     - (DONE) Plot Time Series
     - (DONE) Plot Lag (ACF, PACF, & CCF) Diagnostics
@@ -165,6 +175,7 @@ __TODO:__
     - Missing Data Diagnostics
 - Fourier series
     - (DONE) `step_fourier_series()`
+    - `fourier_vec()`
     - `tk_get_fourier_series()` (is this needed?)
     - `tk_augment_fourier_series()` (is this needed?)
 - (DONE) Rolling functionality 
@@ -230,6 +241,8 @@ __TODO:__
 <code><a href="../reference/plot_acf_diagnostics.html">plot_acf_diagnostics()</a></code> - Visualize the ACF, PACF, and any number of CCFs in one plot for Multiple Time Series. Interactive <code>plotly</code> by default.</li>
 <li>
 <code><a href="../reference/plot_seasonal_diagnostics.html">plot_seasonal_diagnostics()</a></code> - Visualize Multiple Seasonality Features for One or More Time Series. Interactive <code>plotly</code> by default.</li>
+<li>
+<code><a href="../reference/plot_time_series_cv_plan.html">plot_time_series_cv_plan()</a></code> - Visualize the Time Series Cross Validation plan made with <code><a href="../reference/time_series_cv.html">time_series_cv()</a></code>.</li>
 </ul>
 <p><strong>New Time Series Data Wrangling</strong>:</p>
 <ul>
@@ -262,7 +275,34 @@ __TODO:__
 <p><strong>New Rsample Functions</strong></p>
 <ul>
 <li>
-<code><a href="../reference/initial_time_split_2.html">initial_time_split_2()</a></code> and <code><a href="../reference/rolling_origin_2.html">rolling_origin_2()</a></code> - Added parameter <code>overlap</code> to accomodate lagged predictors.</li>
+<code><a href="../reference/time_series_cv.html">time_series_cv()</a></code> - Create <code>rsample</code> cross validation sets for time series. This function produces a sampling plan starting with the most recent time series observations, rolling backwards.</li>
+</ul>
+<p><strong>New Vector Functions:</strong></p>
+<p>These functions are useful on their own inside of <code>mutate()</code> and power many of the new plotting and recipes functions.</p>
+<ul>
+<li>
+<code><a href="../reference/roll_apply_vec.html">roll_apply_vec()</a></code> - Vectorized rolling apply function - wraps <code><a href="https://rdrr.io/pkg/slider/man/slide.html">slider::slide_vec()</a></code>
+</li>
+<li>
+<code><a href="../reference/smooth_vec.html">smooth_vec()</a></code> - Vectorized smoothing function - Applies Local Polynomial Regression (LOESS)</li>
+<li>
+<code><a href="../reference/diff_vec.html">diff_vec()</a></code> and <code><a href="../reference/diff_vec.html">diff_inv_vec()</a></code> - Vectorized differencing function. Pads <code>NA</code>’s by default (unlike <code>stats::diff</code>).</li>
+<li>
+<code><a href="../reference/lag_vec.html">lag_vec()</a></code> - Vectorized lag functions. Returns both lags and leads (negative lags) by adjusting the <code>.lag</code> argument.</li>
+<li>
+<code><a href="../reference/box_cox_vec.html">box_cox_vec()</a></code>, <code><a href="../reference/box_cox_vec.html">box_cox_inv_vec()</a></code>, &amp; <code><a href="../reference/box_cox_vec.html">auto_lambda()</a></code> - Vectorized Box Cox transformation. Leverages <code><a href="https://rdrr.io/pkg/forecast/man/BoxCox.lambda.html">forecast::BoxCox.lambda()</a></code> for automatic lambda selection.</li>
+</ul>
+<p><strong>New Augment Functions</strong>:</p>
+<p>All of the functions are designed for scale. They respect <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">dplyr::group_by()</a></code>.</p>
+<ul>
+<li>
+<code><a href="../reference/tk_augment_holiday.html">tk_augment_holiday_signature()</a></code> - Add holiday features to a <code>data.frame</code> using only a time-series index.</li>
+<li>
+<code><a href="../reference/tk_augment_roll_apply.html">tk_augment_roll_apply()</a></code> - Add multiple columns of rolling window calculations to a <code>data.frame</code>.</li>
+<li>
+<code><a href="../reference/tk_augment_differences.html">tk_augment_differences()</a></code> - Add multiple columns of differences to a <code>data.frame</code>.</li>
+<li>
+<code><a href="../reference/tk_augment_lags.html">tk_augment_lags()</a></code> - Add multiple columns of lags to a <code>data.frame</code>.</li>
 </ul>
 <p><strong>New Make Functions</strong>:</p>
 <p>Make date and date-time sequences between start and end dates.</p>
@@ -282,32 +322,17 @@ __TODO:__
 <li>
 <code><a href="../reference/tk_get_holiday.html">tk_get_holiday_signature()</a></code> - Get 100+ holiday features using only a time-series index.</li>
 </ul>
-<p><strong>New Augment Functions</strong>:</p>
-<p>All of the functions are designed for scale. They respect <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">dplyr::group_by()</a></code>.</p>
+<p><strong>New Diagnostic / Data Processing Functions</strong></p>
 <ul>
 <li>
-<code><a href="../reference/tk_augment_holiday.html">tk_augment_holiday_signature()</a></code> - Add holiday features to a <code>data.frame</code> using only a time-series index.</li>
-<li>
-<code><a href="../reference/tk_augment_roll_apply.html">tk_augment_roll_apply()</a></code> - Add multiple columns of rolling window calculations to a <code>data.frame</code>.</li>
-<li>
-<code><a href="../reference/tk_augment_differences.html">tk_augment_differences()</a></code> - Add multiple columns of differences to a <code>data.frame</code>.</li>
-<li>
-<code><a href="../reference/tk_augment_lags.html">tk_augment_lags()</a></code> - Add multiple columns of lags to a <code>data.frame</code>.</li>
-</ul>
-<p><strong>New Vector Functions:</strong></p>
-<p>These functions are useful on their own inside of <code>mutate()</code> and power many of the new plotting and recipes functions.</p>
-<ul>
-<li>
-<code><a href="../reference/roll_apply_vec.html">roll_apply_vec()</a></code> - Vectorized rolling apply function - wraps <code><a href="https://rdrr.io/pkg/slider/man/slide.html">slider::slide_vec()</a></code>
+<code>tk_acf_diagnostics</code> - The data preparation function for <code><a href="../reference/plot_acf_diagnostics.html">plot_acf_diagnostics()</a></code>
 </li>
 <li>
-<code><a href="../reference/smooth_vec.html">smooth_vec()</a></code> - Vectorized smoothing function - Applies Local Polynomial Regression (LOESS)</li>
+<code>tk_seasonal_diagnostics</code> - The data preparation function for <code><a href="../reference/plot_seasonal_diagnostics.html">plot_seasonal_diagnostics()</a></code>
+</li>
 <li>
-<code><a href="../reference/diff_vec.html">diff_vec()</a></code> and <code><a href="../reference/diff_vec.html">diff_inv_vec()</a></code> - Vectorized differencing function. Pads <code>NA</code>’s by default (unlike <code>stats::diff</code>).</li>
-<li>
-<code><a href="../reference/lag_vec.html">lag_vec()</a></code> - Vectorized lag functions. Returns both lags and leads (negative lags) by adjusting the <code>.lag</code> argument.</li>
-<li>
-<code><a href="../reference/box_cox_vec.html">box_cox_vec()</a></code>, <code><a href="../reference/box_cox_vec.html">box_cox_inv_vec()</a></code>, &amp; <code><a href="../reference/box_cox_vec.html">auto_lambda()</a></code> - Vectorized Box Cox transformation. Leverages <code><a href="https://rdrr.io/pkg/forecast/man/BoxCox.lambda.html">forecast::BoxCox.lambda()</a></code> for automatic lambda selection.</li>
+<code>tk_time_series_cv_plan</code> - The data preparation function for <code><a href="../reference/plot_time_series_cv_plan.html">plot_time_series_cv_plan()</a></code>
+</li>
 </ul>
 <p><strong>New Datasets</strong></p>
 <ul>

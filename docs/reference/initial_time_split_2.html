@@ -45,7 +45,7 @@
 <meta property="og:title" content="Simple Training/Test Set Splitting for Time Series — initial_time_split_2" />
 <meta property="og:description" content="initial_time_split_2() creates training and testing sets for Time Series
 Validation. This version differs from rsample::initial_time_split() in
-that it has an overlap parameter which is useful for prediction with
+that it has an lag parameter which is useful for prediction with
 lagged predictors." />
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -159,11 +159,11 @@ lagged predictors." />
     <div class="ref-description">
     <p><code>initial_time_split_2()</code> creates training and testing sets for Time Series
 Validation. This version differs from <code><a href='https://rdrr.io/pkg/rsample/man/initial_split.html'>rsample::initial_time_split()</a></code> in
-that it has an <code>overlap</code> parameter which is useful for prediction with
+that it has an <code>lag</code> parameter which is useful for prediction with
 lagged predictors.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>initial_time_split_2</span>(<span class='no'>data</span>, <span class='kw'>prop</span> <span class='kw'>=</span> <span class='fl'>3</span>/<span class='fl'>4</span>, <span class='kw'>overlap</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>initial_time_split_2</span>(<span class='no'>data</span>, <span class='kw'>prop</span> <span class='kw'>=</span> <span class='fl'>3</span>/<span class='fl'>4</span>, <span class='kw'>lag</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -177,8 +177,8 @@ lagged predictors.</p>
       <td><p>The proportion of data to be retained for modeling/analysis.</p></td>
     </tr>
     <tr>
-      <th>overlap</th>
-      <td><p>A value to include an overlap between the assessment
+      <th>lag</th>
+      <td><p>A value to include an lag between the assessment
 and analysis set. This is useful if lagged predictors will be used
 during training and testing.</p></td>
     </tr>
@@ -195,7 +195,7 @@ functions to extract the data in each split.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p><strong>Lagged Predictors</strong></p>
-<p><code>overlap</code> enables the test data to overlap with the training data, which
+<p><code>lag</code> enables the test data to lag with the training data, which
 is useful for predictions needing access to prior history such as when
 using lagged predictors.</p>
 
@@ -205,10 +205,9 @@ using lagged predictors.</p>
 #&gt; <span class='message'></span>
 #&gt; <span class='message'>    fixed</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:stats’:</span>
 #&gt; <span class='message'></span>
-#&gt; <span class='message'>    step</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>rsample</span>)</div><div class='output co'>#&gt; <span class='message'>Registered S3 methods overwritten by 'rsample':</span>
-#&gt; <span class='message'>  method               from  </span>
-#&gt; <span class='message'>  print.rolling_origin timetk</span>
-#&gt; <span class='message'>  print.rsplit         timetk</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>timetk</span>)
+#&gt; <span class='message'>    step</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>rsample</span>)</div><div class='output co'>#&gt; <span class='message'>Registered S3 method overwritten by 'rsample':</span>
+#&gt; <span class='message'>  method       from  </span>
+#&gt; <span class='message'>  print.rsplit timetk</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>timetk</span>)
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>tidyverse</span>)
 
 <span class='co'># 5-years of monthly data</span>
@@ -217,18 +216,18 @@ using lagged predictors.</p>
     <span class='fu'>rename</span>(<span class='kw'>sales</span> <span class='kw'>=</span> <span class='no'>S4248SM144NCEN</span>) <span class='kw'>%&gt;%</span>
     <span class='fu'>as_tibble</span>()
 
-<span class='co'># Time series split with 12 period overlap</span>
-<span class='no'>drinks_overlap_split</span> <span class='kw'>&lt;-</span> <span class='fu'>initial_time_split_2</span>(
+<span class='co'># Time series split with 12 period lag</span>
+<span class='no'>drinks_lag_split</span> <span class='kw'>&lt;-</span> <span class='fu'>initial_time_split_2</span>(
     <span class='no'>drinks_subset</span>,
     <span class='kw'>prop</span>    <span class='kw'>=</span> <span class='fl'>4</span> / <span class='fl'>5</span>,
-    <span class='kw'>overlap</span> <span class='kw'>=</span> <span class='fl'>12</span>
+    <span class='kw'>lag</span> <span class='kw'>=</span> <span class='fl'>12</span>
 )
 
 <span class='co'># Extract train and test sets</span>
-<span class='no'>train_data</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/rsample/man/initial_split.html'>training</a></span>(<span class='no'>drinks_overlap_split</span>)
-<span class='no'>test_data</span>  <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/rsample/man/initial_split.html'>testing</a></span>(<span class='no'>drinks_overlap_split</span>)
+<span class='no'>train_data</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/rsample/man/initial_split.html'>training</a></span>(<span class='no'>drinks_lag_split</span>)
+<span class='no'>test_data</span>  <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/rsample/man/initial_split.html'>testing</a></span>(<span class='no'>drinks_lag_split</span>)
 
-<span class='co'># Note 12 period overlap</span>
+<span class='co'># Note 12 period lag</span>
 <span class='no'>train_data</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>tail</a></span>(<span class='fl'>12</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 12 x 2</span><span>
 #&gt;    date       sales
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
@@ -258,12 +257,12 @@ using lagged predictors.</p>
 #&gt; </span><span style='color: #555555;'>10</span><span> 2016-07-01 </span><span style='text-decoration: underline;'>10</span><span>956
 #&gt; </span><span style='color: #555555;'># … with 14 more rows</span><span></div><div class='input'>
 <span class='co'># Make recipe</span>
-<span class='no'>rec_lag</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/recipe.html'>recipe</a></span>(<span class='no'>sales</span> ~ <span class='no'>.</span>, <span class='fu'><a href='https://rdrr.io/pkg/rsample/man/initial_split.html'>training</a></span>(<span class='no'>drinks_overlap_split</span>)) <span class='kw'>%&gt;%</span>
+<span class='no'>rec_lag</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/recipe.html'>recipe</a></span>(<span class='no'>sales</span> ~ <span class='no'>.</span>, <span class='fu'><a href='https://rdrr.io/pkg/rsample/man/initial_split.html'>training</a></span>(<span class='no'>drinks_lag_split</span>)) <span class='kw'>%&gt;%</span>
     <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/step_lag.html'>step_lag</a></span>(<span class='no'>sales</span>, <span class='kw'>lag</span> <span class='kw'>=</span> <span class='fl'>12</span>) <span class='kw'>%&gt;%</span>
     <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/step_naomit.html'>step_naomit</a></span>(<span class='fu'><a href='https://rdrr.io/pkg/recipes/man/has_role.html'>all_predictors</a></span>())
 
 <span class='co'># Apply recipe to test data - Correctly applies the lag</span>
-<span class='fu'><a href='https://rdrr.io/pkg/recipes/man/bake.html'>bake</a></span>(<span class='fu'><a href='https://rdrr.io/pkg/recipes/man/prep.html'>prep</a></span>(<span class='no'>rec_lag</span>), <span class='fu'><a href='https://rdrr.io/pkg/rsample/man/initial_split.html'>testing</a></span>(<span class='no'>drinks_overlap_split</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 12 x 3</span><span>
+<span class='fu'><a href='https://rdrr.io/pkg/recipes/man/bake.html'>bake</a></span>(<span class='fu'><a href='https://rdrr.io/pkg/recipes/man/prep.html'>prep</a></span>(<span class='no'>rec_lag</span>), <span class='fu'><a href='https://rdrr.io/pkg/rsample/man/initial_split.html'>testing</a></span>(<span class='no'>drinks_lag_split</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 12 x 3</span><span>
 #&gt;    date       sales lag_12_sales
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>        </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
 #&gt; </span><span style='color: #555555;'> 1</span><span> 2016-10-01 </span><span style='text-decoration: underline;'>11</span><span>914        </span><span style='text-decoration: underline;'>11</span><span>983

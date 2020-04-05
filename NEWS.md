@@ -84,6 +84,7 @@ __New Interactive Plotting Functions__:
 * `plot_time_series()` - __A workhorse time-series plotting function__ that generates interactive `plotly` plots, consolidates 20+ lines of `ggplot2` code, and scales well to many time series using dplyr groups. 
 * `plot_acf_diagnostics()` - Visualize the ACF, PACF, and any number of CCFs in one plot for Multiple Time Series. Interactive `plotly` by default. 
 * `plot_seasonal_diagnostics()` - Visualize Multiple Seasonality Features for One or More Time Series. Interactive `plotly` by default. 
+* `plot_time_series_cv_plan()` - Visualize the Time Series Cross Validation plan made with `time_series_cv()`.
 
 __New Time Series Data Wrangling__:
 
@@ -109,7 +110,27 @@ Transformations:
 
 __New Rsample Functions__
 
-* `initial_time_split_2()` and `rolling_origin_2()` - Added parameter `overlap` to accomodate lagged predictors.
+* `time_series_cv()` - Create `rsample` cross validation sets for time series. This function produces a sampling plan starting with the most recent time series observations, rolling backwards. 
+
+__New Vector Functions:__
+
+These functions are useful on their own inside of `mutate()` and power many of the new plotting and recipes functions.
+
+* `roll_apply_vec()` - Vectorized rolling apply function - wraps `slider::slide_vec()`
+* `smooth_vec()` - Vectorized smoothing function - Applies Local Polynomial Regression (LOESS)
+* `diff_vec()` and `diff_inv_vec()` - Vectorized differencing function. Pads `NA`'s by default (unlike `stats::diff`).
+* `lag_vec()` - Vectorized lag functions. Returns both lags and leads (negative lags) by adjusting the `.lag` argument. 
+* `box_cox_vec()`, `box_cox_inv_vec()`, & `auto_lambda()` - Vectorized Box Cox transformation. Leverages `forecast::BoxCox.lambda()` for automatic lambda selection. 
+
+__New Augment Functions__:
+
+All of the functions are designed for scale. They respect `dplyr::group_by()`.
+
+* `tk_augment_holiday_signature()` - Add holiday features to a `data.frame` using only a time-series index.
+* `tk_augment_roll_apply()` - Add multiple columns of rolling window calculations to a `data.frame`.
+* `tk_augment_differences()` - Add multiple columns of differences to a `data.frame`. 
+* `tk_augment_lags()` - Add multiple columns of lags to a `data.frame`. 
+
 
 __New Make Functions__:
 
@@ -124,24 +145,12 @@ __New Get Functions__:
 
 * `tk_get_holiday_signature()` - Get 100+ holiday features using only a time-series index.
 
-__New Augment Functions__:
 
-All of the functions are designed for scale. They respect `dplyr::group_by()`.
+__New Diagnostic / Data Processing Functions__
 
-* `tk_augment_holiday_signature()` - Add holiday features to a `data.frame` using only a time-series index.
-* `tk_augment_roll_apply()` - Add multiple columns of rolling window calculations to a `data.frame`.
-* `tk_augment_differences()` - Add multiple columns of differences to a `data.frame`. 
-* `tk_augment_lags()` - Add multiple columns of lags to a `data.frame`. 
-
-__New Vector Functions:__
-
-These functions are useful on their own inside of `mutate()` and power many of the new plotting and recipes functions.
-
-* `roll_apply_vec()` - Vectorized rolling apply function - wraps `slider::slide_vec()`
-* `smooth_vec()` - Vectorized smoothing function - Applies Local Polynomial Regression (LOESS)
-* `diff_vec()` and `diff_inv_vec()` - Vectorized differencing function. Pads `NA`'s by default (unlike `stats::diff`).
-* `lag_vec()` - Vectorized lag functions. Returns both lags and leads (negative lags) by adjusting the `.lag` argument. 
-* `box_cox_vec()`, `box_cox_inv_vec()`, & `auto_lambda()` - Vectorized Box Cox transformation. Leverages `forecast::BoxCox.lambda()` for automatic lambda selection. 
+* `tk_acf_diagnostics` - The data preparation function for `plot_acf_diagnostics()`
+* `tk_seasonal_diagnostics` - The data preparation function for `plot_seasonal_diagnostics()`
+* `tk_time_series_cv_plan` - The data preparation function for `plot_time_series_cv_plan()`
 
 __New Datasets__
 

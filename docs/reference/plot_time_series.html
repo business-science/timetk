@@ -164,12 +164,14 @@ consolidates 20+ lines of <code>ggplot2</code> code, and scales well to many tim
   <span class='no'>.date_var</span>,
   <span class='no'>.value</span>,
   <span class='no'>...</span>,
+  <span class='kw'>.color_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>.facet_ncol</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>.facet_scales</span> <span class='kw'>=</span> <span class='st'>"free_y"</span>,
   <span class='kw'>.facet_collapse</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>.facet_collapse_sep</span> <span class='kw'>=</span> <span class='st'>" "</span>,
   <span class='kw'>.line_color</span> <span class='kw'>=</span> <span class='st'>"#2c3e50"</span>,
   <span class='kw'>.line_size</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
+  <span class='kw'>.line_type</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>.line_alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>.y_intercept</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>.y_intercept_color</span> <span class='kw'>=</span> <span class='st'>"#2c3e50"</span>,
@@ -208,6 +210,11 @@ consolidates 20+ lines of <code>ggplot2</code> code, and scales well to many tim
 These can be selected using <code>tidyselect()</code> helpers (e.g <code>contains()</code>).</p></td>
     </tr>
     <tr>
+      <th>.color_var</th>
+      <td><p>A categorical column that can be used to change the
+line color</p></td>
+    </tr>
+    <tr>
       <th>.facet_ncol</th>
       <td><p>Number of facet columns.</p></td>
     </tr>
@@ -227,11 +234,15 @@ multiple facet strips.</p></td>
     </tr>
     <tr>
       <th>.line_color</th>
-      <td><p>Line color. Use keyword: "scale_color" to change the color by the facet.</p></td>
+      <td><p>Line color. Overrided if <code>.color_var</code> is specified.</p></td>
     </tr>
     <tr>
       <th>.line_size</th>
-      <td><p>Line size</p></td>
+      <td><p>Line size.</p></td>
+    </tr>
+    <tr>
+      <th>.line_type</th>
+      <td><p>Line type.</p></td>
     </tr>
     <tr>
       <th>.line_alpha</th>
@@ -345,10 +356,11 @@ will be applied.</p>
 <span class='no'>FANG</span> <span class='kw'>%&gt;%</span>
     <span class='fu'>mutate</span>(<span class='kw'>year</span> <span class='kw'>=</span> <span class='fu'><a href='http://lubridate.tidyverse.org/reference/year.html'>year</a></span>(<span class='no'>date</span>)) <span class='kw'>%&gt;%</span>
     <span class='fu'>plot_time_series</span>(<span class='no'>date</span>, <span class='no'>adjusted</span>,
-                     <span class='no'>symbol</span>, <span class='no'>year</span>, <span class='co'># add groups</span>
+                     <span class='no'>symbol</span>, <span class='no'>year</span>,         <span class='co'># add groups</span>
+                     <span class='kw'>.color_var</span>    <span class='kw'>=</span> <span class='no'>year</span>, <span class='co'># color by year</span>
                      <span class='kw'>.facet_ncol</span>   <span class='kw'>=</span> <span class='fl'>4</span>,
                      <span class='kw'>.facet_scales</span> <span class='kw'>=</span> <span class='st'>"free"</span>,
-                     <span class='kw'>.interactive</span>  <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='plot_time_series-3.png' alt='' width='700' height='433' /></div><div class='input'>
+                     <span class='kw'>.interactive</span>  <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='message'>plot_time_series(.color_var): variable, year, is not categorical. Converting to factor with forcats::as_factor().</span></div><div class='img'><img src='plot_time_series-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Can apply .value mutations</span>
 <span class='no'>FANG</span> <span class='kw'>%&gt;%</span>
     <span class='fu'>plot_time_series</span>(<span class='no'>date</span>, <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span>(<span class='no'>adjusted</span>), <span class='no'>symbol</span>,
@@ -362,9 +374,9 @@ will be applied.</p>
 <span class='co'># ggplot2 - static visualization (Great for PDF Reports)</span>
 <span class='no'>FANG</span> <span class='kw'>%&gt;%</span>
     <span class='fu'>plot_time_series</span>(
-         <span class='no'>date</span>, <span class='no'>adjusted</span>, <span class='no'>symbol</span>,
+        <span class='no'>date</span>, <span class='no'>adjusted</span>, <span class='no'>symbol</span>,
+        <span class='kw'>.color_var</span>     <span class='kw'>=</span> <span class='no'>symbol</span>,
         <span class='kw'>.facet_ncol</span>    <span class='kw'>=</span> <span class='fl'>2</span>,
-        <span class='kw'>.line_color</span>    <span class='kw'>=</span> <span class='st'>"scale_color"</span>,
         <span class='kw'>.smooth_period</span> <span class='kw'>=</span> <span class='fl'>180</span>,
         <span class='kw'>.interactive</span>   <span class='kw'>=</span> <span class='fl'>FALSE</span>) +
    <span class='fu'><a href='https://rdrr.io/pkg/tidyquant/man/theme_tq.html'>theme_tq_dark</a></span>() +

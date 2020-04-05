@@ -64,10 +64,9 @@ reference:
     - "step_holiday_signature"
     - contains("step_")
   - title: Rsample Operations (Cross Validation)
-    desc: __Resampling for time series validation using `rsamples`__
+    desc: __Resampling for time series cross validation using `rsamples`__
     contents:
-    - "initial_time_split_2"
-    - "rolling_origin_2"
+    - "time_series_cv"
   - title: Index Operations
     desc: __Extract and check the date or date-time index.__
     contents:
@@ -89,6 +88,7 @@ reference:
     contents:
     - "tk_acf_diagnostics"
     - "tk_seasonal_diagnostics"
+    - "tk_time_series_cv_plan"
   - title: Conversion Operations
     desc: __Functions for converting between common time series formats.__
     contents:
