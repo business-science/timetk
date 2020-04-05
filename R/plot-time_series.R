@@ -249,7 +249,8 @@ plot_time_series.data.frame <- function(.data, .date_var, .value, ..., .color_va
             ggplot2::geom_line(
                 color    = .line_color,
                 size     = .line_size,
-                linetype = .line_type
+                linetype = .line_type,
+                alpha    = .line_alpha
             )
 
     } else {
@@ -257,7 +258,9 @@ plot_time_series.data.frame <- function(.data, .date_var, .value, ..., .color_va
             ggplot2::geom_line(
                 ggplot2::aes(color = !! color_var_expr),
                 size     = .line_size,
-                linetype = .line_type) +
+                linetype = .line_type,
+                alpha    = .line_alpha
+            ) +
             scale_color_tq()
     }
 

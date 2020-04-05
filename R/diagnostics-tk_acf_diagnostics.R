@@ -67,7 +67,12 @@
 #'     tk_acf_diagnostics(date, adjusted, volume, close, .lags = 0:500)
 #'
 #' # Apply Transformations
-#' # TODO
+#' FANG %>%
+#'     group_by(symbol) %>%
+#'     tk_acf_diagnostics(
+#'         date, diff_vec(adjusted),  # Apply differencing transformation
+#'         .lags = 0:500
+#'     )
 #'
 #'
 #' @export

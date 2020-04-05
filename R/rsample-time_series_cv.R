@@ -1,17 +1,37 @@
-#' Rolling Origin Forecast Resampling
+#' Time Series Cross Validation
 #'
-#' This resampling method is useful when the data set has a strong time
-#'  component. The resamples contain data points that are
-#'  _consecutive values_. This version differs from `rsample::rolling_origin()` in
-#'  that it has an `overlap` parameter which is useful for prediction with
-#'  lagged predictors.
+#' Create `rsample` cross validation sets for time series.
+#' This function produces a sampling plan starting with the most recent
+#' time series observations, rolling backwards. The sampling procedure
+#' is similar to `rsample::rolling_origin()`, but places the focus
+#' of the cross validation on the most recent time series data.
+#'
+#' @inheritParams rsample::rolling_origin
+#' @param lag A value to include an lag between the assessment
+#'  and analysis set. This is useful if lagged predictors will be used
+#'  during training and testing.
+#' @param slice_limit The number of slices to return. Set to `dplyr::n()`,
+#'  which returns the maximum number of slices.
 #'
 #' @details
+#'
+#' __Intial (Training Set) and Assess (Testing Set)__
+#'
 #' The main options, `initial` and `assess`, control the number of
-#'  data points from the original data that are in the analysis and assessment
-#'  set, respectively. When `cumulative = TRUE`, the analysis set will grow as
-#'  resampling continues while the assessment set size will always remain
+#'  data points from the original data that are in the analysis (training set)
+#'  and the assessment (testing set), respectively.
+#'
+#' __Cumulative vs Sliding Window__
+#'
+#' When `cumulative = TRUE`, the `initial` parameter is ignored and the
+#' analysis (training) set will grow as
+#'  resampling continues while the assessment (testing) set size will always remain
 #'  static.
+#'
+#' When `cumulative = FALSE`, the `initial` parameter fixes the analysis (training)
+#' set and resampling occurs over a fixed window.
+#'
+#' __Skip__
 #'
 #' `skip` enables the function to not use every data point in the resamples.
 #'  When `skip = 0`, the resampling data sets will increment by one position.
@@ -19,76 +39,74 @@
 #'  will make the analysis data set operate on *weeks* instead of days. The
 #'  assessment set size is not affected by this option.
 #'
-#'  `overlap` enables the test data to overlap with the training data, which
-#'  is useful for predictions needing access to prior history such as when
-#'  using lagged predictors.
+#' __Lag__
 #'
-#' @inheritParams rsample::vfold_cv
-#' @param initial The number of samples used for analysis/modeling in the
-#'  initial resample.
-#' @param assess The number of samples used for each assessment resample.
-#' @param cumulative A logical. Should the analysis resample grow beyond the
-#'  size specified by `initial` at each resample?.
-#' @param skip A integer indicating how many (if any) _additional_ resamples
-#'  to skip to thin the total amount of data points in the analysis resample.
-#' See the example below.
-#' @param overlap A value to include an overlap between the assessment
-#'  and analysis set. This is useful if lagged predictors will be used
-#'  during training and testing.
+#' The Lag parameter creates an overlap between the Testing set. This is needed
+#' when lagged predictors are used.
 #'
-#' @return An tibble with classes `rolling_origin`, `rset`, `tbl_df`, `tbl`,
+#' __Slice Limit__
+#'
+#' This controls the number of slices. If `slice_limit = 5`, only the most recent
+#' 5 slices will be returned.
+#'
+#'
+#'
+#' @return An tibble with classes `time_series_cv`, `rset`, `tbl_df`, `tbl`,
 #'  and `data.frame`. The results include a column for the data split objects
 #'  and a column called `id` that has a character string with the resample
 #'  identifier.
 #'
+#' @seealso
+#' - [time_series_cv()] and [rsample::rolling_origin()] - Functions used to create
+#'   time series resample specfications.
+#' - [plot_time_series_cv_plan()] - The plotting function used for visualizing the
+#'   time series resample plan.
+#'
 #' @examples
-#' library(recipes)
+#' library(tidyverse)
+#' library(tidyquant)
 #' library(rsample)
 #' library(timetk)
-#' library(tidyverse)
 #'
-#' # Monthly sales data
-#' drinks_tbl <- drinks %>%
-#'     rename(sales = S4248SM144NCEN) %>%
-#'     as_tibble()
+#' FB_tbl <- FANG %>%
+#'     filter(symbol == "FB") %>%
+#'     select(symbol, date, adjusted)
 #'
-#' # 5-year resample with a 12-month overlap and 12-month forecast horizon
-#' # - Allows use of a 12-month or longer lag
-#' resample_spec <- rolling_origin_2(
-#'     drinks_tbl,
-#'     initial    = 4 * 12,
-#'     assess     = 12,
+#' resample_spec <- time_series_cv(
+#'     FB_tbl,
+#'     initial = 150, assess = 50, skip = 50,
 #'     cumulative = FALSE,
-#'     skip       = 2 * 12,
-#'     overlap    = 12
-#' )
+#'     lag = 30,
+#'     slice_limit = n())
 #'
-#' resample_spec
-#'
-#' # Create a lag recipe using one of the training resamples
-#' resample_1 <- resample_spec %>% pluck(1, 1)
-#'
-#' recipe_lag <- recipe(sales ~ ., data = training(resample_1)) %>%
-#'     step_lag(sales, lag = 12) %>%
-#'     step_naomit(all_predictors())
-#'
-#' # Apply a lag recipe to one of the testing resamples to show the effect
-#' bake(prep(recipe_lag), testing(resample_1))
-#'
+#' resample_spec %>%
+#'     plot_time_series_cv_plan(date, adjusted,)
 #'
 #' @export
-rolling_origin_2 <- function(data, initial = 5, assess = 1,
-                             cumulative = TRUE, skip = 0, overlap = 0, ...) {
+#' @importFrom dplyr n
+time_series_cv <- function(data, initial = 5, assess = 1,
+                           cumulative = TRUE, skip = 0, lag = 0,
+                           slice_limit = n(), ...) {
     n <- nrow(data)
 
-    if (n < initial + assess + overlap)
+    if (n < initial + assess)
         stop("There should be at least ",
-             initial + assess + overlap,
+             initial + assess,
              " nrows in `data`",
              call. = FALSE)
 
-    # Update assess to account for overlap (added to backend of assess)
-    stops <- seq(initial, (n - assess), by = skip + 1)
+    if (!is.numeric(lag) | !(lag%%1==0)) {
+        stop("`lag` must be a whole number.", call. = FALSE)
+    }
+
+    if (lag > initial) {
+        stop("`lag` must be less than or equal to the number of training observations.", call. = FALSE)
+    }
+
+    # --- IMPLEMENT REVERSED ROLLING ORIGIN ----
+
+    # Update assess to account for lag (added to backend of assess)
+    stops <- n - seq(initial, (n - assess), by = skip + 1)
 
     # Adjust starts for cumulative vs sliding period
     if (!cumulative) {
@@ -97,34 +115,47 @@ rolling_origin_2 <- function(data, initial = 5, assess = 1,
         starts <- rep(1, length(stops))
     }
 
-    # Add overlap for predictions with lags
-    # starts_test <- stops - overlap
+    starts_stops_tbl <- tibble::tibble(
+        starts = starts,
+        stops  = stops
+    ) %>%
+        dplyr::filter(starts > 0) %>%
+        dplyr::slice(1:slice_limit)
 
-    in_ind  <- mapply(seq, starts, stops, SIMPLIFY = FALSE)
-    out_ind <- mapply(seq, stops + 1 - overlap, stops + assess, SIMPLIFY = FALSE)
+    starts <- starts_stops_tbl$starts
+    stops  <- starts_stops_tbl$stops
 
+    # --- END REVERSE ----
+
+    in_ind <- mapply(seq, starts, stops, SIMPLIFY = FALSE)
+    out_ind <-
+        mapply(seq, stops + 1 - lag, stops + assess, SIMPLIFY = FALSE)
     indices <- mapply(merge_lists, in_ind, out_ind, SIMPLIFY = FALSE)
-
-    split_objs <- purrr::map(indices, make_splits, data = data, class = "rof_split")
+    split_objs <-
+        purrr::map(indices, make_splits, data = data, class = "ts_cv_split")
     split_objs <- list(splits = split_objs,
                        id = names0(length(split_objs), "Slice"))
 
-    roll_att <- list(initial    = initial,
-                     assess     = assess,
-                     overlap    = overlap,
-                     cumulative = cumulative,
-                     skip       = skip)
+    roll_att <- list(
+        initial     = initial,
+        assess      = assess,
+        cumulative  = cumulative,
+        skip        = skip,
+        lag         = lag,
+        slice_limit = slice_limit
+    )
 
-    new_rset(splits = split_objs$splits,
-             ids = split_objs$id,
-             attrib = roll_att,
-             subclass = c("rolling_origin", "rset"))
+    new_rset(
+        splits   = split_objs$splits,
+        ids      = split_objs$id,
+        attrib   = roll_att,
+        subclass = c("time_series_cv", "rset"))
 }
 
 #' @export
-print.rolling_origin <- function(x, ...) {
+print.time_series_cv <- function(x, ...) {
     cat("#", pretty(x), "\n")
-    class(x) <- class(x)[!(class(x) %in% c("rolling_origin", "rset"))]
+    class(x) <- class(x)[!(class(x) %in% c("time_series_cv", "rset"))]
     print(x, ...)
 }
 
@@ -227,3 +258,6 @@ add_id <- function(split, id) {
     split$id <- id
     split
 }
+
+
+

@@ -4,14 +4,14 @@
 \alias{initial_time_split_2}
 \title{Simple Training/Test Set Splitting for Time Series}
 \usage{
-initial_time_split_2(data, prop = 3/4, overlap = 0, ...)
+initial_time_split_2(data, prop = 3/4, lag = 0, ...)
 }
 \arguments{
 \item{data}{A data frame.}
 
 \item{prop}{The proportion of data to be retained for modeling/analysis.}
 
-\item{overlap}{A value to include an overlap between the assessment
+\item{lag}{A value to include an lag between the assessment
 and analysis set. This is useful if lagged predictors will be used
 during training and testing.}
 
@@ -24,13 +24,13 @@ functions to extract the data in each split.
 \description{
 \code{initial_time_split_2()} creates training and testing sets for Time Series
 Validation. This version differs from \code{rsample::initial_time_split()} in
-that it has an \code{overlap} parameter which is useful for prediction with
+that it has an \code{lag} parameter which is useful for prediction with
 lagged predictors.
 }
 \details{
 \strong{Lagged Predictors}
 
-\code{overlap} enables the test data to overlap with the training data, which
+\code{lag} enables the test data to lag with the training data, which
 is useful for predictions needing access to prior history such as when
 using lagged predictors.
 }
@@ -46,27 +46,27 @@ drinks_subset <- drinks \%>\%
     rename(sales = S4248SM144NCEN) \%>\%
     as_tibble()
 
-# Time series split with 12 period overlap
-drinks_overlap_split <- initial_time_split_2(
+# Time series split with 12 period lag
+drinks_lag_split <- initial_time_split_2(
     drinks_subset,
     prop    = 4 / 5,
-    overlap = 12
+    lag = 12
 )
 
 # Extract train and test sets
-train_data <- training(drinks_overlap_split)
-test_data  <- testing(drinks_overlap_split)
+train_data <- training(drinks_lag_split)
+test_data  <- testing(drinks_lag_split)
 
-# Note 12 period overlap
+# Note 12 period lag
 train_data \%>\% tail(12)
 test_data
 
 # Make recipe
-rec_lag <- recipe(sales ~ ., training(drinks_overlap_split)) \%>\%
+rec_lag <- recipe(sales ~ ., training(drinks_lag_split)) \%>\%
     step_lag(sales, lag = 12) \%>\%
     step_naomit(all_predictors())
 
 # Apply recipe to test data - Correctly applies the lag
-bake(prep(rec_lag), testing(drinks_overlap_split))
+bake(prep(rec_lag), testing(drinks_lag_split))
 
 }
