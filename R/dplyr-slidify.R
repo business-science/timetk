@@ -51,7 +51,7 @@
 #' @references
 #'
 #' - The [Tibbletime R Package](https://business-science.github.io/tibbletime/index.html)
-#'  by Davis Vaughan, which includes the original `slidify()`
+#'  by Davis Vaughan, which includes the original `rollify()`
 #'  Function
 #'
 #' @seealso

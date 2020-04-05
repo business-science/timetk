@@ -3,6 +3,16 @@
 <!--
 __TODO:__
 
+MAJOR ITEMS:
+1. recipes steps - Split transformations from predictor creators
+2. rsample - backwards rolling origin
+3. tests
+4. vignettes
+
+SMALLER ITEMS:
+1. tk_augment_diffs: Change name, update for multi-diffs
+2. weather signature
+
 - Plot Diagnostics
     - (DONE) Plot Time Series
     - (DONE) Plot Lag (ACF, PACF, & CCF) Diagnostics
@@ -10,6 +20,7 @@ __TODO:__
     - Missing Data Diagnostics
 - Fourier series
     - (DONE) `step_fourier_series()`
+    - `fourier_vec()`
     - `tk_get_fourier_series()` (is this needed?)
     - `tk_augment_fourier_series()` (is this needed?)
 - (DONE) Rolling functionality 

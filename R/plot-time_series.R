@@ -9,14 +9,17 @@
 #' @param .value A column containing numeric values
 #' @param ... One or more grouping columns that broken out into `ggplot2` facets.
 #'  These can be selected using `tidyselect()` helpers (e.g `contains()`).
+#' @param .color_var A categorical column that can be used to change the
+#'  line color
 #' @param .facet_ncol Number of facet columns.
 #' @param .facet_scales Control facet x & y-axis ranges.
 #'  Options include "fixed", "free", "free_y", "free_x"
 #' @param .facet_collapse Multiple facets included on one facet strip instead of
 #'  multiple facet strips.
 #' @param .facet_collapse_sep The separator used for collapsing facets.
-#' @param .line_color Line color. Use keyword: "scale_color" to change the color by the facet.
-#' @param .line_size Line size
+#' @param .line_color Line color. Overrided if `.color_var` is specified.
+#' @param .line_size Line size.
+#' @param .line_type Line type.
 #' @param .line_alpha Line alpha (opacity). Range: (0, 1).
 #' @param .y_intercept Value for a y-intercept on the plot
 #' @param .y_intercept_color Color for the y-intercept
@@ -90,7 +93,8 @@
 #' FANG %>%
 #'     mutate(year = year(date)) %>%
 #'     plot_time_series(date, adjusted,
-#'                      symbol, year, # add groups
+#'                      symbol, year,         # add groups
+#'                      .color_var    = year, # color by year
 #'                      .facet_ncol   = 4,
 #'                      .facet_scales = "free",
 #'                      .interactive  = FALSE)
@@ -109,9 +113,9 @@
 #' # ggplot2 - static visualization (Great for PDF Reports)
 #' FANG %>%
 #'     plot_time_series(
-#'          date, adjusted, symbol,
+#'         date, adjusted, symbol,
+#'         .color_var     = symbol,
 #'         .facet_ncol    = 2,
-#'         .line_color    = "scale_color",
 #'         .smooth_period = 180,
 #'         .interactive   = FALSE) +
 #'    theme_tq_dark() +
@@ -119,11 +123,11 @@
 #'
 #'
 #' @export
-plot_time_series <- function(.data, .date_var, .value, ...,
+plot_time_series <- function(.data, .date_var, .value, ..., .color_var = NULL,
                              .facet_ncol = 1, .facet_scales = "free_y",
                              .facet_collapse = TRUE, .facet_collapse_sep = " ",
                              .line_color = "#2c3e50", .line_size = 0.5,
-                             .line_alpha = 1,
+                             .line_type = 1, .line_alpha = 1,
                              .y_intercept = NULL, .y_intercept_color = "#2c3e50",
                              .smooth = TRUE, .smooth_period = NULL,
                              .smooth_span = 0.75, .smooth_degree = 2,
@@ -132,8 +136,9 @@ plot_time_series <- function(.data, .date_var, .value, ...,
                              .interactive = TRUE, .plotly_slider = FALSE) {
 
     # Tidyeval Setup
-    date_var_expr <- rlang::enquo(.date_var)
-    value_expr    <- rlang::enquo(.value)
+    date_var_expr  <- rlang::enquo(.date_var)
+    value_expr     <- rlang::enquo(.value)
+    color_var_expr <- rlang::enquo(.color_var)
 
     # Checks
     if (!is.data.frame(.data)) {
@@ -146,15 +151,16 @@ plot_time_series <- function(.data, .date_var, .value, ...,
         stop(call. = FALSE, "plot_time_series(.value) is missing. Please a numeric column.")
     }
 
+
     UseMethod("plot_time_series", .data)
 }
 
 #' @export
-plot_time_series.data.frame <- function(.data, .date_var, .value, ...,
+plot_time_series.data.frame <- function(.data, .date_var, .value, ..., .color_var = NULL,
                              .facet_ncol = 1, .facet_scales = "free_y",
                              .facet_collapse = TRUE, .facet_collapse_sep = " ",
                              .line_color = "#2c3e50", .line_size = 0.5,
-                             .line_alpha = 1,
+                             .line_type = 1, .line_alpha = 1,
                              .y_intercept = NULL, .y_intercept_color = "#2c3e50",
                              .smooth = TRUE, .smooth_period = NULL,
                              .smooth_span = 0.75, .smooth_degree = 2,
@@ -164,9 +170,10 @@ plot_time_series.data.frame <- function(.data, .date_var, .value, ...,
 
 
     # Tidyeval Setup
-    date_var_expr <- rlang::enquo(.date_var)
-    value_expr    <- rlang::enquo(.value)
-    facets_expr   <- rlang::enquos(...)
+    date_var_expr  <- rlang::enquo(.date_var)
+    value_expr     <- rlang::enquo(.value)
+    facets_expr    <- rlang::enquos(...)
+    color_var_expr <- rlang::enquo(.color_var)
 
     # ---- DATA SETUP ----
 
@@ -174,8 +181,21 @@ plot_time_series.data.frame <- function(.data, .date_var, .value, ...,
     data_formatted <- .data %>%
         dplyr::group_by(!!! facets_expr) %>%
         dplyr::mutate(.value_mod = !! value_expr) %>%
-        dplyr::select(!! date_var_expr, .value_mod, !!! facets_expr) %>%
+        dplyr::select(!! date_var_expr, .value_mod, !!! facets_expr, !! color_var_expr) %>%
         dplyr::ungroup()
+
+    # Color setup
+    if (rlang::quo_is_missing(color_var_expr)) color_var_expr <- enquo(NULL)
+
+    if (!rlang::quo_is_null(color_var_expr)) {
+        color_class <- data_formatted %>% dplyr::pull(!! color_var_expr)
+        if (inherits(color_class, c("integer", "double", "logical", "numeric"))) {
+            message("plot_time_series(.color_var): variable, ", rlang::quo_name(color_var_expr), ", is not categorical. Converting to factor with forcats::as_factor().")
+            data_formatted <- data_formatted %>%
+                # dplyr::mutate_at(.vars = dplyr::vars(!! color_var_expr), as.character) %>%
+                dplyr::mutate_at(.vars = dplyr::vars(!! color_var_expr), forcats::as_factor)
+        }
+    }
 
     # Facet setup
     facet_names <- data_formatted %>% dplyr::select(!!! facets_expr) %>% colnames()
@@ -188,7 +208,7 @@ plot_time_series.data.frame <- function(.data, .date_var, .value, ...,
                 dplyr::mutate(.facets_collapsed = stringr::str_c(!!! rlang::syms(facet_names),
                                                                 sep = .facet_collapse_sep)) %>%
                 dplyr::mutate(.facets_collapsed = forcats::as_factor(.facets_collapsed)) %>%
-                dplyr::select(-(!!! rlang::syms(facet_names))) %>%
+                # dplyr::select(-(!!! rlang::syms(facet_names))) %>%
                 dplyr::group_by(.facets_collapsed)
 
             facet_names <- ".facets_collapsed"
@@ -198,7 +218,6 @@ plot_time_series.data.frame <- function(.data, .date_var, .value, ...,
                 dplyr::group_by(!!! rlang::syms(facet_names))
         }
     }
-
 
     # Smooth calculation
     if (.smooth) {
@@ -222,25 +241,24 @@ plot_time_series.data.frame <- function(.data, .date_var, .value, ...,
 
     g <- data_formatted %>%
         dplyr::rename(.value = .value_mod) %>%
-        ggplot2::ggplot(ggplot2::aes(!! date_var_expr, .value)) +
-        theme_tq() +
-        ggplot2::labs(x = .x_lab, y = .y_lab, title = .title)
+        ggplot2::ggplot(ggplot2::aes(!! date_var_expr, .value))
 
     # Add line
-    if (.line_color == "scale_color" && length(facet_names) > 0) {
-        if (length(facet_names) > 1) message("plot_time_series(facets > 1 & .line_color = 'scale_color'): Using the first facet only:", facet_names[1])
+    if (rlang::quo_is_null(color_var_expr)) {
         g <- g +
             ggplot2::geom_line(
-                ggplot2::aes_string(color = facet_names[1]),
-                size = .line_size) +
-            scale_color_tq()
+                color    = .line_color,
+                size     = .line_size,
+                linetype = .line_type
+            )
+
     } else {
-        if (.line_color == "scale_color") {
-            message("plot_time_series(.line_color = 'scale_color'): Cannot scale color without a faceting column.")
-            .line_color <- "#2c3e50"
-        }
         g <- g +
-            ggplot2::geom_line(color = .line_color, size = .line_size)
+            ggplot2::geom_line(
+                ggplot2::aes(color = !! color_var_expr),
+                size     = .line_size,
+                linetype = .line_type) +
+            scale_color_tq()
     }
 
     # Add facets
@@ -269,6 +287,11 @@ plot_time_series.data.frame <- function(.data, .date_var, .value, ...,
             ggplot2::geom_hline(yintercept = .y_intercept, color = .y_intercept_color)
     }
 
+    # Add theme & labs
+    g <- g +
+        theme_tq() +
+        ggplot2::labs(x = .x_lab, y = .y_lab, title = .title)
+
     if (.interactive) {
 
         p <- plotly::ggplotly(g, dynamicTicks = TRUE)
@@ -289,11 +312,11 @@ plot_time_series.data.frame <- function(.data, .date_var, .value, ...,
 }
 
 #' @export
-plot_time_series.grouped_df <- function(.data, .date_var, .value, ...,
+plot_time_series.grouped_df <- function(.data, .date_var, .value, ..., .color_var = NULL,
                                         .facet_ncol = 1, .facet_scales = "free_y",
                                         .facet_collapse = TRUE, .facet_collapse_sep = " ",
                                         .line_color = "#2c3e50", .line_size = 0.5,
-                                        .line_alpha = 1,
+                                        .line_type = 1, .line_alpha = 1,
                                         .y_intercept = NULL, .y_intercept_color = "#2c3e50",
                                         .smooth = TRUE, .smooth_period = NULL,
                                         .smooth_span = 0.75, .smooth_degree = 2, .smooth_alpha = 1,
@@ -320,8 +343,9 @@ plot_time_series.grouped_df <- function(.data, .date_var, .value, ...,
 
     plot_time_series(
         .data              = data_formatted,
-        .date_var          = !! enquo(.date_var),
-        .value             = !! enquo(.value),
+        .date_var          = !! rlang::enquo(.date_var),
+        .value             = !! rlang::enquo(.value),
+        .color_var         = !! rlang::enquo(.color_var),
 
         # ...
         !!! syms(group_names),
@@ -332,6 +356,7 @@ plot_time_series.grouped_df <- function(.data, .date_var, .value, ...,
         .facet_collapse_sep = .facet_collapse_sep,
         .line_color         = .line_color,
         .line_size          = .line_size,
+        .line_type          = .line_type,
         .line_alpha         = .line_alpha,
         .y_intercept        = .y_intercept,
         .y_intercept_color  = .y_intercept_color,

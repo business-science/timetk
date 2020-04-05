@@ -9,12 +9,14 @@ plot_time_series(
   .date_var,
   .value,
   ...,
+  .color_var = NULL,
   .facet_ncol = 1,
   .facet_scales = "free_y",
   .facet_collapse = TRUE,
   .facet_collapse_sep = " ",
   .line_color = "#2c3e50",
   .line_size = 0.5,
+  .line_type = 1,
   .line_alpha = 1,
   .y_intercept = NULL,
   .y_intercept_color = "#2c3e50",
@@ -42,6 +44,9 @@ plot_time_series(
 \item{...}{One or more grouping columns that broken out into \code{ggplot2} facets.
 These can be selected using \code{tidyselect()} helpers (e.g \code{contains()}).}
 
+\item{.color_var}{A categorical column that can be used to change the
+line color}
+
 \item{.facet_ncol}{Number of facet columns.}
 
 \item{.facet_scales}{Control facet x & y-axis ranges.
@@ -52,9 +57,11 @@ multiple facet strips.}
 
 \item{.facet_collapse_sep}{The separator used for collapsing facets.}
 
-\item{.line_color}{Line color. Use keyword: "scale_color" to change the color by the facet.}
+\item{.line_color}{Line color. Overrided if \code{.color_var} is specified.}
 
-\item{.line_size}{Line size}
+\item{.line_size}{Line size.}
+
+\item{.line_type}{Line type.}
 
 \item{.line_alpha}{Line alpha (opacity). Range: (0, 1).}
 
@@ -148,7 +155,8 @@ FANG \%>\%
 FANG \%>\%
     mutate(year = year(date)) \%>\%
     plot_time_series(date, adjusted,
-                     symbol, year, # add groups
+                     symbol, year,         # add groups
+                     .color_var    = year, # color by year
                      .facet_ncol   = 4,
                      .facet_scales = "free",
                      .interactive  = FALSE)
@@ -167,9 +175,9 @@ FANG \%>\%
 # ggplot2 - static visualization (Great for PDF Reports)
 FANG \%>\%
     plot_time_series(
-         date, adjusted, symbol,
+        date, adjusted, symbol,
+        .color_var     = symbol,
         .facet_ncol    = 2,
-        .line_color    = "scale_color",
         .smooth_period = 180,
         .interactive   = FALSE) +
    theme_tq_dark() +

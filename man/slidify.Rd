@@ -224,7 +224,7 @@ FB \%>\%
 \references{
 \itemize{
 \item The \href{https://business-science.github.io/tibbletime/index.html}{Tibbletime R Package}
-by Davis Vaughan, which includes the original \code{slidify()}
+by Davis Vaughan, which includes the original \code{rollify()}
 Function
 }
 }
