@@ -232,26 +232,28 @@ time series resample plan.</p></li>
     <span class='kw'>initial</span> <span class='kw'>=</span> <span class='fl'>150</span>, <span class='kw'>assess</span> <span class='kw'>=</span> <span class='fl'>50</span>, <span class='kw'>skip</span> <span class='kw'>=</span> <span class='fl'>50</span>,
     <span class='kw'>cumulative</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
     <span class='kw'>lag</span> <span class='kw'>=</span> <span class='fl'>30</span>,
-    <span class='kw'>slice_limit</span> <span class='kw'>=</span> <span class='fu'>n</span>())
+    <span class='kw'>slice_limit</span> <span class='kw'>=</span> <span class='fl'>6</span>
+)
 
-<span class='no'>resample_spec</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='tk_time_series_cv_plan.html'>tk_time_series_cv_plan</a></span>()</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 3,220 x 5</span><span>
-#&gt;    id      key      symbol date       adjusted
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>        </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> Slice01 training FB     2015-10-23     102.
-#&gt; </span><span style='color: #555555;'> 2</span><span> Slice01 training FB     2015-10-26     104.
-#&gt; </span><span style='color: #555555;'> 3</span><span> Slice01 training FB     2015-10-27     104.
-#&gt; </span><span style='color: #555555;'> 4</span><span> Slice01 training FB     2015-10-28     104.
-#&gt; </span><span style='color: #555555;'> 5</span><span> Slice01 training FB     2015-10-29     105.
-#&gt; </span><span style='color: #555555;'> 6</span><span> Slice01 training FB     2015-10-30     102.
-#&gt; </span><span style='color: #555555;'> 7</span><span> Slice01 training FB     2015-11-02     103.
-#&gt; </span><span style='color: #555555;'> 8</span><span> Slice01 training FB     2015-11-03     103.
-#&gt; </span><span style='color: #555555;'> 9</span><span> Slice01 training FB     2015-11-04     104.
-#&gt; </span><span style='color: #555555;'>10</span><span> Slice01 training FB     2015-11-05     109.
-#&gt; </span><span style='color: #555555;'># … with 3,210 more rows</span><span></div><div class='input'>
+<span class='no'>resample_spec</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='tk_time_series_cv_plan.html'>tk_time_series_cv_plan</a></span>()</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 1,380 x 5</span><span>
+#&gt;    id     key      symbol date       adjusted
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>        </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> Slice1 training FB     2015-10-23     102.
+#&gt; </span><span style='color: #555555;'> 2</span><span> Slice1 training FB     2015-10-26     104.
+#&gt; </span><span style='color: #555555;'> 3</span><span> Slice1 training FB     2015-10-27     104.
+#&gt; </span><span style='color: #555555;'> 4</span><span> Slice1 training FB     2015-10-28     104.
+#&gt; </span><span style='color: #555555;'> 5</span><span> Slice1 training FB     2015-10-29     105.
+#&gt; </span><span style='color: #555555;'> 6</span><span> Slice1 training FB     2015-10-30     102.
+#&gt; </span><span style='color: #555555;'> 7</span><span> Slice1 training FB     2015-11-02     103.
+#&gt; </span><span style='color: #555555;'> 8</span><span> Slice1 training FB     2015-11-03     103.
+#&gt; </span><span style='color: #555555;'> 9</span><span> Slice1 training FB     2015-11-04     104.
+#&gt; </span><span style='color: #555555;'>10</span><span> Slice1 training FB     2015-11-05     109.
+#&gt; </span><span style='color: #555555;'># … with 1,370 more rows</span><span></div><div class='input'>
 <span class='no'>resample_spec</span> <span class='kw'>%&gt;%</span>
     <span class='fu'>plot_time_series_cv_plan</span>(
         <span class='no'>date</span>, <span class='no'>adjusted</span>, <span class='co'># date variable and value variable</span>
-        <span class='co'># Additional arguments passed to plot_time_series()</span>
+        <span class='co'># Additional arguments passed to plot_time_series(),</span>
+        <span class='kw'>.facet_ncol</span> <span class='kw'>=</span> <span class='fl'>3</span>,
         <span class='kw'>.line_alpha</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
         <span class='kw'>.interactive</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
     )</div><div class='img'><img src='plot_time_series_cv_plan-1.png' alt='' width='700' height='433' /></div><div class='input'>

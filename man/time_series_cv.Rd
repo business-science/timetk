@@ -108,6 +108,7 @@ resample_spec \%>\%
     plot_time_series_cv_plan(
         date, adjusted,
         .facet_ncol = 2,
+        .line_alpha = 0.5,
         .interactive = FALSE
     )
 

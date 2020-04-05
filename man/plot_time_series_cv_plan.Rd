@@ -54,14 +54,16 @@ resample_spec <- time_series_cv(
     initial = 150, assess = 50, skip = 50,
     cumulative = FALSE,
     lag = 30,
-    slice_limit = n())
+    slice_limit = 6
+)
 
 resample_spec \%>\% tk_time_series_cv_plan()
 
 resample_spec \%>\%
     plot_time_series_cv_plan(
         date, adjusted, # date variable and value variable
-        # Additional arguments passed to plot_time_series()
+        # Additional arguments passed to plot_time_series(),
+        .facet_ncol = 3,
         .line_alpha = 0.5,
         .interactive = FALSE
     )
