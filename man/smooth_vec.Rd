@@ -98,6 +98,12 @@ FB_tbl \%>\%
 
 }
 \seealso{
+Loess Modeling Functions:
+\itemize{
+\item \code{\link[=step_smooth]{step_smooth()}} - Recipe for \code{tidymodels} workflow
+}
+
+Additional Vector Functions:
 \itemize{
 \item Box Cox Transformation: \code{\link[=box_cox_vec]{box_cox_vec()}}
 \item Lag Transformation: \code{\link[=lag_vec]{lag_vec()}}

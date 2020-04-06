@@ -99,16 +99,26 @@ recipe_diff \%>\% tidy(1)
 
 }
 \seealso{
-Steps:
+Time Series Analysis:
 \itemize{
-\item Lags: \code{\link[recipes:step_lag]{recipes::step_lag()}}
-\item NA Removal: \code{\link[recipes:step_naomit]{recipes::step_naomit()}}
+\item \code{\link[=step_timeseries_signature]{step_timeseries_signature()}}
+\item \code{\link[=step_holiday_signature]{step_holiday_signature()}}
+\item \code{\link[=step_diff]{step_diff()}}
+\item \code{\link[recipes:step_lag]{recipes::step_lag()}}
+\item \code{\link[=step_roll_apply]{step_roll_apply()}}
+\item \code{\link[=step_smooth]{step_smooth()}}
+\item \code{\link[=step_box_cox]{step_box_cox()}}
 }
 
-Recipe Setup and Application
+Remove NA Values:
 \itemize{
-\item Create: \code{\link[recipes:recipe]{recipes::recipe()}}
-\item Prepare: \code{\link[recipes:prep.recipe]{recipes::prep.recipe()}}
-\item Apply: \code{\link[recipes:bake.recipe]{recipes::bake.recipe()}}
+\item \code{\link[recipes:step_naomit]{recipes::step_naomit()}}
+}
+
+Main Recipe Functions:
+\itemize{
+\item \code{\link[recipes:recipe]{recipes::recipe()}}
+\item \code{\link[recipes:prep.recipe]{recipes::prep.recipe()}}
+\item \code{\link[recipes:bake.recipe]{recipes::bake.recipe()}}
 }
 }

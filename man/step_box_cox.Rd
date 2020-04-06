@@ -115,10 +115,19 @@ recipe_box_cox \%>\% tidy(1)
 }
 }
 \seealso{
+Time Series Analysis:
+\itemize{
+\item \code{\link[=step_timeseries_signature]{step_timeseries_signature()}}
+\item \code{\link[=step_holiday_signature]{step_holiday_signature()}}
+\item \code{\link[=step_diff]{step_diff()}}
+\item \code{\link[recipes:step_lag]{recipes::step_lag()}}
+\item \code{\link[=step_roll_apply]{step_roll_apply()}}
+\item \code{\link[=step_smooth]{step_smooth()}}
+\item \code{\link[=step_box_cox]{step_box_cox()}}
+}
+
 Transformations to reduce variance:
-\enumerate{
-\item \code{\link[recipes:step_YeoJohnson]{recipes::step_YeoJohnson()}} - Yeo-Johnson modified Box Cox for Negative Data
-\item \code{\link[recipes:step_BoxCox]{recipes::step_BoxCox()}} - Implements Box Cox LogLik method
+\itemize{
 \item \code{\link[recipes:step_log]{recipes::step_log()}} - Log transformation
 \item \code{\link[recipes:step_sqrt]{recipes::step_sqrt()}} - Square-Root Power Transformation
 }

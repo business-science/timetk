@@ -16,7 +16,7 @@
 #'  - `function(x) mean(x, na.rm = TRUE)`
 #'  - `~ mean(.x, na.rm = TRUE)`, it is converted to a function.
 #'
-#' @param align Rolling functions generate `.period - 1` fewer values than the incoming vector.
+#' @param align Rolling functions generate `period - 1` fewer values than the incoming vector.
 #'  Thus, the vector needs to be aligned. Alignment of the vector follows 3 types:
 #'
 #'  - __Center:__ `NA` or `.partial` values are divided and added to the beginning and
@@ -62,8 +62,42 @@
 #'
 #' @details
 #'
-#' TODO
+#' __Alignment__
 #'
+#' Rolling functions generate `period - 1` fewer values than the incoming vector.
+#' Thus, the vector needs to be aligned. Alignment of the vector follows 3 types:
+#'
+#'  - __Center:__ `NA` or `partial` values are divided and added to the beginning and
+#'    end of the series to "Center" the moving average.
+#'    This is common for de-noising operations. See also `[smooth_vec()]` for LOESS without NA values.
+#'  - __Left:__ `NA` or `partial` values are added to the end to shift the series to the Left.
+#'  - __Right:__ `NA` or `partial` values are added to the beginning to shif the series to the Right. This is common in
+#'    Financial Applications such as moving average cross-overs.
+#'
+#' __Partial Values__
+#'
+#' - The advantage to using `partial` values vs `NA` padding is that
+#' the series can be filled (good for time-series de-noising operations).
+#' - The downside to partial values is that the partials can become less stable
+#' at the regions where incomplete windows are used.
+#'
+#' If instability is not desirable for de-noising operations, a suitable alternative
+#' is [`step_smooth()`], which implements local polynomial regression.
+#'
+#' @seealso
+#'  Time Series Analysis:
+#'  - [step_timeseries_signature()]
+#'  - [step_holiday_signature()]
+#'  - [step_diff()]
+#'  - [recipes::step_lag()]
+#'  - [step_roll_apply()]
+#'  - [step_smooth()]
+#'  - [step_box_cox()]
+#'
+#'  Main Recipe Functions:
+#'  - [recipes::recipe()]
+#'  - [recipes::prep.recipe()]
+#'  - [recipes::bake.recipe()]
 #'
 #' @examples
 #' library(recipes)
@@ -89,7 +123,7 @@
 #' rec_ma_50 <- recipe(adjusted ~ ., data = FB_tbl) %>%
 #'     step_roll_apply(adjusted, period = 50, .f = ~ AVERAGE(.x))
 #'
-#' # Bake the recipe object - Applies the Loess Transformation
+#' # Bake the recipe object - Applies the Moving Average Transformation
 #' training_data_baked <- bake(prep(rec_ma_50), FB_tbl)
 #'
 #' # Apply to New Data
@@ -112,10 +146,6 @@
 #'     geom_line(alpha = 0.5) +
 #'     geom_line(aes(y = adjusted_ma_30), color = "red", size = 1)
 #'
-#' @seealso
-#'   [recipes::step_window()] [stats::loess()]
-#'   [recipes::recipe()] [recipes::prep.recipe()]
-#'   [recipes::bake.recipe()]
 #'
 #'
 #' @importFrom recipes rand_id

@@ -55,6 +55,13 @@
 #'
 #' @seealso
 #'
+#' Modeling and More Complex Rolling Operations:
+#'   - [step_roll_apply()] - Roll apply for `tidymodels` modeling
+#'   - [tk_augment_roll_apply()] - Add many rolling columns group-wise
+#'   - [slidify()] - Turn any function into a rolling function. Great for
+#'     rolling cor, rolling regression, etc.
+#'   - For more complex rolling operations, check out the `slider` R package.
+#'
 #' Vectorized Transformation Functions:
 #'
 #'   - Box Cox Transformation: [box_cox_vec()]
@@ -62,12 +69,8 @@
 #'   - Differencing Transformation: [diff_vec()]
 #'   - Rolling Window Transformation: [roll_apply_vec()]
 #'   - Loess Smoothing Transformation: [smooth_vec()]
+#'   - Fourier Series: [fourier_vec()]
 #'
-#' More Complex Rolling Operations:
-#'
-#'   - [slidify()] - Turn any function into a rolling function. Great for
-#'     rolling cor, rolling mean, rolling regression, etc.
-#'   - For more complex rolling operations, check out the `slider` R package.
 #'
 #' @references
 #'

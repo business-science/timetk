@@ -129,14 +129,27 @@ rec_holiday_prep \%>\% tidy(1)
 # Apply the recipe to add new holiday features!
 bake(rec_holiday_prep, dates_in_2017_tbl)
 
+
+
+
 }
 \seealso{
+Time Series Analysis:
 \itemize{
-\item Underlying Functions: \code{\link[=tk_get_holiday_signature]{tk_get_holiday_signature()}}, \code{\link[=tk_augment_holiday_signature]{tk_augment_holiday_signature()}}
-\item Holiday Recipes: \code{\link[=step_holiday_signature]{step_holiday_signature()}}
-\item Remove features: \code{\link[recipes:step_rm]{recipes::step_rm()}}
-\item Creating Recipes: \code{\link[recipes:recipe]{recipes::recipe()}} \code{\link[recipes:prep.recipe]{recipes::prep.recipe()}}
-\item Applying Recipes: \code{\link[recipes:bake.recipe]{recipes::bake.recipe()}}
+\item \code{\link[=step_timeseries_signature]{step_timeseries_signature()}}
+\item \code{\link[=step_holiday_signature]{step_holiday_signature()}}
+\item \code{\link[=step_diff]{step_diff()}}
+\item \code{\link[recipes:step_lag]{recipes::step_lag()}}
+\item \code{\link[=step_roll_apply]{step_roll_apply()}}
+\item \code{\link[=step_smooth]{step_smooth()}}
+\item \code{\link[=step_box_cox]{step_box_cox()}}
+}
+
+Main Recipe Functions:
+\itemize{
+\item \code{\link[recipes:recipe]{recipes::recipe()}}
+\item \code{\link[recipes:prep.recipe]{recipes::prep.recipe()}}
+\item \code{\link[recipes:bake.recipe]{recipes::bake.recipe()}}
 }
 }
 \concept{dates}

@@ -32,14 +32,22 @@
 #'  order_ for lagging.
 #'
 #' @seealso
-#' Steps:
-#' - Lags: [recipes::step_lag()]
-#' - NA Removal: [recipes::step_naomit()]
+#'  Time Series Analysis:
+#'  - [step_timeseries_signature()]
+#'  - [step_holiday_signature()]
+#'  - [step_diff()]
+#'  - [recipes::step_lag()]
+#'  - [step_roll_apply()]
+#'  - [step_smooth()]
+#'  - [step_box_cox()]
 #'
-#' Recipe Setup and Application
-#' - Create: [recipes::recipe()]
-#' - Prepare: [recipes::prep.recipe()]
-#' - Apply: [recipes::bake.recipe()]
+#'  Remove NA Values:
+#'  - [recipes::step_naomit()]
+#'
+#'  Main Recipe Functions:
+#'  - [recipes::recipe()]
+#'  - [recipes::prep.recipe()]
+#'  - [recipes::bake.recipe()]
 #'
 #' @export
 #' @rdname step_diff
@@ -164,7 +172,7 @@ bake.step_diff <- function(object, new_data, ...) {
     newname <- paste0(object$prefix, grid$lag_val, "_", grid$diff_val, "_", grid$col)
     calls   <- recipes::check_name(calls, new_data, object, newname, TRUE)
 
-    dplyr::as_tibble(dplyr::mutate(new_data, !!!calls))
+    tibble::as_tibble(dplyr::mutate(new_data, !!!calls))
 }
 
 print.step_diff <-

@@ -82,7 +82,20 @@
 #'  This ensures that new data includes the same number of observations in the local
 #'  polynomial regression (loess) as the training data.
 #'
+#' @seealso
+#'  Time Series Analysis:
+#'  - [step_timeseries_signature()]
+#'  - [step_holiday_signature()]
+#'  - [step_diff()]
+#'  - [recipes::step_lag()]
+#'  - [step_roll_apply()]
+#'  - [step_smooth()]
+#'  - [step_box_cox()]
 #'
+#'  Main Recipe Functions:
+#'  - [recipes::recipe()]
+#'  - [recipes::prep.recipe()]
+#'  - [recipes::bake.recipe()]
 #'
 #' @examples
 #' library(recipes)
@@ -156,10 +169,6 @@
 #'     geom_line(aes(y = adjusted_smooth_180), color = "blue", size = 1) +
 #'     geom_line(aes(y = long_term_trend), color = "orange", size = 1)
 #'
-#' @seealso
-#'   [recipes::step_window()] [stats::loess()]
-#'   [recipes::recipe()] [recipes::prep.recipe()]
-#'   [recipes::bake.recipe()]
 #'
 #'
 #' @importFrom recipes rand_id

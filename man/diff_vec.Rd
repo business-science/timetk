@@ -88,18 +88,23 @@ m4_daily \%>\%
         )
     )
 
+
+
 }
 \seealso{
+Advanced Differencing and Modeling:
 \itemize{
+\item \code{\link[=step_diff]{step_diff()}} - Recipe for \code{tidymodels} workflow
+\item \code{\link[=tk_augment_differences]{tk_augment_differences()}} - Adds many differences to a \code{data.frame} (\code{tibble})
+}
+
+Additional Vector Functions:
+\itemize{
+\item Fourier Series: \code{\link[=fourier_vec]{fourier_vec()}}
 \item Box Cox Transformation: \code{\link[=box_cox_vec]{box_cox_vec()}}
 \item Lag Transformation: \code{\link[=lag_vec]{lag_vec()}}
 \item Differencing Transformation: \code{\link[=diff_vec]{diff_vec()}}
 \item Rolling Window Transformation: \code{\link[=roll_apply_vec]{roll_apply_vec()}}
 \item Loess Smoothing Transformation: \code{\link[=smooth_vec]{smooth_vec()}}
-}
-
-\itemize{
-\item Rolling Window Calculations: \code{\link[=roll_apply_vec]{roll_apply_vec()}}, \code{\link[slider:slide_vec]{slider::slide_vec()}}, \code{\link[zoo:rollapply]{zoo::rollapply()}}
-\item Loess Modeling: \code{\link[stats:loess]{stats::loess()}}
 }
 }

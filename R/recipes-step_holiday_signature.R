@@ -71,6 +71,21 @@
 #'  By default, many features are created automatically. Unnecessary features can
 #'  be removed using [recipes::step_rm()] and [recipes::selections()] for more details.
 #'
+#' @seealso
+#'  Time Series Analysis:
+#'  - [step_timeseries_signature()]
+#'  - [step_holiday_signature()]
+#'  - [step_diff()]
+#'  - [recipes::step_lag()]
+#'  - [step_roll_apply()]
+#'  - [step_smooth()]
+#'  - [step_box_cox()]
+#'
+#'  Main Recipe Functions:
+#'  - [recipes::recipe()]
+#'  - [recipes::prep.recipe()]
+#'  - [recipes::bake.recipe()]
+#'
 #' @examples
 #' library(recipes)
 #' library(timetk)
@@ -101,12 +116,7 @@
 #' # Apply the recipe to add new holiday features!
 #' bake(rec_holiday_prep, dates_in_2017_tbl)
 #'
-#' @seealso
-#'  - Underlying Functions: [tk_get_holiday_signature()], [tk_augment_holiday_signature()]
-#'  - Holiday Recipes: [step_holiday_signature()]
-#'  - Remove features: [recipes::step_rm()]
-#'  - Creating Recipes: [recipes::recipe()] [recipes::prep.recipe()]
-#'  - Applying Recipes: [recipes::bake.recipe()]
+#'
 #'
 #'
 #' @importFrom recipes rand_id

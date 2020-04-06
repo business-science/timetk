@@ -33,11 +33,20 @@
 #'  (the selectors or variables selected), `value` (the feature
 #'  names).
 #'
-#' @keywords datagen
-#' @concept preprocessing
-#' @concept model_specification
-#' @concept variable_encodings
-#' @concept dates
+#' @seealso
+#'  Time Series Analysis:
+#'  - [step_timeseries_signature()]
+#'  - [step_holiday_signature()]
+#'  - [step_diff()]
+#'  - [recipes::step_lag()]
+#'  - [step_roll_apply()]
+#'  - [step_smooth()]
+#'  - [step_box_cox()]
+#'
+#'  Main Recipe Functions:
+#'  - [recipes::recipe()]
+#'  - [recipes::prep.recipe()]
+#'  - [recipes::bake.recipe()]
 #'
 #'
 #' @details
@@ -81,12 +90,6 @@
 #' tidy(rec_obj)
 #' tidy(rec_obj, number = 1)
 #'
-#' @seealso
-#'  - Underlying Functions: [tk_get_timeseries_signature()], [tk_augment_timeseries_signature()]
-#'  - Holiday Recipes: [step_holiday_signature()]
-#'  - Remove features: [recipes::step_rm()]
-#'  - Creating Recipes: [recipes::recipe()] [recipes::prep.recipe()]
-#'  - Applying Recipes: [recipes::bake.recipe()]
 #'
 #'
 #' @importFrom recipes rand_id

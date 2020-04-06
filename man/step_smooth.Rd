@@ -185,11 +185,27 @@ bake(prep(rec_smooth_names), FB_tbl) \%>\%
     geom_line(aes(y = adjusted_smooth_180), color = "blue", size = 1) +
     geom_line(aes(y = long_term_trend), color = "orange", size = 1)
 
+
+
 }
 \seealso{
-\code{\link[recipes:step_window]{recipes::step_window()}} \code{\link[stats:loess]{stats::loess()}}
-\code{\link[recipes:recipe]{recipes::recipe()}} \code{\link[recipes:prep.recipe]{recipes::prep.recipe()}}
-\code{\link[recipes:bake.recipe]{recipes::bake.recipe()}}
+Time Series Analysis:
+\itemize{
+\item \code{\link[=step_timeseries_signature]{step_timeseries_signature()}}
+\item \code{\link[=step_holiday_signature]{step_holiday_signature()}}
+\item \code{\link[=step_diff]{step_diff()}}
+\item \code{\link[recipes:step_lag]{recipes::step_lag()}}
+\item \code{\link[=step_roll_apply]{step_roll_apply()}}
+\item \code{\link[=step_smooth]{step_smooth()}}
+\item \code{\link[=step_box_cox]{step_box_cox()}}
+}
+
+Main Recipe Functions:
+\itemize{
+\item \code{\link[recipes:recipe]{recipes::recipe()}}
+\item \code{\link[recipes:prep.recipe]{recipes::prep.recipe()}}
+\item \code{\link[recipes:bake.recipe]{recipes::bake.recipe()}}
+}
 }
 \concept{moving_windows}
 \concept{preprocessing}

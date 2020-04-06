@@ -73,12 +73,18 @@
 #'
 #' @seealso
 #'
-#' Transformations to reduce variance:
+#'  Time Series Analysis:
+#'  - [step_timeseries_signature()]
+#'  - [step_holiday_signature()]
+#'  - [step_diff()]
+#'  - [recipes::step_lag()]
+#'  - [step_roll_apply()]
+#'  - [step_smooth()]
+#'  - [step_box_cox()]
 #'
-#' 1. [recipes::step_YeoJohnson()] - Yeo-Johnson modified Box Cox for Negative Data
-#' 2. [recipes::step_BoxCox()] - Implements Box Cox LogLik method
-#' 3. [recipes::step_log()] - Log transformation
-#' 4. [recipes::step_sqrt()] - Square-Root Power Transformation
+#' Transformations to reduce variance:
+#' - [recipes::step_log()] - Log transformation
+#' - [recipes::step_sqrt()] - Square-Root Power Transformation
 #'
 #' Recipe Setup and Application:
 #' - Create: [recipes::recipe()]

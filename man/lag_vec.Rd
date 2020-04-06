@@ -53,12 +53,20 @@ m4_daily \%>\%
 
 }
 \seealso{
+Modeling and Advanced Lagging:
+\itemize{
+\item \code{\link[recipes:step_lag]{recipes::step_lag()}} - Recipe for adding lags in \code{tidymodels} modeling
+\item \code{\link[=tk_augment_lags]{tk_augment_lags()}} - Add many lags group-wise to a data.frame (tibble)
+}
+
+Vectorized Transformations:
 \itemize{
 \item Box Cox Transformation: \code{\link[=box_cox_vec]{box_cox_vec()}}
 \item Lag Transformation: \code{\link[=lag_vec]{lag_vec()}}
 \item Differencing Transformation: \code{\link[=diff_vec]{diff_vec()}}
 \item Rolling Window Transformation: \code{\link[=roll_apply_vec]{roll_apply_vec()}}
 \item Loess Smoothing Transformation: \code{\link[=smooth_vec]{smooth_vec()}}
+\item Fourier Series: \code{\link[=fourier_vec]{fourier_vec()}}
 }
 
 \itemize{

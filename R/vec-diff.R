@@ -43,6 +43,13 @@
 #' where `diff_vec(difference = 1, log = TRUE) %>% exp()` is approximately _1 + rate of change._
 #'
 #' @seealso
+#'
+#' Advanced Differencing and Modeling:
+#'   - [step_diff()] - Recipe for `tidymodels` workflow
+#'   - [tk_augment_differences()] - Adds many differences to a `data.frame` (`tibble`)
+#'
+#' Additional Vector Functions:
+#'   - Fourier Series: [fourier_vec()]
 #'   - Box Cox Transformation: [box_cox_vec()]
 #'   - Lag Transformation: [lag_vec()]
 #'   - Differencing Transformation: [diff_vec()]
@@ -79,9 +86,6 @@
 #'         )
 #'     )
 #'
-#' @seealso
-#'   - Rolling Window Calculations: [roll_apply_vec()], [slider::slide_vec()], [zoo::rollapply()]
-#'   - Loess Modeling: [stats::loess()]
 #'
 #'
 #' @name diff_vec

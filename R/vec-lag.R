@@ -25,11 +25,17 @@
 #'
 #' @seealso
 #'
+#' Modeling and Advanced Lagging:
+#' - [recipes::step_lag()] - Recipe for adding lags in `tidymodels` modeling
+#' - [tk_augment_lags()] - Add many lags group-wise to a data.frame (tibble)
+#'
+#' Vectorized Transformations:
 #'   - Box Cox Transformation: [box_cox_vec()]
 #'   - Lag Transformation: [lag_vec()]
 #'   - Differencing Transformation: [diff_vec()]
 #'   - Rolling Window Transformation: [roll_apply_vec()]
 #'   - Loess Smoothing Transformation: [smooth_vec()]
+#'   - Fourier Series: [fourier_vec()]
 #'
 #' @examples
 #' library(dplyr)

@@ -40,7 +40,7 @@ This is effectively the "window size".}
 \item \code{~ mean(.x, na.rm = TRUE)}, it is converted to a function.
 }}
 
-\item{align}{Rolling functions generate \code{.period - 1} fewer values than the incoming vector.
+\item{align}{Rolling functions generate \code{period - 1} fewer values than the incoming vector.
 Thus, the vector needs to be aligned. Alignment of the vector follows 3 types:
 \itemize{
 \item \strong{Center:} \code{NA} or \code{.partial} values are divided and added to the beginning and
@@ -97,7 +97,29 @@ step that will apply a function
 to one or more a Numeric column(s).
 }
 \details{
-TODO
+\strong{Alignment}
+
+Rolling functions generate \code{period - 1} fewer values than the incoming vector.
+Thus, the vector needs to be aligned. Alignment of the vector follows 3 types:
+\itemize{
+\item \strong{Center:} \code{NA} or \code{partial} values are divided and added to the beginning and
+end of the series to "Center" the moving average.
+This is common for de-noising operations. See also \verb{[smooth_vec()]} for LOESS without NA values.
+\item \strong{Left:} \code{NA} or \code{partial} values are added to the end to shift the series to the Left.
+\item \strong{Right:} \code{NA} or \code{partial} values are added to the beginning to shif the series to the Right. This is common in
+Financial Applications such as moving average cross-overs.
+}
+
+\strong{Partial Values}
+\itemize{
+\item The advantage to using \code{partial} values vs \code{NA} padding is that
+the series can be filled (good for time-series de-noising operations).
+\item The downside to partial values is that the partials can become less stable
+at the regions where incomplete windows are used.
+}
+
+If instability is not desirable for de-noising operations, a suitable alternative
+is \code{\link[=step_smooth]{step_smooth()}}, which implements local polynomial regression.
 }
 \examples{
 library(recipes)
@@ -123,7 +145,7 @@ new_data <- FB_tbl \%>\%
 rec_ma_50 <- recipe(adjusted ~ ., data = FB_tbl) \%>\%
     step_roll_apply(adjusted, period = 50, .f = ~ AVERAGE(.x))
 
-# Bake the recipe object - Applies the Loess Transformation
+# Bake the recipe object - Applies the Moving Average Transformation
 training_data_baked <- bake(prep(rec_ma_50), FB_tbl)
 
 # Apply to New Data
@@ -146,11 +168,27 @@ bake(prep(rec_ma_30_names), FB_tbl) \%>\%
     geom_line(alpha = 0.5) +
     geom_line(aes(y = adjusted_ma_30), color = "red", size = 1)
 
+
+
 }
 \seealso{
-\code{\link[recipes:step_window]{recipes::step_window()}} \code{\link[stats:loess]{stats::loess()}}
-\code{\link[recipes:recipe]{recipes::recipe()}} \code{\link[recipes:prep.recipe]{recipes::prep.recipe()}}
-\code{\link[recipes:bake.recipe]{recipes::bake.recipe()}}
+Time Series Analysis:
+\itemize{
+\item \code{\link[=step_timeseries_signature]{step_timeseries_signature()}}
+\item \code{\link[=step_holiday_signature]{step_holiday_signature()}}
+\item \code{\link[=step_diff]{step_diff()}}
+\item \code{\link[recipes:step_lag]{recipes::step_lag()}}
+\item \code{\link[=step_roll_apply]{step_roll_apply()}}
+\item \code{\link[=step_smooth]{step_smooth()}}
+\item \code{\link[=step_box_cox]{step_box_cox()}}
+}
+
+Main Recipe Functions:
+\itemize{
+\item \code{\link[recipes:recipe]{recipes::recipe()}}
+\item \code{\link[recipes:prep.recipe]{recipes::prep.recipe()}}
+\item \code{\link[recipes:bake.recipe]{recipes::bake.recipe()}}
+}
 }
 \concept{moving_windows}
 \concept{preprocessing}

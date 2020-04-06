@@ -147,6 +147,15 @@ FB_tbl \%>\%
 }
 }
 \seealso{
+Modeling and More Complex Rolling Operations:
+\itemize{
+\item \code{\link[=step_roll_apply]{step_roll_apply()}} - Roll apply for \code{tidymodels} modeling
+\item \code{\link[=tk_augment_roll_apply]{tk_augment_roll_apply()}} - Add many rolling columns group-wise
+\item \code{\link[=slidify]{slidify()}} - Turn any function into a rolling function. Great for
+rolling cor, rolling regression, etc.
+\item For more complex rolling operations, check out the \code{slider} R package.
+}
+
 Vectorized Transformation Functions:
 \itemize{
 \item Box Cox Transformation: \code{\link[=box_cox_vec]{box_cox_vec()}}
@@ -154,12 +163,6 @@ Vectorized Transformation Functions:
 \item Differencing Transformation: \code{\link[=diff_vec]{diff_vec()}}
 \item Rolling Window Transformation: \code{\link[=roll_apply_vec]{roll_apply_vec()}}
 \item Loess Smoothing Transformation: \code{\link[=smooth_vec]{smooth_vec()}}
-}
-
-More Complex Rolling Operations:
-\itemize{
-\item \code{\link[=slidify]{slidify()}} - Turn any function into a rolling function. Great for
-rolling cor, rolling mean, rolling regression, etc.
-\item For more complex rolling operations, check out the \code{slider} R package.
+\item Fourier Series: \code{\link[=fourier_vec]{fourier_vec()}}
 }
 }

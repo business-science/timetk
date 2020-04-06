@@ -45,7 +45,10 @@
 #'  using a window of 75% of the data.
 #'
 #' @seealso
+#' Loess Modeling Functions:
+#'   - [step_smooth()] - Recipe for `tidymodels` workflow
 #'
+#' Additional Vector Functions:
 #'   - Box Cox Transformation: [box_cox_vec()]
 #'   - Lag Transformation: [lag_vec()]
 #'   - Differencing Transformation: [diff_vec()]
