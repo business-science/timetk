@@ -160,7 +160,7 @@ __TODO:__
 
 MAJOR ITEMS:
 1. recipes steps - Split transformations from predictor creators
-2. rsample - backwards rolling origin
+2. (DONE) rsample - backwards rolling origin
 3. tests
 4. vignettes
 
@@ -195,8 +195,8 @@ SMALLER ITEMS:
     - (DONE) `tk_augment_lags()`
     - `recipes::step_lag()`
 - Rsample automation 
-    - [Rsample PR <a href='https://github.com/business-science/timetk/issues/136'>#136</a>](https://github.com/tidymodels/rsample/pull/136)
-    - Rewrite - for Backtesting: `initial_time_split_2()`, `rolling_origin_2()`
+    - (DONE) Lags - [Rsample PR <a href='https://github.com/business-science/timetk/issues/136'>#136</a>](https://github.com/tidymodels/rsample/pull/136)
+    - (DONE) `time_series_cv()` - Rewrite rolling_origin - for Backtesting
 - Box Cox functionality
     - (DONE) `box_cox_vec`
     - (DONE) `box_cox_inv_vec`
@@ -218,13 +218,13 @@ SMALLER ITEMS:
     - `step_weather_signature()`
 - Support for `grouped_df`
     - (DONE) `tk_augment_roll_apply()`
-    - `tk_augment_lags()`
+    - (DONE) `tk_augment_lags()`
     - `tk_augment_smooth()`
 - Diagnostics
     - Missing Value Diagnostics - Weekends, Holidays - Correlation Funnel???
     - (DONE) ACF Diagnostics - `tk_acf_diagnostics` - Tidy acf, pacf, ccf
     - (DONE) Seasonality Diagnostics - Review FB Prophet Plot Components
-    - Tidy dft
+    - (DONE) Rsample Validation Diagnostics
 - Tests (Boooo)
 - Update Examples
 - Update Readme
@@ -260,15 +260,14 @@ SMALLER ITEMS:
 <ul>
 <li>
 <code><a href="../reference/step_holiday_signature.html">step_holiday_signature()</a></code> - New recipe step for adding 130 holiday features based on individual holidays, locales, and stock exchanges / business holidays.</li>
-<li><p><code><a href="../reference/step_fourier_series.html">step_fourier_series()</a></code> - New recipe step for adding fourier transforms for adding seasonal features to time series data</p></li>
+<li>
+<code><a href="../reference/step_fourier.html">step_fourier()</a></code> - New recipe step for adding fourier transforms for adding seasonal features to time series data</li>
 <li>
 <code><a href="../reference/step_roll_apply.html">step_roll_apply()</a></code> - New recipe step for adding rolling summary functions. Similar to <code><a href="https://rdrr.io/pkg/recipes/man/step_window.html">recipes::step_window()</a></code> but is more flexible by enabling application of any summary function.</li>
 <li>
 <code><a href="../reference/step_smooth.html">step_smooth()</a></code> - New recipe step for adding Local Polynomial Regression (LOESS) for smoothing noisy time series</li>
-<li><p><code><a href="../reference/step_diff.html">step_diff()</a></code> - New recipe for adding multiple differenced columns. Similar to <code><a href="https://rdrr.io/pkg/recipes/man/step_lag.html">recipes::step_lag()</a></code>.</p></li>
-</ul>
-<p>Transformations:</p>
-<ul>
+<li>
+<code><a href="../reference/step_diff.html">step_diff()</a></code> - New recipe for adding multiple differenced columns. Similar to <code><a href="https://rdrr.io/pkg/recipes/man/step_lag.html">recipes::step_lag()</a></code>.</li>
 <li>
 <code><a href="../reference/step_box_cox.html">step_box_cox()</a></code> - New recipe for transforming predictors. Similar to <code>step_BoxCox()</code> with improvements for forecasting including “guerrero” method for lambda selection and handling of negative data.</li>
 </ul>
@@ -291,6 +290,8 @@ SMALLER ITEMS:
 <code><a href="../reference/lag_vec.html">lag_vec()</a></code> - Vectorized lag functions. Returns both lags and leads (negative lags) by adjusting the <code>.lag</code> argument.</li>
 <li>
 <code><a href="../reference/box_cox_vec.html">box_cox_vec()</a></code>, <code><a href="../reference/box_cox_vec.html">box_cox_inv_vec()</a></code>, &amp; <code><a href="../reference/box_cox_vec.html">auto_lambda()</a></code> - Vectorized Box Cox transformation. Leverages <code><a href="https://rdrr.io/pkg/forecast/man/BoxCox.lambda.html">forecast::BoxCox.lambda()</a></code> for automatic lambda selection.</li>
+<li>
+<code><a href="../reference/fourier_vec.html">fourier_vec()</a></code> - Vectorized Fourier Series calculation.</li>
 </ul>
 <p><strong>New Augment Functions</strong>:</p>
 <p>All of the functions are designed for scale. They respect <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">dplyr::group_by()</a></code>.</p>

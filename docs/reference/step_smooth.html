@@ -290,9 +290,22 @@ This ensures that new data includes the same number of observations in the local
 polynomial regression (loess) as the training data.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='https://rdrr.io/pkg/recipes/man/step_window.html'>recipes::step_window()</a></code> <code><a href='https://rdrr.io/r/stats/loess.html'>stats::loess()</a></code>
-<code><a href='https://rdrr.io/pkg/recipes/man/recipe.html'>recipes::recipe()</a></code> <code><a href='https://rdrr.io/pkg/recipes/man/prep.html'>recipes::prep.recipe()</a></code>
-<code><a href='https://rdrr.io/pkg/recipes/man/bake.html'>recipes::bake.recipe()</a></code></p></div>
+    <div class='dont-index'><p>Time Series Analysis:</p><ul>
+<li><p><code><a href='step_timeseries_signature.html'>step_timeseries_signature()</a></code></p></li>
+<li><p><code><a href='step_holiday_signature.html'>step_holiday_signature()</a></code></p></li>
+<li><p><code><a href='step_diff.html'>step_diff()</a></code></p></li>
+<li><p><code><a href='https://rdrr.io/pkg/recipes/man/step_lag.html'>recipes::step_lag()</a></code></p></li>
+<li><p><code><a href='step_roll_apply.html'>step_roll_apply()</a></code></p></li>
+<li><p><code>step_smooth()</code></p></li>
+<li><p><code><a href='step_box_cox.html'>step_box_cox()</a></code></p></li>
+</ul>
+
+<p>Main Recipe Functions:</p><ul>
+<li><p><code><a href='https://rdrr.io/pkg/recipes/man/recipe.html'>recipes::recipe()</a></code></p></li>
+<li><p><code><a href='https://rdrr.io/pkg/recipes/man/prep.html'>recipes::prep.recipe()</a></code></p></li>
+<li><p><code><a href='https://rdrr.io/pkg/recipes/man/bake.html'>recipes::bake.recipe()</a></code></p></li>
+</ul>
+</div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>recipes</span>)
@@ -362,6 +375,8 @@ polynomial regression (loess) as the training data.</p>
     <span class='fu'>geom_line</span>(<span class='fu'>aes</span>(<span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>adjusted_smooth_30</span>), <span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"red"</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>1</span>) +
     <span class='fu'>geom_line</span>(<span class='fu'>aes</span>(<span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>adjusted_smooth_180</span>), <span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"blue"</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>1</span>) +
     <span class='fu'>geom_line</span>(<span class='fu'>aes</span>(<span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>long_term_trend</span>), <span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"orange"</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='img'><img src='step_smooth-3.png' alt='' width='700' height='433' /></div><div class='input'>
+
+
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

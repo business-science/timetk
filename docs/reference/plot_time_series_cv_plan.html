@@ -166,8 +166,8 @@ or <code>time_series_cv</code> class.</p>
   <span class='no'>.date_var</span>,
   <span class='no'>.value</span>,
   <span class='no'>...</span>,
-  <span class='kw'>.facet_ncol</span> <span class='kw'>=</span> <span class='fl'>3</span>,
-  <span class='kw'>.smooth</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+  <span class='kw'>.smooth</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>.title</span> <span class='kw'>=</span> <span class='st'>"Time Series Cross Validation Plan"</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -191,13 +191,13 @@ or <code>time_series_cv</code> class.</p></td>
       <td><p>Additional parameters passed to <code><a href='plot_time_series.html'>plot_time_series()</a></code></p></td>
     </tr>
     <tr>
-      <th>.facet_ncol</th>
-      <td><p>Number of facet columns.</p></td>
-    </tr>
-    <tr>
       <th>.smooth</th>
       <td><p>Logical - Whether or not to include a trendline smoother.
 Uses See <code><a href='smooth_vec.html'>smooth_vec()</a></code> to apply a LOESS smoother.</p></td>
+    </tr>
+    <tr>
+      <th>.title</th>
+      <td><p>Title for the plot</p></td>
     </tr>
     </table>
 

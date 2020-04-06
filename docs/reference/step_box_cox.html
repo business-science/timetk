@@ -274,12 +274,20 @@ with seasonal dummy variables is used.</p></li>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Transformations to reduce variance:</p><ol>
-<li><p><code><a href='https://rdrr.io/pkg/recipes/man/step_YeoJohnson.html'>recipes::step_YeoJohnson()</a></code> - Yeo-Johnson modified Box Cox for Negative Data</p></li>
-<li><p><code><a href='https://rdrr.io/pkg/recipes/man/step_BoxCox.html'>recipes::step_BoxCox()</a></code> - Implements Box Cox LogLik method</p></li>
+    <div class='dont-index'><p>Time Series Analysis:</p><ul>
+<li><p><code><a href='step_timeseries_signature.html'>step_timeseries_signature()</a></code></p></li>
+<li><p><code><a href='step_holiday_signature.html'>step_holiday_signature()</a></code></p></li>
+<li><p><code><a href='step_diff.html'>step_diff()</a></code></p></li>
+<li><p><code><a href='https://rdrr.io/pkg/recipes/man/step_lag.html'>recipes::step_lag()</a></code></p></li>
+<li><p><code><a href='step_roll_apply.html'>step_roll_apply()</a></code></p></li>
+<li><p><code><a href='step_smooth.html'>step_smooth()</a></code></p></li>
+<li><p><code>step_box_cox()</code></p></li>
+</ul>
+
+<p>Transformations to reduce variance:</p><ul>
 <li><p><code><a href='https://rdrr.io/pkg/recipes/man/step_log.html'>recipes::step_log()</a></code> - Log transformation</p></li>
 <li><p><code><a href='https://rdrr.io/pkg/recipes/man/step_sqrt.html'>recipes::step_sqrt()</a></code> - Square-Root Power Transformation</p></li>
-</ol>
+</ul>
 
 <p>Recipe Setup and Application:</p><ul>
 <li><p>Create: <code><a href='https://rdrr.io/pkg/recipes/man/recipe.html'>recipes::recipe()</a></code></p></li>
@@ -291,8 +299,12 @@ with seasonal dummy variables is used.</p></li>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>tidyverse</span>)
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>tidyquant</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>recipes</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>timetk</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>recipes</span>)</div><div class='output co'>#&gt; <span class='message'></span>
+#&gt; <span class='message'>Attaching package: ‘recipes’</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:stringr’:</span>
+#&gt; <span class='message'></span>
+#&gt; <span class='message'>    fixed</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:stats’:</span>
+#&gt; <span class='message'></span>
+#&gt; <span class='message'>    step</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>timetk</span>)
 
 <span class='no'>FANG_wide</span> <span class='kw'>&lt;-</span> <span class='no'>FANG</span> <span class='kw'>%&gt;%</span>
 <span class='fu'>select</span>(<span class='no'>symbol</span>, <span class='no'>date</span>, <span class='no'>adjusted</span>) <span class='kw'>%&gt;%</span>
@@ -319,10 +331,10 @@ with seasonal dummy variables is used.</p></li>
 <span class='no'>recipe_box_cox</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/reexports.html'>tidy</a></span>(<span class='fl'>1</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 4 x 3</span><span>
 #&gt;   terms  lambda id           
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>        
-#&gt; </span><span style='color: #555555;'>1</span><span> FB     0.671  box_cox_ieexo
-#&gt; </span><span style='color: #555555;'>2</span><span> AMZN   0.135  box_cox_ieexo
-#&gt; </span><span style='color: #555555;'>3</span><span> NFLX   0.458  box_cox_ieexo
-#&gt; </span><span style='color: #555555;'>4</span><span> GOOG  -</span><span style='color: #BB0000;'>0.038</span><span style='color: #BB0000;text-decoration: underline;'>8</span><span> box_cox_ieexo</div><div class='input'>
+#&gt; </span><span style='color: #555555;'>1</span><span> FB     0.671  box_cox_SwlKL
+#&gt; </span><span style='color: #555555;'>2</span><span> AMZN   0.135  box_cox_SwlKL
+#&gt; </span><span style='color: #555555;'>3</span><span> NFLX   0.458  box_cox_SwlKL
+#&gt; </span><span style='color: #555555;'>4</span><span> GOOG  -</span><span style='color: #BB0000;'>0.038</span><span style='color: #BB0000;text-decoration: underline;'>8</span><span> box_cox_SwlKL</div><div class='input'>
 </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

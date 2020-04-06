@@ -117,7 +117,9 @@ library(tidyverse)
 library(tidyquant)
 library(timetk)
 
-FB_tbl <- FANG \%>\% filter(symbol == "FB")
+FB_tbl <- FANG \%>\%
+    filter(symbol == "FB") \%>\%
+    select(symbol, date, adjusted)
 
 # Create a recipe object with a timeseries signature step
 rec_obj <- recipe(adjusted ~ ., data = FB_tbl) \%>\%

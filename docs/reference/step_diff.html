@@ -253,15 +253,24 @@ new step added to the sequence of existing steps (if any).</p>
 order</em> for lagging.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Steps:</p><ul>
-<li><p>Lags: <code><a href='https://rdrr.io/pkg/recipes/man/step_lag.html'>recipes::step_lag()</a></code></p></li>
-<li><p>NA Removal: <code><a href='https://rdrr.io/pkg/recipes/man/step_naomit.html'>recipes::step_naomit()</a></code></p></li>
+    <div class='dont-index'><p>Time Series Analysis:</p><ul>
+<li><p><code><a href='step_timeseries_signature.html'>step_timeseries_signature()</a></code></p></li>
+<li><p><code><a href='step_holiday_signature.html'>step_holiday_signature()</a></code></p></li>
+<li><p><code>step_diff()</code></p></li>
+<li><p><code><a href='https://rdrr.io/pkg/recipes/man/step_lag.html'>recipes::step_lag()</a></code></p></li>
+<li><p><code><a href='step_roll_apply.html'>step_roll_apply()</a></code></p></li>
+<li><p><code><a href='step_smooth.html'>step_smooth()</a></code></p></li>
+<li><p><code><a href='step_box_cox.html'>step_box_cox()</a></code></p></li>
 </ul>
 
-<p>Recipe Setup and Application</p><ul>
-<li><p>Create: <code><a href='https://rdrr.io/pkg/recipes/man/recipe.html'>recipes::recipe()</a></code></p></li>
-<li><p>Prepare: <code><a href='https://rdrr.io/pkg/recipes/man/prep.html'>recipes::prep.recipe()</a></code></p></li>
-<li><p>Apply: <code><a href='https://rdrr.io/pkg/recipes/man/bake.html'>recipes::bake.recipe()</a></code></p></li>
+<p>Remove NA Values:</p><ul>
+<li><p><code><a href='https://rdrr.io/pkg/recipes/man/step_naomit.html'>recipes::step_naomit()</a></code></p></li>
+</ul>
+
+<p>Main Recipe Functions:</p><ul>
+<li><p><code><a href='https://rdrr.io/pkg/recipes/man/recipe.html'>recipes::recipe()</a></code></p></li>
+<li><p><code><a href='https://rdrr.io/pkg/recipes/man/prep.html'>recipes::prep.recipe()</a></code></p></li>
+<li><p><code><a href='https://rdrr.io/pkg/recipes/man/bake.html'>recipes::bake.recipe()</a></code></p></li>
 </ul>
 </div>
 
@@ -306,22 +315,22 @@ order</em> for lagging.</p>
 <span class='no'>recipe_diff</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/reexports.html'>tidy</a></span>()</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 1 x 6</span><span>
 #&gt;   number operation type  trained skip  id        
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     
-#&gt; </span><span style='color: #555555;'>1</span><span>      1 step      diff  TRUE    FALSE diff_mb92Q</div><div class='input'>
+#&gt; </span><span style='color: #555555;'>1</span><span>      1 step      diff  TRUE    FALSE diff_UUEdL</div><div class='input'>
 <span class='no'>recipe_diff</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/reexports.html'>tidy</a></span>(<span class='fl'>1</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 12 x 5</span><span>
 #&gt;    terms           lag  diff log   id        
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     
-#&gt; </span><span style='color: #555555;'> 1</span><span> diff_FB_1_1       1     1 FALSE diff_mb92Q
-#&gt; </span><span style='color: #555555;'> 2</span><span> diff_AMZN_1_1     1     1 FALSE diff_mb92Q
-#&gt; </span><span style='color: #555555;'> 3</span><span> diff_NFLX_1_1     1     1 FALSE diff_mb92Q
-#&gt; </span><span style='color: #555555;'> 4</span><span> diff_GOOG_1_1     1     1 FALSE diff_mb92Q
-#&gt; </span><span style='color: #555555;'> 5</span><span> diff_FB_2_1       2     1 FALSE diff_mb92Q
-#&gt; </span><span style='color: #555555;'> 6</span><span> diff_AMZN_2_1     2     1 FALSE diff_mb92Q
-#&gt; </span><span style='color: #555555;'> 7</span><span> diff_NFLX_2_1     2     1 FALSE diff_mb92Q
-#&gt; </span><span style='color: #555555;'> 8</span><span> diff_GOOG_2_1     2     1 FALSE diff_mb92Q
-#&gt; </span><span style='color: #555555;'> 9</span><span> diff_FB_3_1       3     1 FALSE diff_mb92Q
-#&gt; </span><span style='color: #555555;'>10</span><span> diff_AMZN_3_1     3     1 FALSE diff_mb92Q
-#&gt; </span><span style='color: #555555;'>11</span><span> diff_NFLX_3_1     3     1 FALSE diff_mb92Q
-#&gt; </span><span style='color: #555555;'>12</span><span> diff_GOOG_3_1     3     1 FALSE diff_mb92Q</div><div class='input'>
+#&gt; </span><span style='color: #555555;'> 1</span><span> diff_FB_1_1       1     1 FALSE diff_UUEdL
+#&gt; </span><span style='color: #555555;'> 2</span><span> diff_AMZN_1_1     1     1 FALSE diff_UUEdL
+#&gt; </span><span style='color: #555555;'> 3</span><span> diff_NFLX_1_1     1     1 FALSE diff_UUEdL
+#&gt; </span><span style='color: #555555;'> 4</span><span> diff_GOOG_1_1     1     1 FALSE diff_UUEdL
+#&gt; </span><span style='color: #555555;'> 5</span><span> diff_FB_2_1       2     1 FALSE diff_UUEdL
+#&gt; </span><span style='color: #555555;'> 6</span><span> diff_AMZN_2_1     2     1 FALSE diff_UUEdL
+#&gt; </span><span style='color: #555555;'> 7</span><span> diff_NFLX_2_1     2     1 FALSE diff_UUEdL
+#&gt; </span><span style='color: #555555;'> 8</span><span> diff_GOOG_2_1     2     1 FALSE diff_UUEdL
+#&gt; </span><span style='color: #555555;'> 9</span><span> diff_FB_3_1       3     1 FALSE diff_UUEdL
+#&gt; </span><span style='color: #555555;'>10</span><span> diff_AMZN_3_1     3     1 FALSE diff_UUEdL
+#&gt; </span><span style='color: #555555;'>11</span><span> diff_NFLX_3_1     3     1 FALSE diff_UUEdL
+#&gt; </span><span style='color: #555555;'>12</span><span> diff_GOOG_3_1     3     1 FALSE diff_UUEdL</div><div class='input'>
 </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

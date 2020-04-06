@@ -98,14 +98,10 @@ __New Recipe Functions:__
 Feature Generators:
 
 * `step_holiday_signature()` - New recipe step for adding 130 holiday features based on individual holidays, locales, and stock exchanges / business holidays. 
-* `step_fourier_series()` - New recipe step for adding fourier transforms for adding seasonal features to time series data
-
+* `step_fourier()` - New recipe step for adding fourier transforms for adding seasonal features to time series data
 * `step_roll_apply()` - New recipe step for adding rolling summary functions. Similar to `recipes::step_window()` but is more flexible by enabling application of any summary function. 
 * `step_smooth()` - New recipe step for adding Local Polynomial Regression (LOESS) for smoothing noisy time series
 * `step_diff()` - New recipe for adding multiple differenced columns. Similar to `recipes::step_lag()`.
-
-Transformations: 
-
 * `step_box_cox()` - New recipe for transforming predictors. Similar to `step_BoxCox()` with improvements for forecasting including "guerrero" method for lambda selection and handling of negative data. 
 
 __New Rsample Functions__
@@ -121,6 +117,7 @@ These functions are useful on their own inside of `mutate()` and power many of t
 * `diff_vec()` and `diff_inv_vec()` - Vectorized differencing function. Pads `NA`'s by default (unlike `stats::diff`).
 * `lag_vec()` - Vectorized lag functions. Returns both lags and leads (negative lags) by adjusting the `.lag` argument. 
 * `box_cox_vec()`, `box_cox_inv_vec()`, & `auto_lambda()` - Vectorized Box Cox transformation. Leverages `forecast::BoxCox.lambda()` for automatic lambda selection. 
+* `fourier_vec()` - Vectorized Fourier Series calculation.
 
 __New Augment Functions__:
 

@@ -208,7 +208,7 @@ This is effectively the "window size".</p></td>
     </tr>
     <tr>
       <th>align</th>
-      <td><p>Rolling functions generate <code>.period - 1</code> fewer values than the incoming vector.
+      <td><p>Rolling functions generate <code>period - 1</code> fewer values than the incoming vector.
 Thus, the vector needs to be aligned. Alignment of the vector follows 3 types:</p><ul>
 <li><p><strong>Center:</strong> <code>NA</code> or <code>.partial</code> values are divided and added to the beginning and
 end of the series to "Center" the moving average.
@@ -277,12 +277,44 @@ For the <code>tidy</code> method, a tibble with columns <code>terms</code>
 names).</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>TODO</p>
+    <p><strong>Alignment</strong></p>
+<p>Rolling functions generate <code>period - 1</code> fewer values than the incoming vector.
+Thus, the vector needs to be aligned. Alignment of the vector follows 3 types:</p><ul>
+<li><p><strong>Center:</strong> <code>NA</code> or <code>partial</code> values are divided and added to the beginning and
+end of the series to "Center" the moving average.
+This is common for de-noising operations. See also <code>[smooth_vec()]</code> for LOESS without NA values.</p></li>
+<li><p><strong>Left:</strong> <code>NA</code> or <code>partial</code> values are added to the end to shift the series to the Left.</p></li>
+<li><p><strong>Right:</strong> <code>NA</code> or <code>partial</code> values are added to the beginning to shif the series to the Right. This is common in
+Financial Applications such as moving average cross-overs.</p></li>
+</ul>
+
+<p><strong>Partial Values</strong></p><ul>
+<li><p>The advantage to using <code>partial</code> values vs <code>NA</code> padding is that
+the series can be filled (good for time-series de-noising operations).</p></li>
+<li><p>The downside to partial values is that the partials can become less stable
+at the regions where incomplete windows are used.</p></li>
+</ul>
+
+<p>If instability is not desirable for de-noising operations, a suitable alternative
+is <code><a href='step_smooth.html'>step_smooth()</a></code>, which implements local polynomial regression.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='https://rdrr.io/pkg/recipes/man/step_window.html'>recipes::step_window()</a></code> <code><a href='https://rdrr.io/r/stats/loess.html'>stats::loess()</a></code>
-<code><a href='https://rdrr.io/pkg/recipes/man/recipe.html'>recipes::recipe()</a></code> <code><a href='https://rdrr.io/pkg/recipes/man/prep.html'>recipes::prep.recipe()</a></code>
-<code><a href='https://rdrr.io/pkg/recipes/man/bake.html'>recipes::bake.recipe()</a></code></p></div>
+    <div class='dont-index'><p>Time Series Analysis:</p><ul>
+<li><p><code><a href='step_timeseries_signature.html'>step_timeseries_signature()</a></code></p></li>
+<li><p><code><a href='step_holiday_signature.html'>step_holiday_signature()</a></code></p></li>
+<li><p><code><a href='step_diff.html'>step_diff()</a></code></p></li>
+<li><p><code><a href='https://rdrr.io/pkg/recipes/man/step_lag.html'>recipes::step_lag()</a></code></p></li>
+<li><p><code>step_roll_apply()</code></p></li>
+<li><p><code><a href='step_smooth.html'>step_smooth()</a></code></p></li>
+<li><p><code><a href='step_box_cox.html'>step_box_cox()</a></code></p></li>
+</ul>
+
+<p>Main Recipe Functions:</p><ul>
+<li><p><code><a href='https://rdrr.io/pkg/recipes/man/recipe.html'>recipes::recipe()</a></code></p></li>
+<li><p><code><a href='https://rdrr.io/pkg/recipes/man/prep.html'>recipes::prep.recipe()</a></code></p></li>
+<li><p><code><a href='https://rdrr.io/pkg/recipes/man/bake.html'>recipes::bake.recipe()</a></code></p></li>
+</ul>
+</div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>recipes</span>)
@@ -308,7 +340,7 @@ names).</p>
 <span class='no'>rec_ma_50</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/recipe.html'>recipe</a></span>(<span class='no'>adjusted</span> ~ <span class='no'>.</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>FB_tbl</span>) <span class='kw'>%&gt;%</span>
     <span class='fu'>step_roll_apply</span>(<span class='no'>adjusted</span>, <span class='kw'>period</span> <span class='kw'>=</span> <span class='fl'>50</span>, <span class='kw'>.f</span> <span class='kw'>=</span> ~ <span class='fu'><a href='https://rdrr.io/pkg/tidyquant/man/excel_stat_summary_functions.html'>AVERAGE</a></span>(<span class='no'>.x</span>))
 
-<span class='co'># Bake the recipe object - Applies the Loess Transformation</span>
+<span class='co'># Bake the recipe object - Applies the Moving Average Transformation</span>
 <span class='no'>training_data_baked</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/bake.html'>bake</a></span>(<span class='fu'><a href='https://rdrr.io/pkg/recipes/man/prep.html'>prep</a></span>(<span class='no'>rec_ma_50</span>), <span class='no'>FB_tbl</span>)
 
 <span class='co'># Apply to New Data</span>
@@ -329,6 +361,8 @@ names).</p>
     <span class='fu'>ggplot</span>(<span class='fu'>aes</span>(<span class='no'>date</span>, <span class='no'>adjusted</span>)) +
     <span class='fu'>geom_line</span>(<span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.5</span>) +
     <span class='fu'>geom_line</span>(<span class='fu'>aes</span>(<span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>adjusted_ma_30</span>), <span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"red"</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='img'><img src='step_roll_apply-2.png' alt='' width='700' height='433' /></div><div class='input'>
+
+
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
