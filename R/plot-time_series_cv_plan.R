@@ -53,22 +53,24 @@
 #'
 #' @export
 plot_time_series_cv_plan <- function(.rset, .date_var, .value, ...,
-                                     .facet_ncol = 3, .smooth = FALSE) {
+                                     .smooth = FALSE,
+                                     .title = "Time Series Cross Validation Plan") {
 
     UseMethod("plot_time_series_cv_plan", .rset)
 }
 
 #' @export
 plot_time_series_cv_plan.rolling_origin <- function(.rset, .date_var, .value, ...,
-                                                    .facet_ncol = 3, .smooth = FALSE) {
+                                                    .smooth = FALSE,
+                                                    .title = "Time Series Cross Validation Plan") {
 
     plot_ts_cv(
         .rset,
         .date_var   = !! rlang::enquo(.date_var),
         .value      = !! rlang::enquo(.value),
         ...,
-        .facet_ncol = .facet_ncol,
-        .smooth     = .smooth
+        .smooth     = .smooth,
+        .title      = .title
     )
 
 
@@ -77,15 +79,16 @@ plot_time_series_cv_plan.rolling_origin <- function(.rset, .date_var, .value, ..
 
 #' @export
 plot_time_series_cv_plan.time_series_cv <- function(.rset, .date_var, .value, ...,
-                                                    .facet_ncol = 3, .smooth = FALSE) {
+                                                    .smooth = FALSE,
+                                                    .title = "Time Series Cross Validation Plan") {
 
     plot_ts_cv(
         .rset,
         .date_var   = !! rlang::enquo(.date_var),
         .value      = !! rlang::enquo(.value),
         ...,
-        .facet_ncol = .facet_ncol,
-        .smooth     = .smooth
+        .smooth     = .smooth,
+        .title = "Time Series Cross Validation Plan"
     )
 
 
@@ -93,13 +96,15 @@ plot_time_series_cv_plan.time_series_cv <- function(.rset, .date_var, .value, ..
 
 #' @export
 plot_time_series_cv_plan.default <- function(.rset, .date_var, .value, ...,
-                                             .facet_ncol = 3, .line_alpha = 0.5, .smooth = FALSE) {
+                                             .smooth = FALSE,
+                                             .title = "Time Series Cross Validation Plan") {
     rlang::abort("plot_time_series_cv_plan: No method for class, ", class(.rset)[1])
 }
 
 
 plot_ts_cv <- function(.rset, .date_var, .value, ...,
-                       .facet_ncol = 3, .smooth = FALSE) {
+                       .smooth = FALSE,
+                       .title = "Time Series Cross Validation Plan") {
 
     date_var_expr <- rlang::enquo(.date_var)
     value_expr    <- rlang::enquo(.value)
@@ -108,14 +113,15 @@ plot_ts_cv <- function(.rset, .date_var, .value, ...,
     data_formatted <- tk_time_series_cv_plan(.rset)
 
     data_formatted %>%
+        dplyr::ungroup() %>%
         dplyr::group_by(id) %>%
         plot_time_series(
             .date_var   = !! date_var_expr,
             .value      = !! value_expr,
             .color_var  = key,
             ...,
-            .facet_ncol = .facet_ncol,
-            .smooth     = .smooth)
+            .smooth     = .smooth,
+            .title      = .title)
 
 }
 

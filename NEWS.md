@@ -5,7 +5,7 @@ __TODO:__
 
 MAJOR ITEMS:
 1. recipes steps - Split transformations from predictor creators
-2. rsample - backwards rolling origin
+2. (DONE) rsample - backwards rolling origin
 3. tests
 4. vignettes
 
@@ -40,8 +40,8 @@ SMALLER ITEMS:
     - (DONE) `tk_augment_lags()`
     - `recipes::step_lag()`
 - Rsample automation 
-    - [Rsample PR #136](https://github.com/tidymodels/rsample/pull/136)
-    - Rewrite - for Backtesting: `initial_time_split_2()`, `rolling_origin_2()`
+    - (DONE) Lags - [Rsample PR #136](https://github.com/tidymodels/rsample/pull/136)
+    - (DONE) `time_series_cv()` - Rewrite rolling_origin - for Backtesting
 - Box Cox functionality
     - (DONE) `box_cox_vec`
     - (DONE) `box_cox_inv_vec`
@@ -63,13 +63,13 @@ SMALLER ITEMS:
     - `step_weather_signature()`
 - Support for `grouped_df`
     - (DONE) `tk_augment_roll_apply()`
-    - `tk_augment_lags()`
+    - (DONE) `tk_augment_lags()`
     - `tk_augment_smooth()`
 - Diagnostics
     - Missing Value Diagnostics - Weekends, Holidays - Correlation Funnel???
     - (DONE) ACF Diagnostics - `tk_acf_diagnostics` - Tidy acf, pacf, ccf
     - (DONE) Seasonality Diagnostics - Review FB Prophet Plot Components
-    - Tidy dft
+    - (DONE) Rsample Validation Diagnostics
 - Tests (Boooo)
 - Update Examples
 - Update Readme

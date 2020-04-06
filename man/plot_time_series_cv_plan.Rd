@@ -9,8 +9,8 @@ plot_time_series_cv_plan(
   .date_var,
   .value,
   ...,
-  .facet_ncol = 3,
-  .smooth = FALSE
+  .smooth = FALSE,
+  .title = "Time Series Cross Validation Plan"
 )
 }
 \arguments{
@@ -23,10 +23,10 @@ or \code{time_series_cv} class.}
 
 \item{...}{Additional parameters passed to \code{\link[=plot_time_series]{plot_time_series()}}}
 
-\item{.facet_ncol}{Number of facet columns.}
-
 \item{.smooth}{Logical - Whether or not to include a trendline smoother.
 Uses See \code{\link[=smooth_vec]{smooth_vec()}} to apply a LOESS smoother.}
+
+\item{.title}{Title for the plot}
 }
 \description{
 The \code{plot_time_series_cv_plan()} function provides a visualization
