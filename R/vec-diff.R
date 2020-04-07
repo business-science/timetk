@@ -49,12 +49,13 @@
 #'   - [tk_augment_differences()] - Adds many differences to a `data.frame` (`tibble`)
 #'
 #' Additional Vector Functions:
-#'   - Fourier Series: [fourier_vec()]
 #'   - Box Cox Transformation: [box_cox_vec()]
 #'   - Lag Transformation: [lag_vec()]
 #'   - Differencing Transformation: [diff_vec()]
 #'   - Rolling Window Transformation: [roll_apply_vec()]
 #'   - Loess Smoothing Transformation: [smooth_vec()]
+#'   - Fourier Series: [fourier_vec()]
+#'   - Missing Value Imputation for Time Series: [impute_ts_vec()]
 #'
 #' @examples
 #' library(dplyr)

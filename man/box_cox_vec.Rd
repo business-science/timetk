@@ -83,6 +83,8 @@ m4_daily \%>\%
 \item Differencing Transformation: \code{\link[=diff_vec]{diff_vec()}}
 \item Rolling Window Transformation: \code{\link[=roll_apply_vec]{roll_apply_vec()}}
 \item Loess Smoothing Transformation: \code{\link[=smooth_vec]{smooth_vec()}}
+\item Fourier Series: \code{\link[=fourier_vec]{fourier_vec()}}
+\item Missing Value Imputation for Time Series: \code{\link[=impute_ts_vec]{impute_ts_vec()}}
 }
 
 Other common transformations to reduce variance: \code{log()}, \code{log1p()} and \code{sqrt()}

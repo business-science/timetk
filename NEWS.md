@@ -120,6 +120,7 @@ These functions are useful on their own inside of `mutate()` and power many of t
 * `lag_vec()` - Vectorized lag functions. Returns both lags and leads (negative lags) by adjusting the `.lag` argument. 
 * `box_cox_vec()`, `box_cox_inv_vec()`, & `auto_lambda()` - Vectorized Box Cox transformation. Leverages `forecast::BoxCox.lambda()` for automatic lambda selection. 
 * `fourier_vec()` - Vectorized Fourier Series calculation.
+* `impute_ts_vec()` - Vectorized imputation of missing values for time series. Leverages `forecast::na.interp()`.
 
 __New Augment Functions__:
 

@@ -54,6 +54,8 @@
 #'   - Differencing Transformation: [diff_vec()]
 #'   - Rolling Window Transformation: [roll_apply_vec()]
 #'   - Loess Smoothing Transformation: [smooth_vec()]
+#'   - Fourier Series: [fourier_vec()]
+#'   - Missing Value Imputation for Time Series: [impute_ts_vec()]
 #'
 #' @examples
 #' library(tidyverse)
@@ -96,11 +98,6 @@
 #'     geom_line(aes(y = adjusted_ma_30), color = "blue") +
 #'     labs(title = "Loess vs Moving Average")
 #'
-#' @seealso
-#'   - Lag Transformation: [lag_vec()]
-#'   - Differencing Transformation: [diff_vec()]
-#'   - Rolling Window Transformation: [roll_apply_vec()]
-#'   - Loess Smoothing Transformation: [smooth_vec()]
 #'
 #'
 #' @export
