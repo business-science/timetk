@@ -108,8 +108,12 @@ sequence, which tends to increase the models ability to fit vs the \code{K = 1} 
 \strong{Multiple values of \code{period} and \code{K}}
 
 It's possible to specify multiple values of \code{period} in a single
-step such as \code{step_fourier(period = c(91.25, 365), K = c(1, 1))}.
-Note that the number of \code{K} elements must match the number of \code{period} elements.
+step such as \verb{step_fourier(period = c(91.25, 365), K = 2}.
+This returns 8 Fouriers series:
+\itemize{
+\item \code{cos91.25_K1}, \code{sin91.25_K1}, \code{cos91.25_K2}, \code{sin91.25_K2}
+\item \code{cos365_K1}, \code{sin365_K1}, \code{cos365_K2}, \code{sin365_K2}
+}
 }
 \examples{
 library(recipes)
@@ -122,8 +126,12 @@ FB_tbl <- FANG \%>\%
     select(symbol, date, adjusted)
 
 # Create a recipe object with a timeseries signature step
+# - 252 Trade days per year
+# - period = c(252/4, 252): Adds quarterly and yearly fourier series
+# - K = 2: Adds 1st and 2nd fourier orders
+
 rec_obj <- recipe(adjusted ~ ., data = FB_tbl) \%>\%
-    step_fourier(date, period = c(90.25, 365), K = c(1, 1))
+    step_fourier(date, period = c(252/4, 252), K = 2)
 
 # View the recipe object
 rec_obj

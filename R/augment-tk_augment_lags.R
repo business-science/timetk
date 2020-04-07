@@ -31,6 +31,7 @@
 #' - [tk_augment_roll_apply()] - Group-wise augmentation of rolling functions
 #' - [tk_augment_lags()] - Group-wise augmentation of lagged data
 #' - [tk_augment_differences()] - Group-wise augmentation of differenced data
+#' - [tk_augment_fourier()] - Group-wise augmentation of fourier series
 #'
 #' Underlying Function:
 #' - [lag_vec()] - Underlying function that powers `tk_augment_lags()`
@@ -51,7 +52,7 @@ NULL
 tk_augment_lags <- function(.data,
                             .value,
                             .lags = 1,
-                            .names = paste0("lag_", .lags)) {
+                            .names = "auto") {
 
     # Checks
     column_expr <- enquo(.value)
@@ -66,7 +67,7 @@ tk_augment_lags <- function(.data,
 tk_augment_lags.data.frame <- function(.data,
                                        .value,
                                        .lags = 1,
-                                       .names = paste0("lag_", .lags)) {
+                                       .names = "auto") {
 
     column_expr <- enquo(.value)
 
@@ -77,8 +78,20 @@ tk_augment_lags.data.frame <- function(.data,
             .data %>%
                 dplyr::pull(!! column_expr) %>%
                 lag_vec(lag = lag)
-        }) %>%
-        purrr::set_names(.names)
+        })
+
+    # Adjust Names
+    if (any(.names == "auto")) {
+        grid <- expand.grid(
+            col      = rlang::quo_name(column_expr),
+            lag_val  = .lags,
+            stringsAsFactors = FALSE)
+        newname <- paste0(grid$col, "_lag", grid$lag_val)
+    } else {
+        newname <- .names
+    }
+    ret_2 <- ret_2 %>%
+        purrr::set_names(newname)
 
     ret <- dplyr::bind_cols(ret_1, ret_2)
 
@@ -89,7 +102,7 @@ tk_augment_lags.data.frame <- function(.data,
 tk_augment_lags.grouped_df <- function(.data,
                                        .value,
                                        .lags = 1,
-                                       .names = paste0("lag_", .lags)) {
+                                       .names = "auto") {
 
     # Tidy Eval Setup
     column_expr <- enquo(.value)
@@ -116,6 +129,6 @@ tk_augment_lags.grouped_df <- function(.data,
 tk_augment_lags.default <- function(.data,
                                     .value,
                                     .lags = 1,
-                                    .names = paste0("lag_", .lags)) {
+                                    .names = "auto") {
     stop(paste0("`tk_augment_lags` has no method for class ", class(data)[[1]]))
 }

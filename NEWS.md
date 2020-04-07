@@ -4,14 +4,16 @@
 __TODO:__
 
 MAJOR ITEMS:
-1. recipes steps - Split transformations from predictor creators
+1. (DONE) recipes steps - Split transformations from predictor creators
 2. (DONE) rsample - backwards rolling origin
 3. tests
 4. vignettes
 
 SMALLER ITEMS:
-1. tk_augment_diffs: Change name, update for multi-diffs
-2. weather signature
+1. Outliers
+2. Missing Data
+3. weather signature
+4. tsibble integration
 
 - Plot Diagnostics
     - (DONE) Plot Time Series
@@ -20,7 +22,7 @@ SMALLER ITEMS:
     - Missing Data Diagnostics
 - Fourier series
     - (DONE) `step_fourier_series()`
-    - `fourier_vec()`
+    - (DONE) `fourier_vec()`
     - `tk_get_fourier_series()` (is this needed?)
     - `tk_augment_fourier_series()` (is this needed?)
 - (DONE) Rolling functionality 
@@ -127,6 +129,7 @@ All of the functions are designed for scale. They respect `dplyr::group_by()`.
 * `tk_augment_roll_apply()` - Add multiple columns of rolling window calculations to a `data.frame`.
 * `tk_augment_differences()` - Add multiple columns of differences to a `data.frame`. 
 * `tk_augment_lags()` - Add multiple columns of lags to a `data.frame`. 
+* `tk_augment_fourier()` - Add multiple columns of fourier series to a `data.frame`.
 
 
 __New Make Functions__:

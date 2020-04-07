@@ -100,6 +100,7 @@ Augment Operations:
 \item \code{\link[=tk_augment_roll_apply]{tk_augment_roll_apply()}} - Group-wise augmentation of rolling functions
 \item \code{\link[=tk_augment_lags]{tk_augment_lags()}} - Group-wise augmentation of lagged data
 \item \code{\link[=tk_augment_differences]{tk_augment_differences()}} - Group-wise augmentation of differenced data
+\item \code{\link[=tk_augment_fourier]{tk_augment_fourier()}} - Group-wise augmentation of fourier series
 }
 
 Underlying Function:

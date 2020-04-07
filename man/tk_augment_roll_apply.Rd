@@ -12,7 +12,7 @@ tk_augment_roll_apply(
   ...,
   .align = c("center", "left", "right"),
   .partial = FALSE,
-  .names = paste0("roll_apply_", .period)
+  .names = "auto"
 )
 }
 \arguments{
@@ -32,7 +32,7 @@ Thus, the vector needs to be aligned. Select one of "center", "left", or "right"
 \item{.partial}{.partial Should the moving window be allowed to return partial (incomplete) windows instead of \code{NA} values.
 Set to FALSE by default, but can be switched to TRUE to remove \code{NA}'s.}
 
-\item{.names}{A vector of names for the new columns. Must be of same length as \code{.period}.}
+\item{.names}{A vector of names for the new columns. Must be of same length as \code{.period}. Default is "auto".}
 }
 \value{
 Returns a \code{tibble} object describing the timeseries.
@@ -72,6 +72,8 @@ Augment Operations:
 \item \code{\link[=tk_augment_roll_apply]{tk_augment_roll_apply()}} - Group-wise augmentation of rolling functions
 \item \code{\link[=tk_augment_lags]{tk_augment_lags()}} - Group-wise augmentation of lagged data
 \item \code{\link[=tk_augment_differences]{tk_augment_differences()}} - Group-wise augmentation of differenced data
+\item \code{\link[=tk_augment_fourier]{tk_augment_fourier()}} - Group-wise augmentation of differenced data
+\item \code{\link[=tk_augment_fourier]{tk_augment_fourier()}} - Group-wise augmentation of fourier series
 }
 
 Underlying Function:

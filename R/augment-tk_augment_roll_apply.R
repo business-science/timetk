@@ -12,7 +12,7 @@
 #' Thus, the vector needs to be aligned. Select one of "center", "left", or "right".
 #' @param .partial .partial Should the moving window be allowed to return partial (incomplete) windows instead of `NA` values.
 #'  Set to FALSE by default, but can be switched to TRUE to remove `NA`'s.
-#' @param .names A vector of names for the new columns. Must be of same length as `.period`.
+#' @param .names A vector of names for the new columns. Must be of same length as `.period`. Default is "auto".
 #'
 #'
 #' @return Returns a `tibble` object describing the timeseries.
@@ -33,6 +33,8 @@
 #' - [tk_augment_roll_apply()] - Group-wise augmentation of rolling functions
 #' - [tk_augment_lags()] - Group-wise augmentation of lagged data
 #' - [tk_augment_differences()] - Group-wise augmentation of differenced data
+#' - [tk_augment_fourier()] - Group-wise augmentation of differenced data
+#' - [tk_augment_fourier()] - Group-wise augmentation of fourier series
 #'
 #' Underlying Function:
 #'
@@ -67,7 +69,7 @@ tk_augment_roll_apply <- function(.data,
                                   ...,
                                   .align = c("center", "left", "right"),
                                   .partial = FALSE,
-                                  .names = paste0("roll_apply_", .period)) {
+                                  .names = "auto") {
     UseMethod("tk_augment_roll_apply", .data)
 }
 
@@ -79,7 +81,7 @@ tk_augment_roll_apply.data.frame <- function(.data,
                                              ...,
                                              .align = c("center", "left", "right"),
                                              .partial = FALSE,
-                                             .names = paste0("roll_apply_", .period)) {
+                                             .names = "auto") {
 
     column_expr <- enquo(.value)
 
@@ -100,8 +102,21 @@ tk_augment_roll_apply.data.frame <- function(.data,
                     .align   = .align[1],
                     .partial = .partial
                 )
-        }) %>%
-        purrr::set_names(.names)
+        })
+
+    # Adjust Names
+    if (any(.names == "auto")) {
+        grid <- expand.grid(
+            col         = rlang::quo_name(column_expr),
+            period_val  = .period,
+            stringsAsFactors = FALSE)
+        newname <- paste0(grid$col, "_roll_", grid$period_val)
+    } else {
+        newname <- .names
+    }
+    ret_2 <- ret_2 %>%
+        purrr::set_names(newname)
+
 
     ret <- dplyr::bind_cols(ret_1, ret_2)
 
@@ -116,7 +131,7 @@ tk_augment_roll_apply.grouped_df <- function(.data,
                                              ...,
                                              .align = c("center", "left", "right"),
                                              .partial = FALSE,
-                                             .names = paste0("roll_apply_", .period)) {
+                                             .names = "auto") {
 
     # Tidy Eval Setup
     column_expr <- enquo(.value)
@@ -156,6 +171,6 @@ tk_augment_roll_apply.default <- function(.data,
                                           ...,
                                           .align = c("center", "left", "right"),
                                           .partial = FALSE,
-                                          .names = paste0("roll_apply_", .period)) {
+                                          .names = "auto") {
     stop(paste0("`tk_augment_roll_apply` has no method for class ", class(data)[[1]]))
 }

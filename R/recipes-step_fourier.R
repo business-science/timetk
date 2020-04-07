@@ -79,8 +79,11 @@
 #'  __Multiple values of `period` and `K`__
 #'
 #'  It's possible to specify multiple values of `period` in a single
-#'  step such as `step_fourier(period = c(91.25, 365), K = c(1, 1))`.
-#'  Note that the number of `K` elements must match the number of `period` elements.
+#'  step such as `step_fourier(period = c(91.25, 365), K = 2`.
+#'  This returns 8 Fouriers series:
+#'   - `cos91.25_K1`, `sin91.25_K1`, `cos91.25_K2`, `sin91.25_K2`
+#'   - `cos365_K1`, `sin365_K1`, `cos365_K2`, `sin365_K2`
+#'
 #'
 #' @examples
 #' library(recipes)
@@ -93,8 +96,12 @@
 #'     select(symbol, date, adjusted)
 #'
 #' # Create a recipe object with a timeseries signature step
+#' # - 252 Trade days per year
+#' # - period = c(252/4, 252): Adds quarterly and yearly fourier series
+#' # - K = 2: Adds 1st and 2nd fourier orders
+#'
 #' rec_obj <- recipe(adjusted ~ ., data = FB_tbl) %>%
-#'     step_fourier(date, period = c(90.25, 365), K = c(1, 1))
+#'     step_fourier(date, period = c(252/4, 252), K = 2)
 #'
 #' # View the recipe object
 #' rec_obj
@@ -142,9 +149,9 @@ step_fourier <-
              id = rand_id("fourier")
     ) {
         # Checks
-        if (length(period) != length(K)) {
-            stop("Number of periods does not match number of K's (fourier orders)")
-        }
+        # if (length(period) != length(K)) {
+        #     stop("Number of periods does not match number of K's (fourier orders)")
+        # }
         if (any(2 * K > period)) {
             stop("K must be not be greater than period/2")
         }
@@ -242,9 +249,11 @@ bake.step_fourier <- function(object, new_data, ...) {
 
     grid <- expand.grid(
         col         = object$columns,
-        period_val  = object$period,
-        K_val       = object$K,
+
         type_val    = c("sin", "cos"),
+        K_val       = 1:max(object$K),
+        period_val  = object$period,
+
         stringsAsFactors = FALSE)
 
     calls   <- purrr::pmap(.l = list(grid$col, grid$period_val, grid$K_val, grid$type_val), make_call)
@@ -274,14 +283,15 @@ print.step_fourier <-
 tidy.step_fourier <- function(x, ...) {
 
     res <- expand.grid(
-        terms    = x$columns,
-        period   = x$period,
-        K        = x$K,
-        type     = c("sin", "cos"),
+        terms       = x$columns,
+        type        = c("sin", "cos"),
+        K           = 1:max(x$K),
+        period      = x$period,
         stringsAsFactors = FALSE)
 
-    res$id <- x$id
+    res$id    <- x$id
     res$terms <- paste0(res$terms, "_", res$type, round(res$period, 2), "_K", res$K)
+
     tibble::as_tibble(res)
 
 }

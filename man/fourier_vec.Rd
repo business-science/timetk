@@ -59,6 +59,8 @@ to add both sin and cos series.
 library(tidyverse)
 library(timetk)
 
+options(max.print = 50)
+
 date_sequence <- tk_make_date_sequence("2016-01-01", "2016-01-31", by = "hour")
 
 # --- VECTOR ---
@@ -89,7 +91,7 @@ tibble(date = date_sequence) \%>\%
 Fourier Modeling Functions:
 \itemize{
 \item \code{\link[=step_fourier]{step_fourier()}} - Recipe for \code{tidymodels} workflow
-\item \code{\link[=tk_augment_fourier_series]{tk_augment_fourier_series()}} - Adds many fourier series to a \code{data.frame} (\code{tibble})
+\item \code{\link[=tk_augment_fourier]{tk_augment_fourier()}} - Adds many fourier series to a \code{data.frame} (\code{tibble})
 }
 
 Additional Vector Functions:

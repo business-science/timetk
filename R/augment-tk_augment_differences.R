@@ -6,9 +6,10 @@
 #' @param .data A tibble.
 #' @param .value A column to have a difference transformation applied
 #' @param .lags One or more lags for the difference(s)
-#' @param .difference The number of differences to apply.
+#' @param .differences The number of differences to apply.
 #' @param .log If TRUE, applies log-differences.
-#' @param .names A vector of names for the new columns. Must be of same length as `.lags`.
+#' @param .names A vector of names for the new columns. Must be of same length as the
+#' number of output columns. Use "auto" to automatically rename the columns.
 #'
 #'
 #' @return Returns a `tibble` object describing the timeseries.
@@ -33,6 +34,7 @@
 #' - [tk_augment_roll_apply()] - Group-wise augmentation of rolling functions
 #' - [tk_augment_lags()] - Group-wise augmentation of lagged data
 #' - [tk_augment_differences()] - Group-wise augmentation of differenced data
+#' - [tk_augment_fourier()] - Group-wise augmentation of fourier series
 #'
 #' Underlying Function:
 #'
@@ -54,9 +56,20 @@ NULL
 tk_augment_differences <- function(.data,
                                   .value,
                                   .lags = 1,
-                                  .difference = 1,
+                                  .differences = 1,
                                   .log = FALSE,
-                                  .names = paste0("diff_", .lags)) {
+                                  .names = "auto") {
+    # Checks
+    column_expr <- enquo(.value)
+    if (rlang::quo_is_missing(column_expr)) stop(call. = FALSE, "tk_augment_differences(.value) is missing.")
+    if (rlang::is_missing(.lags)) stop(call. = FALSE, "tk_augment_differences(.lags) is missing.")
+    if (rlang::is_missing(.differences)) stop(call. = FALSE, "tk_augment_differences(.differences) is missing.")
+    if (!any(.names == "auto")) {
+        if (length(.names) != length(.lags) * length(.differences)) {
+            rlang::abort(".names must be a vector of length ", length(.lags) * length(.differences))
+        }
+    }
+
     UseMethod("tk_augment_differences", .data)
 }
 
@@ -64,31 +77,40 @@ tk_augment_differences <- function(.data,
 tk_augment_differences.data.frame <- function(.data,
                                              .value,
                                              .lags = 1,
-                                             .difference = 1,
+                                             .differences = 1,
                                              .log = FALSE,
-                                             .names = paste0("diff_", .lags)) {
+                                             .names = "auto") {
 
     column_expr <- enquo(.value)
 
-    if (rlang::quo_is_missing(column_expr)) stop(call. = FALSE, "tk_augment_differences(.value) is missing.")
-    if (rlang::is_missing(.lags)) stop(call. = FALSE, "tk_augment_differences(.lags) is missing.")
-    if (rlang::is_missing(.difference)) stop(call. = FALSE, "tk_augment_differences(.difference) is missing.")
+    make_call <- function(col, lag_val, diff_val) {
+        rlang::call2(
+            "diff_vec",
+            x          = rlang::sym(col),
+            lag        = lag_val,
+            difference = diff_val,
+            log        = .log,
+            .ns        = "timetk"
+        )
+    }
 
-    ret_1 <- .data
+    grid <- expand.grid(
+        col      = rlang::quo_name(column_expr),
+        lag_val  = .lags,
+        diff_val = .differences,
+        stringsAsFactors = FALSE)
 
-    ret_2 <- .lags %>%
-        purrr::map_dfc(.f = function(lag) {
-            .data %>%
-                dplyr::pull(!! column_expr) %>%
-                diff_vec(
-                    lag        = lag,
-                    difference = .difference,
-                    log        = .log
-                )
-        }) %>%
-        purrr::set_names(.names)
+    calls   <- purrr::pmap(.l = list(grid$col, grid$lag_val, grid$diff_val), make_call)
 
-    ret <- dplyr::bind_cols(ret_1, ret_2)
+    if (any(.names == "auto")) {
+        newname <- paste0(grid$col, "_lag", grid$lag_val, "_diff", grid$diff_val)
+    } else {
+        newname <- as.list(.names)
+    }
+
+    calls   <- purrr::set_names(calls, newname)
+
+    ret <- tibble::as_tibble(dplyr::mutate(.data, !!!calls))
 
     return(ret)
 
@@ -97,18 +119,18 @@ tk_augment_differences.data.frame <- function(.data,
 tk_augment_differences.grouped_df <- function(.data,
                                              .value,
                                              .lags = 1,
-                                             .difference = 1,
+                                             .differences = 1,
                                              .log = FALSE,
-                                             .names = paste0("diff_", .lags)) {
+                                             .names = "auto") {
 
     # Tidy Eval Setup
     column_expr <- enquo(.value)
     group_names <- dplyr::group_vars(.data)
 
-    # Checks
-    if (rlang::quo_is_missing(column_expr)) stop(call. = FALSE, "tk_augment_differences(.value) is missing.")
-    if (rlang::is_missing(.lags)) stop(call. = FALSE, "tk_augment_differences(.lags) is missing.")
-    if (rlang::is_missing(.difference)) stop(call. = FALSE, "tk_augment_differences(.difference) is missing.")
+    # # Checks
+    # if (rlang::quo_is_missing(column_expr)) stop(call. = FALSE, "tk_augment_differences(.value) is missing.")
+    # if (rlang::is_missing(.lags)) stop(call. = FALSE, "tk_augment_differences(.lags) is missing.")
+    # if (rlang::is_missing(.differences)) stop(call. = FALSE, "tk_augment_differences(.differences) is missing.")
 
     .data %>%
         tidyr::nest() %>%
@@ -118,7 +140,7 @@ tk_augment_differences.grouped_df <- function(.data,
                 .data       = df,
                 .value     = !! enquo(.value),
                 .lags       = .lags,
-                .difference = .difference,
+                .differences = .differences,
                 .log        = .log,
                 .names      = .names
             )
@@ -133,8 +155,8 @@ tk_augment_differences.grouped_df <- function(.data,
 tk_augment_differences.default <- function(.data,
                                           .value,
                                           .lags = 1,
-                                          .difference = 1,
+                                          .differences = 1,
                                           .log = FALSE,
-                                          .names = paste0("diff_", .lags)) {
+                                          .names = "auto") {
     stop(paste0("`tk_augment_differences` has no method for class ", class(data)[[1]]))
 }

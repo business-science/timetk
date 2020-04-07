@@ -47,6 +47,7 @@
 #' - [tk_augment_roll_apply()] - Group-wise augmentation of rolling functions
 #' - [tk_augment_lags()] - Group-wise augmentation of lagged data
 #' - [tk_augment_differences()] - Group-wise augmentation of differenced data
+#' - [tk_augment_fourier()] - Group-wise augmentation of fourier series
 #'
 #' Underlying Function:
 #'

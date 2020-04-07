@@ -49,7 +49,7 @@
 #'
 #' Fourier Modeling Functions:
 #'   - [step_fourier()] - Recipe for `tidymodels` workflow
-#'   - [tk_augment_fourier_series()] - Adds many fourier series to a `data.frame` (`tibble`)
+#'   - [tk_augment_fourier()] - Adds many fourier series to a `data.frame` (`tibble`)
 #'
 #' Additional Vector Functions:
 #'   - Fourier Series: [fourier_vec()]
@@ -62,6 +62,8 @@
 #' @examples
 #' library(tidyverse)
 #' library(timetk)
+#'
+#' options(max.print = 50)
 #'
 #' date_sequence <- tk_make_date_sequence("2016-01-01", "2016-01-31", by = "hour")
 #'

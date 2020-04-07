@@ -8,9 +8,9 @@ tk_augment_differences(
   .data,
   .value,
   .lags = 1,
-  .difference = 1,
+  .differences = 1,
   .log = FALSE,
-  .names = paste0("diff_", .lags)
+  .names = "auto"
 )
 }
 \arguments{
@@ -20,11 +20,12 @@ tk_augment_differences(
 
 \item{.lags}{One or more lags for the difference(s)}
 
-\item{.difference}{The number of differences to apply.}
+\item{.differences}{The number of differences to apply.}
 
 \item{.log}{If TRUE, applies log-differences.}
 
-\item{.names}{A vector of names for the new columns. Must be of same length as \code{.lags}.}
+\item{.names}{A vector of names for the new columns. Must be of same length as the
+number of output columns. Use "auto" to automatically rename the columns.}
 }
 \value{
 Returns a \code{tibble} object describing the timeseries.
@@ -60,6 +61,7 @@ Augment Operations:
 \item \code{\link[=tk_augment_roll_apply]{tk_augment_roll_apply()}} - Group-wise augmentation of rolling functions
 \item \code{\link[=tk_augment_lags]{tk_augment_lags()}} - Group-wise augmentation of lagged data
 \item \code{\link[=tk_augment_differences]{tk_augment_differences()}} - Group-wise augmentation of differenced data
+\item \code{\link[=tk_augment_fourier]{tk_augment_fourier()}} - Group-wise augmentation of fourier series
 }
 
 Underlying Function:
