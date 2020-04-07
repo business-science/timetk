@@ -167,7 +167,7 @@ Works with <code>dplyr</code> groups too.</p>
   <span class='no'>...</span>,
   <span class='kw'>.align</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"center"</span>, <span class='st'>"left"</span>, <span class='st'>"right"</span>),
   <span class='kw'>.partial</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>.names</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(<span class='st'>"roll_apply_"</span>, <span class='no'>.period</span>)
+  <span class='kw'>.names</span> <span class='kw'>=</span> <span class='st'>"auto"</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -205,7 +205,7 @@ Set to FALSE by default, but can be switched to TRUE to remove <code>NA</code>'s
     </tr>
     <tr>
       <th>.names</th>
-      <td><p>A vector of names for the new columns. Must be of same length as <code>.period</code>.</p></td>
+      <td><p>A vector of names for the new columns. Must be of same length as <code>.period</code>. Default is "auto".</p></td>
     </tr>
     </table>
 
@@ -225,6 +225,8 @@ arguments.</p>
 <li><p><code>tk_augment_roll_apply()</code> - Group-wise augmentation of rolling functions</p></li>
 <li><p><code><a href='tk_augment_lags.html'>tk_augment_lags()</a></code> - Group-wise augmentation of lagged data</p></li>
 <li><p><code><a href='tk_augment_differences.html'>tk_augment_differences()</a></code> - Group-wise augmentation of differenced data</p></li>
+<li><p><code><a href='tk_augment_fourier.html'>tk_augment_fourier()</a></code> - Group-wise augmentation of differenced data</p></li>
+<li><p><code><a href='tk_augment_fourier.html'>tk_augment_fourier()</a></code> - Group-wise augmentation of fourier series</p></li>
 </ul>
 
 <p>Underlying Function:</p><ul>

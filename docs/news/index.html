@@ -159,14 +159,16 @@
 __TODO:__
 
 MAJOR ITEMS:
-1. recipes steps - Split transformations from predictor creators
+1. (DONE) recipes steps - Split transformations from predictor creators
 2. (DONE) rsample - backwards rolling origin
 3. tests
 4. vignettes
 
 SMALLER ITEMS:
-1. tk_augment_diffs: Change name, update for multi-diffs
-2. weather signature
+1. Outliers
+2. Missing Data
+3. weather signature
+4. tsibble integration
 
 - Plot Diagnostics
     - (DONE) Plot Time Series
@@ -175,7 +177,7 @@ SMALLER ITEMS:
     - Missing Data Diagnostics
 - Fourier series
     - (DONE) `step_fourier_series()`
-    - `fourier_vec()`
+    - (DONE) `fourier_vec()`
     - `tk_get_fourier_series()` (is this needed?)
     - `tk_augment_fourier_series()` (is this needed?)
 - (DONE) Rolling functionality 
@@ -304,6 +306,8 @@ SMALLER ITEMS:
 <code><a href="../reference/tk_augment_differences.html">tk_augment_differences()</a></code> - Add multiple columns of differences to a <code>data.frame</code>.</li>
 <li>
 <code><a href="../reference/tk_augment_lags.html">tk_augment_lags()</a></code> - Add multiple columns of lags to a <code>data.frame</code>.</li>
+<li>
+<code><a href="../reference/tk_augment_fourier.html">tk_augment_fourier()</a></code> - Add multiple columns of fourier series to a <code>data.frame</code>.</li>
 </ul>
 <p><strong>New Make Functions</strong>:</p>
 <p>Make date and date-time sequences between start and end dates.</p>
