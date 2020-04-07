@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Lag Transformation — lag_vec • timetk</title>
+<title>Missing Value Imputation for Time Series (by Seasonaly Adjusted Linear Interpolation) — impute_ts_vec • timetk</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -42,8 +42,10 @@
 
 
 
-<meta property="og:title" content="Lag Transformation — lag_vec" />
-<meta property="og:description" content="lag_vec() applies a Lag Transformation." />
+<meta property="og:title" content="Missing Value Imputation for Time Series (by Seasonaly Adjusted Linear Interpolation) — impute_ts_vec" />
+<meta property="og:description" content="This is mainly a wrapper for the Missing Value Interpolation, na.interp(), from the forecast
+R package. This function includes arguments for applying seasonality to numeric vector (non-ts)
+via the period argument." />
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -148,65 +150,66 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Lag Transformation</h1>
-    <small class="dont-index">Source: <a href='https://github.com/business-science/timetk/blob/master/R/vec-lag.R'><code>R/vec-lag.R</code></a></small>
-    <div class="hidden name"><code>lag_vec.Rd</code></div>
+    <h1>Missing Value Imputation for Time Series (by Seasonaly Adjusted Linear Interpolation)</h1>
+    <small class="dont-index">Source: <a href='https://github.com/business-science/timetk/blob/master/R/vec-impute_ts.R'><code>R/vec-impute_ts.R</code></a></small>
+    <div class="hidden name"><code>impute_ts_vec.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><code>lag_vec()</code> applies a Lag Transformation.</p>
+    <p>This is mainly a wrapper for the Missing Value Interpolation, <code>na.interp()</code>, from the <code>forecast</code>
+R package. This function includes arguments for applying seasonality to numeric vector (non-<code>ts</code>)
+via the <code>period</code> argument.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>lag_vec</span>(<span class='no'>x</span>, <span class='kw'>lag</span> <span class='kw'>=</span> <span class='fl'>1</span>)</pre>
+    <pre class="usage"><span class='fu'>impute_ts_vec</span>(<span class='no'>x</span>, <span class='kw'>period</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>lambda</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>A numeric vector to be lagged.</p></td>
+      <td><p>A numeric vector.</p></td>
     </tr>
     <tr>
-      <th>lag</th>
-      <td><p>Which lag (how far back) to be included in the differencing calculation.
-Negative lags are leads.</p></td>
+      <th>period</th>
+      <td><p>A seasonal period to use during the transformation. If <code>period = 1</code>,
+linear interpolation is performed. If <code>period &gt; 1</code>, a robust STL decomposition is
+first performed and a linear interpolation is applied to the seasonally adjusted data.</p></td>
+    </tr>
+    <tr>
+      <th>lambda</th>
+      <td><p>A box cox transformation parameter. If set to <code>"auto"</code>, performs
+automated lambda selection.</p></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>A numeric vector</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p><strong>Benefits:</strong></p>
-<p>This function is <code>NA</code> padded by default so it works well with <code><a href='https://dplyr.tidyverse.org/reference/mutate.html'>dplyr::mutate()</a></code> operations.
-The function allows both lags and leads (negative lags).</p>
-<p><strong>Lag Calculation</strong></p>
-<p>A lag is an offset of <code>lag</code> periods. <code>NA</code> values are returned for the number of <code>lag</code> periods.</p>
-<p><strong>Lead Calculation</strong></p>
-<p>A negative lag is considered a lead.</p>
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+    <p><strong>Linear Interpolation</strong></p>
+<p>With <code>period = 1</code>, the algorithm uses linear interpolation.</p>
+<p><strong>Seasonal Interpolation</strong></p>
+<p>For seasonal series with <code>period &gt; 1</code>, a robust Seasonal Trend Loess (STL) decomposition is first computed.
+Then a linear interpolation is applied to the seasonally adjusted data, and
+the seasonal component is added back.</p>
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <div class='dont-index'><p>Modeling and Advanced Lagging:</p><ul>
-<li><p><code><a href='https://rdrr.io/pkg/recipes/man/step_lag.html'>recipes::step_lag()</a></code> - Recipe for adding lags in <code>tidymodels</code> modeling</p></li>
-<li><p><code><a href='tk_augment_lags.html'>tk_augment_lags()</a></code> - Add many lags group-wise to a data.frame (tibble)</p></li>
+    
+<ul>
+<li><p><a href='https://github.com/robjhyndman/forecast'>Forecast R Package</a></p></li>
+<li><p><a href='https://otexts.com/fpp2/missing-outliers.html'>Forecasting Principles &amp; Practices: Dealing with missing values and outliers</a></p></li>
 </ul>
 
-<p>Vectorized Transformations:</p><ul>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'>
+<ul>
 <li><p>Box Cox Transformation: <code><a href='box_cox_vec.html'>box_cox_vec()</a></code></p></li>
-<li><p>Lag Transformation: <code>lag_vec()</code></p></li>
+<li><p>Lag Transformation: <code><a href='lag_vec.html'>lag_vec()</a></code></p></li>
 <li><p>Differencing Transformation: <code><a href='diff_vec.html'>diff_vec()</a></code></p></li>
 <li><p>Rolling Window Transformation: <code><a href='roll_apply_vec.html'>roll_apply_vec()</a></code></p></li>
 <li><p>Loess Smoothing Transformation: <code><a href='smooth_vec.html'>smooth_vec()</a></code></p></li>
 <li><p>Fourier Series: <code><a href='fourier_vec.html'>fourier_vec()</a></code></p></li>
-<li><p>Missing Value Imputation for Time Series: <code><a href='impute_ts_vec.html'>impute_ts_vec()</a></code></p></li>
-</ul>
-
-<ul>
-<li><p>Lag Transformation: <code>lag_vec()</code></p></li>
-<li><p>Differencing Transformation: <code><a href='diff_vec.html'>diff_vec()</a></code></p></li>
-<li><p>Rolling Window Transformation: <code><a href='roll_apply_vec.html'>roll_apply_vec()</a></code></p></li>
-<li><p>Loess Smoothing Transformation: <code><a href='smooth_vec.html'>smooth_vec()</a></code></p></li>
+<li><p>Missing Value Imputation for Time Series: <code>impute_ts_vec()</code></p></li>
 </ul>
 </div>
 
@@ -214,40 +217,27 @@ The function allows both lags and leads (negative lags).</p>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>)
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>timetk</span>)
 
+
 <span class='co'># --- VECTOR ----</span>
 
-<span class='co'># Lag</span>
-<span class='fl'>1</span>:<span class='fl'>10</span> <span class='kw'>%&gt;%</span> <span class='fu'>lag_vec</span>(<span class='kw'>lag</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt;  [1] NA  1  2  3  4  5  6  7  8  9</div><div class='input'>
-<span class='co'># Lead</span>
-<span class='fl'>1</span>:<span class='fl'>10</span> <span class='kw'>%&gt;%</span> <span class='fu'>lag_vec</span>(<span class='kw'>lag</span> <span class='kw'>=</span> -<span class='fl'>1</span>)</div><div class='output co'>#&gt;  [1]  2  3  4  5  6  7  8  9 10 NA</div><div class='input'>
+<span class='no'>values</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>3</span>, <span class='fl'>4</span>*<span class='fl'>2</span>, <span class='fl'>5</span>,<span class='fl'>6</span>,<span class='fl'>7</span>, <span class='fl'>NA</span>, <span class='fl'>9</span>,<span class='fl'>10</span>,<span class='fl'>11</span>, <span class='fl'>12</span>*<span class='fl'>2</span>)
+<span class='no'>values</span></div><div class='output co'>#&gt;  [1]  1  2  3  8  5  6  7 NA  9 10 11 24</div><div class='input'>
+<span class='co'># Linear interpolation</span>
+<span class='fu'>impute_ts_vec</span>(<span class='no'>values</span>, <span class='kw'>period</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>lambda</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</div><div class='output co'>#&gt;  [1]  1  2  3  8  5  6  7  8  9 10 11 24</div><div class='input'>
+<span class='co'># Seasonal Interpolation: set period = 4</span>
+<span class='fu'>impute_ts_vec</span>(<span class='no'>values</span>, <span class='kw'>period</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>lambda</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</div><div class='output co'>#&gt;  [1]  1  2  3  8  5  6  7 12  9 10 11 24</div><div class='input'>
+<span class='co'># Seasonal Interpolation with Box Cox Transformation (internal)</span>
+<span class='fu'>impute_ts_vec</span>(<span class='no'>values</span>, <span class='kw'>period</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>lambda</span> <span class='kw'>=</span> <span class='st'>"auto"</span>)</div><div class='output co'>#&gt;  [1]  1.00000  2.00000  3.00000  8.00000  5.00000  6.00000  7.00000 18.48841
+#&gt;  [9]  9.00000 10.00000 11.00000 24.00000</div><div class='input'>
 
-<span class='co'># --- MUTATE ----</span>
-
-<span class='no'>m4_daily</span> <span class='kw'>%&gt;%</span>
-    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>id</span>) <span class='kw'>%&gt;%</span>
-    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>lag_1</span> <span class='kw'>=</span> <span class='fu'>lag_vec</span>(<span class='no'>value</span>, <span class='kw'>lag</span> <span class='kw'>=</span> <span class='fl'>1</span>))</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 9,743 x 4</span><span>
-#&gt; </span><span style='color: #555555;'># Groups:   id [4]</span><span>
-#&gt;    id    date       value lag_1
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> D10   2014-07-03 </span><span style='text-decoration: underline;'>2</span><span>076.   </span><span style='color: #BB0000;'>NA</span><span> 
-#&gt; </span><span style='color: #555555;'> 2</span><span> D10   2014-07-04 </span><span style='text-decoration: underline;'>2</span><span>073. </span><span style='text-decoration: underline;'>2</span><span>076.
-#&gt; </span><span style='color: #555555;'> 3</span><span> D10   2014-07-05 </span><span style='text-decoration: underline;'>2</span><span>049. </span><span style='text-decoration: underline;'>2</span><span>073.
-#&gt; </span><span style='color: #555555;'> 4</span><span> D10   2014-07-06 </span><span style='text-decoration: underline;'>2</span><span>049. </span><span style='text-decoration: underline;'>2</span><span>049.
-#&gt; </span><span style='color: #555555;'> 5</span><span> D10   2014-07-07 </span><span style='text-decoration: underline;'>2</span><span>006. </span><span style='text-decoration: underline;'>2</span><span>049.
-#&gt; </span><span style='color: #555555;'> 6</span><span> D10   2014-07-08 </span><span style='text-decoration: underline;'>2</span><span>018. </span><span style='text-decoration: underline;'>2</span><span>006.
-#&gt; </span><span style='color: #555555;'> 7</span><span> D10   2014-07-09 </span><span style='text-decoration: underline;'>2</span><span>019. </span><span style='text-decoration: underline;'>2</span><span>018.
-#&gt; </span><span style='color: #555555;'> 8</span><span> D10   2014-07-10 </span><span style='text-decoration: underline;'>2</span><span>007. </span><span style='text-decoration: underline;'>2</span><span>019.
-#&gt; </span><span style='color: #555555;'> 9</span><span> D10   2014-07-11 </span><span style='text-decoration: underline;'>2</span><span>010  </span><span style='text-decoration: underline;'>2</span><span>007.
-#&gt; </span><span style='color: #555555;'>10</span><span> D10   2014-07-12 </span><span style='text-decoration: underline;'>2</span><span>002. </span><span style='text-decoration: underline;'>2</span><span>010 
-#&gt; </span><span style='color: #555555;'># … with 9,733 more rows</span><span></div><div class='input'>
-</div></span></pre>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#value">Value</a></li>
       <li><a href="#details">Details</a></li>
+      <li><a href="#references">References</a></li>
       <li><a href="#see-also">See also</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>

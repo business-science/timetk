@@ -294,6 +294,8 @@ SMALLER ITEMS:
 <code><a href="../reference/box_cox_vec.html">box_cox_vec()</a></code>, <code><a href="../reference/box_cox_vec.html">box_cox_inv_vec()</a></code>, &amp; <code><a href="../reference/box_cox_vec.html">auto_lambda()</a></code> - Vectorized Box Cox transformation. Leverages <code><a href="https://rdrr.io/pkg/forecast/man/BoxCox.lambda.html">forecast::BoxCox.lambda()</a></code> for automatic lambda selection.</li>
 <li>
 <code><a href="../reference/fourier_vec.html">fourier_vec()</a></code> - Vectorized Fourier Series calculation.</li>
+<li>
+<code><a href="../reference/impute_ts_vec.html">impute_ts_vec()</a></code> - Vectorized imputation of missing values for time series. Leverages <code><a href="https://rdrr.io/pkg/forecast/man/na.interp.html">forecast::na.interp()</a></code>.</li>
 </ul>
 <p><strong>New Augment Functions</strong>:</p>
 <p>All of the functions are designed for scale. They respect <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">dplyr::group_by()</a></code>.</p>

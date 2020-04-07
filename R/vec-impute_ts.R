@@ -1,8 +1,8 @@
-#' Missing Value Imputation for Time Series (by Seasonaly Adjusted Linear Interpolation)
+#' Missing Value Imputation for Time Series
 #'
-#' This is mainly a wrapper for the Missing Value Interpolation, `na.interp()`, from the `forecast`
-#' R package. This function includes arguments for applying seasonality to numeric vector (non-`ts`)
-#' via the `period` argument.
+#' This is mainly a wrapper for the Seasonally Adjusted Missing Value Interpolation function,
+#' `na.interp()`, from the `forecast` R package. This function includes arguments for applying
+#' seasonality to numeric vector (non-`ts`) via the `period` argument.
 #'
 #' @param x A numeric vector.
 #' @param period A seasonal period to use during the transformation. If `period = 1`,

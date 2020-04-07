@@ -2,7 +2,7 @@
 % Please edit documentation in R/vec-impute_ts.R
 \name{impute_ts_vec}
 \alias{impute_ts_vec}
-\title{Missing Value Imputation for Time Series (by Seasonaly Adjusted Linear Interpolation)}
+\title{Missing Value Imputation for Time Series}
 \usage{
 impute_ts_vec(x, period = 1, lambda = NULL)
 }
@@ -17,9 +17,9 @@ first performed and a linear interpolation is applied to the seasonally adjusted
 automated lambda selection.}
 }
 \description{
-This is mainly a wrapper for the Missing Value Interpolation, \code{na.interp()}, from the \code{forecast}
-R package. This function includes arguments for applying seasonality to numeric vector (non-\code{ts})
-via the \code{period} argument.
+This is mainly a wrapper for the Seasonally Adjusted Missing Value Interpolation function,
+\code{na.interp()}, from the \code{forecast} R package. This function includes arguments for applying
+seasonality to numeric vector (non-\code{ts}) via the \code{period} argument.
 }
 \details{
 \strong{Linear Interpolation}

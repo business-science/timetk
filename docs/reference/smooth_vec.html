@@ -225,13 +225,8 @@ using a window of 75% of the data.</p>
 <li><p>Differencing Transformation: <code><a href='diff_vec.html'>diff_vec()</a></code></p></li>
 <li><p>Rolling Window Transformation: <code><a href='roll_apply_vec.html'>roll_apply_vec()</a></code></p></li>
 <li><p>Loess Smoothing Transformation: <code>smooth_vec()</code></p></li>
-</ul>
-
-<ul>
-<li><p>Lag Transformation: <code><a href='lag_vec.html'>lag_vec()</a></code></p></li>
-<li><p>Differencing Transformation: <code><a href='diff_vec.html'>diff_vec()</a></code></p></li>
-<li><p>Rolling Window Transformation: <code><a href='roll_apply_vec.html'>roll_apply_vec()</a></code></p></li>
-<li><p>Loess Smoothing Transformation: <code>smooth_vec()</code></p></li>
+<li><p>Fourier Series: <code><a href='fourier_vec.html'>fourier_vec()</a></code></p></li>
+<li><p>Missing Value Imputation for Time Series: <code><a href='impute_ts_vec.html'>impute_ts_vec()</a></code></p></li>
 </ul>
 </div>
 
@@ -273,6 +268,8 @@ using a window of 75% of the data.</p>
     <span class='fu'>geom_line</span>(<span class='fu'>aes</span>(<span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>adjusted_loess_30</span>), <span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"red"</span>) +
     <span class='fu'>geom_line</span>(<span class='fu'>aes</span>(<span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>adjusted_ma_30</span>), <span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"blue"</span>) +
     <span class='fu'>labs</span>(<span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"Loess vs Moving Average"</span>)</div><div class='img'><img src='smooth_vec-3.png' alt='' width='700' height='433' /></div><div class='input'>
+
+
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
