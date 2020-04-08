@@ -44,10 +44,14 @@ reference:
     - contains("summarise")
     - contains("filter")
     - contains("between")
+    - contains("pad")
     - "slidify"
   - title: Vector Operations (Transformations)
     desc: __Use with `mutate` to apply vectorized transformations to time series data__
     contents:
+    - contains("box_cox_vec")
+    - contains("diff_vec")
+    - contains("lag_vec")
     - contains("_vec")
   - title: Augment Operations (Quickly Add Many Features)
     desc: __Add multiple columns to the original data. Respects `dplyr` groups.__

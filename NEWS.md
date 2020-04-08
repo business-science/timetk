@@ -10,8 +10,9 @@ MAJOR ITEMS:
 4. vignettes
 
 SMALLER ITEMS:
+1. Seasonal Decomposition
 1. Outliers
-2. Missing Data
+2. Missing Data - imputation & irregular series padding
 3. weather signature
 4. tsibble integration
 
