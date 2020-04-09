@@ -17,23 +17,27 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -45,7 +49,6 @@
 <meta property="og:title" content="Coerce time series objects and tibbles with date/date-time columns to ts. — tk_ts" />
 <meta property="og:description" content="Coerce time series objects and tibbles with date/date-time columns to ts." />
 <meta property="og:image" content="/logo.png" />
-<meta name="twitter:card" content="summary" />
 
 
 
@@ -73,7 +76,7 @@
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -265,23 +268,23 @@ using <code><a href='https://rdrr.io/r/stats/ts.html'>stats::ts()</a></code>.</p
 #&gt; Start = 2016 
 #&gt; End = 2020 
 #&gt; Frequency = 1 
-#&gt;       x  y          z
-#&gt; 2016 NA  1  -22.57644
-#&gt; 2017 NA  3  -47.20529
-#&gt; 2018 NA  6  -73.88654
-#&gt; 2019 NA 10 -102.62019
-#&gt; 2020 NA 15 -133.40625</div><div class='input'>
+#&gt;       x  y         z
+#&gt; 2016 NA  1 0.7703834
+#&gt; 2017 NA  3 1.6108016
+#&gt; 2018 NA  6 2.5212546
+#&gt; 2019 NA 10 3.5017425
+#&gt; 2020 NA 15 4.5522653</div><div class='input'>
 <span class='co'># tk_ts: Only numeric columns get coerced; Result retains index in numeric format</span>
 <span class='no'>data_ts</span> <span class='kw'>&lt;-</span> <span class='fu'>tk_ts</span>(<span class='no'>data_tbl</span>, <span class='kw'>start</span> <span class='kw'>=</span> <span class='fl'>2016</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Non-numeric columns being dropped: date, x</span></div><div class='input'><span class='no'>data_ts</span></div><div class='output co'>#&gt; Time Series:
 #&gt; Start = 2016 
 #&gt; End = 2020 
 #&gt; Frequency = 1 
-#&gt;       y          z
-#&gt; 2016  1  -22.57644
-#&gt; 2017  3  -47.20529
-#&gt; 2018  6  -73.88654
-#&gt; 2019 10 -102.62019
-#&gt; 2020 15 -133.40625
+#&gt;       y         z
+#&gt; 2016  1 0.7703834
+#&gt; 2017  3 1.6108016
+#&gt; 2018  6 2.5212546
+#&gt; 2019 10 3.5017425
+#&gt; 2020 15 4.5522653
 #&gt; attr(,"index")
 #&gt; [1] 1451606400 1451692800 1451779200 1451865600 1451952000
 #&gt; attr(,"index")attr(,"tzone")
@@ -292,13 +295,13 @@ using <code><a href='https://rdrr.io/r/stats/ts.html'>stats::ts()</a></code>.</p
 <span class='fu'><a href='tk_index.html'>tk_index</a></span>(<span class='no'>data_ts</span>, <span class='kw'>timetk_idx</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)   <span class='co'># Regularized index returned</span></div><div class='output co'>#&gt; [1] 2016 2017 2018 2019 2020</div><div class='input'><span class='fu'><a href='tk_index.html'>tk_index</a></span>(<span class='no'>data_ts</span>, <span class='kw'>timetk_idx</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)    <span class='co'># Original date index returned</span></div><div class='output co'>#&gt; [1] "2016-01-01" "2016-01-02" "2016-01-03" "2016-01-04" "2016-01-05"</div><div class='input'>
 <span class='co'># Coerce back to tibble</span>
 <span class='no'>data_ts</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='tk_tbl.html'>tk_tbl</a></span>(<span class='kw'>timetk_idx</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 5 x 3</span><span>
-#&gt;   index          y      z
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span> 2016-01-01     1  -</span><span style='color: #BB0000;'>22.6</span><span>
-#&gt; </span><span style='color: #555555;'>2</span><span> 2016-01-02     3  -</span><span style='color: #BB0000;'>47.2</span><span>
-#&gt; </span><span style='color: #555555;'>3</span><span> 2016-01-03     6  -</span><span style='color: #BB0000;'>73.9</span><span>
-#&gt; </span><span style='color: #555555;'>4</span><span> 2016-01-04    10 -</span><span style='color: #BB0000;'>103.</span><span> 
-#&gt; </span><span style='color: #555555;'>5</span><span> 2016-01-05    15 -</span><span style='color: #BB0000;'>133.</span><span> </div><div class='input'>
+#&gt;   index          y     z
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span> 2016-01-01     1 0.770
+#&gt; </span><span style='color: #555555;'>2</span><span> 2016-01-02     3 1.61 
+#&gt; </span><span style='color: #555555;'>3</span><span> 2016-01-03     6 2.52 
+#&gt; </span><span style='color: #555555;'>4</span><span> 2016-01-04    10 3.50 
+#&gt; </span><span style='color: #555555;'>5</span><span> 2016-01-05    15 4.55 </div><div class='input'>
 
 <span class='co'>### Using select</span>
 <span class='fu'>tk_ts</span>(<span class='no'>data_tbl</span>, <span class='kw'>select</span> <span class='kw'>=</span> <span class='no'>y</span>)</div><div class='output co'>#&gt; Time Series:
@@ -338,16 +341,10 @@ using <code><a href='https://rdrr.io/r/stats/ts.html'>stats::ts()</a></code>.</p
 #&gt; [1] Date</div><div class='input'>
 </div></span></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#value">Value</a></li>
-      <li><a href="#details">Details</a></li>
-      <li><a href="#see-also">See also</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
@@ -358,7 +355,7 @@ using <code><a href='https://rdrr.io/r/stats/ts.html'>stats::ts()</a></code>.</p
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

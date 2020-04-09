@@ -17,23 +17,27 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -43,11 +47,10 @@
 
 
 <meta property="og:title" content="Missing Value Imputation for Time Series — impute_ts_vec" />
-<meta property="og:description" content="This is mainly a wrapper for the Seasonally Adjusted Missing Value Interpolation function,
-na.interp(), from the forecast R package. This function includes arguments for applying
+<meta property="og:description" content="This is mainly a wrapper for the Seasonally Adjusted Missing Value using Linear Interpolation function,
+na.interp(), from the forecast R package. The impute_ts_vec() function includes arguments for applying
 seasonality to numeric vector (non-ts) via the period argument." />
 <meta property="og:image" content="/logo.png" />
-<meta name="twitter:card" content="summary" />
 
 
 
@@ -75,7 +78,7 @@ seasonality to numeric vector (non-ts) via the period argument." />
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -156,8 +159,8 @@ seasonality to numeric vector (non-ts) via the period argument." />
     </div>
 
     <div class="ref-description">
-    <p>This is mainly a wrapper for the Seasonally Adjusted Missing Value Interpolation function,
-<code>na.interp()</code>, from the <code>forecast</code> R package. This function includes arguments for applying
+    <p>This is mainly a wrapper for the Seasonally Adjusted Missing Value using Linear Interpolation function,
+<code>na.interp()</code>, from the <code>forecast</code> R package. The <code>impute_ts_vec()</code> function includes arguments for applying
 seasonality to numeric vector (non-<code>ts</code>) via the <code>period</code> argument.</p>
     </div>
 
@@ -185,12 +188,21 @@ automated lambda selection.</p></td>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p><strong>Linear Interpolation</strong></p>
-<p>With <code>period = 1</code>, the algorithm uses linear interpolation.</p>
-<p><strong>Seasonal Interpolation</strong></p>
+    <p><strong>Imputation using Linear Interpolation</strong></p>
+<p>Three circumstances cause strictly linear interpolation:</p><ol>
+<li><p><strong>Period is 1:</strong> With <code>period = 1</code>, a seasonality cannot be interpreted and therefore linear is used.</p></li>
+<li><p><strong>Number of Non-Missing Values is less than 2-Periods</strong>: Insufficient values exist to detect seasonality.</p></li>
+<li><p><strong>Number of Total Values is less than 3-Periods</strong>: Insufficient values exist to detect seasonality.</p></li>
+</ol>
+
+<p><strong>Seasonal Imputation using Linear Interpolation</strong></p>
 <p>For seasonal series with <code>period &gt; 1</code>, a robust Seasonal Trend Loess (STL) decomposition is first computed.
 Then a linear interpolation is applied to the seasonally adjusted data, and
 the seasonal component is added back.</p>
+<p><strong>Box Cox Transformation</strong></p>
+<p>In many circumstances, a Box Cox transformation can help. Especially if the series is multiplicative
+meaning the variance grows exponentially. A Box Cox transformation can be automated by setting <code>lambda = "auto"</code>
+or can be specified by setting <code>lambda = numeric value</code>.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     
@@ -225,23 +237,17 @@ the seasonal component is added back.</p>
 <span class='co'># Linear interpolation</span>
 <span class='fu'>impute_ts_vec</span>(<span class='no'>values</span>, <span class='kw'>period</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>lambda</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</div><div class='output co'>#&gt;  [1]  1  2  3  8  5  6  7  8  9 10 11 24</div><div class='input'>
 <span class='co'># Seasonal Interpolation: set period = 4</span>
-<span class='fu'>impute_ts_vec</span>(<span class='no'>values</span>, <span class='kw'>period</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>lambda</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</div><div class='output co'>#&gt;  [1]  1  2  3  8  5  6  7 12  9 10 11 24</div><div class='input'>
+<span class='fu'>impute_ts_vec</span>(<span class='no'>values</span>, <span class='kw'>period</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>lambda</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</div><div class='output co'>#&gt;  [1]  1  2  3  8  5  6  7  8  9 10 11 24</div><div class='input'>
 <span class='co'># Seasonal Interpolation with Box Cox Transformation (internal)</span>
-<span class='fu'>impute_ts_vec</span>(<span class='no'>values</span>, <span class='kw'>period</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>lambda</span> <span class='kw'>=</span> <span class='st'>"auto"</span>)</div><div class='output co'>#&gt;  [1]  1.00000  2.00000  3.00000  8.00000  5.00000  6.00000  7.00000 18.48841
-#&gt;  [9]  9.00000 10.00000 11.00000 24.00000</div><div class='input'>
+<span class='fu'>impute_ts_vec</span>(<span class='no'>values</span>, <span class='kw'>period</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>lambda</span> <span class='kw'>=</span> <span class='st'>"auto"</span>)</div><div class='output co'>#&gt;  [1]  1.000000  2.000000  3.000000  8.000000  5.000000  6.000000  7.000000
+#&gt;  [8]  7.960571  9.000000 10.000000 11.000000 24.000000</div><div class='input'>
 
 </div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#details">Details</a></li>
-      <li><a href="#references">References</a></li>
-      <li><a href="#see-also">See also</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
@@ -252,7 +258,7 @@ the seasonal component is added back.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

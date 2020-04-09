@@ -17,23 +17,27 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -44,7 +48,6 @@
 
 <meta property="og:title" content="Function reference" />
 <meta property="og:image" content="/logo.png" />
-<meta name="twitter:card" content="summary" />
 
 
 
@@ -72,7 +75,7 @@
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-index">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -165,6 +168,11 @@
           <p class="section-desc"><p><strong>Detect relationships through visualizations</strong></p></p>
         </th>
       </tr>
+      
+      
+    </tbody><tbody>
+      
+      
       <tr>
         
         <td>
@@ -197,6 +205,11 @@
           <p class="section-desc"><p><strong>Extension for <code>dplyr</code> for time-series data manipulations</strong></p></p>
         </th>
       </tr>
+      
+      
+    </tbody><tbody>
+      
+      
       <tr>
         
         <td>
@@ -235,6 +248,11 @@
           <p class="section-desc"><p><strong>Use with <code>mutate</code> to apply vectorized transformations to time series data</strong></p></p>
         </th>
       </tr>
+      
+      
+    </tbody><tbody>
+      
+      
       <tr>
         
         <td>
@@ -285,6 +303,11 @@
           <p class="section-desc"><p><strong>Add multiple columns to the original data. Respects <code>dplyr</code> groups.</strong></p></p>
         </th>
       </tr>
+      
+      
+    </tbody><tbody>
+      
+      
       <tr>
         
         <td>
@@ -312,15 +335,15 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="tk_augment_fourier.html">tk_augment_fourier()</a></code> </p>
-        </td>
-        <td><p>Add many fourier series to the data</p></td>
-      </tr><tr>
-        
-        <td>
           <p><code><a href="tk_augment_lags.html">tk_augment_lags()</a></code> </p>
         </td>
         <td><p>Add many lags to the data</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="tk_augment_fourier.html">tk_augment_fourier()</a></code> </p>
+        </td>
+        <td><p>Add many fourier series to the data</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -329,6 +352,20 @@
           <p class="section-desc"><p><strong>Preprocessing &amp; feature engineering operations for use with <code>recipes</code> and the <code>tidymodels</code> ecosystem</strong></p></p>
         </th>
       </tr>
+      
+      
+    </tbody><tbody>
+      
+      <tr>
+        <th colspan="2">
+          <h3 id="section-engineered-features" class="hasAnchor"><a href="#section-engineered-features" class="anchor"></a>Engineered Features</h3>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      
+    </tbody><tbody>
+      
+      
       <tr>
         
         <td>
@@ -344,33 +381,91 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="step_box_cox.html">step_box_cox()</a></code> <code><a href="step_box_cox.html">tidy(<i>&lt;step_box_cox&gt;</i>)</a></code> </p>
+          <p><code><a href="step_fourier.html">step_fourier()</a></code> <code><a href="step_fourier.html">tidy(<i>&lt;step_fourier&gt;</i>)</a></code> </p>
         </td>
-        <td><p>Box-Cox Transformation using Forecast Methods</p></td>
-      </tr><tr>
+        <td><p>Fourier Features for Modeling Seasonality</p></td>
+      </tr>
+    </tbody><tbody>
+      
+      <tr>
+        <th colspan="2">
+          <h3 id="section-lags-diffs" class="hasAnchor"><a href="#section-lags-diffs" class="anchor"></a>Lags &amp; Diffs</h3>
+          <p class="section-desc"><p>See <code><a href="https://rdrr.io/pkg/recipes/man/step_lag.html">recipes::step_lag()</a></code> for lagged features.</p></p>
+        </th>
+      </tr>
+      
+    </tbody><tbody>
+      
+      
+      <tr>
         
         <td>
           <p><code><a href="step_diff.html">step_diff()</a></code> <code><a href="step_diff.html">tidy(<i>&lt;step_diff&gt;</i>)</a></code> </p>
         </td>
         <td><p>Create a differenced predictor</p></td>
-      </tr><tr>
+      </tr>
+    </tbody><tbody>
+      
+      <tr>
+        <th colspan="2">
+          <h3 id="section-smoothing" class="hasAnchor"><a href="#section-smoothing" class="anchor"></a>Smoothing</h3>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      
+    </tbody><tbody>
+      
+      
+      <tr>
         
         <td>
-          <p><code><a href="step_fourier.html">step_fourier()</a></code> <code><a href="step_fourier.html">tidy(<i>&lt;step_fourier&gt;</i>)</a></code> </p>
+          <p><code><a href="step_smooth.html">step_smooth()</a></code> <code><a href="step_smooth.html">tidy(<i>&lt;step_smooth&gt;</i>)</a></code> </p>
         </td>
-        <td><p>Fourier Features for Modeling Seasonality</p></td>
+        <td><p>Smoothing Transformation using Loess</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="step_roll_apply.html">step_roll_apply()</a></code> <code><a href="step_roll_apply.html">tidy(<i>&lt;step_roll_apply&gt;</i>)</a></code> </p>
         </td>
         <td><p>Rolling Window Transformation</p></td>
-      </tr><tr>
+      </tr>
+    </tbody><tbody>
+      
+      <tr>
+        <th colspan="2">
+          <h3 id="section-variance-reduction" class="hasAnchor"><a href="#section-variance-reduction" class="anchor"></a>Variance Reduction</h3>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      
+    </tbody><tbody>
+      
+      
+      <tr>
         
         <td>
-          <p><code><a href="step_smooth.html">step_smooth()</a></code> <code><a href="step_smooth.html">tidy(<i>&lt;step_smooth&gt;</i>)</a></code> </p>
+          <p><code><a href="step_box_cox.html">step_box_cox()</a></code> <code><a href="step_box_cox.html">tidy(<i>&lt;step_box_cox&gt;</i>)</a></code> </p>
         </td>
-        <td><p>Smoothing Transformation using Loess</p></td>
+        <td><p>Box-Cox Transformation using Forecast Methods</p></td>
+      </tr>
+    </tbody><tbody>
+      
+      <tr>
+        <th colspan="2">
+          <h3 id="section-imputation" class="hasAnchor"><a href="#section-imputation" class="anchor"></a>Imputation</h3>
+          <p class="section-desc"><p>See <code><a href="https://rdrr.io/pkg/recipes/man/step_rollimpute.html">recipes::step_rollimpute()</a></code> for rolling imputation.</p></p>
+        </th>
+      </tr>
+      
+    </tbody><tbody>
+      
+      
+      <tr>
+        
+        <td>
+          <p><code><a href="step_impute_ts.html">step_impute_ts()</a></code> <code><a href="step_impute_ts.html">tidy(<i>&lt;step_impute_ts&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Imputation for Time Series using Forecast Methods</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -379,6 +474,11 @@
           <p class="section-desc"><p><strong>Resampling for time series cross validation using <code>rsamples</code></strong></p></p>
         </th>
       </tr>
+      
+      
+    </tbody><tbody>
+      
+      
       <tr>
         
         <td>
@@ -393,6 +493,11 @@
           <p class="section-desc"><p><strong>Extract and check the date or date-time index.</strong></p></p>
         </th>
       </tr>
+      
+      
+    </tbody><tbody>
+      
+      
       <tr>
         
         <td>
@@ -407,6 +512,11 @@
           <p class="section-desc"><p><strong>Make time series allowing for holidays, weekends, and skipped days to be removed.</strong></p></p>
         </th>
       </tr>
+      
+      
+    </tbody><tbody>
+      
+      
       <tr>
         
         <td>
@@ -427,6 +537,11 @@
           <p class="section-desc"><p><strong>Get summaries, frequency, and signatures from the time series index.</strong></p></p>
         </th>
       </tr>
+      
+      
+    </tbody><tbody>
+      
+      
       <tr>
         
         <td>
@@ -459,6 +574,11 @@
           <p class="section-desc"><p><strong>These power the time series plotting functions</strong></p></p>
         </th>
       </tr>
+      
+      
+    </tbody><tbody>
+      
+      
       <tr>
         
         <td>
@@ -485,6 +605,11 @@
           <p class="section-desc"><p><strong>Functions for converting between common time series formats.</strong></p></p>
         </th>
       </tr>
+      
+      
+    </tbody><tbody>
+      
+      
       <tr>
         
         <td>
@@ -523,6 +648,11 @@
           <p class="section-desc"><p><strong>Time series from various forecasting competitions. Domains include economic, retail, and web (google analytics)</strong></p></p>
         </th>
       </tr>
+      
+      
+    </tbody><tbody>
+      
+      
       <tr>
         
         <td>
@@ -576,22 +706,10 @@
     </table>
   </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#section-plotting-time-series">Plotting Time Series</a></li>
-      <li><a href="#section-time-series-data-wrangling-operations">Time Series Data Wrangling Operations</a></li>
-      <li><a href="#section-vector-operations-transformations-">Vector Operations (Transformations)</a></li>
-      <li><a href="#section-augment-operations-quickly-add-many-features-">Augment Operations (Quickly Add Many Features)</a></li>
-      <li><a href="#section-recipe-operations-feature-engineering-steps-">Recipe Operations (Feature Engineering Steps)</a></li>
-      <li><a href="#section-rsample-operations-cross-validation-">Rsample Operations (Cross Validation)</a></li>
-      <li><a href="#section-index-operations">Index Operations</a></li>
-      <li><a href="#section-make-operations">Make Operations</a></li>
-      <li><a href="#section-get-operations">Get Operations</a></li>
-      <li><a href="#section-diagnostic-operations">Diagnostic Operations</a></li>
-      <li><a href="#section-conversion-operations">Conversion Operations</a></li>
-      <li><a href="#section-time-series-datasets">Time Series Datasets</a></li>
-    </ul>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
@@ -602,7 +720,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

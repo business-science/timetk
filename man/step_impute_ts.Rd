@@ -3,7 +3,7 @@
 \name{step_impute_ts}
 \alias{step_impute_ts}
 \alias{tidy.step_impute_ts}
-\title{Box-Cox Transformation using Forecast Methods}
+\title{Imputation for Time Series using Forecast Methods}
 \usage{
 step_impute_ts(
   recipe,

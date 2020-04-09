@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Box-Cox Transformation using Forecast Methods — step_box_cox • timetk</title>
+<title>Imputation for Time Series using Forecast Methods — step_impute_ts • timetk</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="Box-Cox Transformation using Forecast Methods — step_box_cox" />
-<meta property="og:description" content="step_box_cox creates a specification of a recipe
+<meta property="og:title" content="Imputation for Time Series using Forecast Methods — step_impute_ts" />
+<meta property="og:description" content="step_impute_ts creates a specification of a recipe
 step that will transform data using a Box-Cox
 transformation. This function differs from
 recipes::step_BoxCox by adding multiple methods
@@ -156,13 +156,13 @@ negative data used in the Forecast R Package." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Box-Cox Transformation using Forecast Methods</h1>
-    <small class="dont-index">Source: <a href='https://github.com/business-science/timetk/blob/master/R/recipes-step_box_cox.R'><code>R/recipes-step_box_cox.R</code></a></small>
-    <div class="hidden name"><code>step_box_cox.Rd</code></div>
+    <h1>Imputation for Time Series using Forecast Methods</h1>
+    <small class="dont-index">Source: <a href='https://github.com/business-science/timetk/blob/master/R/recipes-step_impute_ts.R'><code>R/recipes-step_impute_ts.R</code></a></small>
+    <div class="hidden name"><code>step_impute_ts.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><code>step_box_cox</code> creates a <em>specification</em> of a recipe
+    <p><code>step_impute_ts</code> creates a <em>specification</em> of a recipe
 step that will transform data using a Box-Cox
 transformation. This function differs from
 <code><a href='https://rdrr.io/pkg/recipes/man/step_BoxCox.html'>recipes::step_BoxCox</a></code> by adding multiple methods
@@ -170,19 +170,19 @@ including Guerrero lambda optimization and handling for
 negative data used in the Forecast R Package.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>step_box_cox</span>(
+    <pre class="usage"><span class='fu'>step_impute_ts</span>(
   <span class='no'>recipe</span>,
   <span class='no'>...</span>,
-  <span class='kw'>method</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"guerrero"</span>, <span class='st'>"loglik"</span>),
-  <span class='kw'>limits</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(-<span class='fl'>1</span>, <span class='fl'>2</span>),
+  <span class='kw'>period</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>lambda</span> <span class='kw'>=</span> <span class='st'>"auto"</span>,
   <span class='kw'>role</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
   <span class='kw'>trained</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>lambdas_trained</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>skip</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>id</span> <span class='kw'>=</span> <span class='fu'>rand_id</span>(<span class='st'>"box_cox"</span>)
+  <span class='kw'>id</span> <span class='kw'>=</span> <span class='fu'>rand_id</span>(<span class='st'>"impute_ts"</span>)
 )
 
-<span class='co'># S3 method for step_box_cox</span>
+<span class='co'># S3 method for step_impute_ts</span>
 <span class='fu'>tidy</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -201,13 +201,15 @@ for more details. For the <code>tidy</code> method, these are not
 currently used.</p></td>
     </tr>
     <tr>
-      <th>method</th>
-      <td><p>One of "guerrero" or "loglik"</p></td>
+      <th>period</th>
+      <td><p>A seasonal period to use during the transformation. If <code>period = 1</code>,
+linear interpolation is performed. If <code>period &gt; 1</code>, a robust STL decomposition is
+first performed and a linear interpolation is applied to the seasonally adjusted data.</p></td>
     </tr>
     <tr>
-      <th>limits</th>
-      <td><p>A length 2 numeric vector defining the range to
-compute the transformation parameter lambda.</p></td>
+      <th>lambda</th>
+      <td><p>A box cox transformation parameter. If set to <code>"auto"</code>, performs
+automated lambda selection.</p></td>
     </tr>
     <tr>
       <th>role</th>
@@ -221,8 +223,9 @@ preprocessing have been estimated.</p></td>
     </tr>
     <tr>
       <th>lambdas_trained</th>
-      <td><p>A numeric vector of transformation values. This
-is <code>NULL</code> until computed by <code>prep.recipe()</code>.</p></td>
+      <td><p>A named numeric vector of lambdas. This is <code>NULL</code> until computed
+by <code>prep.recipe()</code>. Note that, if the original data are integers, the mean
+will be converted to an integer to maintain the same a data type.</p></td>
     </tr>
     <tr>
       <th>skip</th>
@@ -239,7 +242,7 @@ the computations for subsequent operations</p></td>
     </tr>
     <tr>
       <th>x</th>
-      <td><p>A <code>step_box_cox</code> object.</p></td>
+      <td><p>A <code>step_impute_ts</code> object.</p></td>
     </tr>
     </table>
 
@@ -252,28 +255,30 @@ selectors or variables selected) and <code>value</code> (the
 lambda estimate).</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The <code>step_box_cox()</code> function is designed specifically to handle time series
-using methods implemented in the Forecast R Package.</p>
-<p><strong>Negative Data</strong></p>
-<p>This function can be applied to Negative Data.</p>
-<p><strong>Lambda Optimization Methods</strong></p>
-<p>This function uses 2 methods for optimizing the lambda selection
-from the Forecast R Package:</p><ol>
-<li><p><code>method = "guerrero"</code>: Guerrero's (1993) method is used, where lambda minimizes
-the coefficient of variation for subseries of x.</p></li>
-<li><p><code>method = loglik</code>: the value of lambda is chosen to maximize the profile
-log likelihood of a linear model fitted to x. For non-seasonal data, a
-linear time trend is fitted while for seasonal data, a linear time trend
-with seasonal dummy variables is used.</p></li>
+    <p>The <code>step_impute_ts()</code> function is designed specifically to handle time series
+using seaonal imputation methods implemented in the Forecast R Package.</p>
+<p><strong>Imputation using Linear Interpolation</strong></p>
+<p>Two circumstances cause strictly linear interpolation:</p><ol>
+<li><p><strong>Period is 1:</strong> With <code>period = 1</code>, a seasonality cannot be interpreted and therefore linear is used.</p></li>
+<li><p><strong>Number of Non-Missing Values is less than 2-Periods</strong>: Insufficient values exist to detect seasonality.</p></li>
+<li><p><strong>Number of Total Values is less than 3-Periods</strong>: Insufficient values exist to detect seasonality.</p></li>
 </ol>
 
+<p><strong>Seasonal Imputation using Linear Interpolation</strong></p>
+<p>For seasonal series with <code>period &gt; 1</code>, a robust Seasonal Trend Loess (STL) decomposition is first computed.
+Then a linear interpolation is applied to the seasonally adjusted data, and
+the seasonal component is added back.</p>
+<p><strong>Box Cox Transformation</strong></p>
+<p>In many circumstances, a Box Cox transformation can help. Especially if the series is multiplicative
+meaning the variance grows exponentially. A Box Cox transformation can be automated by setting <code>lambda = "auto"</code>
+or can be specified by setting <code>lambda = numeric value</code>.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     
-<ol>
-<li><p>Guerrero, V.M. (1993) Time-series analysis supported by power transformations. <em>Journal of Forecasting</em>, <strong>12</strong>, 37–48.</p></li>
-<li><p>Box, G. E. P. and Cox, D. R. (1964) An analysis of transformations. <em>JRSS</em> B <strong>26</strong> 211–246.</p></li>
-</ol>
+<ul>
+<li><p><a href='https://github.com/robjhyndman/forecast'>Forecast R Package</a></p></li>
+<li><p><a href='https://otexts.com/fpp2/missing-outliers.html'>Forecasting Principles &amp; Practices: Dealing with missing values and outliers</a></p></li>
+</ul>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -281,13 +286,16 @@ with seasonal dummy variables is used.</p></li>
 <li><p>Engineered Features: <code><a href='step_timeseries_signature.html'>step_timeseries_signature()</a></code>, <code><a href='step_holiday_signature.html'>step_holiday_signature()</a></code>, <code><a href='step_fourier.html'>step_fourier()</a></code></p></li>
 <li><p>Diffs &amp; Lags <code><a href='step_diff.html'>step_diff()</a></code>, <code><a href='https://rdrr.io/pkg/recipes/man/step_lag.html'>recipes::step_lag()</a></code></p></li>
 <li><p>Smoothing: <code><a href='step_roll_apply.html'>step_roll_apply()</a></code>, <code><a href='step_smooth.html'>step_smooth()</a></code></p></li>
-<li><p>Variance Reduction: <code>step_box_cox()</code></p></li>
-<li><p>Imputation: <code><a href='step_impute_ts.html'>step_impute_ts()</a></code></p></li>
+<li><p>Variance Reduction: <code><a href='step_box_cox.html'>step_box_cox()</a></code></p></li>
+<li><p>Imputation: <code>step_impute_ts()</code></p></li>
 </ul>
 
-<p>Transformations to reduce variance:</p><ul>
-<li><p><code><a href='https://rdrr.io/pkg/recipes/man/step_log.html'>recipes::step_log()</a></code> - Log transformation</p></li>
-<li><p><code><a href='https://rdrr.io/pkg/recipes/man/step_sqrt.html'>recipes::step_sqrt()</a></code> - Square-Root Power Transformation</p></li>
+<p>Time Series Analysis:</p><ul>
+<li><p><code><a href='step_timeseries_signature.html'>step_timeseries_signature()</a></code>, <code><a href='step_holiday_signature.html'>step_holiday_signature()</a></code></p></li>
+<li><p><code><a href='step_diff.html'>step_diff()</a></code>, <code><a href='https://rdrr.io/pkg/recipes/man/step_lag.html'>recipes::step_lag()</a></code></p></li>
+<li><p><code><a href='step_roll_apply.html'>step_roll_apply()</a></code>, <code><a href='step_smooth.html'>step_smooth()</a></code></p></li>
+<li><p><code><a href='step_box_cox.html'>step_box_cox()</a></code></p></li>
+<li><p><code>step_impute_ts()</code></p></li>
 </ul>
 
 <p>Recipe Setup and Application:</p><ul>
@@ -298,44 +306,59 @@ with seasonal dummy variables is used.</p></li>
 </div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>tidyverse</span>)
+    <pre class="examples"><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>tidyverse</span>)
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>tidyquant</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>recipes</span>)</div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Attaching package: ‘recipes’</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:stringr’:</span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'>    fixed</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:stats’:</span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'>    step</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>timetk</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>recipes</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>timetk</span>)
 
+<span class='co'># Get missing values</span>
 <span class='no'>FANG_wide</span> <span class='kw'>&lt;-</span> <span class='no'>FANG</span> <span class='kw'>%&gt;%</span>
-<span class='fu'>select</span>(<span class='no'>symbol</span>, <span class='no'>date</span>, <span class='no'>adjusted</span>) <span class='kw'>%&gt;%</span>
-    <span class='fu'>pivot_wider</span>(<span class='kw'>names_from</span> <span class='kw'>=</span> <span class='no'>symbol</span>, <span class='kw'>values_from</span> <span class='kw'>=</span> <span class='no'>adjusted</span>)
-
-<span class='no'>recipe_box_cox</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/recipe.html'>recipe</a></span>(~ <span class='no'>.</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>FANG_wide</span>) <span class='kw'>%&gt;%</span>
-    <span class='fu'>step_box_cox</span>(<span class='no'>FB</span>, <span class='no'>AMZN</span>, <span class='no'>NFLX</span>, <span class='no'>GOOG</span>) <span class='kw'>%&gt;%</span>
-    <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/prep.html'>prep</a></span>()
-
-<span class='no'>recipe_box_cox</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/bake.html'>bake</a></span>(<span class='no'>FANG_wide</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 1,008 x 5</span><span>
+    <span class='fu'>select</span>(<span class='no'>symbol</span>, <span class='no'>date</span>, <span class='no'>adjusted</span>) <span class='kw'>%&gt;%</span>
+    <span class='fu'>pivot_wider</span>(<span class='kw'>names_from</span> <span class='kw'>=</span> <span class='no'>symbol</span>, <span class='kw'>values_from</span> <span class='kw'>=</span> <span class='no'>adjusted</span>) <span class='kw'>%&gt;%</span>
+    <span class='fu'><a href='pad_by_time.html'>pad_by_time</a></span>()</div><div class='output co'>#&gt; <span class='message'>.date_var is missing. Using: date</span></div><div class='output co'>#&gt; <span class='message'>pad applied on the interval: day</span></div><div class='input'>
+<span class='no'>FANG_wide</span></div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 1,459 x 5</span><span>
 #&gt;    date          FB  AMZN  NFLX  GOOG
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> 2013-01-02  12.5  8.28  4.92  5.26
-#&gt; </span><span style='color: #555555;'> 2</span><span> 2013-01-03  12.4  8.28  5.08  5.27
-#&gt; </span><span style='color: #555555;'> 3</span><span> 2013-01-04  12.7  8.29  5.06  5.28
-#&gt; </span><span style='color: #555555;'> 4</span><span> 2013-01-07  12.9  8.37  5.17  5.28
-#&gt; </span><span style='color: #555555;'> 5</span><span> 2013-01-08  12.8  8.35  5.10  5.28
-#&gt; </span><span style='color: #555555;'> 6</span><span> 2013-01-09  13.3  8.35  5.06  5.28
-#&gt; </span><span style='color: #555555;'> 7</span><span> 2013-01-10  13.5  8.34  5.13  5.28
-#&gt; </span><span style='color: #555555;'> 8</span><span> 2013-01-11  13.7  8.36  5.24  5.28
-#&gt; </span><span style='color: #555555;'> 9</span><span> 2013-01-14  13.4  8.40  5.32  5.26
-#&gt; </span><span style='color: #555555;'>10</span><span> 2013-01-15  13.1  8.39  5.26  5.27
-#&gt; </span><span style='color: #555555;'># … with 998 more rows</span><span></div><div class='input'>
+#&gt; </span><span style='color: #555555;'> 1</span><span> 2013-01-02  28    257.  13.1  361.
+#&gt; </span><span style='color: #555555;'> 2</span><span> 2013-01-03  27.8  258.  13.8  361.
+#&gt; </span><span style='color: #555555;'> 3</span><span> 2013-01-04  28.8  259.  13.7  369.
+#&gt; </span><span style='color: #555555;'> 4</span><span> 2013-01-05  </span><span style='color: #BB0000;'>NA</span><span>     </span><span style='color: #BB0000;'>NA</span><span>   </span><span style='color: #BB0000;'>NA</span><span>     </span><span style='color: #BB0000;'>NA</span><span> 
+#&gt; </span><span style='color: #555555;'> 5</span><span> 2013-01-06  </span><span style='color: #BB0000;'>NA</span><span>     </span><span style='color: #BB0000;'>NA</span><span>   </span><span style='color: #BB0000;'>NA</span><span>     </span><span style='color: #BB0000;'>NA</span><span> 
+#&gt; </span><span style='color: #555555;'> 6</span><span> 2013-01-07  29.4  268.  14.2  367.
+#&gt; </span><span style='color: #555555;'> 7</span><span> 2013-01-08  29.1  266.  13.9  366.
+#&gt; </span><span style='color: #555555;'> 8</span><span> 2013-01-09  30.6  266.  13.7  369.
+#&gt; </span><span style='color: #555555;'> 9</span><span> 2013-01-10  31.3  265.  14    370.
+#&gt; </span><span style='color: #555555;'>10</span><span> 2013-01-11  31.7  268.  14.5  370.
+#&gt; </span><span style='color: #555555;'># … with 1,449 more rows</span><span></div><div class='input'>
+<span class='co'># Apply Imputation</span>
+<span class='no'>recipe_box_cox</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/recipe.html'>recipe</a></span>(~ <span class='no'>.</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>FANG_wide</span>) <span class='kw'>%&gt;%</span>
+    <span class='fu'>step_impute_ts</span>(<span class='no'>FB</span>, <span class='no'>AMZN</span>, <span class='no'>NFLX</span>, <span class='no'>GOOG</span>, <span class='kw'>period</span> <span class='kw'>=</span> <span class='fl'>252</span>) <span class='kw'>%&gt;%</span>
+    <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/prep.html'>prep</a></span>()
+
+<span class='no'>recipe_box_cox</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/bake.html'>bake</a></span>(<span class='no'>FANG_wide</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 1,459 x 5</span><span>
+#&gt;    date          FB  AMZN  NFLX  GOOG
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> 2013-01-02  28    257.  13.1  361.
+#&gt; </span><span style='color: #555555;'> 2</span><span> 2013-01-03  27.8  258.  13.8  361.
+#&gt; </span><span style='color: #555555;'> 3</span><span> 2013-01-04  28.8  259.  13.7  369.
+#&gt; </span><span style='color: #555555;'> 4</span><span> 2013-01-05  28.7  261.  14.0  365.
+#&gt; </span><span style='color: #555555;'> 5</span><span> 2013-01-06  28.8  263.  14.5  365.
+#&gt; </span><span style='color: #555555;'> 6</span><span> 2013-01-07  29.4  268.  14.2  367.
+#&gt; </span><span style='color: #555555;'> 7</span><span> 2013-01-08  29.1  266.  13.9  366.
+#&gt; </span><span style='color: #555555;'> 8</span><span> 2013-01-09  30.6  266.  13.7  369.
+#&gt; </span><span style='color: #555555;'> 9</span><span> 2013-01-10  31.3  265.  14.   370.
+#&gt; </span><span style='color: #555555;'>10</span><span> 2013-01-11  31.7  268.  14.5  370.
+#&gt; </span><span style='color: #555555;'># … with 1,449 more rows</span><span></div><div class='input'>
+<span class='co'># Lambda parameter used during imputation process</span>
 <span class='no'>recipe_box_cox</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/reexports.html'>tidy</a></span>(<span class='fl'>1</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 4 x 3</span><span>
-#&gt;   terms  lambda id           
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>        
-#&gt; </span><span style='color: #555555;'>1</span><span> FB     0.671  box_cox_SwlKL
-#&gt; </span><span style='color: #555555;'>2</span><span> AMZN   0.135  box_cox_SwlKL
-#&gt; </span><span style='color: #555555;'>3</span><span> NFLX   0.458  box_cox_SwlKL
-#&gt; </span><span style='color: #555555;'>4</span><span> GOOG  -</span><span style='color: #BB0000;'>0.038</span><span style='color: #BB0000;text-decoration: underline;'>8</span><span> box_cox_SwlKL</div><div class='input'>
+#&gt;   terms lambda id             
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>          
+#&gt; </span><span style='color: #555555;'>1</span><span> FB     0.912 impute_ts_9QeuR
+#&gt; </span><span style='color: #555555;'>2</span><span> AMZN   0.557 impute_ts_9QeuR
+#&gt; </span><span style='color: #555555;'>3</span><span> NFLX   0.532 impute_ts_9QeuR
+#&gt; </span><span style='color: #555555;'>4</span><span> GOOG  -</span><span style='color: #BB0000;'>1.00</span><span>  impute_ts_9QeuR</div><div class='input'>
+
 </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

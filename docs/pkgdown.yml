@@ -1,9 +1,10 @@
 pandoc: 2.3.1
-pkgdown: 1.4.1
+pkgdown: 1.5.1
 pkgdown_sha: ~
 articles:
   TK00_Time_Series_Coercion: TK00_Time_Series_Coercion.html
   TK01_Working_With_Time_Series_Index: TK01_Working_With_Time_Series_Index.html
   TK02_Making_A_Future_Time_Series_Index: TK02_Making_A_Future_Time_Series_Index.html
   TK03_Forecasting_Using_Time_Series_Signature: TK03_Forecasting_Using_Time_Series_Signature.html
+last_built: 2020-04-09T18:43Z
 

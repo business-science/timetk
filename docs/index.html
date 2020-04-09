@@ -12,10 +12,11 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="apple-touch-icon-120x120.png">
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="apple-touch-icon-60x60.png">
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="bootstrap-toc.css">
+<script src="bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="pkgdown.js"></script><meta property="og:title" content="A Tool Kit for Working with Time Series using the Tidyverse and Tidymodels">
 <meta property="og:description" content='
     Get the time series index (date or date-time component), 
@@ -29,7 +30,6 @@
     Taieb, Souhaib Ben. "Machine learning strategies for multi-step-ahead time series forecasting." 
     Universit Libre de Bruxelles, Belgium (2014): 75-86. &lt;http://souhaib-bentaieb.com/pdf/2014_phd.pdf&gt;.'>
 <meta property="og:image" content="/logo.png">
-<meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -41,7 +41,7 @@
   gtag('config', 'UA-76139189-2');
 </script>
 </head>
-<body>
+<body data-spy="scroll" data-target="#toc">
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -118,7 +118,7 @@
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#timetk" class="anchor"></a>timetk <img src="reference/figures/logo.png" width="147" height="170" align="right">
 </h1></div>
-<p><a href="https://travis-ci.org/business-science/timetk"><img src="https://travis-ci.org/business-science/timetk.svg?branch=master" alt="Travis build status"></a> <a href="https://codecov.io/gh/business-science/timetk"><img src="https://codecov.io/gh/business-science/timetk/branch/master/graph/badge.svg" alt="codecov"></a> <a href="https://cran.r-project.org/package=timetk"><img src="http://www.r-pkg.org/badges/version/timetk" alt="CRAN_Status_Badge"></a> <img src="http://cranlogs.r-pkg.org/badges/timetk?color=brightgreen"><img src="http://cranlogs.r-pkg.org/badges/grand-total/timetk?color=brightgreen"></p>
+
 <blockquote>
 <p>A toolkit for working with time series in R</p>
 </blockquote>
@@ -152,7 +152,7 @@
 <a href="#tools" class="anchor"></a>Tools</h2>
 <p>The package contains the following functions:</p>
 <ol>
-<li><p><strong>Get an index</strong>: <code>tk_index</code> returns the time series index of time series objects, models. The argument <code>timetk_idx</code> can be used to return a special timetk “index” attribute for regularized <code>ts</code> objects that returns a non-regularized date / date-time index if present.</p></li>
+<li><p><strong>Get an index</strong>: <code>tk_index</code> returns the time series index of time series objects, models. The argument <code>timetk_idx</code> can be used to return a special timetk âindexâ attribute for regularized <code>ts</code> objects that returns a non-regularized date / date-time index if present.</p></li>
 <li><p><strong>Get critical timeseries information</strong>: <code>tk_get_timeseries_signature</code> and <code>tk_get_timeseries_summary</code> takes an index and provides a time series decomposition and key summary attributes of the index, respectively. The <code>tk_augment_timeseries_signature</code> expedites adding the time series decomposition to the time series object.</p></li>
 <li><p><strong>Make a future timeseries</strong>: <code>tk_make_future_timeseries</code> models a future time series after an existing time series index.</p></li>
 <li><p><strong>Conversion functions</strong>: <code>tk_tbl</code>, <code>tk_ts</code>, <code>tk_xts</code>, <code>tk_zoo</code>, and <code>tk_zooreg</code> convert time-based tibbles <code>tbl</code> to and from each of the main time-series data types <code>xts</code>, <code>zoo</code>, <code>zooreg</code>, <code>ts</code>, maintaining the time-based index.</p></li>
@@ -162,126 +162,126 @@
 <h2 class="hasAnchor">
 <a href="#getting-started" class="anchor"></a>Getting started</h2>
 <p>Load libraries and start with some time series data</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(tidyverse)</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(timetk)</a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(tidyquant)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">tidyverse</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">timetk</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">tidyquant</span>)</pre></div>
 <p>Use the FB time series.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">FB_tbl &lt;-<span class="st"> </span>FANG <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="st">    </span><span class="kw"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span>(symbol <span class="op">==</span><span class="st"> "FB"</span>)</a>
-<a class="sourceLine" id="cb2-3" data-line-number="3">FB_tbl</a>
-<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="co">#&gt; # A tibble: 1,008 x 8</span></a>
-<a class="sourceLine" id="cb2-5" data-line-number="5"><span class="co">#&gt;    symbol date        open  high   low close    volume adjusted</span></a>
-<a class="sourceLine" id="cb2-6" data-line-number="6"><span class="co">#&gt;    &lt;chr&gt;  &lt;date&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb2-7" data-line-number="7"><span class="co">#&gt;  1 FB     2013-01-02  27.4  28.2  27.4  28    69846400     28  </span></a>
-<a class="sourceLine" id="cb2-8" data-line-number="8"><span class="co">#&gt;  2 FB     2013-01-03  27.9  28.5  27.6  27.8  63140600     27.8</span></a>
-<a class="sourceLine" id="cb2-9" data-line-number="9"><span class="co">#&gt;  3 FB     2013-01-04  28.0  28.9  27.8  28.8  72715400     28.8</span></a>
-<a class="sourceLine" id="cb2-10" data-line-number="10"><span class="co">#&gt;  4 FB     2013-01-07  28.7  29.8  28.6  29.4  83781800     29.4</span></a>
-<a class="sourceLine" id="cb2-11" data-line-number="11"><span class="co">#&gt;  5 FB     2013-01-08  29.5  29.6  28.9  29.1  45871300     29.1</span></a>
-<a class="sourceLine" id="cb2-12" data-line-number="12"><span class="co">#&gt;  6 FB     2013-01-09  29.7  30.6  29.5  30.6 104787700     30.6</span></a>
-<a class="sourceLine" id="cb2-13" data-line-number="13"><span class="co">#&gt;  7 FB     2013-01-10  30.6  31.5  30.3  31.3  95316400     31.3</span></a>
-<a class="sourceLine" id="cb2-14" data-line-number="14"><span class="co">#&gt;  8 FB     2013-01-11  31.3  32.0  31.1  31.7  89598000     31.7</span></a>
-<a class="sourceLine" id="cb2-15" data-line-number="15"><span class="co">#&gt;  9 FB     2013-01-14  32.1  32.2  30.6  31.0  98892800     31.0</span></a>
-<a class="sourceLine" id="cb2-16" data-line-number="16"><span class="co">#&gt; 10 FB     2013-01-15  30.6  31.7  29.9  30.1 173242600     30.1</span></a>
-<a class="sourceLine" id="cb2-17" data-line-number="17"><span class="co">#&gt; # … with 998 more rows</span></a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="r"><span class="no">FB_tbl</span> <span class="kw">&lt;-</span> <span class="no">FANG</span> <span class="kw">%&gt;%</span>
+    <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span>(<span class="no">symbol</span> <span class="kw">==</span> <span class="st">"FB"</span>)
+<span class="no">FB_tbl</span>
+<span class="co">#&gt; # A tibble: 1,008 x 8</span>
+<span class="co">#&gt;    symbol date        open  high   low close    volume adjusted</span>
+<span class="co">#&gt;    &lt;chr&gt;  &lt;date&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;</span>
+<span class="co">#&gt;  1 FB     2013-01-02  27.4  28.2  27.4  28    69846400     28  </span>
+<span class="co">#&gt;  2 FB     2013-01-03  27.9  28.5  27.6  27.8  63140600     27.8</span>
+<span class="co">#&gt;  3 FB     2013-01-04  28.0  28.9  27.8  28.8  72715400     28.8</span>
+<span class="co">#&gt;  4 FB     2013-01-07  28.7  29.8  28.6  29.4  83781800     29.4</span>
+<span class="co">#&gt;  5 FB     2013-01-08  29.5  29.6  28.9  29.1  45871300     29.1</span>
+<span class="co">#&gt;  6 FB     2013-01-09  29.7  30.6  29.5  30.6 104787700     30.6</span>
+<span class="co">#&gt;  7 FB     2013-01-10  30.6  31.5  30.3  31.3  95316400     31.3</span>
+<span class="co">#&gt;  8 FB     2013-01-11  31.3  32.0  31.1  31.7  89598000     31.7</span>
+<span class="co">#&gt;  9 FB     2013-01-14  32.1  32.2  30.6  31.0  98892800     31.0</span>
+<span class="co">#&gt; 10 FB     2013-01-15  30.6  31.7  29.9  30.1 173242600     30.1</span>
+<span class="co">#&gt; # â¦ with 998 more rows</span></pre></div>
 </div>
 <div id="extract-a-time-series-index" class="section level2">
 <h2 class="hasAnchor">
 <a href="#extract-a-time-series-index" class="anchor"></a>Extract a time series index</h2>
 <p>Get the timeseries index.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">idx &lt;-<span class="st"> </span><span class="kw"><a href="reference/tk_index.html">tk_index</a></span>(FB_tbl)</a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(idx)</a>
-<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="co">#&gt; [1] "2013-01-02" "2013-01-03" "2013-01-04" "2013-01-07" "2013-01-08"</span></a>
-<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="co">#&gt; [6] "2013-01-09"</span></a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="r"><span class="no">idx</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/tk_index.html">tk_index</a></span>(<span class="no">FB_tbl</span>)
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">idx</span>)
+<span class="co">#&gt; [1] "2013-01-02" "2013-01-03" "2013-01-04" "2013-01-07" "2013-01-08"</span>
+<span class="co">#&gt; [6] "2013-01-09"</span></pre></div>
 </div>
 <div id="expand-the-time-series-signature" class="section level2">
 <h2 class="hasAnchor">
 <a href="#expand-the-time-series-signature" class="anchor"></a>Expand the time series signature</h2>
 <p>Get the time series signature from the index, a tibble of decomposed features that are useful for <strong>data mining</strong> and <strong>machine learning</strong>.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw"><a href="reference/tk_get_timeseries.html">tk_get_timeseries_signature</a></span>(idx)</a>
-<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="co">#&gt; # A tibble: 1,008 x 29</span></a>
-<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="co">#&gt;    index      index.num   diff  year year.iso  half quarter month month.xts</span></a>
-<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="co">#&gt;    &lt;date&gt;         &lt;int&gt;  &lt;int&gt; &lt;int&gt;    &lt;int&gt; &lt;int&gt;   &lt;int&gt; &lt;int&gt;     &lt;int&gt;</span></a>
-<a class="sourceLine" id="cb4-5" data-line-number="5"><span class="co">#&gt;  1 2013-01-02    1.36e9     NA  2013     2013     1       1     1         0</span></a>
-<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="co">#&gt;  2 2013-01-03    1.36e9  86400  2013     2013     1       1     1         0</span></a>
-<a class="sourceLine" id="cb4-7" data-line-number="7"><span class="co">#&gt;  3 2013-01-04    1.36e9  86400  2013     2013     1       1     1         0</span></a>
-<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="co">#&gt;  4 2013-01-07    1.36e9 259200  2013     2013     1       1     1         0</span></a>
-<a class="sourceLine" id="cb4-9" data-line-number="9"><span class="co">#&gt;  5 2013-01-08    1.36e9  86400  2013     2013     1       1     1         0</span></a>
-<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="co">#&gt;  6 2013-01-09    1.36e9  86400  2013     2013     1       1     1         0</span></a>
-<a class="sourceLine" id="cb4-11" data-line-number="11"><span class="co">#&gt;  7 2013-01-10    1.36e9  86400  2013     2013     1       1     1         0</span></a>
-<a class="sourceLine" id="cb4-12" data-line-number="12"><span class="co">#&gt;  8 2013-01-11    1.36e9  86400  2013     2013     1       1     1         0</span></a>
-<a class="sourceLine" id="cb4-13" data-line-number="13"><span class="co">#&gt;  9 2013-01-14    1.36e9 259200  2013     2013     1       1     1         0</span></a>
-<a class="sourceLine" id="cb4-14" data-line-number="14"><span class="co">#&gt; 10 2013-01-15    1.36e9  86400  2013     2013     1       1     1         0</span></a>
-<a class="sourceLine" id="cb4-15" data-line-number="15"><span class="co">#&gt; # … with 998 more rows, and 20 more variables: month.lbl &lt;ord&gt;, day &lt;int&gt;,</span></a>
-<a class="sourceLine" id="cb4-16" data-line-number="16"><span class="co">#&gt; #   hour &lt;int&gt;, minute &lt;int&gt;, second &lt;int&gt;, hour12 &lt;int&gt;, am.pm &lt;int&gt;,</span></a>
-<a class="sourceLine" id="cb4-17" data-line-number="17"><span class="co">#&gt; #   wday &lt;int&gt;, wday.xts &lt;int&gt;, wday.lbl &lt;ord&gt;, mday &lt;int&gt;, qday &lt;int&gt;,</span></a>
-<a class="sourceLine" id="cb4-18" data-line-number="18"><span class="co">#&gt; #   yday &lt;int&gt;, mweek &lt;int&gt;, week &lt;int&gt;, week.iso &lt;int&gt;, week2 &lt;int&gt;,</span></a>
-<a class="sourceLine" id="cb4-19" data-line-number="19"><span class="co">#&gt; #   week3 &lt;int&gt;, week4 &lt;int&gt;, mday7 &lt;int&gt;</span></a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="r"><span class="fu"><a href="reference/tk_get_timeseries.html">tk_get_timeseries_signature</a></span>(<span class="no">idx</span>)
+<span class="co">#&gt; # A tibble: 1,008 x 29</span>
+<span class="co">#&gt;    index      index.num   diff  year year.iso  half quarter month month.xts</span>
+<span class="co">#&gt;    &lt;date&gt;         &lt;int&gt;  &lt;int&gt; &lt;int&gt;    &lt;int&gt; &lt;int&gt;   &lt;int&gt; &lt;int&gt;     &lt;int&gt;</span>
+<span class="co">#&gt;  1 2013-01-02    1.36e9     NA  2013     2013     1       1     1         0</span>
+<span class="co">#&gt;  2 2013-01-03    1.36e9  86400  2013     2013     1       1     1         0</span>
+<span class="co">#&gt;  3 2013-01-04    1.36e9  86400  2013     2013     1       1     1         0</span>
+<span class="co">#&gt;  4 2013-01-07    1.36e9 259200  2013     2013     1       1     1         0</span>
+<span class="co">#&gt;  5 2013-01-08    1.36e9  86400  2013     2013     1       1     1         0</span>
+<span class="co">#&gt;  6 2013-01-09    1.36e9  86400  2013     2013     1       1     1         0</span>
+<span class="co">#&gt;  7 2013-01-10    1.36e9  86400  2013     2013     1       1     1         0</span>
+<span class="co">#&gt;  8 2013-01-11    1.36e9  86400  2013     2013     1       1     1         0</span>
+<span class="co">#&gt;  9 2013-01-14    1.36e9 259200  2013     2013     1       1     1         0</span>
+<span class="co">#&gt; 10 2013-01-15    1.36e9  86400  2013     2013     1       1     1         0</span>
+<span class="co">#&gt; # â¦ with 998 more rows, and 20 more variables: month.lbl &lt;ord&gt;, day &lt;int&gt;,</span>
+<span class="co">#&gt; #   hour &lt;int&gt;, minute &lt;int&gt;, second &lt;int&gt;, hour12 &lt;int&gt;, am.pm &lt;int&gt;,</span>
+<span class="co">#&gt; #   wday &lt;int&gt;, wday.xts &lt;int&gt;, wday.lbl &lt;ord&gt;, mday &lt;int&gt;, qday &lt;int&gt;,</span>
+<span class="co">#&gt; #   yday &lt;int&gt;, mweek &lt;int&gt;, week &lt;int&gt;, week.iso &lt;int&gt;, week2 &lt;int&gt;,</span>
+<span class="co">#&gt; #   week3 &lt;int&gt;, week4 &lt;int&gt;, mday7 &lt;int&gt;</span></pre></div>
 </div>
 <div id="get-a-summary-of-the-time-series" class="section level2">
 <h2 class="hasAnchor">
 <a href="#get-a-summary-of-the-time-series" class="anchor"></a>Get a summary of the time series</h2>
 <p>Get the time series summary from the index, a single-row tibble of key summary information from the time series.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="co"># General summary</span></a>
-<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="kw"><a href="reference/tk_get_timeseries.html">tk_get_timeseries_summary</a></span>(idx)[<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>]</a>
-<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="co">#&gt; # A tibble: 1 x 6</span></a>
-<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="co">#&gt;   n.obs start      end        units scale tzone</span></a>
-<a class="sourceLine" id="cb5-5" data-line-number="5"><span class="co">#&gt;   &lt;int&gt; &lt;date&gt;     &lt;date&gt;     &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;</span></a>
-<a class="sourceLine" id="cb5-6" data-line-number="6"><span class="co">#&gt; 1  1008 2013-01-02 2016-12-30 days  day   UTC</span></a>
-<a class="sourceLine" id="cb5-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb5-8" data-line-number="8"><span class="co"># Frequency summary</span></a>
-<a class="sourceLine" id="cb5-9" data-line-number="9"><span class="kw"><a href="reference/tk_get_timeseries.html">tk_get_timeseries_summary</a></span>(idx)[<span class="dv">6</span><span class="op">:</span><span class="dv">12</span>]</a>
-<a class="sourceLine" id="cb5-10" data-line-number="10"><span class="co">#&gt; # A tibble: 1 x 7</span></a>
-<a class="sourceLine" id="cb5-11" data-line-number="11"><span class="co">#&gt;   tzone diff.minimum diff.q1 diff.median diff.mean diff.q3 diff.maximum</span></a>
-<a class="sourceLine" id="cb5-12" data-line-number="12"><span class="co">#&gt;   &lt;chr&gt;        &lt;dbl&gt;   &lt;dbl&gt;       &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;        &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb5-13" data-line-number="13"><span class="co">#&gt; 1 UTC          86400   86400       86400   125096.   86400       345600</span></a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="r"><span class="co"># General summary</span>
+<span class="fu"><a href="reference/tk_get_timeseries.html">tk_get_timeseries_summary</a></span>(<span class="no">idx</span>)[<span class="fl">1</span>:<span class="fl">6</span>]
+<span class="co">#&gt; # A tibble: 1 x 6</span>
+<span class="co">#&gt;   n.obs start      end        units scale tzone</span>
+<span class="co">#&gt;   &lt;int&gt; &lt;date&gt;     &lt;date&gt;     &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;</span>
+<span class="co">#&gt; 1  1008 2013-01-02 2016-12-30 days  day   UTC</span>
+
+<span class="co"># Frequency summary</span>
+<span class="fu"><a href="reference/tk_get_timeseries.html">tk_get_timeseries_summary</a></span>(<span class="no">idx</span>)[<span class="fl">6</span>:<span class="fl">12</span>]
+<span class="co">#&gt; # A tibble: 1 x 7</span>
+<span class="co">#&gt;   tzone diff.minimum diff.q1 diff.median diff.mean diff.q3 diff.maximum</span>
+<span class="co">#&gt;   &lt;chr&gt;        &lt;dbl&gt;   &lt;dbl&gt;       &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;        &lt;dbl&gt;</span>
+<span class="co">#&gt; 1 UTC          86400   86400       86400   125096.   86400       345600</span></pre></div>
 </div>
 <div id="make-a-future-time-series" class="section level2">
 <h2 class="hasAnchor">
 <a href="#make-a-future-time-series" class="anchor"></a>Make a future time series</h2>
 <p>Use an index to make a future time series.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">holidays &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"2017-01-02"</span>, <span class="st">"2017-01-16"</span>, <span class="st">"2017-02-20"</span>,</a>
-<a class="sourceLine" id="cb6-2" data-line-number="2">              <span class="st">"2017-04-14"</span>, <span class="st">"2017-05-29"</span>, <span class="st">"2017-07-04"</span>,</a>
-<a class="sourceLine" id="cb6-3" data-line-number="3">              <span class="st">"2017-09-04"</span>, <span class="st">"2017-11-23"</span>, <span class="st">"2017-12-25"</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb6-4" data-line-number="4"><span class="st">    </span><span class="kw">ymd</span>()</a>
-<a class="sourceLine" id="cb6-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb6-6" data-line-number="6">idx_future &lt;-<span class="st"> </span><span class="kw"><a href="reference/tk_make_timeseries.html">tk_make_future_timeseries</a></span>(</a>
-<a class="sourceLine" id="cb6-7" data-line-number="7">    idx, </a>
-<a class="sourceLine" id="cb6-8" data-line-number="8">    <span class="dt">n_future         =</span> <span class="dv">366</span>, </a>
-<a class="sourceLine" id="cb6-9" data-line-number="9">    <span class="dt">skip_values      =</span> holidays, </a>
-<a class="sourceLine" id="cb6-10" data-line-number="10">    <span class="dt">inspect_weekdays =</span> <span class="ot">TRUE</span>) </a>
-<a class="sourceLine" id="cb6-11" data-line-number="11"></a>
-<a class="sourceLine" id="cb6-12" data-line-number="12"><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(idx_future)</a>
-<a class="sourceLine" id="cb6-13" data-line-number="13"><span class="co">#&gt; [1] "2017-01-03" "2017-01-04" "2017-01-05" "2017-01-06" "2017-01-09"</span></a>
-<a class="sourceLine" id="cb6-14" data-line-number="14"><span class="co">#&gt; [6] "2017-01-10"</span></a></code></pre></div>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/utils/head.html">tail</a></span>(idx_future)</a>
-<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="co">#&gt; [1] "2017-12-21" "2017-12-22" "2017-12-26" "2017-12-27" "2017-12-28"</span></a>
-<a class="sourceLine" id="cb7-3" data-line-number="3"><span class="co">#&gt; [6] "2017-12-29"</span></a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="r"><span class="no">holidays</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"2017-01-02"</span>, <span class="st">"2017-01-16"</span>, <span class="st">"2017-02-20"</span>,
+              <span class="st">"2017-04-14"</span>, <span class="st">"2017-05-29"</span>, <span class="st">"2017-07-04"</span>,
+              <span class="st">"2017-09-04"</span>, <span class="st">"2017-11-23"</span>, <span class="st">"2017-12-25"</span>) <span class="kw">%&gt;%</span>
+    <span class="fu">ymd</span>()
+
+<span class="no">idx_future</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/tk_make_timeseries.html">tk_make_future_timeseries</a></span>(
+    <span class="no">idx</span>,
+    <span class="kw">n_future</span>         <span class="kw">=</span> <span class="fl">366</span>,
+    <span class="kw">skip_values</span>      <span class="kw">=</span> <span class="no">holidays</span>,
+    <span class="kw">inspect_weekdays</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
+
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">idx_future</span>)
+<span class="co">#&gt; [1] "2017-01-03" "2017-01-04" "2017-01-05" "2017-01-06" "2017-01-09"</span>
+<span class="co">#&gt; [6] "2017-01-10"</span></pre></div>
+<div class="sourceCode" id="cb7"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">tail</a></span>(<span class="no">idx_future</span>)
+<span class="co">#&gt; [1] "2017-12-21" "2017-12-22" "2017-12-26" "2017-12-27" "2017-12-28"</span>
+<span class="co">#&gt; [6] "2017-12-29"</span></pre></div>
 </div>
 <div id="coerce-time-series-without-specifying-order-by-or-worrying-about-coercion-issues" class="section level2">
 <h2 class="hasAnchor">
 <a href="#coerce-time-series-without-specifying-order-by-or-worrying-about-coercion-issues" class="anchor"></a>Coerce time series without specifying order.by or worrying about coercion issues</h2>
 <p>Coercion to <code>xts</code>, <code>zoo</code>, or <code>ts</code> is simplified. The data is ordered correctly automatically using the column containing the date or datetime information. Non-numeric columns are automatically dropped with a warning to the user (the <code>silent = TRUE</code> hides the warnings).</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="co"># xts</span></a>
-<a class="sourceLine" id="cb8-2" data-line-number="2">FB_xts &lt;-<span class="st"> </span><span class="kw"><a href="reference/tk_xts.html">tk_xts</a></span>(FB_tbl, <span class="dt">silent =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="co"># zoo</span></a>
-<a class="sourceLine" id="cb9-2" data-line-number="2">FB_zoo &lt;-<span class="st"> </span><span class="kw"><a href="reference/tk_zoo.html">tk_zoo</a></span>(FB_tbl, <span class="dt">silent =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="co"># ts</span></a>
-<a class="sourceLine" id="cb10-2" data-line-number="2">FB_ts &lt;-<span class="st"> </span><span class="kw"><a href="reference/tk_ts.html">tk_ts</a></span>(FB_tbl, <span class="dt">start =</span> <span class="dv">2013</span>, <span class="dt">freq =</span> <span class="dv">252</span>, <span class="dt">silent =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
-<p>This covers the basics of the <code>timetk</code> package capabilities. Here’s how to get started.</p>
+<div class="sourceCode" id="cb8"><pre class="r"><span class="co"># xts</span>
+<span class="no">FB_xts</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/tk_xts.html">tk_xts</a></span>(<span class="no">FB_tbl</span>, <span class="kw">silent</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></div>
+<div class="sourceCode" id="cb9"><pre class="r"><span class="co"># zoo</span>
+<span class="no">FB_zoo</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/tk_zoo.html">tk_zoo</a></span>(<span class="no">FB_tbl</span>, <span class="kw">silent</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></div>
+<div class="sourceCode" id="cb10"><pre class="r"><span class="co"># ts</span>
+<span class="no">FB_ts</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/tk_ts.html">tk_ts</a></span>(<span class="no">FB_tbl</span>, <span class="kw">start</span> <span class="kw">=</span> <span class="fl">2013</span>, <span class="kw">freq</span> <span class="kw">=</span> <span class="fl">252</span>, <span class="kw">silent</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></div>
+<p>This covers the basics of the <code>timetk</code> package capabilities. Hereâs how to get started.</p>
 </div>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p><em>Download development version with latest features</em>:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="co"># install.packages("devtools")</span></a>
-<a class="sourceLine" id="cb11-2" data-line-number="2">devtools<span class="op">::</span><span class="kw"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span>(<span class="st">"business-science/timetk"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="r"><span class="co"># install.packages("devtools")</span>
+<span class="kw pkg">devtools</span><span class="kw ns">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span>(<span class="st">"business-science/timetk"</span>)</pre></div>
 <p><em>Or, download CRAN approved version</em>:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"timetk"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"timetk"</span>)</pre></div>
 </div>
 <div id="acknowledgements-standing-on-shoulders" class="section level2">
 <h2 class="hasAnchor">
 <a href="#acknowledgements-standing-on-shoulders" class="anchor"></a>Acknowledgements: Standing On Shoulders</h2>
-<p>A lot of innovative time series and forecasting work is going on that ultimately benefits the community. We’d like to thank the following people and packages that came before <code>timetk</code> in time series analysis and machine learning.</p>
+<p>A lot of innovative time series and forecasting work is going on that ultimately benefits the community. Weâd like to thank the following people and packages that came before <code>timetk</code> in time series analysis and machine learning.</p>
 <ul>
 <li>
 <a href="https://github.com/bearloga/maltese"><code>maltese</code></a>: Similar in respect to <code>timetk</code> in that it enables machine learning-friendly data frame generation exposing a number of critical features that can be used for forecasting.</li>
@@ -309,13 +309,13 @@
 </div>
   </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="links">
 <h2>Links</h2>
 <ul class="list-unstyled">
 <li>Download from CRAN at <br><a href="https://cloud.r-project.org/package=timetk">https://​cloud.r-project.org/​package=timetk</a>
 </li>
-<li>Browse source code at <br><a href="https://github.com/business-science/timetk">https://​github.com/​business-science/​timetk</a>
+<li>Browse source code at <br><a href="https://github.com/business-science/timetk/">https://​github.com/​business-science/​timetk/​</a>
 </li>
 <li>Report a bug at <br><a href="https://github.com/business-science/timetk/issues">https://​github.com/​business-science/​timetk/​issues</a>
 </li>
@@ -335,7 +335,15 @@
 </ul>
 </div>
 
-  </div>
+  <div class="dev-status">
+<h2>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://travis-ci.org/business-science/timetk"><img src="https://travis-ci.org/business-science/timetk.svg?branch=master" alt="Travis build status"></a></li>
+<li><a href="https://codecov.io/gh/business-science/timetk"><img src="https://codecov.io/gh/business-science/timetk/branch/master/graph/badge.svg" alt="codecov"></a></li>
+<li><a href="https://cran.r-project.org/package=timetk"><img src="http://www.r-pkg.org/badges/version/timetk" alt="CRAN_Status_Badge"></a></li>
+</ul>
+</div>
+</div>
 </div>
 
 
@@ -344,7 +352,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

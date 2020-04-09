@@ -17,23 +17,27 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -44,7 +48,6 @@
 
 <meta property="og:title" content="Changelog" />
 <meta property="og:image" content="/logo.png" />
-<meta name="twitter:card" content="summary" />
 
 
 
@@ -72,7 +75,7 @@
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-news">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -147,12 +150,12 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Changelog <small></small></h1>
+      <h1 data-toc-skip>Changelog <small></small></h1>
       <small>Source: <a href='https://github.com/business-science/timetk/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
     <div id="timetk-0-1-3-9000" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.1.3.9000">
 <a href="#timetk-0-1-3-9000" class="anchor"></a>timetk 0.1.3.9000<small> Unreleased </small>
 </h1>
 <!--
@@ -274,7 +277,9 @@ SMALLER ITEMS:
 <li>
 <code><a href="../reference/step_diff.html">step_diff()</a></code> - New recipe for adding multiple differenced columns. Similar to <code><a href="https://rdrr.io/pkg/recipes/man/step_lag.html">recipes::step_lag()</a></code>.</li>
 <li>
-<code><a href="../reference/step_box_cox.html">step_box_cox()</a></code> - New recipe for transforming predictors. Similar to <code>step_BoxCox()</code> with improvements for forecasting including “guerrero” method for lambda selection and handling of negative data.</li>
+<code><a href="../reference/step_box_cox.html">step_box_cox()</a></code> - New recipe for transforming predictors. Similar to <code>step_BoxCox()</code> with improvements for forecasting including âguerreroâ method for lambda selection and handling of negative data.</li>
+<li>
+<code><a href="../reference/step_impute_ts.html">step_impute_ts()</a></code> - New recipe for imputing a time series.</li>
 </ul>
 <p><strong>New Rsample Functions</strong></p>
 <ul>
@@ -290,7 +295,7 @@ SMALLER ITEMS:
 <li>
 <code><a href="../reference/smooth_vec.html">smooth_vec()</a></code> - Vectorized smoothing function - Applies Local Polynomial Regression (LOESS)</li>
 <li>
-<code><a href="../reference/diff_vec.html">diff_vec()</a></code> and <code><a href="../reference/diff_vec.html">diff_inv_vec()</a></code> - Vectorized differencing function. Pads <code>NA</code>’s by default (unlike <code>stats::diff</code>).</li>
+<code><a href="../reference/diff_vec.html">diff_vec()</a></code> and <code><a href="../reference/diff_vec.html">diff_inv_vec()</a></code> - Vectorized differencing function. Pads <code>NA</code>âs by default (unlike <code>stats::diff</code>).</li>
 <li>
 <code><a href="../reference/lag_vec.html">lag_vec()</a></code> - Vectorized lag functions. Returns both lags and leads (negative lags) by adjusting the <code>.lag</code> argument.</li>
 <li>
@@ -347,7 +352,7 @@ SMALLER ITEMS:
 <p><strong>New Datasets</strong></p>
 <ul>
 <li>
-<strong>M4 Competition</strong> - Sample “economic” datasets from hourly, daily, weekly, monthly, quarterly, and yearly.</li>
+<strong>M4 Competition</strong> - Sample âeconomicâ datasets from hourly, daily, weekly, monthly, quarterly, and yearly.</li>
 <li>
 <strong>Kaggle Walmart Recruiting Retail Sales Forecasting Competition</strong> - Sample of 7 retail time series</li>
 <li>
@@ -356,7 +361,7 @@ SMALLER ITEMS:
 <p><strong>Bug Fixes:</strong></p>
 <ul>
 <li>
-<a href="https://github.com/business-science/timetk/pull/32">Don’t set timezone on date</a> - Accommodate recent changes to <code>lubridate::tz&lt;-</code> which now returns POSIXct when used Date objects. Fixed in PR32 by <a href='https://github.com/vspinu'>@vspinu</a>.</li>
+<a href="https://github.com/business-science/timetk/pull/32">Donât set timezone on date</a> - Accommodate recent changes to <code>lubridate::tz&lt;-</code> which now returns POSIXct when used Date objects. Fixed in PR32 by <a href='https://github.com/vspinu'>@vspinu</a>.</li>
 </ul>
 <p><strong>Potential Breaking Changes:</strong></p>
 <ul>
@@ -365,7 +370,7 @@ SMALLER ITEMS:
 </ul>
 </div>
     <div id="timetk-0-1-3" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.1.3">
 <a href="#timetk-0-1-3" class="anchor"></a>timetk 0.1.3<small> 2020-03-18 </small>
 </h1>
 <p><strong>New Features:</strong></p>
@@ -377,7 +382,7 @@ SMALLER ITEMS:
 <code><a href="../reference/step_timeseries_signature.html">step_timeseries_signature()</a></code> - New <code><a href="../reference/step_timeseries_signature.html">step_timeseries_signature()</a></code> for adding date and date-time features.</li>
 </ul>
 </li>
-<li>New Vignette - <em>“Time Series Machine Learning”</em> (previously forecasting using the time series signature)</li>
+<li>New Vignette - <em>âTime Series Machine Learningâ</em> (previously forecasting using the time series signature)</li>
 </ul>
 <p><strong>Bug Fixes:</strong></p>
 <ul>
@@ -388,7 +393,7 @@ SMALLER ITEMS:
 </ul>
 </div>
     <div id="timetk-0-1-2" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.1.2">
 <a href="#timetk-0-1-2" class="anchor"></a>timetk 0.1.2<small> 2019-09-25 </small>
 </h1>
 <ul>
@@ -398,7 +403,7 @@ SMALLER ITEMS:
 </ul>
 </div>
     <div id="timetk-0-1-1" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.1.1">
 <a href="#timetk-0-1-1" class="anchor"></a>timetk 0.1.1<small> 2018-05-14 </small>
 </h1>
 <ul>
@@ -406,7 +411,7 @@ SMALLER ITEMS:
 </ul>
 </div>
     <div id="timetk-0-1-0" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.1.0">
 <a href="#timetk-0-1-0" class="anchor"></a>timetk 0.1.0<small> 2017-07-25 </small>
 </h1>
 <ul>
@@ -468,17 +473,10 @@ The information below is kept for historical reasons since this package was conv
 </div>
   </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <div id="tocnav">
-      <h2>Contents</h2>
-      <ul class="nav nav-pills nav-stacked">
-        <li><a href="#timetk-0-1-3-9000">0.1.3.9000</a></li>
-        <li><a href="#timetk-0-1-3">0.1.3</a></li>
-        <li><a href="#timetk-0-1-2">0.1.2</a></li>
-        <li><a href="#timetk-0-1-1">0.1.1</a></li>
-        <li><a href="#timetk-0-1-0">0.1.0</a></li>
-      </ul>
-    </div>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 
 </div>
@@ -490,7 +488,7 @@ The information below is kept for historical reasons since this package was conv
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

@@ -60,13 +60,31 @@ reference:
     - "tk_augment_holiday_signature"
     - "tk_augment_roll_apply"
     - "tk_augment_differences"
+    - "tk_augment_lags"
     - contains("augment")
   - title: Recipe Operations (Feature Engineering Steps)
     desc: __Preprocessing & feature engineering operations for use with `recipes` and the `tidymodels` ecosystem__
-    contents:
+  - subtitle: Engineered Features
+  - contents:
     - "step_timeseries_signature"
     - "step_holiday_signature"
-    - contains("step_")
+    - "step_fourier"
+  - subtitle: Lags & Diffs
+    desc: See `recipes::step_lag()` for lagged features.
+  - contents:
+    - "step_diff"
+  - subtitle: Smoothing & Rolling
+  - contents:
+    - "step_smooth"
+    - "step_roll_apply"
+  - subtitle: Variance Reduction
+    desc: See `recipes::step_log()` for log transformation.
+  - contents:
+    - "step_box_cox"
+  - subtitle: Imputation
+    desc: See `recipes::step_rollimpute()` for rolling imputation.
+  - contents:
+    - "step_impute_ts"
   - title: Rsample Operations (Cross Validation)
     desc: __Resampling for time series cross validation using `rsamples`__
     contents:
