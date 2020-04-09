@@ -17,7 +17,7 @@
 #'  compute the transformation parameter lambda.
 #' @param role Not used by this step since no new variables are
 #'  created.
-#' @param lambdas A numeric vector of transformation values. This
+#' @param lambdas_trained A numeric vector of transformation values. This
 #'  is `NULL` until computed by [prep.recipe()].
 #'
 #' @return An updated version of `recipe` with the new step
@@ -74,13 +74,11 @@
 #' @seealso
 #'
 #'  Time Series Analysis:
-#'  - [step_timeseries_signature()]
-#'  - [step_holiday_signature()]
-#'  - [step_diff()]
-#'  - [recipes::step_lag()]
-#'  - [step_roll_apply()]
-#'  - [step_smooth()]
-#'  - [step_box_cox()]
+#'  - Engineered Features: [step_timeseries_signature()], [step_holiday_signature()], [step_fourier()]
+#'  - Diffs & Lags [step_diff()], [recipes::step_lag()]
+#'  - Smoothing: [step_roll_apply()], [step_smooth()]
+#'  - Variance Reduction: [step_box_cox()]
+#'  - Imputation: [step_impute_ts()]
 #'
 #' Transformations to reduce variance:
 #' - [recipes::step_log()] - Log transformation
@@ -99,39 +97,39 @@ step_box_cox <-
              limits = c(-1, 2),
              role = NA,
              trained = FALSE,
-             lambdas = NULL,
+             lambdas_trained = NULL,
              skip = FALSE,
              id = rand_id("box_cox")) {
 
         recipes::add_step(
             recipe,
             step_box_cox_new(
-                terms         = recipes::ellipse_check(...),
-                role          = role,
-                trained       = trained,
+                terms           = recipes::ellipse_check(...),
+                role            = role,
+                trained         = trained,
 
-                lambdas       = lambdas,
-                limits        = sort(limits)[1:2],
-                method        = tolower(method)[1],
+                lambdas_trained = lambdas_trained,
+                limits          = sort(limits)[1:2],
+                method          = tolower(method)[1],
 
-                skip          = skip,
-                id            = id
+                skip            = skip,
+                id              = id
             )
         )
     }
 
 step_box_cox_new <-
-    function(terms, role, trained, lambdas, limits, method, skip, id) {
+    function(terms, role, trained, lambdas_trained, limits, method, skip, id) {
         recipes::step(
-            subclass   = "box_cox",
-            terms      = terms,
-            role       = role,
-            trained    = trained,
-            lambdas    = lambdas,
-            method     = method,
-            limits     = limits,
-            skip       = skip,
-            id         = id
+            subclass           = "box_cox",
+            terms              = terms,
+            role               = role,
+            trained            = trained,
+            lambdas_trained    = lambdas_trained,
+            method             = method,
+            limits             = limits,
+            skip               = skip,
+            id                 = id
         )
     }
 
@@ -139,23 +137,7 @@ step_box_cox_new <-
 prep.step_box_cox <- function(x, training, info = NULL, ...) {
 
     col_names <- terms_select(x$terms, info = info)
-    check_type(training[, col_names])
-
-    # values <- vapply(
-    #     training[, col_names],
-    #     estimate_bc,
-    #     c(lambda = 0),
-    #     limits = x$limits,
-    #     num_unique = x$num_unique
-    # )
-
-    # lambda_values <- vapply(
-    #     training[, col_names],
-    #     auto_lambda,
-    #     method = x$method,
-    #     lambda_lower = x$limits[1],
-    #     lambda_upper = x$limits[2]
-    # )
+    recipes::check_type(training[, col_names])
 
     lambda_values <- training[, col_names] %>%
         purrr::map(.f = function(vals) {
@@ -168,30 +150,30 @@ prep.step_box_cox <- function(x, training, info = NULL, ...) {
         })
 
     step_box_cox_new(
-        terms     = x$terms,
-        role      = x$role,
-        trained   = TRUE,
+        terms           = x$terms,
+        role            = x$role,
+        trained         = TRUE,
 
-        lambdas   = lambda_values,
-        limits    = x$limits,
-        method    = x$method,
+        lambdas_trained = lambda_values,
+        limits          = x$limits,
+        method          = x$method,
 
-        skip      = x$skip,
-        id        = x$id
+        skip            = x$skip,
+        id              = x$id
     )
 }
 
 #' @export
 bake.step_box_cox <- function(object, new_data, ...) {
 
-    # object$lambdas
+    # object$lambdas_trained
 
-    param <- names(object$lambdas)
+    param <- names(object$lambdas_trained)
 
-    for (i in seq_along(object$lambdas)) {
+    for (i in seq_along(object$lambdas_trained)) {
         new_data[, param[i]] <- box_cox_vec(
             x      = new_data %>% purrr::pluck(param[i]),
-            lambda = as.numeric(object$lambdas[i])
+            lambda = as.numeric(object$lambdas_trained[i])
         )
     }
 
@@ -201,7 +183,7 @@ bake.step_box_cox <- function(object, new_data, ...) {
 print.step_box_cox <-
     function(x, width = max(20, options()$width - 35), ...) {
         cat("Box-Cox transformation on ", sep = "")
-        printer(names(x$lambdas), x$terms, x$trained, width = width)
+        printer(names(x$lambdas_trained), x$terms, x$trained, width = width)
         invisible(x)
     }
 
@@ -214,8 +196,8 @@ print.step_box_cox <-
 tidy.step_box_cox <- function(x, ...) {
     if (is_trained(x)) {
         res <- tibble::tibble(
-            terms  = names(x$lambdas),
-            lambda = as.numeric(x$lambdas)
+            terms  = names(x$lambdas_trained),
+            lambda = as.numeric(x$lambdas_trained)
         )
     } else {
         term_names <- recipes::sel2char(x$terms)

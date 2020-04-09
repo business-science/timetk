@@ -6,7 +6,7 @@
 \alias{auto_lambda}
 \title{Box Cox Transformation}
 \usage{
-box_cox_vec(x, lambda = NULL, silent = FALSE)
+box_cox_vec(x, lambda = "auto", silent = FALSE)
 
 box_cox_inv_vec(x, lambda)
 
@@ -20,7 +20,8 @@ auto_lambda(
 \arguments{
 \item{x}{A numeric vector.}
 
-\item{lambda}{The box cox transformation parameter}
+\item{lambda}{The box cox transformation parameter.
+If set to "auto", performs automated lambda selection using \code{auto_lambda()}.}
 
 \item{silent}{Whether or not to report the automated \code{lambda} selection as a message.}
 

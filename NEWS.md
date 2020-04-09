@@ -107,6 +107,7 @@ Feature Generators:
 * `step_smooth()` - New recipe step for adding Local Polynomial Regression (LOESS) for smoothing noisy time series
 * `step_diff()` - New recipe for adding multiple differenced columns. Similar to `recipes::step_lag()`.
 * `step_box_cox()` - New recipe for transforming predictors. Similar to `step_BoxCox()` with improvements for forecasting including "guerrero" method for lambda selection and handling of negative data. 
+* `step_impute_ts()` - New recipe for imputing a time series. 
 
 __New Rsample Functions__
 

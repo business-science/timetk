@@ -6,7 +6,8 @@
 #' The `auto_lambda()` helps in selecting the optimal `lambda` value.
 #'
 #' @param x A numeric vector.
-#' @param lambda The box cox transformation parameter
+#' @param lambda The box cox transformation parameter.
+#'  If set to "auto", performs automated lambda selection using `auto_lambda()`.
 #' @param silent Whether or not to report the automated `lambda` selection as a message.
 #' @param method The method used for automatic `lambda` selection.
 #'  Either "guerrero" or "loglik".
@@ -66,9 +67,9 @@ NULL
 
 #' @rdname box_cox_vec
 #' @export
-box_cox_vec <- function(x, lambda = NULL, silent = FALSE) {
+box_cox_vec <- function(x, lambda = "auto", silent = FALSE) {
 
-    if (is.null(lambda)) {
+    if (is.null(lambda) | lambda[1] == "auto") {
         lambda <- auto_lambda(x)
         if (!silent) message("box_cox_vec(): Using value for lambda: ", lambda)
     }

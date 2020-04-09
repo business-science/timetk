@@ -174,13 +174,11 @@ bake(prep(rec_ma_30_names), FB_tbl) \%>\%
 \seealso{
 Time Series Analysis:
 \itemize{
-\item \code{\link[=step_timeseries_signature]{step_timeseries_signature()}}
-\item \code{\link[=step_holiday_signature]{step_holiday_signature()}}
-\item \code{\link[=step_diff]{step_diff()}}
-\item \code{\link[recipes:step_lag]{recipes::step_lag()}}
-\item \code{\link[=step_roll_apply]{step_roll_apply()}}
-\item \code{\link[=step_smooth]{step_smooth()}}
-\item \code{\link[=step_box_cox]{step_box_cox()}}
+\item Engineered Features: \code{\link[=step_timeseries_signature]{step_timeseries_signature()}}, \code{\link[=step_holiday_signature]{step_holiday_signature()}}, \code{\link[=step_fourier]{step_fourier()}}
+\item Diffs & Lags \code{\link[=step_diff]{step_diff()}}, \code{\link[recipes:step_lag]{recipes::step_lag()}}
+\item Smoothing: \code{\link[=step_roll_apply]{step_roll_apply()}}, \code{\link[=step_smooth]{step_smooth()}}
+\item Variance Reduction: \code{\link[=step_box_cox]{step_box_cox()}}
+\item Imputation: \code{\link[=step_impute_ts]{step_impute_ts()}}
 }
 
 Main Recipe Functions:

@@ -17,20 +17,31 @@ first performed and a linear interpolation is applied to the seasonally adjusted
 automated lambda selection.}
 }
 \description{
-This is mainly a wrapper for the Seasonally Adjusted Missing Value Interpolation function,
-\code{na.interp()}, from the \code{forecast} R package. This function includes arguments for applying
+This is mainly a wrapper for the Seasonally Adjusted Missing Value using Linear Interpolation function,
+\code{na.interp()}, from the \code{forecast} R package. The \code{impute_ts_vec()} function includes arguments for applying
 seasonality to numeric vector (non-\code{ts}) via the \code{period} argument.
 }
 \details{
-\strong{Linear Interpolation}
+\strong{Imputation using Linear Interpolation}
 
-With \code{period = 1}, the algorithm uses linear interpolation.
+Three circumstances cause strictly linear interpolation:
+\enumerate{
+\item \strong{Period is 1:} With \code{period = 1}, a seasonality cannot be interpreted and therefore linear is used.
+\item \strong{Number of Non-Missing Values is less than 2-Periods}: Insufficient values exist to detect seasonality.
+\item \strong{Number of Total Values is less than 3-Periods}: Insufficient values exist to detect seasonality.
+}
 
-\strong{Seasonal Interpolation}
+\strong{Seasonal Imputation using Linear Interpolation}
 
 For seasonal series with \code{period > 1}, a robust Seasonal Trend Loess (STL) decomposition is first computed.
 Then a linear interpolation is applied to the seasonally adjusted data, and
 the seasonal component is added back.
+
+\strong{Box Cox Transformation}
+
+In many circumstances, a Box Cox transformation can help. Especially if the series is multiplicative
+meaning the variance grows exponentially. A Box Cox transformation can be automated by setting \code{lambda = "auto"}
+or can be specified by setting \verb{lambda = numeric value}.
 }
 \examples{
 library(dplyr)

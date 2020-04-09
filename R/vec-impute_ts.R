@@ -1,7 +1,7 @@
 #' Missing Value Imputation for Time Series
 #'
-#' This is mainly a wrapper for the Seasonally Adjusted Missing Value Interpolation function,
-#' `na.interp()`, from the `forecast` R package. This function includes arguments for applying
+#' This is mainly a wrapper for the Seasonally Adjusted Missing Value using Linear Interpolation function,
+#' `na.interp()`, from the `forecast` R package. The `impute_ts_vec()` function includes arguments for applying
 #' seasonality to numeric vector (non-`ts`) via the `period` argument.
 #'
 #' @param x A numeric vector.
@@ -13,15 +13,25 @@
 #'
 #' @details
 #'
-#' __Linear Interpolation__
+#' __Imputation using Linear Interpolation__
 #'
-#' With `period = 1`, the algorithm uses linear interpolation.
+#' Three circumstances cause strictly linear interpolation:
 #'
-#' __Seasonal Interpolation__
+#'   1. __Period is 1:__ With `period = 1`, a seasonality cannot be interpreted and therefore linear is used.
+#'   2. __Number of Non-Missing Values is less than 2-Periods__: Insufficient values exist to detect seasonality.
+#'   3. __Number of Total Values is less than 3-Periods__: Insufficient values exist to detect seasonality.
+#'
+#' __Seasonal Imputation using Linear Interpolation__
 #'
 #' For seasonal series with `period > 1`, a robust Seasonal Trend Loess (STL) decomposition is first computed.
 #' Then a linear interpolation is applied to the seasonally adjusted data, and
 #' the seasonal component is added back.
+#'
+#' __Box Cox Transformation__
+#'
+#' In many circumstances, a Box Cox transformation can help. Especially if the series is multiplicative
+#' meaning the variance grows exponentially. A Box Cox transformation can be automated by setting `lambda = "auto"`
+#' or can be specified by setting `lambda = numeric value`.
 #'
 #' @seealso
 #'   - Box Cox Transformation: [box_cox_vec()]
@@ -63,8 +73,24 @@ NULL
 #' @rdname impute_ts_vec
 #' @export
 impute_ts_vec <- function(x, period = 1, lambda = NULL) {
+
     x_ts        <- tk_ts(x, frequency = period)
-    linear      <- (stats::frequency(x_ts) <= 1 | sum(!is.na(x_ts)) <= 2 * stats::frequency(x))
+
+    # Use strictly linear interpolation when any of the following conditions exist:
+    # 1. Period is 1
+    # 2. Number of available values is less than or equal to twice the period
+    # 3. Series contains less than two periods
+    linear <- FALSE
+    if ({
+        period <= 1 |
+        sum(!is.na(x_ts)) <= 2 * period |
+        length(x) / period <= 3
+        }) {
+
+        linear <- TRUE
+
+    }
+
     x_interp_ts <- forecast::na.interp(x = x_ts, lambda = lambda, linear = linear)
 
     as.numeric(x_interp_ts)
