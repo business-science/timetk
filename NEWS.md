@@ -92,7 +92,8 @@ __New Interactive Plotting Functions__:
 __New Time Series Data Wrangling__:
 
 * `summarise_by_time()` - A time-based variant of `dplyr::summarise()` for flexible summarization using common time-based criteria. 
-* `filter_by_time()` - A time-based variant of `dplyr::filter()` for flexible filtering by time-ranges. 
+* `filter_by_time()` - A time-based variant of `dplyr::filter()` for flexible filtering by time-ranges.
+* `pad_by_time()` - Insert time series rows with regularly spaced timestamps.
 * `between_time()` - A time-based variant of `dplyr::between()` for flexible time-range detection. 
 * `slidify()` - Make any function a rolling / sliding function. 
 

@@ -5,7 +5,7 @@
 #' for padding tibbles.
 #'
 #' @param .data A tibble with a time-based column.
-#' @param .date_var A column containing date or date-time values to filter
+#' @param .date_var A column containing date or date-time values to pad
 #' @param .by Either "auto", a time-based frequency like "year", "month", "day", "hour", etc,
 #'  or a time expression like "5 min", or "7 days". See Details.
 #' @param .pad_value Fills in padded values. Default is `NA`.
@@ -33,6 +33,9 @@
 #'
 #' @seealso
 #'
+#' Imputation:
+#' - [impute_ts_vec()] - Impute missing values for time series.
+#'
 #' Additional Time-Based `dplyr`-style functions:
 #'
 #' - [summarise_by_time()] - Easily summarise using a date column.
@@ -54,7 +57,9 @@
 #'     date = tk_make_date_sequence("2014-01-01", "2015-01-01", by = "quarter"),
 #'     value = 1:5
 #' ) %>%
-#'     slice(-4)
+#'     slice(-4) # Lose the 4th quarter on purpose
+#' missing_data_tbl
+#'
 #'
 #' # Detects missing quarter, and pads the missing regularly spaced quarter with NA
 #' missing_data_tbl %>% pad_by_time(date, .by = "quarter")
@@ -67,6 +72,11 @@
 #'
 #' # Can specify a .pad_value
 #' missing_data_tbl %>% pad_by_time(date, .by = "quarter", .pad_value = 0)
+#'
+#' # Can then impute missing values
+#' missing_data_tbl %>%
+#'     pad_by_time(date, .by = "quarter") %>%
+#'     mutate(value = impute_ts_vec(value, period = 1))
 #'
 #' # --- GROUPS ----
 #' FANG %>%

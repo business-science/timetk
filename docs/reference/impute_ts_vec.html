@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Missing Value Imputation for Time Series (by Seasonaly Adjusted Linear Interpolation) — impute_ts_vec • timetk</title>
+<title>Missing Value Imputation for Time Series — impute_ts_vec • timetk</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -42,10 +42,10 @@
 
 
 
-<meta property="og:title" content="Missing Value Imputation for Time Series (by Seasonaly Adjusted Linear Interpolation) — impute_ts_vec" />
-<meta property="og:description" content="This is mainly a wrapper for the Missing Value Interpolation, na.interp(), from the forecast
-R package. This function includes arguments for applying seasonality to numeric vector (non-ts)
-via the period argument." />
+<meta property="og:title" content="Missing Value Imputation for Time Series — impute_ts_vec" />
+<meta property="og:description" content="This is mainly a wrapper for the Seasonally Adjusted Missing Value Interpolation function,
+na.interp(), from the forecast R package. This function includes arguments for applying
+seasonality to numeric vector (non-ts) via the period argument." />
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -150,15 +150,15 @@ via the period argument." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Missing Value Imputation for Time Series (by Seasonaly Adjusted Linear Interpolation)</h1>
+    <h1>Missing Value Imputation for Time Series</h1>
     <small class="dont-index">Source: <a href='https://github.com/business-science/timetk/blob/master/R/vec-impute_ts.R'><code>R/vec-impute_ts.R</code></a></small>
     <div class="hidden name"><code>impute_ts_vec.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This is mainly a wrapper for the Missing Value Interpolation, <code>na.interp()</code>, from the <code>forecast</code>
-R package. This function includes arguments for applying seasonality to numeric vector (non-<code>ts</code>)
-via the <code>period</code> argument.</p>
+    <p>This is mainly a wrapper for the Seasonally Adjusted Missing Value Interpolation function,
+<code>na.interp()</code>, from the <code>forecast</code> R package. This function includes arguments for applying
+seasonality to numeric vector (non-<code>ts</code>) via the <code>period</code> argument.</p>
     </div>
 
     <pre class="usage"><span class='fu'>impute_ts_vec</span>(<span class='no'>x</span>, <span class='kw'>period</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>lambda</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>

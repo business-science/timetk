@@ -9,7 +9,7 @@ pad_by_time(.data, .date_var, .by = "auto", .pad_value = NA)
 \arguments{
 \item{.data}{A tibble with a time-based column.}
 
-\item{.date_var}{A column containing date or date-time values to filter}
+\item{.date_var}{A column containing date or date-time values to pad}
 
 \item{.by}{Either "auto", a time-based frequency like "year", "month", "day", "hour", etc,
 or a time expression like "5 min", or "7 days". See Details.}
@@ -53,7 +53,9 @@ missing_data_tbl <- tibble(
     date = tk_make_date_sequence("2014-01-01", "2015-01-01", by = "quarter"),
     value = 1:5
 ) \%>\%
-    slice(-4)
+    slice(-4) # Lose the 4th quarter on purpose
+missing_data_tbl
+
 
 # Detects missing quarter, and pads the missing regularly spaced quarter with NA
 missing_data_tbl \%>\% pad_by_time(date, .by = "quarter")
@@ -67,6 +69,11 @@ missing_data_tbl \%>\% pad_by_time()
 # Can specify a .pad_value
 missing_data_tbl \%>\% pad_by_time(date, .by = "quarter", .pad_value = 0)
 
+# Can then impute missing values
+missing_data_tbl \%>\%
+    pad_by_time(date, .by = "quarter") \%>\%
+    mutate(value = impute_ts_vec(value, period = 1))
+
 # --- GROUPS ----
 FANG \%>\%
     group_by(symbol) \%>\%
@@ -79,6 +86,11 @@ FANG \%>\%
 }
 }
 \seealso{
+Imputation:
+\itemize{
+\item \code{\link[=impute_ts_vec]{impute_ts_vec()}} - Impute missing values for time series.
+}
+
 Additional Time-Based \code{dplyr}-style functions:
 \itemize{
 \item \code{\link[=summarise_by_time]{summarise_by_time()}} - Easily summarise using a date column.
