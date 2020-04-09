@@ -77,10 +77,16 @@ is_date_class <- function(x) {
 add_subtract_sequence <- function(index_sequence, skip_values = NULL, insert_values = NULL) {
 
     # Remove skip values
-    if (!is.null(skip_values)) index_sequence <- index_sequence[!index_sequence %in% readr::parse_guess(skip_values)]
+    if (!is.null(skip_values)){
+        skip_values    <- as.character(skip_values)
+        index_sequence <- index_sequence[!index_sequence %in% readr::parse_guess(skip_values)]
+    }
 
     # Insert values
-    if (!is.null(insert_values)) index_sequence <- c(index_sequence, readr::parse_guess(insert_values)) %>% sort()
+    if (!is.null(insert_values)) {
+        insert_values  <- as.character(insert_values)
+        index_sequence <- c(index_sequence, readr::parse_guess(insert_values)) %>% sort()
+    }
 
     return(index_sequence)
 

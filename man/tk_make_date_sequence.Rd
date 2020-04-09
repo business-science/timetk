@@ -2,36 +2,13 @@
 % Please edit documentation in R/make-tk_make_date_sequences.R
 \name{tk_make_date_sequence}
 \alias{tk_make_date_sequence}
-\alias{tk_make_holiday_sequence}
-\alias{tk_make_weekend_sequence}
-\alias{tk_make_weekday_sequence}
-\title{Make date and date-time sequences between a start and end date}
+\title{Intelligent date and date-time sequence creation}
 \usage{
 tk_make_date_sequence(
   start_date,
   end_date,
   by,
   length_out = NULL,
-  skip_values = NULL,
-  insert_values = NULL
-)
-
-tk_make_holiday_sequence(
-  start_date,
-  end_date,
-  calendar = c("NYSE", "LONDON", "NERC", "TSX", "ZURICH"),
-  skip_values = NULL,
-  insert_values = NULL
-)
-
-tk_make_weekend_sequence(start_date, end_date)
-
-tk_make_weekday_sequence(
-  start_date,
-  end_date,
-  remove_weekends = TRUE,
-  remove_holidays = FALSE,
-  calendar = c("NYSE", "LONDON", "NERC", "TSX", "ZURICH"),
   skip_values = NULL,
   insert_values = NULL
 )
@@ -50,25 +27,17 @@ You can create regularly spaced sequences using phrases like \code{by = "10 min"
 \item{length_out}{Optional length of the sequence. Can be used instead of one of:
 \code{start_date}, \code{end_date}, or \code{by}.}
 
-\item{skip_values}{A daily date sequence to skip}
+\item{skip_values}{A sequence to skip}
 
-\item{insert_values}{A daily date sequence to insert}
-
-\item{calendar}{The calendar to be used in Date Sequence calculations for Holidays
-from the \code{timeDate} package.
-Acceptable values are: \code{"NYSE"}, \code{"LONDON"}, \code{"NERC"}, \code{"TSX"}, \code{"ZURICH"}.}
-
-\item{remove_weekends}{A logical value indicating whether or not to
-remove weekends (Saturday and Sunday) from the date sequence}
-
-\item{remove_holidays}{A logical value indicating whether or not to
-remove common holidays from the date sequence}
+\item{insert_values}{A sequence to insert}
 }
 \value{
-A vector containing future dates
+A vector containing date or date-times
 }
 \description{
-Make date and date-time sequences between a start and end date
+Improves on the \code{seq.Date()} and \code{seq.POSIXct()} functions by simplifying
+into 1 function \code{tk_make_date_sequence()}. Intelligently handles character dates,
+parsing and guessing logical classes based on the user inputs.
 }
 \details{
 The \code{tk_make_date_sequence()} function handles both date and date-time sequences
@@ -103,18 +72,6 @@ Make a sub-daily sequence with \code{tk_make_date_sequence(by)}. Examples:
 
 Skips and inserts are performed after the sequence is generated. This means that if you use
 the \code{length_out} parameter, the length may differ than the \code{length_out}.
-
-\strong{Holiday Sequences}
-
-\code{tk_make_holiday_sequence()} is a wrapper for various holiday calendars from the \code{timeDate} package,
-making it easy to generate holiday sequences for common business calendars:
-\itemize{
-\item New York Stock Exchange: \code{calendar = "NYSE"}
-\item Londo Stock Exchange: \code{"LONDON"}
-\item North American Reliability Council: \code{"NERC"}
-\item Toronto Stock Exchange: \code{"TSX"}
-\item Zurich Stock Exchange: \code{"ZURICH"}
-}
 }
 \examples{
 library(dplyr)
@@ -145,48 +102,12 @@ tk_make_date_sequence("2016-01-01 01:01:02", "2016-01-01 01:01:04") # Guesses by
 tk_make_date_sequence("2017-01-01", "2017-01-02", by = "10 min")
 
 
-# ---- HOLIDAYS & WEEKENDS ----
-
-# Business Holiday Sequence (only available in day frequency)
-tk_make_holiday_sequence("2017-01-01", "2017-12-31", calendar = "NYSE")
-
-# Weekday Sequence (only available in day frequency)
-tk_make_weekday_sequence("2017-01-01", "2017-12-31", remove_holidays = TRUE)
-
-# Weekday Sequence + Removing Business Holidays (only available in day frequency)
-tk_make_weekday_sequence("2017-01-01", "2017-12-31", remove_holidays = TRUE)
-
-
-# ---- COMBINE HOLIDAYS WITH MAKE FUTURE TIMESERIES FROM EXISTING ----
-# - A common machine learning application is creating a future time series data set
-#   from an existing
-
-# Create index of days that FB stock will be traded in 2017 based on 2016 + holidays
-FB_tbl <- FANG \%>\% filter(symbol == "FB")
-
-holidays <- tk_make_holiday_sequence(
-    start_date = "2016-12-31",
-    end_date   = "2017-12-31",
-    calendar   = "NYSE")
-
-weekends <- tk_make_weekend_sequence(
-    start_date = "2016-12-31",
-    end_date   = "2017-12-31")
-
-# Remove holidays and weekends with skip_values
-# We could also remove weekends with inspect_weekdays = TRUE
-FB_tbl \%>\%
-    tk_index() \%>\%
-    tk_make_future_timeseries(n_future         = 366,
-                              skip_values      = c(holidays, weekends))
-
-
 
 }
 \seealso{
 \itemize{
+\item Intelligent date or date-time sequence creation: \code{\link[=tk_make_date_sequence]{tk_make_date_sequence()}}
+\item Holidays and weekends: \code{\link[=tk_make_holiday_sequence]{tk_make_holiday_sequence()}}, \code{\link[=tk_make_weekend_sequence]{tk_make_weekend_sequence()}}, \code{\link[=tk_make_weekday_sequence]{tk_make_weekday_sequence()}}
 \item Make future index from existing: \code{\link[=tk_make_future_timeseries]{tk_make_future_timeseries()}}
-\item Index extraction: \code{\link[=tk_index]{tk_index()}}
-\item Index information: \code{\link[=tk_get_timeseries_summary]{tk_get_timeseries_summary()}}, \code{\link[=tk_get_timeseries_signature]{tk_get_timeseries_signature()}}
 }
 }

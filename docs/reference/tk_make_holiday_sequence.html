@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Make future time series from existing — tk_make_timeseries • timetk</title>
+<title>Make daily Holiday and Weekend date sequences — tk_make_holiday_sequence • timetk</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="Make future time series from existing — tk_make_timeseries" />
-<meta property="og:description" content="Make future time series from existing" />
+<meta property="og:title" content="Make daily Holiday and Weekend date sequences — tk_make_holiday_sequence" />
+<meta property="og:description" content="Make daily Holiday and Weekend date sequences" />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -151,20 +151,31 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Make future time series from existing</h1>
-    <small class="dont-index">Source: <a href='https://github.com/business-science/timetk/blob/master/R/make-tk_make_timeseries.R'><code>R/make-tk_make_timeseries.R</code></a></small>
-    <div class="hidden name"><code>tk_make_timeseries.Rd</code></div>
+    <h1>Make daily Holiday and Weekend date sequences</h1>
+    <small class="dont-index">Source: <a href='https://github.com/business-science/timetk/blob/master/R/make-tk_make_holiday_sequences.R'><code>R/make-tk_make_holiday_sequences.R</code></a></small>
+    <div class="hidden name"><code>tk_make_holiday_sequence.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Make future time series from existing</p>
+    <p>Make daily Holiday and Weekend date sequences</p>
     </div>
 
-    <pre class="usage"><span class='fu'>tk_make_future_timeseries</span>(
-  <span class='no'>idx</span>,
-  <span class='no'>n_future</span>,
-  <span class='kw'>inspect_weekdays</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>inspect_months</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+    <pre class="usage"><span class='fu'>tk_make_holiday_sequence</span>(
+  <span class='no'>start_date</span>,
+  <span class='no'>end_date</span>,
+  <span class='kw'>calendar</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"NYSE"</span>, <span class='st'>"LONDON"</span>, <span class='st'>"NERC"</span>, <span class='st'>"TSX"</span>, <span class='st'>"ZURICH"</span>),
+  <span class='kw'>skip_values</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>insert_values</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+)
+
+<span class='fu'>tk_make_weekend_sequence</span>(<span class='no'>start_date</span>, <span class='no'>end_date</span>)
+
+<span class='fu'>tk_make_weekday_sequence</span>(
+  <span class='no'>start_date</span>,
+  <span class='no'>end_date</span>,
+  <span class='kw'>remove_weekends</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>remove_holidays</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>calendar</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"NYSE"</span>, <span class='st'>"LONDON"</span>, <span class='st'>"NERC"</span>, <span class='st'>"TSX"</span>, <span class='st'>"ZURICH"</span>),
   <span class='kw'>skip_values</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>insert_values</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
 )</pre>
@@ -173,73 +184,65 @@
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>idx</th>
-      <td><p>A vector of dates</p></td>
+      <th>start_date</th>
+      <td><p>Used to define the starting date for date sequence generation.
+Provide in "YYYY-MM-DD" format.</p></td>
     </tr>
     <tr>
-      <th>n_future</th>
-      <td><p>Number of future observations</p></td>
+      <th>end_date</th>
+      <td><p>Used to define the ending date for date sequence generation.
+Provide in "YYYY-MM-DD" format.</p></td>
     </tr>
     <tr>
-      <th>inspect_weekdays</th>
-      <td><p>Uses a logistic regression algorithm to inspect
-whether certain weekdays (e.g. weekends) should be excluded from the future dates.
-Default is <code>FALSE</code>.</p></td>
-    </tr>
-    <tr>
-      <th>inspect_months</th>
-      <td><p>Uses a logistic regression algorithm to inspect
-whether certain days of months (e.g. last two weeks of year or seasonal days)
-should be excluded from the future dates.
-Default is <code>FALSE</code>.</p></td>
+      <th>calendar</th>
+      <td><p>The calendar to be used in Date Sequence calculations for Holidays
+from the <code>timeDate</code> package.
+Acceptable values are: <code>"NYSE"</code>, <code>"LONDON"</code>, <code>"NERC"</code>, <code>"TSX"</code>, <code>"ZURICH"</code>.</p></td>
     </tr>
     <tr>
       <th>skip_values</th>
-      <td><p>A vector of same class as <code>idx</code> of timeseries
-values to skip.</p></td>
+      <td><p>A daily date sequence to skip</p></td>
     </tr>
     <tr>
       <th>insert_values</th>
-      <td><p>A vector of same class as <code>idx</code> of timeseries
-values to insert.</p></td>
+      <td><p>A daily date sequence to insert</p></td>
+    </tr>
+    <tr>
+      <th>remove_weekends</th>
+      <td><p>A logical value indicating whether or not to
+remove weekends (Saturday and Sunday) from the date sequence</p></td>
+    </tr>
+    <tr>
+      <th>remove_holidays</th>
+      <td><p>A logical value indicating whether or not to
+remove common holidays from the date sequence</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A vector containing future index of the same class as the incoming index <code>idx</code></p>
+    <p>A vector containing future dates</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p><strong>Future Sequences</strong></p>
-<p><code>tk_make_future_timeseries</code> returns a time series based
-on the input index frequency and attributes.</p>
-<p>The argument <code>n_future</code> determines how many future index observations to compute.</p>
-<p>The <code>inspect_weekdays</code> and <code>inspect_months</code> arguments apply to "daily" (scale = "day") data
-(refer to <code><a href='tk_get_timeseries.html'>tk_get_timeseries_summary()</a></code> to get the index scale).
-The <code>inspect_weekdays</code> argument is useful in determining missing days of the week
-that occur on a weekly frequency such as every week, every other week, and so on.
-It's recommended to have at least 60 days to use this option.
-The <code>inspect_months</code> argument is useful in determining missing days of the month, quarter
-or year; however, the algorithm can inadvertently select incorrect dates if the pattern
-is erratic.</p>
-<p>For example, some holidays do not occur on the same day of each month, and
-as a result the incorrect day may be selected in certain years.
-It's recommended to always review the date results to ensure the future days match
-the user's expectations. It's recommended to have at least two years of days to use
-this option.</p>
-<p>The <code>skip_values</code> and <code>insert_values</code> arguments can be used to remove and add
-values into the series of future times. The values must be the same format as the <code>idx</code> class.
-The <code>skip_values</code> argument useful for passing holidays or special index values that should
-be excluded from the future time series.
-The <code>insert_values</code> argument is useful for adding values back that the algorithm may have
-excluded.</p>
-<p><strong>Holiday Sequences</strong></p>
+    <p><strong>Holiday Sequences</strong></p>
+<p><code>tk_make_holiday_sequence()</code> is a wrapper for various holiday calendars from the <code>timeDate</code> package,
+making it easy to generate holiday sequences for common business calendars:</p><ul>
+<li><p>New York Stock Exchange: <code>calendar = "NYSE"</code></p></li>
+<li><p>Londo Stock Exchange: <code>"LONDON"</code></p></li>
+<li><p>North American Reliability Council: <code>"NERC"</code></p></li>
+<li><p>Toronto Stock Exchange: <code>"TSX"</code></p></li>
+<li><p>Zurich Stock Exchange: <code>"ZURICH"</code></p></li>
+</ul>
+
+<p><strong>Weekend and Weekday Sequences</strong></p>
+<p>These simply populate</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'>
 <ul>
-<li><p>Working with Holidays: <code><a href='tk_make_holiday_sequence.html'>tk_make_holiday_sequence()</a></code></p></li>
-<li><p>Working with Timestamp Index: <code><a href='tk_index.html'>tk_index()</a></code>, <code><a href='tk_get_timeseries.html'>tk_get_timeseries_summary()</a></code>, <code><a href='tk_get_timeseries.html'>tk_get_timeseries_signature()</a></code></p></li>
+<li><p>Intelligent date or date-time sequence creation: <code><a href='tk_make_date_sequence.html'>tk_make_date_sequence()</a></code></p></li>
+<li><p>Holidays and weekends: <code>tk_make_holiday_sequence()</code>, <code>tk_make_weekend_sequence()</code>, <code>tk_make_weekday_sequence()</code></p></li>
+<li><p>Make future index from existing: <code><a href='tk_make_timeseries.html'>tk_make_future_timeseries()</a></code></p></li>
 </ul>
 </div>
 
@@ -248,30 +251,16 @@ excluded.</p>
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>tidyquant</span>)
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>timetk</span>)
 
-<span class='co'># Basic example</span>
-<span class='no'>idx</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"2016-01-01 00:00:00"</span>,
-         <span class='st'>"2016-01-01 00:00:03"</span>,
-         <span class='st'>"2016-01-01 00:00:06"</span>) <span class='kw'>%&gt;%</span>
-    <span class='fu'>ymd_hms</span>()
-<span class='co'># Make next three dates in series</span>
-<span class='no'>idx</span> <span class='kw'>%&gt;%</span>
-    <span class='fu'>tk_make_future_timeseries</span>(<span class='kw'>n_future</span> <span class='kw'>=</span> <span class='fl'>3</span>)</div><div class='output co'>#&gt; [1] "2016-01-01 00:00:09 UTC" "2016-01-01 00:00:12 UTC"
-#&gt; [3] "2016-01-01 00:00:15 UTC"</div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/base/options.html'>options</a></span>(<span class='kw'>max.print</span> <span class='kw'>=</span> <span class='fl'>50</span>)
 
-<span class='co'># Create index of days that FB stock will be traded in 2017 based on 2016 + holidays</span>
-<span class='no'>FB_tbl</span> <span class='kw'>&lt;-</span> <span class='no'>FANG</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='no'>symbol</span> <span class='kw'>==</span> <span class='st'>"FB"</span>)
 
-<span class='no'>holidays</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='tk_make_holiday_sequence.html'>tk_make_holiday_sequence</a></span>(
-    <span class='kw'>start_date</span> <span class='kw'>=</span> <span class='st'>"2017-01-01"</span>,
-    <span class='kw'>end_date</span>   <span class='kw'>=</span> <span class='st'>"2017-12-31"</span>,
-    <span class='kw'>calendar</span>   <span class='kw'>=</span> <span class='st'>"NYSE"</span>)
+<span class='co'># ---- HOLIDAYS &amp; WEEKENDS ----</span>
 
-<span class='co'># Remove holidays with skip_values, and remove weekends with inspect_weekdays = TRUE</span>
-<span class='no'>FB_tbl</span> <span class='kw'>%&gt;%</span>
-    <span class='fu'><a href='tk_index.html'>tk_index</a></span>() <span class='kw'>%&gt;%</span>
-    <span class='fu'>tk_make_future_timeseries</span>(<span class='kw'>n_future</span>         <span class='kw'>=</span> <span class='fl'>366</span>,
-                              <span class='kw'>inspect_weekdays</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-                              <span class='kw'>skip_values</span>      <span class='kw'>=</span> <span class='no'>holidays</span>)</div><div class='output co'>#&gt;  [1] "2017-01-03" "2017-01-04" "2017-01-05" "2017-01-06" "2017-01-09"
+<span class='co'># Business Holiday Sequence (only available in day frequency)</span>
+<span class='fu'>tk_make_holiday_sequence</span>(<span class='st'>"2017-01-01"</span>, <span class='st'>"2017-12-31"</span>, <span class='kw'>calendar</span> <span class='kw'>=</span> <span class='st'>"NYSE"</span>)</div><div class='output co'>#&gt; [1] "2017-01-02" "2017-01-16" "2017-02-20" "2017-04-14" "2017-05-29"
+#&gt; [6] "2017-07-04" "2017-09-04" "2017-11-23" "2017-12-25"</div><div class='input'>
+<span class='co'># Weekday Sequence (only available in day frequency)</span>
+<span class='fu'>tk_make_weekday_sequence</span>(<span class='st'>"2017-01-01"</span>, <span class='st'>"2017-12-31"</span>, <span class='kw'>remove_holidays</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;  [1] "2017-01-03" "2017-01-04" "2017-01-05" "2017-01-06" "2017-01-09"
 #&gt;  [6] "2017-01-10" "2017-01-11" "2017-01-12" "2017-01-13" "2017-01-17"
 #&gt; [11] "2017-01-18" "2017-01-19" "2017-01-20" "2017-01-23" "2017-01-24"
 #&gt; [16] "2017-01-25" "2017-01-26" "2017-01-27" "2017-01-30" "2017-01-31"
@@ -282,13 +271,52 @@ excluded.</p>
 #&gt; [41] "2017-03-02" "2017-03-03" "2017-03-06" "2017-03-07" "2017-03-08"
 #&gt; [46] "2017-03-09" "2017-03-10" "2017-03-13" "2017-03-14" "2017-03-15"
 #&gt;  [ reached 'max' / getOption("max.print") -- omitted 201 entries ]</div><div class='input'>
-<span class='co'># Works with regularized indexes as well</span>
-<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2016.00</span>, <span class='fl'>2016.25</span>, <span class='fl'>2016.50</span>, <span class='fl'>2016.75</span>) <span class='kw'>%&gt;%</span>
-    <span class='fu'>tk_make_future_timeseries</span>(<span class='kw'>n_future</span> <span class='kw'>=</span> <span class='fl'>4</span>)</div><div class='output co'>#&gt; [1] 2017.00 2017.25 2017.50 2017.75</div><div class='input'>
-<span class='co'># Works with zoo yearmon and yearqtr too</span>
-<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"2016 Q1"</span>, <span class='st'>"2016 Q2"</span>, <span class='st'>"2016 Q3"</span>, <span class='st'>"2016 Q4"</span>) <span class='kw'>%&gt;%</span>
-    <span class='fu'>as.yearqtr</span>() <span class='kw'>%&gt;%</span>
-    <span class='fu'>tk_make_future_timeseries</span>(<span class='kw'>n_future</span> <span class='kw'>=</span> <span class='fl'>4</span>)</div><div class='output co'>#&gt; [1] "2017 Q1" "2017 Q2" "2017 Q3" "2017 Q4"</div><div class='input'>
+<span class='co'># Weekday Sequence + Removing Business Holidays (only available in day frequency)</span>
+<span class='fu'>tk_make_weekday_sequence</span>(<span class='st'>"2017-01-01"</span>, <span class='st'>"2017-12-31"</span>, <span class='kw'>remove_holidays</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;  [1] "2017-01-03" "2017-01-04" "2017-01-05" "2017-01-06" "2017-01-09"
+#&gt;  [6] "2017-01-10" "2017-01-11" "2017-01-12" "2017-01-13" "2017-01-17"
+#&gt; [11] "2017-01-18" "2017-01-19" "2017-01-20" "2017-01-23" "2017-01-24"
+#&gt; [16] "2017-01-25" "2017-01-26" "2017-01-27" "2017-01-30" "2017-01-31"
+#&gt; [21] "2017-02-01" "2017-02-02" "2017-02-03" "2017-02-06" "2017-02-07"
+#&gt; [26] "2017-02-08" "2017-02-09" "2017-02-10" "2017-02-13" "2017-02-14"
+#&gt; [31] "2017-02-15" "2017-02-16" "2017-02-17" "2017-02-21" "2017-02-22"
+#&gt; [36] "2017-02-23" "2017-02-24" "2017-02-27" "2017-02-28" "2017-03-01"
+#&gt; [41] "2017-03-02" "2017-03-03" "2017-03-06" "2017-03-07" "2017-03-08"
+#&gt; [46] "2017-03-09" "2017-03-10" "2017-03-13" "2017-03-14" "2017-03-15"
+#&gt;  [ reached 'max' / getOption("max.print") -- omitted 201 entries ]</div><div class='input'>
+
+<span class='co'># ---- COMBINE HOLIDAYS WITH MAKE FUTURE TIMESERIES FROM EXISTING ----</span>
+<span class='co'># - A common machine learning application is creating a future time series data set</span>
+<span class='co'>#   from an existing</span>
+
+<span class='co'># Create index of days that FB stock will be traded in 2017 based on 2016 + holidays</span>
+<span class='no'>FB_tbl</span> <span class='kw'>&lt;-</span> <span class='no'>FANG</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='no'>symbol</span> <span class='kw'>==</span> <span class='st'>"FB"</span>)
+
+<span class='no'>holidays</span> <span class='kw'>&lt;-</span> <span class='fu'>tk_make_holiday_sequence</span>(
+    <span class='kw'>start_date</span> <span class='kw'>=</span> <span class='st'>"2016-12-31"</span>,
+    <span class='kw'>end_date</span>   <span class='kw'>=</span> <span class='st'>"2017-12-31"</span>,
+    <span class='kw'>calendar</span>   <span class='kw'>=</span> <span class='st'>"NYSE"</span>)
+
+<span class='no'>weekends</span> <span class='kw'>&lt;-</span> <span class='fu'>tk_make_weekend_sequence</span>(
+    <span class='kw'>start_date</span> <span class='kw'>=</span> <span class='st'>"2016-12-31"</span>,
+    <span class='kw'>end_date</span>   <span class='kw'>=</span> <span class='st'>"2017-12-31"</span>)
+
+<span class='co'># Remove holidays and weekends with skip_values</span>
+<span class='co'># We could also remove weekends with inspect_weekdays = TRUE</span>
+<span class='no'>FB_tbl</span> <span class='kw'>%&gt;%</span>
+    <span class='fu'><a href='tk_index.html'>tk_index</a></span>() <span class='kw'>%&gt;%</span>
+    <span class='fu'><a href='tk_make_timeseries.html'>tk_make_future_timeseries</a></span>(<span class='kw'>n_future</span>         <span class='kw'>=</span> <span class='fl'>366</span>,
+                              <span class='kw'>skip_values</span>      <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>holidays</span>, <span class='no'>weekends</span>))</div><div class='output co'>#&gt;  [1] "2017-01-03" "2017-01-04" "2017-01-05" "2017-01-06" "2017-01-09"
+#&gt;  [6] "2017-01-10" "2017-01-11" "2017-01-12" "2017-01-13" "2017-01-17"
+#&gt; [11] "2017-01-18" "2017-01-19" "2017-01-20" "2017-01-23" "2017-01-24"
+#&gt; [16] "2017-01-25" "2017-01-26" "2017-01-27" "2017-01-30" "2017-01-31"
+#&gt; [21] "2017-02-01" "2017-02-02" "2017-02-03" "2017-02-06" "2017-02-07"
+#&gt; [26] "2017-02-08" "2017-02-09" "2017-02-10" "2017-02-13" "2017-02-14"
+#&gt; [31] "2017-02-15" "2017-02-16" "2017-02-17" "2017-02-21" "2017-02-22"
+#&gt; [36] "2017-02-23" "2017-02-24" "2017-02-27" "2017-02-28" "2017-03-01"
+#&gt; [41] "2017-03-02" "2017-03-03" "2017-03-06" "2017-03-07" "2017-03-08"
+#&gt; [46] "2017-03-09" "2017-03-10" "2017-03-13" "2017-03-14" "2017-03-15"
+#&gt;  [ reached 'max' / getOption("max.print") -- omitted 201 entries ]</div><div class='input'>
+
 
 </div></pre>
   </div>
