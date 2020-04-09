@@ -1,11 +1,7 @@
 #' Imputation for Time Series using Forecast Methods
 #'
 #' `step_impute_ts` creates a *specification* of a recipe
-#'  step that will transform data using a Box-Cox
-#'  transformation. This function differs from
-#'  `recipes::step_BoxCox` by adding multiple methods
-#'  including Guerrero lambda optimization and handling for
-#'  negative data used in the Forecast R Package.
+#'  step that will impute time series data.
 #'
 #' @inheritParams step_box_cox
 #' @param period A seasonal period to use during the transformation. If `period = 1`,

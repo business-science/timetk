@@ -65,11 +65,7 @@ lambda estimate).
 }
 \description{
 \code{step_impute_ts} creates a \emph{specification} of a recipe
-step that will transform data using a Box-Cox
-transformation. This function differs from
-\code{recipes::step_BoxCox} by adding multiple methods
-including Guerrero lambda optimization and handling for
-negative data used in the Forecast R Package.
+step that will impute time series data.
 }
 \details{
 The \code{step_impute_ts()} function is designed specifically to handle time series

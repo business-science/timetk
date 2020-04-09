@@ -10,7 +10,8 @@
 tk_make_date_sequence(
   start_date,
   end_date,
-  by = "day",
+  by,
+  length_out = NULL,
   skip_values = NULL,
   insert_values = NULL
 )
@@ -46,6 +47,9 @@ Provide in "YYYY-MM-DD" format.}
 \code{"sec"}, \code{"min"}, \code{"hour"}, \code{"day"}, \code{"week"}, \code{"month"}, \code{"quarter"} or \code{"year"}.
 You can create regularly spaced sequences using phrases like \code{by = "10 min"}.}
 
+\item{length_out}{Optional length of the sequence. Can be used instead of one of:
+\code{start_date}, \code{end_date}, or \code{by}.}
+
 \item{skip_values}{A daily date sequence to skip}
 
 \item{insert_values}{A daily date sequence to insert}
@@ -67,6 +71,16 @@ A vector containing future dates
 Make date and date-time sequences between a start and end date
 }
 \details{
+The \code{tk_make_date_sequence()} function handles both date and date-time sequences
+automatically.
+\itemize{
+\item Parses date and date times from character
+\item Intelligently guesses the sequence desired based on arguments provided
+\item Handles spacing intelligently
+\item When both \code{by} and \code{length_out} are missing, guesses either second or day sequences
+\item Can skip and insert values if needed.
+}
+
 \strong{Daily Sequences}
 
 Make a daily sequence with \code{tk_make_date_sequence(by)}. Examples:
@@ -84,6 +98,11 @@ Make a sub-daily sequence with \code{tk_make_date_sequence(by)}. Examples:
 \item Every 30-seconds: \code{by = "30 sec"}
 \item Every 2-hours: \verb{by = "2 hours}
 }
+
+\strong{Skip / Insert Timestamps}
+
+Skips and inserts are performed after the sequence is generated. This means that if you use
+the \code{length_out} parameter, the length may differ than the \code{length_out}.
 
 \strong{Holiday Sequences}
 
@@ -104,27 +123,41 @@ library(timetk)
 
 options(max.print = 50)
 
-# ---- BASIC EXAMPLES ----
+# ---- BASIC DATE SEQUENCE EXAMPLES ----
 
 # Date Sequence - By Day
-tk_make_date_sequence("2017-01-01", "2017-12-31", by = "day")
+tk_make_date_sequence("2017-01-01", "2017-12-31") # Guesses by = "day"
 
-# Date-Time Sequence - By Minute
-tk_make_date_sequence("2017-01-01 01:01:00", "2017-01-01 02:01:00", by = "10 min")
+# Date Sequence - By Day
+tk_make_date_sequence("2012-01-01", length_out = 6) # Guesses by = "day"
+
+# Date Sequence - By Month
+tk_make_date_sequence("2012-01-01", by = "1 month", length_out = 6) # Switch to month
+
+
+# ---- BASIC DATE-TIME SEQUENCE EXAMPLES ----
 
 # Date-Time Sequence - By Second
-tk_make_date_sequence("2016-01-01 01:01:02", "2016-01-01 01:01:04", by = "sec")
+tk_make_date_sequence("2016-01-01 01:01:02", "2016-01-01 01:01:04") # Guesses by second
 
-# Business Holiday Sequence
+# Date-Time Sequence - By 10 Minutes
+# - Converts to date-time automatically & applies 10-min interval
+tk_make_date_sequence("2017-01-01", "2017-01-02", by = "10 min")
+
+
+# ---- HOLIDAYS & WEEKENDS ----
+
+# Business Holiday Sequence (only available in day frequency)
 tk_make_holiday_sequence("2017-01-01", "2017-12-31", calendar = "NYSE")
 
-# Weekday Sequence
+# Weekday Sequence (only available in day frequency)
 tk_make_weekday_sequence("2017-01-01", "2017-12-31", remove_holidays = TRUE)
 
-# Weekday Sequence + Removing Business Holidays
+# Weekday Sequence + Removing Business Holidays (only available in day frequency)
 tk_make_weekday_sequence("2017-01-01", "2017-12-31", remove_holidays = TRUE)
 
-# ---- COMBINE WITH MAKE FUTURE TIMESERIES FROM EXISTING ----
+
+# ---- COMBINE HOLIDAYS WITH MAKE FUTURE TIMESERIES FROM EXISTING ----
 # - A common machine learning application is creating a future time series data set
 #   from an existing
 
@@ -132,16 +165,20 @@ tk_make_weekday_sequence("2017-01-01", "2017-12-31", remove_holidays = TRUE)
 FB_tbl <- FANG \%>\% filter(symbol == "FB")
 
 holidays <- tk_make_holiday_sequence(
-    start_date = "2017-01-01",
+    start_date = "2016-12-31",
     end_date   = "2017-12-31",
     calendar   = "NYSE")
 
-# Remove holidays with skip_values, and remove weekends with inspect_weekdays = TRUE
+weekends <- tk_make_weekend_sequence(
+    start_date = "2016-12-31",
+    end_date   = "2017-12-31")
+
+# Remove holidays and weekends with skip_values
+# We could also remove weekends with inspect_weekdays = TRUE
 FB_tbl \%>\%
     tk_index() \%>\%
     tk_make_future_timeseries(n_future         = 366,
-                              inspect_weekdays = TRUE,
-                              skip_values      = holidays)
+                              skip_values      = c(holidays, weekends))
 
 
 
