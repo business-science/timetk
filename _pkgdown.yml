@@ -110,6 +110,7 @@ reference:
     contents:
     - "tk_acf_diagnostics"
     - "tk_seasonal_diagnostics"
+    - "tk_stl_diagnostics"
     - "tk_time_series_cv_plan"
   - title: Conversion Operations
     desc: __Functions for converting between common time series formats.__
