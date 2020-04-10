@@ -108,7 +108,7 @@
       <h1 data-toc-skip>Time Series Coercion Using timetk</h1>
                         <h4 class="author">Matt Dancho</h4>
             
-            <h4 class="date">2020-04-09</h4>
+            <h4 class="date">2020-04-10</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/business-science/timetk/blob/master/vignettes/TK00_Time_Series_Coercion.Rmd"><code>vignettes/TK00_Time_Series_Coercion.Rmd</code></a></small>
       <div class="hidden name"><code>TK00_Time_Series_Coercion.Rmd</code></div>
@@ -746,7 +746,7 @@
 <div id="testing-other-data-types" class="section level3">
 <h3 class="hasAnchor">
 <a href="#testing-other-data-types" class="anchor"></a>Testing other data types</h3>
-<p>The <code>timetk_idx</code> argument will only have an effect on objects that use regularized time series. Therefore, <code><a href="../reference/tk_index.html">has_timetk_idx()</a></code> returns <code>FALSE</code> for other object types (e.g. <code>tbl</code>, <code>xts</code>, <code>zoo</code>) since toggling the argument has no effect on these classes.</p>
+<p>The <code>timetk_idx</code> argument will only have an effect on objects that use regularized time series. Therefore, <code><a href="../reference/tk_index.html">has_timetk_idx()</a></code> returns <code>FALSE</code> for other object types (e.g. <code>tbl</code>, <code>xts</code>, <code>zoo</code>) since toggling the argument has no effect on these classes.</p>
 <div class="sourceCode" id="cb85"><html><body><pre class="r"><span class="fu"><a href="../reference/tk_index.html">has_timetk_idx</a></span>(<span class="no">ten_year_treasury_rate_xts</span>)</pre></body></html></div>
 <pre><code>## [1] FALSE</code></pre>
 <p>Toggling the <code>timetk_idx</code> argument has no effect on the output. Output with <code>timetk_idx = TRUE</code> is the same as with <code>timetk_idx = FALSE</code>.</p>
@@ -802,13 +802,13 @@
     <span class="kw">x</span>    <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cumsum.html">cumsum</a></span>(<span class="fl">11</span>:<span class="fl">15</span>) * <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(<span class="fl">1</span>))
 <span class="no">data_tbl</span></pre></body></html></div>
 <pre><code>## # A tibble: 5 x 2
-##   date           x
-##   &lt;date&gt;     &lt;dbl&gt;
-## 1 2016-01-01 -10.1
-## 2 2016-01-02 -21.0
-## 3 2016-01-03 -32.9
-## 4 2016-01-04 -45.7
-## 5 2016-01-05 -59.4</code></pre>
+##   date            x
+##   &lt;date&gt;      &lt;dbl&gt;
+## 1 2016-01-01  -4.91
+## 2 2016-01-02 -10.3 
+## 3 2016-01-03 -16.1 
+## 4 2016-01-04 -22.3 
+## 5 2016-01-05 -29.0</code></pre>
 <p>Coerce to <code>ts</code> class using the <code><a href="../reference/tk_ts.html">tk_ts()</a></code> function. Note that the non-numeric column “date” is being dropped, and the <code>silent = TRUE</code> hides the message.</p>
 <div class="sourceCode" id="cb93"><html><body><pre class="r"><span class="co"># Coerce to ts </span>
 <span class="no">data_ts</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/tk_ts.html">tk_ts</a></span>(<span class="no">data_tbl</span>, <span class="kw">start</span> <span class="kw">=</span> <span class="fl">2016</span>, <span class="kw">freq</span> <span class="kw">=</span> <span class="fl">365</span>, <span class="kw">silent</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
@@ -817,12 +817,12 @@
 ## Start = c(2016, 1) 
 ## End = c(2016, 5) 
 ## Frequency = 365 
-##              x
-## [1,] -10.05490
-## [2,] -21.02389
-## [3,] -32.90696
-## [4,] -45.70411
-## [5,] -59.41534
+##               x
+## [1,]  -4.912386
+## [2,] -10.271352
+## [3,] -16.076898
+## [4,] -22.329026
+## [5,] -29.027733
 ## attr(,"index")
 ## [1] 1451606400 1451692800 1451779200 1451865600 1451952000
 ## attr(,"index")attr(,"tzone")
@@ -837,16 +837,16 @@
 <div class="sourceCode" id="cb97"><html><body><pre class="r"><span class="co"># No need to specify order.by arg</span>
 <span class="no">data_xts</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/tk_xts.html">tk_xts</a></span>(<span class="no">data_ts</span>)
 <span class="no">data_xts</span></pre></body></html></div>
-<pre><code>##                    x
-## 2016-01-01 -10.05490
-## 2016-01-02 -21.02389
-## 2016-01-03 -32.90696
-## 2016-01-04 -45.70411
-## 2016-01-05 -59.41534</code></pre>
+<pre><code>##                     x
+## 2016-01-01  -4.912386
+## 2016-01-02 -10.271352
+## 2016-01-03 -16.076898
+## 2016-01-04 -22.329026
+## 2016-01-05 -29.027733</code></pre>
 <p>We can see that the <code>xts</code> structure is maintained.</p>
 <div class="sourceCode" id="cb99"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="no">data_xts</span>)</pre></body></html></div>
 <pre><code>## An 'xts' object on 2016-01-01/2016-01-05 containing:
-##   Data: num [1:5, 1] -10.1 -21 -32.9 -45.7 -59.4
+##   Data: num [1:5, 1] -4.91 -10.27 -16.08 -22.33 -29.03
 ##  - attr(*, "dimnames")=List of 2
 ##   ..$ : NULL
 ##   ..$ : chr "x"
@@ -857,16 +857,16 @@
 <div class="sourceCode" id="cb101"><html><body><pre class="r"><span class="co"># No need to specify order.by arg</span>
 <span class="no">data_zoo</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/tk_zoo.html">tk_zoo</a></span>(<span class="no">data_ts</span>)
 <span class="no">data_zoo</span></pre></body></html></div>
-<pre><code>##                    x
-## 2016-01-01 -10.05490
-## 2016-01-02 -21.02389
-## 2016-01-03 -32.90696
-## 2016-01-04 -45.70411
-## 2016-01-05 -59.41534</code></pre>
+<pre><code>##                     x
+## 2016-01-01  -4.912386
+## 2016-01-02 -10.271352
+## 2016-01-03 -16.076898
+## 2016-01-04 -22.329026
+## 2016-01-05 -29.027733</code></pre>
 <p>We can see that the <code>zoo</code> structure is maintained.</p>
 <div class="sourceCode" id="cb103"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="no">data_zoo</span>)</pre></body></html></div>
 <pre><code>## 'zoo' series from 2016-01-01 to 2016-01-05
-##   Data: num [1:5, 1] -10.1 -21 -32.9 -45.7 -59.4
+##   Data: num [1:5, 1] -4.91 -10.27 -16.08 -22.33 -29.03
 ##  - attr(*, "dimnames")=List of 2
 ##   ..$ : chr [1:5] "2016-01-01" "2016-01-02" "2016-01-03" "2016-01-04" ...
 ##   ..$ : chr "x"
@@ -874,13 +874,13 @@
 <p>Note that <code>tbl</code> requires the <code>timetk_idx = TRUE</code> argument to specify the use of the non-regularized index.</p>
 <div class="sourceCode" id="cb105"><html><body><pre class="r"><span class="fu"><a href="../reference/tk_tbl.html">tk_tbl</a></span>(<span class="no">data_ts</span>, <span class="kw">timetk_idx</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
 <pre><code>## # A tibble: 5 x 2
-##   index          x
-##   &lt;date&gt;     &lt;dbl&gt;
-## 1 2016-01-01 -10.1
-## 2 2016-01-02 -21.0
-## 3 2016-01-03 -32.9
-## 4 2016-01-04 -45.7
-## 5 2016-01-05 -59.4</code></pre>
+##   index           x
+##   &lt;date&gt;      &lt;dbl&gt;
+## 1 2016-01-01  -4.91
+## 2 2016-01-02 -10.3 
+## 3 2016-01-03 -16.1 
+## 4 2016-01-04 -22.3 
+## 5 2016-01-05 -29.0</code></pre>
 </div>
 <div id="working-with-yearmon-and-yearqtr-index" class="section level2">
 <h2 class="hasAnchor">
@@ -939,9 +939,9 @@
 ## 10 1999 Q2   0.0581
 ## # … with 70 more rows</code></pre>
 </div>
-<div id="getting-the-index-of-other-time-based-objects-e-g-models" class="section level2">
+<div id="getting-the-index-of-other-time-based-objects-e-g--models" class="section level2">
 <h2 class="hasAnchor">
-<a href="#getting-the-index-of-other-time-based-objects-e-g-models" class="anchor"></a>Getting the index of other time-based objects (e.g. models)</h2>
+<a href="#getting-the-index-of-other-time-based-objects-e-g--models" class="anchor"></a>Getting the index of other time-based objects (e.g. models)</h2>
 <p>It can be important to retrieve the index from models and other objects that use an underlying time series data set. We’ll go through an example retrieving the time index from an ARIMA model using <code><a href="../reference/tk_index.html">tk_index()</a></code>.</p>
 <div class="sourceCode" id="cb118"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">forecast</span>)
 <span class="no">fit_arima</span> <span class="kw">&lt;-</span> <span class="no">ten_year_treasury_rate_ts</span> <span class="kw">%&gt;%</span>

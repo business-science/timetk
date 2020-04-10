@@ -269,31 +269,36 @@ they may be meaningless for some of the groups.</p>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>)
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>timetk</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>forecast</span>)
 
+<span class='co'># ---- MULTIPLE FREQUENCY ----</span>
+<span class='co'># Taylor 30-minute dataset from forecast package</span>
+
+<span class='no'>taylor_tbl</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/reexports.html'>tibble</a></span>(
+    <span class='kw'>date</span> <span class='kw'>=</span> <span class='fu'><a href='tk_make_date_sequence.html'>tk_make_date_sequence</a></span>(<span class='st'>"2000-06-05"</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"30 min"</span>, <span class='kw'>length_out</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span>(<span class='no'>taylor</span>)),
+    <span class='kw'>value</span> <span class='kw'>=</span> <span class='no'>taylor</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span>()
+)
+
+<span class='co'># Visualize series</span>
+<span class='no'>taylor_tbl</span> <span class='kw'>%&gt;%</span>
+    <span class='fu'><a href='plot_time_series.html'>plot_time_series</a></span>(<span class='no'>date</span>, <span class='no'>value</span>, <span class='kw'>.interactive</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='plot_seasonal_diagnostics-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># Visualize seasonality</span>
+<span class='no'>taylor_tbl</span> <span class='kw'>%&gt;%</span>
+    <span class='fu'>plot_seasonal_diagnostics</span>(<span class='no'>date</span>, <span class='no'>value</span>, <span class='kw'>.interactive</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='plot_seasonal_diagnostics-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># ---- GROUPED EXAMPLES ----</span>
+<span class='co'># m4 hourly dataset</span>
 
-<span class='co'># Hourly Data</span>
+<span class='co'># Visualize series</span>
 <span class='no'>m4_hourly</span> <span class='kw'>%&gt;%</span>
     <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>id</span>) <span class='kw'>%&gt;%</span>
-    <span class='fu'>plot_seasonal_diagnostics</span>(<span class='no'>date</span>, <span class='no'>value</span>, <span class='kw'>.interactive</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='plot_seasonal_diagnostics-1.png' alt='' width='700' height='433' /></div><div class='input'>
-
-<span class='co'># ---- TRANSFORMATION ----</span>
-
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+    <span class='fu'><a href='plot_time_series.html'>plot_time_series</a></span>(<span class='no'>date</span>, <span class='no'>value</span>, <span class='kw'>.facet_scales</span> <span class='kw'>=</span> <span class='st'>"free"</span>, <span class='kw'>.interactive</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='plot_seasonal_diagnostics-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># Visualize seasonality</span>
 <span class='no'>m4_hourly</span> <span class='kw'>%&gt;%</span>
     <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>id</span>) <span class='kw'>%&gt;%</span>
-    <span class='fu'>plot_seasonal_diagnostics</span>(<span class='no'>date</span>, <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span>(<span class='no'>value</span>),
-                              <span class='kw'>.geom</span> <span class='kw'>=</span> <span class='st'>"violin"</span>,
-                              <span class='kw'>.interactive</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-}
+    <span class='fu'>plot_seasonal_diagnostics</span>(<span class='no'>date</span>, <span class='no'>value</span>, <span class='kw'>.interactive</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='plot_seasonal_diagnostics-4.png' alt='' width='700' height='433' /></div><div class='input'>
 
-<span class='co'># ---- CUSTOM FEATURE SELECTION ----</span>
 
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='no'>m4_hourly</span> <span class='kw'>%&gt;%</span>
-    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>id</span>) <span class='kw'>%&gt;%</span>
-    <span class='fu'>plot_seasonal_diagnostics</span>(<span class='no'>date</span>, <span class='no'>value</span>, <span class='kw'>.feature_set</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"hour"</span>, <span class='st'>"week"</span>))
-}</div></pre>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

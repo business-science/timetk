@@ -22,7 +22,7 @@ Provide in "YYYY-MM-DD" format.}
 
 \item{by}{A character string, containing one of
 \code{"sec"}, \code{"min"}, \code{"hour"}, \code{"day"}, \code{"week"}, \code{"month"}, \code{"quarter"} or \code{"year"}.
-You can create regularly spaced sequences using phrases like \code{by = "10 min"}.}
+You can create regularly spaced sequences using phrases like \code{by = "10 min"}. See Details.}
 
 \item{length_out}{Optional length of the sequence. Can be used instead of one of:
 \code{start_date}, \code{end_date}, or \code{by}.}
@@ -35,9 +35,9 @@ You can create regularly spaced sequences using phrases like \code{by = "10 min"
 A vector containing date or date-times
 }
 \description{
-Improves on the \code{seq.Date()} and \code{seq.POSIXct()} functions by simplifying
-into 1 function \code{tk_make_date_sequence()}. Intelligently handles character dates,
-parsing and guessing logical classes based on the user inputs.
+Improves on the \code{seq.Date()} and \code{seq.POSIXt()} functions by simplifying
+into 1 function \code{tk_make_date_sequence()}. Intelligently handles character dates
+and logical assumptions based on user inputs.
 }
 \details{
 The \code{tk_make_date_sequence()} function handles both date and date-time sequences
@@ -101,7 +101,13 @@ tk_make_date_sequence("2016-01-01 01:01:02", "2016-01-01 01:01:04") # Guesses by
 # - Converts to date-time automatically & applies 10-min interval
 tk_make_date_sequence("2017-01-01", "2017-01-02", by = "10 min")
 
+# ---- SKIP & INSERT VALUES ----
 
+tk_make_date_sequence(
+    "2011-01-01", length_out = 5,
+    skip_values   = "2011-01-05",
+    insert_values = "2011-01-06"
+)
 
 }
 \seealso{

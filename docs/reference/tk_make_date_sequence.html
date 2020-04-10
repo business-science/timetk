@@ -47,9 +47,9 @@
 
 
 <meta property="og:title" content="Intelligent date and date-time sequence creation — tk_make_date_sequence" />
-<meta property="og:description" content="Improves on the seq.Date() and seq.POSIXct() functions by simplifying
-into 1 function tk_make_date_sequence(). Intelligently handles character dates,
-parsing and guessing logical classes based on the user inputs." />
+<meta property="og:description" content="Improves on the seq.Date() and seq.POSIXt() functions by simplifying
+into 1 function tk_make_date_sequence(). Intelligently handles character dates
+and logical assumptions based on user inputs." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -159,9 +159,9 @@ parsing and guessing logical classes based on the user inputs." />
     </div>
 
     <div class="ref-description">
-    <p>Improves on the <code><a href='https://rdrr.io/r/base/seq.Date.html'>seq.Date()</a></code> and <code>seq.POSIXct()</code> functions by simplifying
-into 1 function <code>tk_make_date_sequence()</code>. Intelligently handles character dates,
-parsing and guessing logical classes based on the user inputs.</p>
+    <p>Improves on the <code><a href='https://rdrr.io/r/base/seq.Date.html'>seq.Date()</a></code> and <code><a href='https://rdrr.io/r/base/seq.POSIXt.html'>seq.POSIXt()</a></code> functions by simplifying
+into 1 function <code>tk_make_date_sequence()</code>. Intelligently handles character dates
+and logical assumptions based on user inputs.</p>
     </div>
 
     <pre class="usage"><span class='fu'>tk_make_date_sequence</span>(
@@ -190,7 +190,7 @@ Provide in "YYYY-MM-DD" format.</p></td>
       <th>by</th>
       <td><p>A character string, containing one of
 <code>"sec"</code>, <code>"min"</code>, <code>"hour"</code>, <code>"day"</code>, <code>"week"</code>, <code>"month"</code>, <code>"quarter"</code> or <code>"year"</code>.
-You can create regularly spaced sequences using phrases like <code>by = "10 min"</code>.</p></td>
+You can create regularly spaced sequences using phrases like <code>by = "10 min"</code>. See Details.</p></td>
     </tr>
     <tr>
       <th>length_out</th>
@@ -309,8 +309,13 @@ the <code>length_out</code> parameter, the length may differ than the <code>leng
 #&gt; [47] "2017-01-01 07:40:00 UTC" "2017-01-01 07:50:00 UTC"
 #&gt; [49] "2017-01-01 08:00:00 UTC" "2017-01-01 08:10:00 UTC"
 #&gt;  [ reached 'max' / getOption("max.print") -- omitted 95 entries ]</div><div class='input'>
+<span class='co'># ---- SKIP &amp; INSERT VALUES ----</span>
 
-
+<span class='fu'>tk_make_date_sequence</span>(
+    <span class='st'>"2011-01-01"</span>, <span class='kw'>length_out</span> <span class='kw'>=</span> <span class='fl'>5</span>,
+    <span class='kw'>skip_values</span>   <span class='kw'>=</span> <span class='st'>"2011-01-05"</span>,
+    <span class='kw'>insert_values</span> <span class='kw'>=</span> <span class='st'>"2011-01-06"</span>
+)</div><div class='output co'>#&gt; <span class='message'>Using by: day</span></div><div class='output co'>#&gt; [1] "2011-01-01" "2011-01-02" "2011-01-03" "2011-01-04" "2011-01-06"</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

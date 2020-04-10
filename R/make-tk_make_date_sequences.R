@@ -1,8 +1,8 @@
 #' Intelligent date and date-time sequence creation
 #'
-#' Improves on the `seq.Date()` and `seq.POSIXct()` functions by simplifying
-#' into 1 function `tk_make_date_sequence()`. Intelligently handles character dates,
-#' parsing and guessing logical classes based on the user inputs.
+#' Improves on the `seq.Date()` and `seq.POSIXt()` functions by simplifying
+#' into 1 function `tk_make_date_sequence()`. Intelligently handles character dates
+#' and logical assumptions based on user inputs.
 #'
 #' @param start_date Used to define the starting date for date sequence generation.
 #'  Provide in "YYYY-MM-DD" format.
@@ -10,7 +10,7 @@
 #'  Provide in "YYYY-MM-DD" format.
 #' @param by A character string, containing one of
 #'  `"sec"`, `"min"`, `"hour"`, `"day"`, `"week"`, `"month"`, `"quarter"` or `"year"`.
-#'  You can create regularly spaced sequences using phrases like `by = "10 min"`.
+#'  You can create regularly spaced sequences using phrases like `by = "10 min"`. See Details.
 #' @param length_out Optional length of the sequence. Can be used instead of one of:
 #'  `start_date`, `end_date`, or `by`.
 #' @param skip_values A sequence to skip
@@ -85,7 +85,13 @@
 #' # - Converts to date-time automatically & applies 10-min interval
 #' tk_make_date_sequence("2017-01-01", "2017-01-02", by = "10 min")
 #'
+#' # ---- SKIP & INSERT VALUES ----
 #'
+#' tk_make_date_sequence(
+#'     "2011-01-01", length_out = 5,
+#'     skip_values   = "2011-01-05",
+#'     insert_values = "2011-01-06"
+#' )
 #'
 #' @name tk_make_date_sequence
 NULL
@@ -97,10 +103,16 @@ NULL
 tk_make_date_sequence <- function(start_date, end_date, by, length_out = NULL,
                                    skip_values = NULL, insert_values = NULL) {
 
+    # Condition count for everything except by. If by is missing, will be guessed.
+    condition_count <- c(
+        !rlang::is_missing(start_date),
+        !rlang::is_missing(end_date),
+        !is.null(length_out)
+    ) %>% sum()
 
-
-    if (rlang::is_missing(start_date) & rlang::is_missing(end_date)) {
-        rlang::abort("Must specify a start_date and/or end_date.")
+    # Check at least 2 important conditions being supplied
+    if (condition_count < 2) {
+        rlang::abort("Must specify at least 2 of start_date, end_date, by, and length_out")
     }
 
     # Start with character data
@@ -111,7 +123,7 @@ tk_make_date_sequence <- function(start_date, end_date, by, length_out = NULL,
         end_date <- as.character(end_date)
     }
 
-    # Determine if sequence_type is date or datetime
+    # Determine if sequence_type is date or datetime. Returns parser selection.
     if (!rlang::is_missing(by)) {
         if (stringr::str_detect(tolower(by), pattern = "(sec)|(min)|(hour)")) {
             parser <- "datetime"
@@ -125,20 +137,34 @@ tk_make_date_sequence <- function(start_date, end_date, by, length_out = NULL,
     }
 
 
-    # Apply
+    # Apply parser
     if (parser == "datetime") {
         # Sub-daily
+        if (!rlang::is_missing(start_date)) {
+            tryCatch({
+                start_date <- readr::parse_datetime(start_date)
+            }, warning = function(w) {
+                rlang::abort("Cannot parse start_date specification.")
+            })
+        }
 
-        if (!rlang::is_missing(start_date)) start_date <- readr::parse_datetime(start_date)
-        if (!rlang::is_missing(end_date)) end_date <- readr::parse_datetime(end_date)
+        if (!rlang::is_missing(end_date)) {
+            tryCatch({
+                end_date <- readr::parse_datetime(end_date)
+            }, warning = function(w) {
+                rlang::abort("Cannot parse end_date specification.")
+            })
+        }
+
         if (rlang::is_missing(by)) {
-            condition_count <- rlang::is_missing(start_date) + rlang::is_missing(end_date) + is.null(length_out)
+            # If length_out is not supplied
             if (condition_count < 3) {
                 by <- "sec"
                 message("Using by: sec")
             }
         }
 
+        # Use seq.POSIXt to create the sequence
         seq <- seq.POSIXt(
             from = start_date,
             to   = end_date,
@@ -146,14 +172,26 @@ tk_make_date_sequence <- function(start_date, end_date, by, length_out = NULL,
             length.out = length_out
         )
 
+        # Remove skip / insert values
         seq <- add_subtract_sequence(seq, skip_values, insert_values)
-        return(seq)
 
     } else {
         # Daily
 
-        if (!rlang::is_missing(start_date)) start_date <- readr::parse_date(start_date)
-        if (!rlang::is_missing(end_date)) end_date <- readr::parse_date(end_date)
+        if (!rlang::is_missing(start_date)) {
+            tryCatch({
+                start_date <- readr::parse_date(start_date)
+            }, warning = function(w) {
+                rlang::abort("Cannot parse start_date specification.")
+            })
+        }
+        if (!rlang::is_missing(end_date)) {
+            tryCatch({
+                end_date <- readr::parse_date(end_date)
+            }, warning = function(w) {
+                rlang::abort("Cannot parse end_date specification.")
+            })
+        }
         if (rlang::is_missing(by)) {
             condition_count <- rlang::is_missing(start_date) + rlang::is_missing(end_date) + is.null(length_out)
             if (condition_count < 3) {
@@ -170,8 +208,10 @@ tk_make_date_sequence <- function(start_date, end_date, by, length_out = NULL,
         )
 
         seq <- add_subtract_sequence(seq, skip_values, insert_values)
-        return(seq)
+
     }
+
+    return(seq)
 
 }
 

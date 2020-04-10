@@ -97,6 +97,7 @@ library(timetk)
 library(forecast)
 
 # ---- MULTIPLE FREQUENCY ----
+# Taylor 30-minute dataset from forecast package
 
 taylor_tbl <- tibble(
     date = tk_make_date_sequence("2000-06-05", by = "30 min", length_out = length(taylor)),
@@ -112,8 +113,14 @@ taylor_tbl \%>\%
     plot_seasonal_diagnostics(date, value, .interactive = FALSE)
 
 # ---- GROUPED EXAMPLES ----
+# m4 hourly dataset
 
-# Hourly Data
+# Visualize series
+m4_hourly \%>\%
+    group_by(id) \%>\%
+    plot_time_series(date, value, .facet_scales = "free", .interactive = FALSE)
+
+# Visualize seasonality
 m4_hourly \%>\%
     group_by(id) \%>\%
     plot_seasonal_diagnostics(date, value, .interactive = FALSE)
