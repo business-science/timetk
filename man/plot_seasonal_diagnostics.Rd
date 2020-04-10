@@ -94,6 +94,22 @@ The \code{.value} parameter respects transformations (e.g. \code{.value = log(sa
 \examples{
 library(dplyr)
 library(timetk)
+library(forecast)
+
+# ---- MULTIPLE FREQUENCY ----
+
+taylor_tbl <- tibble(
+    date = tk_make_date_sequence("2000-06-05", by = "30 min", length_out = length(taylor)),
+    value = taylor \%>\% as.numeric()
+)
+
+# Visualize series
+taylor_tbl \%>\%
+    plot_time_series(date, value, .interactive = FALSE)
+
+# Visualize seasonality
+taylor_tbl \%>\%
+    plot_seasonal_diagnostics(date, value, .interactive = FALSE)
 
 # ---- GROUPED EXAMPLES ----
 
@@ -103,22 +119,5 @@ m4_hourly \%>\%
     plot_seasonal_diagnostics(date, value, .interactive = FALSE)
 
 
-# ---- TRANSFORMATION ----
-
-\dontrun{
-m4_hourly \%>\%
-    group_by(id) \%>\%
-    plot_seasonal_diagnostics(date, log(value),
-                              .geom = "violin",
-                              .interactive = FALSE)
-}
-
-# ---- CUSTOM FEATURE SELECTION ----
-
-\dontrun{
-m4_hourly \%>\%
-    group_by(id) \%>\%
-    plot_seasonal_diagnostics(date, value, .feature_set = c("hour", "week"))
-}
 
 }

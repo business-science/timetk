@@ -60,6 +60,22 @@
 #' @examples
 #' library(dplyr)
 #' library(timetk)
+#' library(forecast)
+#'
+#' # ---- MULTIPLE FREQUENCY ----
+#'
+#' taylor_tbl <- tibble(
+#'     date = tk_make_date_sequence("2000-06-05", by = "30 min", length_out = length(taylor)),
+#'     value = taylor %>% as.numeric()
+#' )
+#'
+#' # Visualize series
+#' taylor_tbl %>%
+#'     plot_time_series(date, value, .interactive = FALSE)
+#'
+#' # Visualize seasonality
+#' taylor_tbl %>%
+#'     plot_seasonal_diagnostics(date, value, .interactive = FALSE)
 #'
 #' # ---- GROUPED EXAMPLES ----
 #'
@@ -69,23 +85,6 @@
 #'     plot_seasonal_diagnostics(date, value, .interactive = FALSE)
 #'
 #'
-#' # ---- TRANSFORMATION ----
-#'
-#' \dontrun{
-#' m4_hourly %>%
-#'     group_by(id) %>%
-#'     plot_seasonal_diagnostics(date, log(value),
-#'                               .geom = "violin",
-#'                               .interactive = FALSE)
-#' }
-#'
-#' # ---- CUSTOM FEATURE SELECTION ----
-#'
-#' \dontrun{
-#' m4_hourly %>%
-#'     group_by(id) %>%
-#'     plot_seasonal_diagnostics(date, value, .feature_set = c("hour", "week"))
-#' }
 #'
 #' @name plot_seasonal_diagnostics
 #' @export
@@ -189,14 +188,22 @@ plot_seasonal_diagnostics.data.frame <- function(.data, .date_var, .value, ...,
             .feature_set = .feature_set
         )
 
-    # data_formatted
-
     # Post process
     data_formatted <- data_formatted %>%
         dplyr::select(-(!! date_var_expr)) %>%
-        dplyr::ungroup() %>%
-        tidyr::pivot_longer(cols = c(-.value, -(!!! rlang::syms(facet_names))),
-                            names_to = ".group", values_to = ".group_value") %>%
+        dplyr::ungroup()
+
+    if (length(facet_names) > 0) {
+        data_formatted <- data_formatted %>%
+            tidyr::pivot_longer(cols = c(-.value, -(!!! rlang::syms(facet_names))),
+                                names_to = ".group", values_to = ".group_value")
+    } else {
+        data_formatted <- data_formatted %>%
+            tidyr::pivot_longer(cols = c(-.value),
+                                names_to = ".group", values_to = ".group_value")
+    }
+
+    data_formatted <- data_formatted %>%
         dplyr::ungroup() %>%
         dplyr::mutate(.group = factor(.group, levels = .feature_set))
 
@@ -248,7 +255,7 @@ plot_seasonal_diagnostics.data.frame <- function(.data, .date_var, .value, ...,
 
     # Add facets
 
-    if (facet_names == 0) {
+    if (length(facet_names) == 0) {
         facet_ncol <- 1
     } else {
         facet_ncol <- data_formatted %>%
@@ -258,6 +265,8 @@ plot_seasonal_diagnostics.data.frame <- function(.data, .date_var, .value, ...,
     }
 
     facet_groups <- stringr::str_c(facet_names, collapse = " + ")
+    if (facet_groups == "") facet_groups <- "."
+
     facet_formula <- stats::as.formula(paste0(".group ~ ", facet_groups))
 
     g <- g + ggplot2::facet_wrap(facet_formula, ncol = facet_ncol, scales = "free")
