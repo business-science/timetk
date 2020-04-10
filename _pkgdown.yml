@@ -123,6 +123,10 @@ reference:
     - "tk_zoo_"
     - "tk_zooreg"
     - "tk_zooreg_"
+   - title: Time Scale Template
+    desc: __The timescale template is used to automate frequency and trendcycle calculations.__
+    contents:
+    - contains("time_scale")
   - title: Time Series Datasets
     desc: __Time series from various forecasting competitions. Domains include economic, retail, and web (google analytics)__
     contents:
