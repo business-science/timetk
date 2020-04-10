@@ -3,7 +3,7 @@
 \docType{data}
 \name{walmart_sales_weekly}
 \alias{walmart_sales_weekly}
-\title{Sample Time Series Retail Data from the Kaggle Walmart Recruiting Store Sales Forecasting Competition}
+\title{Sample Time Series Retail Data from the Walmart Recruiting Store Sales Forecasting Competition}
 \format{
 A tibble: 9,743 x 3
 \itemize{

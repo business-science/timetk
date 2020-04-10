@@ -1,4 +1,4 @@
-#' Sample Daily Time Series Data from the Kaggle Web Traffic Forecasting (Wikipedia) Competition
+#' Sample Daily Time Series Data from the Web Traffic Forecasting (Wikipedia) Competition
 #'
 #' The Kaggle "Web Traffic Forecasting" (Wikipedia) Competition
 #' used __Google Analytics Web Traffic Data__ for 145,000 websites.
@@ -22,6 +22,6 @@
 #'
 #' @examples
 #'
-#' wikipedia_daily
+#' wikipedia_traffic_daily
 #'
-"wikipedia_daily"
+"wikipedia_traffic_daily"

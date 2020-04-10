@@ -1,4 +1,4 @@
-#' Automatic frequency and trend calculation from at time series index
+#' Automatic frequency and trend calculation from a time series index
 #'
 #' @param idx A date or datetime index.
 #' @param period Either "auto", a time-based definition (e.g. "2 weeks"),
@@ -170,6 +170,7 @@ tk_get_trend <- function(idx, period = "auto", message = TRUE) {
             )
 
         trend <- get_median_period(idx, period = periodicity_target)
+        # trend <- ceiling(trend)
 
         # Insufficient observations: nobs-to-trend should be at least 2-1
         if (ts_nobs / trend < 2) {
@@ -181,7 +182,6 @@ tk_get_trend <- function(idx, period = "auto", message = TRUE) {
                 )
 
             trend <- get_median_period(idx, period = periodicity_target)
-
             trend <- ceiling(trend)
 
         }

@@ -1,4 +1,4 @@
-#' Sample Time Series Retail Data from the Kaggle Walmart Recruiting Store Sales Forecasting Competition
+#' Sample Time Series Retail Data from the Walmart Recruiting Store Sales Forecasting Competition
 #'
 #' The Kaggle "Walmart Recruiting - Store Sales Forecasting" Competition
 #' used __retail data__ for combinations of stores and departments within each store.

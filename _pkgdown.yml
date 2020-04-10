@@ -123,7 +123,7 @@ reference:
     - "tk_zoo_"
     - "tk_zooreg"
     - "tk_zooreg_"
-   - title: Time Scale Template
+  - title: Time Scale Template
     desc: __The timescale template is used to automate frequency and trendcycle calculations.__
     contents:
     - contains("time_scale")
