@@ -3,7 +3,7 @@
 \name{tk_get_frequency}
 \alias{tk_get_frequency}
 \alias{tk_get_trend}
-\title{Automatic frequency and trend calculation from at time series index}
+\title{Automatic frequency and trend calculation from a time series index}
 \usage{
 tk_get_frequency(idx, period = "auto", message = TRUE)
 
@@ -22,7 +22,7 @@ as a message along with the units in the scale of the data.}
 Returns a scalar numeric value indicating the number of observations in the frequency or trend span.
 }
 \description{
-Automatic frequency and trend calculation from at time series index
+Automatic frequency and trend calculation from a time series index
 }
 \details{
 A \emph{frequency} is loosely defined as the number of observations that comprise a cycle

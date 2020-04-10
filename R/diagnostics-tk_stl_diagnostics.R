@@ -20,35 +20,45 @@
 #'
 #' @details
 #'
+#' The `tk_stl_diagnostics()` function generates a Seasonal-Trend-Loess decomposition.
+#' The function is "tidy" in the sense that it works
+#' on data frames and is designe to work with `dplyr` groups.
 #'
+#' __STL method__:
+#'
+#' The STL method implements time series decomposition using
+#' the underlying [stats::stl()]. The decomposition separates the
+#' "season" and "trend" components from
+#' the "observed" values leaving the "remainder".
+#'
+#' __Frequency & Trend Selection__
+#'
+#' The user can control two parameters: `.frequency` and `.trend`.
+#'
+#' 1. The `.frequency` parameter adjusts the "season" component that is removed
+#' from the "observed" values.
+#' 2. The `.trend` parameter adjusts the
+#' trend window (`t.window` parameter from `stl()`) that is used.
+#'
+#' The user may supply both `.frequency`
+#' and `.trend` as time-based durations (e.g. "6 weeks") or numeric values
+#' (e.g. 180) or "auto", which automatically selects the frequency and/or trend
+#' based on the scale of the time series.
 #'
 #' @examples
 #' library(dplyr)
 #' library(timetk)
 #'
-#' # ---- GROUPED EXAMPLES ----
 #'
-#' # Hourly Data
-#' m4_hourly %>%
+#' # ---- GROUPS & TRANSFORMATION ----
+#' m4_daily %>%
 #'     group_by(id) %>%
-#'     tk_stl_diagnostics(date, value)
+#'     tk_stl_diagnostics(date, box_cox_vec(value))
 #'
-#' # Monthly Data
-#' m4_monthly %>%
-#'     group_by(id) %>%
-#'     tk_stl_diagnostics(date, value)
-#'
-#' # ---- TRANSFORMATION ----
-#'
+#' # ---- CUSTOM TREND ----
 #' m4_weekly %>%
 #'     group_by(id) %>%
-#'     tk_stl_diagnostics(date, log(value))
-#'
-#' # ---- CUSTOM FEATURE SELECTION ----
-#'
-#' m4_hourly %>%
-#'     group_by(id) %>%
-#'     tk_stl_diagnostics(date, value, .feature_set = c("hour", "week"))
+#'     tk_stl_diagnostics(date, box_cox_vec(value), .trend = "2 quarters")
 #'
 #' @name tk_stl_diagnostics
 #' @export
