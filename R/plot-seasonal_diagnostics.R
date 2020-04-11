@@ -109,10 +109,16 @@ plot_seasonal_diagnostics <- function(.data, .date_var, .value, ...,
 
     # Checks
     value_expr <- rlang::enquo(.value)
+    date_var_expr <- rlang::enquo(.date_var)
 
-    if (rlang::quo_is_missing(value_expr)) stop(call. = FALSE, "plog_seasonal_diagnostics(.value), Please provide a .value.")
     if (!is.data.frame(.data)) {
-        stop(call. = FALSE, "plot_diagnostics(.data) is not a data-frame or tibble. Please supply a data.frame or tibble.")
+        rlang::abort(".data is not a data-frame or tibble. Please supply a data.frame or tibble.")
+    }
+    if (rlang::quo_is_missing(date_var_expr)) {
+        rlang::abort(".date_var is missing. Please supply a date or date-time column.")
+    }
+    if (rlang::quo_is_missing(value_expr)) {
+        rlang::abort(".value is missing. Please supply a numeric column.")
     }
 
     UseMethod("plot_seasonal_diagnostics", .data)
@@ -127,7 +133,7 @@ plot_seasonal_diagnostics.data.frame <- function(.data, .date_var, .value, ...,
                                                  # .jitter = FALSE,
                                                  # .jitter_color = "#2c3e50", .jitter_alpha = 0.5,
                                                  # .jitter_width = NULL,
-                                                 .title = "Seasonality Diagnostics",
+                                                 .title = "STL Diagnostics",
                                                  .x_lab = "", .y_lab = "",
                                                  .interactive = TRUE) {
 
