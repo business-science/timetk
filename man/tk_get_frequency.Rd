@@ -48,7 +48,7 @@ Options include:
 \item \verb{numeric number of observations}: (e.g. 5 for 5 observations per cycle)
 }
 
-When \code{period = "auto"}, the \code{time_scale_template()} is used to calculate the frequency.
+When \code{period = "auto"}, the \code{tk_time_scale_template()} is used to calculate the frequency.
 
 \strong{Trend}:
 
@@ -62,15 +62,16 @@ is used to define the appropriate trend span.
 
 \strong{Time Scale Template}
 
-The \verb{time_scale_template() is a Look-Up Table used by the trend and period to find the appropriate time scale. It contains three features: }time_scale\verb{, }frequency\verb{, and }trend`.
+The \code{tk_time_scale_template()} is a Look-Up Table used by the trend and period to find the
+appropriate time scale. It contains three features: \code{time_scale}, \code{frequency}, and \code{trend}.
 
 The algorithm will inspect
 the scale of the time series and select the best frequency or trend that matches the scale and
 number of observations per target frequency. A frequency is then chosen on be the
 best match.
 
-The predefined template is stored in a function \code{time_scale_template()}.
-You can modify the template with \code{set_time_scale_template()}.
+The predefined template is stored in a function \code{tk_time_scale_template()}.
+You can modify the template with \code{set_tk_time_scale_template()}.
 }
 \examples{
 
@@ -94,6 +95,6 @@ tk_get_trend(idx_FB, period = "1 year")
 }
 \seealso{
 \itemize{
-\item Time Scale Template Modifiers: \code{\link[=get_time_scale_template]{get_time_scale_template()}}, \code{\link[=set_time_scale_template]{set_time_scale_template()}}
+\item Time Scale Template Modifiers: \code{\link[=get_tk_time_scale_template]{get_tk_time_scale_template()}}, \code{\link[=set_tk_time_scale_template]{set_tk_time_scale_template()}}
 }
 }

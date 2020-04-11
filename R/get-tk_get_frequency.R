@@ -30,7 +30,7 @@
 #' - `time-based duration`: (e.g. "1 week" or "2 quarters" per cycle)
 #' - `numeric number of observations`: (e.g. 5 for 5 observations per cycle)
 #'
-#' When `period = "auto"`, the `time_scale_template()` is used to calculate the frequency.
+#' When `period = "auto"`, the `tk_time_scale_template()` is used to calculate the frequency.
 #'
 #' __Trend__:
 #'
@@ -44,7 +44,7 @@
 #'
 #' __Time Scale Template__
 #'
-#' The `time_scale_template() is a Look-Up Table used by the trend and period to find the
+#' The `tk_time_scale_template()` is a Look-Up Table used by the trend and period to find the
 #' appropriate time scale. It contains three features: `time_scale`, `frequency`, and `trend`.
 #'
 #' The algorithm will inspect
@@ -52,11 +52,11 @@
 #' number of observations per target frequency. A frequency is then chosen on be the
 #' best match.
 #'
-#' The predefined template is stored in a function `time_scale_template()`.
-#' You can modify the template with `set_time_scale_template()`.
+#' The predefined template is stored in a function `tk_time_scale_template()`.
+#' You can modify the template with `set_tk_time_scale_template()`.
 #'
 #' @seealso
-#' - Time Scale Template Modifiers: [get_time_scale_template()], [set_time_scale_template()]
+#' - Time Scale Template Modifiers: [get_tk_time_scale_template()], [set_tk_time_scale_template()]
 #'
 #' @examples
 #'
@@ -89,7 +89,7 @@ tk_get_frequency <- function(idx, period = "auto", message = TRUE) {
     period <- tolower(period)
 
     # Setup inputs
-    template <- get_time_scale_template()
+    template <- get_tk_time_scale_template()
 
     # Get timeseries summary attributes
     ts_summary <- tk_get_timeseries_summary(idx)
@@ -103,7 +103,7 @@ tk_get_frequency <- function(idx, period = "auto", message = TRUE) {
 
     } else if (period != "auto") {
         # 2. Text (e.g. period = "2 Weeks")
-        freq <- get_median_period(idx, period = "period")
+        freq <- get_median_period(idx, period = period)
 
     } else {
         # 3. period = "auto"
@@ -144,7 +144,7 @@ tk_get_trend <- function(idx, period = "auto", message = TRUE) {
     period <- tolower(period)
 
     # Setup inputs
-    template <- get_time_scale_template()
+    template <- get_tk_time_scale_template()
 
     # Get timeseries summary attributes
     ts_summary <- tk_get_timeseries_summary(idx)

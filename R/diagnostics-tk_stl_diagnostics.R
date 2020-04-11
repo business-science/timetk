@@ -22,7 +22,7 @@
 #'
 #' The `tk_stl_diagnostics()` function generates a Seasonal-Trend-Loess decomposition.
 #' The function is "tidy" in the sense that it works
-#' on data frames and is designe to work with `dplyr` groups.
+#' on data frames and is designed to work with `dplyr` groups.
 #'
 #' __STL method__:
 #'

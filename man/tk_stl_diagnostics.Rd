@@ -52,7 +52,7 @@ It helps by automating frequency and trend selection.
 \details{
 The \code{tk_stl_diagnostics()} function generates a Seasonal-Trend-Loess decomposition.
 The function is "tidy" in the sense that it works
-on data frames and is designe to work with \code{dplyr} groups.
+on data frames and is designed to work with \code{dplyr} groups.
 
 \strong{STL method}:
 

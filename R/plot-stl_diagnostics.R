@@ -9,10 +9,13 @@
 #' @param .value A column containing numeric values
 #' @param ... One or more grouping columns that broken out into `ggplot2` facets.
 #'  These can be selected using `tidyselect()` helpers (e.g `contains()`).
-#' @param .geom Either "boxplot" or "violin"
-#' @param .geom_color Geometry color. Line color.
-#'  Use keyword: "scale_color" to change the color by the facet.
-#' @param .geom_outlier_color Color used to highlight outliers.
+#' @param .feature_set The STL decompositions to visualize.
+#'  Select one or more of "observed", "season", "trend", "remainder", "seasadj".
+#' @param .facet_scales Control facet x & y-axis ranges. Options include "fixed", "free", "free_y", "free_x"
+#' @param .line_color Line color.
+#' @param .line_size Line size.
+#' @param .line_type Line type.
+#' @param .line_alpha Line alpha (opacity). Range: (0, 1).
 #' @param .title Plot title.
 #' @param .x_lab Plot x-axis label
 #' @param .y_lab Plot y-axis label
@@ -23,17 +26,59 @@
 #' @return A `plotly` or `ggplot2` visualization
 #'
 #' @details
+#' The `plot_stl_diagnostics()` function generates a Seasonal-Trend-Loess decomposition.
+#' The function is "tidy" in the sense that it works
+#' on data frames and is designed to work with `dplyr` groups.
 #'
+#' __STL method__:
+#'
+#' The STL method implements time series decomposition using
+#' the underlying [stats::stl()]. The decomposition separates the
+#' "season" and "trend" components from
+#' the "observed" values leaving the "remainder".
+#'
+#' __Frequency & Trend Selection__
+#'
+#' The user can control two parameters: `.frequency` and `.trend`.
+#'
+#' 1. The `.frequency` parameter adjusts the "season" component that is removed
+#' from the "observed" values.
+#' 2. The `.trend` parameter adjusts the
+#' trend window (`t.window` parameter from `stl()`) that is used.
+#'
+#' The user may supply both `.frequency`
+#' and `.trend` as time-based durations (e.g. "6 weeks") or numeric values
+#' (e.g. 180) or "auto", which automatically selects the frequency and/or trend
+#' based on the scale of the time series.
 #'
 #' @examples
+#' library(tidyverse)
+#' library(timetk)
+#'
+#' # ---- SINGLE TIME SERIES DECOMPOSITION ----
+#' m4_hourly %>%
+#'     filter(id == "H10") %>%
+#'     plot_stl_diagnostics(
+#'         date, value,
+#'         # Set features to return, desired frequency and trend
+#'         .feature_set = c("observed", "season", "trend", "remainder"),
+#'         .frequency   = "24 hours",
+#'         .trend       = "1 week",
+#'         .interactive = FALSE)
+#'
+#'
+#' # ---- GROUPS ----
+#' m4_hourly %>%
+#'     group_by(id) %>%
+#'     plot_stl_diagnostics(date, value, .interactive = FALSE)
 #'
 #'
 #'
 #' @name plot_stl_diagnostics
 #' @export
 plot_stl_diagnostics <- function(.data, .date_var, .value, ...,
-                                 .frequency = "auto", .trend = "auto", .message = TRUE,
                                  .feature_set = c("observed", "season", "trend", "remainder", "seasadj"),
+                                 .frequency = "auto", .trend = "auto", .message = TRUE,
 
                                  .facet_scales = "free",
                                  .line_color = "#2c3e50", .line_size = 0.5,
@@ -56,14 +101,17 @@ plot_stl_diagnostics <- function(.data, .date_var, .value, ...,
     if (rlang::quo_is_missing(value_expr)) {
         rlang::abort(".value is missing. Please supply a numeric column.")
     }
+    if (!all(.feature_set %in% c("observed", "season", "trend", "remainder", "seasadj"))) {
+        rlang::abort(".featue_set contains values that are not allowed. Select one or more of: 'observed', 'season', 'trend', 'remainder', and/or 'seasadj'.")
+    }
 
     UseMethod("plot_stl_diagnostics", .data)
 }
 
 #' @export
 plot_stl_diagnostics.data.frame <- function(.data, .date_var, .value, ...,
-                                            .frequency = "auto", .trend = "auto", .message = TRUE,
                                             .feature_set = c("observed", "season", "trend", "remainder", "seasadj"),
+                                            .frequency = "auto", .trend = "auto", .message = TRUE,
 
                                             .facet_scales = "free",
                                             .line_color = "#2c3e50", .line_size = 0.5,
@@ -81,8 +129,6 @@ plot_stl_diagnostics.data.frame <- function(.data, .date_var, .value, ...,
     data_formatted      <- .data
     .facet_collapse     <- TRUE
     .facet_collapse_sep <- " "
-
-    facets_expr %>% map(quo_name)
 
     # FACET SETUP ----
     facet_names <- data_formatted %>% dplyr::select(!!! facets_expr) %>% colnames()
@@ -153,7 +199,7 @@ plot_stl_diagnostics.data.frame <- function(.data, .date_var, .value, ...,
 
     facet_formula <- stats::as.formula(paste0(".group ~ ", facet_groups))
 
-    g <- g + ggplot2::facet_wrap(facet_formula, ncol = facet_ncol, scales = "free")
+    g <- g + ggplot2::facet_wrap(facet_formula, ncol = facet_ncol, scales = .facet_scales)
 
     # Add theme
     g <- g + theme_tq()
@@ -169,8 +215,8 @@ plot_stl_diagnostics.data.frame <- function(.data, .date_var, .value, ...,
 
 #' @export
 plot_stl_diagnostics.grouped_df <- function(.data, .date_var, .value, ...,
-                                            .frequency = "auto", .trend = "auto", .message = TRUE,
                                             .feature_set = c("observed", "season", "trend", "remainder", "seasadj"),
+                                            .frequency = "auto", .trend = "auto", .message = TRUE,
 
                                             .facet_scales = "free",
                                             .line_color = "#2c3e50", .line_size = 0.5,
