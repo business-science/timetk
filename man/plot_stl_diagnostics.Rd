@@ -120,7 +120,10 @@ m4_hourly \%>\%
 # ---- GROUPS ----
 m4_hourly \%>\%
     group_by(id) \%>\%
-    plot_stl_diagnostics(date, value, .interactive = FALSE)
+    plot_stl_diagnostics(
+        date, value,
+        .feature_set = c("observed", "season", "trend"),
+        .interactive = FALSE)
 
 
 
