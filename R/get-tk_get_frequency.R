@@ -86,8 +86,6 @@ NULL
 #' @rdname tk_get_frequency
 tk_get_frequency <- function(idx, period = "auto", message = TRUE) {
 
-    period <- tolower(period)
-
     # Setup inputs
     template <- get_tk_time_scale_template()
 
@@ -101,7 +99,7 @@ tk_get_frequency <- function(idx, period = "auto", message = TRUE) {
         # 1. Numeric Periods
         freq <- period
 
-    } else if (period != "auto") {
+    } else if (tolower(period) != "auto") {
         # 2. Text (e.g. period = "2 Weeks")
         freq <- get_median_period(idx, period = period)
 
@@ -141,8 +139,6 @@ tk_get_frequency <- function(idx, period = "auto", message = TRUE) {
 #' @rdname tk_get_frequency
 tk_get_trend <- function(idx, period = "auto", message = TRUE) {
 
-    period <- tolower(period)
-
     # Setup inputs
     template <- get_tk_time_scale_template()
 
@@ -156,7 +152,7 @@ tk_get_trend <- function(idx, period = "auto", message = TRUE) {
         # 1. Numeric Periods
         trend <- period
 
-    } else if (period != "auto") {
+    } else if (tolower(period) != "auto") {
         # 2. Text (e.g. period = "2 Weeks")
         trend <- get_median_period(idx, period = period)
 
