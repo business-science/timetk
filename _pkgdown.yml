@@ -40,12 +40,17 @@ reference:
     - contains("plot_")
   - title: Time Series Data Wrangling Operations
     desc: __Extension for `dplyr` for time-series data manipulations__
+  - subtitle: Data Frame Operations
     contents:
     - contains("summarise")
     - contains("filter")
-    - contains("between")
     - contains("pad")
+  - subtitle: Function Operations
+    contents:
     - "slidify"
+  - subtitle: Vector Operations
+    contents:
+    - contains("between")
   - title: Vector Operations (Transformations)
     desc: __Use with `mutate` to apply vectorized transformations to time series data__
     contents:
