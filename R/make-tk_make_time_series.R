@@ -1,7 +1,7 @@
 #' Intelligent date and date-time sequence creation
 #'
 #' Improves on the `seq.Date()` and `seq.POSIXt()` functions by simplifying
-#' into 1 function `tk_make_date_sequence()`. Intelligently handles character dates
+#' into 1 function `tk_make_time_series()`. Intelligently handles character dates
 #' and logical assumptions based on user inputs.
 #'
 #' @param start_date Used to define the starting date for date sequence generation.
@@ -18,7 +18,7 @@
 #'
 #' @details
 #'
-#' The `tk_make_date_sequence()` function handles both date and date-time sequences
+#' The `tk_make_time_series()` function handles both date and date-time sequences
 #' automatically.
 #'
 #' - Parses date and date times from character
@@ -29,7 +29,7 @@
 #'
 #' __Daily Sequences__
 #'
-#' Make a daily sequence with `tk_make_date_sequence(by)`. Examples:
+#' Make a daily sequence with `tk_make_time_series(by)`. Examples:
 #'
 #'  - Every Day: `by = "day"`
 #'  - Every 2-Weeks: `by = "2 weeks"`
@@ -37,7 +37,7 @@
 #'
 #' __Sub-Daily Sequences__
 #'
-#' Make a sub-daily sequence with `tk_make_date_sequence(by)`. Examples:
+#' Make a sub-daily sequence with `tk_make_time_series(by)`. Examples:
 #'
 #' - Every minute: `by = "min"`
 #' - Every 30-seconds: `by = "30 sec"`
@@ -53,7 +53,7 @@
 #' @return A vector containing date or date-times
 #'
 #' @seealso
-#' - Intelligent date or date-time sequence creation: [tk_make_date_sequence()]
+#' - Intelligent date or date-time sequence creation: [tk_make_time_series()]
 #' - Holidays and weekends: [tk_make_holiday_sequence()], [tk_make_weekend_sequence()], [tk_make_weekday_sequence()]
 #' - Make future index from existing: [tk_make_future_timeseries()]
 #'
@@ -64,44 +64,44 @@
 #'
 #' options(max.print = 50)
 #'
-#' # ---- BASIC DATE SEQUENCE EXAMPLES ----
+#' # ---- DATE ----
 #'
 #' # Date Sequence - By Day
-#' tk_make_date_sequence("2017-01-01", "2017-12-31") # Guesses by = "day"
+#' tk_make_time_series("2017-01-01", "2017-12-31") # Guesses by = "day"
 #'
 #' # Date Sequence - By Day
-#' tk_make_date_sequence("2012-01-01", length_out = 6) # Guesses by = "day"
+#' tk_make_time_series("2012-01-01", length_out = 6) # Guesses by = "day"
 #'
 #' # Date Sequence - By Month
-#' tk_make_date_sequence("2012-01-01", by = "1 month", length_out = 6) # Switch to month
+#' tk_make_time_series("2012-01-01", by = "1 month", length_out = 6) # Switch to month
 #'
 #'
-#' # ---- BASIC DATE-TIME SEQUENCE EXAMPLES ----
+#' # ---- DATE-TIME ----
 #'
 #' # Date-Time Sequence - By Second
-#' tk_make_date_sequence("2016-01-01 01:01:02", "2016-01-01 01:01:04") # Guesses by second
+#' tk_make_time_series("2016-01-01 01:01:02", "2016-01-01 01:01:04") # Guesses by second
 #'
 #' # Date-Time Sequence - By 10 Minutes
 #' # - Converts to date-time automatically & applies 10-min interval
-#' tk_make_date_sequence("2017-01-01", "2017-01-02", by = "10 min")
+#' tk_make_time_series("2017-01-01", "2017-01-02", by = "10 min")
 #'
 #' # ---- SKIP & INSERT VALUES ----
 #'
-#' tk_make_date_sequence(
+#' tk_make_time_series(
 #'     "2011-01-01", length_out = 5,
 #'     skip_values   = "2011-01-05",
 #'     insert_values = "2011-01-06"
 #' )
 #'
-#' @name tk_make_date_sequence
+#' @name tk_make_time_series
 NULL
 
 # DATE SEQUENCE ----
 
-#' @rdname tk_make_date_sequence
+#' @rdname tk_make_time_series
 #' @export
-tk_make_date_sequence <- function(start_date, end_date, by, length_out = NULL,
-                                   skip_values = NULL, insert_values = NULL) {
+tk_make_time_series <- function(start_date, end_date, by, length_out = NULL,
+                                skip_values = NULL, insert_values = NULL) {
 
     # Condition count for everything except by. If by is missing, will be guessed.
     condition_count <- c(
@@ -136,10 +136,10 @@ tk_make_date_sequence <- function(start_date, end_date, by, length_out = NULL,
         parser <- readr::guess_parser(end_date)
     }
 
-
     # Apply parser
     if (parser == "datetime") {
         # Sub-daily
+
         if (!rlang::is_missing(start_date)) {
             tryCatch({
                 start_date <- readr::parse_datetime(start_date)

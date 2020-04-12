@@ -62,7 +62,7 @@ Filter on an index to identify all holidays that are commonly non-working.
 library(dplyr)
 library(timetk)
 
-dates_in_2017_tbl <- tibble(index = tk_make_date_sequence("2017-01-01", "2017-12-31", by = "day"))
+dates_in_2017_tbl <- tibble(index = tk_make_time_series("2017-01-01", "2017-12-31", by = "day"))
 
 # Non-working days in US due to Holidays using NYSE stock exchange calendar
 dates_in_2017_tbl \%>\%

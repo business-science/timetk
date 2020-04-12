@@ -60,26 +60,22 @@
 #' @examples
 #' library(dplyr)
 #' library(timetk)
-#' library(forecast)
 #'
 #' # ---- MULTIPLE FREQUENCY ----
 #' # Taylor 30-minute dataset from forecast package
-#'
-#' taylor_tbl <- tibble(
-#'     date = tk_make_date_sequence("2000-06-05", by = "30 min", length_out = length(taylor)),
-#'     value = taylor %>% as.numeric()
-#' )
+#' taylor_30_min
 #'
 #' # Visualize series
-#' taylor_tbl %>%
+#' taylor_30_min %>%
 #'     plot_time_series(date, value, .interactive = FALSE)
 #'
 #' # Visualize seasonality
-#' taylor_tbl %>%
+#' taylor_30_min %>%
 #'     plot_seasonal_diagnostics(date, value, .interactive = FALSE)
 #'
 #' # ---- GROUPED EXAMPLES ----
 #' # m4 hourly dataset
+#' m4_hourly
 #'
 #' # Visualize series
 #' m4_hourly %>%
@@ -103,7 +99,7 @@ plot_seasonal_diagnostics <- function(.data, .date_var, .value, ...,
                                       # .jitter = FALSE,
                                       # .jitter_color = "#2c3e50", .jitter_alpha = 0.5,
                                       # .jitter_width = NULL,
-                                      .title = "Seasonality Diagnostics",
+                                      .title = "Seasonal Diagnostics",
                                       .x_lab = "", .y_lab = "",
                                       .interactive = TRUE) {
 
@@ -133,7 +129,7 @@ plot_seasonal_diagnostics.data.frame <- function(.data, .date_var, .value, ...,
                                                  # .jitter = FALSE,
                                                  # .jitter_color = "#2c3e50", .jitter_alpha = 0.5,
                                                  # .jitter_width = NULL,
-                                                 .title = "STL Diagnostics",
+                                                 .title = "Seasonal Diagnostics",
                                                  .x_lab = "", .y_lab = "",
                                                  .interactive = TRUE) {
 
@@ -305,7 +301,7 @@ plot_seasonal_diagnostics.grouped_df <- function(.data, .date_var, .value, ...,
                                                  # .jitter = FALSE,
                                                  # .jitter_color = "#2c3e50", .jitter_alpha = 0.5,
                                                  # .jitter_width = NULL,
-                                                 .title = "Seasonality Diagnostics",
+                                                 .title = "Seasonal Diagnostics",
                                                  .x_lab = "", .y_lab = "",
                                                  .interactive = TRUE) {
 

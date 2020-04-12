@@ -13,7 +13,7 @@ plot_seasonal_diagnostics(
   .geom = c("boxplot", "violin"),
   .geom_color = "#2c3e50",
   .geom_outlier_color = "#2c3e50",
-  .title = "Seasonality Diagnostics",
+  .title = "Seasonal Diagnostics",
   .x_lab = "",
   .y_lab = "",
   .interactive = TRUE
@@ -94,26 +94,22 @@ The \code{.value} parameter respects transformations (e.g. \code{.value = log(sa
 \examples{
 library(dplyr)
 library(timetk)
-library(forecast)
 
 # ---- MULTIPLE FREQUENCY ----
 # Taylor 30-minute dataset from forecast package
-
-taylor_tbl <- tibble(
-    date = tk_make_date_sequence("2000-06-05", by = "30 min", length_out = length(taylor)),
-    value = taylor \%>\% as.numeric()
-)
+taylor_30_min
 
 # Visualize series
-taylor_tbl \%>\%
+taylor_30_min \%>\%
     plot_time_series(date, value, .interactive = FALSE)
 
 # Visualize seasonality
-taylor_tbl \%>\%
+taylor_30_min \%>\%
     plot_seasonal_diagnostics(date, value, .interactive = FALSE)
 
 # ---- GROUPED EXAMPLES ----
 # m4 hourly dataset
+m4_hourly
 
 # Visualize series
 m4_hourly \%>\%
