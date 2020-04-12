@@ -306,7 +306,7 @@ be removed using <code><a href='https://rdrr.io/pkg/recipes/man/step_rm.html'>re
 
 <span class='co'># Sample Data</span>
 <span class='no'>dates_in_2017_tbl</span> <span class='kw'>&lt;-</span> <span class='fu'>tibble</span>(
-    <span class='kw'>index</span> <span class='kw'>=</span> <span class='fu'><a href='tk_make_date_sequence.html'>tk_make_date_sequence</a></span>(<span class='st'>"2017-01-01"</span>, <span class='st'>"2017-12-31"</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"day"</span>)
+    <span class='kw'>index</span> <span class='kw'>=</span> <span class='fu'><a href='tk_make_time_series.html'>tk_make_time_series</a></span>(<span class='st'>"2017-01-01"</span>, <span class='st'>"2017-12-31"</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"day"</span>)
 )
 
 <span class='co'># Add US holidays and Non-Working Days due to Holidays</span>
@@ -364,14 +364,14 @@ be removed using <code><a href='https://rdrr.io/pkg/recipes/man/step_rm.html'>re
 #&gt; </span><span style='color: #555555;'> 8</span><span> 2017-01-08               0               0                0                0
 #&gt; </span><span style='color: #555555;'> 9</span><span> 2017-01-09               0               0                0                0
 #&gt; </span><span style='color: #555555;'>10</span><span> 2017-01-10               0               0                0                0
-#&gt; </span><span style='color: #555555;'># … with 355 more rows, and 15 more variables: index_US_InaugurationDay </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,
-#&gt; #   index_US_LincolnsBirthday </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, index_US_PresidentsDay </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,
-#&gt; #   index_US_WashingtonsBirthday </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, index_US_CPulaskisBirthday </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,
-#&gt; #   index_US_GoodFriday </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, index_US_MemorialDay </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,
-#&gt; #   index_US_DecorationMemorialDay </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, index_US_IndependenceDay </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,
-#&gt; #   index_US_LaborDay </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, index_US_ColumbusDay </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,
-#&gt; #   index_US_ElectionDay </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, index_US_VeteransDay </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,
-#&gt; #   index_US_ThanksgivingDay </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, index_US_ChristmasDay </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span></div><div class='input'>
+#&gt; </span><span style='color: #555555;'># … with 355 more rows, and 15 more variables: index_US_InaugurationDay </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   index_US_LincolnsBirthday </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, index_US_PresidentsDay </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   index_US_WashingtonsBirthday </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, index_US_CPulaskisBirthday </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   index_US_GoodFriday </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, index_US_MemorialDay </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   index_US_DecorationMemorialDay </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, index_US_IndependenceDay </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   index_US_LaborDay </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, index_US_ColumbusDay </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   index_US_ElectionDay </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, index_US_VeteransDay </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   index_US_ThanksgivingDay </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, index_US_ChristmasDay </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span></div><div class='input'>
 
 
 

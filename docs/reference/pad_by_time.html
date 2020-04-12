@@ -154,7 +154,7 @@ for padding tibbles." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Insert time series rows with regularly spaced timestamps</h1>
-    <small class="dont-index">Source: <a href='https://github.com/business-science/timetk/blob/master/R/dplyr-pad_missing.R'><code>R/dplyr-pad_missing.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/business-science/timetk/blob/master/R/dplyr-pad_by_time.R'><code>R/dplyr-pad_by_time.R</code></a></small>
     <div class="hidden name"><code>pad_by_time.Rd</code></div>
     </div>
 
@@ -234,7 +234,7 @@ This is possible by supplying a higher frequency to <code>pad_by_time()</code>.<
 
 <span class='co'># Create a quarterly series with 1 missing value</span>
 <span class='no'>missing_data_tbl</span> <span class='kw'>&lt;-</span> <span class='fu'>tibble</span>(
-    <span class='kw'>date</span> <span class='kw'>=</span> <span class='fu'><a href='tk_make_date_sequence.html'>tk_make_date_sequence</a></span>(<span class='st'>"2014-01-01"</span>, <span class='st'>"2015-01-01"</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"quarter"</span>),
+    <span class='kw'>date</span> <span class='kw'>=</span> <span class='fu'><a href='tk_make_time_series.html'>tk_make_time_series</a></span>(<span class='st'>"2014-01-01"</span>, <span class='st'>"2015-01-01"</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"quarter"</span>),
     <span class='kw'>value</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>5</span>
 ) <span class='kw'>%&gt;%</span>
     <span class='fu'>slice</span>(-<span class='fl'>4</span>) <span class='co'># Lose the 4th quarter on purpose</span>
@@ -284,7 +284,7 @@ This is possible by supplying a higher frequency to <code>pad_by_time()</code>.<
 <span class='co'># Can specify a .pad_value</span>
 <span class='no'>missing_data_tbl</span> <span class='kw'>%&gt;%</span> <span class='fu'>pad_by_time</span>(<span class='no'>date</span>, <span class='kw'>.by</span> <span class='kw'>=</span> <span class='st'>"quarter"</span>, <span class='kw'>.pad_value</span> <span class='kw'>=</span> <span class='fl'>0</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 5 x 2</span><span>
 #&gt;   date       value
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
 #&gt; </span><span style='color: #555555;'>1</span><span> 2014-01-01     1
 #&gt; </span><span style='color: #555555;'>2</span><span> 2014-04-01     2
 #&gt; </span><span style='color: #555555;'>3</span><span> 2014-07-01     3

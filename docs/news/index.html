@@ -279,7 +279,7 @@ SMALLER ITEMS:
 <li>
 <code><a href="../reference/step_diff.html">step_diff()</a></code> - New recipe for adding multiple differenced columns. Similar to <code><a href="https://rdrr.io/pkg/recipes/man/step_lag.html">recipes::step_lag()</a></code>.</li>
 <li>
-<code><a href="../reference/step_box_cox.html">step_box_cox()</a></code> - New recipe for transforming predictors. Similar to <code>step_BoxCox()</code> with improvements for forecasting including âguerreroâ method for lambda selection and handling of negative data.</li>
+<code><a href="../reference/step_box_cox.html">step_box_cox()</a></code> - New recipe for transforming predictors. Similar to <code>step_BoxCox()</code> with improvements for forecasting including “guerrero” method for lambda selection and handling of negative data.</li>
 <li>
 <code><a href="../reference/step_impute_ts.html">step_impute_ts()</a></code> - New recipe for imputing a time series.</li>
 </ul>
@@ -297,7 +297,7 @@ SMALLER ITEMS:
 <li>
 <code><a href="../reference/smooth_vec.html">smooth_vec()</a></code> - Vectorized smoothing function - Applies Local Polynomial Regression (LOESS)</li>
 <li>
-<code><a href="../reference/diff_vec.html">diff_vec()</a></code> and <code><a href="../reference/diff_vec.html">diff_inv_vec()</a></code> - Vectorized differencing function. Pads <code>NA</code>âs by default (unlike <code>stats::diff</code>).</li>
+<code><a href="../reference/diff_vec.html">diff_vec()</a></code> and <code><a href="../reference/diff_vec.html">diff_inv_vec()</a></code> - Vectorized differencing function. Pads <code>NA</code>’s by default (unlike <code>stats::diff</code>).</li>
 <li>
 <code><a href="../reference/lag_vec.html">lag_vec()</a></code> - Vectorized lag functions. Returns both lags and leads (negative lags) by adjusting the <code>.lag</code> argument.</li>
 <li>
@@ -325,7 +325,7 @@ SMALLER ITEMS:
 <p>Make date and date-time sequences between start and end dates.</p>
 <ul>
 <li>
-<code><a href="../reference/tk_make_date_sequence.html">tk_make_date_sequence()</a></code> - Super flexible function for creating daily and sub-daily time series.</li>
+<code><a href="../reference/tk_make_time_series.html">tk_make_time_series()</a></code> - Super flexible function for creating daily and sub-daily time series.</li>
 <li>
 <code><a href="../reference/tk_make_holiday_sequence.html">tk_make_weekday_sequence()</a></code> - Weekday sequence that accounts for both <strong>stripping weekends and holidays</strong>
 </li>
@@ -358,16 +358,18 @@ SMALLER ITEMS:
 <p><strong>New Datasets</strong></p>
 <ul>
 <li>
-<strong>M4 Competition</strong> - Sample âeconomicâ datasets from hourly, daily, weekly, monthly, quarterly, and yearly.</li>
+<strong>M4 Competition</strong> - Sample “economic” datasets from hourly, daily, weekly, monthly, quarterly, and yearly.</li>
 <li>
-<strong>Kaggle Walmart Recruiting Retail Sales Forecasting Competition</strong> - Sample of 7 retail time series</li>
+<strong>Walmart Recruiting Retail Sales Forecasting Competition</strong> - Sample of 7 retail time series</li>
 <li>
-<strong>Kaggle Web Traffic Forecasting (Wikipedia) Competition</strong> - Sample of 10 website time series</li>
+<strong>Web Traffic Forecasting (Wikipedia) Competition</strong> - Sample of 10 website time series</li>
+<li>
+<strong>Taylor’s Energy Demand</strong> - Single time series with 30-minute interval of energy demand</li>
 </ul>
 <p><strong>Bug Fixes:</strong></p>
 <ul>
 <li>
-<a href="https://github.com/business-science/timetk/pull/32">Donât set timezone on date</a> - Accommodate recent changes to <code>lubridate::tz&lt;-</code> which now returns POSIXct when used Date objects. Fixed in PR32 by <a href='https://github.com/vspinu'>@vspinu</a>.</li>
+<a href="https://github.com/business-science/timetk/pull/32">Don’t set timezone on date</a> - Accommodate recent changes to <code>lubridate::tz&lt;-</code> which now returns POSIXct when used Date objects. Fixed in PR32 by <a href='https://github.com/vspinu'>@vspinu</a>.</li>
 </ul>
 <p><strong>Potential Breaking Changes:</strong></p>
 <ul>
@@ -388,7 +390,7 @@ SMALLER ITEMS:
 <code><a href="../reference/step_timeseries_signature.html">step_timeseries_signature()</a></code> - New <code><a href="../reference/step_timeseries_signature.html">step_timeseries_signature()</a></code> for adding date and date-time features.</li>
 </ul>
 </li>
-<li>New Vignette - <em>âTime Series Machine Learningâ</em> (previously forecasting using the time series signature)</li>
+<li>New Vignette - <em>“Time Series Machine Learning”</em> (previously forecasting using the time series signature)</li>
 </ul>
 <p><strong>Bug Fixes:</strong></p>
 <ul>

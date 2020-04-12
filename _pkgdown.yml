@@ -138,6 +138,6 @@ reference:
     - contains("m4_")
     - contains("walmart")
     - contains("wikipedia")
-
+    - "taylor_30_min"
 
 

@@ -142,7 +142,7 @@
 <li>
 <strong>Build future time series</strong>: create a future time series from an index.</li>
 <li>
-<strong>Coerce between time-based tibbles (<code>tbl</code>) and the major time series data types <code>xts</code>, <code>zoo</code>, <code>zooreg</code>, and <code>ts</code></strong>: Simplifies coercion and maximizes time-based data retention during coercion to regularized time series (e.g.Â <code>ts</code>).</li>
+<strong>Coerce between time-based tibbles (<code>tbl</code>) and the major time series data types <code>xts</code>, <code>zoo</code>, <code>zooreg</code>, and <code>ts</code></strong>: Simplifies coercion and maximizes time-based data retention during coercion to regularized time series (e.g. <code>ts</code>).</li>
 </ul>
 <p>An example of the forecasting capabilities as shown in vignette TK03 - Forecasting Using a Time Series Signature with <code>timetk</code>.</p>
 <p><img src="reference/figures/bikes_forecast.png" width="100%"></p>
@@ -152,7 +152,7 @@
 <a href="#tools" class="anchor"></a>Tools</h2>
 <p>The package contains the following functions:</p>
 <ol>
-<li><p><strong>Get an index</strong>: <code>tk_index</code> returns the time series index of time series objects, models. The argument <code>timetk_idx</code> can be used to return a special timetk âindexâ attribute for regularized <code>ts</code> objects that returns a non-regularized date / date-time index if present.</p></li>
+<li><p><strong>Get an index</strong>: <code>tk_index</code> returns the time series index of time series objects, models. The argument <code>timetk_idx</code> can be used to return a special timetk “index” attribute for regularized <code>ts</code> objects that returns a non-regularized date / date-time index if present.</p></li>
 <li><p><strong>Get critical timeseries information</strong>: <code>tk_get_timeseries_signature</code> and <code>tk_get_timeseries_summary</code> takes an index and provides a time series decomposition and key summary attributes of the index, respectively. The <code>tk_augment_timeseries_signature</code> expedites adding the time series decomposition to the time series object.</p></li>
 <li><p><strong>Make a future timeseries</strong>: <code>tk_make_future_timeseries</code> models a future time series after an existing time series index.</p></li>
 <li><p><strong>Conversion functions</strong>: <code>tk_tbl</code>, <code>tk_ts</code>, <code>tk_xts</code>, <code>tk_zoo</code>, and <code>tk_zooreg</code> convert time-based tibbles <code>tbl</code> to and from each of the main time-series data types <code>xts</code>, <code>zoo</code>, <code>zooreg</code>, <code>ts</code>, maintaining the time-based index.</p></li>
@@ -182,7 +182,7 @@
 <span class="co">#&gt;  8 FB     2013-01-11  31.3  32.0  31.1  31.7  89598000     31.7</span>
 <span class="co">#&gt;  9 FB     2013-01-14  32.1  32.2  30.6  31.0  98892800     31.0</span>
 <span class="co">#&gt; 10 FB     2013-01-15  30.6  31.7  29.9  30.1 173242600     30.1</span>
-<span class="co">#&gt; # â¦ with 998 more rows</span></pre></div>
+<span class="co">#&gt; # … with 998 more rows</span></pre></div>
 </div>
 <div id="extract-a-time-series-index" class="section level2">
 <h2 class="hasAnchor">
@@ -211,7 +211,7 @@
 <span class="co">#&gt;  8 2013-01-11    1.36e9  86400  2013     2013     1       1     1         0</span>
 <span class="co">#&gt;  9 2013-01-14    1.36e9 259200  2013     2013     1       1     1         0</span>
 <span class="co">#&gt; 10 2013-01-15    1.36e9  86400  2013     2013     1       1     1         0</span>
-<span class="co">#&gt; # â¦ with 998 more rows, and 20 more variables: month.lbl &lt;ord&gt;, day &lt;int&gt;,</span>
+<span class="co">#&gt; # … with 998 more rows, and 20 more variables: month.lbl &lt;ord&gt;, day &lt;int&gt;,</span>
 <span class="co">#&gt; #   hour &lt;int&gt;, minute &lt;int&gt;, second &lt;int&gt;, hour12 &lt;int&gt;, am.pm &lt;int&gt;,</span>
 <span class="co">#&gt; #   wday &lt;int&gt;, wday.xts &lt;int&gt;, wday.lbl &lt;ord&gt;, mday &lt;int&gt;, qday &lt;int&gt;,</span>
 <span class="co">#&gt; #   yday &lt;int&gt;, mweek &lt;int&gt;, week &lt;int&gt;, week.iso &lt;int&gt;, week2 &lt;int&gt;,</span>
@@ -267,7 +267,7 @@
 <span class="no">FB_zoo</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/tk_zoo.html">tk_zoo</a></span>(<span class="no">FB_tbl</span>, <span class="kw">silent</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></div>
 <div class="sourceCode" id="cb10"><pre class="r"><span class="co"># ts</span>
 <span class="no">FB_ts</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/tk_ts.html">tk_ts</a></span>(<span class="no">FB_tbl</span>, <span class="kw">start</span> <span class="kw">=</span> <span class="fl">2013</span>, <span class="kw">freq</span> <span class="kw">=</span> <span class="fl">252</span>, <span class="kw">silent</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></div>
-<p>This covers the basics of the <code>timetk</code> package capabilities. Hereâs how to get started.</p>
+<p>This covers the basics of the <code>timetk</code> package capabilities. Here’s how to get started.</p>
 </div>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
@@ -281,7 +281,7 @@
 <div id="acknowledgements-standing-on-shoulders" class="section level2">
 <h2 class="hasAnchor">
 <a href="#acknowledgements-standing-on-shoulders" class="anchor"></a>Acknowledgements: Standing On Shoulders</h2>
-<p>A lot of innovative time series and forecasting work is going on that ultimately benefits the community. Weâd like to thank the following people and packages that came before <code>timetk</code> in time series analysis and machine learning.</p>
+<p>A lot of innovative time series and forecasting work is going on that ultimately benefits the community. We’d like to thank the following people and packages that came before <code>timetk</code> in time series analysis and machine learning.</p>
 <ul>
 <li>
 <a href="https://github.com/bearloga/maltese"><code>maltese</code></a>: Similar in respect to <code>timetk</code> in that it enables machine learning-friendly data frame generation exposing a number of critical features that can be used for forecasting.</li>
