@@ -67,8 +67,8 @@ library(tidyverse)
 library(tidyquant)
 library(timetk)
 
-index_daily <- tk_make_time_series("2016-01-01", "2017-01-01", by = "day")
-index_min   <- tk_make_time_series("2016-01-01", "2017-01-01", by = "min")
+index_daily <- tk_make_timeseries("2016-01-01", "2017-01-01", by = "day")
+index_min   <- tk_make_timeseries("2016-01-01", "2017-01-01", by = "min")
 
 # How it works
 # - Returns TRUE/FALSE length of index

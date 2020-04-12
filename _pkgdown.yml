@@ -11,18 +11,19 @@ navbar:
     - text: "Tutorials"
       href: articles/index.html
       menu:
+        - text: 'Plotting'
+        - text: '---'
+        - text: "Machine Learning"
         - text: "Time Series Machine Learning"
           href: articles/TK03_Forecasting_Using_Time_Series_Signature.html
         - text: '---'
-        - text: 'Plotting'
-        - text: '---'
         - text: 'Time Series Helpers'
-        - text: "Time series conversion"
-          href: articles/TK00_Time_Series_Coercion.html
         - text: "Time series index"
           href: articles/TK01_Working_With_Time_Series_Index.html
         - text: "Creating future time series indices"
           href: articles/TK02_Making_A_Future_Time_Series_Index.html
+        - text: "Time series conversion"
+          href: articles/TK00_Time_Series_Coercion.html
     - text: "Function Reference"
       href: reference/index.html
     - text: "News"
@@ -102,7 +103,7 @@ reference:
   - title: Make Operations
     desc: __Make time series sequences.__
     contents:
-    - starts_with("tk_make_time_series")
+    - "tk_make_timeseries"
     - starts_with("tk_make_future")
     - starts_with("tk_make")
   - title: Get Operations

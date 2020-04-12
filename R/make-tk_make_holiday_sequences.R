@@ -36,7 +36,7 @@
 #' @return A vector containing future dates
 #'
 #' @seealso
-#' - Intelligent date or date-time sequence creation: [tk_make_time_series()]
+#' - Intelligent date or date-time sequence creation: [tk_make_timeseries()]
 #' - Holidays and weekends: [tk_make_holiday_sequence()], [tk_make_weekend_sequence()], [tk_make_weekday_sequence()]
 #' - Make future index from existing: [tk_make_future_timeseries()]
 #'
@@ -109,7 +109,7 @@ tk_make_holiday_sequence <- function(start_date, end_date,
         "zurich"   = timeDate::holidayZURICH
     )
 
-    date_seq <- tk_make_time_series(
+    date_seq <- tk_make_timeseries(
         lubridate::as_date(start_date),
         lubridate::as_date(end_date),
         by   = "day")
@@ -131,7 +131,7 @@ tk_make_holiday_sequence <- function(start_date, end_date,
 #' @export
 tk_make_weekend_sequence <- function(start_date, end_date) {
 
-    date_sequence <- tk_make_time_series(
+    date_sequence <- tk_make_timeseries(
         lubridate::as_date(start_date),
         lubridate::as_date(end_date),
         by   = "day")
@@ -153,7 +153,7 @@ tk_make_weekday_sequence <- function(start_date, end_date,
                                      skip_values = NULL, insert_values = NULL
                                      ) {
 
-    date_sequence <- tk_make_time_series(
+    date_sequence <- tk_make_timeseries(
         lubridate::as_date(start_date),
         lubridate::as_date(end_date),
         by   = "day")

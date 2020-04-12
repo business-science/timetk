@@ -66,7 +66,7 @@
 #'
 #' options(max.print = 50)
 #'
-#' date_sequence <- tk_make_time_series("2016-01-01", "2016-01-31", by = "hour")
+#' date_sequence <- tk_make_timeseries("2016-01-01", "2016-01-31", by = "hour")
 #'
 #' # --- VECTOR ---
 #'

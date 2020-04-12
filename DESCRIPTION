@@ -1,6 +1,6 @@
 Package: timetk
 Type: Package
-Title: A Tool Kit for Working with Time Series using the Tidyverse and Tidymodels
+Title: A Tool Kit for Working with Time Series in R
 Version: 0.1.3.9000
 Authors@R: c(
     person("Matt", "Dancho", email = "mdancho@business-science.io", role = c("aut", "cre")),

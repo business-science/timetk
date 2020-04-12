@@ -141,7 +141,7 @@ __New Make Functions__:
 
 Make date and date-time sequences between start and end dates.
 
-* `tk_make_time_series()` -  Super flexible function for creating daily and sub-daily time series. 
+* `tk_make_timeseries()` -  Super flexible function for creating daily and sub-daily time series. 
 * `tk_make_weekday_sequence()` - Weekday sequence that accounts for both __stripping weekends and holidays__
 * `tk_make_holiday_sequence()` - Makes a sequence of dates corresponding to business holidays in calendars from `timeDate` (common non-working days)
 * `tk_make_weekend_sequence()` - Weekday sequence of dates for Saturday and Sunday (common non-working days)

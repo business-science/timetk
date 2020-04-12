@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Make a future time series from an existing time series — tk_make_future_timeseries • timetk</title>
+<title>Make future time series from existing — tk_make_future_timeseries • timetk</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -17,23 +17,27 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -42,10 +46,9 @@
 
 
 
-<meta property="og:title" content="Make a future time series from an existing time series — tk_make_future_timeseries" />
-<meta property="og:description" content="Make a future time series from an existing time series" />
+<meta property="og:title" content="Make future time series from existing — tk_make_future_timeseries" />
+<meta property="og:description" content="Make future time series from existing" />
 <meta property="og:image" content="/logo.png" />
-<meta name="twitter:card" content="summary" />
 
 
 
@@ -73,7 +76,7 @@
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -106,6 +109,8 @@
     <li>
       <a href="../articles/TK03_Forecasting_Using_Time_Series_Signature.html">Time Series Machine Learning</a>
     </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Plotting</li>
     <li class="divider"></li>
     <li class="dropdown-header">Time Series Helpers</li>
     <li>
@@ -146,13 +151,13 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Make a future time series from an existing time series</h1>
-    <small class="dont-index">Source: <a href='https://github.com/business-science/timetk/blob/master/R/tk_make_timeseries.R'><code>R/tk_make_timeseries.R</code></a></small>
+    <h1>Make future time series from existing</h1>
+    <small class="dont-index">Source: <a href='https://github.com/business-science/timetk/blob/master/R/make-tk_make_future_timeseries.R'><code>R/make-tk_make_future_timeseries.R</code></a></small>
     <div class="hidden name"><code>tk_make_future_timeseries.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Make a future time series from an existing time series</p>
+    <p>Make future time series from existing</p>
     </div>
 
     <pre class="usage"><span class='fu'>tk_make_future_timeseries</span>(
@@ -202,10 +207,11 @@ values to insert.</p></td>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A vector containing future dates</p>
+    <p>A vector containing future index of the same class as the incoming index <code>idx</code></p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p><code>tk_make_future_timeseries</code> returns a time series based
+    <p><strong>Future Sequences</strong></p>
+<p><code>tk_make_future_timeseries</code> returns a time series based
 on the input index frequency and attributes.</p>
 <p>The argument <code>n_future</code> determines how many future index observations to compute.</p>
 <p>The <code>inspect_weekdays</code> and <code>inspect_months</code> arguments apply to "daily" (scale = "day") data
@@ -215,8 +221,8 @@ that occur on a weekly frequency such as every week, every other week, and so on
 It's recommended to have at least 60 days to use this option.
 The <code>inspect_months</code> argument is useful in determining missing days of the month, quarter
 or year; however, the algorithm can inadvertently select incorrect dates if the pattern
-is erratic.
-For example, some holidays do not occur on the same day of each month, and
+is erratic.</p>
+<p>For example, some holidays do not occur on the same day of each month, and
 as a result the incorrect day may be selected in certain years.
 It's recommended to always review the date results to ensure the future days match
 the user's expectations. It's recommended to have at least two years of days to use
@@ -227,87 +233,54 @@ The <code>skip_values</code> argument useful for passing holidays or special ind
 be excluded from the future time series.
 The <code>insert_values</code> argument is useful for adding values back that the algorithm may have
 excluded.</p>
+<p><strong>Holiday Sequences</strong></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='tk_index.html'>tk_index()</a></code>, <code><a href='tk_get_timeseries.html'>tk_get_timeseries_summary()</a></code>, <code><a href='tk_get_timeseries.html'>tk_get_timeseries_signature()</a></code></p></div>
+    <div class='dont-index'>
+<ul>
+<li><p>Making Time Series: <code><a href='tk_make_timeseries.html'>tk_make_timeseries()</a></code></p></li>
+<li><p>Working with Holidays: <code><a href='tk_make_holiday_sequence.html'>tk_make_holiday_sequence()</a></code></p></li>
+<li><p>Working with Timestamp Index: <code><a href='tk_index.html'>tk_index()</a></code>, <code><a href='tk_get_timeseries.html'>tk_get_timeseries_summary()</a></code>, <code><a href='tk_get_timeseries.html'>tk_get_timeseries_signature()</a></code></p></li>
+</ul>
+</div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>)
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>tidyquant</span>)
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>timetk</span>)
 
-<span class='co'># Basic example</span>
-<span class='no'>idx</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"2016-01-01 00:00:00"</span>,
-         <span class='st'>"2016-01-01 00:00:03"</span>,
-         <span class='st'>"2016-01-01 00:00:06"</span>) <span class='kw'>%&gt;%</span>
-    <span class='fu'>ymd_hms</span>()
-<span class='co'># Make next three dates in series</span>
-<span class='no'>idx</span> <span class='kw'>%&gt;%</span>
-    <span class='fu'>tk_make_future_timeseries</span>(<span class='kw'>n_future</span> <span class='kw'>=</span> <span class='fl'>3</span>)</div><div class='output co'>#&gt; [1] "2016-01-01 00:00:09 UTC" "2016-01-01 00:00:12 UTC"
+<span class='co'># Basic example - By 3 seconds</span>
+<span class='no'>idx</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='tk_make_timeseries.html'>tk_make_timeseries</a></span>(<span class='st'>"2016-01-01 00:00:00"</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"3 sec"</span>, <span class='kw'>length_out</span> <span class='kw'>=</span> <span class='fl'>3</span>)
+<span class='no'>idx</span></div><div class='output co'>#&gt; [1] "2016-01-01 00:00:00 UTC" "2016-01-01 00:00:03 UTC"
+#&gt; [3] "2016-01-01 00:00:06 UTC"</div><div class='input'>
+<span class='co'># Make next three timestamps in series</span>
+<span class='no'>idx</span> <span class='kw'>%&gt;%</span> <span class='fu'>tk_make_future_timeseries</span>(<span class='kw'>n_future</span> <span class='kw'>=</span> <span class='fl'>3</span>)</div><div class='output co'>#&gt; [1] "2016-01-01 00:00:09 UTC" "2016-01-01 00:00:12 UTC"
 #&gt; [3] "2016-01-01 00:00:15 UTC"</div><div class='input'>
 
 <span class='co'># Create index of days that FB stock will be traded in 2017 based on 2016 + holidays</span>
 <span class='no'>FB_tbl</span> <span class='kw'>&lt;-</span> <span class='no'>FANG</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='no'>symbol</span> <span class='kw'>==</span> <span class='st'>"FB"</span>)
-<span class='no'>holidays</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"2017-01-02"</span>, <span class='st'>"2017-01-16"</span>, <span class='st'>"2017-02-20"</span>,
-              <span class='st'>"2017-04-14"</span>, <span class='st'>"2017-05-29"</span>, <span class='st'>"2017-07-04"</span>,
-              <span class='st'>"2017-09-04"</span>, <span class='st'>"2017-11-23"</span>, <span class='st'>"2017-12-25"</span>) <span class='kw'>%&gt;%</span>
-    <span class='fu'>ymd</span>()
+
+<span class='no'>holidays</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='tk_make_holiday_sequence.html'>tk_make_holiday_sequence</a></span>(
+    <span class='kw'>start_date</span> <span class='kw'>=</span> <span class='st'>"2017-01-01"</span>,
+    <span class='kw'>end_date</span>   <span class='kw'>=</span> <span class='st'>"2017-12-31"</span>,
+    <span class='kw'>calendar</span>   <span class='kw'>=</span> <span class='st'>"NYSE"</span>)
+
 <span class='co'># Remove holidays with skip_values, and remove weekends with inspect_weekdays = TRUE</span>
 <span class='no'>FB_tbl</span> <span class='kw'>%&gt;%</span>
     <span class='fu'><a href='tk_index.html'>tk_index</a></span>() <span class='kw'>%&gt;%</span>
     <span class='fu'>tk_make_future_timeseries</span>(<span class='kw'>n_future</span>         <span class='kw'>=</span> <span class='fl'>366</span>,
                               <span class='kw'>inspect_weekdays</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-                              <span class='kw'>skip_values</span>      <span class='kw'>=</span> <span class='no'>holidays</span>)</div><div class='output co'>#&gt; <span class='message'>pad applied on the interval: day</span></div><div class='output co'>#&gt;   [1] "2017-01-03" "2017-01-04" "2017-01-05" "2017-01-06" "2017-01-09"
-#&gt;   [6] "2017-01-10" "2017-01-11" "2017-01-12" "2017-01-13" "2017-01-17"
-#&gt;  [11] "2017-01-18" "2017-01-19" "2017-01-20" "2017-01-23" "2017-01-24"
-#&gt;  [16] "2017-01-25" "2017-01-26" "2017-01-27" "2017-01-30" "2017-01-31"
-#&gt;  [21] "2017-02-01" "2017-02-02" "2017-02-03" "2017-02-06" "2017-02-07"
-#&gt;  [26] "2017-02-08" "2017-02-09" "2017-02-10" "2017-02-13" "2017-02-14"
-#&gt;  [31] "2017-02-15" "2017-02-16" "2017-02-17" "2017-02-21" "2017-02-22"
-#&gt;  [36] "2017-02-23" "2017-02-24" "2017-02-27" "2017-02-28" "2017-03-01"
-#&gt;  [41] "2017-03-02" "2017-03-03" "2017-03-06" "2017-03-07" "2017-03-08"
-#&gt;  [46] "2017-03-09" "2017-03-10" "2017-03-13" "2017-03-14" "2017-03-15"
-#&gt;  [51] "2017-03-16" "2017-03-17" "2017-03-20" "2017-03-21" "2017-03-22"
-#&gt;  [56] "2017-03-23" "2017-03-24" "2017-03-27" "2017-03-28" "2017-03-29"
-#&gt;  [61] "2017-03-30" "2017-03-31" "2017-04-03" "2017-04-04" "2017-04-05"
-#&gt;  [66] "2017-04-06" "2017-04-07" "2017-04-10" "2017-04-11" "2017-04-12"
-#&gt;  [71] "2017-04-13" "2017-04-17" "2017-04-18" "2017-04-19" "2017-04-20"
-#&gt;  [76] "2017-04-21" "2017-04-24" "2017-04-25" "2017-04-26" "2017-04-27"
-#&gt;  [81] "2017-04-28" "2017-05-01" "2017-05-02" "2017-05-03" "2017-05-04"
-#&gt;  [86] "2017-05-05" "2017-05-08" "2017-05-09" "2017-05-10" "2017-05-11"
-#&gt;  [91] "2017-05-12" "2017-05-15" "2017-05-16" "2017-05-17" "2017-05-18"
-#&gt;  [96] "2017-05-19" "2017-05-22" "2017-05-23" "2017-05-24" "2017-05-25"
-#&gt; [101] "2017-05-26" "2017-05-30" "2017-05-31" "2017-06-01" "2017-06-02"
-#&gt; [106] "2017-06-05" "2017-06-06" "2017-06-07" "2017-06-08" "2017-06-09"
-#&gt; [111] "2017-06-12" "2017-06-13" "2017-06-14" "2017-06-15" "2017-06-16"
-#&gt; [116] "2017-06-19" "2017-06-20" "2017-06-21" "2017-06-22" "2017-06-23"
-#&gt; [121] "2017-06-26" "2017-06-27" "2017-06-28" "2017-06-29" "2017-06-30"
-#&gt; [126] "2017-07-03" "2017-07-05" "2017-07-06" "2017-07-07" "2017-07-10"
-#&gt; [131] "2017-07-11" "2017-07-12" "2017-07-13" "2017-07-14" "2017-07-17"
-#&gt; [136] "2017-07-18" "2017-07-19" "2017-07-20" "2017-07-21" "2017-07-24"
-#&gt; [141] "2017-07-25" "2017-07-26" "2017-07-27" "2017-07-28" "2017-07-31"
-#&gt; [146] "2017-08-01" "2017-08-02" "2017-08-03" "2017-08-04" "2017-08-07"
-#&gt; [151] "2017-08-08" "2017-08-09" "2017-08-10" "2017-08-11" "2017-08-14"
-#&gt; [156] "2017-08-15" "2017-08-16" "2017-08-17" "2017-08-18" "2017-08-21"
-#&gt; [161] "2017-08-22" "2017-08-23" "2017-08-24" "2017-08-25" "2017-08-28"
-#&gt; [166] "2017-08-29" "2017-08-30" "2017-08-31" "2017-09-01" "2017-09-05"
-#&gt; [171] "2017-09-06" "2017-09-07" "2017-09-08" "2017-09-11" "2017-09-12"
-#&gt; [176] "2017-09-13" "2017-09-14" "2017-09-15" "2017-09-18" "2017-09-19"
-#&gt; [181] "2017-09-20" "2017-09-21" "2017-09-22" "2017-09-25" "2017-09-26"
-#&gt; [186] "2017-09-27" "2017-09-28" "2017-09-29" "2017-10-02" "2017-10-03"
-#&gt; [191] "2017-10-04" "2017-10-05" "2017-10-06" "2017-10-09" "2017-10-10"
-#&gt; [196] "2017-10-11" "2017-10-12" "2017-10-13" "2017-10-16" "2017-10-17"
-#&gt; [201] "2017-10-18" "2017-10-19" "2017-10-20" "2017-10-23" "2017-10-24"
-#&gt; [206] "2017-10-25" "2017-10-26" "2017-10-27" "2017-10-30" "2017-10-31"
-#&gt; [211] "2017-11-01" "2017-11-02" "2017-11-03" "2017-11-06" "2017-11-07"
-#&gt; [216] "2017-11-08" "2017-11-09" "2017-11-10" "2017-11-13" "2017-11-14"
-#&gt; [221] "2017-11-15" "2017-11-16" "2017-11-17" "2017-11-20" "2017-11-21"
-#&gt; [226] "2017-11-22" "2017-11-24" "2017-11-27" "2017-11-28" "2017-11-29"
-#&gt; [231] "2017-11-30" "2017-12-01" "2017-12-04" "2017-12-05" "2017-12-06"
-#&gt; [236] "2017-12-07" "2017-12-08" "2017-12-11" "2017-12-12" "2017-12-13"
-#&gt; [241] "2017-12-14" "2017-12-15" "2017-12-18" "2017-12-19" "2017-12-20"
-#&gt; [246] "2017-12-21" "2017-12-22" "2017-12-26" "2017-12-27" "2017-12-28"
-#&gt; [251] "2017-12-29"</div><div class='input'>
+                              <span class='kw'>skip_values</span>      <span class='kw'>=</span> <span class='no'>holidays</span>)</div><div class='output co'>#&gt;  [1] "2017-01-03" "2017-01-04" "2017-01-05" "2017-01-06" "2017-01-09"
+#&gt;  [6] "2017-01-10" "2017-01-11" "2017-01-12" "2017-01-13" "2017-01-17"
+#&gt; [11] "2017-01-18" "2017-01-19" "2017-01-20" "2017-01-23" "2017-01-24"
+#&gt; [16] "2017-01-25" "2017-01-26" "2017-01-27" "2017-01-30" "2017-01-31"
+#&gt; [21] "2017-02-01" "2017-02-02" "2017-02-03" "2017-02-06" "2017-02-07"
+#&gt; [26] "2017-02-08" "2017-02-09" "2017-02-10" "2017-02-13" "2017-02-14"
+#&gt; [31] "2017-02-15" "2017-02-16" "2017-02-17" "2017-02-21" "2017-02-22"
+#&gt; [36] "2017-02-23" "2017-02-24" "2017-02-27" "2017-02-28" "2017-03-01"
+#&gt; [41] "2017-03-02" "2017-03-03" "2017-03-06" "2017-03-07" "2017-03-08"
+#&gt; [46] "2017-03-09" "2017-03-10" "2017-03-13" "2017-03-14" "2017-03-15"
+#&gt;  [ reached 'max' / getOption("max.print") -- omitted 201 entries ]</div><div class='input'>
 <span class='co'># Works with regularized indexes as well</span>
 <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2016.00</span>, <span class='fl'>2016.25</span>, <span class='fl'>2016.50</span>, <span class='fl'>2016.75</span>) <span class='kw'>%&gt;%</span>
     <span class='fu'>tk_make_future_timeseries</span>(<span class='kw'>n_future</span> <span class='kw'>=</span> <span class='fl'>4</span>)</div><div class='output co'>#&gt; [1] 2017.00 2017.25 2017.50 2017.75</div><div class='input'>
@@ -318,16 +291,10 @@ excluded.</p>
 
 </div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#value">Value</a></li>
-      <li><a href="#details">Details</a></li>
-      <li><a href="#see-also">See also</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
@@ -338,7 +305,7 @@ excluded.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

@@ -52,6 +52,7 @@
 #' @return A vector containing future index of the same class as the incoming index `idx`
 #'
 #' @seealso
+#' - Making Time Series: [tk_make_timeseries()]
 #' - Working with Holidays: [tk_make_holiday_sequence()]
 #' - Working with Timestamp Index: [tk_index()], [tk_get_timeseries_summary()], [tk_get_timeseries_signature()]
 #'
@@ -60,14 +61,12 @@
 #' library(tidyquant)
 #' library(timetk)
 #'
-#' # Basic example
-#' idx <- c("2016-01-01 00:00:00",
-#'          "2016-01-01 00:00:03",
-#'          "2016-01-01 00:00:06") %>%
-#'     ymd_hms()
-#' # Make next three dates in series
-#' idx %>%
-#'     tk_make_future_timeseries(n_future = 3)
+#' # Basic example - By 3 seconds
+#' idx <- tk_make_timeseries("2016-01-01 00:00:00", by = "3 sec", length_out = 3)
+#' idx
+#'
+#' # Make next three timestamps in series
+#' idx %>% tk_make_future_timeseries(n_future = 3)
 #'
 #'
 #' # Create index of days that FB stock will be traded in 2017 based on 2016 + holidays
@@ -95,13 +94,13 @@
 #'     tk_make_future_timeseries(n_future = 4)
 #'
 #'
-#' @name tk_make_timeseries
+#' @name tk_make_future_timeseries
 NULL
 
 # FUTURE TIMESERIES ----
 
 #' @export
-#' @rdname tk_make_timeseries
+#' @rdname tk_make_future_timeseries
 tk_make_future_timeseries <- function(idx, n_future, inspect_weekdays = FALSE, inspect_months = FALSE, skip_values = NULL, insert_values = NULL) {
     UseMethod("tk_make_future_timeseries", idx)
 }

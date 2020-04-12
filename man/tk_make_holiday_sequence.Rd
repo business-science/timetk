@@ -118,7 +118,7 @@ FB_tbl \%>\%
 }
 \seealso{
 \itemize{
-\item Intelligent date or date-time sequence creation: \code{\link[=tk_make_time_series]{tk_make_time_series()}}
+\item Intelligent date or date-time sequence creation: \code{\link[=tk_make_timeseries]{tk_make_timeseries()}}
 \item Holidays and weekends: \code{\link[=tk_make_holiday_sequence]{tk_make_holiday_sequence()}}, \code{\link[=tk_make_weekend_sequence]{tk_make_weekend_sequence()}}, \code{\link[=tk_make_weekday_sequence]{tk_make_weekday_sequence()}}
 \item Make future index from existing: \code{\link[=tk_make_future_timeseries]{tk_make_future_timeseries()}}
 }

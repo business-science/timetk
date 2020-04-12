@@ -54,7 +54,7 @@
 #'
 #' # Create a quarterly series with 1 missing value
 #' missing_data_tbl <- tibble(
-#'     date = tk_make_time_series("2014-01-01", "2015-01-01", by = "quarter"),
+#'     date = tk_make_timeseries("2014-01-01", "2015-01-01", by = "quarter"),
 #'     value = 1:5
 #' ) %>%
 #'     slice(-4) # Lose the 4th quarter on purpose

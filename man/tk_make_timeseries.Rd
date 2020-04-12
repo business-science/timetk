@@ -2,120 +2,118 @@
 % Please edit documentation in R/make-tk_make_timeseries.R
 \name{tk_make_timeseries}
 \alias{tk_make_timeseries}
-\alias{tk_make_future_timeseries}
-\title{Make future time series from existing}
+\title{Intelligent date and date-time sequence creation}
 \usage{
-tk_make_future_timeseries(
-  idx,
-  n_future,
-  inspect_weekdays = FALSE,
-  inspect_months = FALSE,
+tk_make_timeseries(
+  start_date,
+  end_date,
+  by,
+  length_out = NULL,
   skip_values = NULL,
   insert_values = NULL
 )
 }
 \arguments{
-\item{idx}{A vector of dates}
+\item{start_date}{Used to define the starting date for date sequence generation.
+Provide in "YYYY-MM-DD" format.}
 
-\item{n_future}{Number of future observations}
+\item{end_date}{Used to define the ending date for date sequence generation.
+Provide in "YYYY-MM-DD" format.}
 
-\item{inspect_weekdays}{Uses a logistic regression algorithm to inspect
-whether certain weekdays (e.g. weekends) should be excluded from the future dates.
-Default is \code{FALSE}.}
+\item{by}{A character string, containing one of
+\code{"sec"}, \code{"min"}, \code{"hour"}, \code{"day"}, \code{"week"}, \code{"month"}, \code{"quarter"} or \code{"year"}.
+You can create regularly spaced sequences using phrases like \code{by = "10 min"}. See Details.}
 
-\item{inspect_months}{Uses a logistic regression algorithm to inspect
-whether certain days of months (e.g. last two weeks of year or seasonal days)
-should be excluded from the future dates.
-Default is \code{FALSE}.}
+\item{length_out}{Optional length of the sequence. Can be used instead of one of:
+\code{start_date}, \code{end_date}, or \code{by}.}
 
-\item{skip_values}{A vector of same class as \code{idx} of timeseries
-values to skip.}
+\item{skip_values}{A sequence to skip}
 
-\item{insert_values}{A vector of same class as \code{idx} of timeseries
-values to insert.}
+\item{insert_values}{A sequence to insert}
 }
 \value{
-A vector containing future index of the same class as the incoming index \code{idx}
+A vector containing date or date-times
 }
 \description{
-Make future time series from existing
+Improves on the \code{seq.Date()} and \code{seq.POSIXt()} functions by simplifying
+into 1 function \code{tk_make_timeseries()}. Intelligently handles character dates
+and logical assumptions based on user inputs.
 }
 \details{
-\strong{Future Sequences}
+The \code{tk_make_timeseries()} function handles both date and date-time sequences
+automatically.
+\itemize{
+\item Parses date and date times from character
+\item Intelligently guesses the sequence desired based on arguments provided
+\item Handles spacing intelligently
+\item When both \code{by} and \code{length_out} are missing, guesses either second or day sequences
+\item Can skip and insert values if needed.
+}
 
-\code{tk_make_future_timeseries} returns a time series based
-on the input index frequency and attributes.
+\strong{Daily Sequences}
 
-The argument \code{n_future} determines how many future index observations to compute.
+Make a daily sequence with \code{tk_make_timeseries(by)}. Examples:
+\itemize{
+\item Every Day: \code{by = "day"}
+\item Every 2-Weeks: \code{by = "2 weeks"}
+\item Every 6-months: \code{by = "6 months"}
+}
 
-The \code{inspect_weekdays} and \code{inspect_months} arguments apply to "daily" (scale = "day") data
-(refer to \code{tk_get_timeseries_summary()} to get the index scale).
-The \code{inspect_weekdays} argument is useful in determining missing days of the week
-that occur on a weekly frequency such as every week, every other week, and so on.
-It's recommended to have at least 60 days to use this option.
-The \code{inspect_months} argument is useful in determining missing days of the month, quarter
-or year; however, the algorithm can inadvertently select incorrect dates if the pattern
-is erratic.
+\strong{Sub-Daily Sequences}
 
-For example, some holidays do not occur on the same day of each month, and
-as a result the incorrect day may be selected in certain years.
-It's recommended to always review the date results to ensure the future days match
-the user's expectations. It's recommended to have at least two years of days to use
-this option.
+Make a sub-daily sequence with \code{tk_make_timeseries(by)}. Examples:
+\itemize{
+\item Every minute: \code{by = "min"}
+\item Every 30-seconds: \code{by = "30 sec"}
+\item Every 2-hours: \verb{by = "2 hours}
+}
 
-The \code{skip_values} and \code{insert_values} arguments can be used to remove and add
-values into the series of future times. The values must be the same format as the \code{idx} class.
-The \code{skip_values} argument useful for passing holidays or special index values that should
-be excluded from the future time series.
-The \code{insert_values} argument is useful for adding values back that the algorithm may have
-excluded.
+\strong{Skip / Insert Timestamps}
 
-\strong{Holiday Sequences}
+Skips and inserts are performed after the sequence is generated. This means that if you use
+the \code{length_out} parameter, the length may differ than the \code{length_out}.
 }
 \examples{
 library(dplyr)
 library(tidyquant)
 library(timetk)
 
-# Basic example
-idx <- c("2016-01-01 00:00:00",
-         "2016-01-01 00:00:03",
-         "2016-01-01 00:00:06") \%>\%
-    ymd_hms()
-# Make next three dates in series
-idx \%>\%
-    tk_make_future_timeseries(n_future = 3)
+options(max.print = 50)
+
+# ---- DATE ----
+
+# Date Sequence - By Day
+tk_make_timeseries("2017-01-01", "2017-12-31") # Guesses by = "day"
+
+# Date Sequence - By Day
+tk_make_timeseries("2012-01-01", length_out = 6) # Guesses by = "day"
+
+# Date Sequence - By Month
+tk_make_timeseries("2012-01-01", by = "1 month", length_out = 6) # Switch to month
 
 
-# Create index of days that FB stock will be traded in 2017 based on 2016 + holidays
-FB_tbl <- FANG \%>\% filter(symbol == "FB")
+# ---- DATE-TIME ----
 
-holidays <- tk_make_holiday_sequence(
-    start_date = "2017-01-01",
-    end_date   = "2017-12-31",
-    calendar   = "NYSE")
+# Date-Time Sequence - By Second
+tk_make_timeseries("2016-01-01 01:01:02", "2016-01-01 01:01:04") # Guesses by second
 
-# Remove holidays with skip_values, and remove weekends with inspect_weekdays = TRUE
-FB_tbl \%>\%
-    tk_index() \%>\%
-    tk_make_future_timeseries(n_future         = 366,
-                              inspect_weekdays = TRUE,
-                              skip_values      = holidays)
+# Date-Time Sequence - By 10 Minutes
+# - Converts to date-time automatically & applies 10-min interval
+tk_make_timeseries("2017-01-01", "2017-01-02", by = "10 min")
 
-# Works with regularized indexes as well
-c(2016.00, 2016.25, 2016.50, 2016.75) \%>\%
-    tk_make_future_timeseries(n_future = 4)
+# ---- SKIP & INSERT VALUES ----
 
-# Works with zoo yearmon and yearqtr too
-c("2016 Q1", "2016 Q2", "2016 Q3", "2016 Q4") \%>\%
-    as.yearqtr() \%>\%
-    tk_make_future_timeseries(n_future = 4)
-
+tk_make_timeseries(
+    "2011-01-01", length_out = 5,
+    skip_values   = "2011-01-05",
+    insert_values = "2011-01-06"
+)
 
 }
 \seealso{
 \itemize{
-\item Working with Holidays: \code{\link[=tk_make_holiday_sequence]{tk_make_holiday_sequence()}}
-\item Working with Timestamp Index: \code{\link[=tk_index]{tk_index()}}, \code{\link[=tk_get_timeseries_summary]{tk_get_timeseries_summary()}}, \code{\link[=tk_get_timeseries_signature]{tk_get_timeseries_signature()}}
+\item Intelligent date or date-time sequence creation: \code{\link[=tk_make_timeseries]{tk_make_timeseries()}}
+\item Holidays and weekends: \code{\link[=tk_make_holiday_sequence]{tk_make_holiday_sequence()}}, \code{\link[=tk_make_weekend_sequence]{tk_make_weekend_sequence()}}, \code{\link[=tk_make_weekday_sequence]{tk_make_weekday_sequence()}}
+\item Make future index from existing: \code{\link[=tk_make_future_timeseries]{tk_make_future_timeseries()}}
 }
 }

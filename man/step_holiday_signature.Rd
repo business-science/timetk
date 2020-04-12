@@ -106,7 +106,7 @@ library(tidyverse)
 
 # Sample Data
 dates_in_2017_tbl <- tibble(
-    index = tk_make_time_series("2017-01-01", "2017-12-31", by = "day")
+    index = tk_make_timeseries("2017-01-01", "2017-12-31", by = "day")
 )
 
 # Add US holidays and Non-Working Days due to Holidays

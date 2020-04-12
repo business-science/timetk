@@ -331,7 +331,7 @@ is <code><a href='step_smooth.html'>step_smooth()</a></code>, which implements l
 <span class='co'># New Data</span>
 <span class='no'>new_data</span> <span class='kw'>&lt;-</span> <span class='no'>FB_tbl</span> <span class='kw'>%&gt;%</span>
     <span class='fu'><a href='tk_index.html'>tk_index</a></span>() <span class='kw'>%&gt;%</span>
-    <span class='fu'><a href='tk_make_timeseries.html'>tk_make_future_timeseries</a></span>(<span class='kw'>n_future</span> <span class='kw'>=</span> <span class='fl'>90</span>) <span class='kw'>%&gt;%</span>
+    <span class='fu'><a href='tk_make_future_timeseries.html'>tk_make_future_timeseries</a></span>(<span class='kw'>n_future</span> <span class='kw'>=</span> <span class='fl'>90</span>) <span class='kw'>%&gt;%</span>
     <span class='fu'>tibble</span>(<span class='kw'>date</span> <span class='kw'>=</span> <span class='no'>.</span>)  <span class='kw'>%&gt;%</span>
     <span class='fu'>mutate</span>(<span class='kw'>date</span> <span class='kw'>=</span> <span class='no'>date</span>) <span class='kw'>%&gt;%</span>
     <span class='fu'>bind_cols</span>(<span class='no'>FB_tbl</span> <span class='kw'>%&gt;%</span> <span class='fu'>slice</span>((<span class='fu'>n</span>() - <span class='fl'>90</span> + <span class='fl'>1</span>):<span class='fu'>n</span>()))

@@ -388,8 +388,8 @@
 ##   diff.minimum diff.q1 diff.median diff.mean diff.q3 diff.maximum
 ##          &lt;dbl&gt;   &lt;dbl&gt;       &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;        &lt;dbl&gt;
 ## 1        86400   86400       86400     86400   86400        86400</code></pre>
-<p>From the summary, we know that the data is 100% regular because the median and mean differences are 86400 seconds or 1 day. We don’t need to do any special inspections when we use <code><a href="../reference/tk_make_timeseries.html">tk_make_future_timeseries()</a></code>. If the data was irregular, meaning weekends or holidays were excluded, you’d want to account for this. Otherwise your forecast would be inaccurate.</p>
-<div class="sourceCode" id="cb27"><html><body><pre class="r"><span class="no">idx_future</span> <span class="kw">&lt;-</span> <span class="no">idx</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/tk_make_timeseries.html">tk_make_future_timeseries</a></span>(<span class="kw">n_future</span> <span class="kw">=</span> <span class="fl">180</span>)
+<p>From the summary, we know that the data is 100% regular because the median and mean differences are 86400 seconds or 1 day. We don’t need to do any special inspections when we use <code><a href="../reference/tk_make_future_timeseries.html">tk_make_future_timeseries()</a></code>. If the data was irregular, meaning weekends or holidays were excluded, you’d want to account for this. Otherwise your forecast would be inaccurate.</p>
+<div class="sourceCode" id="cb27"><html><body><pre class="r"><span class="no">idx_future</span> <span class="kw">&lt;-</span> <span class="no">idx</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/tk_make_future_timeseries.html">tk_make_future_timeseries</a></span>(<span class="kw">n_future</span> <span class="kw">=</span> <span class="fl">180</span>)
 
 <span class="no">future_tbl</span> <span class="kw">&lt;-</span> <span class="fu">tibble</span>(<span class="kw">date</span> <span class="kw">=</span> <span class="no">idx_future</span>)
 

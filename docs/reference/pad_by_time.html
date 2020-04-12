@@ -234,7 +234,7 @@ This is possible by supplying a higher frequency to <code>pad_by_time()</code>.<
 
 <span class='co'># Create a quarterly series with 1 missing value</span>
 <span class='no'>missing_data_tbl</span> <span class='kw'>&lt;-</span> <span class='fu'>tibble</span>(
-    <span class='kw'>date</span> <span class='kw'>=</span> <span class='fu'><a href='tk_make_time_series.html'>tk_make_time_series</a></span>(<span class='st'>"2014-01-01"</span>, <span class='st'>"2015-01-01"</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"quarter"</span>),
+    <span class='kw'>date</span> <span class='kw'>=</span> <span class='fu'><a href='tk_make_timeseries.html'>tk_make_timeseries</a></span>(<span class='st'>"2014-01-01"</span>, <span class='st'>"2015-01-01"</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"quarter"</span>),
     <span class='kw'>value</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>5</span>
 ) <span class='kw'>%&gt;%</span>
     <span class='fu'>slice</span>(-<span class='fl'>4</span>) <span class='co'># Lose the 4th quarter on purpose</span>

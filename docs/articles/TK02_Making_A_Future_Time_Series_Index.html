@@ -120,7 +120,7 @@
 <blockquote>
 <p>A collection of tools for working with time series in R</p>
 </blockquote>
-<p>A common task in forecasting is generating a future date sequence that mimics the existing index. This task can be incredibly important to the validity of the model. In this vignette the user will learn several methods to generate a future time series index from an existing index using the <code><a href="../reference/tk_make_timeseries.html">tk_make_future_timeseries()</a></code> function along with pros and cons of each and testing for accuracy. We’ll focus on making future dates with a daily frequency, which tends to be the most difficult to generate due to holidays, seasonality, weekends, etc. We’ll use two cases to illustrate the pros and cons:</p>
+<p>A common task in forecasting is generating a future date sequence that mimics the existing index. This task can be incredibly important to the validity of the model. In this vignette the user will learn several methods to generate a future time series index from an existing index using the <code><a href="../reference/tk_make_future_timeseries.html">tk_make_future_timeseries()</a></code> function along with pros and cons of each and testing for accuracy. We’ll focus on making future dates with a daily frequency, which tends to be the most difficult to generate due to holidays, seasonality, weekends, etc. We’ll use two cases to illustrate the pros and cons:</p>
 <ul>
 <li>A simple example case with weekends and the last two weeks of the year missing</li>
 <li>A example case using daily trade data for FB from 2013 through 2016</li>
@@ -136,7 +136,7 @@
 <div id="example-1-remove-weekends-and-last-two-weeks-of-year" class="section level1">
 <h1 class="hasAnchor">
 <a href="#example-1-remove-weekends-and-last-two-weeks-of-year" class="anchor"></a>Example 1: Remove Weekends and Last Two Weeks of Year</h1>
-<p>This is a simulated example that shows how to use the <code><a href="../reference/tk_make_timeseries.html">tk_make_future_timeseries()</a></code> function. We’ll create a sequence of dates beginning in 2010, and extending through the first two weeks of 2013. The sequence is daily periodicity. We’ll split into training and test sets. The train set will be used to predict the future dates. The test set will be used for comparison.</p>
+<p>This is a simulated example that shows how to use the <code><a href="../reference/tk_make_future_timeseries.html">tk_make_future_timeseries()</a></code> function. We’ll create a sequence of dates beginning in 2010, and extending through the first two weeks of 2013. The sequence is daily periodicity. We’ll split into training and test sets. The train set will be used to predict the future dates. The test set will be used for comparison.</p>
 <div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="co"># Create sequence with omitted weekends and omitted last two weeks of each year</span>
 <span class="no">idx</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.Date.html">seq.Date</a></span>(<span class="fu">ymd</span>(<span class="st">"2010-01-01"</span>), <span class="kw">by</span> <span class="kw">=</span> <span class="st">"day"</span>, <span class="kw">length.out</span> <span class="kw">=</span> <span class="fl">1110</span>) <span class="kw">%&gt;%</span>
     <span class="fu"><a href="../reference/tk_get_timeseries.html">tk_get_timeseries_signature</a></span>() <span class="kw">%&gt;%</span>
@@ -161,7 +161,7 @@
 <a href="#inspect-weekdays" class="anchor"></a>Inspect weekdays</h2>
 <p><code>inspect_weekdays</code> is useful for finding and removing missing dates that occur on a weekly, bi-weekly, tri-weekly or quad-weekly frequency (such as weekends or every other Friday off). When applied to the example, the algorithm finds and removes omitted weekends of the future data set.</p>
 <div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="no">idx_train</span> <span class="kw">%&gt;%</span>
-    <span class="fu"><a href="../reference/tk_make_timeseries.html">tk_make_future_timeseries</a></span>(<span class="kw">n_future</span> <span class="kw">=</span> <span class="fl">395</span>, <span class="kw">inspect_weekdays</span> <span class="kw">=</span> <span class="fl">TRUE</span>) <span class="kw">%&gt;%</span>
+    <span class="fu"><a href="../reference/tk_make_future_timeseries.html">tk_make_future_timeseries</a></span>(<span class="kw">n_future</span> <span class="kw">=</span> <span class="fl">395</span>, <span class="kw">inspect_weekdays</span> <span class="kw">=</span> <span class="fl">TRUE</span>) <span class="kw">%&gt;%</span>
     <span class="fu"><a href="../reference/tk_get_timeseries.html">tk_get_timeseries_signature</a></span>() <span class="kw">%&gt;%</span>
     <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="kw">x</span> <span class="kw">=</span> <span class="no">index</span>, <span class="kw">y</span> <span class="kw">=</span> <span class="no">diff</span>)) +
     <span class="fu">geom_line</span>(<span class="kw">color</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/pkg/tidyquant/man/palette_tq.html">palette_light</a></span>()<span class="kw">[[</span><span class="fl">1</span>]]) +
@@ -176,7 +176,7 @@
 <a href="#inspect-months" class="anchor"></a>Inspect months</h2>
 <p><code>inspect_months</code> is useful for finding and removing missing dates that occur on a monthly, quarterly, yearly frequency (such as last couple weeks of the year off). Applying to the example, the algorithm finds and removes omitted dates in the last two weeks of the year of the future data set.</p>
 <div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="no">idx</span> <span class="kw">%&gt;%</span>
-    <span class="fu"><a href="../reference/tk_make_timeseries.html">tk_make_future_timeseries</a></span>(<span class="kw">n_future</span> <span class="kw">=</span> <span class="fl">395</span>, <span class="kw">inspect_months</span> <span class="kw">=</span> <span class="fl">TRUE</span>) <span class="kw">%&gt;%</span>
+    <span class="fu"><a href="../reference/tk_make_future_timeseries.html">tk_make_future_timeseries</a></span>(<span class="kw">n_future</span> <span class="kw">=</span> <span class="fl">395</span>, <span class="kw">inspect_months</span> <span class="kw">=</span> <span class="fl">TRUE</span>) <span class="kw">%&gt;%</span>
     <span class="fu"><a href="../reference/tk_get_timeseries.html">tk_get_timeseries_signature</a></span>() <span class="kw">%&gt;%</span>
     <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="kw">x</span> <span class="kw">=</span> <span class="no">index</span>, <span class="kw">y</span> <span class="kw">=</span> <span class="no">diff</span>)) +
     <span class="fu">geom_line</span>(<span class="kw">color</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/pkg/tidyquant/man/palette_tq.html">palette_light</a></span>()<span class="kw">[[</span><span class="fl">1</span>]]) +
@@ -191,7 +191,7 @@
 <a href="#inspect-both-weekdays-and-months" class="anchor"></a>Inspect both weekdays and months</h2>
 <p>We can combine both <code>inspect_weekdays</code> and <code>inspect_months</code> to detect both sequences of missing dates. Applying both to the example removes the weekends and last two weeks of each year. However, there is one error made due to the interactions of the two algorithms.</p>
 <div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="no">idx_future_wdays_and_months</span> <span class="kw">&lt;-</span> <span class="no">idx_train</span> <span class="kw">%&gt;%</span>
-    <span class="fu"><a href="../reference/tk_make_timeseries.html">tk_make_future_timeseries</a></span>(<span class="kw">n_future</span> <span class="kw">=</span> <span class="fl">395</span>, <span class="kw">inspect_weekdays</span> <span class="kw">=</span> <span class="no">T</span>, <span class="kw">inspect_months</span> <span class="kw">=</span> <span class="no">T</span>)
+    <span class="fu"><a href="../reference/tk_make_future_timeseries.html">tk_make_future_timeseries</a></span>(<span class="kw">n_future</span> <span class="kw">=</span> <span class="fl">395</span>, <span class="kw">inspect_weekdays</span> <span class="kw">=</span> <span class="no">T</span>, <span class="kw">inspect_months</span> <span class="kw">=</span> <span class="no">T</span>)
 <span class="no">idx_future_wdays_and_months</span> <span class="kw">%&gt;%</span>
     <span class="fu"><a href="../reference/tk_get_timeseries.html">tk_get_timeseries_signature</a></span>() <span class="kw">%&gt;%</span>
     <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="kw">x</span> <span class="kw">=</span> <span class="no">index</span>, <span class="kw">y</span> <span class="kw">=</span> <span class="no">diff</span>)) +
@@ -226,7 +226,7 @@
 <a href="#using-skip-values-and-insert-values" class="anchor"></a>Using skip values and insert values</h2>
 <p><code>insert_values</code> adds values to the future time series, and <code>skip_values</code> removes values from the future time series. The Type I errors (incorrectly removed observations) can be addressed with <code>insert_values</code>. The Type II errors (incorrectly kept observations) can be addressed with <code>skip_values</code>. We had one Type II error in the example, and we’ll correct with <code>skip_values</code>. Make sure the class of the value passed to <code>skip_values</code> matches the class of the time series index.</p>
 <div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="no">idx_future_wdays_months_skip_vals</span> <span class="kw">&lt;-</span> <span class="no">idx_train</span> <span class="kw">%&gt;%</span>
-    <span class="fu"><a href="../reference/tk_make_timeseries.html">tk_make_future_timeseries</a></span>(<span class="kw">n_future</span> <span class="kw">=</span> <span class="fl">395</span>,
+    <span class="fu"><a href="../reference/tk_make_future_timeseries.html">tk_make_future_timeseries</a></span>(<span class="kw">n_future</span> <span class="kw">=</span> <span class="fl">395</span>,
                               <span class="kw">inspect_weekdays</span> <span class="kw">=</span> <span class="no">T</span>,
                               <span class="kw">inspect_months</span>   <span class="kw">=</span> <span class="no">T</span>,
                               <span class="kw">skip_values</span>      <span class="kw">=</span> <span class="fu">ymd</span>(<span class="st">"2012-12-01"</span>))
@@ -271,7 +271,7 @@
 <p>Inspecting weekdays gets us pretty close. The algorithm correctly removes weekends. It misses the holidays, which may be acceptable since we can omit easily using <code>skip_values</code>.</p>
 <div class="sourceCode" id="cb14"><html><body><pre class="r"><span class="co"># Inspect weekdays: Removes weekends from future series</span>
 <span class="no">idx_future_wdays</span> <span class="kw">&lt;-</span> <span class="no">idx_train</span> <span class="kw">%&gt;%</span>
-    <span class="fu"><a href="../reference/tk_make_timeseries.html">tk_make_future_timeseries</a></span>(<span class="kw">n_future</span> <span class="kw">=</span> <span class="fl">366</span>, <span class="kw">inspect_weekdays</span> <span class="kw">=</span> <span class="fl">TRUE</span>, <span class="kw">inspect_months</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
+    <span class="fu"><a href="../reference/tk_make_future_timeseries.html">tk_make_future_timeseries</a></span>(<span class="kw">n_future</span> <span class="kw">=</span> <span class="fl">366</span>, <span class="kw">inspect_weekdays</span> <span class="kw">=</span> <span class="fl">TRUE</span>, <span class="kw">inspect_months</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
 
 <span class="co"># Visualize frequency</span>
 <span class="no">idx_future_wdays</span> <span class="kw">%&gt;%</span>
@@ -297,7 +297,7 @@
 <p>If we apply both inspect weekdays and inspect months the errors actually increase. This is due to the difficulty in predicting holidays (days off throughout the year), which tend to occur with unique rules (e.g. Memorial Day is last Monday of May).</p>
 <div class="sourceCode" id="cb19"><html><body><pre class="r"><span class="co"># Inspect weekdays: Removes weekends from future series</span>
 <span class="no">idx_future_wdays_and_months</span> <span class="kw">&lt;-</span> <span class="no">idx_train</span> <span class="kw">%&gt;%</span>
-    <span class="fu"><a href="../reference/tk_make_timeseries.html">tk_make_future_timeseries</a></span>(<span class="kw">n_future</span> <span class="kw">=</span> <span class="fl">366</span>, <span class="kw">inspect_weekdays</span> <span class="kw">=</span> <span class="fl">TRUE</span>, <span class="kw">inspect_months</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
+    <span class="fu"><a href="../reference/tk_make_future_timeseries.html">tk_make_future_timeseries</a></span>(<span class="kw">n_future</span> <span class="kw">=</span> <span class="fl">366</span>, <span class="kw">inspect_weekdays</span> <span class="kw">=</span> <span class="fl">TRUE</span>, <span class="kw">inspect_months</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
 
 <span class="co"># Visualize frequency</span>
 <span class="no">idx_future_wdays_and_months</span> <span class="kw">%&gt;%</span>
@@ -331,7 +331,7 @@
 
 <span class="co"># Create future index</span>
 <span class="no">idx_future</span> <span class="kw">&lt;-</span> <span class="no">idx_train</span> <span class="kw">%&gt;%</span>
-    <span class="fu"><a href="../reference/tk_make_timeseries.html">tk_make_future_timeseries</a></span>(<span class="kw">n_future</span> <span class="kw">=</span> <span class="fl">366</span>, <span class="kw">inspect_weekdays</span> <span class="kw">=</span> <span class="fl">TRUE</span>, <span class="kw">skip_values</span> <span class="kw">=</span> <span class="no">holidays</span>)
+    <span class="fu"><a href="../reference/tk_make_future_timeseries.html">tk_make_future_timeseries</a></span>(<span class="kw">n_future</span> <span class="kw">=</span> <span class="fl">366</span>, <span class="kw">inspect_weekdays</span> <span class="kw">=</span> <span class="fl">TRUE</span>, <span class="kw">skip_values</span> <span class="kw">=</span> <span class="no">holidays</span>)
 
 <span class="co"># Plot using ggplot</span>
 <span class="no">idx_future</span> <span class="kw">%&gt;%</span>
