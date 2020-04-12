@@ -26,7 +26,11 @@
 #' @param .smooth Logical - Whether or not to include a trendline smoother.
 #'  Uses See [smooth_vec()] to apply a LOESS smoother.
 #' @param .smooth_period Number of observations to include in the Loess Smoother.
-#'  You can use either period or span. See [smooth_vec()].
+#'  Set to "auto" by default, which uses `tk_get_trend()`
+#'  to determine a logical trend cycle.
+#' @param .smooth_message Logical.
+#'  Whether or not to return the trend selected as a message.
+#'  Useful for those that want to see what `.smooth_period` was selected.
 #' @param .smooth_span Percentage of observations to include in the Loess Smoother.
 #'  You can use either period or span. See [smooth_vec()].
 #' @param .smooth_degree Flexibility of Loess Polynomial.
@@ -37,6 +41,7 @@
 #' @param .title Title for the plot
 #' @param .x_lab X-axis label for the plot
 #' @param .y_lab Y-axis label for the plot
+#' @param .color_lab Legend label if a `color_var` is used.
 #' @param .interactive Returns either a static (`ggplot2`) visualization or an interactive (`plotly`) visualization
 #' @param .plotly_slider If TRUE, returns a plotly date range slider.
 #'
@@ -70,8 +75,25 @@
 #' a call like `plot_time_series(date, log(sales))` and the log transformation
 #' will be applied.
 #'
+#' __Smoother Period / Span Calculation__
+#'
+#' The `.smooth = TRUE` option returns a smoother that is calculated based on either:
+#'
+#' 1. A `.smooth_period`: Number of observations
+#' 2. A `.smooth_span`: A percentage of observations
+#'
+#' By default, the `.smooth_period` is automatically calculated using 75% of the observertions.
+#' This is the same as `geom_smooth(method = "loess", span = 0.75)`.
+#'
+#' A user can specify a time-based window (e.g. `.smooth_period = "1 year"`)
+#' or a numeric value (e.g. `smooth_period = 365`).
+#'
+#' Time-based windows return the median number of observations in a window using `tk_get_trend()`.
+#'
+#'
 #'
 #' @examples
+#'
 #' library(tidyverse)
 #' library(tidyquant)
 #' library(lubridate)
@@ -99,11 +121,15 @@
 #'                      .facet_scales = "free",
 #'                      .interactive  = FALSE)
 #'
-#' # Can apply .value mutations
+#' # Can apply transformations to .value or .color_var
+#' # - .value = log(adjusted)
+#' # - .color_var = year(date)
 #' FANG %>%
 #'     plot_time_series(date, log(adjusted), symbol,
-#'                      .facet_ncol   = 4,
+#'                      .color_var = year(date),
+#'                      .facet_ncol   = 2,
 #'                      .facet_scales = "free",
+#'                      .y_lab = "Log Scale",
 #'                      .interactive  = FALSE)
 #'
 #' # Plotly - Interactive Visualization By Default (Great for Exploration)
@@ -116,9 +142,9 @@
 #'         date, adjusted, symbol,
 #'         .color_var     = symbol,
 #'         .facet_ncol    = 2,
-#'         .smooth_period = 180,
+#'         .smooth_period = "6 months",
 #'         .interactive   = FALSE) +
-#'    theme_tq_dark() +
+#'    theme_minimal() +
 #'    scale_color_viridis_d()
 #'
 #'
@@ -129,10 +155,15 @@ plot_time_series <- function(.data, .date_var, .value, ..., .color_var = NULL,
                              .line_color = "#2c3e50", .line_size = 0.5,
                              .line_type = 1, .line_alpha = 1,
                              .y_intercept = NULL, .y_intercept_color = "#2c3e50",
-                             .smooth = TRUE, .smooth_period = NULL,
-                             .smooth_span = 0.75, .smooth_degree = 2,
+
+                             .smooth = TRUE, .smooth_period = "auto",
+                             .smooth_message = FALSE,
+                             .smooth_span = NULL, .smooth_degree = 2,
                              .smooth_color = "#3366FF", .smooth_size = 1, .smooth_alpha = 1,
+
                              .title = "Time Series Plot", .x_lab = "", .y_lab = "",
+                             .color_lab = "Legend",
+
                              .interactive = TRUE, .plotly_slider = FALSE) {
 
     # Tidyeval Setup
@@ -157,16 +188,21 @@ plot_time_series <- function(.data, .date_var, .value, ..., .color_var = NULL,
 
 #' @export
 plot_time_series.data.frame <- function(.data, .date_var, .value, ..., .color_var = NULL,
-                             .facet_ncol = 1, .facet_scales = "free_y",
-                             .facet_collapse = TRUE, .facet_collapse_sep = " ",
-                             .line_color = "#2c3e50", .line_size = 0.5,
-                             .line_type = 1, .line_alpha = 1,
-                             .y_intercept = NULL, .y_intercept_color = "#2c3e50",
-                             .smooth = TRUE, .smooth_period = NULL,
-                             .smooth_span = 0.75, .smooth_degree = 2,
-                             .smooth_color = "#3366FF", .smooth_size = 1, .smooth_alpha = 1,
-                             .title = "Time Series Plot", .x_lab = "", .y_lab = "",
-                             .interactive = TRUE, .plotly_slider = FALSE) {
+                                        .facet_ncol = 1, .facet_scales = "free_y",
+                                        .facet_collapse = TRUE, .facet_collapse_sep = " ",
+                                        .line_color = "#2c3e50", .line_size = 0.5,
+                                        .line_type = 1, .line_alpha = 1,
+                                        .y_intercept = NULL, .y_intercept_color = "#2c3e50",
+
+                                        .smooth = TRUE, .smooth_period = "auto",
+                                        .smooth_message = FALSE,
+                                        .smooth_span = NULL, .smooth_degree = 2,
+                                        .smooth_color = "#3366FF", .smooth_size = 1, .smooth_alpha = 1,
+
+                                        .title = "Time Series Plot", .x_lab = "", .y_lab = "",
+                                        .color_lab = "Legend",
+
+                                        .interactive = TRUE, .plotly_slider = FALSE) {
 
 
     # Tidyeval Setup
@@ -181,20 +217,18 @@ plot_time_series.data.frame <- function(.data, .date_var, .value, ..., .color_va
     data_formatted <- .data %>%
         dplyr::group_by(!!! facets_expr) %>%
         dplyr::mutate(.value_mod = !! value_expr) %>%
-        dplyr::select(!! date_var_expr, .value_mod, !!! facets_expr, !! color_var_expr) %>%
         dplyr::ungroup()
 
     # Color setup
     if (rlang::quo_is_missing(color_var_expr)) color_var_expr <- enquo(NULL)
 
     if (!rlang::quo_is_null(color_var_expr)) {
-        color_class <- data_formatted %>% dplyr::pull(!! color_var_expr)
-        if (inherits(color_class, c("integer", "double", "logical", "numeric"))) {
-            message("plot_time_series(.color_var): variable, ", rlang::quo_name(color_var_expr), ", is not categorical. Converting to factor with forcats::as_factor().")
-            data_formatted <- data_formatted %>%
-                # dplyr::mutate_at(.vars = dplyr::vars(!! color_var_expr), as.character) %>%
-                dplyr::mutate_at(.vars = dplyr::vars(!! color_var_expr), forcats::as_factor)
-        }
+
+        data_formatted <- data_formatted %>%
+            dplyr::group_by(!!! facets_expr) %>%
+            dplyr::mutate(.color_mod = (!! color_var_expr)) %>%
+            dplyr::ungroup() %>%
+            dplyr::mutate(.color_mod = forcats::as_factor(.color_mod))
     }
 
     # Facet setup
@@ -208,7 +242,6 @@ plot_time_series.data.frame <- function(.data, .date_var, .value, ..., .color_va
                 dplyr::mutate(.facets_collapsed = stringr::str_c(!!! rlang::syms(facet_names),
                                                                 sep = .facet_collapse_sep)) %>%
                 dplyr::mutate(.facets_collapsed = forcats::as_factor(.facets_collapsed)) %>%
-                # dplyr::select(-(!!! rlang::syms(facet_names))) %>%
                 dplyr::group_by(.facets_collapsed)
 
             facet_names <- ".facets_collapsed"
@@ -222,19 +255,32 @@ plot_time_series.data.frame <- function(.data, .date_var, .value, ..., .color_va
     # Smooth calculation
     if (.smooth) {
 
-        if (!is.null(.smooth_period)) {
-            .smooth_span <- NULL
+        # Handle Groups
+        group_names   <- dplyr::group_vars(data_formatted)
+        if (!rlang::quo_is_null(color_var_expr)) {
+            # If color applied, add as group variable
+            group_names <- c(group_names, ".color_mod")
         }
 
+        if (length(group_names) > 0) {
+            data_formatted <- data_formatted %>%
+                dplyr::ungroup() %>%
+                dplyr::group_by(!!! rlang::syms(group_names))
+        }
+
+        # Apply smoother
         data_formatted <- data_formatted %>%
-            dplyr::mutate(.value_smooth = smooth_vec(
-                .value_mod,
-                period = .smooth_period,
-                span   = .smooth_span,
-                degree = .smooth_degree)
+            dplyr::mutate(.value_smooth = auto_smooth(
+                idx                   = !! date_var_expr,
+                x                     = .value_mod,
+                smooth_period         = .smooth_period,
+                smooth_span           = .smooth_span,
+                smooth_degree         = .smooth_degree,
+                smooth_message        = .smooth_message)
             ) %>%
             dplyr::ungroup()
     }
+
 
 
     # ---- PLOT SETUP ----
@@ -256,7 +302,7 @@ plot_time_series.data.frame <- function(.data, .date_var, .value, ..., .color_va
     } else {
         g <- g +
             ggplot2::geom_line(
-                ggplot2::aes(color = !! color_var_expr),
+                ggplot2::aes(color = .color_mod, group = .color_mod),
                 size     = .line_size,
                 linetype = .line_type,
                 alpha    = .line_alpha
@@ -276,12 +322,24 @@ plot_time_series.data.frame <- function(.data, .date_var, .value, ..., .color_va
 
     # Add a smoother
     if (.smooth) {
-        g <- g +
-            ggplot2::geom_line(
-                ggplot2::aes(y = .value_smooth),
-                color = .smooth_color,
-                size  = .smooth_size,
-                alpha = .smooth_alpha)
+        if (rlang::quo_is_null(color_var_expr)) {
+            g <- g +
+                ggplot2::geom_line(
+                    ggplot2::aes(y = .value_smooth),
+                    color = .smooth_color,
+                    size  = .smooth_size,
+                    alpha = .smooth_alpha)
+
+        } else {
+            g <- g +
+                ggplot2::geom_line(
+                    ggplot2::aes(y = .value_smooth, group = .color_mod),
+                    color = .smooth_color,
+                    size  = .smooth_size,
+                    alpha = .smooth_alpha
+                )
+        }
+
     }
 
     # Add a Y-Intercept if desired
@@ -293,7 +351,7 @@ plot_time_series.data.frame <- function(.data, .date_var, .value, ..., .color_va
     # Add theme & labs
     g <- g +
         theme_tq() +
-        ggplot2::labs(x = .x_lab, y = .y_lab, title = .title)
+        ggplot2::labs(x = .x_lab, y = .y_lab, title = .title, color = .color_lab)
 
     if (.interactive) {
 
@@ -321,10 +379,15 @@ plot_time_series.grouped_df <- function(.data, .date_var, .value, ..., .color_va
                                         .line_color = "#2c3e50", .line_size = 0.5,
                                         .line_type = 1, .line_alpha = 1,
                                         .y_intercept = NULL, .y_intercept_color = "#2c3e50",
-                                        .smooth = TRUE, .smooth_period = NULL,
-                                        .smooth_span = 0.75, .smooth_degree = 2, .smooth_alpha = 1,
-                                        .smooth_color = "#3366FF", .smooth_size = 1,
+
+                                        .smooth = TRUE, .smooth_period = "auto",
+                                        .smooth_message = FALSE,
+                                        .smooth_span = NULL, .smooth_degree = 2,
+                                        .smooth_color = "#3366FF", .smooth_size = 1, .smooth_alpha = 1,
+
                                         .title = "Time Series Plot", .x_lab = "", .y_lab = "",
+                                        .color_lab = "Legend",
+
                                         .interactive = TRUE, .plotly_slider = FALSE) {
 
     # Tidy Eval Setup
@@ -353,29 +416,74 @@ plot_time_series.grouped_df <- function(.data, .date_var, .value, ..., .color_va
         # ...
         !!! syms(group_names),
 
-        .facet_ncol         = .facet_ncol,
-        .facet_scales       = .facet_scales,
-        .facet_collapse     = .facet_collapse,
-        .facet_collapse_sep = .facet_collapse_sep,
-        .line_color         = .line_color,
-        .line_size          = .line_size,
-        .line_type          = .line_type,
-        .line_alpha         = .line_alpha,
-        .y_intercept        = .y_intercept,
-        .y_intercept_color  = .y_intercept_color,
-        .smooth             = .smooth,
-        .smooth_period      = .smooth_period,
-        .smooth_span        = .smooth_span,
-        .smooth_degree      = .smooth_degree,
-        .smooth_color       = .smooth_color,
-        .smooth_size        = .smooth_size,
-        .smooth_alpha       = .smooth_alpha,
-        .title              = .title,
-        .x_lab              = .x_lab,
-        .y_lab              = .y_lab,
-        .interactive        = .interactive,
-        .plotly_slider      = .plotly_slider
+        .facet_ncol            = .facet_ncol,
+        .facet_scales          = .facet_scales,
+        .facet_collapse        = .facet_collapse,
+        .facet_collapse_sep    = .facet_collapse_sep,
+        .line_color            = .line_color,
+        .line_size             = .line_size,
+        .line_type             = .line_type,
+        .line_alpha            = .line_alpha,
+        .y_intercept           = .y_intercept,
+        .y_intercept_color     = .y_intercept_color,
+
+        .smooth                = .smooth,
+        .smooth_period         = .smooth_period,
+        .smooth_message        = .smooth_message,
+        .smooth_span           = .smooth_span,
+        .smooth_degree         = .smooth_degree,
+        .smooth_color          = .smooth_color,
+        .smooth_size           = .smooth_size,
+        .smooth_alpha          = .smooth_alpha,
+
+        .title                 = .title,
+        .x_lab                 = .x_lab,
+        .y_lab                 = .y_lab,
+        .interactive           = .interactive,
+        .plotly_slider         = .plotly_slider
     )
 
 
 }
+
+
+# UTILS ----
+
+# A wrapper for smooth_vec() that handles changes in grouped idx's
+auto_smooth <- function(idx, x,
+                        smooth_period,
+                        smooth_span,
+                        smooth_degree,
+                        smooth_message) {
+
+    if (all(c(!is.null(smooth_period), is.null(smooth_span)))) {
+        # smooth_period = some value, and smooth span is NULL
+
+        if (tolower(smooth_period) == "auto") {
+            smooth_period <- ceiling(length(idx) * 0.75)
+        }
+
+        smooth_period <- tk_get_trend(
+            idx      = idx,
+            period   = smooth_period,
+            message  = smooth_message
+        )
+
+        smooth_span <- NULL
+    } else {
+        # smooth span overrides smooth period
+        smooth_period <- NULL
+        smooth_span   <- as.numeric(smooth_span)
+        # if (smooth_message) message(stringr::str_glue())
+    }
+
+   ret <- smooth_vec(
+       x      = x,
+       period = smooth_period,
+       span   = smooth_span,
+       degree = smooth_degree)
+
+    return(ret)
+}
+
+

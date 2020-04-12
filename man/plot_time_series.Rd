@@ -21,8 +21,9 @@ plot_time_series(
   .y_intercept = NULL,
   .y_intercept_color = "#2c3e50",
   .smooth = TRUE,
-  .smooth_period = NULL,
-  .smooth_span = 0.75,
+  .smooth_period = "auto",
+  .smooth_message = FALSE,
+  .smooth_span = NULL,
   .smooth_degree = 2,
   .smooth_color = "#3366FF",
   .smooth_size = 1,
@@ -30,6 +31,7 @@ plot_time_series(
   .title = "Time Series Plot",
   .x_lab = "",
   .y_lab = "",
+  .color_lab = "Legend",
   .interactive = TRUE,
   .plotly_slider = FALSE
 )
@@ -73,7 +75,12 @@ multiple facet strips.}
 Uses See \code{\link[=smooth_vec]{smooth_vec()}} to apply a LOESS smoother.}
 
 \item{.smooth_period}{Number of observations to include in the Loess Smoother.
-You can use either period or span. See \code{\link[=smooth_vec]{smooth_vec()}}.}
+Set to "auto" by default, which uses \code{tk_get_trend()}
+to determine a logical trend cycle.}
+
+\item{.smooth_message}{Logical.
+Whether or not to return the trend selected as a message.
+Useful for those that want to see what \code{.smooth_period} was selected.}
 
 \item{.smooth_span}{Percentage of observations to include in the Loess Smoother.
 You can use either period or span. See \code{\link[=smooth_vec]{smooth_vec()}}.}
@@ -92,6 +99,8 @@ Either 0, 1, 2 (0 = lest flexible, 2 = more flexible).}
 \item{.x_lab}{X-axis label for the plot}
 
 \item{.y_lab}{Y-axis label for the plot}
+
+\item{.color_lab}{Legend label if a \code{color_var} is used.}
 
 \item{.interactive}{Returns either a static (\code{ggplot2}) visualization or an interactive (\code{plotly}) visualization}
 
@@ -132,8 +141,25 @@ The \code{.values} argument accepts transformations just like \code{ggplot2}.
 For example, if you want to take the log of sales you can use
 a call like \code{plot_time_series(date, log(sales))} and the log transformation
 will be applied.
+
+\strong{Smoother Period / Span Calculation}
+
+The \code{.smooth = TRUE} option returns a smoother that is calculated based on either:
+\enumerate{
+\item A \code{.smooth_period}: Number of observations
+\item A \code{.smooth_span}: A percentage of observations
+}
+
+By default, the \code{.smooth_period} is automatically calculated using 75\% of the observertions.
+This is the same as \code{geom_smooth(method = "loess", span = 0.75)}.
+
+A user can specify a time-based window (e.g. \code{.smooth_period = "1 year"})
+or a numeric value (e.g. \code{smooth_period = 365}).
+
+Time-based windows return the median number of observations in a window using \code{tk_get_trend()}.
 }
 \examples{
+
 library(tidyverse)
 library(tidyquant)
 library(lubridate)
@@ -161,11 +187,15 @@ FANG \%>\%
                      .facet_scales = "free",
                      .interactive  = FALSE)
 
-# Can apply .value mutations
+# Can apply transformations to .value or .color_var
+# - .value = log(adjusted)
+# - .color_var = year(date)
 FANG \%>\%
     plot_time_series(date, log(adjusted), symbol,
-                     .facet_ncol   = 4,
+                     .color_var = year(date),
+                     .facet_ncol   = 2,
                      .facet_scales = "free",
+                     .y_lab = "Log Scale",
                      .interactive  = FALSE)
 
 # Plotly - Interactive Visualization By Default (Great for Exploration)
@@ -178,9 +208,9 @@ FANG \%>\%
         date, adjusted, symbol,
         .color_var     = symbol,
         .facet_ncol    = 2,
-        .smooth_period = 180,
+        .smooth_period = "6 months",
         .interactive   = FALSE) +
-   theme_tq_dark() +
+   theme_minimal() +
    scale_color_viridis_d()
 
 
