@@ -63,13 +63,9 @@ index_daily <- tk_make_timeseries("2016-01-01", "2016-02-01", by = "day")
 # ADD TIME
 # - Note `NA` values created where a daily dates aren't possible
 #   (e.g. Feb 29 & 30, 2016 doesn't exist).
-add_time(index_daily, "1 month")
-
-# Using Infix `\%+time\%`
 index_daily \%+time\% "1 month"
 
-# Subtracting Time (These do the same thing)
-index_daily \%+time\% "-1 month"
+# Subtracting Time
 index_daily \%-time\% "1 month"
 
 
