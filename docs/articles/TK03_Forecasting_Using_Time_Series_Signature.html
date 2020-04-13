@@ -62,7 +62,7 @@
   <ul class="dropdown-menu" role="menu">
 <li class="dropdown-header">Plotting</li>
     <li>
-      <a href="../articles/TK04_Plotting_Time_Series.html">Plotting a Time Series</a>
+      <a href="../articles/TK04_Plotting_Time_Series.html">Plotting Time Series</a>
     </li>
     <li class="divider">
     <li class="dropdown-header">Machine Learning</li>
@@ -276,11 +276,11 @@
     <span class="fu"><a href="https://rdrr.io/pkg/workflows/man/add_model.html">add_model</a></span>(<span class="no">model_spec_glmnet</span>)
 
 <span class="no">workflow_glmnet</span></pre></body></html></div>
-<pre><code>## ══ Workflow ══════════════════════════════════════════════════════════════════════════════════════════════════════
+<pre><code>## ══ Workflow ════════════════════════════════════════════════════════════════════════════════════════════════
 ## Preprocessor: Recipe
 ## Model: linear_reg()
 ## 
-## ── Preprocessor ──────────────────────────────────────────────────────────────────────────────────────────────────
+## ── Preprocessor ────────────────────────────────────────────────────────────────────────────────────────────
 ## 6 Recipe Steps
 ## 
 ## ● step_timeseries_signature()
@@ -290,7 +290,7 @@
 ## ● step_dummy()
 ## ● step_ns()
 ## 
-## ── Model ─────────────────────────────────────────────────────────────────────────────────────────────────────────
+## ── Model ───────────────────────────────────────────────────────────────────────────────────────────────────
 ## Linear Regression Model Specification (regression)
 ## 
 ## Main Arguments:
@@ -476,22 +476,43 @@
     <span class="fu">labs</span>(<span class="kw">title</span> <span class="kw">=</span> <span class="st">"Bikes Sharing Dataset: 6-Month Forecast with Prediction Intervals"</span>, <span class="kw">x</span> <span class="kw">=</span> <span class="st">""</span>) +
     <span class="fu"><a href="https://rdrr.io/pkg/tidyquant/man/theme_tq.html">theme_tq</a></span>()</pre></body></html></div>
 <p><img src="TK03_Forecasting_Using_Time_Series_Signature_files/figure-html/unnamed-chunk-24-1.png" width="95%" style="display: block; margin: auto;"></p>
+<!--
+# Parting Thoughts
+
+Forecasting using the time series signature can be very accurate especially when time-based patterns are present in the underlying data. As with most machine learning applications, the prediction is only as good as the patterns in the data. Forecasting using this approach may _not_ be suitable when patterns are not present or when the future is highly uncertain (i.e. past is not a suitable predictor of future performance). However, in may situations the time series signature can provide an accurate forecast.
+
+One benefit to the machine learning approach that was not covered in this vignette but is an significant advantage is that other features (including non-time-based) can be included in the analysis if the values are present in the training and test sets and can be determined with some level of accuracy in the future. For example, one can expect that experts in Bike Sharing analytics have access to historical temperature and weather patterns, wind speeds, and so on that could have a significant affect on bicycle sharing. The beauty of this method is these features can easily be incorporated into the model and prediction.
+
+__Last, a few points on the modeling process - The following modeling steps are absolutely critical to developing forecasts that will return ROI to your company:__
+
+- Preprocessing 
+- Feature engineering using lagged variables 
+- Hyperparameter Tuning
+- Time series cross validation
+- Using Multiple Modeling Techniques
+- and more. 
+
+These will be covered in my upcoming [__Advanced Time Series Course (Register Here)__](https://mailchi.mp/business-science/time-series-forecasting-course-coming-soon). 
+-->
 </div>
-<div id="parting-thoughts" class="section level1">
+<div id="learning-more" class="section level1">
 <h1 class="hasAnchor">
-<a href="#parting-thoughts" class="anchor"></a>Parting Thoughts</h1>
-<p>Forecasting using the time series signature can be very accurate especially when time-based patterns are present in the underlying data. As with most machine learning applications, the prediction is only as good as the patterns in the data. Forecasting using this approach may <em>not</em> be suitable when patterns are not present or when the future is highly uncertain (i.e. past is not a suitable predictor of future performance). However, in may situations the time series signature can provide an accurate forecast.</p>
-<p>One benefit to the machine learning approach that was not covered in this vignette but is an significant advantage is that other features (including non-time-based) can be included in the analysis if the values are present in the training and test sets and can be determined with some level of accuracy in the future. For example, one can expect that experts in Bike Sharing analytics have access to historical temperature and weather patterns, wind speeds, and so on that could have a significant affect on bicycle sharing. The beauty of this method is these features can easily be incorporated into the model and prediction.</p>
-<p><strong>Last, a few points on the modeling process - The following modeling steps are absolutely critical to developing forecasts that will return ROI to your company:</strong></p>
+<a href="#learning-more" class="anchor"></a>Learning More</h1>
+<p>If you are interested in learning from my advanced <a href="https://mailchi.mp/business-science/time-series-forecasting-course-coming-soon"><strong>Time Series Analysis &amp; Forecasting Course</strong></a>, then join my waitlist. The course is coming soon.</p>
+<p><img src="time_series_course.jpg" width="95%" style="display: block; margin: auto;"></p>
+<p>You will learn:</p>
 <ul>
-<li>Preprocessing</li>
-<li>Feature engineering using lagged variables</li>
+<li>Time Series Preprocessing, Noise Reduction, &amp; Anomaly Detection</li>
+<li>Feature engineering using lagged variables &amp; external regressors</li>
 <li>Hyperparameter Tuning</li>
-<li>Time series cross validation</li>
-<li>Using Multiple Modeling Techniques</li>
+<li>Time series cross-validation</li>
+<li>Ensembling Multiple Machine Learning &amp; Univariate Modeling Techniques (Competition Winner)</li>
+<li>NEW - Deep Learning with RNNs (Competition Winner)</li>
 <li>and more.</li>
 </ul>
-<p>These will be covered in my upcoming <a href="https://mailchi.mp/business-science/time-series-forecasting-course-coming-soon"><strong>Advanced Time Series Course (Register Here)</strong></a>.</p>
+<p class="text-center" style="font-size:30px;">
+<a href="https://mailchi.mp/business-science/time-series-forecasting-course-coming-soon">Signup for the Time Series Course waitlist</a>
+</p>
 </div>
   </div>
 

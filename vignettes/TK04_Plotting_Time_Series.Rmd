@@ -25,11 +25,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup}
-library(tidyverse)
-library(lubridate)
-library(timetk)
-```
+
 
 > timetk: A toolkit for time series analysis in the tidyverse
 
@@ -40,6 +36,11 @@ This tutorial focuses on, `plot_time_series()`, a workhorse time-series plotting
 - Scales well to many time series
 - Can be converted from interactive `plotly` to static `ggplot2` plots
 
+```{r setup}
+library(tidyverse)
+library(lubridate)
+library(timetk)
+```
 
 # Plotting Single Time Series
 
@@ -51,11 +52,12 @@ taylor_30_min
 
 The `plot_time_series()` function generates an interactive `plotly` chart by default. 
 
-- Simply provide the date variable (time-based column) and the numeric variable that changes over time as the first 2 arguments 
+- Simply provide the date variable (time-based column, `.date_var`) and the numeric variable (`.value`) that changes over time as the first 2 arguments 
 - `.plotly_slider = TRUE` adds a date slider to the bottom of the chart. 
 
 ```{r}
-taylor_30_min %>% plot_time_series(date, value, .plotly_slider = TRUE)
+taylor_30_min %>% 
+  plot_time_series(date, value, .plotly_slider = TRUE)
 ```
 
 
@@ -86,31 +88,41 @@ m4_daily %>%
 By default, a LOESS smoother is added to capture trend. This smoother is similar to `geom_smooth()`. However, there are advanced controls including being able to change the flexibility of the smoother using time-based phrases: 
 
 - `.smooth_period = "auto"` Selects 75% of the data for the smoother span. 
-- `.smooth_period = 365.5 * 2` Selects exactly 731 observations, or 2-years of data with no m
-- `.smooth_period = "2 years"` Uses a trend consisting of 2 full years of data. 
-- `.smooth_span = 0.75` Uses 75% of the data. Overrides the `.smooth_period`. 
+- `.smooth_period = "2 years"` Each series uses a loess trend consisting of 2 full years of data. 
+- `.smooth_period = 365.5 * 2` Selects exactly 731 observations.
+- `.smooth_span = 0.75` Each series uses 75% of the data. Overrides the `.smooth_period`. 
 
-Note that setting `smooth_message = TRUE` generates the number of observations used for the trend. 
+Note that setting `smooth_message = TRUE` returns a message with the number of observations used for the loess trend. 
 
 ```{r, message=TRUE}
 m4_daily %>%
   group_by(id) %>%
   plot_time_series(date, value, 
                    .facet_ncol = 2, .facet_scales = "free", 
-                    # Note that D10 and D410 have incomplete windows (a shorter trend is selected)
-                   .smooth_period  = "2 year", 
-                   .smooth_message = TRUE)     # Shows the trend period selected
+                    # Note that D10 and D410 have less than 730 observations
+                   .smooth_period  = "2 year",
+                   # Shows the trend period selected
+                   .smooth_message = TRUE) 
 ```
 
 
 
 # Visualizing Transformations & Sub-Groups
 
+Let's switch to an hourly dataset with multiple groups. We can showcase:
 
+1. Log transformation to the `.value`
+2. Use of `.color_var` to highlight sub-groups. 
 
 ```{r}
 m4_hourly %>% group_by(id)
 ```
+
+The intent is to showcase the groups in faceted plots, but to highlight weekly windows (sub-groups) within the data while simultaneously doing a `log()` transformation to the value. This is simple to do:
+
+1. `.value = log(value)` Applies the Log Transformation
+2. The data is ungrouped, so we can add facets internally using the `...` to supply one or more facet columns.
+3. `.color_var = week(date)` The date column is transformed to a `lubridate::week()` number. The color is applied to each of the week numbers. 
 
 ```{r}
 m4_hourly %>%
@@ -122,17 +134,47 @@ m4_hourly %>%
                    .facet_scales = "free")
 ```
 
-# Static ggplot2 Visualizations
+# Static ggplot2 Visualizations & Customizations
 
 All of the visualizations can be converted from interactive `plotly` (great for exploring and shiny apps) to static `ggplot2` visualizations (great for reports).
 
 ```{r}
 taylor_30_min %>%
-  plot_time_series(date, value, .interactive = FALSE)
+  plot_time_series(date, value, 
+                   .color_var = month(date, label = TRUE),
+                   
+                   # Returns static ggplot
+                   .interactive = FALSE,  
+                   
+                   # Customization
+                   .title = "Taylor's MegaWatt Data",
+                   .x_lab = "Date (30-min intervals)",
+                   .y_lab = "Energy Demand (MW)",
+                   .color_lab = "Month") +
+  scale_y_continuous(labels = scales::comma_format())
 ```
 
 # Learning More
 
-If you are interested in learning Time Series Analysis & Forecasting, then I have an Advanced Time Series Course coming soon.
+If you are interested in learning from my advanced __Time Series Analysis & Forecasting Course__, then [join my waitlist](https://mailchi.mp/business-science/time-series-forecasting-course-coming-soon). The course is coming soon. 
+
+```{r, echo=FALSE}
+knitr::include_graphics("time_series_course.jpg")
+```
+
+You will learn:
+
+- Time Series Preprocessing, Noise Reduction, & Anomaly Detection
+- Feature engineering using lagged variables & external regressors
+- Hyperparameter Tuning
+- Time series cross-validation
+- Ensembling Multiple Machine Learning & Univariate Modeling Techniques (Competition Winner)
+- NEW - Deep Learning with RNNs (Competition Winner)
+- and more.
+
+<p class="text-center" style="font-size:30px;">
+<a href="https://mailchi.mp/business-science/time-series-forecasting-course-coming-soon">Signup for the Time Series Course waitlist</a>
+</p>
+
 
 
