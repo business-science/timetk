@@ -9,6 +9,7 @@ tk_make_timeseries(
   end_date,
   by,
   length_out = NULL,
+  include_endpoints = TRUE,
   skip_values = NULL,
   insert_values = NULL
 )
@@ -25,7 +26,10 @@ Provide in "YYYY-MM-DD" format.}
 You can create regularly spaced sequences using phrases like \code{by = "10 min"}. See Details.}
 
 \item{length_out}{Optional length of the sequence. Can be used instead of one of:
-\code{start_date}, \code{end_date}, or \code{by}.}
+\code{start_date}, \code{end_date}, or \code{by}. Can be specified as a number or a time-based phrase.}
+
+\item{include_endpoints}{Logical. Whether or not to keep the last value when \code{length_out} is
+a time-based phrase.}
 
 \item{skip_values}{A sequence to skip}
 
@@ -50,7 +54,7 @@ automatically.
 \item Can skip and insert values if needed.
 }
 
-\strong{Daily Sequences}
+\strong{By: Daily Sequences}
 
 Make a daily sequence with \code{tk_make_timeseries(by)}. Examples:
 \itemize{
@@ -59,7 +63,7 @@ Make a daily sequence with \code{tk_make_timeseries(by)}. Examples:
 \item Every 6-months: \code{by = "6 months"}
 }
 
-\strong{Sub-Daily Sequences}
+\strong{By: Sub-Daily Sequences}
 
 Make a sub-daily sequence with \code{tk_make_timeseries(by)}. Examples:
 \itemize{
@@ -67,6 +71,22 @@ Make a sub-daily sequence with \code{tk_make_timeseries(by)}. Examples:
 \item Every 30-seconds: \code{by = "30 sec"}
 \item Every 2-hours: \verb{by = "2 hours}
 }
+
+\strong{Length Out}
+
+The \code{length_out} can be specified by number of observation or complex time-based expressions.
+The following examples are all possible.
+\itemize{
+\item \code{length_out = 12} Creates 12 evenly spaced observations.
+\item \code{length_out = "12 months"} Adjusts the end date so it falls on the 12th month.
+}
+
+\strong{Include Endpoint}
+
+Sometimes the last date is not desired.
+For example, if the user specifies \verb{length_out = 12 months}, the user may want the last value
+to be the 12th month and not the 13th. Just toggle, \code{include_endpoint = FALSE} to obtain this
+behavior.
 
 \strong{Skip / Insert Timestamps}
 
@@ -82,24 +102,43 @@ options(max.print = 50)
 
 # ---- DATE ----
 
-# Date Sequence - By Day
-tk_make_timeseries("2017-01-01", "2017-12-31") # Guesses by = "day"
+# Start + End, Guesses by = "day"
+tk_make_timeseries("2017-01-01", "2017-12-31")
 
-# Date Sequence - By Day
+# Start + Length Out, Guesses by = "day"
 tk_make_timeseries("2012-01-01", length_out = 6) # Guesses by = "day"
 
-# Date Sequence - By Month
-tk_make_timeseries("2012-01-01", by = "1 month", length_out = 6) # Switch to month
+# Start + By + Length Out, Spacing 6 observations by monthly interval
+tk_make_timeseries("2012-01-01", by = "1 month", length_out = 6)
 
+# Start + By + Length Out, Phrase "1 year 6 months"
+tk_make_timeseries("2012-01-01", by = "1 month",
+                   length_out = "1 year 6 months", include_endpoints = FALSE)
+
+# Going in Reverse, End + Length Out
+tk_make_timeseries(end_date = "2012-01-01", by = "1 month",
+                   length_out = "1 year 6 months", include_endpoints = FALSE)
 
 # ---- DATE-TIME ----
 
-# Date-Time Sequence - By Second
-tk_make_timeseries("2016-01-01 01:01:02", "2016-01-01 01:01:04") # Guesses by second
+# Start + End, Guesses by second
+tk_make_timeseries("2016-01-01 01:01:02", "2016-01-01 01:01:04")
 
 # Date-Time Sequence - By 10 Minutes
 # - Converts to date-time automatically & applies 10-min interval
 tk_make_timeseries("2017-01-01", "2017-01-02", by = "10 min")
+
+
+# --- REMOVE / INCLUDE ENDPOINTS ----
+
+# Last value in this case is desired
+tk_make_timeseries("2017-01-01", by = "30 min", length_out = "6 hours")
+
+# Last value in monthly case is not wanted
+tk_make_timeseries("2012-01-01", by = "1 month",
+                   length_out = "12 months",
+                   include_endpoints = FALSE) # Removes unnecessary last value
+
 
 # ---- SKIP & INSERT VALUES ----
 
