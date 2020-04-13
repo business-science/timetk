@@ -124,16 +124,19 @@ tk_make_timeseries <- function(start_date, end_date, by, length_out = NULL,
     }
 
     # Determine if sequence_type is date or datetime. Returns parser selection.
+    parser <- NULL
     if (!rlang::is_missing(by)) {
         if (stringr::str_detect(tolower(by), pattern = "(sec)|(min)|(hour)")) {
             parser <- "datetime"
-        } else {
-            parser <- "date"
         }
-    } else if (!rlang::is_missing(start_date)) {
-        parser <- readr::guess_parser(start_date)
-    } else {
-        parser <- readr::guess_parser(end_date)
+    }
+    # datetime was not detected in by, move to start_date / end_date
+    if (is.null(parser)) {
+        if (!rlang::is_missing(start_date)) {
+            parser <- readr::guess_parser(start_date)
+        } else if (!rlang::is_missing(end_date)) {
+            parser <- readr::guess_parser(end_date)
+        }
     }
 
     # Apply parser

@@ -13,3 +13,5 @@ img
 ^docs$
 ^pkgdown$
 ^CRAN-RELEASE$
+^doc$
+^Meta$

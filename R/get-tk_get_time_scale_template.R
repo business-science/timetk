@@ -49,7 +49,7 @@ tk_time_scale_template <- function() {
     tibble::tribble(
         ~ "time_scale",   ~ "frequency",        ~ "trend",
         "second",         "1 hour",             "12 hours",
-        "minute",         "1 day",              "1 week",
+        "minute",         "1 day",              "14 days",
         "hour",           "1 day",              "1 month",
         "day",            "1 week",             "3 months",
         "week",           "1 quarter",          "1 year",

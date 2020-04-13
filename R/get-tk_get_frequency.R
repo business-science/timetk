@@ -101,14 +101,14 @@ tk_get_frequency <- function(idx, period = "auto", message = TRUE) {
 
     } else if (tolower(period) != "auto") {
         # 2. Text (e.g. period = "2 Weeks")
-        freq <- get_median_period(idx, period = period)
+        freq <- get_period_statistic(idx, period = period, fn = stats::median)
 
     } else {
         # 3. period = "auto"
         periodicity_target <- template %>%
             lookup_time_scale(time_scale = ts_scale, lookup_val = "frequency", index_offset = 0)
 
-        freq <- get_median_period(idx, period = periodicity_target)
+        freq <- get_period_statistic(idx, period = periodicity_target, fn = stats::median)
 
         # Insufficient observations: nobs-to-freq should be at least 3-1
         if (ts_nobs < 3*freq) {
@@ -119,7 +119,7 @@ tk_get_frequency <- function(idx, period = "auto", message = TRUE) {
                     index_offset = 1
                 )
 
-            freq <- get_median_period(idx, period = periodicity_target)
+            freq <- get_period_statistic(idx, period = periodicity_target, fn = stats::median)
         }
 
         if (ts_nobs < 3*freq) {
@@ -154,18 +154,23 @@ tk_get_trend <- function(idx, period = "auto", message = TRUE) {
 
     } else if (tolower(period) != "auto") {
         # 2. Text (e.g. period = "2 Weeks")
-        trend <- get_median_period(idx, period = period)
+        # trend <- get_period_statistic(idx, period = period, fn = max)
+
+        date_1 <- min(idx)
+        date_2 <- offset_date(date_1, by = period)
+        trend  <- between_time(idx, start_date = date_1, end_date = date_2) %>% sum()
+        trend  <- trend - 1
 
     } else {
         # 3. period = "auto"
         periodicity_target <- template %>%
             lookup_time_scale(
                 time_scale   = ts_scale,
-                lookup_val       = "trend",
+                lookup_val   = "trend",
                 index_offset = 0
             )
 
-        trend <- get_median_period(idx, period = periodicity_target)
+        trend <- get_period_statistic(idx, period = periodicity_target, fn = max)
         # trend <- ceiling(trend)
 
         # Insufficient observations: nobs-to-trend should be at least 2-1
@@ -173,11 +178,11 @@ tk_get_trend <- function(idx, period = "auto", message = TRUE) {
             periodicity_target <- template %>%
                 lookup_time_scale(
                     time_scale   = ts_scale,
-                    lookup_val       = "trend",
+                    lookup_val   = "trend",
                     index_offset = 1
                 )
 
-            trend <- get_median_period(idx, period = periodicity_target)
+            trend <- get_period_statistic(idx, period = periodicity_target, fn = max)
             trend <- ceiling(trend)
 
         }
@@ -197,8 +202,20 @@ tk_get_trend <- function(idx, period = "auto", message = TRUE) {
 
 # Utils -----
 
+offset_date <- function(idx, by) {
+
+    idx %>%
+        purrr::map(.f = function(date) {
+            tk_make_timeseries(start_date = date, by = by, length_out = 2)[2]
+        }) %>%
+        purrr::reduce(.f = c)
+
+}
+
+`%+time%` <- offset_date
+
 # Helper to get the median observations that fall within a time period
-get_median_period <- function(idx, period = "1 day") {
+get_period_statistic <- function(idx, period = "1 day", fn = stats::median) {
 
     if (!is_date_class(idx)) rlang::abort("idx must be date or date-time class.")
     if (!is.character(period)) rlang::abort("period must be character data.")
@@ -209,7 +226,7 @@ get_median_period <- function(idx, period = "1 day") {
         dplyr::mutate(index = lubridate::floor_date(index, unit = period)) %>%
         dplyr::count(index) %>%
         dplyr::pull(n) %>%
-        stats::median(na.rm = T)
+        fn(na.rm = T)
 
     return(ret)
 

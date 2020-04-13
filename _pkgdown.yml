@@ -12,6 +12,8 @@ navbar:
       href: articles/index.html
       menu:
         - text: 'Plotting'
+        - text: "Plotting a Time Series"
+          href: articles/TK04_Plotting_Time_Series.html
         - text: '---'
         - text: "Machine Learning"
         - text: "Time Series Machine Learning"
