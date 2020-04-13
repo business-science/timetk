@@ -232,14 +232,6 @@ time-based index. Great for:</p><ul>
 <span class='co'># ADD TIME</span>
 <span class='co'># - Note `NA` values created where a daily dates aren't possible</span>
 <span class='co'>#   (e.g. Feb 29 &amp; 30, 2016 doesn't exist).</span>
-<span class='fu'>add_time</span>(<span class='no'>index_daily</span>, <span class='st'>"1 month"</span>)</div><div class='output co'>#&gt;  [1] "2016-02-01" "2016-02-02" "2016-02-03" "2016-02-04" "2016-02-05"
-#&gt;  [6] "2016-02-06" "2016-02-07" "2016-02-08" "2016-02-09" "2016-02-10"
-#&gt; [11] "2016-02-11" "2016-02-12" "2016-02-13" "2016-02-14" "2016-02-15"
-#&gt; [16] "2016-02-16" "2016-02-17" "2016-02-18" "2016-02-19" "2016-02-20"
-#&gt; [21] "2016-02-21" "2016-02-22" "2016-02-23" "2016-02-24" "2016-02-25"
-#&gt; [26] "2016-02-26" "2016-02-27" "2016-02-28" "2016-02-29" NA          
-#&gt; [31] NA           "2016-03-01"</div><div class='input'>
-<span class='co'># Using Infix `%+time%`</span>
 <span class='no'>index_daily</span> <span class='kw'>%+time%</span> <span class='st'>"1 month"</span></div><div class='output co'>#&gt;  [1] "2016-02-01" "2016-02-02" "2016-02-03" "2016-02-04" "2016-02-05"
 #&gt;  [6] "2016-02-06" "2016-02-07" "2016-02-08" "2016-02-09" "2016-02-10"
 #&gt; [11] "2016-02-11" "2016-02-12" "2016-02-13" "2016-02-14" "2016-02-15"
@@ -247,14 +239,8 @@ time-based index. Great for:</p><ul>
 #&gt; [21] "2016-02-21" "2016-02-22" "2016-02-23" "2016-02-24" "2016-02-25"
 #&gt; [26] "2016-02-26" "2016-02-27" "2016-02-28" "2016-02-29" NA          
 #&gt; [31] NA           "2016-03-01"</div><div class='input'>
-<span class='co'># Subtracting Time (These do the same thing)</span>
-<span class='no'>index_daily</span> <span class='kw'>%+time%</span> <span class='st'>"-1 month"</span></div><div class='output co'>#&gt;  [1] "2016-02-01" "2016-02-02" "2016-02-03" "2016-02-04" "2016-02-05"
-#&gt;  [6] "2016-02-06" "2016-02-07" "2016-02-08" "2016-02-09" "2016-02-10"
-#&gt; [11] "2016-02-11" "2016-02-12" "2016-02-13" "2016-02-14" "2016-02-15"
-#&gt; [16] "2016-02-16" "2016-02-17" "2016-02-18" "2016-02-19" "2016-02-20"
-#&gt; [21] "2016-02-21" "2016-02-22" "2016-02-23" "2016-02-24" "2016-02-25"
-#&gt; [26] "2016-02-26" "2016-02-27" "2016-02-28" "2016-02-29" NA          
-#&gt; [31] NA           "2016-03-01"</div><div class='input'><span class='no'>index_daily</span> <span class='kw'>%-time%</span> <span class='st'>"1 month"</span></div><div class='output co'>#&gt;  [1] "2015-12-01" "2015-12-02" "2015-12-03" "2015-12-04" "2015-12-05"
+<span class='co'># Subtracting Time</span>
+<span class='no'>index_daily</span> <span class='kw'>%-time%</span> <span class='st'>"1 month"</span></div><div class='output co'>#&gt;  [1] "2015-12-01" "2015-12-02" "2015-12-03" "2015-12-04" "2015-12-05"
 #&gt;  [6] "2015-12-06" "2015-12-07" "2015-12-08" "2015-12-09" "2015-12-10"
 #&gt; [11] "2015-12-11" "2015-12-12" "2015-12-13" "2015-12-14" "2015-12-15"
 #&gt; [16] "2015-12-16" "2015-12-17" "2015-12-18" "2015-12-19" "2015-12-20"

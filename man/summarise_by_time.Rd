@@ -102,7 +102,9 @@ FANG \%>\%
         .date_var  = date,
         .by        = "month",
         adjusted   = LAST(adjusted),
-        .type      = "ceiling")
+        .type      = "ceiling") \%>\%
+    # Shift to the last day of the month
+    mutate(date = date \%-time\% "1 day")
 
 # Total Volume each year (.by is set to "year" now)
 FANG \%>\%

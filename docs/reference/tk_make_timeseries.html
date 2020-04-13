@@ -173,6 +173,7 @@ and logical assumptions based on user inputs.</p>
   <span class='no'>end_date</span>,
   <span class='no'>by</span>,
   <span class='kw'>length_out</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>include_endpoints</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>skip_values</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>insert_values</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
 )</pre>
@@ -199,7 +200,12 @@ You can create regularly spaced sequences using phrases like <code>by = "10 min"
     <tr>
       <th>length_out</th>
       <td><p>Optional length of the sequence. Can be used instead of one of:
-<code>start_date</code>, <code>end_date</code>, or <code>by</code>.</p></td>
+<code>start_date</code>, <code>end_date</code>, or <code>by</code>. Can be specified as a number or a time-based phrase.</p></td>
+    </tr>
+    <tr>
+      <th>include_endpoints</th>
+      <td><p>Logical. Whether or not to keep the last value when <code>length_out</code> is
+a time-based phrase.</p></td>
     </tr>
     <tr>
       <th>skip_values</th>
@@ -225,20 +231,32 @@ automatically.</p><ul>
 <li><p>Can skip and insert values if needed.</p></li>
 </ul>
 
-<p><strong>Daily Sequences</strong></p>
+<p><strong>By: Daily Sequences</strong></p>
 <p>Make a daily sequence with <code>tk_make_timeseries(by)</code>. Examples:</p><ul>
 <li><p>Every Day: <code>by = "day"</code></p></li>
 <li><p>Every 2-Weeks: <code>by = "2 weeks"</code></p></li>
 <li><p>Every 6-months: <code>by = "6 months"</code></p></li>
 </ul>
 
-<p><strong>Sub-Daily Sequences</strong></p>
+<p><strong>By: Sub-Daily Sequences</strong></p>
 <p>Make a sub-daily sequence with <code>tk_make_timeseries(by)</code>. Examples:</p><ul>
 <li><p>Every minute: <code>by = "min"</code></p></li>
 <li><p>Every 30-seconds: <code>by = "30 sec"</code></p></li>
 <li><p>Every 2-hours: <code>by = "2 hours</code></p></li>
 </ul>
 
+<p><strong>Length Out</strong></p>
+<p>The <code>length_out</code> can be specified by number of observation or complex time-based expressions.
+The following examples are all possible.</p><ul>
+<li><p><code>length_out = 12</code> Creates 12 evenly spaced observations.</p></li>
+<li><p><code>length_out = "12 months"</code> Adjusts the end date so it falls on the 12th month.</p></li>
+</ul>
+
+<p><strong>Include Endpoint</strong></p>
+<p>Sometimes the last date is not desired.
+For example, if the user specifies <code>length_out = 12 months</code>, the user may want the last value
+to be the 12th month and not the 13th. Just toggle, <code>include_endpoint = FALSE</code> to obtain this
+behavior.</p>
 <p><strong>Skip / Insert Timestamps</strong></p>
 <p>Skips and inserts are performed after the sequence is generated. This means that if you use
 the <code>length_out</code> parameter, the length may differ than the <code>length_out</code>.</p>
@@ -261,8 +279,8 @@ the <code>length_out</code> parameter, the length may differ than the <code>leng
 
 <span class='co'># ---- DATE ----</span>
 
-<span class='co'># Date Sequence - By Day</span>
-<span class='fu'>tk_make_timeseries</span>(<span class='st'>"2017-01-01"</span>, <span class='st'>"2017-12-31"</span>) <span class='co'># Guesses by = "day"</span></div><div class='output co'>#&gt; <span class='message'>Using by: day</span></div><div class='output co'>#&gt;  [1] "2017-01-01" "2017-01-02" "2017-01-03" "2017-01-04" "2017-01-05"
+<span class='co'># Start + End, Guesses by = "day"</span>
+<span class='fu'>tk_make_timeseries</span>(<span class='st'>"2017-01-01"</span>, <span class='st'>"2017-12-31"</span>)</div><div class='output co'>#&gt; <span class='message'>Using by: day</span></div><div class='output co'>#&gt;  [1] "2017-01-01" "2017-01-02" "2017-01-03" "2017-01-04" "2017-01-05"
 #&gt;  [6] "2017-01-06" "2017-01-07" "2017-01-08" "2017-01-09" "2017-01-10"
 #&gt; [11] "2017-01-11" "2017-01-12" "2017-01-13" "2017-01-14" "2017-01-15"
 #&gt; [16] "2017-01-16" "2017-01-17" "2017-01-18" "2017-01-19" "2017-01-20"
@@ -273,17 +291,28 @@ the <code>length_out</code> parameter, the length may differ than the <code>leng
 #&gt; [41] "2017-02-10" "2017-02-11" "2017-02-12" "2017-02-13" "2017-02-14"
 #&gt; [46] "2017-02-15" "2017-02-16" "2017-02-17" "2017-02-18" "2017-02-19"
 #&gt;  [ reached 'max' / getOption("max.print") -- omitted 315 entries ]</div><div class='input'>
-<span class='co'># Date Sequence - By Day</span>
+<span class='co'># Start + Length Out, Guesses by = "day"</span>
 <span class='fu'>tk_make_timeseries</span>(<span class='st'>"2012-01-01"</span>, <span class='kw'>length_out</span> <span class='kw'>=</span> <span class='fl'>6</span>) <span class='co'># Guesses by = "day"</span></div><div class='output co'>#&gt; <span class='message'>Using by: day</span></div><div class='output co'>#&gt; [1] "2012-01-01" "2012-01-02" "2012-01-03" "2012-01-04" "2012-01-05"
 #&gt; [6] "2012-01-06"</div><div class='input'>
-<span class='co'># Date Sequence - By Month</span>
-<span class='fu'>tk_make_timeseries</span>(<span class='st'>"2012-01-01"</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"1 month"</span>, <span class='kw'>length_out</span> <span class='kw'>=</span> <span class='fl'>6</span>) <span class='co'># Switch to month</span></div><div class='output co'>#&gt; [1] "2012-01-01" "2012-02-01" "2012-03-01" "2012-04-01" "2012-05-01"
+<span class='co'># Start + By + Length Out, Spacing 6 observations by monthly interval</span>
+<span class='fu'>tk_make_timeseries</span>(<span class='st'>"2012-01-01"</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"1 month"</span>, <span class='kw'>length_out</span> <span class='kw'>=</span> <span class='fl'>6</span>)</div><div class='output co'>#&gt; [1] "2012-01-01" "2012-02-01" "2012-03-01" "2012-04-01" "2012-05-01"
 #&gt; [6] "2012-06-01"</div><div class='input'>
-
+<span class='co'># Start + By + Length Out, Phrase "1 year 6 months"</span>
+<span class='fu'>tk_make_timeseries</span>(<span class='st'>"2012-01-01"</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"1 month"</span>,
+                   <span class='kw'>length_out</span> <span class='kw'>=</span> <span class='st'>"1 year 6 months"</span>, <span class='kw'>include_endpoints</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt;  [1] "2012-01-01" "2012-02-01" "2012-03-01" "2012-04-01" "2012-05-01"
+#&gt;  [6] "2012-06-01" "2012-07-01" "2012-08-01" "2012-09-01" "2012-10-01"
+#&gt; [11] "2012-11-01" "2012-12-01" "2013-01-01" "2013-02-01" "2013-03-01"
+#&gt; [16] "2013-04-01" "2013-05-01" "2013-06-01"</div><div class='input'>
+<span class='co'># Going in Reverse, End + Length Out</span>
+<span class='fu'>tk_make_timeseries</span>(<span class='kw'>end_date</span> <span class='kw'>=</span> <span class='st'>"2012-01-01"</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"1 month"</span>,
+                   <span class='kw'>length_out</span> <span class='kw'>=</span> <span class='st'>"1 year 6 months"</span>, <span class='kw'>include_endpoints</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt;  [1] "2010-08-01" "2010-09-01" "2010-10-01" "2010-11-01" "2010-12-01"
+#&gt;  [6] "2011-01-01" "2011-02-01" "2011-03-01" "2011-04-01" "2011-05-01"
+#&gt; [11] "2011-06-01" "2011-07-01" "2011-08-01" "2011-09-01" "2011-10-01"
+#&gt; [16] "2011-11-01" "2011-12-01" "2012-01-01"</div><div class='input'>
 <span class='co'># ---- DATE-TIME ----</span>
 
-<span class='co'># Date-Time Sequence - By Second</span>
-<span class='fu'>tk_make_timeseries</span>(<span class='st'>"2016-01-01 01:01:02"</span>, <span class='st'>"2016-01-01 01:01:04"</span>) <span class='co'># Guesses by second</span></div><div class='output co'>#&gt; <span class='message'>Using by: sec</span></div><div class='output co'>#&gt; [1] "2016-01-01 01:01:02 UTC" "2016-01-01 01:01:03 UTC"
+<span class='co'># Start + End, Guesses by second</span>
+<span class='fu'>tk_make_timeseries</span>(<span class='st'>"2016-01-01 01:01:02"</span>, <span class='st'>"2016-01-01 01:01:04"</span>)</div><div class='output co'>#&gt; <span class='message'>Using by: sec</span></div><div class='output co'>#&gt; [1] "2016-01-01 01:01:02 UTC" "2016-01-01 01:01:03 UTC"
 #&gt; [3] "2016-01-01 01:01:04 UTC"</div><div class='input'>
 <span class='co'># Date-Time Sequence - By 10 Minutes</span>
 <span class='co'># - Converts to date-time automatically &amp; applies 10-min interval</span>
@@ -313,6 +342,24 @@ the <code>length_out</code> parameter, the length may differ than the <code>leng
 #&gt; [47] "2017-01-01 07:40:00 UTC" "2017-01-01 07:50:00 UTC"
 #&gt; [49] "2017-01-01 08:00:00 UTC" "2017-01-01 08:10:00 UTC"
 #&gt;  [ reached 'max' / getOption("max.print") -- omitted 95 entries ]</div><div class='input'>
+
+<span class='co'># --- REMOVE / INCLUDE ENDPOINTS ----</span>
+
+<span class='co'># Last value in this case is desired</span>
+<span class='fu'>tk_make_timeseries</span>(<span class='st'>"2017-01-01"</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"30 min"</span>, <span class='kw'>length_out</span> <span class='kw'>=</span> <span class='st'>"6 hours"</span>)</div><div class='output co'>#&gt;  [1] "2017-01-01 00:00:00 UTC" "2017-01-01 00:30:00 UTC"
+#&gt;  [3] "2017-01-01 01:00:00 UTC" "2017-01-01 01:30:00 UTC"
+#&gt;  [5] "2017-01-01 02:00:00 UTC" "2017-01-01 02:30:00 UTC"
+#&gt;  [7] "2017-01-01 03:00:00 UTC" "2017-01-01 03:30:00 UTC"
+#&gt;  [9] "2017-01-01 04:00:00 UTC" "2017-01-01 04:30:00 UTC"
+#&gt; [11] "2017-01-01 05:00:00 UTC" "2017-01-01 05:30:00 UTC"
+#&gt; [13] "2017-01-01 06:00:00 UTC"</div><div class='input'>
+<span class='co'># Last value in monthly case is not wanted</span>
+<span class='fu'>tk_make_timeseries</span>(<span class='st'>"2012-01-01"</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"1 month"</span>,
+                   <span class='kw'>length_out</span> <span class='kw'>=</span> <span class='st'>"12 months"</span>,
+                   <span class='kw'>include_endpoints</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>) <span class='co'># Removes unnecessary last value</span></div><div class='output co'>#&gt;  [1] "2012-01-01" "2012-02-01" "2012-03-01" "2012-04-01" "2012-05-01"
+#&gt;  [6] "2012-06-01" "2012-07-01" "2012-08-01" "2012-09-01" "2012-10-01"
+#&gt; [11] "2012-11-01" "2012-12-01"</div><div class='input'>
+
 <span class='co'># ---- SKIP &amp; INSERT VALUES ----</span>
 
 <span class='fu'>tk_make_timeseries</span>(
