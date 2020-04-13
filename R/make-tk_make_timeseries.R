@@ -101,7 +101,7 @@ NULL
 #' @rdname tk_make_timeseries
 #' @export
 tk_make_timeseries <- function(start_date, end_date, by, length_out = NULL,
-                                skip_values = NULL, insert_values = NULL) {
+                               skip_values = NULL, insert_values = NULL) {
 
     # Condition count for everything except by. If by is missing, will be guessed.
     condition_count <- c(
@@ -115,13 +115,7 @@ tk_make_timeseries <- function(start_date, end_date, by, length_out = NULL,
         rlang::abort("Must specify at least 2 of start_date, end_date, by, and length_out")
     }
 
-    # Start with character data
-    if (!rlang::is_missing(start_date)) {
-        start_date <- as.character(start_date)
-    }
-    if (!rlang::is_missing(end_date)) {
-        end_date <- as.character(end_date)
-    }
+    # PARSER SELECTION ----
 
     # Determine if sequence_type is date or datetime. Returns parser selection.
     parser <- NULL
@@ -130,7 +124,26 @@ tk_make_timeseries <- function(start_date, end_date, by, length_out = NULL,
             parser <- "datetime"
         }
     }
-    # datetime was not detected in by, move to start_date / end_date
+
+    # Determine if datetime class, conversion to character can destroy 00:00:00
+    if (is.null(parser)) {
+        if (!rlang::is_missing(start_date)) {
+            if (inherits(start_date, "POSIXt")) parser <- "datetime"
+        } else if (!rlang::is_missing(end_date)) {
+            if (inherits(end_date, "POSIXt")) parser <- "datetime"
+        }
+    }
+
+    # CONVERT TO CHARACTER ----
+    # Needed for readr::parse_ functions
+    if (!rlang::is_missing(start_date)) {
+        start_date <- as.character(start_date)
+    }
+    if (!rlang::is_missing(end_date)) {
+        end_date <- as.character(end_date)
+    }
+
+    # If datetime was not detected in by, move to start_date / end_date
     if (is.null(parser)) {
         if (!rlang::is_missing(start_date)) {
             parser <- readr::guess_parser(start_date)
@@ -138,6 +151,9 @@ tk_make_timeseries <- function(start_date, end_date, by, length_out = NULL,
             parser <- readr::guess_parser(end_date)
         }
     }
+
+
+    # APPLY PARSERS ----
 
     # Apply parser
     if (parser == "datetime") {

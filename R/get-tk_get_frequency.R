@@ -144,6 +144,7 @@ tk_get_trend <- function(idx, period = "auto", message = TRUE) {
 
     # Get timeseries summary attributes
     ts_summary <- tk_get_timeseries_summary(idx)
+    ts_start   <- ts_summary$start
     ts_nobs    <- ts_summary$n.obs
     ts_scale   <- ts_summary$scale
 
@@ -154,11 +155,13 @@ tk_get_trend <- function(idx, period = "auto", message = TRUE) {
 
     } else if (tolower(period) != "auto") {
         # 2. Text (e.g. period = "2 Weeks")
-        # trend <- get_period_statistic(idx, period = period, fn = max)
+        # trend <- get_period_statistic(idx, period = period, fn = max) - 1
 
-        date_1 <- min(idx)
-        date_2 <- offset_date(date_1, by = period)
-        trend  <- between_time(idx, start_date = date_1, end_date = date_2) %>% sum()
+        date_1 <- ts_start                 # Min
+        date_2 <- offset_date(date_1, period)
+        # date_2 <- add_time(date_1, period) # Max - Don't use until lubridate::period accepts quarter
+
+        trend  <- idx %>% between_time(date_1, date_2) %>% sum()
         trend  <- trend - 1
 
     } else {
@@ -212,7 +215,6 @@ offset_date <- function(idx, by) {
 
 }
 
-`%+time%` <- offset_date
 
 # Helper to get the median observations that fall within a time period
 get_period_statistic <- function(idx, period = "1 day", fn = stats::median) {
