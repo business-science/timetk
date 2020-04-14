@@ -3,7 +3,7 @@
 \docType{data}
 \name{bike_sharing_daily}
 \alias{bike_sharing_daily}
-\title{Half-hourly electricity demand}
+\title{Daily Bike Sharing Data}
 \format{
 A tibble: 731 x 16
 \itemize{

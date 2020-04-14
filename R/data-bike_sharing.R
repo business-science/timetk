@@ -1,4 +1,4 @@
-#' Half-hourly electricity demand
+#' Daily Bike Sharing Data
 #'
 #' This dataset contains the daily count of
 #'  rental bike transactions between years 2011 and 2012 in Capital bikeshare
