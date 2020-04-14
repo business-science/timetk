@@ -120,7 +120,7 @@ Plots are available in interactive plotly (default) and static ggplot2 format." 
       <a href="../articles/TK03_Forecasting_Using_Time_Series_Signature.html">Time Series Machine Learning</a>
     </li>
     <li class="divider"></li>
-    <li class="dropdown-header">Time Series Helpers</li>
+    <li class="dropdown-header">Time Series Analysis</li>
     <li>
       <a href="../articles/TK01_Working_With_Time_Series_Index.html">Time series index</a>
     </li>
@@ -309,7 +309,7 @@ based on the scale of the time series.</p>
         <span class='kw'>.feature_set</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"observed"</span>, <span class='st'>"season"</span>, <span class='st'>"trend"</span>, <span class='st'>"remainder"</span>),
         <span class='kw'>.frequency</span>   <span class='kw'>=</span> <span class='st'>"24 hours"</span>,
         <span class='kw'>.trend</span>       <span class='kw'>=</span> <span class='st'>"1 week"</span>,
-        <span class='kw'>.interactive</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='message'>frequency = 24 hours</span></div><div class='output co'>#&gt; <span class='message'>trend = 168 hours</span></div><div class='img'><img src='plot_stl_diagnostics-1.png' alt='' width='700' height='433' /></div><div class='input'>
+        <span class='kw'>.interactive</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='message'>frequency = 24 observations per 24 hours</span></div><div class='output co'>#&gt; <span class='message'>trend = 168 observations per 1 week</span></div><div class='img'><img src='plot_stl_diagnostics-1.png' alt='' width='700' height='433' /></div><div class='input'>
 
 <span class='co'># ---- GROUPS ----</span>
 <span class='no'>m4_hourly</span> <span class='kw'>%&gt;%</span>
@@ -317,7 +317,7 @@ based on the scale of the time series.</p>
     <span class='fu'>plot_stl_diagnostics</span>(
         <span class='no'>date</span>, <span class='no'>value</span>,
         <span class='kw'>.feature_set</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"observed"</span>, <span class='st'>"season"</span>, <span class='st'>"trend"</span>),
-        <span class='kw'>.interactive</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='message'>frequency = 24 hours</span></div><div class='output co'>#&gt; <span class='message'>trend = 336 hours</span></div><div class='output co'>#&gt; <span class='message'>frequency = 24 hours</span></div><div class='output co'>#&gt; <span class='message'>trend = 336 hours</span></div><div class='output co'>#&gt; <span class='message'>frequency = 24 hours</span></div><div class='output co'>#&gt; <span class='message'>trend = 336 hours</span></div><div class='output co'>#&gt; <span class='message'>frequency = 24 hours</span></div><div class='output co'>#&gt; <span class='message'>trend = 336 hours</span></div><div class='img'><img src='plot_stl_diagnostics-2.png' alt='' width='700' height='433' /></div><div class='input'>
+        <span class='kw'>.interactive</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='message'>frequency = 24 observations per 1 day</span></div><div class='output co'>#&gt; <span class='message'>trend = 336 observations per 14 days</span></div><div class='output co'>#&gt; <span class='message'>frequency = 24 observations per 1 day</span></div><div class='output co'>#&gt; <span class='message'>trend = 336 observations per 14 days</span></div><div class='output co'>#&gt; <span class='message'>frequency = 24 observations per 1 day</span></div><div class='output co'>#&gt; <span class='message'>trend = 336 observations per 14 days</span></div><div class='output co'>#&gt; <span class='message'>frequency = 24 observations per 1 day</span></div><div class='output co'>#&gt; <span class='message'>trend = 336 observations per 14 days</span></div><div class='img'><img src='plot_stl_diagnostics-2.png' alt='' width='700' height='433' /></div><div class='input'>
 
 
 </div></pre>

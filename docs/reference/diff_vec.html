@@ -120,7 +120,7 @@ diff_inv_vec() inverts the differencing transformation." />
       <a href="../articles/TK03_Forecasting_Using_Time_Series_Signature.html">Time Series Machine Learning</a>
     </li>
     <li class="divider"></li>
-    <li class="dropdown-header">Time Series Helpers</li>
+    <li class="dropdown-header">Time Series Analysis</li>
     <li>
       <a href="../articles/TK01_Working_With_Time_Series_Index.html">Time series index</a>
     </li>
@@ -267,24 +267,24 @@ where <code>diff_vec(difference = 1, log = TRUE) %&gt;% exp()</code> is approxim
             <span class='co'># Add initial value to calculate the inverse difference</span>
             <span class='kw'>initial_values</span> <span class='kw'>=</span> <span class='no'>value</span>[<span class='fl'>1</span>]
         )
-    )</div><div class='output co'>#&gt; # A tibble: 9,743 x 5
-#&gt; # Groups:   id [4]
+    )</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 9,743 x 5</span><span>
+#&gt; </span><span style='color: #555555;'># Groups:   id [4]</span><span>
 #&gt;    id    date       value difference difference_inv
-#&gt;    &lt;fct&gt; &lt;date&gt;     &lt;dbl&gt;      &lt;dbl&gt;          &lt;dbl&gt;
-#&gt;  1 D10   2014-07-03 2076.      NA             2076.
-#&gt;  2 D10   2014-07-04 2073.      -2.80          2073.
-#&gt;  3 D10   2014-07-05 2049.     -24.7           2049.
-#&gt;  4 D10   2014-07-06 2049.       0.2           2049.
-#&gt;  5 D10   2014-07-07 2006.     -42.5           2006.
-#&gt;  6 D10   2014-07-08 2018.      11.2           2018.
-#&gt;  7 D10   2014-07-09 2019.       1.5           2019.
-#&gt;  8 D10   2014-07-10 2007.     -11.7           2007.
-#&gt;  9 D10   2014-07-11 2010        2.60          2010 
-#&gt; 10 D10   2014-07-12 2002.      -8.5           2002.
-#&gt; # … with 9,733 more rows</div><div class='input'>
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>          </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> D10   2014-07-03 </span><span style='text-decoration: underline;'>2</span><span>076.      </span><span style='color: #BB0000;'>NA</span><span>             </span><span style='text-decoration: underline;'>2</span><span>076.
+#&gt; </span><span style='color: #555555;'> 2</span><span> D10   2014-07-04 </span><span style='text-decoration: underline;'>2</span><span>073.      -</span><span style='color: #BB0000;'>2.80</span><span>          </span><span style='text-decoration: underline;'>2</span><span>073.
+#&gt; </span><span style='color: #555555;'> 3</span><span> D10   2014-07-05 </span><span style='text-decoration: underline;'>2</span><span>049.     -</span><span style='color: #BB0000;'>24.7</span><span>           </span><span style='text-decoration: underline;'>2</span><span>049.
+#&gt; </span><span style='color: #555555;'> 4</span><span> D10   2014-07-06 </span><span style='text-decoration: underline;'>2</span><span>049.       0.2           </span><span style='text-decoration: underline;'>2</span><span>049.
+#&gt; </span><span style='color: #555555;'> 5</span><span> D10   2014-07-07 </span><span style='text-decoration: underline;'>2</span><span>006.     -</span><span style='color: #BB0000;'>42.5</span><span>           </span><span style='text-decoration: underline;'>2</span><span>006.
+#&gt; </span><span style='color: #555555;'> 6</span><span> D10   2014-07-08 </span><span style='text-decoration: underline;'>2</span><span>018.      11.2           </span><span style='text-decoration: underline;'>2</span><span>018.
+#&gt; </span><span style='color: #555555;'> 7</span><span> D10   2014-07-09 </span><span style='text-decoration: underline;'>2</span><span>019.       1.5           </span><span style='text-decoration: underline;'>2</span><span>019.
+#&gt; </span><span style='color: #555555;'> 8</span><span> D10   2014-07-10 </span><span style='text-decoration: underline;'>2</span><span>007.     -</span><span style='color: #BB0000;'>11.7</span><span>           </span><span style='text-decoration: underline;'>2</span><span>007.
+#&gt; </span><span style='color: #555555;'> 9</span><span> D10   2014-07-11 </span><span style='text-decoration: underline;'>2</span><span>010        2.60          </span><span style='text-decoration: underline;'>2</span><span>010 
+#&gt; </span><span style='color: #555555;'>10</span><span> D10   2014-07-12 </span><span style='text-decoration: underline;'>2</span><span>002.      -</span><span style='color: #BB0000;'>8.5</span><span>           </span><span style='text-decoration: underline;'>2</span><span>002.
+#&gt; </span><span style='color: #555555;'># … with 9,733 more rows</span><span></div><div class='input'>
 
 
-</div></pre>
+</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

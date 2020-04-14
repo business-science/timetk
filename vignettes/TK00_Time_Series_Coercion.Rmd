@@ -1,5 +1,6 @@
 ---
-title: "Time Series Coercion Using timetk"
+title: "Time Series Conversion"
+subtitle: "Between ts, xts, zoo, and tbl"
 author: "Matt Dancho"
 date: "`r Sys.Date()`"
 output: 
@@ -7,7 +8,7 @@ output:
     toc: true
     toc_depth: 2
 vignette: >
-  %\VignetteIndexEntry{Time Series Coercion Using timetk}
+  %\VignetteIndexEntry{Time Series Conversion Using timetk}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -26,55 +27,41 @@ knitr::opts_chunk$set(
 # devtools::load_all() # Travis CI fails on load_all()
 ```
 
-> Simplified and extensible time series coercion tools
+> timetk: A toolkit for time series analysis in R
 
-The time series landscape in R is vast, deep, and complex causing many inconsistencies in data attributes and formats ultimately making it difficult to coerce between the different data structures. The `zoo` and `xts` packages solved a number of the issues in dealing with the various classes (`ts`, `zoo`, `xts`, `irts`, `msts`, and the list goes on...). However, because these packages deal in classes other than data frame, the issues with coercion between `tbl` and other time series object classes are still present.
+The time series landscape in R is vast, deep, and complex causing many inconsistencies in data attributes and formats ultimately making it difficult to coerce between the different data structures. The `zoo` and `xts` packages solved a number of the issues in dealing with the various classes (`ts`, `zoo`, `xts`, `irts`, `msts`, and the list goes on...). However, because these packages deal in classes other than data frame, the issues with conversion between `tbl` and other time series object classes are still present.
 
-The `timetk` package provides tools that solve the issues with coercion, maximizing attribute extensibility (the required data attributes are retained during the coercion to each of the primary time series classes). The following tools are available to coerce and retrieve key information:
+The `timetk` package provides tools that solve the issues with conversion, maximizing attribute extensibility (the required data attributes are retained during the conversion to each of the primary time series classes). The following tools are available to coerce and retrieve key information:
 
-* __Coercion functions__: `tk_tbl`, `tk_ts`, `tk_xts`, `tk_zoo`, and `tk_zooreg`. These functions coerce time-based tibbles `tbl` to and from each of the main time-series data types `xts`, `zoo`, `zooreg`, `ts`, maintaining the time-based index.
+* __Conversion functions__: `tk_tbl`, `tk_ts`, `tk_xts`, `tk_zoo`, and `tk_zooreg`. These functions coerce time-based tibbles `tbl` to and from each of the main time-series data types `xts`, `zoo`, `zooreg`, `ts`, maintaining the time-based index.
 
-* __Index function__: `tk_index` returns the index. When the argument, `timetk_idx = TRUE`, A time-based index (non-regularized index) of `forecast` objects, models, and `ts` objects is returned if present. Refer to `tk_ts()` to learn about non-regularized index persistence during the coercion process.
+* __Index function__: `tk_index` returns the index. When the argument, `timetk_idx = TRUE`, A time-based index (non-regularized index) of `forecast` objects, models, and `ts` objects is returned if present. Refer to `tk_ts()` to learn about non-regularized index persistence during the conversion process.
 
-This vignette includes a brief case study on coercion issues and then a detailed explanation of `timetk` function coercion between time-based `tbl` objects and several primary time series classes (`xts`, `zoo`, `zooreg` and `ts`).
+This vignette includes a brief case study on conversion issues and then a detailed explanation of `timetk` function conversion between time-based `tbl` objects and several primary time series classes (`xts`, `zoo`, `zooreg` and `ts`).
 
 # Prerequisites
 
 Before we get started, load the following packages.
 
-```{r, message=FALSE}
+```{r, message=FALSE, warning = FALSE}
 library(tidyverse)
-library(tidyquant)
 library(timetk)
 ```
 
 # Data
 
-We'll use the ten-year treasury rate available from the FRED database with the code, "DGS10". We'll retrieve the data set using `tq_get(get = "economic.data")`. The return structure is a tibble (or "tidy" data frame), which is not conducive to many of the popular time series analysis packages including `quantmod`, `TTR`, `forecast` and many others. 
+We'll use the "Q10" dataset - The first ID from a sample a quarterly datasets (see `m4_quarterly`) from the [M4 Competition](https://mofc.unic.ac.cy/m4/). The return structure is a `tibble`, which is not conducive to many of the popular time series analysis packages including `quantmod`, `TTR`, `forecast` and many others. 
 
 ```{r}
-ten_year_treasury_rate_tbl <- tq_get("DGS10", 
-                                     get  = "economic.data", 
-                                     from = "1997-01-01", 
-                                     to   = "2016-12-31") %>%
-    rename(pct = price) %>%
-    mutate(pct = pct / 100)
-ten_year_treasury_rate_tbl
-```
-
-For purposes of the Case Study, we'll change to a quarterly periodicity using `tq_transmute()` from the `tidyquant` package. Note that `NA` values are automatically removed from the data (message not shown).
-
-```{r, message=F, warning=F}
-ten_year_treasury_rate_tbl <- ten_year_treasury_rate_tbl %>%
-    tq_transmute(pct, mutate_fun = to.period, period = "quarters")
-ten_year_treasury_rate_tbl
+q10_quarterly <- m4_quarterly %>% filter(id == "Q10")
+q10_quarterly
 ```
 
 
 
-# Case Study: Coercion issues with ts()
+# Case Study: Conversion issues with ts()
 
-The `ts` object class has roots in the `stats` package and many popular packages use this time series data structure including the popular `forecast` package. With that said, the `ts` data structure is the most difficult to coerce back and forth because by default it does not contain a time-based index. Rather it uses a regularized index computed using the `start` and `frequency` arguments. Coercion to `ts` is done using the `ts()` function from the `stats` library, which results in various problems.  
+The `ts` object class has roots in the `stats` package and many popular packages use this time series data structure including the popular `forecast` package. With that said, the `ts` data structure is the most difficult to coerce back and forth because by default it does not contain a time-based index. Rather it uses a regularized index computed using the `start` and `frequency` arguments. Conversion to `ts` is done using the `ts()` function from the `stats` library, which results in various problems.  
 
 ## Problems 
 
@@ -82,121 +69,118 @@ First, only numeric columns get coerced. If the user forgets to add the `[,"pct"
 
 ```{r}
 # date column gets coerced to numeric
-ts(ten_year_treasury_rate_tbl, start = 1997, freq = 4) %>%
+ts(q10_quarterly, start = c(2000, 1), freq = 4) %>%
     head()
 ```
 
 The correct method is to call the specific column desired. However, this presents a new issue. The date index is lost, and a different "regularized" index is built using the `start` and `frequency` attributes. 
 
 ```{r}
-ten_year_treasury_rate_ts_stats <- ts(ten_year_treasury_rate_tbl[,"pct"], 
-                                      start = 1997, 
-                                      freq  = 4)
-ten_year_treasury_rate_ts_stats
+q10_quarterly_ts <- ts(q10_quarterly$value, start = c(2000, 1), freq  = 4)
+q10_quarterly_ts
 ```
 
 We can see from the structure (using the `str()` function) that the regularized time series is present, but there is no date index retained.
 
 ```{r}
 # No date index attribute
-str(ten_year_treasury_rate_ts_stats)
+str(q10_quarterly_ts)
 ```
 
 We can get the index using the `index()` function from the `zoo` package. The index retained is a regular sequence of numeric values. In many cases, the regularized values cannot be coerced back to the original time-base because the date and date time data contains significantly more information (i.e. year-month-day, hour-minute-second, and timezone attributes) and the data may not be on a regularized interval (frequency).
 
 ```{r}
 # Regularized numeric sequence
-index(ten_year_treasury_rate_ts_stats)
+zoo::index(q10_quarterly_ts)
 ```
 
 
 ## Solution
 
-The `timetk` package contains a new function, `tk_ts()`, that enables maintaining the original date index as an attribute. When we repeat the `tbl` to `ts` coercion process using the new function, `tk_ts()`, we can see a few differences. 
+The `timetk` package contains a new function, `tk_ts()`, that enables maintaining the original date index as an attribute. When we repeat the `tbl` to `ts` conversion process using the new function, `tk_ts()`, we can see a few differences. 
 
-First, only numeric columns get coerced, which prevents unintended consequences due to R coercion rules (e.g. dates getting unintentionally converted or characters causing the homogeneous data structure converting all numeric values to character). If a column is dropped, the user gets a warning. 
+First, only numeric columns get coerced, which prevents unintended consequences due to R conversion rules (e.g. dates getting unintentionally converted or characters causing the homogeneous data structure converting all numeric values to character). If a column is dropped, the user gets a warning. 
 
 ```{r}
 # date automatically dropped and user is warned
-ten_year_treasury_rate_ts_timetk <- tk_ts(ten_year_treasury_rate_tbl, 
-                                         start = 1997, 
-                                         freq  = 4)
-ten_year_treasury_rate_ts_timetk
+q10_quarterly_ts_timetk <- tk_ts(q10_quarterly, start = 2000, freq  = 4)
+q10_quarterly_ts_timetk
 ```
 
 Second, the data returned has a few additional attributes. The most important of which is a numeric attribute, "index", which contains the original date information as a number. The `ts()` function will not preserve this index while `tk_ts()` will preserve the index in numeric form along with the time zone and class. 
 
 ```{r}
 # More attributes including time index, time class, time zone
-str(ten_year_treasury_rate_ts_timetk)
+str(q10_quarterly_ts_timetk)
 ```
 
-## Advantages of coercion with tk_tbl()
+## Advantages of conversion with tk_tbl()
 
-Since we used the `tk_ts()` during coercion, we can extract the original index in date format using `tk_index(timetk_idx = TRUE)` (the default is `timetk_idx = FALSE` which returns the default regularized index).
+Since we used the `tk_ts()` during conversion, we can extract the original index in date format using `tk_index(timetk_idx = TRUE)` (the default is `timetk_idx = FALSE` which returns the default regularized index).
 
 ```{r}
 # Can now retrieve the original date index
-timetk_index <- ten_year_treasury_rate_ts_timetk %>%
+timetk_index <- q10_quarterly_ts_timetk %>%
     tk_index(timetk_idx = TRUE)
 head(timetk_index)
 class(timetk_index)
 ```
 
-Next, the `tk_tbl()` function has an argument `timetk_idx` also which can be used to select which index to return. First, we show coercion using the default index. Notice that the index returned is "regularized" meaning its actually a numeric index rather than a time-based index.
+Next, the `tk_tbl()` function has an argument `timetk_idx` also which can be used to select which index to return. First, we show conversion using the default index. Notice that the index returned is "regularized" meaning its actually a numeric index rather than a time-based index.
 
 ```{r}
-# Coercion back to tibble using the default index (regularized)
-ten_year_treasury_rate_ts_timetk %>%
+# Conversion back to tibble using the default index (regularized)
+q10_quarterly_ts_timetk %>%
     tk_tbl(index_rename = "date", timetk_idx = FALSE)
 ```
 
 We can now get the original date index using the `tk_tbl()` argument `timetk_idx = TRUE`.
 
 ```{r}
-# Coercion back to tibble now using the timetk index (date / date-time)
-ten_year_treasury_rate_tbl_timetk <- ten_year_treasury_rate_ts_timetk %>%
-    tk_tbl(index_rename = "date", timetk_idx = TRUE)
-ten_year_treasury_rate_tbl_timetk
+# Conversion back to tibble now using the timetk index (date / date-time)
+q10_quarterly_timetk <- q10_quarterly_ts_timetk %>%
+    tk_tbl(timetk_idx = TRUE) %>%
+    rename(date = index)
+q10_quarterly_timetk
 ```
 
 We can see that in this case (and in most cases) you can get the same data frame you began with.
 
 ```{r}
 # Comparing the coerced tibble with the original tibble
-identical(ten_year_treasury_rate_tbl_timetk, ten_year_treasury_rate_tbl)
+identical(q10_quarterly_timetk, q10_quarterly %>% select(-id))
 ```
 
 
-# Coercion Methods
+# Conversion Methods
 
-Using the `ten_year_treasury_rate_tbl`, we'll go through the various coercion methods using `tk_tbl`, `tk_xts`, `tk_zoo`, `tk_zooreg`, and `tk_ts`.
+Using the `q10_quarterly`, we'll go through the various conversion methods using `tk_tbl`, `tk_xts`, `tk_zoo`, `tk_zooreg`, and `tk_ts`.
 
 ## From tbl
 
-The starting point is the `ten_year_treasury_rate_tbl`. We will coerce this into `xts`, `zoo`, `zooreg` and `ts` classes.
+The starting point is the `q10_quarterly`. We will coerce this into `xts`, `zoo`, `zooreg` and `ts` classes.
 
 ```{r}
 # Start:
-ten_year_treasury_rate_tbl
+q10_quarterly
 ```
 
 
 ### to xts
 
-Use `tk_xts()`. By default "date" is used as the date index and the "date" column is dropped from the output. Only numeric columns are coerced to avoid unintentional coercion issues. 
+Use `tk_xts()`. By default "date" is used as the date index and the "date" column is dropped from the output. Only numeric columns are coerced to avoid unintentional conversion issues. 
 
 ```{r}
 # End
-ten_year_treasury_rate_xts <- tk_xts(ten_year_treasury_rate_tbl) 
-head(ten_year_treasury_rate_xts)
+q10_quarterly_xts <- tk_xts(q10_quarterly) 
+head(q10_quarterly_xts)
 ```
 
 Use the `select` argument to specify which columns to drop. Use the `date_var` argument to specify which column to use as the date index. Notice the message and warning are no longer present.
 
 ```{r}
 # End - Using `select` and `date_var` args
-tk_xts(ten_year_treasury_rate_tbl, select = -date, date_var = date) %>%
+tk_xts(q10_quarterly, select = -(id:date), date_var = date) %>%
     head()
 ```
 
@@ -204,7 +188,7 @@ Also, as an alternative, we can set `silent = TRUE` to bypass the warnings since
 
 ```{r}
 # End - Using `silent` to silence warnings
-tk_xts(ten_year_treasury_rate_tbl, silent = TRUE) %>%
+tk_xts(q10_quarterly, silent = TRUE) %>%
     head()
 ```
 
@@ -215,8 +199,8 @@ Use `tk_zoo()`. Same as when coercing to xts, the non-numeric "date" column is a
 
 ```{r}
 # End
-ten_year_treasury_rate_zoo <- tk_zoo(ten_year_treasury_rate_tbl, silent = TRUE) 
-head(ten_year_treasury_rate_zoo)
+q10_quarterly_zoo <- tk_zoo(q10_quarterly, silent = TRUE) 
+head(q10_quarterly_zoo)
 ```
 
 ### to zooreg
@@ -225,18 +209,15 @@ Use `tk_zooreg()`. Same as when coercing to xts, the non-numeric "date" column i
 
 ```{r}
 # End
-ten_year_treasury_rate_zooreg <- tk_zooreg(ten_year_treasury_rate_tbl, 
-                                           start  = 1997, 
-                                           freq   = 4,
-                                           silent = TRUE) 
-head(ten_year_treasury_rate_zooreg)
+q10_quarterly_zooreg <- tk_zooreg(q10_quarterly, start = 2000, freq = 4, silent = TRUE) 
+head(q10_quarterly_zooreg)
 ```
 
 The original time-based index is retained and can be accessed using `tk_index(timetk_idx = TRUE)`.
 
 ```{r}
 # Retrieve original time-based index
-tk_index(ten_year_treasury_rate_zooreg, timetk_idx = TRUE) %>%
+tk_index(q10_quarterly_zooreg, timetk_idx = TRUE) %>%
     str()
 ```
 
@@ -247,18 +228,15 @@ Use `tk_ts()`. The non-numeric "date" column is automatically dropped. The regul
 
 ```{r}
 # End
-ten_year_treasury_rate_ts <- tk_ts(ten_year_treasury_rate_tbl, 
-                                   start  = 1997, 
-                                   freq   = 4,
-                                   silent = TRUE) 
-ten_year_treasury_rate_ts
+q10_quarterly_ts <- tk_ts(q10_quarterly, start = 2000, freq = 4, silent = TRUE) 
+q10_quarterly_ts
 ```
 
 The original time-based index is retained and can be accessed using `tk_index(timetk_idx = TRUE)`.
 
 ```{r}
 # Retrieve original time-based index
-tk_index(ten_year_treasury_rate_ts, timetk_idx = TRUE) %>%
+tk_index(q10_quarterly_ts, timetk_idx = TRUE) %>%
     str()
 ```
 
@@ -271,14 +249,14 @@ Going back to tibble is just as easy using `tk_tbl()`.
 
 ```{r}
 # Start
-head(ten_year_treasury_rate_xts)
+head(q10_quarterly_xts)
 ```
 
 Notice no loss of data going back to `tbl`. 
 
 ```{r}
 # End
-tk_tbl(ten_year_treasury_rate_xts)
+tk_tbl(q10_quarterly_xts)
 ```
 
 
@@ -286,35 +264,35 @@ tk_tbl(ten_year_treasury_rate_xts)
 
 ```{r}
 # Start
-head(ten_year_treasury_rate_zoo)
+head(q10_quarterly_zoo)
 ```
 
 Notice no loss of data going back to `tbl`. 
 
 ```{r}
 # End
-tk_tbl(ten_year_treasury_rate_zoo)
+tk_tbl(q10_quarterly_zoo)
 ```
 
 ### From zooreg
 
 ```{r}
 # Start
-head(ten_year_treasury_rate_zooreg)
+head(q10_quarterly_zooreg)
 ```
 
 Notice that the index is a regularized numeric sequence by default.
 
 ```{r}
 # End - with default regularized index
-tk_tbl(ten_year_treasury_rate_zooreg)
+tk_tbl(q10_quarterly_zooreg)
 ```
 
 With `timetk_idx = TRUE` the index is the original date sequence. The result is the original `tbl` that we started with!
 
 ```{r}
 # End - with timetk index that is the same as original time-based index
-tk_tbl(ten_year_treasury_rate_zooreg, timetk_idx = TRUE)
+tk_tbl(q10_quarterly_zooreg, timetk_idx = TRUE)
 ```
 
 
@@ -322,168 +300,73 @@ tk_tbl(ten_year_treasury_rate_zooreg, timetk_idx = TRUE)
 
 ```{r}
 # Start
-ten_year_treasury_rate_ts
+q10_quarterly_ts
 ```
 
 Notice that the index is a regularized numeric sequence by default.
 
 ```{r}
 # End - with default regularized index
-tk_tbl(ten_year_treasury_rate_ts)
+tk_tbl(q10_quarterly_ts)
 ```
 
 With `timetk_idx = TRUE` the index is the original date sequence. The result is the original `tbl` that we started with!
 
 ```{r}
 # End - with timetk index 
-tk_tbl(ten_year_treasury_rate_ts, timetk_idx = TRUE)
+tk_tbl(q10_quarterly_ts, timetk_idx = TRUE)
 ```
 
-# Additional Concepts
-
-This section covers additional concepts that the user may find useful when working with time series.
-
-## Testing if an object has a timetk index
+# Testing if an object has a timetk index
 
 The function `has_timetk_idx()` can be used to test whether toggling the `timetk_idx` argument in the `tk_index()` and `tk_tbl()` functions will have an effect on the output. Here are several examples using the ten year treasury data used in the case study:
 
-### Testing ts()
-
-There's no "timetk index" if the `ts()` function is used. The solution is to use `tk_ts()` to coerce the to `ts`.
-
-```{r}
-# Data coerced with stats::ts() has no timetk index
-has_timetk_idx(ten_year_treasury_rate_ts_stats)
-```
-
-If we try to toggle `timetk_idx = TRUE` when retrieving the index with `tk_index()`, we get a warning and the default regularized time series is returned.
-
-```{r}
-tk_index(ten_year_treasury_rate_ts_stats, timetk_idx = TRUE)
-```
-
-If we try to toggle `timetk_idx = TRUE` during coercion to `tbl` using `tk_tbl()`, we get a warning and the default regularized time series is returned.
-
-```{r}
-tk_tbl(ten_year_treasury_rate_ts_stats, timetk_idx = TRUE)
-```
-
-### Testing tk_ts()
+## tk_ts()
 
 The `tk_ts()` function returns an object with the "timetk index" attribute.
 
 ```{r}
 # Data coerced with tk_ts() has timetk index
-has_timetk_idx(ten_year_treasury_rate_ts_timetk)
+has_timetk_idx(q10_quarterly_ts)
 ```
 
 If we toggle `timetk_idx = TRUE` when retrieving the index with `tk_index()`, we get the index of dates rather than the regularized time series.
 
 ```{r}
-tk_index(ten_year_treasury_rate_ts_timetk, timetk_idx = TRUE)
+tk_index(q10_quarterly_ts, timetk_idx = TRUE)
 ```
 
 
-If we toggle `timetk_idx = TRUE` during coercion to `tbl` using `tk_tbl()`, we get the index of dates rather than the regularized index in the returned `tbl`.
+If we toggle `timetk_idx = TRUE` during conversion to `tbl` using `tk_tbl()`, we get the index of dates rather than the regularized index in the returned `tbl`.
 
 ```{r}
-tk_tbl(ten_year_treasury_rate_ts_timetk, timetk_idx = TRUE)
+tk_tbl(q10_quarterly_ts, timetk_idx = TRUE)
 ```
 
-### Testing other data types
+## Testing other data types
 
 The `timetk_idx` argument will only have an effect on objects that use regularized time series. Therefore, `has_timetk_idx()` returns `FALSE` for other object types (e.g. `tbl`, `xts`, `zoo`) since toggling the argument has no effect on these classes. 
 
 ```{r}
-has_timetk_idx(ten_year_treasury_rate_xts)
+has_timetk_idx(q10_quarterly_xts)
 ```
 
 Toggling the `timetk_idx` argument has no effect on the output. Output with `timetk_idx = TRUE` is the same as with `timetk_idx = FALSE`.
 
 ```{r}
-tk_index(ten_year_treasury_rate_xts, timetk_idx = TRUE)
-```
-
-```{r}
-tk_index(ten_year_treasury_rate_xts, timetk_idx = FALSE)
-```
-
-## Coercing ts to xts and zoo
-
-It's common to need to coerce data stored as data frame or another structure with a time-base to `ts` to perform some analysis. It's also common to need to coerce it from the regularized structure to a time-based structure such as `xts` or `zoo` to perform further analysis within your workflow. Traditionally coercing a `ts` class object to an `xts` or `zoo` class object was difficult or impossible since the `ts` object does not maintain a time-based index and the `xts` and `zoo` objects require the `order.by` argument to specify a time-based index. The `zoo` package contains some regularizing functions (`yearmon` and `yearqtr`) that can be converted to dates, but there is no easy method to coerce `ts` objects on frequencies such as daily until now. The general process is as follows:
-
-1. Begin with an object with a time-based index in date or date-time format. Typically this would be a data frame (`tbl`) or `xts` object.
-2. Coerce to `ts` using the `tk_ts()` function setting the `start` and `frequency` parameters for regularization. This generates a regularized `ts` object as normal, but using the `tk_ts()` function also maintains the time-based "timetk index".
-3. Coerce to xts or zoo using `tk_xts()` or `tk_zoo()` respectively.
-
-Here's a quick example. Our starting point is a tibble (`tbl`) but it could be another time-based object such as `xts` or `zoo`.
-
-```{r}
-# Start with a date or date-time indexed data frame
-data_tbl <- tibble::tibble(
-    date = seq.Date(as.Date("2016-01-01"), by = 1, length.out = 5),
-    x    = cumsum(11:15) * rnorm(1))
-data_tbl
-```
-
-Coerce to `ts` class using the `tk_ts()` function. Note that the non-numeric column "date" is being dropped, and the `silent = TRUE` hides the message.
-
-```{r}
-# Coerce to ts 
-data_ts <- tk_ts(data_tbl, start = 2016, freq = 365, silent = TRUE)
-data_ts
-```
-
-Coercion to `xts` normally requires a date or datetime index to be passed to the `order.by` argument. However, when coercing `ts` objects created with `tk_ts()`, the `tk_xts` function automatically uses the "timetk index" if present.
-
-```{r}
-# Inspect timetk index
-has_timetk_idx(data_ts)
-```
-
-If the "timetk index" is present, the user can simply pass the `ts` object to the coercion function (`tk_xts()`), which will automatically use the "timetk index" to order by.
-
-```{r}
-# No need to specify order.by arg
-data_xts <- tk_xts(data_ts)
-data_xts
-```
-
-We can see that the `xts` structure is maintained.
-
-```{r}
-str(data_xts)
-```
-
-The same process can be used to coerce from `ts` to `zoo` class using `tk_zoo`.
-
-```{r}
-# No need to specify order.by arg
-data_zoo <- tk_zoo(data_ts)
-data_zoo
-```
-
-We can see that the `zoo` structure is maintained.
-
-```{r}
-str(data_zoo)
-```
-
-Note that `tbl` requires the `timetk_idx = TRUE` argument to specify the use of the non-regularized index.
-
-```{r}
-tk_tbl(data_ts, timetk_idx = TRUE)
+tk_index(q10_quarterly_xts, timetk_idx = TRUE)
 ```
 
 
 
-## Working with yearmon and yearqtr index
 
-The `zoo` package has the `yearmon` and `yearqtr` classes for working with regularized monthly and quarterly data, respectively. The "timetk index" tracks the format during coercion. Here's and example with `yearqtr`.
+# Working with zoo::yearmon and zoo::yearqtr index
+
+The `zoo` package has the `yearmon` and `yearqtr` classes for working with regularized monthly and quarterly data, respectively. The "timetk index" tracks the format during conversion. Here's and example with `yearqtr`.
 
 ```{r}
-yearqtr_tbl <- ten_year_treasury_rate_tbl %>%
-    mutate(date = as.yearqtr(date))
+yearqtr_tbl <- q10_quarterly %>%
+    mutate(date = zoo::as.yearqtr(date))
 yearqtr_tbl
 ```
 
@@ -491,44 +374,41 @@ We can coerce to `xts` and the `yearqtr` class is intact.
 
 ```{r}
 yearqtr_xts <- tk_xts(yearqtr_tbl)
-yearqtr_xts %>%
-    head()
+yearqtr_xts %>% head()
 ```
 
 We can coerce to `ts` and, although the "timetk index" is hidden, the `yearqtr` class is intact.
 
 ```{r}
 yearqtr_ts <- tk_ts(yearqtr_xts, start = 1997, freq = 4)
-yearqtr_ts %>%
-    head()
+yearqtr_ts %>% head()
 ```
 
-Coercing from `ts` to `tbl` using `timetk_idx = TRUE` shows that the original index was maintained through each of the coercion steps.
+Coercing from `ts` to `tbl` using `timetk_idx = TRUE` shows that the original index was maintained through each of the conversion steps.
 
 ```{r}
-yearqtr_ts %>%
-    tk_tbl(timetk_idx = TRUE)
+yearqtr_ts %>% tk_tbl(timetk_idx = TRUE)
 ```
 
 
-## Getting the index of other time-based objects (e.g. models)
+# Learning More
 
-It can be important to retrieve the index from models and other objects that use an underlying time series data set. We'll go through an example retrieving the time index from an ARIMA model using `tk_index()`.
+If you are interested in learning from my advanced __Time Series Analysis & Forecasting Course__, then [join my waitlist](https://mailchi.mp/business-science/time-series-forecasting-course-coming-soon). The course is coming soon. 
 
-```{r}
-library(forecast)
-fit_arima <- ten_year_treasury_rate_ts %>%
-    auto.arima()
+```{r, echo=FALSE}
+knitr::include_graphics("time_series_course.jpg")
 ```
 
-We can get the time index from the ARIMA model.
+You will learn:
 
-```{r}
-tk_index(fit_arima)
-```
+- Time Series Preprocessing, Noise Reduction, & Anomaly Detection
+- Feature engineering using lagged variables & external regressors
+- Hyperparameter Tuning
+- Time series cross-validation
+- Ensembling Multiple Machine Learning & Univariate Modeling Techniques (Competition Winner)
+- NEW - Deep Learning with RNNs (Competition Winner)
+- and more.
 
-We can also get the original index from the ARIMA model be setting `timetk_idx = TRUE`.
-
-```{r}
-tk_index(fit_arima, timetk_idx = TRUE)
-```
+<p class="text-center" style="font-size:30px;">
+<a href="https://mailchi.mp/business-science/time-series-forecasting-course-coming-soon">Signup for the Time Series Course waitlist</a>
+</p>

@@ -121,7 +121,7 @@ series" />
       <a href="../articles/TK03_Forecasting_Using_Time_Series_Signature.html">Time Series Machine Learning</a>
     </li>
     <li class="divider"></li>
-    <li class="dropdown-header">Time Series Helpers</li>
+    <li class="dropdown-header">Time Series Analysis</li>
     <li>
       <a href="../articles/TK01_Working_With_Time_Series_Index.html">Time series index</a>
     </li>
@@ -357,39 +357,39 @@ This returns 8 Fouriers series:</p><ul>
 #&gt; 
 #&gt; Fourier series features from date [trained]</div><div class='input'>
 <span class='co'># Bake the recipe object - Adds the Fourier Series</span>
-<span class='fu'><a href='https://rdrr.io/pkg/recipes/man/bake.html'>bake</a></span>(<span class='fu'><a href='https://rdrr.io/pkg/recipes/man/prep.html'>prep</a></span>(<span class='no'>rec_obj</span>), <span class='no'>FB_tbl</span>)</div><div class='output co'>#&gt; # A tibble: 1,008 x 11
+<span class='fu'><a href='https://rdrr.io/pkg/recipes/man/bake.html'>bake</a></span>(<span class='fu'><a href='https://rdrr.io/pkg/recipes/man/prep.html'>prep</a></span>(<span class='no'>rec_obj</span>), <span class='no'>FB_tbl</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 1,008 x 11</span><span>
 #&gt;    symbol date       adjusted date_sin63_K1 date_cos63_K1 date_sin63_K2
-#&gt;    &lt;fct&gt;  &lt;date&gt;        &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;
-#&gt;  1 FB     2013-01-02     28          0.912         -0.411       -0.750 
-#&gt;  2 FB     2013-01-03     27.8        0.866         -0.500       -0.866 
-#&gt;  3 FB     2013-01-04     28.8        0.812         -0.584       -0.948 
-#&gt;  4 FB     2013-01-07     29.4        0.604         -0.797       -0.963 
-#&gt;  5 FB     2013-01-08     29.1        0.521         -0.853       -0.890 
-#&gt;  6 FB     2013-01-09     30.6        0.434         -0.901       -0.782 
-#&gt;  7 FB     2013-01-10     31.3        0.342         -0.940       -0.643 
-#&gt;  8 FB     2013-01-11     31.7        0.247         -0.969       -0.478 
-#&gt;  9 FB     2013-01-14     31.0       -0.0498        -0.999        0.0996
-#&gt; 10 FB     2013-01-15     30.1       -0.149         -0.989        0.295 
-#&gt; # … with 998 more rows, and 5 more variables: date_cos63_K2 &lt;dbl&gt;,
-#&gt; #   date_sin252_K1 &lt;dbl&gt;, date_cos252_K1 &lt;dbl&gt;, date_sin252_K2 &lt;dbl&gt;,
-#&gt; #   date_cos252_K2 &lt;dbl&gt;</div><div class='input'>
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>        </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> FB     2013-01-02     28          0.912         -</span><span style='color: #BB0000;'>0.411</span><span>       -</span><span style='color: #BB0000;'>0.750</span><span> 
+#&gt; </span><span style='color: #555555;'> 2</span><span> FB     2013-01-03     27.8        0.866         -</span><span style='color: #BB0000;'>0.500</span><span>       -</span><span style='color: #BB0000;'>0.866</span><span> 
+#&gt; </span><span style='color: #555555;'> 3</span><span> FB     2013-01-04     28.8        0.812         -</span><span style='color: #BB0000;'>0.584</span><span>       -</span><span style='color: #BB0000;'>0.948</span><span> 
+#&gt; </span><span style='color: #555555;'> 4</span><span> FB     2013-01-07     29.4        0.604         -</span><span style='color: #BB0000;'>0.797</span><span>       -</span><span style='color: #BB0000;'>0.963</span><span> 
+#&gt; </span><span style='color: #555555;'> 5</span><span> FB     2013-01-08     29.1        0.521         -</span><span style='color: #BB0000;'>0.853</span><span>       -</span><span style='color: #BB0000;'>0.890</span><span> 
+#&gt; </span><span style='color: #555555;'> 6</span><span> FB     2013-01-09     30.6        0.434         -</span><span style='color: #BB0000;'>0.901</span><span>       -</span><span style='color: #BB0000;'>0.782</span><span> 
+#&gt; </span><span style='color: #555555;'> 7</span><span> FB     2013-01-10     31.3        0.342         -</span><span style='color: #BB0000;'>0.940</span><span>       -</span><span style='color: #BB0000;'>0.643</span><span> 
+#&gt; </span><span style='color: #555555;'> 8</span><span> FB     2013-01-11     31.7        0.247         -</span><span style='color: #BB0000;'>0.969</span><span>       -</span><span style='color: #BB0000;'>0.478</span><span> 
+#&gt; </span><span style='color: #555555;'> 9</span><span> FB     2013-01-14     31.0       -</span><span style='color: #BB0000;'>0.049</span><span style='color: #BB0000;text-decoration: underline;'>8</span><span>        -</span><span style='color: #BB0000;'>0.999</span><span>        0.099</span><span style='text-decoration: underline;'>6</span><span>
+#&gt; </span><span style='color: #555555;'>10</span><span> FB     2013-01-15     30.1       -</span><span style='color: #BB0000;'>0.149</span><span>         -</span><span style='color: #BB0000;'>0.989</span><span>        0.295 
+#&gt; </span><span style='color: #555555;'># … with 998 more rows, and 5 more variables: date_cos63_K2 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   date_sin252_K1 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, date_cos252_K1 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, date_sin252_K2 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   date_cos252_K2 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span></div><div class='input'>
 <span class='co'># Tidy shows which features have been added during the 1st step</span>
 <span class='co'>#  in this case, step 1 is the step_timeseries_signature step</span>
-<span class='fu'><a href='https://rdrr.io/pkg/recipes/man/reexports.html'>tidy</a></span>(<span class='fu'><a href='https://rdrr.io/pkg/recipes/man/prep.html'>prep</a></span>(<span class='no'>rec_obj</span>))</div><div class='output co'>#&gt; # A tibble: 1 x 6
+<span class='fu'><a href='https://rdrr.io/pkg/recipes/man/reexports.html'>tidy</a></span>(<span class='fu'><a href='https://rdrr.io/pkg/recipes/man/prep.html'>prep</a></span>(<span class='no'>rec_obj</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 1 x 6</span><span>
 #&gt;   number operation type    trained skip  id           
-#&gt;    &lt;int&gt; &lt;chr&gt;     &lt;chr&gt;   &lt;lgl&gt;   &lt;lgl&gt; &lt;chr&gt;        
-#&gt; 1      1 step      fourier TRUE    FALSE fourier_ieexo</div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/recipes/man/reexports.html'>tidy</a></span>(<span class='fu'><a href='https://rdrr.io/pkg/recipes/man/prep.html'>prep</a></span>(<span class='no'>rec_obj</span>), <span class='kw'>number</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; # A tibble: 8 x 5
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>        
+#&gt; </span><span style='color: #555555;'>1</span><span>      1 step      fourier TRUE    FALSE fourier_ieexo</div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/recipes/man/reexports.html'>tidy</a></span>(<span class='fu'><a href='https://rdrr.io/pkg/recipes/man/prep.html'>prep</a></span>(<span class='no'>rec_obj</span>), <span class='kw'>number</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 8 x 5</span><span>
 #&gt;   terms          type      K period id           
-#&gt;   &lt;chr&gt;          &lt;chr&gt; &lt;int&gt;  &lt;dbl&gt; &lt;chr&gt;        
-#&gt; 1 date_sin63_K1  sin       1     63 fourier_ieexo
-#&gt; 2 date_cos63_K1  cos       1     63 fourier_ieexo
-#&gt; 3 date_sin63_K2  sin       2     63 fourier_ieexo
-#&gt; 4 date_cos63_K2  cos       2     63 fourier_ieexo
-#&gt; 5 date_sin252_K1 sin       1    252 fourier_ieexo
-#&gt; 6 date_cos252_K1 cos       1    252 fourier_ieexo
-#&gt; 7 date_sin252_K2 sin       2    252 fourier_ieexo
-#&gt; 8 date_cos252_K2 cos       2    252 fourier_ieexo</div><div class='input'>
-</div></pre>
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>          </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>        
+#&gt; </span><span style='color: #555555;'>1</span><span> date_sin63_K1  sin       1     63 fourier_ieexo
+#&gt; </span><span style='color: #555555;'>2</span><span> date_cos63_K1  cos       1     63 fourier_ieexo
+#&gt; </span><span style='color: #555555;'>3</span><span> date_sin63_K2  sin       2     63 fourier_ieexo
+#&gt; </span><span style='color: #555555;'>4</span><span> date_cos63_K2  cos       2     63 fourier_ieexo
+#&gt; </span><span style='color: #555555;'>5</span><span> date_sin252_K1 sin       1    252 fourier_ieexo
+#&gt; </span><span style='color: #555555;'>6</span><span> date_cos252_K1 cos       1    252 fourier_ieexo
+#&gt; </span><span style='color: #555555;'>7</span><span> date_sin252_K2 sin       2    252 fourier_ieexo
+#&gt; </span><span style='color: #555555;'>8</span><span> date_cos252_K2 cos       2    252 fourier_ieexo</div><div class='input'>
+</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

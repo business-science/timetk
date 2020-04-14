@@ -73,7 +73,7 @@
       <a href="../articles/TK03_Forecasting_Using_Time_Series_Signature.html">Time Series Machine Learning</a>
     </li>
     <li class="divider">
-    <li class="dropdown-header">Time Series Helpers</li>
+    <li class="dropdown-header">Time Series Analysis</li>
     <li>
       <a href="../articles/TK01_Working_With_Time_Series_Index.html">Time series index</a>
     </li>
@@ -124,7 +124,7 @@
     
     
 <blockquote>
-<p>timetk: A toolkit for time series analysis in the tidyverse</p>
+<p>timetk: A toolkit for time series analysis in R</p>
 </blockquote>
 <p>This tutorial focuses on 3 new functions for visualizing time series diagnostics:</p>
 <ul>
@@ -145,9 +145,9 @@
 <div id="correlation-plots" class="section level1">
 <h1 class="hasAnchor">
 <a href="#correlation-plots" class="anchor"></a>Correlation Plots</h1>
-<div id="acf-diagnostics" class="section level2">
+<div id="grouped-acf-diagnostics" class="section level2">
 <h2 class="hasAnchor">
-<a href="#acf-diagnostics" class="anchor"></a>ACF Diagnostics</h2>
+<a href="#grouped-acf-diagnostics" class="anchor"></a>Grouped ACF Diagnostics</h2>
 <div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="no">m4_hourly</span> <span class="kw">%&gt;%</span>
     <span class="fu">group_by</span>(<span class="no">id</span>) <span class="kw">%&gt;%</span>
     <span class="fu"><a href="../reference/plot_acf_diagnostics.html">plot_acf_diagnostics</a></span>(
@@ -157,9 +157,9 @@
     )</pre></body></html></div>
 <p><img src="TK05_Plotting_Seasonality_and_Correlation_files/figure-html/unnamed-chunk-2-1.png" width="95%" style="display: block; margin: auto;"></p>
 </div>
-<div id="ccf-plots" class="section level2">
+<div id="grouped-ccf-plots" class="section level2">
 <h2 class="hasAnchor">
-<a href="#ccf-plots" class="anchor"></a>CCF Plots</h2>
+<a href="#grouped-ccf-plots" class="anchor"></a>Grouped CCF Plots</h2>
 <div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="no">walmart_sales_weekly</span> <span class="kw">%&gt;%</span>
     <span class="fu">select</span>(<span class="no">id</span>, <span class="no">Date</span>, <span class="no">Weekly_Sales</span>, <span class="no">Temperature</span>, <span class="no">Fuel_Price</span>) <span class="kw">%&gt;%</span>
     <span class="fu">group_by</span>(<span class="no">id</span>) <span class="kw">%&gt;%</span>
@@ -202,6 +202,25 @@
         <span class="kw">.feature_set</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"observed"</span>, <span class="st">"season"</span>, <span class="st">"trend"</span>, <span class="st">"remainder"</span>),
         <span class="kw">.interactive</span> <span class="kw">=</span> <span class="no">interactive</span>)</pre></body></html></div>
 <p><img src="TK05_Plotting_Seasonality_and_Correlation_files/figure-html/unnamed-chunk-6-1.png" width="95%" style="display: block; margin: auto;"></p>
+</div>
+<div id="learning-more" class="section level1">
+<h1 class="hasAnchor">
+<a href="#learning-more" class="anchor"></a>Learning More</h1>
+<p>If you are interested in learning from my advanced <strong>Time Series Analysis &amp; Forecasting Course</strong>, then <a href="https://mailchi.mp/business-science/time-series-forecasting-course-coming-soon">join my waitlist</a>. The course is coming soon.</p>
+<p><img src="time_series_course.jpg" width="95%" style="display: block; margin: auto;"></p>
+<p>You will learn:</p>
+<ul>
+<li>Time Series Preprocessing, Noise Reduction, &amp; Anomaly Detection</li>
+<li>Feature engineering using lagged variables &amp; external regressors</li>
+<li>Hyperparameter Tuning</li>
+<li>Time series cross-validation</li>
+<li>Ensembling Multiple Machine Learning &amp; Univariate Modeling Techniques (Competition Winner)</li>
+<li>NEW - Deep Learning with RNNs (Competition Winner)</li>
+<li>and more.</li>
+</ul>
+<p class="text-center" style="font-size:30px;">
+<a href="https://mailchi.mp/business-science/time-series-forecasting-course-coming-soon">Signup for the Time Series Course waitlist</a>
+</p>
 </div>
   </div>
 

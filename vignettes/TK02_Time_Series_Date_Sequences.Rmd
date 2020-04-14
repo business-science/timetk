@@ -1,0 +1,163 @@
+---
+title: "Time Series Date Sequences"
+author: "Matt Dancho"
+date: "`r Sys.Date()`"
+output: 
+  rmarkdown::html_vignette:
+    toc: true
+    toc_depth: 2
+vignette: >
+  %\VignetteIndexEntry{Time Series Date Sequences}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+knitr::opts_chunk$set(
+    message = FALSE,
+    warning = FALSE,
+    fig.width = 8, 
+    fig.height = 4.5,
+    fig.align = 'center',
+    out.width='95%', 
+    dpi = 100
+)
+
+# devtools::load_all() # Travis CI fails on load_all()
+```
+
+> A collection of tools for working with time series in R
+
+Creating and modifying date sequences is critical to machine learning projects. We discuss:
+
+- Making a Time Series Sequence
+- Making a Future Sequence
+
+
+# Prerequisites
+
+Before we get started, load the following packages.
+
+```{r, message=FALSE}
+library(tidyverse)
+library(timetk)
+```
+
+# Making a Time Series Sequence
+
+> Intelligent date and date-time sequence creation.
+
+`tk_make_timeseries()` improves on the `seq.Date()` and `seq.POSIXt()` functions by simplifying into 1 function. Intelligently handles character dates and logical assumptions based on user inputs.
+
+__By Day__
+
+- Can use `by = "day"` or leave blank. 
+- `include_endpoints = FALSE` removes the last value so your series is only 7 observations. 
+
+```{r}
+# Selects by day automatically
+tk_make_timeseries("2011-01-01", length_out = "7 days", include_endpoints = FALSE)
+```
+
+__By 2 Seconds__
+
+- Can use `by = "2 sec"` to adjust the interval width.
+- `include_endpoints = TRUE` keeps the last value the series ends on the 6th second. 
+
+```{r}
+# Guesses by second
+tk_make_timeseries("2016-01-01", by = "2 sec", length_out = "6 seconds")
+```
+
+__Length Out = 1 year 6 months__
+
+- `length_out = "1 year 6 months"` - Can include complex expressions like "1 year 4 months 6 days".
+
+```{r}
+tk_make_timeseries("2012-01-01", by = "1 month",
+                   length_out = "1 year 6 months", 
+                   include_endpoints = FALSE)
+```
+
+__In Reverse__
+
+- To go in reverse, just use `end_date` as where you want the series to end. 
+
+```{r}
+tk_make_timeseries(end_date = "2012-01-01", 
+                   by = "1 month",
+                   length_out = "1 year 6 months", 
+                   include_endpoints = FALSE)
+```
+
+# Future Time Series Sequence
+
+A common operation is to make a future time series sequence that mimics an existing. This is what `tk_make_future_timeseries()` is for. 
+
+```{r}
+idx <- tk_make_timeseries("2012-01-01", by = "3 months", 
+                          length_out = "2 years", include_endpoints = FALSE)
+idx
+```
+
+```{r}
+tk_make_future_timeseries(idx, n_future = 4)
+```
+
+
+# Weekends & Holidays
+
+__Make weekday sequence removing holidays__
+
+```{r}
+idx <- tk_make_weekday_sequence("2012-01-01", "2012-12-31", 
+                                remove_weekends = TRUE, 
+                                remove_holidays = TRUE)
+
+tk_get_timeseries_summary(idx)
+```
+
+__Which holidays were removed?__
+
+```{r}
+tk_make_holiday_sequence("2012-01-01", "2012-12-31", calendar = "NYSE")
+```
+
+
+__Make future index removing holidays__
+
+```{r}
+holidays <- tk_make_holiday_sequence(
+    start_date = "2013-01-01",
+    end_date   = "2013-12-31",
+    calendar   = "NYSE")
+
+idx_future <- idx %>%
+   tk_make_future_timeseries(n_future         = 366,
+                             inspect_weekdays = TRUE,
+                             skip_values      = holidays)
+
+tk_get_timeseries_summary(idx)
+```
+
+# Learning More
+
+If you are interested in learning from my advanced __Time Series Analysis & Forecasting Course__, then [join my waitlist](https://mailchi.mp/business-science/time-series-forecasting-course-coming-soon). The course is coming soon. 
+
+```{r, echo=FALSE}
+knitr::include_graphics("time_series_course.jpg")
+```
+
+You will learn:
+
+- Time Series Preprocessing, Noise Reduction, & Anomaly Detection
+- Feature engineering using lagged variables & external regressors
+- Hyperparameter Tuning
+- Time series cross-validation
+- Ensembling Multiple Machine Learning & Univariate Modeling Techniques (Competition Winner)
+- NEW - Deep Learning with RNNs (Competition Winner)
+- and more.
+
+<p class="text-center" style="font-size:30px;">
+<a href="https://mailchi.mp/business-science/time-series-forecasting-course-coming-soon">Signup for the Time Series Course waitlist</a>
+</p>

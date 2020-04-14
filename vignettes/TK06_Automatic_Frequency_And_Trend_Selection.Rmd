@@ -1,0 +1,167 @@
+---
+title: "Automatic Frequency and Trend Selection"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{TK06_Automatic_Frequency_And_Trend_Selection}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+knitr::opts_chunk$set(
+    # message = FALSE,
+    # warning = FALSE,
+    fig.width = 8, 
+    fig.height = 4.5,
+    fig.align = 'center',
+    out.width='95%', 
+    dpi = 100
+)
+
+# devtools::load_all() # Travis CI fails on load_all()
+```
+
+> A collection of tools for working with time series in R
+
+Frequency and trend cycles are used in many time series applications including Seasonal ARIMA (SARIMA) forecasting and STL Decomposition. New in `timetk` 1.0.0 are __Automatic Frequency and Trend Selection tools.__ These tools use only the the timestamp information to make logical guesses about the frequency and trend.
+
+
+# Prerequisites
+
+Before we get started, load the following packages.
+
+```{r, message = F, warning=FALSE}
+library(tidyverse)
+library(tidyquant) # Used for FANG dataset
+library(timetk)
+```
+
+# Data
+
+__Daily Irregular Data__
+
+The daily stock prices of Facebook from 2013 to 2016 (courtesy of `tidyquant`). Note that trading days only occur on "business days" (non-weekends and non-business-holidays).
+
+```{r}
+FB_tbl <- FANG %>% filter(symbol == "FB")
+FB_tbl
+```
+
+__Sub-Daily Data__
+
+Taylor's Energy Demand data at a 30-minute timestamp interval. 
+
+```{r}
+taylor_30_min
+```
+
+
+# Applications
+
+An example of where automatic frequency detection occurs is in the `plot_stl_diagnostics()` function. 
+
+```{r, fig.height=8}
+taylor_30_min %>%
+    plot_stl_diagnostics(date, value, 
+                         .frequency = "auto", .trend = "auto",
+                         .interactive = FALSE)
+```
+
+
+# Automatic Frequency & Trend Selection
+
+## Specifying a Frequency or Trend 
+
+The `period` argument has three basic options for returning a frequency. Options include:
+
+- "auto": A target frequency is determined using a pre-defined ___Time Scale Template___ (see below).
+- time-based duration: (e.g. "7 days" or "2 quarters" per cycle)
+- numeric number of observations: (e.g. 5 for 5 observations per cycle)
+
+## Frequency
+
+A _frequency_ is loosely defined as the number of observations that comprise a cycle in a data set.
+
+Using `tk_get_frequency()`, we can pick a number of observations that will roughly define a frequency for the series. 
+
+__Daily Irregular Data__
+
+Because `FB_tbl` is irregular (weekends and holidays are not present), the frequency selected is weekly but each week is only 5-days typically. So 5 is selected. 
+
+```{r, message = TRUE}
+FB_tbl %>% tk_index() %>% tk_get_frequency(period = "auto")
+```
+
+__Sub-Daily Data__
+
+This works as well for a sub-daily time series. Here we'll use `taylor_30_min` for a 30-minute timestamp series. The frequency selected is 48 because there are 48 timestamps (observations) in 1 day for the 30-minute cycle. 
+
+```{r}
+taylor_30_min %>% tk_index() %>% tk_get_frequency("1 day")
+```
+
+## Trend
+
+The trend is loosely defined as time span that can be aggregated across to visualize the central tendency of the data.
+
+Using `tk_get_trend()`, we can pick a number of observations that will help describe a trend for the data.
+
+__Daily Irregular Data__
+
+Because `FB_tbl` is irregular (weekends and holidays are not present), the trend selected is 3 months but each week is only 5-days typically. So 64 observations is selected. 
+
+```{r, message = TRUE}
+FB_tbl %>% tk_index() %>% tk_get_trend(period = "auto")
+```
+
+__Sub-Daily Data__
+
+A 14-day (2 week) interval is selected for the "30-minute" interval data. 
+
+```{r}
+taylor_30_min %>% tk_index() %>% tk_get_trend("auto")
+```
+
+
+
+# Time Scale Template
+
+A ___Time-Scale Template___ is used to get and set the time scale template, which is used by `tk_get_frequency()` and `tk_get_trend()` when `period = "auto"`.
+
+The predefined template is stored in a function `tk_time_scale_template()`. This is the default used by `timetk`.
+
+__Accessing the Default Template__
+
+You can access the current template with `get_tk_time_scale_template()`.
+
+```{r}
+get_tk_time_scale_template()
+```
+
+
+__Changing the Default Template__
+
+You can modify the current template with `set_tk_time_scale_template()`.
+
+
+# Learning More
+
+If you are interested in learning from my advanced __Time Series Analysis & Forecasting Course__, then [join my waitlist](https://mailchi.mp/business-science/time-series-forecasting-course-coming-soon). The course is coming soon. 
+
+```{r, echo=FALSE}
+knitr::include_graphics("time_series_course.jpg")
+```
+
+You will learn:
+
+- Time Series Preprocessing, Noise Reduction, & Anomaly Detection
+- Feature engineering using lagged variables & external regressors
+- Hyperparameter Tuning
+- Time series cross-validation
+- Ensembling Multiple Machine Learning & Univariate Modeling Techniques (Competition Winner)
+- NEW - Deep Learning with RNNs (Competition Winner)
+- and more.
+
+<p class="text-center" style="font-size:30px;">
+<a href="https://mailchi.mp/business-science/time-series-forecasting-course-coming-soon">Signup for the Time Series Course waitlist</a>
+</p>

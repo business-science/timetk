@@ -119,7 +119,7 @@
       <a href="../articles/TK03_Forecasting_Using_Time_Series_Signature.html">Time Series Machine Learning</a>
     </li>
     <li class="divider"></li>
-    <li class="dropdown-header">Time Series Helpers</li>
+    <li class="dropdown-header">Time Series Analysis</li>
     <li>
       <a href="../articles/TK01_Working_With_Time_Series_Index.html">Time series index</a>
     </li>
@@ -251,11 +251,11 @@ You can modify the template with <code><a href='tk_time_scale_template.html'>set
     <span class='fu'>pull</span>(<span class='no'>date</span>)
 
 <span class='co'># Automated Frequency Calculation</span>
-<span class='fu'>tk_get_frequency</span>(<span class='no'>idx_FB</span>, <span class='kw'>period</span> <span class='kw'>=</span> <span class='st'>"auto"</span>)</div><div class='output co'>#&gt; <span class='message'>frequency = 5 days</span></div><div class='output co'>#&gt; [1] 5</div><div class='input'>
+<span class='fu'>tk_get_frequency</span>(<span class='no'>idx_FB</span>, <span class='kw'>period</span> <span class='kw'>=</span> <span class='st'>"auto"</span>)</div><div class='output co'>#&gt; <span class='message'>frequency = 5 observations per 1 week</span></div><div class='output co'>#&gt; [1] 5</div><div class='input'>
 <span class='co'># Automated Trend Calculation</span>
-<span class='fu'>tk_get_trend</span>(<span class='no'>idx_FB</span>, <span class='kw'>period</span> <span class='kw'>=</span> <span class='st'>"auto"</span>)</div><div class='output co'>#&gt; <span class='message'>trend = 64 days</span></div><div class='output co'>#&gt; [1] 64</div><div class='input'>
+<span class='fu'>tk_get_trend</span>(<span class='no'>idx_FB</span>, <span class='kw'>period</span> <span class='kw'>=</span> <span class='st'>"auto"</span>)</div><div class='output co'>#&gt; <span class='message'>trend = 64 observations per 3 months</span></div><div class='output co'>#&gt; [1] 64</div><div class='input'>
 <span class='co'># Manually Override Trend</span>
-<span class='fu'>tk_get_trend</span>(<span class='no'>idx_FB</span>, <span class='kw'>period</span> <span class='kw'>=</span> <span class='st'>"1 year"</span>)</div><div class='output co'>#&gt; <span class='message'>trend = 252 days</span></div><div class='output co'>#&gt; [1] 252</div><div class='input'>
+<span class='fu'>tk_get_trend</span>(<span class='no'>idx_FB</span>, <span class='kw'>period</span> <span class='kw'>=</span> <span class='st'>"1 year"</span>)</div><div class='output co'>#&gt; <span class='message'>trend = 252 observations per 1 year</span></div><div class='output co'>#&gt; [1] 252</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

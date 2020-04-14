@@ -25,7 +25,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-> timetk: A toolkit for time series analysis in the tidyverse
+> timetk: A toolkit for time series analysis in R
 
 This tutorial focuses on 3 new functions for visualizing time series diagnostics:
 
@@ -45,7 +45,7 @@ interactive <- FALSE
 
 # Correlation Plots
 
-## ACF Diagnostics
+## Grouped ACF Diagnostics
 
 ```{r, fig.height=6}
 m4_hourly %>%
@@ -57,7 +57,7 @@ m4_hourly %>%
     )
 ```
 
-## CCF Plots
+## Grouped CCF Plots
 
 ```{r, fig.height=8}
 walmart_sales_weekly %>%
@@ -101,4 +101,24 @@ m4_hourly %>%
         .interactive = interactive)
 ```
 
+# Learning More
 
+If you are interested in learning from my advanced __Time Series Analysis & Forecasting Course__, then [join my waitlist](https://mailchi.mp/business-science/time-series-forecasting-course-coming-soon). The course is coming soon. 
+
+```{r, echo=FALSE}
+knitr::include_graphics("time_series_course.jpg")
+```
+
+You will learn:
+
+- Time Series Preprocessing, Noise Reduction, & Anomaly Detection
+- Feature engineering using lagged variables & external regressors
+- Hyperparameter Tuning
+- Time series cross-validation
+- Ensembling Multiple Machine Learning & Univariate Modeling Techniques (Competition Winner)
+- NEW - Deep Learning with RNNs (Competition Winner)
+- and more.
+
+<p class="text-center" style="font-size:30px;">
+<a href="https://mailchi.mp/business-science/time-series-forecasting-course-coming-soon">Signup for the Time Series Course waitlist</a>
+</p>
