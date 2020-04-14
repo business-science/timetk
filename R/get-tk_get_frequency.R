@@ -86,6 +86,8 @@ NULL
 #' @rdname tk_get_frequency
 tk_get_frequency <- function(idx, period = "auto", message = TRUE) {
 
+    check_weeks(period)
+
     # Setup inputs
     template <- get_tk_time_scale_template()
 
@@ -98,10 +100,12 @@ tk_get_frequency <- function(idx, period = "auto", message = TRUE) {
     if (is.numeric(period)) {
         # 1. Numeric Periods
         freq <- period
+        freq_string <- stringr::str_glue("frequency = {freq} observations")
 
     } else if (tolower(period) != "auto") {
         # 2. Text (e.g. period = "2 Weeks")
         freq <- get_period_statistic(idx, period = period, fn = stats::median)
+        freq_string <- frequency_message(freq, period)
 
     } else {
         # 3. period = "auto"
@@ -109,6 +113,9 @@ tk_get_frequency <- function(idx, period = "auto", message = TRUE) {
             lookup_time_scale(time_scale = ts_scale, lookup_val = "frequency", index_offset = 0)
 
         freq <- get_period_statistic(idx, period = periodicity_target, fn = stats::median)
+        freq_string <- frequency_message(freq, periodicity_target)
+
+
 
         # Insufficient observations: nobs-to-freq should be at least 3-1
         if (ts_nobs < 3*freq) {
@@ -120,15 +127,18 @@ tk_get_frequency <- function(idx, period = "auto", message = TRUE) {
                 )
 
             freq <- get_period_statistic(idx, period = periodicity_target, fn = stats::median)
+            freq_string <- frequency_message(freq, periodicity_target)
+
         }
 
         if (ts_nobs < 3*freq) {
             freq <- 1
+            freq_string <- "frequency = 1 (Number of observations insufficient for higher frequencies."
         }
     }
 
     if (message) {
-        freq_string <- stringr::str_glue("frequency = {freq} {ts_scale}s")
+        # freq_string <- stringr::str_glue("frequency = {freq} {ts_scale}s")
         message(freq_string)
     }
 
@@ -152,6 +162,7 @@ tk_get_trend <- function(idx, period = "auto", message = TRUE) {
     if (is.numeric(period)) {
         # 1. Numeric Periods
         trend <- period
+        trend_string <- stringr::str_glue("trend = {trend} observations")
 
     } else if (tolower(period) != "auto") {
         # 2. Text (e.g. period = "2 Weeks")
@@ -164,6 +175,8 @@ tk_get_trend <- function(idx, period = "auto", message = TRUE) {
         trend  <- idx %>% between_time(date_1, date_2) %>% sum()
         trend  <- trend - 1
 
+        trend_string <- frequency_message(trend, period, type = "trend")
+
     } else {
         # 3. period = "auto"
         periodicity_target <- template %>%
@@ -174,6 +187,7 @@ tk_get_trend <- function(idx, period = "auto", message = TRUE) {
             )
 
         trend <- get_period_statistic(idx, period = periodicity_target, fn = max)
+        trend_string <- frequency_message(trend, periodicity_target, type = "trend")
         # trend <- ceiling(trend)
 
         # Insufficient observations: nobs-to-trend should be at least 2-1
@@ -187,16 +201,17 @@ tk_get_trend <- function(idx, period = "auto", message = TRUE) {
 
             trend <- get_period_statistic(idx, period = periodicity_target, fn = max)
             trend <- ceiling(trend)
-
+            trend_string <- frequency_message(trend, periodicity_target, type = "trend")
         }
 
         if (ts_nobs / trend < 2) {
             trend <- ts_nobs
+            trend_string <- stringr::str_glue("trend = {ts_nobs} (Number of observations insufficient for shorter trend cycles.")
         }
     }
 
     if (message) {
-        trend_string <- stringr::str_glue("trend = {trend} {ts_scale}s")
+        # trend_string <- stringr::str_glue("trend = {trend} {ts_scale}s")
         message(trend_string)
     }
 
@@ -245,4 +260,28 @@ lookup_time_scale <- function(template, time_scale, lookup_val = c("frequency", 
     template %>%
         dplyr::filter(time_scale == key_value) %>%
         dplyr::pull(!! lookup_val_expr)
+}
+
+
+frequency_message <- function(freq, period, type = "frequency") {
+
+    period_parsed <- parse_period(period)
+    freq_string <- stringr::str_glue("{type} = {freq} observations per {period_parsed$freq} {period_parsed$period}")
+    if (period_parsed$freq > 1) freq_string <- paste0(freq_string, "s")
+
+    freq_string
+
+}
+
+
+
+check_weeks <- function(period) {
+    if (tolower(period) %>% stringr::str_detect("week")) {
+
+        period_parsed <- parse_period(period)
+
+        if (period_parsed$freq > 1) rlang::abort("Multiple `weeks` detected. Try using `7 day` increments instead.")
+
+
+    }
 }
