@@ -7,5 +7,6 @@ articles:
   TK02_Making_A_Future_Time_Series_Index: TK02_Making_A_Future_Time_Series_Index.html
   TK03_Forecasting_Using_Time_Series_Signature: TK03_Forecasting_Using_Time_Series_Signature.html
   TK04_Plotting_Time_Series: TK04_Plotting_Time_Series.html
-last_built: 2020-04-13T20:37Z
+  TK05_Plotting_Seasonality_and_Correlation: TK05_Plotting_Seasonality_and_Correlation.html
+last_built: 2020-04-14T00:25Z
 

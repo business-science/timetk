@@ -1,0 +1,104 @@
+---
+title: "Plotting Seasonality and Correlation"
+author: "Matt Dancho"
+output: 
+  rmarkdown::html_vignette:
+    toc: true
+    toc_depth: 2
+vignette: >
+  %\VignetteIndexEntry{Plotting_Seasonality_and_Correlation}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  message = FALSE,
+  warning = FALSE,
+  fig.width = 8, 
+  fig.height = 4.5,
+  fig.align = 'center',
+  out.width='95%', 
+  dpi = 100,
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+> timetk: A toolkit for time series analysis in the tidyverse
+
+This tutorial focuses on 3 new functions for visualizing time series diagnostics:
+
+- ACF Diagnostics: `plot_acf_diagnostics()`
+- Seasonality Diagnostics: `plot_seasonal_diagnostics()`
+- STL Diagnostics: `plot_stl_diagnostics()`
+
+```{r setup}
+library(tidyverse)
+library(timetk)
+
+# Setup for the plotly charts
+# - If TRUE, returns interactive
+# - If FALSE, returns ggplot2
+interactive <- FALSE
+```
+
+# Correlation Plots
+
+## ACF Diagnostics
+
+```{r, fig.height=6}
+m4_hourly %>%
+    group_by(id) %>%
+    plot_acf_diagnostics(
+        date, value,               # ACF & PACF
+        .lags = 0:(24*7),          # 7-Days of hourly lags
+        .interactive = interactive
+    )
+```
+
+## CCF Plots
+
+```{r, fig.height=8}
+walmart_sales_weekly %>%
+    select(id, Date, Weekly_Sales, Temperature, Fuel_Price) %>%
+    group_by(id) %>%
+    plot_acf_diagnostics(
+        Date, Weekly_Sales,        # ACF & PACF
+        Temperature, Fuel_Price,   # CCFs
+        .lags        = 0:(4*3),    # 3 months of weekly lags
+        .interactive = interactive
+    )
+```
+
+# Seasonality
+
+## Seasonal Visualizations
+
+```{r, fig.height=8}
+taylor_30_min %>%
+    plot_seasonal_diagnostics(date, value, .interactive = interactive)
+```
+
+## Grouped Seasonal Visualizations
+
+```{r, fig.height=8}
+m4_hourly %>%
+    group_by(id) %>%
+    plot_seasonal_diagnostics(date, value, .interactive = interactive)
+```
+
+
+# STL Diagnostics
+
+```{r, fig.height=8}
+m4_hourly %>%
+    group_by(id) %>%
+    plot_stl_diagnostics(
+        date, value,
+        .frequency = "auto", .trend = "auto",
+        .feature_set = c("observed", "season", "trend", "remainder"),
+        .interactive = interactive)
+```
+
+

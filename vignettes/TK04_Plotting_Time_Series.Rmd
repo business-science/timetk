@@ -40,6 +40,11 @@ This tutorial focuses on, `plot_time_series()`, a workhorse time-series plotting
 library(tidyverse)
 library(lubridate)
 library(timetk)
+
+# Setup for the plotly charts
+# - If TRUE, returns interactive
+# - If FALSE, returns ggplot2
+interactive <- FALSE
 ```
 
 # Plotting Single Time Series
@@ -53,11 +58,13 @@ taylor_30_min
 The `plot_time_series()` function generates an interactive `plotly` chart by default. 
 
 - Simply provide the date variable (time-based column, `.date_var`) and the numeric variable (`.value`) that changes over time as the first 2 arguments 
-- `.plotly_slider = TRUE` adds a date slider to the bottom of the chart. 
+- When `.interactive = TRUE`, the `.plotly_slider = TRUE` adds a date slider to the bottom of the chart. 
 
 ```{r}
 taylor_30_min %>% 
-  plot_time_series(date, value, .plotly_slider = TRUE)
+  plot_time_series(date, value, 
+                   .interactive = interactive,
+                   .plotly_slider = TRUE)
 ```
 
 
@@ -80,7 +87,8 @@ Visualizing grouped data is as simple as grouping the data set with `group_by()`
 m4_daily %>%
   group_by(id) %>%
   plot_time_series(date, value, 
-                   .facet_ncol = 2, .facet_scales = "free")
+                   .facet_ncol = 2, .facet_scales = "free",
+                   .interactive = interactive)
 ```
 
 # Adjusting the Smoother
@@ -102,7 +110,8 @@ m4_daily %>%
                     # Note that D10 and D410 have less than 730 observations
                    .smooth_period  = "2 year",
                    # Shows the trend period selected
-                   .smooth_message = TRUE) 
+                   .smooth_message = TRUE, 
+                   .interactive = interactive) 
 ```
 
 
@@ -131,7 +140,8 @@ m4_hourly %>%
                    .color_var = week(date),      # Color applied to Week transformation
                    # Facet formatting
                    .facet_ncol = 2, 
-                   .facet_scales = "free")
+                   .facet_scales = "free", 
+                   .interactive = interactive)
 ```
 
 # Static ggplot2 Visualizations & Customizations
@@ -144,7 +154,7 @@ taylor_30_min %>%
                    .color_var = month(date, label = TRUE),
                    
                    # Returns static ggplot
-                   .interactive = FALSE,  
+                   .interactive = interactive,  
                    
                    # Customization
                    .title = "Taylor's MegaWatt Data",
