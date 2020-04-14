@@ -154,7 +154,7 @@ taylor_30_min %>%
                    .color_var = month(date, label = TRUE),
                    
                    # Returns static ggplot
-                   .interactive = interactive,  
+                   .interactive = FALSE,  
                    
                    # Customization
                    .title = "Taylor's MegaWatt Data",

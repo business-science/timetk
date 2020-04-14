@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Sample Daily Time Series Data from the Web Traffic Forecasting (Wikipedia) Competition — wikipedia_traffic_daily • timetk</title>
+<title>Half-hourly electricity demand — bike_sharing_daily • timetk</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,12 +46,10 @@
 
 
 
-<meta property="og:title" content="Sample Daily Time Series Data from the Web Traffic Forecasting (Wikipedia) Competition — wikipedia_traffic_daily" />
-<meta property="og:description" content="The Kaggle &quot;Web Traffic Forecasting&quot; (Wikipedia) Competition
-used Google Analytics Web Traffic Data for 145,000 websites.
-Each of these time series represent a number of daily views of a different Wikipedia articles.
-The competition began July 13th, 2017 and ended November 15th, 2017.
-This dataset includes a Sample of 10 article pages (10 total time series)." />
+<meta property="og:title" content="Half-hourly electricity demand — bike_sharing_daily" />
+<meta property="og:description" content="This dataset contains the daily count of
+rental bike transactions between years 2011 and 2012 in Capital bikeshare
+system with the corresponding weather and seasonal information." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -167,57 +165,70 @@ This dataset includes a Sample of 10 article pages (10 total time series)." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Sample Daily Time Series Data from the Web Traffic Forecasting (Wikipedia) Competition</h1>
-    <small class="dont-index">Source: <a href='https://github.com/business-science/timetk/blob/master/R/data-wikipedia_traffic_daily.R'><code>R/data-wikipedia_traffic_daily.R</code></a></small>
-    <div class="hidden name"><code>wikipedia_traffic_daily.Rd</code></div>
+    <h1>Half-hourly electricity demand</h1>
+    <small class="dont-index">Source: <a href='https://github.com/business-science/timetk/blob/master/R/data-bike_sharing.R'><code>R/data-bike_sharing.R</code></a></small>
+    <div class="hidden name"><code>bike_sharing_daily.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>The Kaggle "Web Traffic Forecasting" (Wikipedia) Competition
-used <strong>Google Analytics Web Traffic Data</strong> for 145,000 websites.
-Each of these time series represent a number of daily views of a different Wikipedia articles.
-The competition began July 13th, 2017 and ended November 15th, 2017.
-This dataset includes a <strong>Sample of 10 article pages (10 total time series)</strong>.</p>
+    <p>This dataset contains the daily count of
+rental bike transactions between years 2011 and 2012 in Capital bikeshare
+system with the corresponding weather and seasonal information.</p>
     </div>
 
-    <pre class="usage"><span class='no'>wikipedia_traffic_daily</span></pre>
+    <pre class="usage"><span class='no'>bike_sharing_daily</span></pre>
 
 
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-    <p>A tibble: 9,743 x 3</p><ul>
-<li><p><code>Page</code> Character. Page information.</p></li>
-<li><p><code>date</code> Date. Daily timestamp.</p></li>
-<li><p><code>value</code> Numeric. Daily views of the wikipedia article.</p></li>
+    <p>A tibble: 731 x 16</p><ul>
+<li><p>instant: record index</p></li>
+<li><p>dteday : date</p></li>
+<li><p>season : season (1:winter, 2:spring, 3:summer, 4:fall)</p></li>
+<li><p>yr : year (0: 2011, 1:2012)</p></li>
+<li><p>mnth : month ( 1 to 12)</p></li>
+<li><p>hr : hour (0 to 23)</p></li>
+<li><p>holiday : weather day is holiday or not (extracted from Web Link)</p></li>
+<li><p>weekday : day of the week</p></li>
+<li><p>workingday : if day is neither weekend nor holiday is 1, otherwise is 0.</p></li>
+<li><p>weathersit :</p><ul>
+<li><p>1: Clear, Few clouds, Partly cloudy, Partly cloudy</p></li>
+<li><p>2: Mist + Cloudy, Mist + Broken clouds, Mist + Few clouds, Mist</p></li>
+<li><p>3: Light Snow, Light Rain + Thunderstorm + Scattered clouds, Light Rain + Scattered clouds</p></li>
+<li><p>4: Heavy Rain + Ice Pallets + Thunderstorm + Mist, Snow + Fog</p></li>
+</ul></li>
+<li><p>temp : Normalized temperature in Celsius. The values are derived via (t-t_min)/(t_max-t_min), t_min=-8, t_max=+39 (only in hourly scale)</p></li>
+<li><p>atemp: Normalized feeling temperature in Celsius. The values are derived via (t-t_min)/(t_max-t_min), t_min=-16, t_max=+50 (only in hourly scale)</p></li>
+<li><p>hum: Normalized humidity. The values are divided to 100 (max)</p></li>
+<li><p>windspeed: Normalized wind speed. The values are divided to 67 (max)</p></li>
+<li><p>casual: count of casual users</p></li>
+<li><p>registered: count of registered users</p></li>
+<li><p>cnt: count of total rental bikes including both casual and registered</p></li>
 </ul>
 
-    <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    
-<ul>
-<li><p><a href='https://www.kaggle.com/c/web-traffic-time-series-forecasting'>Kaggle Competition Website</a></p></li>
-</ul>
-
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>This is a sample of 10 Daily data sets from the Kaggle Web Traffic Forecasting (Wikipedia) Competition</p>
+    <p>Fanaee-T, Hadi, and Gama, Joao,
+'Event labeling combining ensemble detectors and background knowledge',
+Progress in Artificial Intelligence (2013): pp. 1-15, Springer Berlin Heidelberg,
+<a href='https://link.springer.com/article/10.1007/s13748-013-0040-3'>Web Link</a>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='no'>wikipedia_traffic_daily</span></div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 5,500 x 3</span><span>
-#&gt;    Page                                                         date       value
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                                                        </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> Death_of_Freddie_Gray_en.wikipedia.org_mobile-web_all-agents 2015-07-01   791
-#&gt; </span><span style='color: #555555;'> 2</span><span> Death_of_Freddie_Gray_en.wikipedia.org_mobile-web_all-agents 2015-07-02   704
-#&gt; </span><span style='color: #555555;'> 3</span><span> Death_of_Freddie_Gray_en.wikipedia.org_mobile-web_all-agents 2015-07-03   903
-#&gt; </span><span style='color: #555555;'> 4</span><span> Death_of_Freddie_Gray_en.wikipedia.org_mobile-web_all-agents 2015-07-04   732
-#&gt; </span><span style='color: #555555;'> 5</span><span> Death_of_Freddie_Gray_en.wikipedia.org_mobile-web_all-agents 2015-07-05   558
-#&gt; </span><span style='color: #555555;'> 6</span><span> Death_of_Freddie_Gray_en.wikipedia.org_mobile-web_all-agents 2015-07-06   504
-#&gt; </span><span style='color: #555555;'> 7</span><span> Death_of_Freddie_Gray_en.wikipedia.org_mobile-web_all-agents 2015-07-07   543
-#&gt; </span><span style='color: #555555;'> 8</span><span> Death_of_Freddie_Gray_en.wikipedia.org_mobile-web_all-agents 2015-07-08  </span><span style='text-decoration: underline;'>1</span><span>156
-#&gt; </span><span style='color: #555555;'> 9</span><span> Death_of_Freddie_Gray_en.wikipedia.org_mobile-web_all-agents 2015-07-09  </span><span style='text-decoration: underline;'>1</span><span>196
-#&gt; </span><span style='color: #555555;'>10</span><span> Death_of_Freddie_Gray_en.wikipedia.org_mobile-web_all-agents 2015-07-10   701
-#&gt; </span><span style='color: #555555;'># … with 5,490 more rows</span><span></div><div class='input'>
+    <pre class="examples"><div class='input'><span class='no'>bike_sharing_daily</span></div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 731 x 16</span><span>
+#&gt;    instant dteday     season    yr  mnth holiday weekday workingday weathersit
+#&gt;      </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span>       1 2011-01-01      1     0     1       0       6          0          2
+#&gt; </span><span style='color: #555555;'> 2</span><span>       2 2011-01-02      1     0     1       0       0          0          2
+#&gt; </span><span style='color: #555555;'> 3</span><span>       3 2011-01-03      1     0     1       0       1          1          1
+#&gt; </span><span style='color: #555555;'> 4</span><span>       4 2011-01-04      1     0     1       0       2          1          1
+#&gt; </span><span style='color: #555555;'> 5</span><span>       5 2011-01-05      1     0     1       0       3          1          1
+#&gt; </span><span style='color: #555555;'> 6</span><span>       6 2011-01-06      1     0     1       0       4          1          1
+#&gt; </span><span style='color: #555555;'> 7</span><span>       7 2011-01-07      1     0     1       0       5          1          2
+#&gt; </span><span style='color: #555555;'> 8</span><span>       8 2011-01-08      1     0     1       0       6          0          2
+#&gt; </span><span style='color: #555555;'> 9</span><span>       9 2011-01-09      1     0     1       0       0          0          1
+#&gt; </span><span style='color: #555555;'>10</span><span>      10 2011-01-10      1     0     1       0       1          1          1
+#&gt; </span><span style='color: #555555;'># … with 721 more rows, and 7 more variables: temp </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, atemp </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   hum </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, windspeed </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, casual </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, registered </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, cnt </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span></div><div class='input'>
 </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

@@ -167,6 +167,7 @@ __New Datasets__
 - __Walmart Recruiting Retail Sales Forecasting Competition__ - Sample of 7 retail time series
 - __Web Traffic Forecasting (Wikipedia) Competition__ - Sample of 10 website time series
 - __Taylor's Energy Demand__ - Single time series with 30-minute interval of energy demand
+- __UCI Bike Sharing Daily__ - A time series consisting of Capital Bikesharing Transaction Counts and related time-based features. 
 
  
 __Bug Fixes:__

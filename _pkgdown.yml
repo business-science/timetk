@@ -11,7 +11,7 @@ navbar:
     - text: "Tutorials"
       href: articles/index.html
       menu:
-        - text: 'Plotting'
+        - text: 'Visualization'
         - text: "Plotting Time Series"
           href: articles/TK04_Plotting_Time_Series.html
         - text: "Plotting Seasonality and Correlation"
@@ -153,6 +153,7 @@ reference:
     - contains("m4_")
     - contains("walmart")
     - contains("wikipedia")
+    - "bike_sharing_daily"
     - "taylor_30_min"
 
 

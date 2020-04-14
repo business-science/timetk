@@ -4,10 +4,10 @@ pkgdown_sha: ~
 articles:
   TK00_Time_Series_Coercion: TK00_Time_Series_Coercion.html
   TK01_Working_With_Time_Series_Index: TK01_Working_With_Time_Series_Index.html
-  TK02_Making_A_Future_Time_Series_Index: TK02_Making_A_Future_Time_Series_Index.html
+  TK02_Time_Series_Date_Sequences: TK02_Time_Series_Date_Sequences.html
   TK03_Forecasting_Using_Time_Series_Signature: TK03_Forecasting_Using_Time_Series_Signature.html
   TK04_Plotting_Time_Series: TK04_Plotting_Time_Series.html
   TK05_Plotting_Seasonality_and_Correlation: TK05_Plotting_Seasonality_and_Correlation.html
   TK06_Automatic_Frequency_And_Trend_Selection: TK06_Automatic_Frequency_And_Trend_Selection.html
-last_built: 2020-04-14T15:07Z
+last_built: 2020-04-14T18:00Z
 
