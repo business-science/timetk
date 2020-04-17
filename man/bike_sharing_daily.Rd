@@ -47,7 +47,6 @@ bike_sharing_daily
 \references{
 Fanaee-T, Hadi, and Gama, Joao,
 'Event labeling combining ensemble detectors and background knowledge',
-Progress in Artificial Intelligence (2013): pp. 1-15, Springer Berlin Heidelberg,
-\href{https://link.springer.com/article/10.1007/s13748-013-0040-3}{Web Link}.
+Progress in Artificial Intelligence (2013): pp. 1-15, Springer Berlin Heidelberg.
 }
 \keyword{datasets}

@@ -40,7 +40,6 @@ library(workflows)
 library(parsnip)
 library(recipes)
 library(yardstick)
-library(glmnet)
 library(tidyverse)
 library(tidyquant)
 library(timetk)
@@ -48,19 +47,18 @@ library(timetk)
 
 # Data
 
-We'll be using the [Bike Sharing Dataset](https://archive.ics.uci.edu/ml/datasets/bike+sharing+dataset) from the UCI Machine Learning Repository. Download the data and select the "day.csv" file which is aggregated to daily periodicity.
+We'll be using the [Bike Sharing Dataset](https://archive.ics.uci.edu/ml/datasets/bike+sharing+dataset) from the UCI Machine Learning Repository.
 
 _Source: Fanaee-T, Hadi, and Gama, Joao, 'Event labeling combining ensemble detectors and background knowledge', Progress in Artificial Intelligence (2013): pp. 1-15, Springer Berlin Heidelberg_
 
 ```{r}
 # Read data
-bikes <- read_csv("day.csv")
-
-# Select date and count
-bikes_tbl <- bikes %>%
+bikes_tbl <- bike_sharing_daily %>%
     select(dteday, cnt) %>%
     rename(date  = dteday,
            value = cnt)
+
+bikes_tbl
 ```
 
 A visualization will help understand how we plan to tackle the problem of forecasting the data. We'll split the data into two regions: a training region and a testing region. 
@@ -128,8 +126,7 @@ recipe_spec_final <- recipe_spec_timeseries %>%
     step_rm(contains("iso"), contains("minute"), contains("hour"),
             contains("am.pm"), contains("xts")) %>%
     step_normalize(contains("index.num"), date_year) %>%
-    step_dummy(contains("lbl"), one_hot = TRUE) %>%
-    step_ns(date_index.num, deg_free = 3)
+    step_dummy(contains("lbl"), one_hot = TRUE) 
 
 bake(prep(recipe_spec_final), new_data = train_tbl)
 ```
@@ -140,8 +137,8 @@ bake(prep(recipe_spec_final), new_data = train_tbl)
 Next, let's create a model specification. We'll use a `glmnet`. 
 
 ```{r}
-model_spec_glmnet <- linear_reg(mode = "regression", penalty = 0.001, mixture = 0.5) %>%
-    set_engine("glmnet")
+model_spec_glmnet <- linear_reg(mode = "regression") %>%
+    set_engine("lm")
 ```
 
 ## Workflow
@@ -224,7 +221,7 @@ prediction_tbl %>%
     scale_y_continuous(limits = c(-5000, 5000))
 ```
 
-At this point you might go back to the model and try tweaking features using interactions or polynomial terms, adding other features that may be known in the future (e.g. temperature of day can be forecasted relatively accurately within 7 days), or try a completely different modeling technique with the hope of better predictions on the test set. Once you feel that your model is optimized, move on the final step of forecasting. 
+This is certainly not the best model we can come up with, but it will do for a quick tutorial. I have a ton of improvements that can be made, and I teach these expert techniques. If you are interested in learning from my advanced [__Time Series Analysis & Forecasting Course__](https://mailchi.mp/business-science/time-series-forecasting-course-coming-soon), then join my waitlist. The course is coming soon. 
 
 # Forecasting Future Data
 

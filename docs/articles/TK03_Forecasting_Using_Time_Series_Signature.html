@@ -120,7 +120,7 @@
       <h1 data-toc-skip>Time Series Machine Learning</h1>
                         <h4 class="author">Matt Dancho</h4>
             
-            <h4 class="date">2020-04-14</h4>
+            <h4 class="date">2020-04-17</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/business-science/timetk/blob/master/vignettes/TK03_Forecasting_Using_Time_Series_Signature.Rmd"><code>vignettes/TK03_Forecasting_Using_Time_Series_Signature.Rmd</code></a></small>
       <div class="hidden name"><code>TK03_Forecasting_Using_Time_Series_Signature.Rmd</code></div>
@@ -141,7 +141,6 @@
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">parsnip</span>)
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">recipes</span>)
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">yardstick</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">glmnet</span>)
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">tidyverse</span>)
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">tidyquant</span>)
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">timetk</span>)</pre></body></html></div>
@@ -149,18 +148,31 @@
 <div id="data" class="section level1">
 <h1 class="hasAnchor">
 <a href="#data" class="anchor"></a>Data</h1>
-<p>We’ll be using the <a href="https://archive.ics.uci.edu/ml/datasets/bike+sharing+dataset">Bike Sharing Dataset</a> from the UCI Machine Learning Repository. Download the data and select the “day.csv” file which is aggregated to daily periodicity.</p>
+<p>We’ll be using the <a href="https://archive.ics.uci.edu/ml/datasets/bike+sharing+dataset">Bike Sharing Dataset</a> from the UCI Machine Learning Repository.</p>
 <p><em>Source: Fanaee-T, Hadi, and Gama, Joao, ‘Event labeling combining ensemble detectors and background knowledge’, Progress in Artificial Intelligence (2013): pp. 1-15, Springer Berlin Heidelberg</em></p>
 <div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="co"># Read data</span>
-<span class="no">bikes</span> <span class="kw">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"day.csv"</span>)
-
-<span class="co"># Select date and count</span>
-<span class="no">bikes_tbl</span> <span class="kw">&lt;-</span> <span class="no">bikes</span> <span class="kw">%&gt;%</span>
+<span class="no">bikes_tbl</span> <span class="kw">&lt;-</span> <span class="no">bike_sharing_daily</span> <span class="kw">%&gt;%</span>
     <span class="fu">select</span>(<span class="no">dteday</span>, <span class="no">cnt</span>) <span class="kw">%&gt;%</span>
     <span class="fu">rename</span>(<span class="kw">date</span>  <span class="kw">=</span> <span class="no">dteday</span>,
-           <span class="kw">value</span> <span class="kw">=</span> <span class="no">cnt</span>)</pre></body></html></div>
+           <span class="kw">value</span> <span class="kw">=</span> <span class="no">cnt</span>)
+
+<span class="no">bikes_tbl</span></pre></body></html></div>
+<pre><code>## # A tibble: 731 x 2
+##    date       value
+##    &lt;date&gt;     &lt;dbl&gt;
+##  1 2011-01-01   985
+##  2 2011-01-02   801
+##  3 2011-01-03  1349
+##  4 2011-01-04  1562
+##  5 2011-01-05  1600
+##  6 2011-01-06  1606
+##  7 2011-01-07  1510
+##  8 2011-01-08   959
+##  9 2011-01-09   822
+## 10 2011-01-10  1321
+## # … with 721 more rows</code></pre>
 <p>A visualization will help understand how we plan to tackle the problem of forecasting the data. We’ll split the data into two regions: a training region and a testing region.</p>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="co"># Visualize data and training/testing regions</span>
+<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="co"># Visualize data and training/testing regions</span>
 <span class="no">bikes_tbl</span> <span class="kw">%&gt;%</span>
     <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="kw">x</span> <span class="kw">=</span> <span class="no">date</span>, <span class="kw">y</span> <span class="kw">=</span> <span class="no">value</span>)) +
     <span class="fu">geom_rect</span>(<span class="kw">xmin</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span>(<span class="fu">ymd</span>(<span class="st">"2012-07-01"</span>)),
@@ -176,7 +188,7 @@
     <span class="fu"><a href="https://rdrr.io/pkg/tidyquant/man/theme_tq.html">theme_tq</a></span>()</pre></body></html></div>
 <p><img src="TK03_Forecasting_Using_Time_Series_Signature_files/figure-html/unnamed-chunk-4-1.png" width="95%" style="display: block; margin: auto;"></p>
 <p>Split the data into train and test sets at “2012-07-01”.</p>
-<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="co"># Split into training and test sets</span>
+<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="co"># Split into training and test sets</span>
 <span class="no">train_tbl</span> <span class="kw">&lt;-</span> <span class="no">bikes_tbl</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span>(<span class="no">date</span> <span class="kw">&lt;</span> <span class="fu">ymd</span>(<span class="st">"2012-07-01"</span>))
 <span class="no">test_tbl</span>  <span class="kw">&lt;-</span> <span class="no">bikes_tbl</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span>(<span class="no">date</span> <span class="kw">&gt;=</span> <span class="fu">ymd</span>(<span class="st">"2012-07-01"</span>))</pre></body></html></div>
 </div>
@@ -184,7 +196,7 @@
 <h1 class="hasAnchor">
 <a href="#modeling" class="anchor"></a>Modeling</h1>
 <p>Start with the training set, which has the “date” and “value” columns.</p>
-<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="co"># Training set</span>
+<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="co"># Training set</span>
 <span class="no">train_tbl</span></pre></body></html></div>
 <pre><code>## # A tibble: 547 x 2
 ##    date       value
@@ -208,11 +220,11 @@
 <li><p>The <code>recipes</code> package allows us to add preprocessing steps that are applied sequentially as part of a data transformation pipeline.</p></li>
 <li><p>The <code>timetk</code> has <code><a href="../reference/step_timeseries_signature.html">step_timeseries_signature()</a></code>, which is used to add a number of features that can help machine learning models.</p></li>
 </ul>
-<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="co"># Add time series signature</span>
+<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="co"># Add time series signature</span>
 <span class="no">recipe_spec_timeseries</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/recipes/man/recipe.html">recipe</a></span>(<span class="no">value</span> ~ <span class="no">.</span>, <span class="kw">data</span> <span class="kw">=</span> <span class="no">train_tbl</span>) <span class="kw">%&gt;%</span>
     <span class="fu"><a href="../reference/step_timeseries_signature.html">step_timeseries_signature</a></span>(<span class="no">date</span>)</pre></body></html></div>
 <p>We can see what happens when we apply a prepared recipe <code><a href="https://rdrr.io/pkg/recipes/man/prep.html">prep()</a></code> using the <code><a href="https://rdrr.io/pkg/recipes/man/bake.html">bake()</a></code> function. Many new columns were added from the timestamp “date” feature. These are features we can use in our machine learning models.</p>
-<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/pkg/recipes/man/bake.html">bake</a></span>(<span class="fu"><a href="https://rdrr.io/pkg/recipes/man/prep.html">prep</a></span>(<span class="no">recipe_spec_timeseries</span>), <span class="kw">new_data</span> <span class="kw">=</span> <span class="no">train_tbl</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/pkg/recipes/man/bake.html">bake</a></span>(<span class="fu"><a href="https://rdrr.io/pkg/recipes/man/prep.html">prep</a></span>(<span class="no">recipe_spec_timeseries</span>), <span class="kw">new_data</span> <span class="kw">=</span> <span class="no">train_tbl</span>)</pre></body></html></div>
 <pre><code>## # A tibble: 547 x 29
 ##    date       value date_index.num date_year date_year.iso date_half
 ##    &lt;date&gt;     &lt;dbl&gt;          &lt;int&gt;     &lt;int&gt;         &lt;int&gt;     &lt;int&gt;
@@ -234,90 +246,83 @@
 ## #   date_mweek &lt;int&gt;, date_week &lt;int&gt;, date_week.iso &lt;int&gt;, date_week2 &lt;int&gt;,
 ## #   date_week3 &lt;int&gt;, date_week4 &lt;int&gt;, date_mday7 &lt;int&gt;</code></pre>
 <p>Next, I apply various preprocessing steps to improve the modeling behavior. If you wish to learn more, I have an <a href="https://mailchi.mp/business-science/time-series-forecasting-course-coming-soon">Advanced Time Series course</a> that will help you learn these techniques.</p>
-<div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="no">recipe_spec_final</span> <span class="kw">&lt;-</span> <span class="no">recipe_spec_timeseries</span> <span class="kw">%&gt;%</span>
+<div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="no">recipe_spec_final</span> <span class="kw">&lt;-</span> <span class="no">recipe_spec_timeseries</span> <span class="kw">%&gt;%</span>
     <span class="fu"><a href="https://rdrr.io/pkg/recipes/man/step_rm.html">step_rm</a></span>(<span class="no">date</span>) <span class="kw">%&gt;%</span>
     <span class="fu"><a href="https://rdrr.io/pkg/recipes/man/step_rm.html">step_rm</a></span>(<span class="fu">contains</span>(<span class="st">"iso"</span>), <span class="fu">contains</span>(<span class="st">"minute"</span>), <span class="fu">contains</span>(<span class="st">"hour"</span>),
             <span class="fu">contains</span>(<span class="st">"am.pm"</span>), <span class="fu">contains</span>(<span class="st">"xts"</span>)) <span class="kw">%&gt;%</span>
     <span class="fu"><a href="https://rdrr.io/pkg/recipes/man/step_normalize.html">step_normalize</a></span>(<span class="fu">contains</span>(<span class="st">"index.num"</span>), <span class="no">date_year</span>) <span class="kw">%&gt;%</span>
-    <span class="fu"><a href="https://rdrr.io/pkg/recipes/man/step_dummy.html">step_dummy</a></span>(<span class="fu">contains</span>(<span class="st">"lbl"</span>), <span class="kw">one_hot</span> <span class="kw">=</span> <span class="fl">TRUE</span>) <span class="kw">%&gt;%</span>
-    <span class="fu"><a href="https://rdrr.io/pkg/recipes/man/step_ns.html">step_ns</a></span>(<span class="no">date_index.num</span>, <span class="kw">deg_free</span> <span class="kw">=</span> <span class="fl">3</span>)
+    <span class="fu"><a href="https://rdrr.io/pkg/recipes/man/step_dummy.html">step_dummy</a></span>(<span class="fu">contains</span>(<span class="st">"lbl"</span>), <span class="kw">one_hot</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
 
 <span class="fu"><a href="https://rdrr.io/pkg/recipes/man/bake.html">bake</a></span>(<span class="fu"><a href="https://rdrr.io/pkg/recipes/man/prep.html">prep</a></span>(<span class="no">recipe_spec_final</span>), <span class="kw">new_data</span> <span class="kw">=</span> <span class="no">train_tbl</span>)</pre></body></html></div>
-<pre><code>## # A tibble: 547 x 39
-##    value date_year date_half date_quarter date_month date_day date_second
-##    &lt;dbl&gt;     &lt;dbl&gt;     &lt;int&gt;        &lt;int&gt;      &lt;int&gt;    &lt;int&gt;       &lt;int&gt;
-##  1   985    -0.705         1            1          1        1           0
-##  2   801    -0.705         1            1          1        2           0
-##  3  1349    -0.705         1            1          1        3           0
-##  4  1562    -0.705         1            1          1        4           0
-##  5  1600    -0.705         1            1          1        5           0
-##  6  1606    -0.705         1            1          1        6           0
-##  7  1510    -0.705         1            1          1        7           0
-##  8   959    -0.705         1            1          1        8           0
-##  9   822    -0.705         1            1          1        9           0
-## 10  1321    -0.705         1            1          1       10           0
-## # … with 537 more rows, and 32 more variables: date_wday &lt;int&gt;,
-## #   date_mday &lt;int&gt;, date_qday &lt;int&gt;, date_yday &lt;int&gt;, date_mweek &lt;int&gt;,
-## #   date_week &lt;int&gt;, date_week2 &lt;int&gt;, date_week3 &lt;int&gt;, date_week4 &lt;int&gt;,
-## #   date_mday7 &lt;int&gt;, date_month.lbl_01 &lt;dbl&gt;, date_month.lbl_02 &lt;dbl&gt;,
-## #   date_month.lbl_03 &lt;dbl&gt;, date_month.lbl_04 &lt;dbl&gt;, date_month.lbl_05 &lt;dbl&gt;,
-## #   date_month.lbl_06 &lt;dbl&gt;, date_month.lbl_07 &lt;dbl&gt;, date_month.lbl_08 &lt;dbl&gt;,
-## #   date_month.lbl_09 &lt;dbl&gt;, date_month.lbl_10 &lt;dbl&gt;, date_month.lbl_11 &lt;dbl&gt;,
-## #   date_month.lbl_12 &lt;dbl&gt;, date_wday.lbl_1 &lt;dbl&gt;, date_wday.lbl_2 &lt;dbl&gt;,
-## #   date_wday.lbl_3 &lt;dbl&gt;, date_wday.lbl_4 &lt;dbl&gt;, date_wday.lbl_5 &lt;dbl&gt;,
-## #   date_wday.lbl_6 &lt;dbl&gt;, date_wday.lbl_7 &lt;dbl&gt;, date_index.num_ns_1 &lt;dbl&gt;,
-## #   date_index.num_ns_2 &lt;dbl&gt;, date_index.num_ns_3 &lt;dbl&gt;</code></pre>
+<pre><code>## # A tibble: 547 x 37
+##    value date_index.num date_year date_half date_quarter date_month date_day
+##    &lt;dbl&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;int&gt;        &lt;int&gt;      &lt;int&gt;    &lt;int&gt;
+##  1   985          -1.73    -0.705         1            1          1        1
+##  2   801          -1.72    -0.705         1            1          1        2
+##  3  1349          -1.71    -0.705         1            1          1        3
+##  4  1562          -1.71    -0.705         1            1          1        4
+##  5  1600          -1.70    -0.705         1            1          1        5
+##  6  1606          -1.70    -0.705         1            1          1        6
+##  7  1510          -1.69    -0.705         1            1          1        7
+##  8   959          -1.68    -0.705         1            1          1        8
+##  9   822          -1.68    -0.705         1            1          1        9
+## 10  1321          -1.67    -0.705         1            1          1       10
+## # … with 537 more rows, and 30 more variables: date_second &lt;int&gt;,
+## #   date_wday &lt;int&gt;, date_mday &lt;int&gt;, date_qday &lt;int&gt;, date_yday &lt;int&gt;,
+## #   date_mweek &lt;int&gt;, date_week &lt;int&gt;, date_week2 &lt;int&gt;, date_week3 &lt;int&gt;,
+## #   date_week4 &lt;int&gt;, date_mday7 &lt;int&gt;, date_month.lbl_01 &lt;dbl&gt;,
+## #   date_month.lbl_02 &lt;dbl&gt;, date_month.lbl_03 &lt;dbl&gt;, date_month.lbl_04 &lt;dbl&gt;,
+## #   date_month.lbl_05 &lt;dbl&gt;, date_month.lbl_06 &lt;dbl&gt;, date_month.lbl_07 &lt;dbl&gt;,
+## #   date_month.lbl_08 &lt;dbl&gt;, date_month.lbl_09 &lt;dbl&gt;, date_month.lbl_10 &lt;dbl&gt;,
+## #   date_month.lbl_11 &lt;dbl&gt;, date_month.lbl_12 &lt;dbl&gt;, date_wday.lbl_1 &lt;dbl&gt;,
+## #   date_wday.lbl_2 &lt;dbl&gt;, date_wday.lbl_3 &lt;dbl&gt;, date_wday.lbl_4 &lt;dbl&gt;,
+## #   date_wday.lbl_5 &lt;dbl&gt;, date_wday.lbl_6 &lt;dbl&gt;, date_wday.lbl_7 &lt;dbl&gt;</code></pre>
 </div>
 <div id="model-specification" class="section level2">
 <h2 class="hasAnchor">
 <a href="#model-specification" class="anchor"></a>Model Specification</h2>
 <p>Next, let’s create a model specification. We’ll use a <code>glmnet</code>.</p>
-<div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="no">model_spec_glmnet</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/parsnip/man/linear_reg.html">linear_reg</a></span>(<span class="kw">mode</span> <span class="kw">=</span> <span class="st">"regression"</span>, <span class="kw">penalty</span> <span class="kw">=</span> <span class="fl">0.001</span>, <span class="kw">mixture</span> <span class="kw">=</span> <span class="fl">0.5</span>) <span class="kw">%&gt;%</span>
-    <span class="fu"><a href="https://rdrr.io/pkg/parsnip/man/set_engine.html">set_engine</a></span>(<span class="st">"glmnet"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb13"><html><body><pre class="r"><span class="no">model_spec_glmnet</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/parsnip/man/linear_reg.html">linear_reg</a></span>(<span class="kw">mode</span> <span class="kw">=</span> <span class="st">"regression"</span>) <span class="kw">%&gt;%</span>
+    <span class="fu"><a href="https://rdrr.io/pkg/parsnip/man/set_engine.html">set_engine</a></span>(<span class="st">"lm"</span>)</pre></body></html></div>
 </div>
 <div id="workflow" class="section level2">
 <h2 class="hasAnchor">
 <a href="#workflow" class="anchor"></a>Workflow</h2>
 <p>We can mary up the preprocessing recipe and the model using a <code><a href="https://rdrr.io/pkg/workflows/man/workflow.html">workflow()</a></code>.</p>
-<div class="sourceCode" id="cb13"><html><body><pre class="r"><span class="no">workflow_glmnet</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/workflows/man/workflow.html">workflow</a></span>() <span class="kw">%&gt;%</span>
+<div class="sourceCode" id="cb14"><html><body><pre class="r"><span class="no">workflow_glmnet</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/workflows/man/workflow.html">workflow</a></span>() <span class="kw">%&gt;%</span>
     <span class="fu"><a href="https://rdrr.io/pkg/workflows/man/add_recipe.html">add_recipe</a></span>(<span class="no">recipe_spec_final</span>) <span class="kw">%&gt;%</span>
     <span class="fu"><a href="https://rdrr.io/pkg/workflows/man/add_model.html">add_model</a></span>(<span class="no">model_spec_glmnet</span>)
 
 <span class="no">workflow_glmnet</span></pre></body></html></div>
-<pre><code>## ══ Workflow ════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
+<pre><code>## ══ Workflow ═══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
 ## Preprocessor: Recipe
 ## Model: linear_reg()
 ## 
-## ── Preprocessor ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-## 6 Recipe Steps
+## ── Preprocessor ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+## 5 Recipe Steps
 ## 
 ## ● step_timeseries_signature()
 ## ● step_rm()
 ## ● step_rm()
 ## ● step_normalize()
 ## ● step_dummy()
-## ● step_ns()
 ## 
-## ── Model ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+## ── Model ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 ## Linear Regression Model Specification (regression)
 ## 
-## Main Arguments:
-##   penalty = 0.001
-##   mixture = 0.5
-## 
-## Computational engine: glmnet</code></pre>
+## Computational engine: lm</code></pre>
 </div>
 <div id="training" class="section level2">
 <h2 class="hasAnchor">
 <a href="#training" class="anchor"></a>Training</h2>
 <p>The workflow can be trained with the <code><a href="https://rdrr.io/pkg/parsnip/man/reexports.html">fit()</a></code> function.</p>
-<div class="sourceCode" id="cb15"><html><body><pre class="r"><span class="no">workflow_trained</span> <span class="kw">&lt;-</span> <span class="no">workflow_glmnet</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/parsnip/man/reexports.html">fit</a></span>(<span class="kw">data</span> <span class="kw">=</span> <span class="no">train_tbl</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb16"><html><body><pre class="r"><span class="no">workflow_trained</span> <span class="kw">&lt;-</span> <span class="no">workflow_glmnet</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/parsnip/man/reexports.html">fit</a></span>(<span class="kw">data</span> <span class="kw">=</span> <span class="no">train_tbl</span>)</pre></body></html></div>
 </div>
 <div id="test-validation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#test-validation" class="anchor"></a>Test (Validation)</h2>
 <p>With a suitable model in hand, we can forecast using the “test” set for validation purposes.</p>
-<div class="sourceCode" id="cb16"><html><body><pre class="r"><span class="no">prediction_tbl</span> <span class="kw">&lt;-</span> <span class="no">workflow_trained</span> <span class="kw">%&gt;%</span>
+<div class="sourceCode" id="cb17"><html><body><pre class="r"><span class="no">prediction_tbl</span> <span class="kw">&lt;-</span> <span class="no">workflow_trained</span> <span class="kw">%&gt;%</span>
     <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span>(<span class="no">test_tbl</span>) <span class="kw">%&gt;%</span>
     <span class="fu">bind_cols</span>(<span class="no">test_tbl</span>)
 
@@ -325,19 +330,19 @@
 <pre><code>## # A tibble: 184 x 3
 ##    .pred date       value
 ##    &lt;dbl&gt; &lt;date&gt;     &lt;dbl&gt;
-##  1 6288. 2012-07-01  5531
-##  2 6541. 2012-07-02  6227
-##  3 6728. 2012-07-03  6660
-##  4 6570. 2012-07-04  7403
-##  5 6798. 2012-07-05  6241
-##  6 6821. 2012-07-06  6207
-##  7 6718. 2012-07-07  4840
-##  8 6516. 2012-07-08  4672
-##  9 6520. 2012-07-09  6569
-## 10 6707. 2012-07-10  6290
+##  1 6237. 2012-07-01  5531
+##  2 6641. 2012-07-02  6227
+##  3 6850. 2012-07-03  6660
+##  4 6691. 2012-07-04  7403
+##  5 6919. 2012-07-05  6241
+##  6 6941. 2012-07-06  6207
+##  7 6956. 2012-07-07  4840
+##  8 6617. 2012-07-08  4672
+##  9 6624. 2012-07-09  6569
+## 10 6833. 2012-07-10  6290
 ## # … with 174 more rows</code></pre>
 <p>Visualize the results using <code>ggplot()</code>.</p>
-<div class="sourceCode" id="cb18"><html><body><pre class="r"><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="kw">x</span> <span class="kw">=</span> <span class="no">date</span>), <span class="kw">data</span> <span class="kw">=</span> <span class="no">bikes_tbl</span>) +
+<div class="sourceCode" id="cb19"><html><body><pre class="r"><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="kw">x</span> <span class="kw">=</span> <span class="no">date</span>), <span class="kw">data</span> <span class="kw">=</span> <span class="no">bikes_tbl</span>) +
     <span class="fu">geom_rect</span>(<span class="kw">xmin</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span>(<span class="fu">ymd</span>(<span class="st">"2012-07-01"</span>)),
               <span class="kw">xmax</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span>(<span class="fu">ymd</span>(<span class="st">"2013-01-01"</span>)),
               <span class="kw">ymin</span> <span class="kw">=</span> <span class="fl">0</span>, <span class="kw">ymax</span> <span class="kw">=</span> <span class="fl">10000</span>,
@@ -358,16 +363,16 @@
 <h2 class="hasAnchor">
 <a href="#validation-accuracy-out-of-sample" class="anchor"></a>Validation Accuracy (Out of Sample)</h2>
 <p>The Out-of-Sample Forecast Accuracy can be measured with <code>yardstick</code>.</p>
-<div class="sourceCode" id="cb19"><html><body><pre class="r"><span class="co"># Calculating forecast error</span>
+<div class="sourceCode" id="cb20"><html><body><pre class="r"><span class="co"># Calculating forecast error</span>
 <span class="no">prediction_tbl</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/yardstick/man/metrics.html">metrics</a></span>(<span class="no">value</span>, <span class="no">.pred</span>)</pre></body></html></div>
 <pre><code>## # A tibble: 3 x 3
 ##   .metric .estimator .estimate
 ##   &lt;chr&gt;   &lt;chr&gt;          &lt;dbl&gt;
-## 1 rmse    standard    1465.   
-## 2 rsq     standard       0.371
-## 3 mae     standard    1197.</code></pre>
+## 1 rmse    standard    1437.   
+## 2 rsq     standard       0.379
+## 3 mae     standard    1045.</code></pre>
 <p>Next we can visualize the residuals of the test set. The residuals of the model aren’t perfect, but we can work with it. The residuals show that the model predicts low in October and high in December.</p>
-<div class="sourceCode" id="cb21"><html><body><pre class="r"><span class="no">prediction_tbl</span> <span class="kw">%&gt;%</span>
+<div class="sourceCode" id="cb22"><html><body><pre class="r"><span class="no">prediction_tbl</span> <span class="kw">%&gt;%</span>
     <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="kw">x</span> <span class="kw">=</span> <span class="no">date</span>, <span class="kw">y</span> <span class="kw">=</span> <span class="no">value</span> - <span class="no">.pred</span>)) +
     <span class="fu">geom_hline</span>(<span class="kw">yintercept</span> <span class="kw">=</span> <span class="fl">0</span>, <span class="kw">color</span> <span class="kw">=</span> <span class="st">"red"</span>) +
     <span class="fu">geom_point</span>(<span class="kw">color</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/pkg/tidyquant/man/palette_tq.html">palette_light</a></span>()<span class="kw">[[</span><span class="fl">1</span>]], <span class="kw">alpha</span> <span class="kw">=</span> <span class="fl">0.5</span>) +
@@ -376,32 +381,32 @@
     <span class="fu">labs</span>(<span class="kw">title</span> <span class="kw">=</span> <span class="st">"Test Set: GLM Model Residuals"</span>, <span class="kw">x</span> <span class="kw">=</span> <span class="st">""</span>) +
     <span class="fu">scale_y_continuous</span>(<span class="kw">limits</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(-<span class="fl">5000</span>, <span class="fl">5000</span>))</pre></body></html></div>
 <p><img src="TK03_Forecasting_Using_Time_Series_Signature_files/figure-html/unnamed-chunk-16-1.png" width="95%" style="display: block; margin: auto;"></p>
-<p>At this point you might go back to the model and try tweaking features using interactions or polynomial terms, adding other features that may be known in the future (e.g. temperature of day can be forecasted relatively accurately within 7 days), or try a completely different modeling technique with the hope of better predictions on the test set. Once you feel that your model is optimized, move on the final step of forecasting.</p>
+<p>This is certainly not the best model we can come up with, but it will do for a quick tutorial. I have a ton of improvements that can be made, and I teach these expert techniques. If you are interested in learning from my advanced <a href="https://mailchi.mp/business-science/time-series-forecasting-course-coming-soon"><strong>Time Series Analysis &amp; Forecasting Course</strong></a>, then join my waitlist. The course is coming soon.</p>
 </div>
 </div>
 <div id="forecasting-future-data" class="section level1">
 <h1 class="hasAnchor">
 <a href="#forecasting-future-data" class="anchor"></a>Forecasting Future Data</h1>
 <p>Let’s use our model to predict What are the expected future values for the next six months. The first step is to create the date sequence. Let’s use <code><a href="../reference/tk_get_timeseries.html">tk_get_timeseries_summary()</a></code> to review the summary of the dates from the original dataset, “bikes”.</p>
-<div class="sourceCode" id="cb22"><html><body><pre class="r"><span class="co"># Extract bikes index</span>
+<div class="sourceCode" id="cb23"><html><body><pre class="r"><span class="co"># Extract bikes index</span>
 <span class="no">idx</span> <span class="kw">&lt;-</span> <span class="no">bikes_tbl</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/tk_index.html">tk_index</a></span>()
 
 <span class="co"># Get time series summary from index</span>
 <span class="no">bikes_summary</span> <span class="kw">&lt;-</span> <span class="no">idx</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/tk_get_timeseries.html">tk_get_timeseries_summary</a></span>()</pre></body></html></div>
 <p>The first six parameters are general summary information.</p>
-<div class="sourceCode" id="cb23"><html><body><pre class="r"><span class="no">bikes_summary</span>[<span class="fl">1</span>:<span class="fl">6</span>]</pre></body></html></div>
+<div class="sourceCode" id="cb24"><html><body><pre class="r"><span class="no">bikes_summary</span>[<span class="fl">1</span>:<span class="fl">6</span>]</pre></body></html></div>
 <pre><code>## # A tibble: 1 x 6
 ##   n.obs start      end        units scale tzone
 ##   &lt;int&gt; &lt;date&gt;     &lt;date&gt;     &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;
 ## 1   731 2011-01-01 2012-12-31 days  day   UTC</code></pre>
 <p>The second six parameters are the periodicity information.</p>
-<div class="sourceCode" id="cb25"><html><body><pre class="r"><span class="no">bikes_summary</span>[<span class="fl">7</span>:<span class="fl">12</span>]</pre></body></html></div>
+<div class="sourceCode" id="cb26"><html><body><pre class="r"><span class="no">bikes_summary</span>[<span class="fl">7</span>:<span class="fl">12</span>]</pre></body></html></div>
 <pre><code>## # A tibble: 1 x 6
 ##   diff.minimum diff.q1 diff.median diff.mean diff.q3 diff.maximum
 ##          &lt;dbl&gt;   &lt;dbl&gt;       &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;        &lt;dbl&gt;
 ## 1        86400   86400       86400     86400   86400        86400</code></pre>
 <p>From the summary, we know that the data is 100% regular because the median and mean differences are 86400 seconds or 1 day. We don’t need to do any special inspections when we use <code><a href="../reference/tk_make_future_timeseries.html">tk_make_future_timeseries()</a></code>. If the data was irregular, meaning weekends or holidays were excluded, you’d want to account for this. Otherwise your forecast would be inaccurate.</p>
-<div class="sourceCode" id="cb27"><html><body><pre class="r"><span class="no">idx_future</span> <span class="kw">&lt;-</span> <span class="no">idx</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/tk_make_future_timeseries.html">tk_make_future_timeseries</a></span>(<span class="kw">n_future</span> <span class="kw">=</span> <span class="fl">180</span>)
+<div class="sourceCode" id="cb28"><html><body><pre class="r"><span class="no">idx_future</span> <span class="kw">&lt;-</span> <span class="no">idx</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/tk_make_future_timeseries.html">tk_make_future_timeseries</a></span>(<span class="kw">n_future</span> <span class="kw">=</span> <span class="fl">180</span>)
 
 <span class="no">future_tbl</span> <span class="kw">&lt;-</span> <span class="fu">tibble</span>(<span class="kw">date</span> <span class="kw">=</span> <span class="no">idx_future</span>)
 
@@ -421,12 +426,12 @@
 ## 10 2013-01-10
 ## # … with 170 more rows</code></pre>
 <p>Retrain the model specification on the full data set, then predict the next 6-months.</p>
-<div class="sourceCode" id="cb29"><html><body><pre class="r"><span class="no">future_predictions_tbl</span> <span class="kw">&lt;-</span> <span class="no">workflow_glmnet</span> <span class="kw">%&gt;%</span>
+<div class="sourceCode" id="cb30"><html><body><pre class="r"><span class="no">future_predictions_tbl</span> <span class="kw">&lt;-</span> <span class="no">workflow_glmnet</span> <span class="kw">%&gt;%</span>
     <span class="fu"><a href="https://rdrr.io/pkg/parsnip/man/reexports.html">fit</a></span>(<span class="kw">data</span> <span class="kw">=</span> <span class="no">bikes_tbl</span>) <span class="kw">%&gt;%</span>
     <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span>(<span class="no">future_tbl</span>) <span class="kw">%&gt;%</span>
     <span class="fu">bind_cols</span>(<span class="no">future_tbl</span>)</pre></body></html></div>
 <p>Visualize the forecast.</p>
-<div class="sourceCode" id="cb30"><html><body><pre class="r"><span class="no">bikes_tbl</span> <span class="kw">%&gt;%</span>
+<div class="sourceCode" id="cb31"><html><body><pre class="r"><span class="no">bikes_tbl</span> <span class="kw">%&gt;%</span>
     <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="kw">x</span> <span class="kw">=</span> <span class="no">date</span>, <span class="kw">y</span> <span class="kw">=</span> <span class="no">value</span>)) +
     <span class="fu">geom_rect</span>(<span class="kw">xmin</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span>(<span class="fu">ymd</span>(<span class="st">"2012-07-01"</span>)),
               <span class="kw">xmax</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span>(<span class="fu">ymd</span>(<span class="st">"2013-01-01"</span>)),
@@ -456,7 +461,7 @@
 <h1 class="hasAnchor">
 <a href="#forecast-error" class="anchor"></a>Forecast Error</h1>
 <p>A forecast is never perfect. We need prediction intervals to account for the variance from the model predictions to the actual data. There’s a number of methods to achieve this. We’ll follow the <a href="https://www.otexts.org/fpp/2/7">prediction interval</a> methodology from Forecasting: Principles and Practice.</p>
-<div class="sourceCode" id="cb31"><html><body><pre class="r"><span class="co"># Calculate standard deviation of residuals</span>
+<div class="sourceCode" id="cb32"><html><body><pre class="r"><span class="co"># Calculate standard deviation of residuals</span>
 <span class="no">test_resid_sd</span> <span class="kw">&lt;-</span> <span class="no">prediction_tbl</span> <span class="kw">%&gt;%</span>
     <span class="fu">summarize</span>(<span class="kw">stdev</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span>(<span class="no">value</span> - <span class="no">.pred</span>))
 
@@ -468,7 +473,7 @@
         <span class="kw">hi.95</span> <span class="kw">=</span> <span class="no">.pred</span> + <span class="fl">1.96</span> * <span class="no">test_resid_sd</span>$<span class="no">stdev</span>
     )</pre></body></html></div>
 <p>Now, plotting the forecast with the prediction intervals.</p>
-<div class="sourceCode" id="cb32"><html><body><pre class="r"><span class="no">bikes_tbl</span> <span class="kw">%&gt;%</span>
+<div class="sourceCode" id="cb33"><html><body><pre class="r"><span class="no">bikes_tbl</span> <span class="kw">%&gt;%</span>
     <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="kw">x</span> <span class="kw">=</span> <span class="no">date</span>, <span class="kw">y</span> <span class="kw">=</span> <span class="no">value</span>)) +
     <span class="fu">geom_point</span>(<span class="kw">alpha</span> <span class="kw">=</span> <span class="fl">0.5</span>, <span class="kw">color</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/pkg/tidyquant/man/palette_tq.html">palette_light</a></span>()<span class="kw">[[</span><span class="fl">1</span>]]) +
     <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="kw">y</span> <span class="kw">=</span> <span class="no">.pred</span>, <span class="kw">ymin</span> <span class="kw">=</span> <span class="no">lo.95</span>, <span class="kw">ymax</span> <span class="kw">=</span> <span class="no">hi.95</span>),
