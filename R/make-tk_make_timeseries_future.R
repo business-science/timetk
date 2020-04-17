@@ -552,13 +552,78 @@ make_daily_prediction_formula <- function(ts_signature_tbl_train, inspect_weekda
 }
 
 
+# convert_n_future_chr_to_num <- function(idx, n_future, include_endpoints) {
+#
+#     if (is.character(n_future)) {
+#
+#         # Convert zoo classes to date class
+#         if (inherits(idx, "yearmon") | inherits(idx, "yearqtr")) {
+#             idx <- lubridate::as_date(idx)
+#         }
+#
+#         # Get index attributes
+#         idx_summary <- tk_get_timeseries_summary(idx)
+#
+#         # Find start / end
+#         start_date <- idx_summary$end
+#         end_date   <- start_date %+time% n_future
+#
+#         # Frequency check
+#         frequency      <- idx_summary$diff.median
+#         num_start_date <- as.numeric(as.POSIXct(start_date))
+#         num_end_date   <- as.numeric(as.POSIXct(end_date))
+#         num_periods    <- (num_end_date - num_start_date) / frequency
+#
+#         # print(ceiling(num_periods))
+#
+#         print(list(start_date, end_date, frequency, num_periods))
+#
+#         # Calculate approximate horizon
+#         idx_horizon <- tk_make_timeseries(start_date, end_date,
+#                                           by = stringr::str_glue("{idx_summary$diff.median} sec"),
+#                                           include_endpoints = TRUE)
+#         # print(idx_horizon)
+#
+#         if (include_endpoints) {
+#             n_future    <- length(idx_horizon)
+#         } else {
+#             n_future    <- length(idx_horizon) - 1
+#         }
+#
+#     }
+#
+#     return(n_future)
+# }
+
+
 convert_n_future_chr_to_num <- function(idx, n_future, include_endpoints) {
+    UseMethod("convert_n_future_chr_to_num", idx)
+}
+
+# Sub-daily
+convert_n_future_chr_to_num.POSIXt <- function(idx, n_future, include_endpoints) {
+    convert_n_future_chr_to_num_regular(idx, n_future, include_endpoints)
+}
+
+# Daily or Weekly
+convert_n_future_chr_to_num.Date <- function(idx, n_future, include_endpoints) {
+    convert_n_future_chr_to_num_regular(idx, n_future, include_endpoints)
+}
+
+# Month or Year
+convert_n_future_chr_to_num.yearmon <- function(idx, n_future, include_endpoints) {
+    convert_n_future_chr_to_num_zoo(idx, n_future, include_endpoints)
+}
+
+# Quarterly
+convert_n_future_chr_to_num.yearqtr <- function(idx, n_future, include_endpoints) {
+    convert_n_future_chr_to_num_zoo(idx, n_future, include_endpoints)
+}
+
+
+convert_n_future_chr_to_num_regular <- function(idx, n_future, include_endpoints) {
 
     if (is.character(n_future)) {
-
-        if (inherits(idx, "yearmon") | inherits(idx, "yearqtr")) {
-            idx <- lubridate::as_date(idx)
-        }
 
         # Get index attributes
         idx_summary <- tk_get_timeseries_summary(idx)
@@ -569,7 +634,8 @@ convert_n_future_chr_to_num <- function(idx, n_future, include_endpoints) {
 
         # Calculate approximate horizon
         idx_horizon <- tk_make_timeseries(start_date, end_date,
-                                          by = stringr::str_glue("{idx_summary$diff.median} sec"))
+                                          by = stringr::str_glue("{idx_summary$diff.median} sec"),
+                                          include_endpoints = TRUE)
 
         if (include_endpoints) {
             n_future    <- length(idx_horizon)
@@ -581,3 +647,40 @@ convert_n_future_chr_to_num <- function(idx, n_future, include_endpoints) {
 
     return(n_future)
 }
+
+
+convert_n_future_chr_to_num_zoo <- function(idx, n_future, include_endpoints) {
+
+    if (is.character(n_future)) {
+
+        # Get index attributes
+        idx_summary <- tk_get_timeseries_summary(idx)
+
+        diff_numeric <- diff(idx) %>% stats::median()
+
+        # Find start / end
+        start_zoo     <- idx_summary$end
+        start_date    <- lubridate::as_date(idx_summary$end)
+        end_date      <- start_date %+time% n_future
+
+        # Detect class
+        if (inherits(idx, "yearmon")) {
+            end_zoo   <- zoo::as.yearmon(end_date)
+        } else {
+            end_zoo   <- zoo::as.yearqtr(end_date)
+        }
+
+        # Create numeric sequence
+        num_sequence <- seq(as.numeric(start_zoo), as.numeric(end_zoo), by = diff_numeric)
+
+        if (include_endpoints) {
+            n_future    <- length(num_sequence)
+        } else {
+            n_future    <- length(num_sequence) - 1
+        }
+
+    }
+
+    return(n_future)
+}
+
