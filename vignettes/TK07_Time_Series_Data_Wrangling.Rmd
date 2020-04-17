@@ -1,0 +1,260 @@
+---
+title: "Time Series Data Wrangling"
+author: "Matt Dancho"
+date: "`r Sys.Date()`"
+output: 
+  rmarkdown::html_vignette:
+    toc: true
+    toc_depth: 2
+vignette: >
+  %\VignetteIndexEntry{Time Series Data Wrangling}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+knitr::opts_chunk$set(
+    message = FALSE,
+    warning = FALSE,
+    fig.width = 8, 
+    fig.height = 4.5,
+    fig.align = 'center',
+    out.width='95%', 
+    dpi = 100
+)
+
+# devtools::load_all() # Travis CI fails on load_all()
+```
+
+> A collection of tools for working with time series in R
+
+Time series data wrangling is an essential skill for any forecaster. `timetk` includes the essential data wrangling tools. In this tutorial:
+
+- __Summarise by Time__ - For time-based aggregations
+- __Filter by Time__ - For complex time-based filtering
+- __Pad by Time__ - For filling in gaps and going from _low to high frequency_
+- __Slidify__ - For turning any function into a sliding (rolling) function
+
+Additional concepts covered:
+
+- __Imputation__ - Needed for Padding (See Low to High Frequency)
+- __Advanced Filtering__ - Using the new add time `%+time` infix operation (See _Padding Data: Low to High Frequency_)
+- __Visualization__ - `plot_time_series()` for all visualizations
+
+
+```{r}
+library(tidyverse)
+library(tidyquant) 
+library(timetk)
+```
+
+# Data
+
+This tutorial will use the `FANG` dataset: 
+
+- Daily
+- Irregular (missing business holidays and weekends)
+- 4 groups (FB, AMZN, NFLX, and GOOG). 
+
+```{r}
+FANG
+```
+
+The adjusted column contains the adjusted closing prices for each day. 
+
+```{r}
+FANG %>%
+  group_by(symbol) %>%
+  plot_time_series(date, adjusted, .facet_ncol = 2, .interactive = FALSE)
+```
+
+The volume column contains the trade volume (number of times the stock was transacted) for the day. 
+
+```{r}
+FANG %>%
+  group_by(symbol) %>%
+  plot_time_series(date, volume, .facet_ncol = 2, .interactive = FALSE)
+```
+
+
+
+# Summarize by Time
+
+`summarise_by_time()` aggregates by a period. It's great for:
+
+- Period Aggregation - `SUM()`
+- Period Smoothing - `AVERAGE()`, `FIRST()`, `LAST()`
+
+__Period Summarization__
+
+Objective: Get the total trade volume by quarter
+
+- Use `SUM()`
+- Aggregate using `.by = "quarter"`
+
+```{r}
+FANG %>%
+  group_by(symbol) %>%
+  summarise_by_time(
+    date, .by = "quarter",
+    volume = SUM(volume)
+  ) %>%
+  plot_time_series(date, volume, .facet_ncol = 2, .interactive = FALSE, .y_intercept = 0)
+```
+
+
+__Period Smoothing__
+
+Objective: Get the first value in each month
+
+- We can use `FIRST()` to get the first value, which has the effect of reducing the data (i.e. smoothing). We could use `AVERAGE()` or `MEDIAN()`. 
+- Use the summarization by time: `.by = "month"` to aggregate by month. 
+
+```{r}
+FANG %>%
+  group_by(symbol) %>%
+  summarise_by_time(
+    date, .by = "month",
+    adjusted = FIRST(adjusted)
+  ) %>%
+  plot_time_series(date, adjusted, .facet_ncol = 2, .interactive = FALSE)
+```
+
+
+
+# Filter By Time
+
+Used to quickly filter a continuous time range. 
+
+__Time Range Filtering__
+
+Objective: Get the adjusted stock prices in the 3rd quarter of 2013. 
+
+- A basic filter is using time-based phrases like "2013-09" to signal the start of September 2013.
+- An advanced filter using `"2014-01-01" %-time% "1 day"`: A special infix operation, `%-time%` (minus time), to modify a time vector by a time-based phrase (e.g. "1 day")
+- A more advanced example of filtering is shown in _"Padding Data: Low to High Frequency"_. 
+
+```{r}
+FANG %>%
+  group_by(symbol) %>%
+  filter_by_time(date, "2013-09", "2014-01-01" %-time% "1 day") %>%
+  plot_time_series(date, adjusted, .facet_ncol = 2, .interactive = FALSE)
+```
+
+# Padding Data
+
+Used to fill in (pad) gaps and to go from from low frequency to high frequency. This function uses the awesome `padr` library for filling and expanding timestamps. 
+
+__Fill in Gaps__
+
+Objective: Make an irregular series regular. 
+
+- We will leave padded values as `NA`. 
+- We can add a value using `.pad_value` or we can impute using a function like `impute_ts_vec()` (shown next). 
+
+```{r, message=TRUE}
+FANG %>%
+  group_by(symbol) %>%
+  pad_by_time(date, .by = "auto") # Guesses .by = "day"
+```
+
+__Low to High Frequency__
+
+Objective: Go from Daily to Hourly timestamp intervals. Impute the missing values
+
+- `.by = "hour"` pads from daily to hourly
+- Imputation of hourly data is accomplished with `impute_ts_vec()`, which performs linear interpolation when `period = 1`.
+- Filtering is accomplished using:  
+    - "start": A special keyword that signals the start of a series
+    - `FIRST(date) %+time% "1 month"`: Selecting the first date in the sequence then using a special infix operation, `%+time%`, called "add time". In this case I add "1 month". 
+
+```{r}
+FANG %>%
+  group_by(symbol) %>%
+  pad_by_time(date, .by = "hour") %>%
+  mutate_at(vars(open:adjusted), .funs = impute_ts_vec, period = 1) %>%
+  filter_by_time(date, "start", FIRST(date) %+time% "1 month") %>%
+  plot_time_series(date, adjusted, .facet_ncol = 2, .interactive = FALSE) 
+```
+
+# Sliding (Rolling) Calculations
+
+We have a new function, `slidify()` that turns any function into a sliding (rolling) window function. It takes concepts from `tibbletime::rollify()` and it improves them with the R package `slider`.
+
+__Rolling Mean__
+
+Objective: Calculate a "centered" simple rolling average with partial window rolling and the start and end windows. 
+
+- `slidify()` turns the `AVERAGE()` function into a rolling average. 
+
+```{r}
+# Make the rolling function
+roll_avg_30 <- slidify(.f = AVERAGE, .period = 30, .align = "center", .partial = TRUE)
+
+# Apply the rolling function
+FANG %>%
+  select(symbol, date, adjusted) %>%
+  group_by(symbol) %>%
+  # Apply Sliding Function
+  mutate(rolling_avg_30 = roll_avg_30(adjusted)) %>%
+  pivot_longer(cols = c(adjusted, rolling_avg_30)) %>%
+  plot_time_series(date, value, .color_var = name,
+                   .facet_ncol = 2, .smooth = FALSE, 
+                   .interactive = FALSE)
+```
+
+For simple rolling calculations (rolling average), we can accomplish this operation faster with `roll_apply_vec()` - A vectorized rolling function for simple summary rolls (e.g. `mean()`, `sd()`, `sum()`, etc)
+
+```{r}
+FANG %>%
+  select(symbol, date, adjusted) %>%
+  group_by(symbol) %>%
+  # Apply roll apply Function
+  mutate(rolling_avg_30 = roll_apply_vec(adjusted,  ~ AVERAGE(.), 
+                                         .period = 30, .partial = TRUE))
+```
+
+__Rolling Regression__
+
+Objective: Calculate a rolling regression.
+
+- This is a complex sliding (rolling) calculation that requires multiple columns to be involved. 
+- `slidify()` is built for this.
+- Use the multi-variable `purrr` `..1`, `..2`, `..3`, etc notation to setup a function
+
+```{r}
+# Rolling regressions are easy to implement using `.unlist = FALSE`
+lm_roll <- slidify(~ lm(..1 ~ ..2 + ..3), .period = 90, 
+                   .unlist = FALSE, .align = "right")
+
+
+FANG %>%
+  select(symbol, date, adjusted, volume) %>%
+  group_by(symbol) %>%
+  mutate(numeric_date = as.numeric(date)) %>%
+  # Apply rolling regression
+  mutate(rolling_lm = lm_roll(adjusted, volume, numeric_date)) %>%
+  filter(!is.na(rolling_lm))
+```
+
+# Learning More
+
+If you are interested in learning from my advanced __Time Series Analysis & Forecasting Course__, then [join my waitlist](https://mailchi.mp/business-science/time-series-forecasting-course-coming-soon). The course is coming soon. 
+
+```{r, echo=FALSE}
+knitr::include_graphics("time_series_course.jpg")
+```
+
+You will learn:
+
+- Time Series Preprocessing, Noise Reduction, & Anomaly Detection
+- Feature engineering using lagged variables & external regressors
+- Hyperparameter Tuning
+- Time series cross-validation
+- Ensembling Multiple Machine Learning & Univariate Modeling Techniques (Competition Winner)
+- NEW - Deep Learning with RNNs (Competition Winner)
+- and more.
+
+<p class="text-center" style="font-size:30px;">
+<a href="https://mailchi.mp/business-science/time-series-forecasting-course-coming-soon">Signup for the Time Series Course waitlist</a>
+</p>
