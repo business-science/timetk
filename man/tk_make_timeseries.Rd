@@ -29,7 +29,7 @@ You can create regularly spaced sequences using phrases like \code{by = "10 min"
 \code{start_date}, \code{end_date}, or \code{by}. Can be specified as a number or a time-based phrase.}
 
 \item{include_endpoints}{Logical. Whether or not to keep the last value when \code{length_out} is
-a time-based phrase.}
+a time-based phrase. Default is \code{TRUE} (keep last value).}
 
 \item{skip_values}{A sequence to skip}
 

@@ -164,7 +164,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Make future time series from existing</h1>
-    <small class="dont-index">Source: <a href='https://github.com/business-science/timetk/blob/master/R/make-tk_make_future_timeseries.R'><code>R/make-tk_make_future_timeseries.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/business-science/timetk/blob/master/R/make-tk_make_timeseries_future.R'><code>R/make-tk_make_timeseries_future.R</code></a></small>
     <div class="hidden name"><code>tk_make_future_timeseries.Rd</code></div>
     </div>
 
@@ -178,7 +178,8 @@
   <span class='kw'>inspect_weekdays</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>inspect_months</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>skip_values</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>insert_values</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+  <span class='kw'>insert_values</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>include_endpoints</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -190,7 +191,8 @@
     </tr>
     <tr>
       <th>n_future</th>
-      <td><p>Number of future observations</p></td>
+      <td><p>Number of future observations. Can be numeric number or a phrase
+like "1 year".</p></td>
     </tr>
     <tr>
       <th>inspect_weekdays</th>
@@ -215,6 +217,11 @@ values to skip.</p></td>
       <td><p>A vector of same class as <code>idx</code> of timeseries
 values to insert.</p></td>
     </tr>
+    <tr>
+      <th>include_endpoints</th>
+      <td><p>Logical. Whether or not to keep the last value when <code>length_out</code> is
+a time-based phrase. Default is <code>TRUE</code> (keep last value).</p></td>
+    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -225,27 +232,39 @@ values to insert.</p></td>
     <p><strong>Future Sequences</strong></p>
 <p><code>tk_make_future_timeseries</code> returns a time series based
 on the input index frequency and attributes.</p>
-<p>The argument <code>n_future</code> determines how many future index observations to compute.</p>
+<p><strong>Specifying N Future</strong></p>
+<p>The argument <code>n_future</code> determines how many future index observations to compute. It can be specified
+as:</p><ul>
+<li><p>A numeric value - the number of future observations</p></li>
+<li><p>A time-based phrase - The span into the future to include (e.g. "6 months" or "30 minutes")</p></li>
+</ul>
+
+<p><strong>Weekday and Month Inspection</strong></p>
 <p>The <code>inspect_weekdays</code> and <code>inspect_months</code> arguments apply to "daily" (scale = "day") data
-(refer to <code><a href='tk_get_timeseries.html'>tk_get_timeseries_summary()</a></code> to get the index scale).
-The <code>inspect_weekdays</code> argument is useful in determining missing days of the week
+(refer to <code><a href='tk_get_timeseries.html'>tk_get_timeseries_summary()</a></code> to get the index scale).</p><ul>
+<li><p>The <code>inspect_weekdays</code> argument is useful in determining missing days of the week
 that occur on a weekly frequency such as every week, every other week, and so on.
-It's recommended to have at least 60 days to use this option.
-The <code>inspect_months</code> argument is useful in determining missing days of the month, quarter
+It's recommended to have at least 60 days to use this option.</p></li>
+<li><p>The <code>inspect_months</code> argument is useful in determining missing days of the month, quarter
 or year; however, the algorithm can inadvertently select incorrect dates if the pattern
-is erratic.</p>
-<p>For example, some holidays do not occur on the same day of each month, and
-as a result the incorrect day may be selected in certain years.
-It's recommended to always review the date results to ensure the future days match
-the user's expectations. It's recommended to have at least two years of days to use
-this option.</p>
+is erratic.</p></li>
+</ul>
+
+<p><strong>Skipping / Inserting Values</strong></p>
 <p>The <code>skip_values</code> and <code>insert_values</code> arguments can be used to remove and add
-values into the series of future times. The values must be the same format as the <code>idx</code> class.
-The <code>skip_values</code> argument useful for passing holidays or special index values that should
-be excluded from the future time series.
-The <code>insert_values</code> argument is useful for adding values back that the algorithm may have
-excluded.</p>
-<p><strong>Holiday Sequences</strong></p>
+values into the series of future times. The values must be the same format as the <code>idx</code> class.</p><ul>
+<li><p>The <code>skip_values</code> argument useful for passing holidays or special index values that should
+be excluded from the future time series.</p></li>
+<li><p>The <code>insert_values</code> argument is useful for adding values back that the algorithm may have
+excluded.</p></li>
+</ul>
+
+<p><strong>Removing Endpoints</strong></p>
+<p>When <code>n_future</code> is a character phrase, how many observations into the future can differ
+based on the user's interpretation to the time-span. For example, should "1 year" mean
+1 year from the last value in an index or 1 year from the next value.</p>
+<p>To account for this, the user has the option <code>include_endpoints</code>, which simply subtracts the
+last value in the future time series.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'>
@@ -268,6 +287,30 @@ excluded.</p>
 <span class='co'># Make next three timestamps in series</span>
 <span class='no'>idx</span> <span class='kw'>%&gt;%</span> <span class='fu'>tk_make_future_timeseries</span>(<span class='kw'>n_future</span> <span class='kw'>=</span> <span class='fl'>3</span>)</div><div class='output co'>#&gt; [1] "2016-01-01 00:00:09 UTC" "2016-01-01 00:00:12 UTC"
 #&gt; [3] "2016-01-01 00:00:15 UTC"</div><div class='input'>
+<span class='co'># Make next 6 seconds of timestamps from the next timestamp</span>
+<span class='no'>idx</span> <span class='kw'>%&gt;%</span> <span class='fu'>tk_make_future_timeseries</span>(<span class='kw'>n_future</span> <span class='kw'>=</span> <span class='st'>"6 sec"</span>)</div><div class='output co'>#&gt; [1] "2016-01-01 00:00:09 UTC" "2016-01-01 00:00:12 UTC"
+#&gt; [3] "2016-01-01 00:00:15 UTC"</div><div class='input'>
+<span class='co'># Make next 6 seconds of timestamps from the previous timestamp</span>
+<span class='no'>idx</span> <span class='kw'>%&gt;%</span> <span class='fu'>tk_make_future_timeseries</span>(<span class='kw'>n_future</span> <span class='kw'>=</span> <span class='st'>"6 sec"</span>, <span class='kw'>include_endpoints</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; [1] "2016-01-01 00:00:09 UTC" "2016-01-01 00:00:12 UTC"</div><div class='input'>
+
+<span class='co'># Basic Example - By 1 Month</span>
+<span class='no'>idx</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='tk_make_timeseries.html'>tk_make_timeseries</a></span>(<span class='st'>"2016-01-01"</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"1 month"</span>,
+                          <span class='kw'>length_out</span> <span class='kw'>=</span> <span class='st'>"12 months"</span>,
+                          <span class='kw'>include_endpoints</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='no'>idx</span></div><div class='output co'>#&gt;  [1] "2016-01-01" "2016-02-01" "2016-03-01" "2016-04-01" "2016-05-01"
+#&gt;  [6] "2016-06-01" "2016-07-01" "2016-08-01" "2016-09-01" "2016-10-01"
+#&gt; [11] "2016-11-01" "2016-12-01"</div><div class='input'>
+<span class='co'># Make 12 months of timestamps from the next timestamp</span>
+<span class='no'>idx</span> <span class='kw'>%&gt;%</span> <span class='fu'>tk_make_future_timeseries</span>(<span class='kw'>n_future</span> <span class='kw'>=</span> <span class='st'>"12 months"</span>)</div><div class='output co'>#&gt;  [1] "2017-01-01" "2017-02-01" "2017-03-01" "2017-04-01" "2017-05-01"
+#&gt;  [6] "2017-06-01" "2017-07-01" "2017-08-01" "2017-09-01" "2017-10-01"
+#&gt; [11] "2017-11-01" "2017-12-01"</div><div class='input'>
+<span class='co'># Make 12 months of timestamps from the previous timestamp</span>
+<span class='no'>idx</span> <span class='kw'>%&gt;%</span> <span class='fu'>tk_make_future_timeseries</span>(<span class='kw'>n_future</span> <span class='kw'>=</span> <span class='st'>"12 months"</span>, <span class='kw'>include_endpoints</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt;  [1] "2017-01-01" "2017-02-01" "2017-03-01" "2017-04-01" "2017-05-01"
+#&gt;  [6] "2017-06-01" "2017-07-01" "2017-08-01" "2017-09-01" "2017-10-01"
+#&gt; [11] "2017-11-01"</div><div class='input'>
+
+<span class='co'># --- APPLICATION ---</span>
+<span class='co'># - Combine holiday sequences with future sequences</span>
 
 <span class='co'># Create index of days that FB stock will be traded in 2017 based on 2016 + holidays</span>
 <span class='no'>FB_tbl</span> <span class='kw'>&lt;-</span> <span class='no'>FANG</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='no'>symbol</span> <span class='kw'>==</span> <span class='st'>"FB"</span>)
@@ -280,7 +323,7 @@ excluded.</p>
 <span class='co'># Remove holidays with skip_values, and remove weekends with inspect_weekdays = TRUE</span>
 <span class='no'>FB_tbl</span> <span class='kw'>%&gt;%</span>
     <span class='fu'><a href='tk_index.html'>tk_index</a></span>() <span class='kw'>%&gt;%</span>
-    <span class='fu'>tk_make_future_timeseries</span>(<span class='kw'>n_future</span>         <span class='kw'>=</span> <span class='fl'>366</span>,
+    <span class='fu'>tk_make_future_timeseries</span>(<span class='kw'>n_future</span>         <span class='kw'>=</span> <span class='st'>"1 year"</span>,
                               <span class='kw'>inspect_weekdays</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
                               <span class='kw'>skip_values</span>      <span class='kw'>=</span> <span class='no'>holidays</span>)</div><div class='output co'>#&gt;  [1] "2017-01-03" "2017-01-04" "2017-01-05" "2017-01-06" "2017-01-09"
 #&gt;  [6] "2017-01-10" "2017-01-11" "2017-01-12" "2017-01-13" "2017-01-17"
@@ -293,13 +336,8 @@ excluded.</p>
 #&gt; [41] "2017-03-02" "2017-03-03" "2017-03-06" "2017-03-07" "2017-03-08"
 #&gt; [46] "2017-03-09" "2017-03-10" "2017-03-13" "2017-03-14" "2017-03-15"
 #&gt;  [ reached 'max' / getOption("max.print") -- omitted 201 entries ]</div><div class='input'>
-<span class='co'># Works with regularized indexes as well</span>
-<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2016.00</span>, <span class='fl'>2016.25</span>, <span class='fl'>2016.50</span>, <span class='fl'>2016.75</span>) <span class='kw'>%&gt;%</span>
-    <span class='fu'>tk_make_future_timeseries</span>(<span class='kw'>n_future</span> <span class='kw'>=</span> <span class='fl'>4</span>)</div><div class='output co'>#&gt; [1] 2017.00 2017.25 2017.50 2017.75</div><div class='input'>
-<span class='co'># Works with zoo yearmon and yearqtr too</span>
-<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"2016 Q1"</span>, <span class='st'>"2016 Q2"</span>, <span class='st'>"2016 Q3"</span>, <span class='st'>"2016 Q4"</span>) <span class='kw'>%&gt;%</span>
-    <span class='fu'>as.yearqtr</span>() <span class='kw'>%&gt;%</span>
-    <span class='fu'>tk_make_future_timeseries</span>(<span class='kw'>n_future</span> <span class='kw'>=</span> <span class='fl'>4</span>)</div><div class='output co'>#&gt; [1] "2017 Q1" "2017 Q2" "2017 Q3" "2017 Q4"</div><div class='input'>
+
+
 
 </div></pre>
   </div>

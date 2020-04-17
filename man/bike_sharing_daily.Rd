@@ -13,7 +13,7 @@ A tibble: 731 x 16
 \item yr : year (0: 2011, 1:2012)
 \item mnth : month ( 1 to 12)
 \item hr : hour (0 to 23)
-\item holiday : weather day is holiday or not (extracted from \link{Web Link})
+\item holiday : weather day is holiday or not
 \item weekday : day of the week
 \item workingday : if day is neither weekend nor holiday is 1, otherwise is 0.
 \item weathersit :

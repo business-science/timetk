@@ -13,10 +13,10 @@
 #'  You can create regularly spaced sequences using phrases like `by = "10 min"`. See Details.
 #' @param length_out Optional length of the sequence. Can be used instead of one of:
 #'  `start_date`, `end_date`, or `by`. Can be specified as a number or a time-based phrase.
-#' @param include_endpoints Logical. Whether or not to keep the last value when `length_out` is
-#'  a time-based phrase.
 #' @param skip_values A sequence to skip
 #' @param insert_values A sequence to insert
+#' @param include_endpoints Logical. Whether or not to keep the last value when `length_out` is
+#'  a time-based phrase. Default is `TRUE` (keep last value).
 #'
 #' @details
 #'
