@@ -80,9 +80,7 @@ filter_by_time.default <- function(.data, .date_var, .start_date = "start", .end
 #' @export
 filter_by_time.data.frame <- function(.data, .date_var, .start_date = "start", .end_date = "end") {
 
-    date_var_expr <- enquo(.date_var)
-
     .data %>%
-        dplyr::filter(between_time(!! date_var_expr, .start_date, .end_date))
+        dplyr::filter(between_time(!! enquo(.date_var), !! enquo(.start_date), !! enquo(.end_date)))
 
 }
