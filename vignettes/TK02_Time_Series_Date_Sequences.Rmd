@@ -30,8 +30,9 @@ knitr::opts_chunk$set(
 
 Creating and modifying date sequences is critical to machine learning projects. We discuss:
 
-- Making a Time Series Sequence
-- Making a Future Sequence
+- Making a Time Series Sequence: `tk_make_timeseries()`
+- Making a Future Sequence: `tk_make_future_timeseries()`
+- Holiday & Weekday/Weekend Sequences
 
 
 # Prerequisites
@@ -44,8 +45,6 @@ library(timetk)
 ```
 
 # Making a Time Series Sequence
-
-> Intelligent date and date-time sequence creation.
 
 `tk_make_timeseries()` improves on the `seq.Date()` and `seq.POSIXt()` functions by simplifying into 1 function. Intelligently handles character dates and logical assumptions based on user inputs.
 
@@ -94,14 +93,21 @@ tk_make_timeseries(end_date = "2012-01-01",
 
 A common operation is to make a future time series sequence that mimics an existing. This is what `tk_make_future_timeseries()` is for. 
 
+
+Suppose we have an existing time index. 
+
 ```{r}
 idx <- tk_make_timeseries("2012-01-01", by = "3 months", 
                           length_out = "2 years", include_endpoints = FALSE)
 idx
 ```
 
+__Make a Future Time Series from an Existing__
+
+We can create a future time sequence from the existing sequence using `tk_make_future_timeseries()`. 
+
 ```{r}
-tk_make_future_timeseries(idx, n_future = 4)
+tk_make_future_timeseries(idx, n_future = "2 years", include_endpoints = FALSE)
 ```
 
 
@@ -133,7 +139,7 @@ holidays <- tk_make_holiday_sequence(
     calendar   = "NYSE")
 
 idx_future <- idx %>%
-   tk_make_future_timeseries(n_future         = 366,
+   tk_make_future_timeseries(n_future         = "1 year",
                              inspect_weekdays = TRUE,
                              skip_values      = holidays)
 
