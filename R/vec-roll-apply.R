@@ -117,8 +117,8 @@
 #' FB_tbl %>%
 #'     mutate(adjusted_30_ma = roll_apply_vec(
 #'         .x       = adjusted,
-#'         .period  = 30,
 #'         .f       = ~ mean(., na.rm = TRUE),
+#'         .period  = 30,
 #'         .align   = "center",
 #'         .partial = TRUE)) %>%
 #'         ggplot(aes(date, adjusted)) +
@@ -131,8 +131,8 @@
 #' FB_tbl %>%
 #'     mutate(
 #'         adjusted_loess_30 = smooth_vec(adjusted, period = 30, degree = 0),
-#'         adjusted_ma_30    = roll_apply_vec(adjusted, .period = 30,
-#'                                            .f = AVERAGE, .partial = TRUE)
+#'         adjusted_ma_30    = roll_apply_vec(adjusted, .f = AVERAGE,
+#'                                            .period = 30, .partial = TRUE)
 #'     ) %>%
 #'     ggplot(aes(date, adjusted)) +
 #'     geom_line() +
@@ -143,7 +143,7 @@
 #'
 #'
 #' @export
-roll_apply_vec <- function(.x, .period, .f, ..., .align = c("center", "left", "right"), .partial = FALSE) {
+roll_apply_vec <- function(.x, .f, ..., .period = 1, .align = c("center", "left", "right"), .partial = FALSE) {
 
     roll_to_slide(
         .slider_fun = slider::slide_vec,

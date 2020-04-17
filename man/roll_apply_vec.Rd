@@ -6,18 +6,15 @@
 \usage{
 roll_apply_vec(
   .x,
-  .period,
   .f,
   ...,
+  .period = 1,
   .align = c("center", "left", "right"),
   .partial = FALSE
 )
 }
 \arguments{
 \item{.x}{A vector to have a rolling window transformation applied.}
-
-\item{.period}{The number of periods to include in the local rolling window.
-This is effectively the "window size".}
 
 \item{.f}{A summary \verb{[function / formula]}
 \itemize{
@@ -29,6 +26,9 @@ additional arguments, \code{...}.
 This syntax allows you to create very compact anonymous functions.}
 
 \item{...}{Additional arguments passed on to the \code{.f} function.}
+
+\item{.period}{The number of periods to include in the local rolling window.
+This is effectively the "window size".}
 
 \item{.align}{One of "center", "left" or "right".}
 
@@ -115,8 +115,8 @@ FB_tbl \%>\%
 FB_tbl \%>\%
     mutate(adjusted_30_ma = roll_apply_vec(
         .x       = adjusted,
-        .period  = 30,
         .f       = ~ mean(., na.rm = TRUE),
+        .period  = 30,
         .align   = "center",
         .partial = TRUE)) \%>\%
         ggplot(aes(date, adjusted)) +
@@ -129,8 +129,8 @@ FB_tbl \%>\%
 FB_tbl \%>\%
     mutate(
         adjusted_loess_30 = smooth_vec(adjusted, period = 30, degree = 0),
-        adjusted_ma_30    = roll_apply_vec(adjusted, .period = 30,
-                                           .f = AVERAGE, .partial = TRUE)
+        adjusted_ma_30    = roll_apply_vec(adjusted, .f = AVERAGE,
+                                           .period = 30, .partial = TRUE)
     ) \%>\%
     ggplot(aes(date, adjusted)) +
     geom_line() +
