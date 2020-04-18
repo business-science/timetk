@@ -123,7 +123,7 @@
       <h1 data-toc-skip>Time Series Date Sequences</h1>
                         <h4 class="author">Matt Dancho</h4>
             
-            <h4 class="date">2020-04-17</h4>
+            <h4 class="date">2020-04-18</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/business-science/timetk/blob/master/vignettes/TK02_Time_Series_Date_Sequences.Rmd"><code>vignettes/TK02_Time_Series_Date_Sequences.Rmd</code></a></small>
       <div class="hidden name"><code>TK02_Time_Series_Date_Sequences.Rmd</code></div>
@@ -161,7 +161,7 @@
 <code>include_endpoints = FALSE</code> removes the last value so your series is only 7 observations.</li>
 </ul>
 <div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="co"># Selects by day automatically</span>
-<span class="fu"><a href="../reference/tk_make_timeseries.html">tk_make_timeseries</a></span>(<span class="st">"2011-01-01"</span>, <span class="kw">length_out</span> <span class="kw">=</span> <span class="st">"7 days"</span>, <span class="kw">include_endpoints</span> <span class="kw">=</span> <span class="fl">FALSE</span>)</pre></body></html></div>
+<span class="fu"><a href="../reference/tk_make_timeseries.html">tk_make_timeseries</a></span>(<span class="st">"2011"</span>, <span class="kw">length_out</span> <span class="kw">=</span> <span class="st">"7 days"</span>, <span class="kw">include_endpoints</span> <span class="kw">=</span> <span class="fl">FALSE</span>)</pre></body></html></div>
 <pre><code>## [1] "2011-01-01" "2011-01-02" "2011-01-03" "2011-01-04" "2011-01-05"
 ## [6] "2011-01-06" "2011-01-07"</code></pre>
 <p><strong>By 2 Seconds</strong></p>
@@ -171,7 +171,7 @@
 <code>include_endpoints = TRUE</code> keeps the last value the series ends on the 6th second.</li>
 </ul>
 <div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="co"># Guesses by second</span>
-<span class="fu"><a href="../reference/tk_make_timeseries.html">tk_make_timeseries</a></span>(<span class="st">"2016-01-01"</span>, <span class="kw">by</span> <span class="kw">=</span> <span class="st">"2 sec"</span>, <span class="kw">length_out</span> <span class="kw">=</span> <span class="st">"6 seconds"</span>)</pre></body></html></div>
+<span class="fu"><a href="../reference/tk_make_timeseries.html">tk_make_timeseries</a></span>(<span class="st">"2016"</span>, <span class="kw">by</span> <span class="kw">=</span> <span class="st">"2 sec"</span>, <span class="kw">length_out</span> <span class="kw">=</span> <span class="st">"6 seconds"</span>)</pre></body></html></div>
 <pre><code>## [1] "2016-01-01 00:00:00 UTC" "2016-01-01 00:00:02 UTC"
 ## [3] "2016-01-01 00:00:04 UTC" "2016-01-01 00:00:06 UTC"</code></pre>
 <p><strong>Length Out = 1 year 6 months</strong></p>
@@ -179,33 +179,34 @@
 <li>
 <code>length_out = "1 year 6 months"</code> - Can include complex expressions like “1 year 4 months 6 days”.</li>
 </ul>
-<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="fu"><a href="../reference/tk_make_timeseries.html">tk_make_timeseries</a></span>(<span class="st">"2012-01-01"</span>, <span class="kw">by</span> <span class="kw">=</span> <span class="st">"1 month"</span>,
-                   <span class="kw">length_out</span> <span class="kw">=</span> <span class="st">"1 year 6 months"</span>,
-                   <span class="kw">include_endpoints</span> <span class="kw">=</span> <span class="fl">FALSE</span>)</pre></body></html></div>
-<pre><code>##  [1] "2012-01-01" "2012-02-01" "2012-03-01" "2012-04-01" "2012-05-01"
-##  [6] "2012-06-01" "2012-07-01" "2012-08-01" "2012-09-01" "2012-10-01"
-## [11] "2012-11-01" "2012-12-01" "2013-01-01" "2013-02-01" "2013-03-01"
-## [16] "2013-04-01" "2013-05-01" "2013-06-01"</code></pre>
-<p><strong>In Reverse</strong></p>
-<ul>
-<li>To go in reverse, just use <code>end_date</code> as where you want the series to end.</li>
-</ul>
-<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="fu"><a href="../reference/tk_make_timeseries.html">tk_make_timeseries</a></span>(<span class="kw">end_date</span> <span class="kw">=</span> <span class="st">"2012-01-01"</span>,
+<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="fu"><a href="../reference/tk_make_timeseries.html">tk_make_timeseries</a></span>(<span class="st">"2012-07"</span>,
                    <span class="kw">by</span> <span class="kw">=</span> <span class="st">"1 month"</span>,
                    <span class="kw">length_out</span> <span class="kw">=</span> <span class="st">"1 year 6 months"</span>,
                    <span class="kw">include_endpoints</span> <span class="kw">=</span> <span class="fl">FALSE</span>)</pre></body></html></div>
-<pre><code>##  [1] "2010-08-01" "2010-09-01" "2010-10-01" "2010-11-01" "2010-12-01"
-##  [6] "2011-01-01" "2011-02-01" "2011-03-01" "2011-04-01" "2011-05-01"
-## [11] "2011-06-01" "2011-07-01" "2011-08-01" "2011-09-01" "2011-10-01"
-## [16] "2011-11-01" "2011-12-01" "2012-01-01"</code></pre>
+<pre><code>##  [1] "2012-07-01" "2012-08-01" "2012-09-01" "2012-10-01" "2012-11-01"
+##  [6] "2012-12-01" "2013-01-01" "2013-02-01" "2013-03-01" "2013-04-01"
+## [11] "2013-05-01" "2013-06-01" "2013-07-01" "2013-08-01" "2013-09-01"
+## [16] "2013-10-01" "2013-11-01" "2013-12-01"</code></pre>
+<p><strong>Go In Reverse</strong></p>
+<ul>
+<li>To go in reverse, just use <code>end_date</code> as where you want the series to end.</li>
+</ul>
+<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="fu"><a href="../reference/tk_make_timeseries.html">tk_make_timeseries</a></span>(<span class="kw">end_date</span> <span class="kw">=</span> <span class="st">"2012-07-01"</span>,
+                   <span class="kw">by</span> <span class="kw">=</span> <span class="st">"1 month"</span>,
+                   <span class="kw">length_out</span> <span class="kw">=</span> <span class="st">"1 year 6 months"</span>)</pre></body></html></div>
+<pre><code>##  [1] "2011-01-01" "2011-02-01" "2011-03-01" "2011-04-01" "2011-05-01"
+##  [6] "2011-06-01" "2011-07-01" "2011-08-01" "2011-09-01" "2011-10-01"
+## [11] "2011-11-01" "2011-12-01" "2012-01-01" "2012-02-01" "2012-03-01"
+## [16] "2012-04-01" "2012-05-01" "2012-06-01" "2012-07-01"</code></pre>
 </div>
 <div id="future-time-series-sequence" class="section level1">
 <h1 class="hasAnchor">
 <a href="#future-time-series-sequence" class="anchor"></a>Future Time Series Sequence</h1>
 <p>A common operation is to make a future time series sequence that mimics an existing. This is what <code><a href="../reference/tk_make_future_timeseries.html">tk_make_future_timeseries()</a></code> is for.</p>
 <p>Suppose we have an existing time index.</p>
-<div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="no">idx</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/tk_make_timeseries.html">tk_make_timeseries</a></span>(<span class="st">"2012-01-01"</span>, <span class="kw">by</span> <span class="kw">=</span> <span class="st">"3 months"</span>,
-                          <span class="kw">length_out</span> <span class="kw">=</span> <span class="st">"2 years"</span>, <span class="kw">include_endpoints</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
+<div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="no">idx</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/tk_make_timeseries.html">tk_make_timeseries</a></span>(<span class="st">"2012"</span>, <span class="kw">by</span> <span class="kw">=</span> <span class="st">"3 months"</span>,
+                          <span class="kw">length_out</span> <span class="kw">=</span> <span class="st">"2 years"</span>,
+                          <span class="kw">include_endpoints</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
 <span class="no">idx</span></pre></body></html></div>
 <pre><code>## [1] "2012-01-01" "2012-04-01" "2012-07-01" "2012-10-01" "2013-01-01"
 ## [6] "2013-04-01" "2013-07-01" "2013-10-01"</code></pre>
@@ -219,9 +220,12 @@
 <h1 class="hasAnchor">
 <a href="#weekends-holidays" class="anchor"></a>Weekends &amp; Holidays</h1>
 <p><strong>Make weekday sequence removing holidays</strong></p>
-<div class="sourceCode" id="cb14"><html><body><pre class="r"><span class="no">idx</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/tk_make_holiday_sequence.html">tk_make_weekday_sequence</a></span>(<span class="st">"2012-01-01"</span>, <span class="st">"2012-12-31"</span>,
+<ul>
+<li>Result is 252 days.</li>
+</ul>
+<div class="sourceCode" id="cb14"><html><body><pre class="r"><span class="no">idx</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/tk_make_holiday_sequence.html">tk_make_weekday_sequence</a></span>(<span class="st">"2012"</span>,
                                 <span class="kw">remove_weekends</span> <span class="kw">=</span> <span class="fl">TRUE</span>,
-                                <span class="kw">remove_holidays</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
+                                <span class="kw">remove_holidays</span> <span class="kw">=</span> <span class="fl">TRUE</span>, <span class="kw">calendar</span> <span class="kw">=</span> <span class="st">"NYSE"</span>)
 
 <span class="fu"><a href="../reference/tk_get_timeseries.html">tk_get_timeseries_summary</a></span>(<span class="no">idx</span>)</pre></body></html></div>
 <pre><code>## # A tibble: 1 x 12
@@ -230,7 +234,10 @@
 ## 1   252 2012-01-03 2012-12-31 days  day   UTC          86400   86400       86400
 ## # … with 3 more variables: diff.mean &lt;dbl&gt;, diff.q3 &lt;dbl&gt;, diff.maximum &lt;dbl&gt;</code></pre>
 <p><strong>Which holidays were removed?</strong></p>
-<div class="sourceCode" id="cb16"><html><body><pre class="r"><span class="fu"><a href="../reference/tk_make_holiday_sequence.html">tk_make_holiday_sequence</a></span>(<span class="st">"2012-01-01"</span>, <span class="st">"2012-12-31"</span>, <span class="kw">calendar</span> <span class="kw">=</span> <span class="st">"NYSE"</span>)</pre></body></html></div>
+<ul>
+<li>NYSE Trading holidays which are days most businesses observe</li>
+</ul>
+<div class="sourceCode" id="cb16"><html><body><pre class="r"><span class="fu"><a href="../reference/tk_make_holiday_sequence.html">tk_make_holiday_sequence</a></span>(<span class="st">"2012"</span>, <span class="kw">calendar</span> <span class="kw">=</span> <span class="st">"NYSE"</span>)</pre></body></html></div>
 <pre><code>## [1] "2012-01-02" "2012-01-16" "2012-02-20" "2012-04-06" "2012-05-28"
 ## [6] "2012-07-04" "2012-09-03" "2012-11-22" "2012-12-25"</code></pre>
 <p><strong>Make future index removing holidays</strong></p>
@@ -244,11 +251,11 @@
                              <span class="kw">inspect_weekdays</span> <span class="kw">=</span> <span class="fl">TRUE</span>,
                              <span class="kw">skip_values</span>      <span class="kw">=</span> <span class="no">holidays</span>)
 
-<span class="fu"><a href="../reference/tk_get_timeseries.html">tk_get_timeseries_summary</a></span>(<span class="no">idx</span>)</pre></body></html></div>
+<span class="fu"><a href="../reference/tk_get_timeseries.html">tk_get_timeseries_summary</a></span>(<span class="no">idx_future</span>)</pre></body></html></div>
 <pre><code>## # A tibble: 1 x 12
 ##   n.obs start      end        units scale tzone diff.minimum diff.q1 diff.median
 ##   &lt;int&gt; &lt;date&gt;     &lt;date&gt;     &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;        &lt;dbl&gt;   &lt;dbl&gt;       &lt;dbl&gt;
-## 1   252 2012-01-03 2012-12-31 days  day   UTC          86400   86400       86400
+## 1   253 2013-01-02 2014-01-01 days  day   UTC          86400   86400       86400
 ## # … with 3 more variables: diff.mean &lt;dbl&gt;, diff.q3 &lt;dbl&gt;, diff.maximum &lt;dbl&gt;</code></pre>
 </div>
 <div id="learning-more" class="section level1">

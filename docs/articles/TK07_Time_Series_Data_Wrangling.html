@@ -123,7 +123,7 @@
       <h1 data-toc-skip>Time Series Data Wrangling</h1>
                         <h4 class="author">Matt Dancho</h4>
             
-            <h4 class="date">2020-04-17</h4>
+            <h4 class="date">2020-04-18</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/business-science/timetk/blob/master/vignettes/TK07_Time_Series_Data_Wrangling.Rmd"><code>vignettes/TK07_Time_Series_Data_Wrangling.Rmd</code></a></small>
       <div class="hidden name"><code>TK07_Time_Series_Data_Wrangling.Rmd</code></div>
@@ -250,13 +250,15 @@
 <a href="#time-range-filtering" class="anchor"></a>Time Range Filtering</h2>
 <p>Objective: Get the adjusted stock prices in the 3rd quarter of 2013.</p>
 <ul>
-<li>A basic filter is using time-based phrases like “2013-09” to signal the start of September 2013.</li>
-<li>An advanced filter using <code>"2014-01-01" %-time% "1 day"</code>: A special infix operation, <code><a href="../reference/add_time.html">%-time%</a></code> (minus time), to modify a time vector by a time-based phrase (e.g. “1 day”)</li>
-<li>A more advanced example of filtering is shown in <em>“Padding Data: Low to High Frequency”</em>.</li>
+<li>
+<code>.start_date = "2013-09"</code>: Converts to "2013-09-01</li>
+<li>
+<code>.end_date = "2013"</code>: Converts to "2013-12-31</li>
+<li>A more advanced example of filtering using <code>%+time</code> and <code>%-time</code> is shown in <em>“Padding Data: Low to High Frequency”</em>.</li>
 </ul>
 <div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="no">FANG</span> <span class="kw">%&gt;%</span>
   <span class="fu">group_by</span>(<span class="no">symbol</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/filter_by_time.html">filter_by_time</a></span>(<span class="no">date</span>, <span class="st">"2013-09"</span>, <span class="st">"2014-01-01"</span> <span class="kw">%-time%</span> <span class="st">"1 day"</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../reference/filter_by_time.html">filter_by_time</a></span>(<span class="no">date</span>, <span class="st">"2013-09"</span>, <span class="st">"2013"</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../reference/plot_time_series.html">plot_time_series</a></span>(<span class="no">date</span>, <span class="no">adjusted</span>, <span class="kw">.facet_ncol</span> <span class="kw">=</span> <span class="fl">2</span>, <span class="kw">.interactive</span> <span class="kw">=</span> <span class="fl">FALSE</span>)</pre></body></html></div>
 <p><img src="TK07_Time_Series_Data_Wrangling_files/figure-html/unnamed-chunk-8-1.png" width="95%" style="display: block; margin: auto;"></p>
 </div>
@@ -299,7 +301,7 @@
 <div id="low-to-high-frequency" class="section level2">
 <h2 class="hasAnchor">
 <a href="#low-to-high-frequency" class="anchor"></a>Low to High Frequency</h2>
-<p>Objective: Go from Daily to Hourly timestamp intervals. Impute the missing values</p>
+<p>Objective: Go from Daily to Hourly timestamp intervals for 1 month from the start date. Impute the missing values.</p>
 <ul>
 <li>
 <code>.by = "hour"</code> pads from daily to hourly</li>
