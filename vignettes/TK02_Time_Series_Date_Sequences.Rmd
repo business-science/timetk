@@ -55,7 +55,7 @@ __By Day__
 
 ```{r}
 # Selects by day automatically
-tk_make_timeseries("2011-01-01", length_out = "7 days", include_endpoints = FALSE)
+tk_make_timeseries("2011", length_out = "7 days", include_endpoints = FALSE)
 ```
 
 __By 2 Seconds__
@@ -65,7 +65,7 @@ __By 2 Seconds__
 
 ```{r}
 # Guesses by second
-tk_make_timeseries("2016-01-01", by = "2 sec", length_out = "6 seconds")
+tk_make_timeseries("2016", by = "2 sec", length_out = "6 seconds")
 ```
 
 __Length Out = 1 year 6 months__
@@ -73,20 +73,20 @@ __Length Out = 1 year 6 months__
 - `length_out = "1 year 6 months"` - Can include complex expressions like "1 year 4 months 6 days".
 
 ```{r}
-tk_make_timeseries("2012-01-01", by = "1 month",
+tk_make_timeseries("2012-07", 
+                   by = "1 month",
                    length_out = "1 year 6 months", 
                    include_endpoints = FALSE)
 ```
 
-__In Reverse__
+__Go In Reverse__
 
 - To go in reverse, just use `end_date` as where you want the series to end. 
 
 ```{r}
-tk_make_timeseries(end_date = "2012-01-01", 
+tk_make_timeseries(end_date = "2012-07-01", 
                    by = "1 month",
-                   length_out = "1 year 6 months", 
-                   include_endpoints = FALSE)
+                   length_out = "1 year 6 months")
 ```
 
 # Future Time Series Sequence
@@ -97,8 +97,9 @@ A common operation is to make a future time series sequence that mimics an exist
 Suppose we have an existing time index. 
 
 ```{r}
-idx <- tk_make_timeseries("2012-01-01", by = "3 months", 
-                          length_out = "2 years", include_endpoints = FALSE)
+idx <- tk_make_timeseries("2012", by = "3 months", 
+                          length_out = "2 years", 
+                          include_endpoints = FALSE)
 idx
 ```
 
@@ -115,18 +116,22 @@ tk_make_future_timeseries(idx, n_future = "2 years", include_endpoints = FALSE)
 
 __Make weekday sequence removing holidays__
 
+- Result is 252 days.
+
 ```{r}
-idx <- tk_make_weekday_sequence("2012-01-01", "2012-12-31", 
+idx <- tk_make_weekday_sequence("2012",
                                 remove_weekends = TRUE, 
-                                remove_holidays = TRUE)
+                                remove_holidays = TRUE, calendar = "NYSE")
 
 tk_get_timeseries_summary(idx)
 ```
 
 __Which holidays were removed?__
 
+- NYSE Trading holidays which are days most businesses observe 
+
 ```{r}
-tk_make_holiday_sequence("2012-01-01", "2012-12-31", calendar = "NYSE")
+tk_make_holiday_sequence("2012", calendar = "NYSE")
 ```
 
 
@@ -143,7 +148,7 @@ idx_future <- idx %>%
                              inspect_weekdays = TRUE,
                              skip_values      = holidays)
 
-tk_get_timeseries_summary(idx)
+tk_get_timeseries_summary(idx_future)
 ```
 
 # Learning More

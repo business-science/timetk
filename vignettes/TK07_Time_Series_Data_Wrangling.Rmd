@@ -130,14 +130,14 @@ Used to quickly filter a continuous time range.
 
 Objective: Get the adjusted stock prices in the 3rd quarter of 2013. 
 
-- A basic filter is using time-based phrases like "2013-09" to signal the start of September 2013.
-- An advanced filter using `"2014-01-01" %-time% "1 day"`: A special infix operation, `%-time%` (minus time), to modify a time vector by a time-based phrase (e.g. "1 day")
-- A more advanced example of filtering is shown in _"Padding Data: Low to High Frequency"_. 
+- `.start_date = "2013-09"`: Converts to "2013-09-01
+- `.end_date = "2013"`: Converts to "2013-12-31
+- A more advanced example of filtering using `%+time`  and `%-time` is shown in _"Padding Data: Low to High Frequency"_. 
 
 ```{r}
 FANG %>%
   group_by(symbol) %>%
-  filter_by_time(date, "2013-09", "2014-01-01" %-time% "1 day") %>%
+  filter_by_time(date, "2013-09", "2013") %>%
   plot_time_series(date, adjusted, .facet_ncol = 2, .interactive = FALSE)
 ```
 
@@ -160,7 +160,7 @@ FANG %>%
 
 ## Low to High Frequency
 
-Objective: Go from Daily to Hourly timestamp intervals. Impute the missing values
+Objective: Go from Daily to Hourly timestamp intervals for 1 month from the start date. Impute the missing values.
 
 - `.by = "hour"` pads from daily to hourly
 - Imputation of hourly data is accomplished with `impute_ts_vec()`, which performs linear interpolation when `period = 1`.
