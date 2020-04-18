@@ -155,8 +155,9 @@ __New Get Functions__:
 
 __New Diagnostic / Data Processing Functions__
 
-* `tk_acf_diagnostics` - The data preparation function for `plot_acf_diagnostics()`
-* `tk_seasonal_diagnostics` - The data preparation function for `plot_seasonal_diagnostics()`
+* `tk_summary_diagnostics()`  - Group-wise time series summary. 
+* `tk_acf_diagnostics()` - The data preparation function for `plot_acf_diagnostics()`
+* `tk_seasonal_diagnostics()` - The data preparation function for `plot_seasonal_diagnostics()`
 * `tk_stl_diagnostics()` - Group-wise STL Decomposition (Season, Trend, Remainder). Data prep for `plot_stl_diagnostics()`.
 * `tk_time_series_cv_plan` - The data preparation function for `plot_time_series_cv_plan()`
 

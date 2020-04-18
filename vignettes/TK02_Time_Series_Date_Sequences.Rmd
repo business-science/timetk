@@ -1,5 +1,5 @@
 ---
-title: "Time Series Date Sequences"
+title: "Intelligent Date & Time Sequences"
 author: "Matt Dancho"
 date: "`r Sys.Date()`"
 output: 
@@ -7,7 +7,7 @@ output:
     toc: true
     toc_depth: 2
 vignette: >
-  %\VignetteIndexEntry{Time Series Date Sequences}
+  %\VignetteIndexEntry{Intelligent Date & Time Sequences}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

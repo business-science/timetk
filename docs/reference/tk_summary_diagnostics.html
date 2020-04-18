@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Tidy eval helpers — tidyeval • timetk</title>
+<title>Group-wise Time Series Summary — tk_summary_diagnostics • timetk</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,40 +46,9 @@
 
 
 
-<meta property="og:title" content="Tidy eval helpers — tidyeval" />
-<meta property="og:description" content="
-
-sym() creates a symbol from a string and
-syms() creates a list of symbols from a
-character vector.
-enquo() and
-enquos() delay the execution of one or
-several function arguments. enquo() returns a single quoted
-expression, which is like a blueprint for the delayed computation.
-enquos() returns a list of such quoted expressions.
-expr() quotes a new expression locally. It
-is mostly useful to build new expressions around arguments
-captured with enquo() or enquos():
-expr(mean(!!enquo(arg), na.rm = TRUE)).
-as_name() transforms a quoted variable name
-into a string. Supplying something else than a quoted variable
-name is an error.
-That's unlike as_label() which also returns
-a single string but supports any kind of R object as input,
-including quoted function calls and vectors. Its purpose is to
-summarise that object into a single label. That label is often
-suitable as a default name.
-If you don't know what a quoted expression contains (for instance
-expressions captured with enquo() could be a variable
-name, a call to a function, or an unquoted constant), then use
-as_label(). If you know you have quoted a simple variable
-name, or would like to enforce this, use as_name().
-
-
-To learn more about tidy eval and how to use these tools, visit
-https://tidyeval.tidyverse.org and the
-Metaprogramming
-section of Advanced R." />
+<meta property="og:title" content="Group-wise Time Series Summary — tk_summary_diagnostics" />
+<meta property="og:description" content="tk_summary_diagnostics() returns the time series summary from
+one or more timeseries groups in a tibble." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -198,50 +167,64 @@ section of Advanced R." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Tidy eval helpers</h1>
-    <small class="dont-index">Source: <a href='https://github.com/business-science/timetk/blob/master/R/utils-tidy-eval.R'><code>R/utils-tidy-eval.R</code></a></small>
-    <div class="hidden name"><code>tidyeval.Rd</code></div>
+    <h1>Group-wise Time Series Summary</h1>
+    <small class="dont-index">Source: <a href='https://github.com/business-science/timetk/blob/master/R/diagnostics-tk_summary_diagnostics.R'><code>R/diagnostics-tk_summary_diagnostics.R</code></a></small>
+    <div class="hidden name"><code>tk_summary_diagnostics.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    
-<ul>
-<li><p><code><a href='https://rlang.r-lib.org/reference/nse-defuse.html'>sym</a>()</code> creates a symbol from a string and
-<code><a href='https://rlang.r-lib.org/reference/nse-defuse.html'>syms</a>()</code> creates a list of symbols from a
-character vector.</p></li>
-<li><p><code><a href='https://rlang.r-lib.org/reference/nse-defuse.html'>enquo</a>()</code> and
-<code><a href='https://rlang.r-lib.org/reference/nse-defuse.html'>enquos</a>()</code> delay the execution of one or
-several function arguments. <code>enquo()</code> returns a single quoted
-expression, which is like a blueprint for the delayed computation.
-<code>enquos()</code> returns a list of such quoted expressions.</p></li>
-<li><p><code><a href='https://rlang.r-lib.org/reference/nse-defuse.html'>expr</a>()</code> quotes a new expression <em>locally</em>. It
-is mostly useful to build new expressions around arguments
-captured with <code>enquo()</code> or <code>enquos()</code>:
-<code>expr(mean(!!enquo(arg), na.rm = TRUE))</code>.</p></li>
-<li><p><code><a href='https://rlang.r-lib.org/reference/as_name.html'>as_name</a>()</code> transforms a quoted variable name
-into a string. Supplying something else than a quoted variable
-name is an error.</p>
-<p>That's unlike <code><a href='https://rlang.r-lib.org/reference/as_label.html'>as_label</a>()</code> which also returns
-a single string but supports any kind of R object as input,
-including quoted function calls and vectors. Its purpose is to
-summarise that object into a single label. That label is often
-suitable as a default name.</p>
-<p>If you don't know what a quoted expression contains (for instance
-expressions captured with <code>enquo()</code> could be a variable
-name, a call to a function, or an unquoted constant), then use
-<code>as_label()</code>. If you know you have quoted a simple variable
-name, or would like to enforce this, use <code>as_name()</code>.</p></li>
-</ul>
-
-<p>To learn more about tidy eval and how to use these tools, visit
-<a href='https://tidyeval.tidyverse.org'>https://tidyeval.tidyverse.org</a> and the
-<a href='https://adv-r.hadley.nz/metaprogramming.html'>Metaprogramming
-section</a> of <a href='https://adv-r.hadley.nz'>Advanced R</a>.</p>
+    <p><code>tk_summary_diagnostics()</code> returns the time series summary from
+one or more timeseries groups in a tibble.</p>
     </div>
 
+    <pre class="usage"><span class='fu'>tk_summary_diagnostics</span>(<span class='no'>.data</span>, <span class='no'>.date_var</span>)</pre>
+
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>.data</th>
+      <td><p>A <code>tibble</code> or <code>data.frame</code> with a time-based column</p></td>
+    </tr>
+    <tr>
+      <th>.date_var</th>
+      <td><p>A column containing either date or date-time values</p></td>
+    </tr>
+    </table>
+
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>A <code>tibble</code> or <code>data.frame</code> with timeseries summary features</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>Applies <code><a href='tk_get_timeseries.html'>tk_get_timeseries_summary()</a></code> group-wise returning the summary of one or more
+time series groups.</p><ul>
+<li><p>Respects <code>dplyr</code> groups</p></li>
+<li><p>Returns the time series summary from a time-based feature.</p></li>
+</ul>
 
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>timetk</span>)
 
+<span class='co'># ---- GROUPED EXAMPLES ----</span>
+
+<span class='co'># Hourly Data</span>
+<span class='no'>m4_hourly</span> <span class='kw'>%&gt;%</span>
+    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>id</span>) <span class='kw'>%&gt;%</span>
+    <span class='fu'>tk_summary_diagnostics</span>(<span class='no'>date</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 4 x 13</span><span>
+#&gt; </span><span style='color: #555555;'># Groups:   id [4]</span><span>
+#&gt;   id    n.obs start               end                 units scale tzone
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dttm&gt;</span><span>              </span><span style='color: #555555;font-style: italic;'>&lt;dttm&gt;</span><span>              </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span> H10     700 2015-07-01 </span><span style='color: #555555;'>12:00:00</span><span> 2015-07-30 </span><span style='color: #555555;'>15:00:00</span><span> hours hour  UTC  
+#&gt; </span><span style='color: #555555;'>2</span><span> H50     700 2015-07-01 </span><span style='color: #555555;'>12:00:00</span><span> 2015-07-30 </span><span style='color: #555555;'>15:00:00</span><span> hours hour  UTC  
+#&gt; </span><span style='color: #555555;'>3</span><span> H150    700 2013-09-01 </span><span style='color: #555555;'>12:00:00</span><span> 2013-09-30 </span><span style='color: #555555;'>15:00:00</span><span> hours hour  UTC  
+#&gt; </span><span style='color: #555555;'>4</span><span> H410    960 2017-01-01 </span><span style='color: #555555;'>12:00:00</span><span> 2017-02-10 </span><span style='color: #555555;'>11:00:00</span><span> hours hour  UTC  
+#&gt; </span><span style='color: #555555;'># … with 6 more variables: diff.minimum </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, diff.q1 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   diff.median </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, diff.mean </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, diff.q3 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, diff.maximum </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span></div><div class='input'>
+
+</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

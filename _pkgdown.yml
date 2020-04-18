@@ -29,10 +29,10 @@ navbar:
         - text: "Automatic Frequency Detection"
           href: articles/TK06_Automatic_Frequency_And_Trend_Selection.html
         - text: "---"
-        - text: "Creating & Manipulating Time Series"
-        - text: "Time Series Date Sequences"
+        - text: "Time Series Structures"
+        - text: "Intelligent Date & Time Sequences"
           href: articles/TK02_Time_Series_Date_Sequences.html
-        - text: "Time Series Conversion"
+        - text: "Time Series Conversion (ts, zoo, & xts)"
           href: articles/TK00_Time_Series_Coercion.html
     - text: "Function Reference"
       href: reference/index.html
@@ -126,6 +126,7 @@ reference:
   - title: Diagnostic Operations
     desc: __These power the time series plotting functions__
     contents:
+    - "tk_summary_diagnostics"
     - "tk_acf_diagnostics"
     - "tk_seasonal_diagnostics"
     - "tk_stl_diagnostics"
