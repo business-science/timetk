@@ -54,6 +54,12 @@ A vector containing future dates
 Make daily Holiday and Weekend date sequences
 }
 \details{
+\strong{Start and End Date Specification}
+\itemize{
+\item Accept shorthand notation (i.e. \code{tk_make_timeseries()} specifications apply)
+\item Only available in Daily Periods.
+}
+
 \strong{Holiday Sequences}
 
 \code{tk_make_holiday_sequence()} is a wrapper for various holiday calendars from the \code{timeDate} package,
@@ -80,14 +86,16 @@ options(max.print = 50)
 
 # ---- HOLIDAYS & WEEKENDS ----
 
-# Business Holiday Sequence (only available in day frequency)
+# Business Holiday Sequence
 tk_make_holiday_sequence("2017-01-01", "2017-12-31", calendar = "NYSE")
 
-# Weekday Sequence (only available in day frequency)
-tk_make_weekday_sequence("2017-01-01", "2017-12-31", remove_holidays = TRUE)
+tk_make_holiday_sequence("2017", calendar = "NYSE") # Same thing as above (just shorter)
 
-# Weekday Sequence + Removing Business Holidays (only available in day frequency)
-tk_make_weekday_sequence("2017-01-01", "2017-12-31", remove_holidays = TRUE)
+# Weekday Sequence
+tk_make_weekday_sequence("2017", "2018", remove_holidays = TRUE)
+
+# Weekday Sequence + Removing Business Holidays
+tk_make_weekday_sequence("2017", "2018", remove_holidays = TRUE)
 
 
 # ---- COMBINE HOLIDAYS WITH MAKE FUTURE TIMESERIES FROM EXISTING ----
@@ -98,13 +106,13 @@ tk_make_weekday_sequence("2017-01-01", "2017-12-31", remove_holidays = TRUE)
 FB_tbl <- FANG \%>\% filter(symbol == "FB")
 
 holidays <- tk_make_holiday_sequence(
-    start_date = "2016-12-31",
-    end_date   = "2017-12-31",
+    start_date = "2016",
+    end_date   = "2017",
     calendar   = "NYSE")
 
 weekends <- tk_make_weekend_sequence(
-    start_date = "2016-12-31",
-    end_date   = "2017-12-31")
+    start_date = "2016",
+    end_date   = "2017")
 
 # Remove holidays and weekends with skip_values
 # We could also remove weekends with inspect_weekdays = TRUE

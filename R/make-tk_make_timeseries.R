@@ -101,16 +101,21 @@
 #'
 #' # Start + End, Guesses by = "day"
 #' tk_make_timeseries("2017-01-01", "2017-12-31")
-#' tk_make_timeseries("2017", "2017") # Same result
+#'
+#' # Just Start
+#' tk_make_timeseries("2017") # Same result
+#'
+#' # Only dates in February, 2017
+#' tk_make_timeseries("2017-02")
 #'
 #' # Start + Length Out, Guesses by = "day"
 #' tk_make_timeseries("2012", length_out = 6) # Guesses by = "day"
 #'
 #' # Start + By + Length Out, Spacing 6 observations by monthly interval
-#' tk_make_timeseries("2012-01-01", by = "1 month", length_out = 6)
+#' tk_make_timeseries("2012", by = "1 month", length_out = 6)
 #'
 #' # Start + By + Length Out, Phrase "1 year 6 months"
-#' tk_make_timeseries("2012-01-01", by = "1 month",
+#' tk_make_timeseries("2012", by = "1 month",
 #'                    length_out = "1 year 6 months", include_endpoints = FALSE)
 #'
 #' # Going in Reverse, End + Length Out
@@ -165,8 +170,19 @@ tk_make_timeseries <- function(start_date, end_date, by, length_out = NULL,
     ) %>% sum()
 
     # Check at least 2 important conditions being supplied
+    if (condition_count < 1) {
+        rlang::abort("Must specify at least 1 of start_date, end_date")
+    }
     if (condition_count < 2) {
-        rlang::abort("Must specify at least 2 of start_date, end_date, by, and length_out")
+        if (missing(start_date) & missing(end_date)) {
+            rlang::abort("Must specify at least 1 of start_date, end_date")
+        }
+        if (!rlang::is_missing(start_date)) {
+            end_date <- start_date
+        }
+        if (!rlang::is_missing(end_date)) {
+            start_date <- end_date
+        }
     }
 
     # Clean inputs

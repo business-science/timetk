@@ -17,6 +17,11 @@
 #'
 #' @details
 #'
+#' __Start and End Date Specification__
+#'
+#' - Accept shorthand notation (i.e. `tk_make_timeseries()` specifications apply)
+#' - Only available in Daily Periods.
+#'
 #' __Holiday Sequences__
 #'
 #' `tk_make_holiday_sequence()` is a wrapper for various holiday calendars from the `timeDate` package,
@@ -50,14 +55,16 @@
 #'
 #' # ---- HOLIDAYS & WEEKENDS ----
 #'
-#' # Business Holiday Sequence (only available in day frequency)
+#' # Business Holiday Sequence
 #' tk_make_holiday_sequence("2017-01-01", "2017-12-31", calendar = "NYSE")
 #'
-#' # Weekday Sequence (only available in day frequency)
-#' tk_make_weekday_sequence("2017-01-01", "2017-12-31", remove_holidays = TRUE)
+#' tk_make_holiday_sequence("2017", calendar = "NYSE") # Same thing as above (just shorter)
 #'
-#' # Weekday Sequence + Removing Business Holidays (only available in day frequency)
-#' tk_make_weekday_sequence("2017-01-01", "2017-12-31", remove_holidays = TRUE)
+#' # Weekday Sequence
+#' tk_make_weekday_sequence("2017", "2018", remove_holidays = TRUE)
+#'
+#' # Weekday Sequence + Removing Business Holidays
+#' tk_make_weekday_sequence("2017", "2018", remove_holidays = TRUE)
 #'
 #'
 #' # ---- COMBINE HOLIDAYS WITH MAKE FUTURE TIMESERIES FROM EXISTING ----
@@ -68,13 +75,13 @@
 #' FB_tbl <- FANG %>% filter(symbol == "FB")
 #'
 #' holidays <- tk_make_holiday_sequence(
-#'     start_date = "2016-12-31",
-#'     end_date   = "2017-12-31",
+#'     start_date = "2016",
+#'     end_date   = "2017",
 #'     calendar   = "NYSE")
 #'
 #' weekends <- tk_make_weekend_sequence(
-#'     start_date = "2016-12-31",
-#'     end_date   = "2017-12-31")
+#'     start_date = "2016",
+#'     end_date   = "2017")
 #'
 #' # Remove holidays and weekends with skip_values
 #' # We could also remove weekends with inspect_weekdays = TRUE
@@ -110,9 +117,9 @@ tk_make_holiday_sequence <- function(start_date, end_date,
     )
 
     date_seq <- tk_make_timeseries(
-        lubridate::as_date(start_date),
-        lubridate::as_date(end_date),
-        by   = "day")
+        start_date = start_date,
+        end_date   = end_date,
+        by         = "day")
 
     # Find holidays
     years            <- date_seq %>% lubridate::year() %>% unique()
@@ -132,9 +139,9 @@ tk_make_holiday_sequence <- function(start_date, end_date,
 tk_make_weekend_sequence <- function(start_date, end_date) {
 
     date_sequence <- tk_make_timeseries(
-        lubridate::as_date(start_date),
-        lubridate::as_date(end_date),
-        by   = "day")
+        start_date = start_date,
+        end_date   = end_date,
+        by         = "day")
 
     ret_tbl <- tibble::tibble(date_sequence = date_sequence) %>%
         dplyr::mutate(weekday = lubridate::wday(date_sequence, label = TRUE)) %>%
@@ -154,9 +161,9 @@ tk_make_weekday_sequence <- function(start_date, end_date,
                                      ) {
 
     date_sequence <- tk_make_timeseries(
-        lubridate::as_date(start_date),
-        lubridate::as_date(end_date),
-        by   = "day")
+        start_date = start_date,
+        end_date   = end_date,
+        by         = "day")
 
     # Remove weekends
     if (remove_weekends) {

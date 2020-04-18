@@ -120,16 +120,21 @@ options(max.print = 50)
 
 # Start + End, Guesses by = "day"
 tk_make_timeseries("2017-01-01", "2017-12-31")
-tk_make_timeseries("2017", "2017") # Same result
+
+# Just Start
+tk_make_timeseries("2017") # Same result
+
+# Only dates in February, 2017
+tk_make_timeseries("2017-02")
 
 # Start + Length Out, Guesses by = "day"
 tk_make_timeseries("2012", length_out = 6) # Guesses by = "day"
 
 # Start + By + Length Out, Spacing 6 observations by monthly interval
-tk_make_timeseries("2012-01-01", by = "1 month", length_out = 6)
+tk_make_timeseries("2012", by = "1 month", length_out = 6)
 
 # Start + By + Length Out, Phrase "1 year 6 months"
-tk_make_timeseries("2012-01-01", by = "1 month",
+tk_make_timeseries("2012", by = "1 month",
                    length_out = "1 year 6 months", include_endpoints = FALSE)
 
 # Going in Reverse, End + Length Out
