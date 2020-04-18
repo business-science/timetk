@@ -29,6 +29,17 @@
 #' - When both `by` and `length_out` are missing, guesses either second or day sequences
 #' - Can skip and insert values if needed.
 #'
+#' __Start and End Date Specification__
+#'
+#' Start and end dates can be specified in reduced time-based phrases:
+#'
+#' - `start_date = "2014"`: Is converted to "2014-01-01" (start of period)
+#' - `end_date = "2014"`: Is converted to "2014-12-31" (end of period)
+#' - `start_date = "2014-03"`: Is converted to "2014-03-01" (start of period)
+#' - `end_date = "2014-03"`: Is converted to "2014-03-31" (end of period)
+#'
+#' A similar process can be used for date-times.
+#'
 #' __By: Daily Sequences__
 #'
 #' Make a daily sequence with `tk_make_timeseries(by)`. Examples:
@@ -37,6 +48,8 @@
 #'  - Every 2-Weeks: `by = "2 weeks"`
 #'  - Every 6-months: `by = "6 months"`
 #'
+#' If missing, will guess `by = "day"`
+#'
 #' __By: Sub-Daily Sequences__
 #'
 #' Make a sub-daily sequence with `tk_make_timeseries(by)`. Examples:
@@ -44,6 +57,8 @@
 #' - Every minute: `by = "min"`
 #' - Every 30-seconds: `by = "30 sec"`
 #' - Every 2-hours: `by = "2 hours`
+#'
+#' If missing, will guess `by = "sec"` if the start or end date is a date-time specification.
 #'
 #' __Length Out__
 #'
@@ -86,9 +101,10 @@
 #'
 #' # Start + End, Guesses by = "day"
 #' tk_make_timeseries("2017-01-01", "2017-12-31")
+#' tk_make_timeseries("2017", "2017") # Same result
 #'
 #' # Start + Length Out, Guesses by = "day"
-#' tk_make_timeseries("2012-01-01", length_out = 6) # Guesses by = "day"
+#' tk_make_timeseries("2012", length_out = 6) # Guesses by = "day"
 #'
 #' # Start + By + Length Out, Spacing 6 observations by monthly interval
 #' tk_make_timeseries("2012-01-01", by = "1 month", length_out = 6)
@@ -153,6 +169,14 @@ tk_make_timeseries <- function(start_date, end_date, by, length_out = NULL,
         rlang::abort("Must specify at least 2 of start_date, end_date, by, and length_out")
     }
 
+    # Clean inputs
+    # if (!rlang::is_missing(by)) {
+    #     by <- by %>% stringr::str_trim()
+    # }
+    # if (!rlang::is_missing(length_out)) {
+    #     length_out <- length_out %>% stringr::str_trim()
+    # }
+
     # PARSER SELECTION ----
 
     # Determine if sequence_type is date or datetime. Returns parser selection.
@@ -198,19 +222,13 @@ tk_make_timeseries <- function(start_date, end_date, by, length_out = NULL,
         # Sub-daily ----
 
         if (!rlang::is_missing(start_date)) {
-            tryCatch({
-                start_date <- readr::parse_datetime(start_date)
-            }, warning = function(w) {
-                rlang::abort("Cannot parse start_date specification.")
-            })
+            start_date <- try_parse_date_time(start_date) %>%
+                lubridate::as_datetime()
         }
 
         if (!rlang::is_missing(end_date)) {
-            tryCatch({
-                end_date <- readr::parse_datetime(end_date)
-            }, warning = function(w) {
-                rlang::abort("Cannot parse end_date specification.")
-            })
+            end_date <- try_parse_date_time(end_date, side = "rhs") %>%
+                lubridate::as_datetime()
         }
 
         if (rlang::is_missing(by)) {
@@ -274,18 +292,10 @@ tk_make_timeseries <- function(start_date, end_date, by, length_out = NULL,
         # Daily ----
 
         if (!rlang::is_missing(start_date)) {
-            tryCatch({
-                start_date <- readr::parse_date(start_date)
-            }, warning = function(w) {
-                rlang::abort("Cannot parse start_date specification.")
-            })
+            start_date <- try_parse_date_time(start_date)
         }
         if (!rlang::is_missing(end_date)) {
-            tryCatch({
-                end_date <- readr::parse_date(end_date)
-            }, warning = function(w) {
-                rlang::abort("Cannot parse end_date specification.")
-            })
+            end_date <- try_parse_date_time(end_date, side = "rhs")
         }
         if (rlang::is_missing(by)) {
             condition_count <- rlang::is_missing(start_date) + rlang::is_missing(end_date) + is.null(length_out)
@@ -325,6 +335,7 @@ tk_make_timeseries <- function(start_date, end_date, by, length_out = NULL,
             }
         }
 
+        # Create Sequence
         seq <- seq.Date(
             from = start_date,
             to   = end_date,

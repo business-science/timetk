@@ -54,6 +54,18 @@ automatically.
 \item Can skip and insert values if needed.
 }
 
+\strong{Start and End Date Specification}
+
+Start and end dates can be specified in reduced time-based phrases:
+\itemize{
+\item \code{start_date = "2014"}: Is converted to "2014-01-01" (start of period)
+\item \code{end_date = "2014"}: Is converted to "2014-12-31" (end of period)
+\item \code{start_date = "2014-03"}: Is converted to "2014-03-01" (start of period)
+\item \code{end_date = "2014-03"}: Is converted to "2014-03-31" (end of period)
+}
+
+A similar process can be used for date-times.
+
 \strong{By: Daily Sequences}
 
 Make a daily sequence with \code{tk_make_timeseries(by)}. Examples:
@@ -63,6 +75,8 @@ Make a daily sequence with \code{tk_make_timeseries(by)}. Examples:
 \item Every 6-months: \code{by = "6 months"}
 }
 
+If missing, will guess \code{by = "day"}
+
 \strong{By: Sub-Daily Sequences}
 
 Make a sub-daily sequence with \code{tk_make_timeseries(by)}. Examples:
@@ -71,6 +85,8 @@ Make a sub-daily sequence with \code{tk_make_timeseries(by)}. Examples:
 \item Every 30-seconds: \code{by = "30 sec"}
 \item Every 2-hours: \verb{by = "2 hours}
 }
+
+If missing, will guess \code{by = "sec"} if the start or end date is a date-time specification.
 
 \strong{Length Out}
 
@@ -104,9 +120,10 @@ options(max.print = 50)
 
 # Start + End, Guesses by = "day"
 tk_make_timeseries("2017-01-01", "2017-12-31")
+tk_make_timeseries("2017", "2017") # Same result
 
 # Start + Length Out, Guesses by = "day"
-tk_make_timeseries("2012-01-01", length_out = 6) # Guesses by = "day"
+tk_make_timeseries("2012", length_out = 6) # Guesses by = "day"
 
 # Start + By + Length Out, Spacing 6 observations by monthly interval
 tk_make_timeseries("2012-01-01", by = "1 month", length_out = 6)

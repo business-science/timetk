@@ -125,8 +125,6 @@ between_time.hms <- function(index, start_date = "start", end_date = "end") {
 between_time_vec <- function(index, start_date = "start", end_date = "end") {
 
     tz     <- lubridate::tz(index)
-    # start_date <- as.character(start_date)
-    # end_date   <- as.character(end_date)
 
     time_formula <- rlang::new_formula(start_date, end_date)
 

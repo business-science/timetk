@@ -29,6 +29,59 @@ list_to_datetime.hms <- function(index, tf_side, ...) {
     hms::hms(seconds = tf_side$s, minutes = tf_side$M, hours = tf_side$h)
 }
 
+#### parse_date_time_char ----
+try_parse_date_time <- function(index, side = "lhs") {
+    tryCatch({
+        # Use readr parse_guess
+        index <- try_parse_date_time_readr(index, side = side)
+    }, warning = function(w) {
+        # Try date-time parsing
+        index <- try_parse_date_time_char(index, side = side)
+    })
+
+    return(index)
+}
+
+try_parse_date_time_readr <- function(index, side = "lhs") {
+    index <- readr::parse_guess(index)
+    if (is.numeric(index) | is.character(index)) {
+        index <- try_parse_date_time_char(as.character(index), side = side)
+    }
+    return(index)
+}
+
+try_parse_date_time_char <- function(index, side = "lhs") {
+    tryCatch({
+        index <- index %>%
+            purrr::map(parse_date_time_char, side = side) %>%
+            purrr::reduce(c)
+    }, error = function(e) {
+        rlang::abort("Index could not be parsed. Try entering in 'YYYY-MM-DD' or 'YYYY-MM-DD HH:MM:SS' format.")
+    })
+    return(index)
+}
+
+parse_date_time_char <- function(x, side = "lhs") {
+
+    time_list <- split_to_list(x)
+
+    if (length(time_list) > 3) {
+        # Date time
+        dt <- lubridate::ymd_hms("1970-01-01 00:00:00")
+        l  <- add_time_defaults(dt, time_list, side = side)
+        ret <- list_to_datetime(dt, l, tz = "UTC")
+
+    } else {
+        # Date
+        dt <- lubridate::ymd("1970-01-01")
+        l  <- add_time_defaults(dt, time_list, side = side)
+        ret <- list_to_datetime(dt, l, tz = "UTC")
+    }
+
+    return(ret)
+}
+
+
 #### parse_time_formula -----
 
 parse_time_formula <- function(index, time_formula) {

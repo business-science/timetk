@@ -75,7 +75,7 @@ add_time <- function(index, period) {
 
 #' @export
 add_time.character <- function(index, period) {
-    index <- readr::parse_guess(index)
+    index <- try_parse_date_time(index)
     add_time(index, period)
 }
 
@@ -123,8 +123,9 @@ subtract_time <- function(index, period) {
 
 #' @export
 subtract_time.character <- function(index, period) {
-    index <- readr::parse_guess(index)
+    index <- try_parse_date_time(index)
     subtract_time(index, period)
+
 }
 
 #' @export
@@ -191,6 +192,8 @@ check_quarter <- function(period) {
         rlang::abort("`quarter` detected. Try using `3 month` increments instead.")
     }
 }
+
+
 
 
 
