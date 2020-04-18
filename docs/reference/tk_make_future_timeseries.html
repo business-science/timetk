@@ -121,6 +121,9 @@
     <li class="divider"></li>
     <li class="dropdown-header">Time Series Analysis</li>
     <li>
+      <a href="../articles/TK07_Time_Series_Data_Wrangling.html">Time Series Data Wrangling</a>
+    </li>
+    <li>
       <a href="../articles/TK01_Working_With_Time_Series_Index.html">What is the Time Series Signature?</a>
     </li>
     <li>
@@ -303,11 +306,11 @@ last value in the future time series.</p>
 <span class='co'># Make 12 months of timestamps from the next timestamp</span>
 <span class='no'>idx</span> <span class='kw'>%&gt;%</span> <span class='fu'>tk_make_future_timeseries</span>(<span class='kw'>n_future</span> <span class='kw'>=</span> <span class='st'>"12 months"</span>)</div><div class='output co'>#&gt;  [1] "2017-01-01" "2017-02-01" "2017-03-01" "2017-04-01" "2017-05-01"
 #&gt;  [6] "2017-06-01" "2017-07-01" "2017-08-01" "2017-09-01" "2017-10-01"
-#&gt; [11] "2017-11-01" "2017-12-01"</div><div class='input'>
+#&gt; [11] "2017-11-01" "2017-12-01" "2018-01-01"</div><div class='input'>
 <span class='co'># Make 12 months of timestamps from the previous timestamp</span>
 <span class='no'>idx</span> <span class='kw'>%&gt;%</span> <span class='fu'>tk_make_future_timeseries</span>(<span class='kw'>n_future</span> <span class='kw'>=</span> <span class='st'>"12 months"</span>, <span class='kw'>include_endpoints</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt;  [1] "2017-01-01" "2017-02-01" "2017-03-01" "2017-04-01" "2017-05-01"
 #&gt;  [6] "2017-06-01" "2017-07-01" "2017-08-01" "2017-09-01" "2017-10-01"
-#&gt; [11] "2017-11-01"</div><div class='input'>
+#&gt; [11] "2017-11-01" "2017-12-01"</div><div class='input'>
 
 <span class='co'># --- APPLICATION ---</span>
 <span class='co'># - Combine holiday sequences with future sequences</span>

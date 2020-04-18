@@ -169,7 +169,10 @@ __New Datasets__
 - __Taylor's Energy Demand__ - Single time series with 30-minute interval of energy demand
 - __UCI Bike Sharing Daily__ - A time series consisting of Capital Bikesharing Transaction Counts and related time-based features. 
 
- 
+
+__Improvements:__
+* `tk_make_future_timeseries()` - Now accepts `n_future` as a time-based phrase like "12 seconds" or "1 year".
+
 __Bug Fixes:__
 
 * [Don't set timezone on date](https://github.com/business-science/timetk/pull/32) - Accommodate recent changes to `lubridate::tz<-` which now returns POSIXct when used Date objects. Fixed in PR32 by @vspinu. 

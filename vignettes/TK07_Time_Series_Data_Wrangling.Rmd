@@ -85,7 +85,7 @@ FANG %>%
 - Period Aggregation - `SUM()`
 - Period Smoothing - `AVERAGE()`, `FIRST()`, `LAST()`
 
-__Period Summarization__
+## Period Summarization
 
 Objective: Get the total trade volume by quarter
 
@@ -103,7 +103,7 @@ FANG %>%
 ```
 
 
-__Period Smoothing__
+## Period Smoothing
 
 Objective: Get the first value in each month
 
@@ -126,7 +126,7 @@ FANG %>%
 
 Used to quickly filter a continuous time range. 
 
-__Time Range Filtering__
+## Time Range Filtering
 
 Objective: Get the adjusted stock prices in the 3rd quarter of 2013. 
 
@@ -145,7 +145,7 @@ FANG %>%
 
 Used to fill in (pad) gaps and to go from from low frequency to high frequency. This function uses the awesome `padr` library for filling and expanding timestamps. 
 
-__Fill in Gaps__
+## Fill in Gaps
 
 Objective: Make an irregular series regular. 
 
@@ -158,7 +158,7 @@ FANG %>%
   pad_by_time(date, .by = "auto") # Guesses .by = "day"
 ```
 
-__Low to High Frequency__
+## Low to High Frequency
 
 Objective: Go from Daily to Hourly timestamp intervals. Impute the missing values
 
@@ -181,7 +181,7 @@ FANG %>%
 
 We have a new function, `slidify()` that turns any function into a sliding (rolling) window function. It takes concepts from `tibbletime::rollify()` and it improves them with the R package `slider`.
 
-__Rolling Mean__
+## Rolling Mean
 
 Objective: Calculate a "centered" simple rolling average with partial window rolling and the start and end windows. 
 
@@ -214,7 +214,7 @@ FANG %>%
                                          .period = 30, .partial = TRUE))
 ```
 
-__Rolling Regression__
+## Rolling Regression
 
 Objective: Calculate a rolling regression.
 

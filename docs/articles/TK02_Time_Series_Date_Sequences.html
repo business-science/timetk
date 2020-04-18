@@ -75,6 +75,9 @@
     <li class="divider">
     <li class="dropdown-header">Time Series Analysis</li>
     <li>
+      <a href="../articles/TK07_Time_Series_Data_Wrangling.html">Time Series Data Wrangling</a>
+    </li>
+    <li>
       <a href="../articles/TK01_Working_With_Time_Series_Index.html">What is the Time Series Signature?</a>
     </li>
     <li>
@@ -134,8 +137,11 @@
 </blockquote>
 <p>Creating and modifying date sequences is critical to machine learning projects. We discuss:</p>
 <ul>
-<li>Making a Time Series Sequence</li>
-<li>Making a Future Sequence</li>
+<li>Making a Time Series Sequence: <code><a href="../reference/tk_make_timeseries.html">tk_make_timeseries()</a></code>
+</li>
+<li>Making a Future Sequence: <code><a href="../reference/tk_make_future_timeseries.html">tk_make_future_timeseries()</a></code>
+</li>
+<li>Holiday &amp; Weekday/Weekend Sequences</li>
 </ul>
 <div id="prerequisites" class="section level1">
 <h1 class="hasAnchor">
@@ -147,9 +153,6 @@
 <div id="making-a-time-series-sequence" class="section level1">
 <h1 class="hasAnchor">
 <a href="#making-a-time-series-sequence" class="anchor"></a>Making a Time Series Sequence</h1>
-<blockquote>
-<p>Intelligent date and date-time sequence creation.</p>
-</blockquote>
 <p><code><a href="../reference/tk_make_timeseries.html">tk_make_timeseries()</a></code> improves on the <code><a href="https://rdrr.io/r/base/seq.Date.html">seq.Date()</a></code> and <code><a href="https://rdrr.io/r/base/seq.POSIXt.html">seq.POSIXt()</a></code> functions by simplifying into 1 function. Intelligently handles character dates and logical assumptions based on user inputs.</p>
 <p><strong>By Day</strong></p>
 <ul>
@@ -200,13 +203,17 @@
 <h1 class="hasAnchor">
 <a href="#future-time-series-sequence" class="anchor"></a>Future Time Series Sequence</h1>
 <p>A common operation is to make a future time series sequence that mimics an existing. This is what <code><a href="../reference/tk_make_future_timeseries.html">tk_make_future_timeseries()</a></code> is for.</p>
+<p>Suppose we have an existing time index.</p>
 <div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="no">idx</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/tk_make_timeseries.html">tk_make_timeseries</a></span>(<span class="st">"2012-01-01"</span>, <span class="kw">by</span> <span class="kw">=</span> <span class="st">"3 months"</span>,
                           <span class="kw">length_out</span> <span class="kw">=</span> <span class="st">"2 years"</span>, <span class="kw">include_endpoints</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
 <span class="no">idx</span></pre></body></html></div>
 <pre><code>## [1] "2012-01-01" "2012-04-01" "2012-07-01" "2012-10-01" "2013-01-01"
 ## [6] "2013-04-01" "2013-07-01" "2013-10-01"</code></pre>
-<div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="fu"><a href="../reference/tk_make_future_timeseries.html">tk_make_future_timeseries</a></span>(<span class="no">idx</span>, <span class="kw">n_future</span> <span class="kw">=</span> <span class="fl">4</span>)</pre></body></html></div>
-<pre><code>## [1] "2014-01-01" "2014-04-01" "2014-07-01" "2014-10-01"</code></pre>
+<p><strong>Make a Future Time Series from an Existing</strong></p>
+<p>We can create a future time sequence from the existing sequence using <code><a href="../reference/tk_make_future_timeseries.html">tk_make_future_timeseries()</a></code>.</p>
+<div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="fu"><a href="../reference/tk_make_future_timeseries.html">tk_make_future_timeseries</a></span>(<span class="no">idx</span>, <span class="kw">n_future</span> <span class="kw">=</span> <span class="st">"2 years"</span>, <span class="kw">include_endpoints</span> <span class="kw">=</span> <span class="fl">FALSE</span>)</pre></body></html></div>
+<pre><code>## [1] "2014-01-01" "2014-04-01" "2014-07-01" "2014-10-01" "2015-01-01"
+## [6] "2015-04-01" "2015-07-01" "2015-10-01"</code></pre>
 </div>
 <div id="weekends-holidays" class="section level1">
 <h1 class="hasAnchor">
@@ -233,7 +240,7 @@
     <span class="kw">calendar</span>   <span class="kw">=</span> <span class="st">"NYSE"</span>)
 
 <span class="no">idx_future</span> <span class="kw">&lt;-</span> <span class="no">idx</span> <span class="kw">%&gt;%</span>
-   <span class="fu"><a href="../reference/tk_make_future_timeseries.html">tk_make_future_timeseries</a></span>(<span class="kw">n_future</span>         <span class="kw">=</span> <span class="fl">366</span>,
+   <span class="fu"><a href="../reference/tk_make_future_timeseries.html">tk_make_future_timeseries</a></span>(<span class="kw">n_future</span>         <span class="kw">=</span> <span class="st">"1 year"</span>,
                              <span class="kw">inspect_weekdays</span> <span class="kw">=</span> <span class="fl">TRUE</span>,
                              <span class="kw">skip_values</span>      <span class="kw">=</span> <span class="no">holidays</span>)
 

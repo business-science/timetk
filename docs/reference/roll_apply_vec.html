@@ -121,6 +121,9 @@
     <li class="divider"></li>
     <li class="dropdown-header">Time Series Analysis</li>
     <li>
+      <a href="../articles/TK07_Time_Series_Data_Wrangling.html">Time Series Data Wrangling</a>
+    </li>
+    <li>
       <a href="../articles/TK01_Working_With_Time_Series_Index.html">What is the Time Series Signature?</a>
     </li>
     <li>
@@ -174,9 +177,9 @@
 
     <pre class="usage"><span class='fu'>roll_apply_vec</span>(
   <span class='no'>.x</span>,
-  <span class='no'>.period</span>,
   <span class='no'>.f</span>,
   <span class='no'>...</span>,
+  <span class='kw'>.period</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>.align</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"center"</span>, <span class='st'>"left"</span>, <span class='st'>"right"</span>),
   <span class='kw'>.partial</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
 )</pre>
@@ -187,11 +190,6 @@
     <tr>
       <th>.x</th>
       <td><p>A vector to have a rolling window transformation applied.</p></td>
-    </tr>
-    <tr>
-      <th>.period</th>
-      <td><p>The number of periods to include in the local rolling window.
-This is effectively the "window size".</p></td>
     </tr>
     <tr>
       <th>.f</th>
@@ -206,6 +204,11 @@ additional arguments, <code>...</code>.</p></li>
     <tr>
       <th>...</th>
       <td><p>Additional arguments passed on to the <code>.f</code> function.</p></td>
+    </tr>
+    <tr>
+      <th>.period</th>
+      <td><p>The number of periods to include in the local rolling window.
+This is effectively the "window size".</p></td>
     </tr>
     <tr>
       <th>.align</th>
@@ -315,8 +318,8 @@ rolling cor, rolling regression, etc.</p></li>
 <span class='no'>FB_tbl</span> <span class='kw'>%&gt;%</span>
     <span class='fu'>mutate</span>(<span class='kw'>adjusted_30_ma</span> <span class='kw'>=</span> <span class='fu'>roll_apply_vec</span>(
         <span class='kw'>.x</span>       <span class='kw'>=</span> <span class='no'>adjusted</span>,
-        <span class='kw'>.period</span>  <span class='kw'>=</span> <span class='fl'>30</span>,
         <span class='kw'>.f</span>       <span class='kw'>=</span> ~ <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span>(<span class='no'>.</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>),
+        <span class='kw'>.period</span>  <span class='kw'>=</span> <span class='fl'>30</span>,
         <span class='kw'>.align</span>   <span class='kw'>=</span> <span class='st'>"center"</span>,
         <span class='kw'>.partial</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)) <span class='kw'>%&gt;%</span>
         <span class='fu'>ggplot</span>(<span class='fu'>aes</span>(<span class='no'>date</span>, <span class='no'>adjusted</span>)) +
@@ -328,8 +331,8 @@ rolling cor, rolling regression, etc.</p></li>
 <span class='no'>FB_tbl</span> <span class='kw'>%&gt;%</span>
     <span class='fu'>mutate</span>(
         <span class='kw'>adjusted_loess_30</span> <span class='kw'>=</span> <span class='fu'><a href='smooth_vec.html'>smooth_vec</a></span>(<span class='no'>adjusted</span>, <span class='kw'>period</span> <span class='kw'>=</span> <span class='fl'>30</span>, <span class='kw'>degree</span> <span class='kw'>=</span> <span class='fl'>0</span>),
-        <span class='kw'>adjusted_ma_30</span>    <span class='kw'>=</span> <span class='fu'>roll_apply_vec</span>(<span class='no'>adjusted</span>, <span class='kw'>.period</span> <span class='kw'>=</span> <span class='fl'>30</span>,
-                                           <span class='kw'>.f</span> <span class='kw'>=</span> <span class='no'>AVERAGE</span>, <span class='kw'>.partial</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+        <span class='kw'>adjusted_ma_30</span>    <span class='kw'>=</span> <span class='fu'>roll_apply_vec</span>(<span class='no'>adjusted</span>, <span class='kw'>.f</span> <span class='kw'>=</span> <span class='no'>AVERAGE</span>,
+                                           <span class='kw'>.period</span> <span class='kw'>=</span> <span class='fl'>30</span>, <span class='kw'>.partial</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
     ) <span class='kw'>%&gt;%</span>
     <span class='fu'>ggplot</span>(<span class='fu'>aes</span>(<span class='no'>date</span>, <span class='no'>adjusted</span>)) +
     <span class='fu'>geom_line</span>() +
