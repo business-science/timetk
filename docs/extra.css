@@ -1,0 +1,29 @@
+
+thead {
+    font-size: 20px;
+}
+
+
+thead tr th:first-child,
+tbody tr td:first-child {
+  width: 12em;
+  min-width: 12em;
+  max-width: 12em;
+  word-break: break-all;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+tr {
+  border-color: #b4bcc2;
+  border: solid;
+  border-width: 1px 0;
+}
+
+tr .header {
+  border-color: #b4bcc2;
+  border: solid;
+  border-width: 2px 0;
+}

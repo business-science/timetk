@@ -17,7 +17,8 @@
 <script src="bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
-<script src="pkgdown.js"></script><meta property="og:title" content="A Tool Kit for Working with Time Series in R">
+<script src="pkgdown.js"></script><link href="extra.css" rel="stylesheet">
+<meta property="og:title" content="A Tool Kit for Working with Time Series in R">
 <meta property="og:description" content='
     Get the time series index (date or date-time component), 
     time series signature (feature extraction of date or date-time component for time series machine learning), 
@@ -129,6 +130,7 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
+
 <div id="timetk-" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#timetk-" class="anchor"></a>timetk <img src="reference/figures/logo.png" width="147" height="170" align="right">
@@ -137,191 +139,292 @@
 <blockquote>
 <p>A toolkit for working with time series in R</p>
 </blockquote>
+<div id="mission" class="section level2">
+<h2 class="hasAnchor">
+<a href="#mission" class="anchor"></a>Mission</h2>
+<p>To make it easy to <strong><em>visualize, wrangle and preprocess time series data</em></strong> for forecasting and machine learning prediction.</p>
+</div>
 <div id="documentation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#documentation" class="anchor"></a>Documentation</h2>
 <ul>
-<li><p><a href="https://www.business-science.io/time-series/2020/03/18/time-series-machine-learning.html">Full Time Series Machine Learning and Feature Engineering Tutorial:</a> Showcases the (NEW) <code><a href="reference/step_timeseries_signature.html">step_timeseries_signature()</a></code> for building <strong><em>200+ time series features.</em></strong></p></li>
-<li><p><a href="https://business-science.github.io/timetk/">Visit the timetk website documentation</a> for tutorials and a complete list of function references.</p></li>
+<li><p><a href="https://www.business-science.io/time-series/2020/03/18/time-series-machine-learning.html">Full Time Series Machine Learning and Feature Engineering Tutorial:</a> Showcases the (NEW) <code><a href="reference/step_timeseries_signature.html">step_timeseries_signature()</a></code> for building <strong><em>200+ time series features</em></strong> using <code>parsnip</code>, <code>recipes</code>, and <code>workflows</code>.</p></li>
+<li><p><a href="https://business-science.github.io/timetk/">Visit the timetk website documentation</a> for tutorials and a <a href="https://business-science.github.io/timetk/reference/index.html">complete list of function references</a>.</p></li>
 </ul>
 </div>
-<div id="benefits" class="section level2">
+<div id="package-functionality" class="section level2">
 <h2 class="hasAnchor">
-<a href="#benefits" class="anchor"></a>Benefits</h2>
-<p>The <code>timetk</code> package enables a user to more easily work with time series objects in R. The package has tools for inspecting and manipulating the time-based index, expanding the time features for data mining and machine learning, and converting time-based objects to and from the many time series classes. The following are key benefits:</p>
-<ul>
-<li>
-<strong>Index extraction</strong>: get the time series index from any time series object.</li>
-<li>
-<strong>Understand time series</strong>: create a signature and summary from a time series index.</li>
-<li>
-<strong>Build future time series</strong>: create a future time series from an index.</li>
-<li>
-<strong>Coerce between time-based tibbles (<code>tbl</code>) and the major time series data types <code>xts</code>, <code>zoo</code>, <code>zooreg</code>, and <code>ts</code></strong>: Simplifies coercion and maximizes time-based data retention during coercion to regularized time series (e.g. <code>ts</code>).</li>
-</ul>
-<p>An example of the forecasting capabilities as shown in vignette TK03 - Forecasting Using a Time Series Signature with <code>timetk</code>.</p>
-<p><img src="reference/figures/bikes_forecast.png" width="100%"></p>
+<a href="#package-functionality" class="anchor"></a>Package Functionality</h2>
+<p>There are <em>many</em> R packages for working with Time Series data. Here’s how <code>timetk</code> compares.</p>
+<table class="table">
+<colgroup>
+<col width="13%">
+<col width="21%">
+<col width="20%">
+<col width="19%">
+<col width="24%">
+</colgroup>
+<thead><tr class="header">
+<th>Task</th>
+<th><a href="https://business-science.github.io/timetk/">timetk</a></th>
+<th><a href="https://tsibble.tidyverts.org/index.html">tsibble</a></th>
+<th><a href="https://feasts.tidyverts.org/index.html">feasts</a></th>
+<th><a href="https://business-science.github.io/tibbletime/">tibbletime</a></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><strong>Structure</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Data Structure</td>
+<td>tibble (tbl)</td>
+<td>tsibble (tbl_ts)</td>
+<td>tsibble (tbl_ts)</td>
+<td>tibbletime (tbl_time)</td>
+</tr>
+<tr class="odd">
+<td><strong>Visualization</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Interactive Plots (plotly)</td>
+<td>✅</td>
+<td><span class="emoji" data-emoji="x">❌</span></td>
+<td><span class="emoji" data-emoji="x">❌</span></td>
+<td><span class="emoji" data-emoji="x">❌</span></td>
+</tr>
+<tr class="odd">
+<td>Static Plots (ggplot)</td>
+<td>✅</td>
+<td><span class="emoji" data-emoji="x">❌</span></td>
+<td>✅</td>
+<td><span class="emoji" data-emoji="x">❌</span></td>
+</tr>
+<tr class="even">
+<td><strong>Data Wrangling</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Time-Based Summarization</td>
+<td>✅</td>
+<td><span class="emoji" data-emoji="x">❌</span></td>
+<td><span class="emoji" data-emoji="x">❌</span></td>
+<td>✅</td>
+</tr>
+<tr class="even">
+<td>Time-Based Filtering</td>
+<td>✅</td>
+<td><span class="emoji" data-emoji="x">❌</span></td>
+<td><span class="emoji" data-emoji="x">❌</span></td>
+<td>✅</td>
+</tr>
+<tr class="odd">
+<td>Padding Gaps</td>
+<td>✅</td>
+<td>✅</td>
+<td><span class="emoji" data-emoji="x">❌</span></td>
+<td><span class="emoji" data-emoji="x">❌</span></td>
+</tr>
+<tr class="even">
+<td>Low to High Frequency</td>
+<td>✅</td>
+<td><span class="emoji" data-emoji="x">❌</span></td>
+<td><span class="emoji" data-emoji="x">❌</span></td>
+<td><span class="emoji" data-emoji="x">❌</span></td>
+</tr>
+<tr class="odd">
+<td>Imputation</td>
+<td>✅</td>
+<td>✅</td>
+<td><span class="emoji" data-emoji="x">❌</span></td>
+<td><span class="emoji" data-emoji="x">❌</span></td>
+</tr>
+<tr class="even">
+<td>Sliding / Rolling</td>
+<td>✅</td>
+<td>✅</td>
+<td><span class="emoji" data-emoji="x">❌</span></td>
+<td>✅</td>
+</tr>
+<tr class="odd">
+<td><strong>Preprocessing (recipes)</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Date Feature Engineering</td>
+<td>✅</td>
+<td><span class="emoji" data-emoji="x">❌</span></td>
+<td><span class="emoji" data-emoji="x">❌</span></td>
+<td><span class="emoji" data-emoji="x">❌</span></td>
+</tr>
+<tr class="odd">
+<td>Holiday Feature Engineering</td>
+<td>✅</td>
+<td><span class="emoji" data-emoji="x">❌</span></td>
+<td><span class="emoji" data-emoji="x">❌</span></td>
+<td><span class="emoji" data-emoji="x">❌</span></td>
+</tr>
+<tr class="even">
+<td>Fourier Series</td>
+<td>✅</td>
+<td><span class="emoji" data-emoji="x">❌</span></td>
+<td><span class="emoji" data-emoji="x">❌</span></td>
+<td><span class="emoji" data-emoji="x">❌</span></td>
+</tr>
+<tr class="odd">
+<td>Smoothing &amp; Rolling</td>
+<td>✅</td>
+<td><span class="emoji" data-emoji="x">❌</span></td>
+<td><span class="emoji" data-emoji="x">❌</span></td>
+<td><span class="emoji" data-emoji="x">❌</span></td>
+</tr>
+<tr class="even">
+<td>Imputation</td>
+<td>✅</td>
+<td><span class="emoji" data-emoji="x">❌</span></td>
+<td><span class="emoji" data-emoji="x">❌</span></td>
+<td><span class="emoji" data-emoji="x">❌</span></td>
+</tr>
+<tr class="odd">
+<td><strong>Cross Validation (rsample)</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Time Series Cross Validation</td>
+<td>✅</td>
+<td><span class="emoji" data-emoji="x">❌</span></td>
+<td><span class="emoji" data-emoji="x">❌</span></td>
+<td><span class="emoji" data-emoji="x">❌</span></td>
+</tr>
+<tr class="odd">
+<td>Time Series CV Plan Visualization</td>
+<td>✅</td>
+<td><span class="emoji" data-emoji="x">❌</span></td>
+<td><span class="emoji" data-emoji="x">❌</span></td>
+<td><span class="emoji" data-emoji="x">❌</span></td>
+</tr>
+<tr class="even">
+<td><strong>More Awesomeness</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Making Time Series (Intelligently)</td>
+<td>✅</td>
+<td>✅</td>
+<td><span class="emoji" data-emoji="x">❌</span></td>
+<td>✅</td>
+</tr>
+<tr class="even">
+<td>Handling Holidays &amp; Weekends</td>
+<td>✅</td>
+<td><span class="emoji" data-emoji="x">❌</span></td>
+<td><span class="emoji" data-emoji="x">❌</span></td>
+<td><span class="emoji" data-emoji="x">❌</span></td>
+</tr>
+<tr class="odd">
+<td>Class Conversion</td>
+<td>✅</td>
+<td>✅</td>
+<td><span class="emoji" data-emoji="x">❌</span></td>
+<td><span class="emoji" data-emoji="x">❌</span></td>
+</tr>
+<tr class="even">
+<td>Automatic Frequency &amp; Trend</td>
+<td>✅</td>
+<td><span class="emoji" data-emoji="x">❌</span></td>
+<td><span class="emoji" data-emoji="x">❌</span></td>
+<td><span class="emoji" data-emoji="x">❌</span></td>
+</tr>
+</tbody>
+</table>
 </div>
-<div id="tools" class="section level2">
+<div id="what-can-you-do-in-1-line-of-code" class="section level2">
 <h2 class="hasAnchor">
-<a href="#tools" class="anchor"></a>Tools</h2>
-<p>The package contains the following functions:</p>
-<ol>
-<li><p><strong>Get an index</strong>: <code>tk_index</code> returns the time series index of time series objects, models. The argument <code>timetk_idx</code> can be used to return a special timetk “index” attribute for regularized <code>ts</code> objects that returns a non-regularized date / date-time index if present.</p></li>
-<li><p><strong>Get critical timeseries information</strong>: <code>tk_get_timeseries_signature</code> and <code>tk_get_timeseries_summary</code> takes an index and provides a time series decomposition and key summary attributes of the index, respectively. The <code>tk_augment_timeseries_signature</code> expedites adding the time series decomposition to the time series object.</p></li>
-<li><p><strong>Make a future timeseries</strong>: <code>tk_make_future_timeseries</code> models a future time series after an existing time series index.</p></li>
-<li><p><strong>Conversion functions</strong>: <code>tk_tbl</code>, <code>tk_ts</code>, <code>tk_xts</code>, <code>tk_zoo</code>, and <code>tk_zooreg</code> convert time-based tibbles <code>tbl</code> to and from each of the main time-series data types <code>xts</code>, <code>zoo</code>, <code>zooreg</code>, <code>ts</code>, maintaining the time-based index.</p></li>
-</ol>
-</div>
-<div id="getting-started" class="section level2">
-<h2 class="hasAnchor">
-<a href="#getting-started" class="anchor"></a>Getting started</h2>
-<p>Load libraries and start with some time series data</p>
-<div class="sourceCode" id="cb1"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">tidyverse</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">timetk</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">tidyquant</span>)</pre></div>
-<p>Use the FB time series.</p>
-<div class="sourceCode" id="cb2"><pre class="r"><span class="no">FB_tbl</span> <span class="kw">&lt;-</span> <span class="no">FANG</span> <span class="kw">%&gt;%</span>
-    <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span>(<span class="no">symbol</span> <span class="kw">==</span> <span class="st">"FB"</span>)
-<span class="no">FB_tbl</span>
-<span class="co">#&gt; # A tibble: 1,008 x 8</span>
-<span class="co">#&gt;    symbol date        open  high   low close    volume adjusted</span>
-<span class="co">#&gt;    &lt;chr&gt;  &lt;date&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;</span>
-<span class="co">#&gt;  1 FB     2013-01-02  27.4  28.2  27.4  28    69846400     28  </span>
-<span class="co">#&gt;  2 FB     2013-01-03  27.9  28.5  27.6  27.8  63140600     27.8</span>
-<span class="co">#&gt;  3 FB     2013-01-04  28.0  28.9  27.8  28.8  72715400     28.8</span>
-<span class="co">#&gt;  4 FB     2013-01-07  28.7  29.8  28.6  29.4  83781800     29.4</span>
-<span class="co">#&gt;  5 FB     2013-01-08  29.5  29.6  28.9  29.1  45871300     29.1</span>
-<span class="co">#&gt;  6 FB     2013-01-09  29.7  30.6  29.5  30.6 104787700     30.6</span>
-<span class="co">#&gt;  7 FB     2013-01-10  30.6  31.5  30.3  31.3  95316400     31.3</span>
-<span class="co">#&gt;  8 FB     2013-01-11  31.3  32.0  31.1  31.7  89598000     31.7</span>
-<span class="co">#&gt;  9 FB     2013-01-14  32.1  32.2  30.6  31.0  98892800     31.0</span>
-<span class="co">#&gt; 10 FB     2013-01-15  30.6  31.7  29.9  30.1 173242600     30.1</span>
-<span class="co">#&gt; # … with 998 more rows</span></pre></div>
-</div>
-<div id="extract-a-time-series-index" class="section level2">
-<h2 class="hasAnchor">
-<a href="#extract-a-time-series-index" class="anchor"></a>Extract a time series index</h2>
-<p>Get the timeseries index.</p>
-<div class="sourceCode" id="cb3"><pre class="r"><span class="no">idx</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/tk_index.html">tk_index</a></span>(<span class="no">FB_tbl</span>)
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">idx</span>)
-<span class="co">#&gt; [1] "2013-01-02" "2013-01-03" "2013-01-04" "2013-01-07" "2013-01-08"</span>
-<span class="co">#&gt; [6] "2013-01-09"</span></pre></div>
-</div>
-<div id="expand-the-time-series-signature" class="section level2">
-<h2 class="hasAnchor">
-<a href="#expand-the-time-series-signature" class="anchor"></a>Expand the time series signature</h2>
-<p>Get the time series signature from the index, a tibble of decomposed features that are useful for <strong>data mining</strong> and <strong>machine learning</strong>.</p>
-<div class="sourceCode" id="cb4"><pre class="r"><span class="fu"><a href="reference/tk_get_timeseries.html">tk_get_timeseries_signature</a></span>(<span class="no">idx</span>)
-<span class="co">#&gt; # A tibble: 1,008 x 29</span>
-<span class="co">#&gt;    index      index.num   diff  year year.iso  half quarter month month.xts</span>
-<span class="co">#&gt;    &lt;date&gt;         &lt;int&gt;  &lt;int&gt; &lt;int&gt;    &lt;int&gt; &lt;int&gt;   &lt;int&gt; &lt;int&gt;     &lt;int&gt;</span>
-<span class="co">#&gt;  1 2013-01-02    1.36e9     NA  2013     2013     1       1     1         0</span>
-<span class="co">#&gt;  2 2013-01-03    1.36e9  86400  2013     2013     1       1     1         0</span>
-<span class="co">#&gt;  3 2013-01-04    1.36e9  86400  2013     2013     1       1     1         0</span>
-<span class="co">#&gt;  4 2013-01-07    1.36e9 259200  2013     2013     1       1     1         0</span>
-<span class="co">#&gt;  5 2013-01-08    1.36e9  86400  2013     2013     1       1     1         0</span>
-<span class="co">#&gt;  6 2013-01-09    1.36e9  86400  2013     2013     1       1     1         0</span>
-<span class="co">#&gt;  7 2013-01-10    1.36e9  86400  2013     2013     1       1     1         0</span>
-<span class="co">#&gt;  8 2013-01-11    1.36e9  86400  2013     2013     1       1     1         0</span>
-<span class="co">#&gt;  9 2013-01-14    1.36e9 259200  2013     2013     1       1     1         0</span>
-<span class="co">#&gt; 10 2013-01-15    1.36e9  86400  2013     2013     1       1     1         0</span>
-<span class="co">#&gt; # … with 998 more rows, and 20 more variables: month.lbl &lt;ord&gt;, day &lt;int&gt;,</span>
-<span class="co">#&gt; #   hour &lt;int&gt;, minute &lt;int&gt;, second &lt;int&gt;, hour12 &lt;int&gt;, am.pm &lt;int&gt;,</span>
-<span class="co">#&gt; #   wday &lt;int&gt;, wday.xts &lt;int&gt;, wday.lbl &lt;ord&gt;, mday &lt;int&gt;, qday &lt;int&gt;,</span>
-<span class="co">#&gt; #   yday &lt;int&gt;, mweek &lt;int&gt;, week &lt;int&gt;, week.iso &lt;int&gt;, week2 &lt;int&gt;,</span>
-<span class="co">#&gt; #   week3 &lt;int&gt;, week4 &lt;int&gt;, mday7 &lt;int&gt;</span></pre></div>
-</div>
-<div id="get-a-summary-of-the-time-series" class="section level2">
-<h2 class="hasAnchor">
-<a href="#get-a-summary-of-the-time-series" class="anchor"></a>Get a summary of the time series</h2>
-<p>Get the time series summary from the index, a single-row tibble of key summary information from the time series.</p>
-<div class="sourceCode" id="cb5"><pre class="r"><span class="co"># General summary</span>
-<span class="fu"><a href="reference/tk_get_timeseries.html">tk_get_timeseries_summary</a></span>(<span class="no">idx</span>)[<span class="fl">1</span>:<span class="fl">6</span>]
-<span class="co">#&gt; # A tibble: 1 x 6</span>
-<span class="co">#&gt;   n.obs start      end        units scale tzone</span>
-<span class="co">#&gt;   &lt;int&gt; &lt;date&gt;     &lt;date&gt;     &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;</span>
-<span class="co">#&gt; 1  1008 2013-01-02 2016-12-30 days  day   UTC</span>
-
-<span class="co"># Frequency summary</span>
-<span class="fu"><a href="reference/tk_get_timeseries.html">tk_get_timeseries_summary</a></span>(<span class="no">idx</span>)[<span class="fl">6</span>:<span class="fl">12</span>]
-<span class="co">#&gt; # A tibble: 1 x 7</span>
-<span class="co">#&gt;   tzone diff.minimum diff.q1 diff.median diff.mean diff.q3 diff.maximum</span>
-<span class="co">#&gt;   &lt;chr&gt;        &lt;dbl&gt;   &lt;dbl&gt;       &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;        &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 UTC          86400   86400       86400   125096.   86400       345600</span></pre></div>
-</div>
-<div id="make-a-future-time-series" class="section level2">
-<h2 class="hasAnchor">
-<a href="#make-a-future-time-series" class="anchor"></a>Make a future time series</h2>
-<p>Use an index to make a future time series.</p>
-<div class="sourceCode" id="cb6"><pre class="r"><span class="no">holidays</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"2017-01-02"</span>, <span class="st">"2017-01-16"</span>, <span class="st">"2017-02-20"</span>,
-              <span class="st">"2017-04-14"</span>, <span class="st">"2017-05-29"</span>, <span class="st">"2017-07-04"</span>,
-              <span class="st">"2017-09-04"</span>, <span class="st">"2017-11-23"</span>, <span class="st">"2017-12-25"</span>) <span class="kw">%&gt;%</span>
-    <span class="fu">ymd</span>()
-
-<span class="no">idx_future</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/tk_make_future_timeseries.html">tk_make_future_timeseries</a></span>(
-    <span class="no">idx</span>,
-    <span class="kw">n_future</span>         <span class="kw">=</span> <span class="fl">366</span>,
-    <span class="kw">skip_values</span>      <span class="kw">=</span> <span class="no">holidays</span>,
-    <span class="kw">inspect_weekdays</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
-
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">idx_future</span>)
-<span class="co">#&gt; [1] "2017-01-03" "2017-01-04" "2017-01-05" "2017-01-06" "2017-01-09"</span>
-<span class="co">#&gt; [6] "2017-01-10"</span></pre></div>
-<div class="sourceCode" id="cb7"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">tail</a></span>(<span class="no">idx_future</span>)
-<span class="co">#&gt; [1] "2017-12-21" "2017-12-22" "2017-12-26" "2017-12-27" "2017-12-28"</span>
-<span class="co">#&gt; [6] "2017-12-29"</span></pre></div>
-</div>
-<div id="coerce-time-series-without-specifying-orderby-or-worrying-about-coercion-issues" class="section level2">
-<h2 class="hasAnchor">
-<a href="#coerce-time-series-without-specifying-orderby-or-worrying-about-coercion-issues" class="anchor"></a>Coerce time series without specifying order.by or worrying about coercion issues</h2>
-<p>Coercion to <code>xts</code>, <code>zoo</code>, or <code>ts</code> is simplified. The data is ordered correctly automatically using the column containing the date or datetime information. Non-numeric columns are automatically dropped with a warning to the user (the <code>silent = TRUE</code> hides the warnings).</p>
-<div class="sourceCode" id="cb8"><pre class="r"><span class="co"># xts</span>
-<span class="no">FB_xts</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/tk_xts.html">tk_xts</a></span>(<span class="no">FB_tbl</span>, <span class="kw">silent</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></div>
-<div class="sourceCode" id="cb9"><pre class="r"><span class="co"># zoo</span>
-<span class="no">FB_zoo</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/tk_zoo.html">tk_zoo</a></span>(<span class="no">FB_tbl</span>, <span class="kw">silent</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></div>
-<div class="sourceCode" id="cb10"><pre class="r"><span class="co"># ts</span>
-<span class="no">FB_ts</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/tk_ts.html">tk_ts</a></span>(<span class="no">FB_tbl</span>, <span class="kw">start</span> <span class="kw">=</span> <span class="fl">2013</span>, <span class="kw">freq</span> <span class="kw">=</span> <span class="fl">252</span>, <span class="kw">silent</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></div>
-<p>This covers the basics of the <code>timetk</code> package capabilities. Here’s how to get started.</p>
+<a href="#what-can-you-do-in-1-line-of-code" class="anchor"></a>What can you do in 1 line of code?</h2>
+<p>Investigate a time series…</p>
+<div class="sourceCode" id="cb1"><pre class="r"><span class="no">taylor_30_min</span> <span class="kw">%&gt;%</span>
+    <span class="fu"><a href="reference/plot_time_series.html">plot_time_series</a></span>(<span class="no">date</span>, <span class="no">value</span>, <span class="kw">.color_var</span> <span class="kw">=</span> <span class="fu">week</span>(<span class="no">date</span>),
+                     <span class="kw">.interactive</span> <span class="kw">=</span> <span class="fl">FALSE</span>, <span class="kw">.color_lab</span> <span class="kw">=</span> <span class="st">"Week"</span>)</pre></div>
+<p><img src="reference/figures/README-unnamed-chunk-3-1.png"><!-- --></p>
+<p>Make a seasonality plot…</p>
+<div class="sourceCode" id="cb2"><pre class="r"><span class="no">taylor_30_min</span> <span class="kw">%&gt;%</span>
+    <span class="fu"><a href="reference/plot_seasonal_diagnostics.html">plot_seasonal_diagnostics</a></span>(<span class="no">date</span>, <span class="no">value</span>, <span class="kw">.interactive</span> <span class="kw">=</span> <span class="fl">FALSE</span>)</pre></div>
+<p><img src="reference/figures/README-unnamed-chunk-4-1.png"><!-- --></p>
+<p>Inspect autocorrelation, partial autocorrelation (and cross correlations too)…</p>
+<div class="sourceCode" id="cb3"><pre class="r"><span class="no">taylor_30_min</span> <span class="kw">%&gt;%</span>
+    <span class="fu"><a href="reference/plot_acf_diagnostics.html">plot_acf_diagnostics</a></span>(<span class="no">date</span>, <span class="no">value</span>, <span class="kw">.lags</span> <span class="kw">=</span> <span class="fl">0</span>:(<span class="fl">48</span>*<span class="fl">7</span>), <span class="kw">.interactive</span> <span class="kw">=</span> <span class="fl">FALSE</span>)</pre></div>
+<p><img src="reference/figures/README-unnamed-chunk-5-1.png"><!-- --></p>
 </div>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<p><em>Download development version with latest features</em>:</p>
-<div class="sourceCode" id="cb11"><pre class="r"><span class="co"># install.packages("devtools")</span>
+<p>What are you waiting for? <em>Download the development version with latest features</em>:</p>
+<div class="sourceCode" id="cb4"><pre class="r"><span class="co"># install.packages("devtools")</span>
 <span class="kw pkg">devtools</span><span class="kw ns">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span>(<span class="st">"business-science/timetk"</span>)</pre></div>
 <p><em>Or, download CRAN approved version</em>:</p>
-<div class="sourceCode" id="cb12"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"timetk"</span>)</pre></div>
+<div class="sourceCode" id="cb5"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"timetk"</span>)</pre></div>
 </div>
-<div id="acknowledgements-standing-on-shoulders" class="section level2">
+<div id="acknowledgements" class="section level2">
 <h2 class="hasAnchor">
-<a href="#acknowledgements-standing-on-shoulders" class="anchor"></a>Acknowledgements: Standing On Shoulders</h2>
-<p>A lot of innovative time series and forecasting work is going on that ultimately benefits the community. We’d like to thank the following people and packages that came before <code>timetk</code> in time series analysis and machine learning.</p>
+<a href="#acknowledgements" class="anchor"></a>Acknowledgements</h2>
+<p>The <code>timetk</code> package wouldn’t be possible without other amazing time series packages.</p>
 <ul>
 <li>
-<a href="https://github.com/bearloga/maltese"><code>maltese</code></a>: Similar in respect to <code>timetk</code> in that it enables machine learning-friendly data frame generation exposing a number of critical features that can be used for forecasting.</li>
+<a href="https://github.com/hadley/lubridate"><code>lubridate</code></a>: This package makes heavy use of <code>floor_date()</code>, <code>ceiling_date</code>, <code>duration()</code>, and more.</li>
 <li>
-<a href="https://github.com/hadley/lubridate"><code>lubridate</code></a>: Contains an excellent set of functions to extract components of the date and datetime index.</li>
+<a href="https://github.com/joshuaulrich/xts"><code>xts</code></a>: Used to calculate periodicity and fast lag automation.</li>
 <li>
-<a href="https://github.com/joshuaulrich/xts"><code>xts</code></a> and <code>zoo</code>: Fundamental packages for working with time series enabling creation of a time series index for <code>ts</code> class and calculating periodicity.</li>
-</ul>
-</div>
-<div id="further-information" class="section level2">
-<h2 class="hasAnchor">
-<a href="#further-information" class="anchor"></a>Further Information</h2>
-<p>The <code>timetk</code> package includes a vignette to help users get up to speed quickly:</p>
-<ul>
-<li>TK00 - Time Series Coercion Using <code>timetk</code>
+<a href="https://edwinth.github.io/padr/"><code>padr</code></a>: Used for padding time series using <code><a href="reference/pad_by_time.html">pad_by_time()</a></code>
 </li>
-<li>TK01 - Working with the Time Series Index using <code>timetk</code>
-</li>
-<li>TK02 - Making a Future Time Series Index using <code>timetk</code>
-</li>
-<li>TK03 - Forecasting Using a Time Series Signature with <code>timetk</code>
-</li>
+<li>
+<a href="https://business-science.github.io/tibbletime/"><code>tibbletime</code> (retired)</a>: While <code>timetk</code> does not import <code>tibbletime</code>, it uses much of the innovative functionality to interpret time-based phrases in <code><a href="reference/tk_make_timeseries.html">tk_make_timeseries()</a></code>, <code><a href="reference/filter_by_time.html">filter_by_time()</a></code>, <code><a href="reference/between_time.html">between_time()</a></code>, <code><a href="reference/add_time.html">%+time%</a></code>, and <code><a href="reference/add_time.html">%-time%</a></code> are based on <code>tibbletime</code> code. <code><a href="reference/slidify.html">slidify()</a></code> is basically <code>rollify()</code> using <code>slider</code> (see below).</li>
+<li>
+<a href="https://davisvaughan.github.io/slider/"><code>slider</code></a>: A newer R package that provides a <code>purrr</code>-syntax for complex rolling (sliding) calculations. <code><a href="reference/slidify.html">slidify()</a></code> uses <code>pslide</code> under the hood. <code><a href="reference/roll_apply_vec.html">roll_apply_vec()</a></code> uses <code>slide_vec()</code> for simple vectorized rolls (slides).</li>
+<li>
+<a href="https://pkg.robjhyndman.com/forecast/"><code>forecast</code> (retired)</a>: Possibly my favorite R package of all time. The <code><a href="reference/impute_ts_vec.html">impute_ts_vec()</a></code> for low-level vectorized imputation using STL + Linear Interpolation uses <code>na.interp()</code> under the hood. Box Cox transformation <code><a href="reference/box_cox_vec.html">auto_lambda()</a></code> uses <code>BoxCox.Lambda()</code>.</li>
 </ul>
 </div>
 </div>
+<div id="learning-more" class="section level1">
+<h1 class="hasAnchor">
+<a href="#learning-more" class="anchor"></a>Learning More</h1>
+<p>If you are interested in learning from my advanced <strong>Time Series Analysis &amp; Forecasting Course</strong>, then <a href="https://mailchi.mp/business-science/time-series-forecasting-course-coming-soon">join my waitlist</a>. The course is coming soon.</p>
+<p><img src="articles/time_series_course.jpg"><!-- --></p>
+<p>You will learn:</p>
+<ul>
+<li>Time Series Preprocessing, Noise Reduction, &amp; Anomaly Detection</li>
+<li>Feature engineering using lagged variables &amp; external regressors</li>
+<li>Hyperparameter Tuning</li>
+<li>Time series cross-validation</li>
+<li>Ensembling Multiple Machine Learning &amp; Univariate Modeling Techniques (Competition Winner)</li>
+<li>NEW - Deep Learning with RNNs (Competition Winner)</li>
+<li>and more.</li>
+</ul>
+<p class="text-center" style="font-size:30px;">
+</p>
+<p><a href="https://mailchi.mp/business-science/time-series-forecasting-course-coming-soon">Signup for the Time Series Course waitlist</a></p>
+
+</div>
+
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

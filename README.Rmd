@@ -4,20 +4,16 @@ output: github_document
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-```{r, echo = FALSE}
+```{r, echo = FALSE, message = FALSE}
 knitr::opts_chunk$set(
     message = F, 
     warning = F,
     collapse = TRUE,
     comment = "#>",
-    fig.path = "README-"
+    fig.path = "man/figures/README-", 
+    dpi = 150 
 )
-```
-
-```{r, echo=FALSE}
-library(tidyverse)
-library(tidyquant)
-library(timetk)
+devtools::load_all()
 ```
 
 
@@ -33,146 +29,87 @@ library(timetk)
 
 > A toolkit for working with time series in R
 
+## Mission
+
+To make it easy to ___visualize, wrangle and preprocess time series data___ for forecasting and machine learning prediction. 
+
 ## Documentation
 
+- [Full Time Series Machine Learning and Feature Engineering Tutorial:](https://www.business-science.io/time-series/2020/03/18/time-series-machine-learning.html) Showcases the (NEW) `step_timeseries_signature()` for building ___200+ time series features___ using `parsnip`, `recipes`, and `workflows`. 
 
-- [Full Time Series Machine Learning and Feature Engineering Tutorial:](https://www.business-science.io/time-series/2020/03/18/time-series-machine-learning.html) Showcases the (NEW) `step_timeseries_signature()` for building ___200+ time series features.___
+- [Visit the timetk website documentation](https://business-science.github.io/timetk/) for tutorials and a [complete list of function references](https://business-science.github.io/timetk/reference/index.html). 
 
-- [Visit the timetk website documentation](https://business-science.github.io/timetk/) for tutorials and a complete list of function references. 
+## Package Functionality
 
-## Benefits
-
-The `timetk` package enables a user to more easily work with time series objects in R. The package has tools for inspecting and manipulating the time-based index, expanding the time features for data mining and machine learning, and converting time-based objects to and from the many time series classes. The following are key benefits:
-
-* __Index extraction__: get the time series index from any time series object.
-* __Understand time series__: create a signature and summary from a time series index.
-* __Build future time series__: create a future time series from an index.
-* __Coerce between time-based tibbles (`tbl`) and the major time series data types `xts`, `zoo`, `zooreg`, and `ts`__: Simplifies coercion and maximizes time-based data retention during coercion to regularized time series (e.g. `ts`).
-
-An example of the forecasting capabilities as shown in vignette TK03 - Forecasting Using a Time Series Signature with `timetk`.
-
-```{r echo=FALSE, out.width='100%'}
-knitr::include_graphics("man/figures/bikes_forecast.png")
-```
+There are _many_ R packages for working with Time Series data. Here's how `timetk` compares. 
 
 
 
-## Tools
+| Task                         | [timetk](https://business-science.github.io/timetk/) | [tsibble](https://tsibble.tidyverts.org/index.html) | [feasts](https://feasts.tidyverts.org/index.html) | [tibbletime](https://business-science.github.io/tibbletime/) |
+|------------------------------|--------|---------|---------|-------------|
+| __Structure__            |        |         |         |             |             
+| Data Structure               | tibble (tbl)  | tsibble (tbl_ts)| tsibble (tbl_ts) | tibbletime (tbl_time)  |
+| __Visualization__            |        |         |         |             |             
+| Interactive Plots (plotly)   |  ✅  |  :x:  |  :x:  |  :x: | 
+| Static Plots (ggplot)        |  ✅  |  :x:  |  ✅   |  :x:  |  
+| __Data Wrangling__           |        |         |         |             |             
+| Time-Based Summarization     |  ✅  |  :x:  |  :x:   |  ✅  |  
+| Time-Based Filtering         |  ✅  |  :x:  |  :x:   |  ✅  |  
+| Padding Gaps                 |  ✅  |  ✅  |  :x:   |  :x:  |  
+| Low to High Frequency        |  ✅  |  :x:  |  :x:   |  :x:  |  
+| Imputation                   |  ✅  |  ✅  |  :x:   |  :x:  |  
+| Sliding / Rolling            |  ✅  |  ✅  |  :x:   |  ✅  |  
+| __Preprocessing (recipes)__  |        |         |         |             |             
+| Date Feature Engineering     |  ✅  |  :x:  |  :x:   |  :x:  |  
+| Holiday Feature Engineering  |  ✅  |  :x:  |  :x:   |  :x:  |  
+| Fourier Series               |  ✅  |  :x:  |  :x:   |  :x:  |  
+| Smoothing & Rolling          |  ✅  |  :x:  |  :x:   |  :x:  |  
+| Imputation                   |  ✅  |  :x:  |  :x:   |  :x:  |  
+| __Cross Validation (rsample)__  |        |         |         |             |             
+| Time Series Cross Validation      |  ✅  |  :x:  |  :x:   |  :x:  |  
+| Time Series CV Plan Visualization |  ✅  |  :x:  |  :x:   |  :x:  |  
+| __More Awesomeness__         |        |         |         |             |             
+| Making Time Series (Intelligently)  |  ✅  |  ✅  |  :x:   |  ✅  |  
+| Handling Holidays & Weekends        |  ✅  |  :x:  |  :x:   |  :x:  |  
+| Class Conversion                    |  ✅  |  ✅  |  :x:   |  :x:  |  
+| Automatic Frequency & Trend         |  ✅  |  :x:  |  :x:   |  :x:  |  
 
-The package contains the following functions:
 
-1. __Get an index__: `tk_index` returns the time series index of time
-series objects, models. The argument `timetk_idx` can be used to return a
-special timetk "index" attribute for regularized `ts` objects that returns a
-non-regularized date / date-time index if present.
 
-2. __Get critical timeseries information__: `tk_get_timeseries_signature` and `tk_get_timeseries_summary` takes an index and provides a time series decomposition and key summary attributes of the index, respectively. The `tk_augment_timeseries_signature` expedites adding the time series decomposition to the time series object. 
+## What can you do in 1 line of code?
 
-3. __Make a future timeseries__: `tk_make_future_timeseries` models a
-future time series after an existing time series index.  
-
-4. __Conversion functions__: `tk_tbl`, `tk_ts`, `tk_xts`, `tk_zoo`, and
-`tk_zooreg` convert time-based tibbles `tbl` to and from each of the main
-time-series data types `xts`, `zoo`, `zooreg`, `ts`, maintaining the time-based
-index.
-
-## Getting started
-
-Load libraries and start with some time series data
-
-```{r}
+```{r, echo=FALSE}
 library(tidyverse)
+library(lubridate)
 library(timetk)
-library(tidyquant)
 ```
 
-Use the FB time series.
+Investigate a time series... 
+
+```{r, fig.height=6}
+taylor_30_min %>%
+    plot_time_series(date, value, .color_var = week(date), 
+                     .interactive = FALSE, .color_lab = "Week")
+```
+
+Make a seasonality plot...
+
+```{r, fig.height=8}
+taylor_30_min %>%
+    plot_seasonal_diagnostics(date, value, .interactive = FALSE)
+```
+
+Inspect autocorrelation, partial autocorrelation (and cross correlations too)...
 
 ```{r}
-FB_tbl <- FANG %>%
-    filter(symbol == "FB")
-FB_tbl
+taylor_30_min %>%
+    plot_acf_diagnostics(date, value, .lags = 0:(48*7), .interactive = FALSE)
 ```
 
-
-## Extract a time series index
-
-Get the timeseries index.
-
-```{r}
-idx <- tk_index(FB_tbl)
-head(idx)
-```
-
-## Expand the time series signature
-
-Get the time series signature from the index, a tibble of decomposed features that are useful for __data mining__ and __machine learning__. 
-
-```{r}
-tk_get_timeseries_signature(idx)
-```
-
-## Get a summary of the time series
-
-Get the time series summary from the index, a single-row tibble of key summary information from the time series.
-
-```{r}
-# General summary
-tk_get_timeseries_summary(idx)[1:6]
-
-# Frequency summary
-tk_get_timeseries_summary(idx)[6:12]
-```
-
-## Make a future time series
-
-Use an index to make a future time series.  
-
-```{r}
-holidays <- c("2017-01-02", "2017-01-16", "2017-02-20",
-              "2017-04-14", "2017-05-29", "2017-07-04",
-              "2017-09-04", "2017-11-23", "2017-12-25") %>%
-    ymd()
-
-idx_future <- tk_make_future_timeseries(
-    idx, 
-    n_future         = 366, 
-    skip_values      = holidays, 
-    inspect_weekdays = TRUE) 
-
-head(idx_future)
-```
-
-```{r}
-tail(idx_future)
-```
-
-
-## Coerce time series without specifying order.by or worrying about coercion issues
-
-Coercion to `xts`, `zoo`, or `ts` is simplified. The data is ordered correctly automatically using the column containing the date or datetime information. Non-numeric columns are automatically dropped with a warning to the user (the `silent = TRUE` hides the warnings).
-
-```{r}
-# xts
-FB_xts <- tk_xts(FB_tbl, silent = TRUE)
-```
-
-```{r}
-# zoo
-FB_zoo <- tk_zoo(FB_tbl, silent = TRUE)
-```
-
-```{r}
-# ts
-FB_ts <- tk_ts(FB_tbl, start = 2013, freq = 252, silent = TRUE)
-```
-
-
-This covers the basics of the `timetk` package capabilities. Here's how to get started.
 
 ## Installation
 
-_Download development version with latest features_:
+What are you waiting for? _Download the development version with latest features_:
 
 ``` {r, eval = FALSE}
 # install.packages("devtools")
@@ -185,22 +122,37 @@ _Or, download CRAN approved version_:
 install.packages("timetk")
 ```
 
-## Acknowledgements: Standing On Shoulders
+## Acknowledgements
 
-A lot of innovative time series and forecasting work is going on that ultimately benefits the community. We'd like to thank the following people and packages that came before `timetk` in time series analysis and machine learning.
+The `timetk` package wouldn't be possible without other amazing time series packages. 
 
-* [`maltese`](https://github.com/bearloga/maltese): Similar in respect to `timetk` in that it enables machine learning-friendly data frame generation exposing a number of critical features that can be used for forecasting.
-* [`lubridate`](https://github.com/hadley/lubridate): Contains an excellent set of functions to extract components of the date and datetime index.
-* [`xts`](https://github.com/joshuaulrich/xts) and `zoo`: Fundamental packages for working with time series enabling creation of a time series index for `ts` class and calculating periodicity. 
+* [`lubridate`](https://github.com/hadley/lubridate): This package makes heavy use of `floor_date()`, `ceiling_date`, `duration()`, and more. 
+* [`xts`](https://github.com/joshuaulrich/xts): Used to calculate periodicity and fast lag automation. 
+* [`padr`](https://edwinth.github.io/padr/): Used for padding time series using `pad_by_time()`
+* [`tibbletime` (retired)](https://business-science.github.io/tibbletime/): While `timetk` does not import `tibbletime`, it uses much of the innovative functionality to interpret time-based phrases in `tk_make_timeseries()`, `filter_by_time()`, `between_time()`, `%+time%`, and `%-time%` are based on `tibbletime` code. `slidify()` is basically `rollify()` using `slider` (see below).
+* [`slider`](https://davisvaughan.github.io/slider/): A newer R package that provides a `purrr`-syntax for complex rolling (sliding) calculations. `slidify()` uses `pslide` under the hood. `roll_apply_vec()` uses `slide_vec()` for simple vectorized rolls (slides).
+* [`forecast` (retired)](https://pkg.robjhyndman.com/forecast/): Possibly my favorite R package of all time. The `impute_ts_vec()` for low-level vectorized imputation using STL + Linear Interpolation uses `na.interp()` under the hood. Box Cox transformation `auto_lambda()` uses `BoxCox.Lambda()`.  
 
 
+# Learning More
 
-## Further Information
+If you are interested in learning from my advanced __Time Series Analysis & Forecasting Course__, then [join my waitlist](https://mailchi.mp/business-science/time-series-forecasting-course-coming-soon). The course is coming soon. 
 
-The `timetk` package includes a vignette to help users get up to speed quickly:
+```{r, echo=FALSE}
+knitr::include_graphics("vignettes/time_series_course.jpg")
+```
 
-* TK00 - Time Series Coercion Using `timetk`
-* TK01 - Working with the Time Series Index using `timetk`
-* TK02 - Making a Future Time Series Index using `timetk`
-* TK03 - Forecasting Using a Time Series Signature with `timetk`
+You will learn:
+
+- Time Series Preprocessing, Noise Reduction, & Anomaly Detection
+- Feature engineering using lagged variables & external regressors
+- Hyperparameter Tuning
+- Time series cross-validation
+- Ensembling Multiple Machine Learning & Univariate Modeling Techniques (Competition Winner)
+- NEW - Deep Learning with RNNs (Competition Winner)
+- and more.
+
+<p class="text-center" style="font-size:30px;">
+<a href="https://mailchi.mp/business-science/time-series-forecasting-course-coming-soon">Signup for the Time Series Course waitlist</a>
+</p>
 
