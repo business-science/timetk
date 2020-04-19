@@ -37,10 +37,8 @@ This tutorial focuses on 3 new functions for visualizing time series diagnostics
 library(tidyverse)
 library(timetk)
 
-# Setup for the plotly charts
-# - If TRUE, returns interactive
-# - If FALSE, returns ggplot2
-interactive <- FALSE
+# Setup for the plotly charts (# FALSE returns ggplots)
+interactive <- TRUE
 ```
 
 # Correlation Plots

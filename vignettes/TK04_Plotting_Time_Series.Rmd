@@ -41,10 +41,8 @@ library(tidyverse)
 library(lubridate)
 library(timetk)
 
-# Setup for the plotly charts
-# - If TRUE, returns interactive
-# - If FALSE, returns ggplot2
-interactive <- FALSE
+# Setup for the plotly charts (# FALSE returns ggplots)
+interactive <- TRUE
 ```
 
 # Plotting Single Time Series
