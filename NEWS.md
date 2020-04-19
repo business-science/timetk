@@ -1,86 +1,24 @@
-# timetk 0.1.3.9000
 
 <!--
 __TODO:__
 
-MAJOR ITEMS:
-1. (DONE) recipes steps - Split transformations from predictor creators
-2. (DONE) rsample - backwards rolling origin
-3. tests
-4. vignettes
 
 SMALLER ITEMS:
-1. Seasonal Decomposition
-1. Outliers
-2. Missing Data - imputation & irregular series padding
-3. weather signature
+1. Outlier diagnostics
+2. Missing value diagnostics
+3. Weather signature
 4. tsibble integration
 
-- Plot Diagnostics
-    - (DONE) Plot Time Series
-    - (DONE) Plot Lag (ACF, PACF, & CCF) Diagnostics
-    - (DONE) Plot Seasonality Diagnostics 
-    - Missing Data Diagnostics
-- Fourier series
-    - (DONE) `step_fourier_series()`
-    - (DONE) `fourier_vec()`
-    - `tk_get_fourier_series()` (is this needed?)
-    - `tk_augment_fourier_series()` (is this needed?)
-- (DONE) Rolling functionality 
-    - (DONE) `step_roll_apply()`
-    - (DONE) `tk_augment_roll_apply()` 
-    - (DONE) `roll_apply_vec()` 
-- Smooth Loess functionality 
-    - (DONE) `step_smooth()` 
-    - `tk_augment_smooth()`
-    - (DONE) `smooth_vec()` 
-- Differencing functionality
-    - (DONE) `diff_vec`
-    - (DONE) `diff_inv_vec`
-    - (DONE) `step_diff`
-- Lag functionality
-    - (DONE) `lag_vec()`
-    - (DONE) `tk_augment_lags()`
-    - `recipes::step_lag()`
-- Rsample automation 
-    - (DONE) Lags - [Rsample PR #136](https://github.com/tidymodels/rsample/pull/136)
-    - (DONE) `time_series_cv()` - Rewrite rolling_origin - for Backtesting
-- Box Cox functionality
-    - (DONE) `box_cox_vec`
-    - (DONE) `box_cox_inv_vec`
-    - (DONE) `auto_lambda`
-    - (DONE) `step_box_cox`
-- Dplyr Transition 
-    - (DONE) `tidyquant::summarise_by_time`
-    - (DONE) `tibbletime::filter_by_time`
-    - (DONE) `between_time()`
-    - `tibbletime::as_period` - Can use `summarise_by_time()` for this. 
-    - (DONE) `slidify` - `tibbletime::rollify`
-- Holidays 
-    - (DONE) `tk_make_holiday_sequence()`
-    - (DONE) `tk_get_holiday_signature()`, `tk_augment_holiday_signature()`
-    - (DONE) `step_holiday_signature()`
 - Weather
     - Reim integration
     - `tk_get_weather_signature()`, `tk_augment_weather_signature()`
     - `step_weather_signature()`
-- Support for `grouped_df`
-    - (DONE) `tk_augment_roll_apply()`
-    - (DONE) `tk_augment_lags()`
-    - `tk_augment_smooth()`
-- Diagnostics
-    - Missing Value Diagnostics - Weekends, Holidays - Correlation Funnel???
-    - (DONE) ACF Diagnostics - `tk_acf_diagnostics` - Tidy acf, pacf, ccf
-    - (DONE) Seasonality Diagnostics - Review FB Prophet Plot Components
-    - (DONE) Rsample Validation Diagnostics
+
 - Tests (Boooo)
-- Update Examples
-- Update Readme
-- New Vignettes
-  - Plotting
-  - Seasonality
-  - Correlation
+
 -->
+
+# timetk 1.0.0 
 
 __New Interactive Plotting Functions__:
 

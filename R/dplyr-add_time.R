@@ -1,4 +1,4 @@
-#' Add (For Time Series): Add a period to a time series
+#' Add / Subtract (For Time Series)
 #'
 #' The easiest way to add / subtract a period to a time series date or date-time vector.
 #'
@@ -41,15 +41,19 @@
 #'
 #' # ---- LOCATING A DATE N-PERIODS IN FUTURE / PAST ----
 #'
-#' # Forward
-#' "2021-01-01 00:00:00" %+time% "1 hour 34 seconds"
+#' # Forward (Plus Time)
+#' "2021" %+time% "1 hour 34 seconds"
+#' "2021" %+time% "3 months"
+#' "2021" %+time% "1 year 3 months 6 days"
 #'
-#' # Backward
-#' "2021-01-01 00:00:00" %-time% "1 hour 34 seconds"
+#' # Backward (Minus Time)
+#' "2021" %-time% "1 hour 34 seconds"
+#' "2021" %-time% "3 months"
+#' "2021" %-time% "1 year 3 months 6 days"
 #'
 #' # ---- INDEX SHIFTING ----
 #'
-#' index_daily <- tk_make_timeseries("2016-01-01", "2016-02-01", by = "day")
+#' index_daily <- tk_make_timeseries("2016", "2016-02-01")
 #'
 #' # ADD TIME
 #' # - Note `NA` values created where a daily dates aren't possible
@@ -62,13 +66,13 @@
 #'
 #'
 #'
-#' @name add_time
+#' @name time_arithmetic
 #' @export
 
 # ADD ----
 
 #' @export
-#' @rdname add_time
+#' @rdname time_arithmetic
 add_time <- function(index, period) {
     UseMethod("add_time", index)
 }
@@ -116,7 +120,7 @@ add_time.default <- function(index, period) {
 # SUBTRACT ----
 
 #' @export
-#' @rdname add_time
+#' @rdname time_arithmetic
 subtract_time <- function(index, period) {
     UseMethod("subtract_time", index)
 }
@@ -162,15 +166,16 @@ subtract_time.default <- function(index, period) {
     rlang::abort(paste0("No method for class ", class(index)[[1]], "."))
 }
 
+# INFIX ----
 
 #' @export
-#' @rdname add_time
+#' @rdname time_arithmetic
 `%+time%` <- function(index, period) {
     add_time(index, period)
 }
 
 #' @export
-#' @rdname add_time
+#' @rdname time_arithmetic
 `%-time%` <- function(index, period) {
     subtract_time(index, period)
 }

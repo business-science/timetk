@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Missing Value Imputation for Time Series — impute_ts_vec • timetk</title>
+<title>Add / Subtract (For Time Series) — time_arithmetic • timetk</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -48,10 +48,8 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Missing Value Imputation for Time Series — impute_ts_vec" />
-<meta property="og:description" content="This is mainly a wrapper for the Seasonally Adjusted Missing Value using Linear Interpolation function,
-na.interp(), from the forecast R package. The impute_ts_vec() function includes arguments for applying
-seasonality to numeric vector (non-ts) via the period argument." />
+<meta property="og:title" content="Add / Subtract (For Time Series) — time_arithmetic" />
+<meta property="og:description" content="The easiest way to add / subtract a period to a time series date or date-time vector." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -170,94 +168,95 @@ seasonality to numeric vector (non-ts) via the period argument." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Missing Value Imputation for Time Series</h1>
-    <small class="dont-index">Source: <a href='https://github.com/business-science/timetk/blob/master/R/vec-impute_ts.R'><code>R/vec-impute_ts.R</code></a></small>
-    <div class="hidden name"><code>impute_ts_vec.Rd</code></div>
+    <h1>Add / Subtract (For Time Series)</h1>
+    <small class="dont-index">Source: <a href='https://github.com/business-science/timetk/blob/master/R/dplyr-add_time.R'><code>R/dplyr-add_time.R</code></a></small>
+    <div class="hidden name"><code>time_arithmetic.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This is mainly a wrapper for the Seasonally Adjusted Missing Value using Linear Interpolation function,
-<code>na.interp()</code>, from the <code>forecast</code> R package. The <code>impute_ts_vec()</code> function includes arguments for applying
-seasonality to numeric vector (non-<code>ts</code>) via the <code>period</code> argument.</p>
+    <p>The easiest way to add / subtract a period to a time series date or date-time vector.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>impute_ts_vec</span>(<span class='no'>x</span>, <span class='kw'>period</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>lambda</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='no'>index</span> <span class='kw'>%+time%</span> <span class='no'>period</span>
+
+<span class='no'>index</span> <span class='kw'>%-time%</span> <span class='no'>period</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>x</th>
-      <td><p>A numeric vector.</p></td>
+      <th>index</th>
+      <td><p>A date or date-time vector. Can also accept a character representation.</p></td>
     </tr>
     <tr>
       <th>period</th>
-      <td><p>A seasonal period to use during the transformation. If <code>period = 1</code>,
-linear interpolation is performed. If <code>period &gt; 1</code>, a robust STL decomposition is
-first performed and a linear interpolation is applied to the seasonally adjusted data.</p></td>
-    </tr>
-    <tr>
-      <th>lambda</th>
-      <td><p>A box cox transformation parameter. If set to <code>"auto"</code>, performs
-automated lambda selection.</p></td>
+      <td><p>A period to add. Accepts character strings like "5 seconds", "2 days",
+and complex strings like "1 month 4 days 34 minutes".</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>A <code>date</code> or datetime (<code>POSIXct</code>) vector the same length as <code>index</code> with the
+time values shifted +/- a period.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p><strong>Imputation using Linear Interpolation</strong></p>
-<p>Three circumstances cause strictly linear interpolation:</p><ol>
-<li><p><strong>Period is 1:</strong> With <code>period = 1</code>, a seasonality cannot be interpreted and therefore linear is used.</p></li>
-<li><p><strong>Number of Non-Missing Values is less than 2-Periods</strong>: Insufficient values exist to detect seasonality.</p></li>
-<li><p><strong>Number of Total Values is less than 3-Periods</strong>: Insufficient values exist to detect seasonality.</p></li>
-</ol>
+    <p>A convenient wrapper for <code><a href='http://lubridate.tidyverse.org/reference/period.html'>lubridate::period()</a></code>. Adds and subtracts a period from a
+time-based index. Great for:</p><ul>
+<li><p>Finding a timestamp n-periods into the future or past</p></li>
+<li><p>Shifting a time-based index. Note that <code>NA</code> values may be present where dates don't exist.</p></li>
+</ul>
 
-<p><strong>Seasonal Imputation using Linear Interpolation</strong></p>
-<p>For seasonal series with <code>period &gt; 1</code>, a robust Seasonal Trend Loess (STL) decomposition is first computed.
-Then a linear interpolation is applied to the seasonally adjusted data, and
-the seasonal component is added back.</p>
-<p><strong>Box Cox Transformation</strong></p>
-<p>In many circumstances, a Box Cox transformation can help. Especially if the series is multiplicative
-meaning the variance grows exponentially. A Box Cox transformation can be automated by setting <code>lambda = "auto"</code>
-or can be specified by setting <code>lambda = numeric value</code>.</p>
-    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
-
-    
-<ul>
-<li><p><a href='https://github.com/robjhyndman/forecast'>Forecast R Package</a></p></li>
-<li><p><a href='https://otexts.com/fpp2/missing-outliers.html'>Forecasting Principles &amp; Practices: Dealing with missing values and outliers</a></p></li>
+<p><strong>Period Specification</strong></p>
+<p>The <code>period</code> argument accepts complex strings like:</p><ul>
+<li><p>"1 month 4 days 43 minutes"</p></li>
+<li><p>"second = 3, minute = 1, hour = 2, day = 13, week = 1"</p></li>
 </ul>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'>
-<ul>
-<li><p>Box Cox Transformation: <code><a href='box_cox_vec.html'>box_cox_vec()</a></code></p></li>
-<li><p>Lag Transformation: <code><a href='lag_vec.html'>lag_vec()</a></code></p></li>
-<li><p>Differencing Transformation: <code><a href='diff_vec.html'>diff_vec()</a></code></p></li>
-<li><p>Rolling Window Transformation: <code><a href='roll_apply_vec.html'>roll_apply_vec()</a></code></p></li>
-<li><p>Loess Smoothing Transformation: <code><a href='smooth_vec.html'>smooth_vec()</a></code></p></li>
-<li><p>Fourier Series: <code><a href='fourier_vec.html'>fourier_vec()</a></code></p></li>
-<li><p>Missing Value Imputation for Time Series: <code>impute_ts_vec()</code></p></li>
+    <div class='dont-index'><p>Other Time-Based vector functions:</p><ul>
+<li><p><code><a href='between_time.html'>between_time()</a></code> - Range detection for date or date-time sequences.</p></li>
+</ul>
+
+<p>Underlying function:</p><ul>
+<li><p><code><a href='http://lubridate.tidyverse.org/reference/period.html'>lubridate::period()</a></code></p></li>
 </ul>
 </div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>timetk</span>)
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>timetk</span>)
 
 
-<span class='co'># --- VECTOR ----</span>
+<span class='co'># ---- LOCATING A DATE N-PERIODS IN FUTURE / PAST ----</span>
 
-<span class='no'>values</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>3</span>, <span class='fl'>4</span>*<span class='fl'>2</span>, <span class='fl'>5</span>,<span class='fl'>6</span>,<span class='fl'>7</span>, <span class='fl'>NA</span>, <span class='fl'>9</span>,<span class='fl'>10</span>,<span class='fl'>11</span>, <span class='fl'>12</span>*<span class='fl'>2</span>)
-<span class='no'>values</span></div><div class='output co'>#&gt;  [1]  1  2  3  8  5  6  7 NA  9 10 11 24</div><div class='input'>
-<span class='co'># Linear interpolation</span>
-<span class='fu'>impute_ts_vec</span>(<span class='no'>values</span>, <span class='kw'>period</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>lambda</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</div><div class='output co'>#&gt;  [1]  1  2  3  8  5  6  7  8  9 10 11 24</div><div class='input'>
-<span class='co'># Seasonal Interpolation: set period = 4</span>
-<span class='fu'>impute_ts_vec</span>(<span class='no'>values</span>, <span class='kw'>period</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>lambda</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</div><div class='output co'>#&gt;  [1]  1  2  3  8  5  6  7  8  9 10 11 24</div><div class='input'>
-<span class='co'># Seasonal Interpolation with Box Cox Transformation (internal)</span>
-<span class='fu'>impute_ts_vec</span>(<span class='no'>values</span>, <span class='kw'>period</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>lambda</span> <span class='kw'>=</span> <span class='st'>"auto"</span>)</div><div class='output co'>#&gt;  [1]  1.000000  2.000000  3.000000  8.000000  5.000000  6.000000  7.000000
-#&gt;  [8]  7.960571  9.000000 10.000000 11.000000 24.000000</div><div class='input'>
+<span class='co'># Forward (Plus Time)</span>
+<span class='st'>"2021"</span> <span class='kw'>%+time%</span> <span class='st'>"1 hour 34 seconds"</span></div><div class='output co'>#&gt; [1] "2021-01-01 01:00:34 UTC"</div><div class='input'><span class='st'>"2021"</span> <span class='kw'>%+time%</span> <span class='st'>"3 months"</span></div><div class='output co'>#&gt; [1] "2021-04-01"</div><div class='input'><span class='st'>"2021"</span> <span class='kw'>%+time%</span> <span class='st'>"1 year 3 months 6 days"</span></div><div class='output co'>#&gt; [1] "2022-04-07"</div><div class='input'>
+<span class='co'># Backward (Minus Time)</span>
+<span class='st'>"2021"</span> <span class='kw'>%-time%</span> <span class='st'>"1 hour 34 seconds"</span></div><div class='output co'>#&gt; [1] "2020-12-31 22:59:26 UTC"</div><div class='input'><span class='st'>"2021"</span> <span class='kw'>%-time%</span> <span class='st'>"3 months"</span></div><div class='output co'>#&gt; [1] "2020-10-01"</div><div class='input'><span class='st'>"2021"</span> <span class='kw'>%-time%</span> <span class='st'>"1 year 3 months 6 days"</span></div><div class='output co'>#&gt; [1] "2019-09-25"</div><div class='input'>
+<span class='co'># ---- INDEX SHIFTING ----</span>
+
+<span class='no'>index_daily</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='tk_make_timeseries.html'>tk_make_timeseries</a></span>(<span class='st'>"2016"</span>, <span class='st'>"2016-02-01"</span>)</div><div class='output co'>#&gt; <span class='message'>Using by: day</span></div><div class='input'>
+<span class='co'># ADD TIME</span>
+<span class='co'># - Note `NA` values created where a daily dates aren't possible</span>
+<span class='co'>#   (e.g. Feb 29 &amp; 30, 2016 doesn't exist).</span>
+<span class='no'>index_daily</span> <span class='kw'>%+time%</span> <span class='st'>"1 month"</span></div><div class='output co'>#&gt;  [1] "2016-02-01" "2016-02-02" "2016-02-03" "2016-02-04" "2016-02-05"
+#&gt;  [6] "2016-02-06" "2016-02-07" "2016-02-08" "2016-02-09" "2016-02-10"
+#&gt; [11] "2016-02-11" "2016-02-12" "2016-02-13" "2016-02-14" "2016-02-15"
+#&gt; [16] "2016-02-16" "2016-02-17" "2016-02-18" "2016-02-19" "2016-02-20"
+#&gt; [21] "2016-02-21" "2016-02-22" "2016-02-23" "2016-02-24" "2016-02-25"
+#&gt; [26] "2016-02-26" "2016-02-27" "2016-02-28" "2016-02-29" NA          
+#&gt; [31] NA           "2016-03-01"</div><div class='input'>
+<span class='co'># Subtracting Time</span>
+<span class='no'>index_daily</span> <span class='kw'>%-time%</span> <span class='st'>"1 month"</span></div><div class='output co'>#&gt;  [1] "2015-12-01" "2015-12-02" "2015-12-03" "2015-12-04" "2015-12-05"
+#&gt;  [6] "2015-12-06" "2015-12-07" "2015-12-08" "2015-12-09" "2015-12-10"
+#&gt; [11] "2015-12-11" "2015-12-12" "2015-12-13" "2015-12-14" "2015-12-15"
+#&gt; [16] "2015-12-16" "2015-12-17" "2015-12-18" "2015-12-19" "2015-12-20"
+#&gt; [21] "2015-12-21" "2015-12-22" "2015-12-23" "2015-12-24" "2015-12-25"
+#&gt; [26] "2015-12-26" "2015-12-27" "2015-12-28" "2015-12-29" "2015-12-30"
+#&gt; [31] "2015-12-31" "2016-01-01"</div><div class='input'>
+
+
 
 </div></pre>
   </div>
