@@ -122,10 +122,12 @@ one or more timeseries groups in a tibble." />
       <a href="../articles/TK03_Forecasting_Using_Time_Series_Signature.html">Time Series Machine Learning</a>
     </li>
     <li class="divider"></li>
-    <li class="dropdown-header">Time Series Analysis</li>
+    <li class="dropdown-header">Data Wrangling</li>
     <li>
       <a href="../articles/TK07_Time_Series_Data_Wrangling.html">Time Series Data Wrangling</a>
     </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Time Series Fundamentals</li>
     <li>
       <a href="../articles/TK01_Working_With_Time_Series_Index.html">What is the Time Series Signature?</a>
     </li>
@@ -133,7 +135,7 @@ one or more timeseries groups in a tibble." />
       <a href="../articles/TK06_Automatic_Frequency_And_Trend_Selection.html">Automatic Frequency Detection</a>
     </li>
     <li class="divider"></li>
-    <li class="dropdown-header">Time Series Structures</li>
+    <li class="dropdown-header">Sequences &amp; Data Structures</li>
     <li>
       <a href="../articles/TK02_Time_Series_Date_Sequences.html">Intelligent Date &amp; Time Sequences</a>
     </li>
@@ -215,18 +217,18 @@ time series groups.</p><ul>
 <span class='co'># Hourly Data</span>
 <span class='no'>m4_hourly</span> <span class='kw'>%&gt;%</span>
     <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>id</span>) <span class='kw'>%&gt;%</span>
-    <span class='fu'>tk_summary_diagnostics</span>(<span class='no'>date</span>)</div><div class='output co'>#&gt; # A tibble: 4 x 13
-#&gt; # Groups:   id [4]
+    <span class='fu'>tk_summary_diagnostics</span>(<span class='no'>date</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 4 x 13</span><span>
+#&gt; </span><span style='color: #555555;'># Groups:   id [4]</span><span>
 #&gt;   id    n.obs start               end                 units scale tzone
-#&gt;   &lt;fct&gt; &lt;int&gt; &lt;dttm&gt;              &lt;dttm&gt;              &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;
-#&gt; 1 H10     700 2015-07-01 12:00:00 2015-07-30 15:00:00 hours hour  UTC  
-#&gt; 2 H50     700 2015-07-01 12:00:00 2015-07-30 15:00:00 hours hour  UTC  
-#&gt; 3 H150    700 2013-09-01 12:00:00 2013-09-30 15:00:00 hours hour  UTC  
-#&gt; 4 H410    960 2017-01-01 12:00:00 2017-02-10 11:00:00 hours hour  UTC  
-#&gt; # … with 6 more variables: diff.minimum &lt;dbl&gt;, diff.q1 &lt;dbl&gt;,
-#&gt; #   diff.median &lt;dbl&gt;, diff.mean &lt;dbl&gt;, diff.q3 &lt;dbl&gt;, diff.maximum &lt;dbl&gt;</div><div class='input'>
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dttm&gt;</span><span>              </span><span style='color: #555555;font-style: italic;'>&lt;dttm&gt;</span><span>              </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span> H10     700 2015-07-01 </span><span style='color: #555555;'>12:00:00</span><span> 2015-07-30 </span><span style='color: #555555;'>15:00:00</span><span> hours hour  UTC  
+#&gt; </span><span style='color: #555555;'>2</span><span> H50     700 2015-07-01 </span><span style='color: #555555;'>12:00:00</span><span> 2015-07-30 </span><span style='color: #555555;'>15:00:00</span><span> hours hour  UTC  
+#&gt; </span><span style='color: #555555;'>3</span><span> H150    700 2013-09-01 </span><span style='color: #555555;'>12:00:00</span><span> 2013-09-30 </span><span style='color: #555555;'>15:00:00</span><span> hours hour  UTC  
+#&gt; </span><span style='color: #555555;'>4</span><span> H410    960 2017-01-01 </span><span style='color: #555555;'>12:00:00</span><span> 2017-02-10 </span><span style='color: #555555;'>11:00:00</span><span> hours hour  UTC  
+#&gt; </span><span style='color: #555555;'># … with 6 more variables: diff.minimum </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, diff.q1 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   diff.median </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, diff.mean </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, diff.q3 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, diff.maximum </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span></div><div class='input'>
 
-</div></pre>
+</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

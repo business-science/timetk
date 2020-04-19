@@ -124,10 +124,12 @@ These can be removed with step_naomit()." />
       <a href="../articles/TK03_Forecasting_Using_Time_Series_Signature.html">Time Series Machine Learning</a>
     </li>
     <li class="divider"></li>
-    <li class="dropdown-header">Time Series Analysis</li>
+    <li class="dropdown-header">Data Wrangling</li>
     <li>
       <a href="../articles/TK07_Time_Series_Data_Wrangling.html">Time Series Data Wrangling</a>
     </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Time Series Fundamentals</li>
     <li>
       <a href="../articles/TK01_Working_With_Time_Series_Index.html">What is the Time Series Signature?</a>
     </li>
@@ -135,7 +137,7 @@ These can be removed with step_naomit()." />
       <a href="../articles/TK06_Automatic_Frequency_And_Trend_Selection.html">Automatic Frequency Detection</a>
     </li>
     <li class="divider"></li>
-    <li class="dropdown-header">Time Series Structures</li>
+    <li class="dropdown-header">Sequences &amp; Data Structures</li>
     <li>
       <a href="../articles/TK02_Time_Series_Date_Sequences.html">Intelligent Date &amp; Time Sequences</a>
     </li>
@@ -310,46 +312,46 @@ order</em> for lagging.</p>
   <span class='fu'>step_diff</span>(<span class='no'>FB</span>, <span class='no'>AMZN</span>, <span class='no'>NFLX</span>, <span class='no'>GOOG</span>, <span class='kw'>lag</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>3</span>, <span class='kw'>difference</span> <span class='kw'>=</span> <span class='fl'>1</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/prep.html'>prep</a></span>()
 
-<span class='no'>recipe_diff</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/bake.html'>bake</a></span>(<span class='no'>FANG_wide</span>)</div><div class='output co'>#&gt; # A tibble: 1,008 x 17
+<span class='no'>recipe_diff</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/bake.html'>bake</a></span>(<span class='no'>FANG_wide</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 1,008 x 17</span><span>
 #&gt;    date          FB  AMZN  NFLX  GOOG diff_1_1_FB diff_1_1_AMZN diff_1_1_NFLX
-#&gt;    &lt;date&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;       &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;
-#&gt;  1 2013-01-02  28    257.  13.1  361.      NA           NA            NA     
-#&gt;  2 2013-01-03  27.8  258.  13.8  361.      -0.23         1.17          0.654 
-#&gt;  3 2013-01-04  28.8  259.  13.7  369.       0.99         0.670        -0.0871
-#&gt;  4 2013-01-07  29.4  268.  14.2  367.       0.66         9.31          0.460 
-#&gt;  5 2013-01-08  29.1  266.  13.9  366.      -0.360       -2.08         -0.291 
-#&gt;  6 2013-01-09  30.6  266.  13.7  369.       1.53        -0.0300       -0.179 
-#&gt;  7 2013-01-10  31.3  265.  14    370.       0.710       -1.01          0.299 
-#&gt;  8 2013-01-11  31.7  268.  14.5  370.       0.42         2.60          0.47  
-#&gt;  9 2013-01-14  31.0  273.  14.8  361.      -0.770        4.79          0.309 
-#&gt; 10 2013-01-15  30.1  272.  14.5  362.      -0.850       -0.830        -0.251 
-#&gt; # … with 998 more rows, and 9 more variables: diff_1_1_GOOG &lt;dbl&gt;,
-#&gt; #   diff_2_1_FB &lt;dbl&gt;, diff_2_1_AMZN &lt;dbl&gt;, diff_2_1_NFLX &lt;dbl&gt;,
-#&gt; #   diff_2_1_GOOG &lt;dbl&gt;, diff_3_1_FB &lt;dbl&gt;, diff_3_1_AMZN &lt;dbl&gt;,
-#&gt; #   diff_3_1_NFLX &lt;dbl&gt;, diff_3_1_GOOG &lt;dbl&gt;</div><div class='input'>
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>       </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> 2013-01-02  28    257.  13.1  361.      </span><span style='color: #BB0000;'>NA</span><span>           </span><span style='color: #BB0000;'>NA</span><span>            </span><span style='color: #BB0000;'>NA</span><span>     
+#&gt; </span><span style='color: #555555;'> 2</span><span> 2013-01-03  27.8  258.  13.8  361.      -</span><span style='color: #BB0000;'>0.23</span><span>         1.17          0.654 
+#&gt; </span><span style='color: #555555;'> 3</span><span> 2013-01-04  28.8  259.  13.7  369.       0.99         0.670        -</span><span style='color: #BB0000;'>0.087</span><span style='color: #BB0000;text-decoration: underline;'>1</span><span>
+#&gt; </span><span style='color: #555555;'> 4</span><span> 2013-01-07  29.4  268.  14.2  367.       0.66         9.31          0.460 
+#&gt; </span><span style='color: #555555;'> 5</span><span> 2013-01-08  29.1  266.  13.9  366.      -</span><span style='color: #BB0000;'>0.360</span><span>       -</span><span style='color: #BB0000;'>2.08</span><span>         -</span><span style='color: #BB0000;'>0.291</span><span> 
+#&gt; </span><span style='color: #555555;'> 6</span><span> 2013-01-09  30.6  266.  13.7  369.       1.53        -</span><span style='color: #BB0000;'>0.030</span><span style='color: #BB0000;text-decoration: underline;'>0</span><span>       -</span><span style='color: #BB0000;'>0.179</span><span> 
+#&gt; </span><span style='color: #555555;'> 7</span><span> 2013-01-10  31.3  265.  14    370.       0.710       -</span><span style='color: #BB0000;'>1.01</span><span>          0.299 
+#&gt; </span><span style='color: #555555;'> 8</span><span> 2013-01-11  31.7  268.  14.5  370.       0.42         2.60          0.47  
+#&gt; </span><span style='color: #555555;'> 9</span><span> 2013-01-14  31.0  273.  14.8  361.      -</span><span style='color: #BB0000;'>0.770</span><span>        4.79          0.309 
+#&gt; </span><span style='color: #555555;'>10</span><span> 2013-01-15  30.1  272.  14.5  362.      -</span><span style='color: #BB0000;'>0.850</span><span>       -</span><span style='color: #BB0000;'>0.830</span><span>        -</span><span style='color: #BB0000;'>0.251</span><span> 
+#&gt; </span><span style='color: #555555;'># … with 998 more rows, and 9 more variables: diff_1_1_GOOG </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   diff_2_1_FB </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, diff_2_1_AMZN </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, diff_2_1_NFLX </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   diff_2_1_GOOG </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, diff_3_1_FB </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, diff_3_1_AMZN </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   diff_3_1_NFLX </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, diff_3_1_GOOG </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span></div><div class='input'>
 
 <span class='co'># Get information with tidy ----</span>
 
-<span class='no'>recipe_diff</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/reexports.html'>tidy</a></span>()</div><div class='output co'>#&gt; # A tibble: 1 x 6
+<span class='no'>recipe_diff</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/reexports.html'>tidy</a></span>()</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 1 x 6</span><span>
 #&gt;   number operation type  trained skip  id        
-#&gt;    &lt;int&gt; &lt;chr&gt;     &lt;chr&gt; &lt;lgl&gt;   &lt;lgl&gt; &lt;chr&gt;     
-#&gt; 1      1 step      diff  TRUE    FALSE diff_UUEdL</div><div class='input'>
-<span class='no'>recipe_diff</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/reexports.html'>tidy</a></span>(<span class='fl'>1</span>)</div><div class='output co'>#&gt; # A tibble: 12 x 5
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     
+#&gt; </span><span style='color: #555555;'>1</span><span>      1 step      diff  TRUE    FALSE diff_UUEdL</div><div class='input'>
+<span class='no'>recipe_diff</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/reexports.html'>tidy</a></span>(<span class='fl'>1</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 12 x 5</span><span>
 #&gt;    terms           lag  diff log   id        
-#&gt;    &lt;chr&gt;         &lt;int&gt; &lt;dbl&gt; &lt;lgl&gt; &lt;chr&gt;     
-#&gt;  1 diff_FB_1_1       1     1 FALSE diff_UUEdL
-#&gt;  2 diff_AMZN_1_1     1     1 FALSE diff_UUEdL
-#&gt;  3 diff_NFLX_1_1     1     1 FALSE diff_UUEdL
-#&gt;  4 diff_GOOG_1_1     1     1 FALSE diff_UUEdL
-#&gt;  5 diff_FB_2_1       2     1 FALSE diff_UUEdL
-#&gt;  6 diff_AMZN_2_1     2     1 FALSE diff_UUEdL
-#&gt;  7 diff_NFLX_2_1     2     1 FALSE diff_UUEdL
-#&gt;  8 diff_GOOG_2_1     2     1 FALSE diff_UUEdL
-#&gt;  9 diff_FB_3_1       3     1 FALSE diff_UUEdL
-#&gt; 10 diff_AMZN_3_1     3     1 FALSE diff_UUEdL
-#&gt; 11 diff_NFLX_3_1     3     1 FALSE diff_UUEdL
-#&gt; 12 diff_GOOG_3_1     3     1 FALSE diff_UUEdL</div><div class='input'>
-</div></pre>
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     
+#&gt; </span><span style='color: #555555;'> 1</span><span> diff_FB_1_1       1     1 FALSE diff_UUEdL
+#&gt; </span><span style='color: #555555;'> 2</span><span> diff_AMZN_1_1     1     1 FALSE diff_UUEdL
+#&gt; </span><span style='color: #555555;'> 3</span><span> diff_NFLX_1_1     1     1 FALSE diff_UUEdL
+#&gt; </span><span style='color: #555555;'> 4</span><span> diff_GOOG_1_1     1     1 FALSE diff_UUEdL
+#&gt; </span><span style='color: #555555;'> 5</span><span> diff_FB_2_1       2     1 FALSE diff_UUEdL
+#&gt; </span><span style='color: #555555;'> 6</span><span> diff_AMZN_2_1     2     1 FALSE diff_UUEdL
+#&gt; </span><span style='color: #555555;'> 7</span><span> diff_NFLX_2_1     2     1 FALSE diff_UUEdL
+#&gt; </span><span style='color: #555555;'> 8</span><span> diff_GOOG_2_1     2     1 FALSE diff_UUEdL
+#&gt; </span><span style='color: #555555;'> 9</span><span> diff_FB_3_1       3     1 FALSE diff_UUEdL
+#&gt; </span><span style='color: #555555;'>10</span><span> diff_AMZN_3_1     3     1 FALSE diff_UUEdL
+#&gt; </span><span style='color: #555555;'>11</span><span> diff_NFLX_3_1     3     1 FALSE diff_UUEdL
+#&gt; </span><span style='color: #555555;'>12</span><span> diff_GOOG_3_1     3     1 FALSE diff_UUEdL</div><div class='input'>
+</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
