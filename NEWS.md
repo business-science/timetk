@@ -20,7 +20,13 @@ SMALLER ITEMS:
 
 # timetk 1.0.0.9000
 
+__Bug Fixes__:
 
+* `time_series_cv()`: 
+    - Fix incorrect calculation of starts/stops
+    - Fix printing method
+* `plot_time_series_cv_plan()` & `tk_time_series_cv_plan()`: 
+    - Prevent name collisions when underlying data has column "id" or "splits"
 
 # timetk 1.0.0 
 

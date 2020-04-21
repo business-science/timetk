@@ -62,14 +62,17 @@ tk_time_series_cv_plan.default <- function(.rset) {
 time_series_cv_plan <- function(.rset) {
 
     .rset %>%
+        # Prevent name collisions
+        dplyr::rename(.splits = splits, .id = id) %>%
+
         dplyr::ungroup() %>%
         dplyr::mutate(
-            training = purrr::map(splits, ~ rsample::training(.x)),
-            testing  = purrr::map(splits, ~ rsample::testing(.x))
+            training = purrr::map(.splits, ~ rsample::training(.x)),
+            testing  = purrr::map(.splits, ~ rsample::testing(.x))
         ) %>%
-        dplyr::select(-splits) %>%
-        tidyr::gather(-id, key = "key", value = "value", factor_key = TRUE) %>%
-        tidyr::unnest(value) %>%
+        dplyr::select(-.splits) %>%
+        tidyr::gather(-.id, key = ".key", value = ".value", factor_key = TRUE) %>%
+        tidyr::unnest(.value) %>%
         tibble::as_tibble()
 
 }

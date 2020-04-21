@@ -94,11 +94,13 @@ time_series_cv <- function(data, initial = 5, assess = 1,
                            slice_limit = n(), ...) {
     n <- nrow(data)
 
-    if (n < initial + assess)
+    if (n < initial + assess) {
         stop("There should be at least ",
              initial + assess,
              " nrows in `data`",
              call. = FALSE)
+    }
+
 
     if (!is.numeric(lag) | !(lag%%1==0)) {
         stop("`lag` must be a whole number.", call. = FALSE)
@@ -111,7 +113,8 @@ time_series_cv <- function(data, initial = 5, assess = 1,
     # --- IMPLEMENT REVERSED ROLLING ORIGIN ----
 
     # Update assess to account for lag (added to backend of assess)
-    stops <- n - seq(initial, (n - assess), by = skip + 1)
+    # stops <- n - seq(initial, (n - assess), by = skip + 1)
+    stops <- n - seq(assess, (n - initial), by = skip + 1)
 
     # Adjust starts for cumulative vs sliding period
     if (!cumulative) {
@@ -154,12 +157,14 @@ time_series_cv <- function(data, initial = 5, assess = 1,
         splits   = split_objs$splits,
         ids      = split_objs$id,
         attrib   = roll_att,
-        subclass = c("time_series_cv", "rset"))
+        subclass = c("time_series_cv", "rset")
+    )
 }
 
 #' @export
 print.time_series_cv <- function(x, ...) {
-    cat("#", pretty(x), "\n")
+    cat("# Time Series Cross Validation Plan", "\n")
+    # Drop classes: time_series_cv and rset
     class(x) <- class(x)[!(class(x) %in% c("time_series_cv", "rset"))]
     print(x, ...)
 }
@@ -183,12 +188,15 @@ new_rset <-  function(splits, ids, attrib = NULL,
             stop("The `ids` tibble column names should start with 'id'",
                  call. = FALSE)
     }
-    either_type <- function(x)
+    either_type <- function(x) {
         is.character(x) | is.factor(x)
+    }
+
     ch_check <- vapply(ids, either_type, c(logical = TRUE))
-    if(!all(ch_check))
+    if(!all(ch_check)) {
         stop("All ID columns should be character or factor ",
              "vectors.", call. = FALSE)
+    }
 
     if (!tibble::is_tibble(splits)) {
         splits <- tibble::tibble(splits = splits)
@@ -198,9 +206,11 @@ new_rset <-  function(splits, ids, attrib = NULL,
                  "named `splits`.", call. = FALSE)
     }
 
-    if (nrow(ids) != nrow(splits))
+    if (nrow(ids) != nrow(splits)) {
         stop("Split and ID vectors have different lengths.",
              call. = FALSE)
+    }
+
 
     # Create another element to the splits that is a tibble containing
     # an identifer for each id column so that, in isolation, the resample
@@ -219,8 +229,9 @@ new_rset <-  function(splits, ids, attrib = NULL,
             attr(res, i) <- attrib[[i]]
     }
 
-    if (length(subclass) > 0)
+    if (length(subclass) > 0) {
         res <- add_class(res, cls = subclass, at_end = FALSE)
+    }
 
     res
 }

@@ -114,11 +114,11 @@ plot_ts_cv <- function(.rset, .date_var, .value, ...,
 
     data_formatted %>%
         dplyr::ungroup() %>%
-        dplyr::group_by(id) %>%
+        dplyr::group_by(.id) %>%
         plot_time_series(
             .date_var   = !! date_var_expr,
             .value      = !! value_expr,
-            .color_var  = key,
+            .color_var  = .key,
             ...,
             .smooth     = .smooth,
             .title      = .title)
