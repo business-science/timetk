@@ -1,7 +1,7 @@
 Package: timetk
 Type: Package
 Title: A Tool Kit for Working with Time Series in R
-Version: 1.0.0
+Version: 1.0.0.9000
 Authors@R: c(
     person("Matt", "Dancho", email = "mdancho@business-science.io", role = c("aut", "cre")),
     person("Davis", "Vaughan", email = "dvaughan@business-science.io", role = c("aut"))
@@ -9,6 +9,11 @@ Authors@R: c(
 Description: 
     Easy visualization, wrangling, and preprocessing of time series data for 
     forecasting and machine learning prediction. 
+    Methods discussed herein are commonplace in machine learning, and have been cited 
+    in various literature. Refer to "Calendar Effects" in papers such as 
+    Taieb, Souhaib Ben. "Machine learning strategies for multi-step-ahead time series 
+    forecasting." Universit Libre de Bruxelles, Belgium (2014): 75-86. 
+    <http://souhaib-bentaieb.com/pdf/2014_phd.pdf>.
 URL: https://github.com/business-science/timetk
 BugReports: https://github.com/business-science/timetk/issues
 License: GPL (>= 3)
