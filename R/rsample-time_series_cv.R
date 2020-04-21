@@ -34,8 +34,9 @@
 #' __Skip__
 #'
 #' `skip` enables the function to not use every data point in the resamples.
-#'  When `skip = 0`, the resampling data sets will increment by one position.
-#'  Suppose that the rows of a data set are consecutive days. Using `skip = 6`
+#'  When `skip = 1`, the resampling data sets will increment by one position.
+#'
+#'  Example: Suppose that the rows of a data set are consecutive days. Using `skip = 7`
 #'  will make the analysis data set operate on *weeks* instead of days. The
 #'  assessment set size is not affected by this option.
 #'
@@ -64,33 +65,35 @@
 #'
 #' @examples
 #' library(tidyverse)
-#' library(tidyquant)
-#' library(rsample)
 #' library(timetk)
 #'
-#' FB_tbl <- FANG %>%
-#'     filter(symbol == "FB") %>%
-#'     select(symbol, date, adjusted)
+#' # DATA ----
+#' m750 <- m4_monthly %>% filter(id == "M750")
 #'
-#' resample_spec <- time_series_cv(
-#'     FB_tbl,
-#'     initial = 150, assess = 50, skip = 50,
-#'     cumulative = FALSE,
-#'     lag = 30,
-#'     slice_limit = 6)
+#' m750 %>% plot_time_series(date, value)
 #'
-#' resample_spec %>%
-#'     plot_time_series_cv_plan(
-#'         date, adjusted,
-#'         .facet_ncol = 2,
-#'         .line_alpha = 0.5,
-#'         .interactive = FALSE
-#'     )
+#' # RESAMPLE SPEC ----
+#' resample_spec <- time_series_cv(data = m750,
+#'                                 initial     = 12 * 6,
+#'                                 assess      = 12 * 2,
+#'                                 skip        = 12 * 2,
+#'                                 cumulative  = FALSE,
+#'                                 slice_limit = 2)
+#'
+#' resample_spec
+#'
+#' # VISUALIZE CV PLAN ----
+#'
+#' # Select date and value columns from the tscv diagnostic tool
+#' resample_spec %>% tk_time_series_cv_plan()
+#'
+#' # Plot the date and value columns to see the CV Plan
+#' resample_spec %>% plot_time_series_cv_plan(date, value, .interactive = FALSE)
 #'
 #' @export
 #' @importFrom dplyr n
 time_series_cv <- function(data, initial = 5, assess = 1,
-                           cumulative = TRUE, skip = 0, lag = 0,
+                           cumulative = TRUE, skip = 1, lag = 0,
                            slice_limit = n(), ...) {
     n <- nrow(data)
 
@@ -101,6 +104,9 @@ time_series_cv <- function(data, initial = 5, assess = 1,
              call. = FALSE)
     }
 
+    if (skip < 1) {
+        rlang::abort("skip cannot be less than 1.")
+    }
 
     if (!is.numeric(lag) | !(lag%%1==0)) {
         stop("`lag` must be a whole number.", call. = FALSE)
@@ -114,7 +120,7 @@ time_series_cv <- function(data, initial = 5, assess = 1,
 
     # Update assess to account for lag (added to backend of assess)
     # stops <- n - seq(initial, (n - assess), by = skip + 1)
-    stops <- n - seq(assess, (n - initial), by = skip + 1)
+    stops <- n - seq(assess, (n - initial), by = skip)
 
     # Adjust starts for cumulative vs sliding period
     if (!cumulative) {

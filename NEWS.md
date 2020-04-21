@@ -24,6 +24,8 @@ __Bug Fixes__:
 
 * `time_series_cv()`: 
     - Fix incorrect calculation of starts/stops
+    - Make `skip = 1` default. `skip = 0` does not make sense. 
+    - Fix issue with `skip` adding 1 to stops. 
     - Fix printing method
 * `plot_time_series_cv_plan()` & `tk_time_series_cv_plan()`: 
     - Prevent name collisions when underlying data has column "id" or "splits"

@@ -9,7 +9,7 @@ time_series_cv(
   initial = 5,
   assess = 1,
   cumulative = TRUE,
-  skip = 0,
+  skip = 1,
   lag = 0,
   slice_limit = n(),
   ...
@@ -72,8 +72,9 @@ set and resampling occurs over a fixed window.
 \strong{Skip}
 
 \code{skip} enables the function to not use every data point in the resamples.
-When \code{skip = 0}, the resampling data sets will increment by one position.
-Suppose that the rows of a data set are consecutive days. Using \code{skip = 6}
+When \code{skip = 1}, the resampling data sets will increment by one position.
+
+Example: Suppose that the rows of a data set are consecutive days. Using \code{skip = 7}
 will make the analysis data set operate on \emph{weeks} instead of days. The
 assessment set size is not affected by this option.
 
@@ -89,28 +90,30 @@ This controls the number of slices. If \code{slice_limit = 5}, only the most rec
 }
 \examples{
 library(tidyverse)
-library(tidyquant)
-library(rsample)
 library(timetk)
 
-FB_tbl <- FANG \%>\%
-    filter(symbol == "FB") \%>\%
-    select(symbol, date, adjusted)
+# DATA ----
+m750 <- m4_monthly \%>\% filter(id == "M750")
 
-resample_spec <- time_series_cv(
-    FB_tbl,
-    initial = 150, assess = 50, skip = 50,
-    cumulative = FALSE,
-    lag = 30,
-    slice_limit = 6)
+m750 \%>\% plot_time_series(date, value)
 
-resample_spec \%>\%
-    plot_time_series_cv_plan(
-        date, adjusted,
-        .facet_ncol = 2,
-        .line_alpha = 0.5,
-        .interactive = FALSE
-    )
+# RESAMPLE SPEC ----
+resample_spec <- time_series_cv(data = m750,
+                                initial     = 12 * 6,
+                                assess      = 12 * 2,
+                                skip        = 12 * 2,
+                                cumulative  = FALSE,
+                                slice_limit = 2)
+
+resample_spec
+
+# VISUALIZE CV PLAN ----
+
+# Select date and value columns from the tscv diagnostic tool
+resample_spec \%>\% tk_time_series_cv_plan()
+
+# Plot the date and value columns to see the CV Plan
+resample_spec \%>\% plot_time_series_cv_plan(date, value, .interactive = FALSE)
 
 }
 \seealso{
