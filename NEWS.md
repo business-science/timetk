@@ -21,11 +21,15 @@ Steps:
 
 __New Interactive Plotting Functions__::
 
-`plot_anomaly_diagnostics()`: 
+* `plot_anomaly_diagnostics()`: Visualize Anomalies for One or More Time Series
 
 __New Diagnostic / Data Processing Functions__
 
 * `tk_anomaly_diagnostics()`  - Group-wise anomaly detection and diagnostics. A wrapper for the `anomalize` R package functions without importing `anomalize`.  
+
+__New Vectorized Functions__:
+
+* `ts_clean_vec()` - Replace Outliers & Missing Values in a Time Series
 
 __Bug Fixes__:
 
@@ -36,6 +40,10 @@ __Bug Fixes__:
     - Fix printing method
 * `plot_time_series_cv_plan()` & `tk_time_series_cv_plan()`: 
     - Prevent name collisions when underlying data has column "id" or "splits"
+    
+__Breaking Changes__:
+
+* Renamed `impute_ts_vec()` to `ts_impute_vec()` for consistency with `ts_clean_vec()`
 
 # timetk 1.0.0 
 
