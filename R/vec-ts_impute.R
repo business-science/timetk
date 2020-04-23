@@ -1,7 +1,7 @@
 #' Missing Value Imputation for Time Series
 #'
 #' This is mainly a wrapper for the Seasonally Adjusted Missing Value using Linear Interpolation function,
-#' `na.interp()`, from the `forecast` R package. The `impute_ts_vec()` function includes arguments for applying
+#' `na.interp()`, from the `forecast` R package. The `ts_impute_vec()` function includes arguments for applying
 #' seasonality to numeric vector (non-`ts`) via the `period` argument.
 #'
 #' @param x A numeric vector.
@@ -40,7 +40,7 @@
 #'   - Rolling Window Transformation: [roll_apply_vec()]
 #'   - Loess Smoothing Transformation: [smooth_vec()]
 #'   - Fourier Series: [fourier_vec()]
-#'   - Missing Value Imputation for Time Series: [impute_ts_vec()]
+#'   - Missing Value Imputation for Time Series: [ts_impute_vec()]
 #'
 #' @references
 #' - [Forecast R Package](https://github.com/robjhyndman/forecast)
@@ -57,22 +57,22 @@
 #' values
 #'
 #' # Linear interpolation
-#' impute_ts_vec(values, period = 1, lambda = NULL)
+#' ts_impute_vec(values, period = 1, lambda = NULL)
 #'
 #' # Seasonal Interpolation: set period = 4
-#' impute_ts_vec(values, period = 4, lambda = NULL)
+#' ts_impute_vec(values, period = 4, lambda = NULL)
 #'
 #' # Seasonal Interpolation with Box Cox Transformation (internal)
-#' impute_ts_vec(values, period = 4, lambda = "auto")
+#' ts_impute_vec(values, period = 4, lambda = "auto")
 #'
 #'
-#' @name impute_ts_vec
+#' @name ts_impute_vec
 #' @export
 NULL
 
-#' @rdname impute_ts_vec
+#' @rdname ts_impute_vec
 #' @export
-impute_ts_vec <- function(x, period = 1, lambda = NULL) {
+ts_impute_vec <- function(x, period = 1, lambda = NULL) {
 
     x_ts        <- tk_ts(x, frequency = period)
 

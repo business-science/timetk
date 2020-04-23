@@ -34,7 +34,7 @@
 #' @seealso
 #'
 #' Imputation:
-#' - [impute_ts_vec()] - Impute missing values for time series.
+#' - [ts_impute_vec()] - Impute missing values for time series.
 #'
 #' Additional Time-Based `dplyr`-style functions:
 #'
@@ -76,7 +76,7 @@
 #' # Can then impute missing values
 #' missing_data_tbl %>%
 #'     pad_by_time(date, .by = "quarter") %>%
-#'     mutate(value = impute_ts_vec(value, period = 1))
+#'     mutate(value = ts_impute_vec(value, period = 1))
 #'
 #' # --- GROUPS ----
 #' FANG %>%

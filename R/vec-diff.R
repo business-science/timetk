@@ -55,7 +55,7 @@
 #'   - Rolling Window Transformation: [roll_apply_vec()]
 #'   - Loess Smoothing Transformation: [smooth_vec()]
 #'   - Fourier Series: [fourier_vec()]
-#'   - Missing Value Imputation for Time Series: [impute_ts_vec()]
+#'   - Missing Value Imputation for Time Series: [ts_impute_vec()]
 #'
 #' @examples
 #' library(dplyr)

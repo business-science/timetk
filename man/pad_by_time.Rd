@@ -72,7 +72,7 @@ missing_data_tbl \%>\% pad_by_time(date, .by = "quarter", .pad_value = 0)
 # Can then impute missing values
 missing_data_tbl \%>\%
     pad_by_time(date, .by = "quarter") \%>\%
-    mutate(value = impute_ts_vec(value, period = 1))
+    mutate(value = ts_impute_vec(value, period = 1))
 
 # --- GROUPS ----
 FANG \%>\%
@@ -88,7 +88,7 @@ FANG \%>\%
 \seealso{
 Imputation:
 \itemize{
-\item \code{\link[=impute_ts_vec]{impute_ts_vec()}} - Impute missing values for time series.
+\item \code{\link[=ts_impute_vec]{ts_impute_vec()}} - Impute missing values for time series.
 }
 
 Additional Time-Based \code{dplyr}-style functions:

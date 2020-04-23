@@ -67,7 +67,7 @@ Vectorized Transformations:
 \item Rolling Window Transformation: \code{\link[=roll_apply_vec]{roll_apply_vec()}}
 \item Loess Smoothing Transformation: \code{\link[=smooth_vec]{smooth_vec()}}
 \item Fourier Series: \code{\link[=fourier_vec]{fourier_vec()}}
-\item Missing Value Imputation for Time Series: \code{\link[=impute_ts_vec]{impute_ts_vec()}}
+\item Missing Value Imputation for Time Series: \code{\link[=ts_impute_vec]{ts_impute_vec()}}
 }
 
 \itemize{

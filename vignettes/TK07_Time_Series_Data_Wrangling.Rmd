@@ -150,7 +150,7 @@ Used to fill in (pad) gaps and to go from from low frequency to high frequency. 
 Objective: Make an irregular series regular. 
 
 - We will leave padded values as `NA`. 
-- We can add a value using `.pad_value` or we can impute using a function like `impute_ts_vec()` (shown next). 
+- We can add a value using `.pad_value` or we can impute using a function like `ts_impute_vec()` (shown next). 
 
 ```{r, message=TRUE}
 FANG %>%
@@ -163,7 +163,7 @@ FANG %>%
 Objective: Go from Daily to Hourly timestamp intervals for 1 month from the start date. Impute the missing values.
 
 - `.by = "hour"` pads from daily to hourly
-- Imputation of hourly data is accomplished with `impute_ts_vec()`, which performs linear interpolation when `period = 1`.
+- Imputation of hourly data is accomplished with `ts_impute_vec()`, which performs linear interpolation when `period = 1`.
 - Filtering is accomplished using:  
     - "start": A special keyword that signals the start of a series
     - `FIRST(date) %+time% "1 month"`: Selecting the first date in the sequence then using a special infix operation, `%+time%`, called "add time". In this case I add "1 month". 
@@ -172,7 +172,7 @@ Objective: Go from Daily to Hourly timestamp intervals for 1 month from the star
 FANG %>%
   group_by(symbol) %>%
   pad_by_time(date, .by = "hour") %>%
-  mutate_at(vars(open:adjusted), .funs = impute_ts_vec, period = 1) %>%
+  mutate_at(vars(open:adjusted), .funs = ts_impute_vec, period = 1) %>%
   filter_by_time(date, "start", FIRST(date) %+time% "1 month") %>%
   plot_time_series(date, adjusted, .facet_ncol = 2, .interactive = FALSE) 
 ```

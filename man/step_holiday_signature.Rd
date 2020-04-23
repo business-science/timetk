@@ -140,7 +140,7 @@ Time Series Analysis:
 \item Diffs & Lags \code{\link[=step_diff]{step_diff()}}, \code{\link[recipes:step_lag]{recipes::step_lag()}}
 \item Smoothing: \code{\link[=step_roll_apply]{step_roll_apply()}}, \code{\link[=step_smooth]{step_smooth()}}
 \item Variance Reduction: \code{\link[=step_box_cox]{step_box_cox()}}
-\item Imputation: \code{\link[=step_impute_ts]{step_impute_ts()}}
+\item Imputation: \code{\link[=step_ts_impute]{step_ts_impute()}}
 }
 
 Main Recipe Functions:

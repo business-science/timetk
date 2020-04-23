@@ -78,7 +78,7 @@
 #'  - Diffs & Lags [step_diff()], [recipes::step_lag()]
 #'  - Smoothing: [step_roll_apply()], [step_smooth()]
 #'  - Variance Reduction: [step_box_cox()]
-#'  - Imputation: [step_impute_ts()]
+#'  - Imputation: [step_ts_impute()]
 #'
 #' Transformations to reduce variance:
 #' - [recipes::step_log()] - Log transformation

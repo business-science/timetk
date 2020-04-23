@@ -44,6 +44,7 @@ __Bug Fixes__:
 __Breaking Changes__:
 
 * Renamed `impute_ts_vec()` to `ts_impute_vec()` for consistency with `ts_clean_vec()`
+* Renamed `step_impute_ts()` to `step_ts_impute()` for consistency with underlying function
 
 # timetk 1.0.0 
 
