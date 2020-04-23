@@ -16,6 +16,8 @@ navbar:
           href: articles/TK04_Plotting_Time_Series.html
         - text: "Plotting Seasonality and Correlation"
           href: articles/TK05_Plotting_Seasonality_and_Correlation.html
+        - text: "Automatic Anomaly Detection"
+          href: articles/TK08_Automatic_Anomaly_Detection.Rmd
         - text: '---'
         - text: "Machine Learning"
         - text: "Time Series Machine Learning"
@@ -129,6 +131,7 @@ reference:
     desc: __These power the time series plotting functions__
     contents:
     - "tk_summary_diagnostics"
+    - "tk_anomaly_diagnostics"
     - "tk_acf_diagnostics"
     - "tk_seasonal_diagnostics"
     - "tk_stl_diagnostics"
