@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Smoothing Transformation using Loess — smooth_vec • timetk</title>
+<title>Replace Outliers &amp; Missing Values in a Time Series — ts_clean_vec • timetk</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -48,8 +48,10 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Smoothing Transformation using Loess — smooth_vec" />
-<meta property="og:description" content="smooth_vec() applies a LOESS transformation to a numeric vector." />
+<meta property="og:title" content="Replace Outliers &amp; Missing Values in a Time Series — ts_clean_vec" />
+<meta property="og:description" content="This is mainly a wrapper for the Seasonally Adjusted Missing Value using Linear Interpolation function,
+tsclean(), from the forecast R package. The ts_clean_vec() function includes arguments for applying
+seasonality to numeric vector (non-ts) via the period argument." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -173,127 +175,93 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Smoothing Transformation using Loess</h1>
-    <small class="dont-index">Source: <a href='https://github.com/business-science/timetk/blob/master/R/vec-smooth.R'><code>R/vec-smooth.R</code></a></small>
-    <div class="hidden name"><code>smooth_vec.Rd</code></div>
+    <h1>Replace Outliers &amp; Missing Values in a Time Series</h1>
+    <small class="dont-index">Source: <a href='https://github.com/business-science/timetk/blob/master/R/vec-ts_clean.R'><code>R/vec-ts_clean.R</code></a></small>
+    <div class="hidden name"><code>ts_clean_vec.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><code>smooth_vec()</code> applies a LOESS transformation to a numeric vector.</p>
+    <p>This is mainly a wrapper for the Seasonally Adjusted Missing Value using Linear Interpolation function,
+<code>tsclean()</code>, from the <code>forecast</code> R package. The <code>ts_clean_vec()</code> function includes arguments for applying
+seasonality to numeric vector (non-<code>ts</code>) via the <code>period</code> argument.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>smooth_vec</span>(<span class='no'>x</span>, <span class='kw'>period</span> <span class='kw'>=</span> <span class='fl'>30</span>, <span class='kw'>span</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>degree</span> <span class='kw'>=</span> <span class='fl'>2</span>)</pre>
+    <pre class="usage"><span class='fu'>ts_clean_vec</span>(<span class='no'>x</span>, <span class='kw'>period</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>lambda</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>A numeric vector to have a smoothing transformation applied.</p></td>
+      <td><p>A numeric vector.</p></td>
     </tr>
     <tr>
       <th>period</th>
-      <td><p>The number of periods to include in the local smoothing.
-Similar to window size for a moving average.
-See details for an explanation <code>period</code> vs <code>span</code> specification.</p></td>
+      <td><p>A seasonal period to use during the transformation. If <code>period = 1</code>,
+seasonality is not included and <code><a href='https://rdrr.io/r/stats/supsmu.html'>supsmu()</a></code> is used to fit a trend.
+If <code>period &gt; 1</code>, a robust STL decomposition is
+first performed and a linear interpolation is applied to the seasonally adjusted data.</p></td>
     </tr>
     <tr>
-      <th>span</th>
-      <td><p>The span is a percentage of data to be included
-in the smoothing window. Period is preferred for shorter windows
-to fix the window size.
-See details for an explanation <code>period</code> vs <code>span</code> specification.</p></td>
-    </tr>
-    <tr>
-      <th>degree</th>
-      <td><p>The degree of the polynomials to be used.
-Accetable values (least to most flexible): 0, 1, 2.
-Set to 2 by default for 2nd order polynomial (most flexible).</p></td>
+      <th>lambda</th>
+      <td><p>A box cox transformation parameter. If set to <code>"auto"</code>, performs
+automated lambda selection.</p></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>A numeric vector</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p><strong>Benefits:</strong></p><ul>
-<li><p>When using <code>period</code>, the effect is
-<strong>similar to a moving average without creating missing values.</strong></p></li>
-<li><p>When using <code>span</code>, the effect is to detect the trend in a series
-<strong>using a percentage of the total number of observations.</strong></p></li>
+    <p><strong>Cleaning Outliers</strong></p><ol>
+<li><p>Non-Seasonal (<code>period = 1</code>): Uses <code><a href='https://rdrr.io/r/stats/supsmu.html'>stats::supsmu()</a></code></p></li>
+<li><p>Seasonal (<code>period &gt; 1</code>): Uses robust STL decomposition for seasonal series.</p></li>
+</ol>
+
+<p>To estimate missing values and outlier replacements, linear interpolation is used on the
+(possibly seasonally adjusted) series. See <code><a href='https://rdrr.io/pkg/forecast/man/tsoutliers.html'>forecast::tsoutliers()</a></code>.</p>
+<p><strong>Box Cox Transformation</strong></p>
+<p>In many circumstances, a Box Cox transformation can help. Especially if the series is multiplicative
+meaning the variance grows exponentially. A Box Cox transformation can be automated by setting <code>lambda = "auto"</code>
+or can be specified by setting <code>lambda = numeric value</code>.</p>
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+
+    
+<ul>
+<li><p><a href='https://github.com/robjhyndman/forecast'>Forecast R Package</a></p></li>
+<li><p><a href='https://otexts.com/fpp2/missing-outliers.html'>Forecasting Principles &amp; Practices: Dealing with missing values and outliers</a></p></li>
 </ul>
 
-<p><strong>Loess Smoother Algorithm</strong>
-This function is a simplified wrapper for the <code><a href='https://rdrr.io/r/stats/loess.html'>stats::loess()</a></code>
-with a modification to set a fixed <code>period</code> rather than a percentage of
-data points via a <code>span</code>.</p>
-<p><strong>Why Period vs Span?</strong>
-The <code>period</code> is fixed whereas the <code>span</code> changes as the number of observations change.</p>
-<p><strong>When to use Period?</strong>
-The effect of using a <code>period</code> is similar to a Moving Average where the Window Size
-is the <em><strong>Fixed Period</strong></em>. This helps when you are trying to smooth local trends.
-If you want a 30-day moving average, specify <code>period = 30</code>.</p>
-<p><strong>When to use Span?</strong>
-Span is easier to specify when you want a <em><strong>Long-Term Trendline</strong></em> where the
-window size is unknown. You can specify <code>span = 0.75</code> to locally regress
-using a window of 75% of the data.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Loess Modeling Functions:</p><ul>
-<li><p><code><a href='step_smooth.html'>step_smooth()</a></code> - Recipe for <code>tidymodels</code> workflow</p></li>
-</ul>
-
-<p>Additional Vector Functions:</p><ul>
+    <div class='dont-index'>
+<ul>
 <li><p>Box Cox Transformation: <code><a href='box_cox_vec.html'>box_cox_vec()</a></code></p></li>
 <li><p>Lag Transformation: <code><a href='lag_vec.html'>lag_vec()</a></code></p></li>
 <li><p>Differencing Transformation: <code><a href='diff_vec.html'>diff_vec()</a></code></p></li>
 <li><p>Rolling Window Transformation: <code><a href='roll_apply_vec.html'>roll_apply_vec()</a></code></p></li>
-<li><p>Loess Smoothing Transformation: <code>smooth_vec()</code></p></li>
+<li><p>Loess Smoothing Transformation: <code><a href='smooth_vec.html'>smooth_vec()</a></code></p></li>
 <li><p>Fourier Series: <code><a href='fourier_vec.html'>fourier_vec()</a></code></p></li>
 <li><p>Missing Value Imputation for Time Series: <code><a href='ts_impute_vec.html'>ts_impute_vec()</a></code></p></li>
+<li><p>Outlier Cleaning for Time Series: <code>ts_clean_vec()</code></p></li>
 </ul>
 </div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>tidyverse</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>tidyquant</span>)
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>)
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>timetk</span>)
 
-<span class='co'># Training Data</span>
-<span class='no'>FB_tbl</span> <span class='kw'>&lt;-</span> <span class='no'>FANG</span> <span class='kw'>%&gt;%</span>
-    <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span>(<span class='no'>symbol</span> <span class='kw'>==</span> <span class='st'>"FB"</span>) <span class='kw'>%&gt;%</span>
-    <span class='fu'>select</span>(<span class='no'>symbol</span>, <span class='no'>date</span>, <span class='no'>adjusted</span>)
 
-<span class='co'># ---- PERIOD ----</span>
+<span class='co'># --- VECTOR ----</span>
 
-<span class='no'>FB_tbl</span> <span class='kw'>%&gt;%</span>
-    <span class='fu'>mutate</span>(<span class='kw'>adjusted_30</span> <span class='kw'>=</span> <span class='fu'>smooth_vec</span>(<span class='no'>adjusted</span>, <span class='kw'>period</span> <span class='kw'>=</span> <span class='fl'>30</span>, <span class='kw'>degree</span> <span class='kw'>=</span> <span class='fl'>2</span>)) <span class='kw'>%&gt;%</span>
-    <span class='fu'>ggplot</span>(<span class='fu'>aes</span>(<span class='no'>date</span>, <span class='no'>adjusted</span>)) +
-    <span class='fu'>geom_line</span>() +
-    <span class='fu'>geom_line</span>(<span class='fu'>aes</span>(<span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>adjusted_30</span>), <span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"red"</span>)</div><div class='img'><img src='smooth_vec-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># ---- SPAN ----</span>
-
-<span class='no'>FB_tbl</span> <span class='kw'>%&gt;%</span>
-    <span class='fu'>mutate</span>(<span class='kw'>adjusted_30</span> <span class='kw'>=</span> <span class='fu'>smooth_vec</span>(<span class='no'>adjusted</span>, <span class='kw'>span</span> <span class='kw'>=</span> <span class='fl'>0.75</span>, <span class='kw'>degree</span> <span class='kw'>=</span> <span class='fl'>2</span>)) <span class='kw'>%&gt;%</span>
-    <span class='fu'>ggplot</span>(<span class='fu'>aes</span>(<span class='no'>date</span>, <span class='no'>adjusted</span>)) +
-    <span class='fu'>geom_line</span>() +
-    <span class='fu'>geom_line</span>(<span class='fu'>aes</span>(<span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>adjusted_30</span>), <span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"red"</span>)</div><div class='img'><img src='smooth_vec-2.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># ---- Loess vs Moving Average ----</span>
-<span class='co'># - Loess: Using `degree = 0` to make less flexible. Comperable to a moving average.</span>
-
-<span class='no'>FB_tbl</span> <span class='kw'>%&gt;%</span>
-    <span class='fu'>mutate</span>(
-        <span class='kw'>adjusted_loess_30</span> <span class='kw'>=</span> <span class='fu'>smooth_vec</span>(<span class='no'>adjusted</span>, <span class='kw'>period</span> <span class='kw'>=</span> <span class='fl'>30</span>, <span class='kw'>degree</span> <span class='kw'>=</span> <span class='fl'>0</span>),
-        <span class='kw'>adjusted_ma_30</span>    <span class='kw'>=</span> <span class='fu'><a href='roll_apply_vec.html'>roll_apply_vec</a></span>(<span class='no'>adjusted</span>, <span class='kw'>.period</span> <span class='kw'>=</span> <span class='fl'>30</span>,
-                                           <span class='kw'>.f</span> <span class='kw'>=</span> <span class='no'>AVERAGE</span>, <span class='kw'>.partial</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-    ) <span class='kw'>%&gt;%</span>
-    <span class='fu'>ggplot</span>(<span class='fu'>aes</span>(<span class='no'>date</span>, <span class='no'>adjusted</span>)) +
-    <span class='fu'>geom_line</span>() +
-    <span class='fu'>geom_line</span>(<span class='fu'>aes</span>(<span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>adjusted_loess_30</span>), <span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"red"</span>) +
-    <span class='fu'>geom_line</span>(<span class='fu'>aes</span>(<span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>adjusted_ma_30</span>), <span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"blue"</span>) +
-    <span class='fu'>labs</span>(<span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"Loess vs Moving Average"</span>)</div><div class='img'><img src='smooth_vec-3.png' alt='' width='700' height='433' /></div><div class='input'>
-
+<span class='no'>values</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>3</span>, <span class='fl'>4</span>*<span class='fl'>2</span>, <span class='fl'>5</span>,<span class='fl'>6</span>,<span class='fl'>7</span>, <span class='fl'>NA</span>, <span class='fl'>9</span>,<span class='fl'>10</span>,<span class='fl'>11</span>, <span class='fl'>12</span>*<span class='fl'>2</span>)
+<span class='no'>values</span></div><div class='output co'>#&gt;  [1]  1  2  3  8  5  6  7 NA  9 10 11 24</div><div class='input'>
+<span class='co'># Linear interpolation + Outlier Cleansing</span>
+<span class='fu'>ts_clean_vec</span>(<span class='no'>values</span>, <span class='kw'>period</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>lambda</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</div><div class='output co'>#&gt;  [1] 1 2 3 4 5 6 7 8 9 9 9 9</div><div class='input'>
+<span class='co'># Seasonal Interpolation: set period = 4</span>
+<span class='fu'>ts_clean_vec</span>(<span class='no'>values</span>, <span class='kw'>period</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>lambda</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</div><div class='output co'>#&gt;  [1]  1.00000  2.00000  3.00000  8.00000  5.00000  6.00000  7.00000 11.25708
+#&gt;  [9]  9.00000 10.00000 10.00000 14.00000</div><div class='input'>
+<span class='co'># Seasonal Interpolation with Box Cox Transformation (internal)</span>
+<span class='fu'>ts_clean_vec</span>(<span class='no'>values</span>, <span class='kw'>period</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>lambda</span> <span class='kw'>=</span> <span class='st'>"auto"</span>)</div><div class='output co'>#&gt;  [1]  1.000000  2.000000  3.000000  8.457582  3.834587  6.000000  7.000000
+#&gt;  [8] 15.911866  9.000000 10.000000 11.000000 24.000000</div><div class='input'>
 
 </div></pre>
   </div>

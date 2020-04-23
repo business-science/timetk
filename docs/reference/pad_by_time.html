@@ -237,7 +237,7 @@ This is possible by supplying a higher frequency to <code>pad_by_time()</code>.<
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Imputation:</p><ul>
-<li><p><code><a href='impute_ts_vec.html'>impute_ts_vec()</a></code> - Impute missing values for time series.</p></li>
+<li><p><code><a href='ts_impute_vec.html'>ts_impute_vec()</a></code> - Impute missing values for time series.</p></li>
 </ul>
 
 <p>Additional Time-Based <code>dplyr</code>-style functions:</p><ul>
@@ -315,7 +315,7 @@ This is possible by supplying a higher frequency to <code>pad_by_time()</code>.<
 <span class='co'># Can then impute missing values</span>
 <span class='no'>missing_data_tbl</span> <span class='kw'>%&gt;%</span>
     <span class='fu'>pad_by_time</span>(<span class='no'>date</span>, <span class='kw'>.by</span> <span class='kw'>=</span> <span class='st'>"quarter"</span>) <span class='kw'>%&gt;%</span>
-    <span class='fu'>mutate</span>(<span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'><a href='impute_ts_vec.html'>impute_ts_vec</a></span>(<span class='no'>value</span>, <span class='kw'>period</span> <span class='kw'>=</span> <span class='fl'>1</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 5 x 2</span><span>
+    <span class='fu'>mutate</span>(<span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'><a href='ts_impute_vec.html'>ts_impute_vec</a></span>(<span class='no'>value</span>, <span class='kw'>period</span> <span class='kw'>=</span> <span class='fl'>1</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 5 x 2</span><span>
 #&gt;   date       value
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
 #&gt; </span><span style='color: #555555;'>1</span><span> 2014-01-01     1

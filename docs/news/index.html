@@ -181,11 +181,19 @@
 <a href="#timetk-1009000" class="anchor"></a>timetk 1.0.0.9000<small> Unreleased </small>
 </h1>
 <p><strong>New Interactive Plotting Functions</strong>::</p>
-<p><code><a href="../reference/plot_anomaly_diagnostics.html">plot_anomaly_diagnostics()</a></code>:</p>
+<ul>
+<li>
+<code><a href="../reference/plot_anomaly_diagnostics.html">plot_anomaly_diagnostics()</a></code>: Visualize Anomalies for One or More Time Series</li>
+</ul>
 <p><strong>New Diagnostic / Data Processing Functions</strong></p>
 <ul>
 <li>
 <code><a href="../reference/tk_anomaly_diagnostics.html">tk_anomaly_diagnostics()</a></code> - Group-wise anomaly detection and diagnostics. A wrapper for the <code>anomalize</code> R package functions without importing <code>anomalize</code>.</li>
+</ul>
+<p><strong>New Vectorized Functions</strong>:</p>
+<ul>
+<li>
+<code><a href="../reference/ts_clean_vec.html">ts_clean_vec()</a></code> - Replace Outliers &amp; Missing Values in a Time Series</li>
 </ul>
 <p><strong>Bug Fixes</strong>:</p>
 <ul>
@@ -204,6 +212,12 @@
 <li>Prevent name collisions when underlying data has column “id” or “splits”</li>
 </ul>
 </li>
+</ul>
+<p><strong>Breaking Changes</strong>:</p>
+<ul>
+<li>Renamed <code>impute_ts_vec()</code> to <code><a href="../reference/ts_impute_vec.html">ts_impute_vec()</a></code> for consistency with <code><a href="../reference/ts_clean_vec.html">ts_clean_vec()</a></code>
+</li>
+<li>Renamed <code>step_impute_ts()</code> to <code><a href="../reference/step_ts_impute.html">step_ts_impute()</a></code> for consistency with underlying function</li>
 </ul>
 </div>
     <div id="timetk-100" class="section level1">
@@ -254,7 +268,7 @@
 <li>
 <code><a href="../reference/step_box_cox.html">step_box_cox()</a></code> - New recipe for transforming predictors. Similar to <code>step_BoxCox()</code> with improvements for forecasting including “guerrero” method for lambda selection and handling of negative data.</li>
 <li>
-<code><a href="../reference/step_impute_ts.html">step_impute_ts()</a></code> - New recipe for imputing a time series.</li>
+<code>step_impute_ts()</code> - New recipe for imputing a time series.</li>
 </ul>
 <p><strong>New Rsample Functions</strong></p>
 <ul>
@@ -278,7 +292,7 @@
 <li>
 <code><a href="../reference/fourier_vec.html">fourier_vec()</a></code> - Vectorized Fourier Series calculation.</li>
 <li>
-<code><a href="../reference/impute_ts_vec.html">impute_ts_vec()</a></code> - Vectorized imputation of missing values for time series. Leverages <code><a href="https://rdrr.io/pkg/forecast/man/na.interp.html">forecast::na.interp()</a></code>.</li>
+<code>impute_ts_vec()</code> - Vectorized imputation of missing values for time series. Leverages <code><a href="https://rdrr.io/pkg/forecast/man/na.interp.html">forecast::na.interp()</a></code>.</li>
 </ul>
 <p><strong>New Augment Functions</strong>:</p>
 <p>All of the functions are designed for scale. They respect <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">dplyr::group_by()</a></code>.</p>

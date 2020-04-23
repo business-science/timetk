@@ -279,7 +279,7 @@
 <p>Objective: Make an irregular series regular.</p>
 <ul>
 <li>We will leave padded values as <code>NA</code>.</li>
-<li>We can add a value using <code>.pad_value</code> or we can impute using a function like <code><a href="../reference/impute_ts_vec.html">impute_ts_vec()</a></code> (shown next).</li>
+<li>We can add a value using <code>.pad_value</code> or we can impute using a function like <code><a href="../reference/ts_impute_vec.html">ts_impute_vec()</a></code> (shown next).</li>
 </ul>
 <div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="no">FANG</span> <span class="kw">%&gt;%</span>
   <span class="fu">group_by</span>(<span class="no">symbol</span>) <span class="kw">%&gt;%</span>
@@ -311,7 +311,7 @@
 <ul>
 <li>
 <code>.by = "hour"</code> pads from daily to hourly</li>
-<li>Imputation of hourly data is accomplished with <code><a href="../reference/impute_ts_vec.html">impute_ts_vec()</a></code>, which performs linear interpolation when <code>period = 1</code>.</li>
+<li>Imputation of hourly data is accomplished with <code><a href="../reference/ts_impute_vec.html">ts_impute_vec()</a></code>, which performs linear interpolation when <code>period = 1</code>.</li>
 <li>Filtering is accomplished using:
 <ul>
 <li>“start”: A special keyword that signals the start of a series</li>
@@ -323,7 +323,7 @@
 <div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="no">FANG</span> <span class="kw">%&gt;%</span>
   <span class="fu">group_by</span>(<span class="no">symbol</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../reference/pad_by_time.html">pad_by_time</a></span>(<span class="no">date</span>, <span class="kw">.by</span> <span class="kw">=</span> <span class="st">"hour"</span>) <span class="kw">%&gt;%</span>
-  <span class="fu">mutate_at</span>(<span class="fu">vars</span>(<span class="no">open</span>:<span class="no">adjusted</span>), <span class="kw">.funs</span> <span class="kw">=</span> <span class="no">impute_ts_vec</span>, <span class="kw">period</span> <span class="kw">=</span> <span class="fl">1</span>) <span class="kw">%&gt;%</span>
+  <span class="fu">mutate_at</span>(<span class="fu">vars</span>(<span class="no">open</span>:<span class="no">adjusted</span>), <span class="kw">.funs</span> <span class="kw">=</span> <span class="no">ts_impute_vec</span>, <span class="kw">period</span> <span class="kw">=</span> <span class="fl">1</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../reference/filter_by_time.html">filter_by_time</a></span>(<span class="no">date</span>, <span class="st">"start"</span>, <span class="fu"><a href="https://rdrr.io/pkg/tidyquant/man/excel_stat_summary_functions.html">FIRST</a></span>(<span class="no">date</span>) <span class="kw">%+time%</span> <span class="st">"1 month"</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../reference/plot_time_series.html">plot_time_series</a></span>(<span class="no">date</span>, <span class="no">adjusted</span>, <span class="kw">.facet_ncol</span> <span class="kw">=</span> <span class="fl">2</span>, <span class="kw">.interactive</span> <span class="kw">=</span> <span class="fl">FALSE</span>)</pre></body></html></div>
 <p><img src="TK07_Time_Series_Data_Wrangling_files/figure-html/unnamed-chunk-10-1.png" width="95%" style="display: block; margin: auto;"></p>
