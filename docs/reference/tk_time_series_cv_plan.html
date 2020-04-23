@@ -94,7 +94,7 @@ or time_series_cv class." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">timetk</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0.9000</span>
       </span>
     </div>
 
@@ -116,6 +116,9 @@ or time_series_cv class." />
     </li>
     <li>
       <a href="../articles/TK05_Plotting_Seasonality_and_Correlation.html">Plotting Seasonality and Correlation</a>
+    </li>
+    <li>
+      <a href="../articles/TK08_Automatic_Anomaly_Detection.html">Automatic Anomaly Detection</a>
     </li>
     <li class="divider"></li>
     <li class="dropdown-header">Machine Learning</li>
@@ -199,12 +202,12 @@ or <code>time_series_cv</code> class.</p></td>
 
     <p><strong>Resample Set</strong></p>
 <p>A resample set is an output of the <code><a href='time_series_cv.html'>timetk::time_series_cv()</a></code> function or the
-<code><a href='https://rdrr.io/pkg/rsample/man/rolling_origin.html'>rsample::rolling_origin()</a></code> function.</p>
+<code><a href='https://tidymodels.github.io/rsample/reference/rolling_origin.html'>rsample::rolling_origin()</a></code> function.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'>
 <ul>
-<li><p><code><a href='time_series_cv.html'>time_series_cv()</a></code> and <code><a href='https://rdrr.io/pkg/rsample/man/rolling_origin.html'>rsample::rolling_origin()</a></code> - Functions used to create
+<li><p><code><a href='time_series_cv.html'>time_series_cv()</a></code> and <code><a href='https://tidymodels.github.io/rsample/reference/rolling_origin.html'>rsample::rolling_origin()</a></code> - Functions used to create
 time series resample specfications.</p></li>
 <li><p><code><a href='plot_time_series_cv_plan.html'>plot_time_series_cv_plan()</a></code> - The plotting function used for visualizing the
 time series resample plan.</p></li>
@@ -228,20 +231,20 @@ time series resample plan.</p></li>
     <span class='kw'>lag</span> <span class='kw'>=</span> <span class='fl'>30</span>,
     <span class='kw'>slice_limit</span> <span class='kw'>=</span> <span class='fu'>n</span>())
 
-<span class='no'>resample_spec</span> <span class='kw'>%&gt;%</span> <span class='fu'>tk_time_series_cv_plan</span>()</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 3,220 x 5</span><span>
-#&gt;    id      key      symbol date       adjusted
+<span class='no'>resample_spec</span> <span class='kw'>%&gt;%</span> <span class='fu'>tk_time_series_cv_plan</span>()</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 3,910 x 5</span><span>
+#&gt;    .id     .key     symbol date       adjusted
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>        </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> Slice01 training FB     2015-10-23     102.
-#&gt; </span><span style='color: #555555;'> 2</span><span> Slice01 training FB     2015-10-26     104.
-#&gt; </span><span style='color: #555555;'> 3</span><span> Slice01 training FB     2015-10-27     104.
-#&gt; </span><span style='color: #555555;'> 4</span><span> Slice01 training FB     2015-10-28     104.
-#&gt; </span><span style='color: #555555;'> 5</span><span> Slice01 training FB     2015-10-29     105.
-#&gt; </span><span style='color: #555555;'> 6</span><span> Slice01 training FB     2015-10-30     102.
-#&gt; </span><span style='color: #555555;'> 7</span><span> Slice01 training FB     2015-11-02     103.
-#&gt; </span><span style='color: #555555;'> 8</span><span> Slice01 training FB     2015-11-03     103.
-#&gt; </span><span style='color: #555555;'> 9</span><span> Slice01 training FB     2015-11-04     104.
-#&gt; </span><span style='color: #555555;'>10</span><span> Slice01 training FB     2015-11-05     109.
-#&gt; </span><span style='color: #555555;'># … with 3,210 more rows</span><span></div><div class='input'>
+#&gt; </span><span style='color: #555555;'> 1</span><span> Slice01 training FB     2016-03-18     111.
+#&gt; </span><span style='color: #555555;'> 2</span><span> Slice01 training FB     2016-03-21     112.
+#&gt; </span><span style='color: #555555;'> 3</span><span> Slice01 training FB     2016-03-22     112.
+#&gt; </span><span style='color: #555555;'> 4</span><span> Slice01 training FB     2016-03-23     113.
+#&gt; </span><span style='color: #555555;'> 5</span><span> Slice01 training FB     2016-03-24     113.
+#&gt; </span><span style='color: #555555;'> 6</span><span> Slice01 training FB     2016-03-28     114.
+#&gt; </span><span style='color: #555555;'> 7</span><span> Slice01 training FB     2016-03-29     116.
+#&gt; </span><span style='color: #555555;'> 8</span><span> Slice01 training FB     2016-03-30     115.
+#&gt; </span><span style='color: #555555;'> 9</span><span> Slice01 training FB     2016-03-31     114.
+#&gt; </span><span style='color: #555555;'>10</span><span> Slice01 training FB     2016-04-01     116.
+#&gt; </span><span style='color: #555555;'># … with 3,900 more rows</span><span></div><div class='input'>
 </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

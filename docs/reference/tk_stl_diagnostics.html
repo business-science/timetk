@@ -93,7 +93,7 @@ It helps by automating frequency and trend selection." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">timetk</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0.9000</span>
       </span>
     </div>
 
@@ -115,6 +115,9 @@ It helps by automating frequency and trend selection." />
     </li>
     <li>
       <a href="../articles/TK05_Plotting_Seasonality_and_Correlation.html">Plotting Seasonality and Correlation</a>
+    </li>
+    <li>
+      <a href="../articles/TK08_Automatic_Anomaly_Detection.html">Automatic Anomaly Detection</a>
     </li>
     <li class="divider"></li>
     <li class="dropdown-header">Machine Learning</li>
@@ -182,16 +185,6 @@ It helps by automating frequency and trend selection.</p>
     </div>
 
     <pre class="usage"><span class='fu'>tk_stl_diagnostics</span>(
-  <span class='no'>.data</span>,
-  <span class='no'>.date_var</span>,
-  <span class='no'>.value</span>,
-  <span class='kw'>.frequency</span> <span class='kw'>=</span> <span class='st'>"auto"</span>,
-  <span class='kw'>.trend</span> <span class='kw'>=</span> <span class='st'>"auto"</span>,
-  <span class='kw'>.message</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
-)
-
-<span class='co'># S3 method for data.frame</span>
-<span class='fu'>tk_stl_diagnostics</span>(
   <span class='no'>.data</span>,
   <span class='no'>.date_var</span>,
   <span class='no'>.value</span>,

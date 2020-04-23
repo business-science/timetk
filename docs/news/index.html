@@ -91,7 +91,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">timetk</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0.9000</span>
       </span>
     </div>
 
@@ -113,6 +113,9 @@
     </li>
     <li>
       <a href="../articles/TK05_Plotting_Seasonality_and_Correlation.html">Plotting Seasonality and Correlation</a>
+    </li>
+    <li>
+      <a href="../articles/TK08_Automatic_Anomaly_Detection.html">Automatic Anomaly Detection</a>
     </li>
     <li class="divider"></li>
     <li class="dropdown-header">Machine Learning</li>
@@ -173,9 +176,39 @@
       <small>Source: <a href='https://github.com/business-science/timetk/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="timetk-1009000" class="section level1">
+<h1 class="page-header" data-toc-text="1.0.0.9000">
+<a href="#timetk-1009000" class="anchor"></a>timetk 1.0.0.9000<small> Unreleased </small>
+</h1>
+<p><strong>New Interactive Plotting Functions</strong>::</p>
+<p><code><a href="../reference/plot_anomaly_diagnostics.html">plot_anomaly_diagnostics()</a></code>:</p>
+<p><strong>New Diagnostic / Data Processing Functions</strong></p>
+<ul>
+<li>
+<code><a href="../reference/tk_anomaly_diagnostics.html">tk_anomaly_diagnostics()</a></code> - Group-wise anomaly detection and diagnostics. A wrapper for the <code>anomalize</code> R package functions without importing <code>anomalize</code>.</li>
+</ul>
+<p><strong>Bug Fixes</strong>:</p>
+<ul>
+<li>
+<code><a href="../reference/time_series_cv.html">time_series_cv()</a></code>:
+<ul>
+<li>Fix incorrect calculation of starts/stops</li>
+<li>Make <code>skip = 1</code> default. <code>skip = 0</code> does not make sense.</li>
+<li>Fix issue with <code>skip</code> adding 1 to stops.</li>
+<li>Fix printing method</li>
+</ul>
+</li>
+<li>
+<code><a href="../reference/plot_time_series_cv_plan.html">plot_time_series_cv_plan()</a></code> &amp; <code><a href="../reference/tk_time_series_cv_plan.html">tk_time_series_cv_plan()</a></code>:
+<ul>
+<li>Prevent name collisions when underlying data has column “id” or “splits”</li>
+</ul>
+</li>
+</ul>
+</div>
     <div id="timetk-100" class="section level1">
 <h1 class="page-header" data-toc-text="1.0.0">
-<a href="#timetk-100" class="anchor"></a>timetk 1.0.0<small> Unreleased </small>
+<a href="#timetk-100" class="anchor"></a>timetk 1.0.0<small> 2020-04-19 </small>
 </h1>
 <p><strong>New Interactive Plotting Functions</strong>:</p>
 <ul>

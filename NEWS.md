@@ -9,10 +9,9 @@ SMALLER ITEMS:
 3. Weather signature
 4. tsibble integration
 
-- Weather
-    - Reim integration
-    - `tk_get_weather_signature()`, `tk_augment_weather_signature()`
-    - `step_weather_signature()`
+Steps:
+- step_pad_time_series
+- Step 
 
 - Tests (Boooo)
 

@@ -96,7 +96,7 @@ of the cross validation on the most recent time series data." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">timetk</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0.9000</span>
       </span>
     </div>
 
@@ -118,6 +118,9 @@ of the cross validation on the most recent time series data." />
     </li>
     <li>
       <a href="../articles/TK05_Plotting_Seasonality_and_Correlation.html">Plotting Seasonality and Correlation</a>
+    </li>
+    <li>
+      <a href="../articles/TK08_Automatic_Anomaly_Detection.html">Automatic Anomaly Detection</a>
     </li>
     <li class="divider"></li>
     <li class="dropdown-header">Machine Learning</li>
@@ -183,7 +186,7 @@ of the cross validation on the most recent time series data." />
     <p>Create <code>rsample</code> cross validation sets for time series.
 This function produces a sampling plan starting with the most recent
 time series observations, rolling backwards. The sampling procedure
-is similar to <code><a href='https://rdrr.io/pkg/rsample/man/rolling_origin.html'>rsample::rolling_origin()</a></code>, but places the focus
+is similar to <code><a href='https://tidymodels.github.io/rsample/reference/rolling_origin.html'>rsample::rolling_origin()</a></code>, but places the focus
 of the cross validation on the most recent time series data.</p>
     </div>
 
@@ -192,7 +195,7 @@ of the cross validation on the most recent time series data.</p>
   <span class='kw'>initial</span> <span class='kw'>=</span> <span class='fl'>5</span>,
   <span class='kw'>assess</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>cumulative</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>skip</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>skip</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>lag</span> <span class='kw'>=</span> <span class='fl'>0</span>,
   <span class='kw'>slice_limit</span> <span class='kw'>=</span> <span class='fu'>n</span>(),
   <span class='no'>...</span>
@@ -263,8 +266,8 @@ static.</p>
 set and resampling occurs over a fixed window.</p>
 <p><strong>Skip</strong></p>
 <p><code>skip</code> enables the function to not use every data point in the resamples.
-When <code>skip = 0</code>, the resampling data sets will increment by one position.
-Suppose that the rows of a data set are consecutive days. Using <code>skip = 6</code>
+When <code>skip = 1</code>, the resampling data sets will increment by one position.</p>
+<p>Example: Suppose that the rows of a data set are consecutive days. Using <code>skip = 7</code>
 will make the analysis data set operate on <em>weeks</em> instead of days. The
 assessment set size is not affected by this option.</p>
 <p><strong>Lag</strong></p>
@@ -277,7 +280,7 @@ when lagged predictors are used.</p>
 
     <div class='dont-index'>
 <ul>
-<li><p><code>time_series_cv()</code> and <code><a href='https://rdrr.io/pkg/rsample/man/rolling_origin.html'>rsample::rolling_origin()</a></code> - Functions used to create
+<li><p><code>time_series_cv()</code> and <code><a href='https://tidymodels.github.io/rsample/reference/rolling_origin.html'>rsample::rolling_origin()</a></code> - Functions used to create
 time series resample specfications.</p></li>
 <li><p><code><a href='plot_time_series_cv_plan.html'>plot_time_series_cv_plan()</a></code> - The plotting function used for visualizing the
 time series resample plan.</p></li>
@@ -286,29 +289,47 @@ time series resample plan.</p></li>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>tidyverse</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>tidyquant</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>rsample</span>)
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>timetk</span>)
 
-<span class='no'>FB_tbl</span> <span class='kw'>&lt;-</span> <span class='no'>FANG</span> <span class='kw'>%&gt;%</span>
-    <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span>(<span class='no'>symbol</span> <span class='kw'>==</span> <span class='st'>"FB"</span>) <span class='kw'>%&gt;%</span>
-    <span class='fu'>select</span>(<span class='no'>symbol</span>, <span class='no'>date</span>, <span class='no'>adjusted</span>)
+<span class='co'># DATA ----</span>
+<span class='no'>m750</span> <span class='kw'>&lt;-</span> <span class='no'>m4_monthly</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span>(<span class='no'>id</span> <span class='kw'>==</span> <span class='st'>"M750"</span>)
 
-<span class='no'>resample_spec</span> <span class='kw'>&lt;-</span> <span class='fu'>time_series_cv</span>(
-    <span class='no'>FB_tbl</span>,
-    <span class='kw'>initial</span> <span class='kw'>=</span> <span class='fl'>150</span>, <span class='kw'>assess</span> <span class='kw'>=</span> <span class='fl'>50</span>, <span class='kw'>skip</span> <span class='kw'>=</span> <span class='fl'>50</span>,
-    <span class='kw'>cumulative</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-    <span class='kw'>lag</span> <span class='kw'>=</span> <span class='fl'>30</span>,
-    <span class='kw'>slice_limit</span> <span class='kw'>=</span> <span class='fl'>6</span>)
+<span class='no'>m750</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='plot_time_series.html'>plot_time_series</a></span>(<span class='no'>date</span>, <span class='no'>value</span>)
 
-<span class='no'>resample_spec</span> <span class='kw'>%&gt;%</span>
-    <span class='fu'><a href='plot_time_series_cv_plan.html'>plot_time_series_cv_plan</a></span>(
-        <span class='no'>date</span>, <span class='no'>adjusted</span>,
-        <span class='kw'>.facet_ncol</span> <span class='kw'>=</span> <span class='fl'>2</span>,
-        <span class='kw'>.line_alpha</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
-        <span class='kw'>.interactive</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
-    )</div><div class='img'><img src='time_series_cv-1.png' alt='' width='700' height='433' /></div><div class='input'>
-</div></pre>
+<span class='co'># RESAMPLE SPEC ----</span>
+<span class='no'>resample_spec</span> <span class='kw'>&lt;-</span> <span class='fu'>time_series_cv</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>m750</span>,
+                                <span class='kw'>initial</span>     <span class='kw'>=</span> <span class='fl'>12</span> * <span class='fl'>6</span>,
+                                <span class='kw'>assess</span>      <span class='kw'>=</span> <span class='fl'>12</span> * <span class='fl'>2</span>,
+                                <span class='kw'>skip</span>        <span class='kw'>=</span> <span class='fl'>12</span> * <span class='fl'>2</span>,
+                                <span class='kw'>cumulative</span>  <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+                                <span class='kw'>slice_limit</span> <span class='kw'>=</span> <span class='fl'>2</span>)
+
+<span class='no'>resample_spec</span></div><div class='output co'>#&gt; # Time Series Cross Validation Plan 
+#&gt; <span style='color: #555555;'># A tibble: 2 x 2</span><span>
+#&gt;   splits          id    
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>          </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> 
+#&gt; </span><span style='color: #555555;'>1</span><span> </span><span style='color: #555555;'>&lt;split [72/24]&gt;</span><span> Slice1
+#&gt; </span><span style='color: #555555;'>2</span><span> </span><span style='color: #555555;'>&lt;split [72/24]&gt;</span><span> Slice2</div><div class='input'>
+<span class='co'># VISUALIZE CV PLAN ----</span>
+
+<span class='co'># Select date and value columns from the tscv diagnostic tool</span>
+<span class='no'>resample_spec</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='tk_time_series_cv_plan.html'>tk_time_series_cv_plan</a></span>()</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 192 x 5</span><span>
+#&gt;    .id    .key     id    date       value
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> Slice1 training M750  2007-07-01  </span><span style='text-decoration: underline;'>8</span><span>710
+#&gt; </span><span style='color: #555555;'> 2</span><span> Slice1 training M750  2007-08-01  </span><span style='text-decoration: underline;'>8</span><span>300
+#&gt; </span><span style='color: #555555;'> 3</span><span> Slice1 training M750  2007-09-01  </span><span style='text-decoration: underline;'>8</span><span>910
+#&gt; </span><span style='color: #555555;'> 4</span><span> Slice1 training M750  2007-10-01  </span><span style='text-decoration: underline;'>9</span><span>710
+#&gt; </span><span style='color: #555555;'> 5</span><span> Slice1 training M750  2007-11-01  </span><span style='text-decoration: underline;'>9</span><span>870
+#&gt; </span><span style='color: #555555;'> 6</span><span> Slice1 training M750  2007-12-01  </span><span style='text-decoration: underline;'>9</span><span>980
+#&gt; </span><span style='color: #555555;'> 7</span><span> Slice1 training M750  2008-01-01  </span><span style='text-decoration: underline;'>9</span><span>970
+#&gt; </span><span style='color: #555555;'> 8</span><span> Slice1 training M750  2008-02-01  </span><span style='text-decoration: underline;'>9</span><span>970
+#&gt; </span><span style='color: #555555;'> 9</span><span> Slice1 training M750  2008-03-01 </span><span style='text-decoration: underline;'>10</span><span>120
+#&gt; </span><span style='color: #555555;'>10</span><span> Slice1 training M750  2008-04-01 </span><span style='text-decoration: underline;'>10</span><span>150
+#&gt; </span><span style='color: #555555;'># … with 182 more rows</span><span></div><div class='input'>
+<span class='co'># Plot the date and value columns to see the CV Plan</span>
+<span class='no'>resample_spec</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='plot_time_series_cv_plan.html'>plot_time_series_cv_plan</a></span>(<span class='no'>date</span>, <span class='no'>value</span>, <span class='kw'>.interactive</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='time_series_cv-1.png' alt='' width='700' height='433' /></div><div class='input'>
+</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -17,7 +17,7 @@ navbar:
         - text: "Plotting Seasonality and Correlation"
           href: articles/TK05_Plotting_Seasonality_and_Correlation.html
         - text: "Automatic Anomaly Detection"
-          href: articles/TK08_Automatic_Anomaly_Detection.Rmd
+          href: articles/TK08_Automatic_Anomaly_Detection.html
         - text: '---'
         - text: "Machine Learning"
         - text: "Time Series Machine Learning"
