@@ -3,4 +3,6 @@ globalVariables(c("index", "index.num", "y", "yhat", "week", "mday", "diff.media
                   "holidays", "lag", ".facets_collapsed", ".groups_consolidated", ".value_mod", ".value_smooth", "name",
                   ".group", ".group_value", "feature", "id", "key", "splits",
                   "observed", "remainder", "seasadj", "season", "trend", ".color_mod",
-                  ".id", ".key", ".splits", ".value"))
+                  ".id", ".key", ".splits", ".value", "abs_diff_lower", "abs_diff_upper", "below_max_anoms",
+                  "centerline", "direction", "limit_lower", "limit_upper", "max_abs_diff", "outlier", "outlier_reported",
+                  "sorting"))

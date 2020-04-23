@@ -20,6 +20,14 @@ SMALLER ITEMS:
 
 # timetk 1.0.0.9000
 
+__New Interactive Plotting Functions__::
+
+`plot_anomaly_diagnostics()`: 
+
+__New Diagnostic / Data Processing Functions__
+
+* `tk_anomaly_diagnostics()`  - Group-wise anomaly detection and diagnostics. A wrapper for the `anomalize` R package functions without importing `anomalize`.  
+
 __Bug Fixes__:
 
 * `time_series_cv()`: 

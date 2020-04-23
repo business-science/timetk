@@ -89,7 +89,6 @@ tk_stl_diagnostics <- function(.data, .date_var, .value,
 
 
 #' @export
-#' @rdname tk_stl_diagnostics
 tk_stl_diagnostics.data.frame <- function(.data, .date_var, .value,
                                           .frequency = "auto", .trend = "auto",
                                           .message = TRUE) {
