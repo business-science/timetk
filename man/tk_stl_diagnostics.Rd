@@ -2,19 +2,9 @@
 % Please edit documentation in R/diagnostics-tk_stl_diagnostics.R
 \name{tk_stl_diagnostics}
 \alias{tk_stl_diagnostics}
-\alias{tk_stl_diagnostics.data.frame}
 \title{Group-wise STL Decomposition (Season, Trend, Remainder)}
 \usage{
 tk_stl_diagnostics(
-  .data,
-  .date_var,
-  .value,
-  .frequency = "auto",
-  .trend = "auto",
-  .message = TRUE
-)
-
-\method{tk_stl_diagnostics}{data.frame}(
   .data,
   .date_var,
   .value,

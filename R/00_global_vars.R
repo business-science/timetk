@@ -5,4 +5,4 @@ globalVariables(c("index", "index.num", "y", "yhat", "week", "mday", "diff.media
                   "observed", "remainder", "seasadj", "season", "trend", ".color_mod",
                   ".id", ".key", ".splits", ".value", "abs_diff_lower", "abs_diff_upper", "below_max_anoms",
                   "centerline", "direction", "limit_lower", "limit_upper", "max_abs_diff", "outlier", "outlier_reported",
-                  "sorting"))
+                  "sorting", "anomaly", "recomposed_l1", "recomposed_l2", "remainder_l1", "remainder_l2"))

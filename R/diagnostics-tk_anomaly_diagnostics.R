@@ -1,7 +1,7 @@
-#' Group-wise STL Decomposition (Season, Trend, Remainder)
+#' Automatic group-wise Anomaly Detection by STL Decomposition
 #'
-#' `tk_anomaly_diagnostics()` is the preprocessor for `plot_stl_diagnostics()`.
-#' It helps by automating frequency and trend selection.
+#' `tk_anomaly_diagnostics()` is the preprocessor for `plot_anomaly_diagnostics()`.
+#' It performs automatic anomaly detection for one or more time series groups.
 #'
 #' @param .data A `tibble` or `data.frame` with a time-based column
 #' @param .date_var A column containing either date or date-time values
@@ -19,22 +19,39 @@
 #' @param .message A boolean. If `TRUE`, will output information related to automatic frequency
 #' and trend selection (if applicable).
 #'
-#' @return A `tibble` or `data.frame` with Observed, Season, Trend, Remainder,
-#'  and Seasonally-Adjusted features
+#' @return A `tibble` or `data.frame` with STL Decomposition Features
+#'  (observed, season, trend, remainder, seasadj) and
+#'  Anomaly Features (remainder_l1, remainder_l2, anomaly, recomposed_l1, and recomposed_l2)
 #'
 #' @details
 #'
-#' This method is based on the `anomalize` package which implements a 2-step process to
+#' The `tk_anomaly_diagnostics()` method for anomaly detection that implements a 2-step process to
 #' detect outliers in time series.
 #'
 #' __Step 1: Detrend & Remove Seasonality using STL Decomposition__
 #'
+#' The decomposition separates the "season" and "trend" components from the "observed" values
+#' leaving the "remainder" for anomaly detection.
 #'
+#' The user can control two parameters: frequency and trend.
 #'
-#' __Anomaly Detection__
+#' 1. `.frequency`: Adjusts the "season" component that is removed from the "observed" values.
+#' 2. `.trend`: Adjusts the trend window (t.window parameter from [stats::stl()] that is used.
 #'
-#' The Method uses an inner-quartile range (IQR) of +/-25 the median.
-#' With the default alpha = 0.05, the limits are established by expanding
+#' The user may supply both `.frequency` and `.trend` as time-based durations (e.g. "6 weeks") or
+#' numeric values (e.g. 180) or "auto", which predetermines the frequency and/or trend based on
+#' the scale of the time series using the [tk_time_scale_template()].
+#'
+#' __Step 2: Anomaly Detection__
+#'
+#' Once "trend" and "season" (seasonality) is removed, anomaly detection is performed on the "remainder".
+#' Anomalies are identified, and boundaries (recomposed_l1 and recomposed_l2) are determined.
+#'
+#' The Anomaly Detection Method uses an inner quartile range (IQR) of +/-25 the median.
+#'
+#' _IQR Adjustment, alpha parameter_
+#'
+#' With the default `alpha = 0.05`, the limits are established by expanding
 #' the 25/75 baseline by an IQR Factor of 3 (3X).
 #' The _IQR Factor = 0.15 / alpha_ (hence 3X with alpha = 0.05):
 #'
@@ -42,10 +59,22 @@
 #' which makes it more difficult to be an outlier.
 #' - Increase alpha to make it easier to be an outlier.
 #'
-#' The IQR method is used in `forecast::tsoutliers()`.
+#'
+#' - The IQR outlier detection method is used in `forecast::tsoutliers()`.
+#' - A similar outlier detection method is used by Twitter's `AnomalyDetection` package.
+#' - Both Twitter and Forecast tsoutliers methods have been implemented in Business Science's `anomalize`
+#'  package.
 #'
 #' @seealso
 #' - [plot_anomaly_diagnostics()]: Visual anomaly detection
+#'
+#' @references
+#' 1. CLEVELAND, R. B., CLEVELAND, W. S., MCRAE, J. E., AND TERPENNING, I.
+#'  STL: A Seasonal-Trend Decomposition Procedure Based on Loess.
+#'  Journal of Official Statistics, Vol. 6, No. 1 (1990), pp. 3-73.
+#'
+#' 2. Owen S. Vallis, Jordan Hochenbaum and Arun Kejariwal (2014).
+#'  A Novel Technique for Long-Term Anomaly Detection in the Cloud. Twitter Inc.
 #'
 #' @examples
 #' library(dplyr)

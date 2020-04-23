@@ -1,6 +1,6 @@
-#' Visualize STL Decomposition Features for One or More Time Series
+#' Visualize Anomalies for One or More Time Series
 #'
-#' An interactive and scalable function for visualizing time series STL Decomposition.
+#' An interactive and scalable function for visualizing anomalies in time series data.
 #' Plots are available in interactive `plotly` (default) and static `ggplot2` format.
 #'
 #' @inheritParams tk_anomaly_diagnostics
@@ -9,16 +9,21 @@
 #' @param .value A column containing numeric values
 #' @param ... One or more grouping columns that broken out into `ggplot2` facets.
 #'  These can be selected using `tidyselect()` helpers (e.g `contains()`).
-#' @param .feature_set The STL decompositions to visualize.
-#'  Select one or more of "observed", "season", "trend", "remainder", "seasadj".
+#' @param .facet_ncol Number of facet columns.
 #' @param .facet_scales Control facet x & y-axis ranges. Options include "fixed", "free", "free_y", "free_x"
 #' @param .line_color Line color.
 #' @param .line_size Line size.
 #' @param .line_type Line type.
 #' @param .line_alpha Line alpha (opacity). Range: (0, 1).
+#' @param .anom_color Color for the anomaly dots
+#' @param .anom_alpha Opacity for the anomaly dots. Range: (0, 1).
+#' @param .anom_size Size for the anomaly dots
+#' @param .ribbon_fill Fill color for the acceptable range
+#' @param .ribbon_alpha Fill opacity for the acceptable range. Range: (0, 1).
 #' @param .title Plot title.
 #' @param .x_lab Plot x-axis label
 #' @param .y_lab Plot y-axis label
+#' @param .color_lab Plot label for the color legend
 #' @param .interactive If TRUE, returns a `plotly` interactive plot.
 #'  If FALSE, returns a static `ggplot2` plot.
 #'
@@ -26,54 +31,73 @@
 #' @return A `plotly` or `ggplot2` visualization
 #'
 #' @details
-#' The `plot_anomaly_diagnostics()` function generates a Seasonal-Trend-Loess decomposition.
-#' The function is "tidy" in the sense that it works
-#' on data frames and is designed to work with `dplyr` groups.
 #'
-#' __STL method__:
+#' The `plot_anomaly_diagnostics()` is a visualtion wrapper for `tk_anomaly_diagnostics()`
+#' group-wise anomaly detection, implements a 2-step process to
+#' detect outliers in time series.
 #'
-#' The STL method implements time series decomposition using
-#' the underlying [stats::stl()]. The decomposition separates the
-#' "season" and "trend" components from
-#' the "observed" values leaving the "remainder".
+#' __Step 1: Detrend & Remove Seasonality using STL Decomposition__
 #'
-#' __Frequency & Trend Selection__
+#' The decomposition separates the "season" and "trend" components from the "observed" values
+#' leaving the "remainder" for anomaly detection.
 #'
-#' The user can control two parameters: `.frequency` and `.trend`.
+#' The user can control two parameters: frequency and trend.
 #'
-#' 1. The `.frequency` parameter adjusts the "season" component that is removed
-#' from the "observed" values.
-#' 2. The `.trend` parameter adjusts the
-#' trend window (`t.window` parameter from `stl()`) that is used.
+#' 1. `.frequency`: Adjusts the "season" component that is removed from the "observed" values.
+#' 2. `.trend`: Adjusts the trend window (t.window parameter from [stats::stl()] that is used.
 #'
-#' The user may supply both `.frequency`
-#' and `.trend` as time-based durations (e.g. "6 weeks") or numeric values
-#' (e.g. 180) or "auto", which automatically selects the frequency and/or trend
-#' based on the scale of the time series.
+#' The user may supply both `.frequency` and `.trend` as time-based durations (e.g. "6 weeks") or
+#' numeric values (e.g. 180) or "auto", which predetermines the frequency and/or trend based on
+#' the scale of the time series using the [tk_time_scale_template()].
+#'
+#' __Step 2: Anomaly Detection__
+#'
+#' Once "trend" and "season" (seasonality) is removed, anomaly detection is performed on the "remainder".
+#' Anomalies are identified, and boundaries (recomposed_l1 and recomposed_l2) are determined.
+#'
+#' The Anomaly Detection Method uses an inner quartile range (IQR) of +/-25 the median.
+#'
+#' _IQR Adjustment, alpha parameter_
+#'
+#' With the default `alpha = 0.05`, the limits are established by expanding
+#' the 25/75 baseline by an IQR Factor of 3 (3X).
+#' The _IQR Factor = 0.15 / alpha_ (hence 3X with alpha = 0.05):
+#'
+#' - To increase the IQR Factor controlling the limits, decrease the alpha,
+#' which makes it more difficult to be an outlier.
+#' - Increase alpha to make it easier to be an outlier.
+#'
+#'
+#' - The IQR outlier detection method is used in `forecast::tsoutliers()`.
+#' - A similar outlier detection method is used by Twitter's `AnomalyDetection` package.
+#' - Both Twitter and Forecast tsoutliers methods have been implemented in Business Science's `anomalize`
+#'  package.
+#'
+#' @seealso
+#' - [tk_anomaly_diagnostics()]: Group-wise anomaly detection
+#'
+#'
+#' @references
+#' 1. CLEVELAND, R. B., CLEVELAND, W. S., MCRAE, J. E., AND TERPENNING, I.
+#'  STL: A Seasonal-Trend Decomposition Procedure Based on Loess.
+#'  Journal of Official Statistics, Vol. 6, No. 1 (1990), pp. 3-73.
+#'
+#' 2. Owen S. Vallis, Jordan Hochenbaum and Arun Kejariwal (2014).
+#'  A Novel Technique for Long-Term Anomaly Detection in the Cloud. Twitter Inc.
+#'
+#'
 #'
 #' @examples
 #' library(tidyverse)
 #' library(timetk)
 #'
-#' # ---- SINGLE TIME SERIES DECOMPOSITION ----
-#' m4_hourly %>%
-#'     filter(id == "H10") %>%
-#'     plot_anomaly_diagnostics(
-#'         date, value,
-#'         # Set features to return, desired frequency and trend
-#'         .feature_set = c("observed", "season", "trend", "remainder"),
-#'         .frequency   = "24 hours",
-#'         .trend       = "1 week",
-#'         .interactive = FALSE)
-#'
-#'
-#' # ---- GROUPS ----
-#' m4_hourly %>%
+#' walmart_sales_weekly %>%
 #'     group_by(id) %>%
-#'     plot_anomaly_diagnostics(
-#'         date, value,
-#'         .feature_set = c("observed", "season", "trend"),
-#'         .interactive = FALSE)
+#'     plot_anomaly_diagnostics(Date, Weekly_Sales,
+#'                              .message = FALSE,
+#'                              .facet_ncol = 3,
+#'                              .ribbon_alpha = 0.25,
+#'                              .interactive = FALSE)
 #'
 #'
 #'
@@ -90,9 +114,10 @@ plot_anomaly_diagnostics <- function(.data, .date_var, .value, ...,
                                      .line_color = "#2c3e50", .line_size = 0.5,
                                      .line_type = 1, .line_alpha = 1,
 
-                                     .color_no = "#2c3e50", .color_yes = "#e31a1c",
-                                     .fill_ribbon = "grey70", .alpha_ribbon = 1,
-                                     .alpha_dots = 1, .size_dots = 1.5,
+                                     .anom_color = "#e31a1c",
+                                     .anom_alpha = 1, .anom_size = 1.5,
+
+                                     .ribbon_fill = "grey70", .ribbon_alpha = 1,
 
                                      .title = "Anomaly Diagnostics",
                                      .x_lab = "", .y_lab = "",
@@ -130,9 +155,10 @@ plot_anomaly_diagnostics.data.frame <- function(.data, .date_var, .value, ...,
                                                 .line_color = "#2c3e50", .line_size = 0.5,
                                                 .line_type = 1, .line_alpha = 1,
 
-                                                .color_no = "#2c3e50", .color_yes = "#e31a1c",
-                                                .fill_ribbon = "grey70", .alpha_ribbon = 1,
-                                                .alpha_dots = 1, .size_dots = 1.5,
+                                                .anom_color = "#e31a1c",
+                                                .anom_alpha = 1, .anom_size = 1.5,
+
+                                                .ribbon_fill = "grey70", .ribbon_alpha = 1,
 
                                                 .title = "Anomaly Diagnostics",
                                                 .x_lab = "", .y_lab = "",
@@ -203,7 +229,7 @@ plot_anomaly_diagnostics.data.frame <- function(.data, .date_var, .value, ...,
     # Add Ribbon
     g <- g +
         ggplot2::geom_ribbon(ggplot2::aes(ymin = recomposed_l1, ymax = recomposed_l2),
-                             fill = .fill_ribbon, alpha = .alpha_ribbon)
+                             fill = .ribbon_fill, alpha = .ribbon_alpha)
 
 
     # Add line
@@ -217,9 +243,9 @@ plot_anomaly_diagnostics.data.frame <- function(.data, .date_var, .value, ...,
 
     # Add Outliers
     g <- g +
-        ggplot2::geom_point(ggplot2::aes_string(color = "anomaly"), size = .size_dots, alpha = .alpha_dots,
+        ggplot2::geom_point(ggplot2::aes_string(color = "anomaly"), size = .anom_size, alpha = .anom_alpha,
                             data = . %>% dplyr::filter(anomaly == "Yes")) +
-        ggplot2::scale_color_manual(values = c("No" = .color_no, "Yes" = .color_yes))
+        ggplot2::scale_color_manual(values = c("Yes" = .anom_color))
 
 
     # Convert to interactive if selected
@@ -243,9 +269,10 @@ plot_anomaly_diagnostics.grouped_df <- function(.data, .date_var, .value, ...,
                                                 .line_color = "#2c3e50", .line_size = 0.5,
                                                 .line_type = 1, .line_alpha = 1,
 
-                                                .color_no = "#2c3e50", .color_yes = "#e31a1c",
-                                                .fill_ribbon = "grey70", .alpha_ribbon = 1,
-                                                .alpha_dots = 1, .size_dots = 1.5,
+                                                .anom_color = "#e31a1c",
+                                                .anom_alpha = 1, .anom_size = 1.5,
+
+                                                .ribbon_fill = "grey70", .ribbon_alpha = 1,
 
                                                 .title = "Anomaly Diagnostics",
                                                 .x_lab = "", .y_lab = "",
@@ -291,11 +318,12 @@ plot_anomaly_diagnostics.grouped_df <- function(.data, .date_var, .value, ...,
         .line_type          = .line_type,
         .line_alpha         = .line_alpha,
 
-        .color_yes          = .color_yes,
-        .fill_ribbon        = .fill_ribbon,
-        .alpha_ribbon       = .alpha_ribbon,
-        .alpha_dots         = .alpha_dots,
-        .size_dots          = .size_dots,
+        .anom_color         = .anom_color,
+        .anom_alpha         = .anom_alpha,
+        .anom_size          = .anom_size,
+
+        .ribbon_fill        = .ribbon_fill,
+        .ribbon_alpha       = .ribbon_alpha,
 
         .title              = .title,
         .x_lab              = .x_lab,
