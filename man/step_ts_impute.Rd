@@ -3,7 +3,7 @@
 \name{step_ts_impute}
 \alias{step_ts_impute}
 \alias{tidy.step_ts_impute}
-\title{Imputation for Time Series using Forecast Methods}
+\title{Missing Data Imputation for Time Series}
 \usage{
 step_ts_impute(
   recipe,
@@ -69,7 +69,6 @@ step that will impute time series data.
 }
 \details{
 The \code{step_ts_impute()} function is designed specifically to handle time series
-using seaonal imputation methods implemented in the Forecast R Package.
 
 \strong{Imputation using Linear Interpolation}
 

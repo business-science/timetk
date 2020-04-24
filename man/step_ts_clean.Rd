@@ -3,7 +3,7 @@
 \name{step_ts_clean}
 \alias{step_ts_clean}
 \alias{tidy.step_ts_clean}
-\title{Clean Outliers and Missing Data for Time Series using Forecast Methods}
+\title{Clean Outliers and Missing Data for Time Series}
 \usage{
 step_ts_clean(
   recipe,

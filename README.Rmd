@@ -138,7 +138,8 @@ The `timetk` package wouldn't be possible without other amazing time series pack
     - Add and Subtract Time (`%+time%` & `%-time%`): `"2012-01-01" %+time% "1 month 4 days"` uses `lubridate` to intelligently offset the day
 * [xts](https://github.com/joshuaulrich/xts): Used to calculate periodicity and fast lag automation. 
 * [forecast (retired)](https://pkg.robjhyndman.com/forecast/): Possibly my favorite R package of all time. It's based on `ts`, and it's predecessor is the `tidyverts` (`fable`, `tsibble`, `feasts`, and `fabletools`). 
-    - The `impute_ts_vec()` function for low-level vectorized imputation using STL + Linear Interpolation uses `na.interp()` under the hood. 
+    - The `ts_impute_vec()` function for low-level vectorized imputation using STL + Linear Interpolation uses `na.interp()` under the hood. 
+    - The `ts_clean_vec()` function for low-level vectorized imputation using STL + Linear Interpolation uses `tsclean()` under the hood.
     - Box Cox transformation `auto_lambda()` uses `BoxCox.Lambda()`.  
 * [tibbletime (retired)](https://business-science.github.io/tibbletime/): While `timetk` does not import `tibbletime`, it uses much of the innovative functionality to interpret time-based phrases:
     - `tk_make_timeseries()` - Extends `seq.Date()` and `seq.POSIXct()` using a simple phase like "2012-02" to populate the entire time series from start to finish in February 2012.

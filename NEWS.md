@@ -3,16 +3,17 @@
 __TODO:__
 
 SMALLER ITEMS:
-1. Outlier diagnostics
-2. Missing value diagnostics
-3. Weather signature
-4. tsibble integration
+1. Missing value diagnostics
+2. tsibble integration
 
 Steps:
-- step_ts_pad
-- Step 
+- step_pad_by_time
+
 
 - Tests (Boooo)
+
+Research
+- Weather?
 
 -->
 
