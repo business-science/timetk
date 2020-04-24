@@ -145,8 +145,11 @@ series packages.
     Possibly my favorite R package of all time. It’s based on `ts`, and
     it’s predecessor is the `tidyverts` (`fable`, `tsibble`, `feasts`,
     and `fabletools`).
-      - The `impute_ts_vec()` function for low-level vectorized
+      - The `ts_impute_vec()` function for low-level vectorized
         imputation using STL + Linear Interpolation uses `na.interp()`
+        under the hood.
+      - The `ts_clean_vec()` function for low-level vectorized
+        imputation using STL + Linear Interpolation uses `tsclean()`
         under the hood.
       - Box Cox transformation `auto_lambda()` uses `BoxCox.Lambda()`.  
   - [tibbletime
@@ -166,8 +169,10 @@ series packages.
       - `roll_apply_vec()` uses `slider::slide_vec()` for simple
         vectorized rolls (slides).
   - [padr](https://edwinth.github.io/padr/): Used for padding time
-    series from low frequency to high frequency and filling in gaps. The
-    `pad_by_time()` function is a wrapper for `padr::pad()`.
+    series from low frequency to high frequency and filling in gaps.
+      - The `pad_by_time()` function is a wrapper for `padr::pad()`.
+      - See the `step_ts_pad()` to apply padding as a preprocessing
+        recipe\!
   - [TSstudio](https://github.com/RamiKrispin/TSstudio): This is the
     best interactive time series visualization tool out there. It
     leverages the `ts` system, which is the same system the `forecast` R

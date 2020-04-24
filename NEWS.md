@@ -33,6 +33,7 @@ __New Vectorized Functions__:
 
 __New Recipes Preprocessing Steps__:
 
+* `step_ts_pad()` - Preprocessing for padding time series data. Adds rows to fill in gaps and can be used with `step_ts_impute()` to interpolate going from low to high frequency!
 * `step_ts_clean()` - Preprocessing step for cleaning outliers and imputing missing values in a time series.
 
 __Bug Fixes__:
