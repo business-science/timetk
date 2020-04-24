@@ -102,10 +102,11 @@ reference:
     desc: See `recipes::step_log()` for log transformation.
   - contents:
     - "step_box_cox"
-  - subtitle: Imputation
+  - subtitle: Imputation & Outlier Cleaning
     desc: See `recipes::step_rollimpute()` for rolling imputation.
   - contents:
     - "step_ts_impute"
+    - "step_ts_clean"
   - title: Rsample Operations (Cross Validation)
     desc: __Resampling for time series cross validation using `rsamples`__
     contents:

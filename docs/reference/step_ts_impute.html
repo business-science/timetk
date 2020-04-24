@@ -175,7 +175,7 @@ step that will impute time series data." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Imputation for Time Series using Forecast Methods</h1>
-    <small class="dont-index">Source: <a href='https://github.com/business-science/timetk/blob/master/R/recipes-step_impute_ts.R'><code>R/recipes-step_impute_ts.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/business-science/timetk/blob/master/R/recipes-step_ts_impute.R'><code>R/recipes-step_ts_impute.R</code></a></small>
     <div class="hidden name"><code>step_ts_impute.Rd</code></div>
     </div>
 
@@ -272,7 +272,7 @@ lambda estimate).</p>
     <p>The <code>step_ts_impute()</code> function is designed specifically to handle time series
 using seaonal imputation methods implemented in the Forecast R Package.</p>
 <p><strong>Imputation using Linear Interpolation</strong></p>
-<p>Two circumstances cause strictly linear interpolation:</p><ol>
+<p>Three circumstances cause strictly linear interpolation:</p><ol>
 <li><p><strong>Period is 1:</strong> With <code>period = 1</code>, a seasonality cannot be interpreted and therefore linear is used.</p></li>
 <li><p><strong>Number of Non-Missing Values is less than 2-Periods</strong>: Insufficient values exist to detect seasonality.</p></li>
 <li><p><strong>Number of Total Values is less than 3-Periods</strong>: Insufficient values exist to detect seasonality.</p></li>
@@ -368,10 +368,10 @@ or can be specified by setting <code>lambda = numeric value</code>.</p>
 <span class='no'>recipe_box_cox</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/reexports.html'>tidy</a></span>(<span class='fl'>1</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 4 x 3</span><span>
 #&gt;   terms lambda id             
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>          
-#&gt; </span><span style='color: #555555;'>1</span><span> FB     0.912 ts_impute_hGFRs
-#&gt; </span><span style='color: #555555;'>2</span><span> AMZN   0.557 ts_impute_hGFRs
-#&gt; </span><span style='color: #555555;'>3</span><span> NFLX   0.532 ts_impute_hGFRs
-#&gt; </span><span style='color: #555555;'>4</span><span> GOOG  -</span><span style='color: #BB0000;'>1.00</span><span>  ts_impute_hGFRs</div><div class='input'>
+#&gt; </span><span style='color: #555555;'>1</span><span> FB     0.912 ts_impute_BBVkz
+#&gt; </span><span style='color: #555555;'>2</span><span> AMZN   0.557 ts_impute_BBVkz
+#&gt; </span><span style='color: #555555;'>3</span><span> NFLX   0.532 ts_impute_BBVkz
+#&gt; </span><span style='color: #555555;'>4</span><span> GOOG  -</span><span style='color: #BB0000;'>1.00</span><span>  ts_impute_BBVkz</div><div class='input'>
 
 </div></span></pre>
   </div>

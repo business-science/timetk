@@ -30,6 +30,10 @@ __New Vectorized Functions__:
 
 * `ts_clean_vec()` - Replace Outliers & Missing Values in a Time Series
 
+__New Recipes Preprocessing Steps__:
+
+* `step_ts_clean()` - Preprocessing step for cleaning outliers and imputing missing values in a time series.
+
 __Bug Fixes__:
 
 * `time_series_cv()`: 

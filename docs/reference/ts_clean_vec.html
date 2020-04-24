@@ -49,8 +49,9 @@
   
 
 <meta property="og:title" content="Replace Outliers &amp; Missing Values in a Time Series — ts_clean_vec" />
-<meta property="og:description" content="This is mainly a wrapper for the Seasonally Adjusted Missing Value using Linear Interpolation function,
-tsclean(), from the forecast R package. The ts_clean_vec() function includes arguments for applying
+<meta property="og:description" content="This is mainly a wrapper for the outlier cleaning function,
+tsclean(), from the forecast R package.
+The ts_clean_vec() function includes arguments for applying
 seasonality to numeric vector (non-ts) via the period argument." />
 <meta property="og:image" content="/logo.png" />
 
@@ -181,8 +182,9 @@ seasonality to numeric vector (non-ts) via the period argument." />
     </div>
 
     <div class="ref-description">
-    <p>This is mainly a wrapper for the Seasonally Adjusted Missing Value using Linear Interpolation function,
-<code>tsclean()</code>, from the <code>forecast</code> R package. The <code>ts_clean_vec()</code> function includes arguments for applying
+    <p>This is mainly a wrapper for the outlier cleaning function,
+<code>tsclean()</code>, from the <code>forecast</code> R package.
+The <code>ts_clean_vec()</code> function includes arguments for applying
 seasonality to numeric vector (non-<code>ts</code>) via the <code>period</code> argument.</p>
     </div>
 
@@ -213,11 +215,12 @@ automated lambda selection.</p></td>
 
     <p><strong>Cleaning Outliers</strong></p><ol>
 <li><p>Non-Seasonal (<code>period = 1</code>): Uses <code><a href='https://rdrr.io/r/stats/supsmu.html'>stats::supsmu()</a></code></p></li>
-<li><p>Seasonal (<code>period &gt; 1</code>): Uses robust STL decomposition for seasonal series.</p></li>
+<li><p>Seasonal (<code>period &gt; 1</code>): Uses <code><a href='https://rdrr.io/pkg/forecast/man/mstl.html'>forecast::mstl()</a></code> with <code>robust = TRUE</code> (robust STL decomposition)
+for seasonal series.</p></li>
 </ol>
 
 <p>To estimate missing values and outlier replacements, linear interpolation is used on the
-(possibly seasonally adjusted) series. See <code><a href='https://rdrr.io/pkg/forecast/man/tsoutliers.html'>forecast::tsoutliers()</a></code>.</p>
+(possibly seasonally adjusted) series. See <code><a href='https://rdrr.io/pkg/forecast/man/tsoutliers.html'>forecast::tsoutliers()</a></code> for the outlier detection method.</p>
 <p><strong>Box Cox Transformation</strong></p>
 <p>In many circumstances, a Box Cox transformation can help. Especially if the series is multiplicative
 meaning the variance grows exponentially. A Box Cox transformation can be automated by setting <code>lambda = "auto"</code>
