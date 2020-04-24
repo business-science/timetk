@@ -290,23 +290,23 @@ using <code><a href='https://rdrr.io/r/stats/ts.html'>stats::ts()</a></code>.</p
 #&gt; Start = 2016 
 #&gt; End = 2020 
 #&gt; Frequency = 1 
-#&gt;       x  y        z
-#&gt; 2016 NA  1 15.45620
-#&gt; 2017 NA  3 32.31750
-#&gt; 2018 NA  6 50.58392
-#&gt; 2019 NA 10 70.25544
-#&gt; 2020 NA 15 91.33208</div><div class='input'>
+#&gt;       x  y         z
+#&gt; 2016 NA  1  30.30959
+#&gt; 2017 NA  3  63.37460
+#&gt; 2018 NA  6  99.19503
+#&gt; 2019 NA 10 137.77088
+#&gt; 2020 NA 15 179.10214</div><div class='input'>
 <span class='co'># tk_ts: Only numeric columns get coerced; Result retains index in numeric format</span>
 <span class='no'>data_ts</span> <span class='kw'>&lt;-</span> <span class='fu'>tk_ts</span>(<span class='no'>data_tbl</span>, <span class='kw'>start</span> <span class='kw'>=</span> <span class='fl'>2016</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Non-numeric columns being dropped: date, x</span></div><div class='input'><span class='no'>data_ts</span></div><div class='output co'>#&gt; Time Series:
 #&gt; Start = 2016 
 #&gt; End = 2020 
 #&gt; Frequency = 1 
-#&gt;       y        z
-#&gt; 2016  1 15.45620
-#&gt; 2017  3 32.31750
-#&gt; 2018  6 50.58392
-#&gt; 2019 10 70.25544
-#&gt; 2020 15 91.33208
+#&gt;       y         z
+#&gt; 2016  1  30.30959
+#&gt; 2017  3  63.37460
+#&gt; 2018  6  99.19503
+#&gt; 2019 10 137.77088
+#&gt; 2020 15 179.10214
 #&gt; attr(,"index")
 #&gt; [1] 1451606400 1451692800 1451779200 1451865600 1451952000
 #&gt; attr(,"index")attr(,"tzone")
@@ -319,11 +319,11 @@ using <code><a href='https://rdrr.io/r/stats/ts.html'>stats::ts()</a></code>.</p
 <span class='no'>data_ts</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='tk_tbl.html'>tk_tbl</a></span>(<span class='kw'>timetk_idx</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 5 x 3</span><span>
 #&gt;   index          y     z
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span> 2016-01-01     1  15.5
-#&gt; </span><span style='color: #555555;'>2</span><span> 2016-01-02     3  32.3
-#&gt; </span><span style='color: #555555;'>3</span><span> 2016-01-03     6  50.6
-#&gt; </span><span style='color: #555555;'>4</span><span> 2016-01-04    10  70.3
-#&gt; </span><span style='color: #555555;'>5</span><span> 2016-01-05    15  91.3</div><div class='input'>
+#&gt; </span><span style='color: #555555;'>1</span><span> 2016-01-01     1  30.3
+#&gt; </span><span style='color: #555555;'>2</span><span> 2016-01-02     3  63.4
+#&gt; </span><span style='color: #555555;'>3</span><span> 2016-01-03     6  99.2
+#&gt; </span><span style='color: #555555;'>4</span><span> 2016-01-04    10 138. 
+#&gt; </span><span style='color: #555555;'>5</span><span> 2016-01-05    15 179. </div><div class='input'>
 
 <span class='co'>### Using select</span>
 <span class='fu'>tk_ts</span>(<span class='no'>data_tbl</span>, <span class='kw'>select</span> <span class='kw'>=</span> <span class='no'>y</span>)</div><div class='output co'>#&gt; Time Series:

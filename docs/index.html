@@ -390,23 +390,28 @@
     <span class="fu"><a href="reference/plot_time_series.html">plot_time_series</a></span>(<span class="no">date</span>, <span class="no">value</span>, <span class="kw">.color_var</span> <span class="kw">=</span> <span class="fu">week</span>(<span class="no">date</span>),
                      <span class="kw">.interactive</span> <span class="kw">=</span> <span class="fl">FALSE</span>, <span class="kw">.color_lab</span> <span class="kw">=</span> <span class="st">"Week"</span>)</pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-3-1.png"><!-- --></p>
-<p>Make a seasonality plot…</p>
-<div class="sourceCode" id="cb2"><pre class="r"><span class="no">taylor_30_min</span> <span class="kw">%&gt;%</span>
-    <span class="fu"><a href="reference/plot_seasonal_diagnostics.html">plot_seasonal_diagnostics</a></span>(<span class="no">date</span>, <span class="no">value</span>, <span class="kw">.interactive</span> <span class="kw">=</span> <span class="fl">FALSE</span>)</pre></div>
+<p>Visualize anomalies…</p>
+<div class="sourceCode" id="cb2"><pre class="r"><span class="no">walmart_sales_weekly</span> <span class="kw">%&gt;%</span>
+    <span class="fu"><a href="reference/plot_anomaly_diagnostics.html">plot_anomaly_diagnostics</a></span>(<span class="no">Date</span>, <span class="no">Weekly_Sales</span>, <span class="no">Store</span>, <span class="no">Dept</span>,
+                             <span class="kw">.facet_ncol</span> <span class="kw">=</span> <span class="fl">3</span>, <span class="kw">.interactive</span> <span class="kw">=</span> <span class="fl">FALSE</span>)</pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-4-1.png"><!-- --></p>
-<p>Inspect autocorrelation, partial autocorrelation (and cross correlations too)…</p>
+<p>Make a seasonality plot…</p>
 <div class="sourceCode" id="cb3"><pre class="r"><span class="no">taylor_30_min</span> <span class="kw">%&gt;%</span>
-    <span class="fu"><a href="reference/plot_acf_diagnostics.html">plot_acf_diagnostics</a></span>(<span class="no">date</span>, <span class="no">value</span>, <span class="kw">.lags</span> <span class="kw">=</span> <span class="fl">0</span>:(<span class="fl">48</span>*<span class="fl">7</span>), <span class="kw">.interactive</span> <span class="kw">=</span> <span class="fl">FALSE</span>)</pre></div>
+    <span class="fu"><a href="reference/plot_seasonal_diagnostics.html">plot_seasonal_diagnostics</a></span>(<span class="no">date</span>, <span class="no">value</span>, <span class="kw">.interactive</span> <span class="kw">=</span> <span class="fl">FALSE</span>)</pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-5-1.png"><!-- --></p>
+<p>Inspect autocorrelation, partial autocorrelation (and cross correlations too)…</p>
+<div class="sourceCode" id="cb4"><pre class="r"><span class="no">taylor_30_min</span> <span class="kw">%&gt;%</span>
+    <span class="fu"><a href="reference/plot_acf_diagnostics.html">plot_acf_diagnostics</a></span>(<span class="no">date</span>, <span class="no">value</span>, <span class="kw">.lags</span> <span class="kw">=</span> <span class="fl">0</span>:(<span class="fl">48</span>*<span class="fl">7</span>), <span class="kw">.interactive</span> <span class="kw">=</span> <span class="fl">FALSE</span>)</pre></div>
+<p><img src="reference/figures/README-unnamed-chunk-6-1.png"><!-- --></p>
 </div>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>What are you waiting for? <em>Download the development version with latest features</em>:</p>
-<div class="sourceCode" id="cb4"><pre class="r"><span class="co"># install.packages("devtools")</span>
+<div class="sourceCode" id="cb5"><pre class="r"><span class="co"># install.packages("devtools")</span>
 <span class="kw pkg">devtools</span><span class="kw ns">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span>(<span class="st">"business-science/timetk"</span>)</pre></div>
 <p><em>Or, download CRAN approved version</em>:</p>
-<div class="sourceCode" id="cb5"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"timetk"</span>)</pre></div>
+<div class="sourceCode" id="cb6"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"timetk"</span>)</pre></div>
 </div>
 <div id="acknowledgements" class="section level2">
 <h2 class="hasAnchor">
@@ -435,7 +440,8 @@
 <li>
 <a href="https://pkg.robjhyndman.com/forecast/">forecast (retired)</a>: Possibly my favorite R package of all time. It’s based on <code>ts</code>, and it’s predecessor is the <code>tidyverts</code> (<code>fable</code>, <code>tsibble</code>, <code>feasts</code>, and <code>fabletools</code>).
 <ul>
-<li>The <code>impute_ts_vec()</code> function for low-level vectorized imputation using STL + Linear Interpolation uses <code>na.interp()</code> under the hood.</li>
+<li>The <code><a href="reference/ts_impute_vec.html">ts_impute_vec()</a></code> function for low-level vectorized imputation using STL + Linear Interpolation uses <code>na.interp()</code> under the hood.</li>
+<li>The <code><a href="reference/ts_clean_vec.html">ts_clean_vec()</a></code> function for low-level vectorized imputation using STL + Linear Interpolation uses <code>tsclean()</code> under the hood.</li>
 <li>Box Cox transformation <code><a href="reference/box_cox_vec.html">auto_lambda()</a></code> uses <code>BoxCox.Lambda()</code>.<br>
 </li>
 </ul>
@@ -444,7 +450,7 @@
 <a href="https://business-science.github.io/tibbletime/">tibbletime (retired)</a>: While <code>timetk</code> does not import <code>tibbletime</code>, it uses much of the innovative functionality to interpret time-based phrases:
 <ul>
 <li>
-<code><a href="reference/tk_make_timeseries.html">tk_make_timeseries()</a></code> - Extends <code><a href="https://rdrr.io/r/base/seq.Date.html">seq.Date()</a></code> and <code>seq.POSIXct()</code> using a simple phase like “2012-02” to populate the entire time series from start to finish in February 2012.</li>
+<code><a href="reference/tk_make_timeseries.html">tk_make_timeseries()</a></code> - Extends <code><a href="https://rdrr.io/r/base/seq.Date.html">seq.Date()</a></code> and <code><a href="https://rdrr.io/r/base/seq.POSIXt.html">seq.POSIXt()</a></code> using a simple phase like “2012-02” to populate the entire time series from start to finish in February 2012.</li>
 <li>
 <code><a href="reference/filter_by_time.html">filter_by_time()</a></code>, <code><a href="reference/between_time.html">between_time()</a></code> - Uses innovative endpoint detection from phrases like “2012”</li>
 <li>
@@ -461,7 +467,12 @@
 </ul>
 </li>
 <li>
-<a href="https://edwinth.github.io/padr/">padr</a>: Used for padding time series from low frequency to high frequency and filling in gaps. The <code><a href="reference/pad_by_time.html">pad_by_time()</a></code> function is a wrapper for <code><a href="https://rdrr.io/pkg/padr/man/pad.html">padr::pad()</a></code>.</li>
+<a href="https://edwinth.github.io/padr/">padr</a>: Used for padding time series from low frequency to high frequency and filling in gaps.
+<ul>
+<li>The <code><a href="reference/pad_by_time.html">pad_by_time()</a></code> function is a wrapper for <code><a href="https://rdrr.io/pkg/padr/man/pad.html">padr::pad()</a></code>.</li>
+<li>See the <code><a href="reference/step_ts_pad.html">step_ts_pad()</a></code> to apply padding as a preprocessing recipe!</li>
+</ul>
+</li>
 <li>
 <a href="https://github.com/RamiKrispin/TSstudio">TSstudio</a>: This is the best interactive time series visualization tool out there. It leverages the <code>ts</code> system, which is the same system the <code>forecast</code> R package uses. A ton of inspiration for visuals came from using <code>TSstudio</code>.</li>
 </ul>
