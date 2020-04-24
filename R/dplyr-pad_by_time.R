@@ -163,23 +163,32 @@ padder <- function(.data, .date_var, .by = "auto", .pad_value = NA,
     }
 
     # Apply the padding
-    ret <- padr::pad(
-        x           = .data,
-        by          = rlang::quo_name(date_var_expr),
-        interval    = .by,
-        start_val   = .start_date,
-        end_val     = .end_date,
-        group       = .group,
-        break_above = .stop_padding_if
-    )
+    ret <- .data %>%
+        dplyr::mutate(check_missing = 1) %>%
+        padr::pad(
+            by          = rlang::quo_name(date_var_expr),
+            interval    = .by,
+            start_val   = .start_date,
+            end_val     = .end_date,
+            group       = .group,
+            break_above = .stop_padding_if
+        )
 
     # Replace fill values
     if (!is.na(.pad_value)) {
-        ret[is.na(ret)] <- .pad_value
+        # ret[is.na(ret)] <- .pad_value
+        ret <- ret %>%
+            dplyr::mutate_at(
+                .vars = dplyr::vars(-(!! date_var_expr), -check_missing),
+                .f = function(x) {
+                    ifelse(is.na(ret$check_missing), .pad_value, x)
+                }
+            )
     }
 
-    # Make tibble
-    if(!tibble::is_tibble(ret)) ret <- tibble::as_tibble(ret)
+    # Drop check_missing column
+    ret <- ret %>%
+        dplyr::select(-check_missing)
 
     return(ret)
 

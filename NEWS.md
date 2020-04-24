@@ -46,6 +46,7 @@ __Bug Fixes__:
 * `plot_time_series_cv_plan()` & `tk_time_series_cv_plan()`: 
     - Prevent name collisions when underlying data has column "id" or "splits"
 * `tk_make_future_timeseries()`: Fix bug when day of month doesn't exist. Lubridate `period()` returns `NA`. Fix implemented with `ceiling_date()`.
+* `pad_by_time()`: Fix `pad_value` so only inserts pad values where new row was inserted. 
     
 __Breaking Changes__:
 
