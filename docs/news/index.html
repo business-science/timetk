@@ -221,10 +221,14 @@
 </li>
 </ul>
 <p><strong>Breaking Changes</strong>:</p>
+<p>These should not be of major impact since the 1.0.0 version was just released.</p>
 <ul>
 <li>Renamed <code>impute_ts_vec()</code> to <code><a href="../reference/ts_impute_vec.html">ts_impute_vec()</a></code> for consistency with <code><a href="../reference/ts_clean_vec.html">ts_clean_vec()</a></code>
 </li>
 <li>Renamed <code>step_impute_ts()</code> to <code><a href="../reference/step_ts_impute.html">step_ts_impute()</a></code> for consistency with underlying function</li>
+<li>Renamed <code>roll_apply_vec()</code> to <code><a href="../reference/slidify_vec.html">slidify_vec()</a></code> for consistency with <code><a href="../reference/slidify.html">slidify()</a></code> &amp; relationship to <code>slider</code> R package</li>
+<li>Renamed <code>step_roll_apply</code> to <code><a href="../reference/step_slidify.html">step_slidify()</a></code> for consistency with <code><a href="../reference/slidify.html">slidify()</a></code> &amp; relationship to <code>slider</code> R package</li>
+<li>Renamed <code>tk_augment_roll_apply</code> to <code><a href="../reference/tk_augment_slidify.html">tk_augment_slidify()</a></code> for consistency with <code><a href="../reference/slidify.html">slidify()</a></code> &amp; relationship to <code>slider</code> R package</li>
 </ul>
 </div>
     <div id="timetk-100" class="section level1">
@@ -267,7 +271,7 @@
 <li>
 <code><a href="../reference/step_fourier.html">step_fourier()</a></code> - New recipe step for adding fourier transforms for adding seasonal features to time series data</li>
 <li>
-<code><a href="../reference/step_roll_apply.html">step_roll_apply()</a></code> - New recipe step for adding rolling summary functions. Similar to <code><a href="https://rdrr.io/pkg/recipes/man/step_window.html">recipes::step_window()</a></code> but is more flexible by enabling application of any summary function.</li>
+<code>step_roll_apply()</code> - New recipe step for adding rolling summary functions. Similar to <code><a href="https://rdrr.io/pkg/recipes/man/step_window.html">recipes::step_window()</a></code> but is more flexible by enabling application of any summary function.</li>
 <li>
 <code><a href="../reference/step_smooth.html">step_smooth()</a></code> - New recipe step for adding Local Polynomial Regression (LOESS) for smoothing noisy time series</li>
 <li>
@@ -286,7 +290,7 @@
 <p>These functions are useful on their own inside of <code>mutate()</code> and power many of the new plotting and recipes functions.</p>
 <ul>
 <li>
-<code><a href="../reference/roll_apply_vec.html">roll_apply_vec()</a></code> - Vectorized rolling apply function - wraps <code><a href="https://rdrr.io/pkg/slider/man/slide.html">slider::slide_vec()</a></code>
+<code>roll_apply_vec()</code> - Vectorized rolling apply function - wraps <code><a href="https://rdrr.io/pkg/slider/man/slide.html">slider::slide_vec()</a></code>
 </li>
 <li>
 <code><a href="../reference/smooth_vec.html">smooth_vec()</a></code> - Vectorized smoothing function - Applies Local Polynomial Regression (LOESS)</li>
@@ -307,7 +311,7 @@
 <li>
 <code><a href="../reference/tk_augment_holiday.html">tk_augment_holiday_signature()</a></code> - Add holiday features to a <code>data.frame</code> using only a time-series index.</li>
 <li>
-<code><a href="../reference/tk_augment_roll_apply.html">tk_augment_roll_apply()</a></code> - Add multiple columns of rolling window calculations to a <code>data.frame</code>.</li>
+<code>tk_augment_roll_apply()</code> - Add multiple columns of rolling window calculations to a <code>data.frame</code>.</li>
 <li>
 <code><a href="../reference/tk_augment_differences.html">tk_augment_differences()</a></code> - Add multiple columns of differences to a <code>data.frame</code>.</li>
 <li>

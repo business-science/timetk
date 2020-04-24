@@ -248,7 +248,7 @@ using a window of 75% of the data.</p>
 <li><p>Box Cox Transformation: <code><a href='box_cox_vec.html'>box_cox_vec()</a></code></p></li>
 <li><p>Lag Transformation: <code><a href='lag_vec.html'>lag_vec()</a></code></p></li>
 <li><p>Differencing Transformation: <code><a href='diff_vec.html'>diff_vec()</a></code></p></li>
-<li><p>Rolling Window Transformation: <code><a href='roll_apply_vec.html'>roll_apply_vec()</a></code></p></li>
+<li><p>Rolling Window Transformation: <code><a href='slidify_vec.html'>slidify_vec()</a></code></p></li>
 <li><p>Loess Smoothing Transformation: <code>smooth_vec()</code></p></li>
 <li><p>Fourier Series: <code><a href='fourier_vec.html'>fourier_vec()</a></code></p></li>
 <li><p>Missing Value Imputation for Time Series: <code><a href='ts_impute_vec.html'>ts_impute_vec()</a></code></p></li>
@@ -285,8 +285,8 @@ using a window of 75% of the data.</p>
 <span class='no'>FB_tbl</span> <span class='kw'>%&gt;%</span>
     <span class='fu'>mutate</span>(
         <span class='kw'>adjusted_loess_30</span> <span class='kw'>=</span> <span class='fu'>smooth_vec</span>(<span class='no'>adjusted</span>, <span class='kw'>period</span> <span class='kw'>=</span> <span class='fl'>30</span>, <span class='kw'>degree</span> <span class='kw'>=</span> <span class='fl'>0</span>),
-        <span class='kw'>adjusted_ma_30</span>    <span class='kw'>=</span> <span class='fu'><a href='roll_apply_vec.html'>roll_apply_vec</a></span>(<span class='no'>adjusted</span>, <span class='kw'>.period</span> <span class='kw'>=</span> <span class='fl'>30</span>,
-                                           <span class='kw'>.f</span> <span class='kw'>=</span> <span class='no'>AVERAGE</span>, <span class='kw'>.partial</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+        <span class='kw'>adjusted_ma_30</span>    <span class='kw'>=</span> <span class='fu'><a href='slidify_vec.html'>slidify_vec</a></span>(<span class='no'>adjusted</span>, <span class='kw'>.period</span> <span class='kw'>=</span> <span class='fl'>30</span>,
+                                        <span class='kw'>.f</span> <span class='kw'>=</span> <span class='no'>AVERAGE</span>, <span class='kw'>.partial</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
     ) <span class='kw'>%&gt;%</span>
     <span class='fu'>ggplot</span>(<span class='fu'>aes</span>(<span class='no'>date</span>, <span class='no'>adjusted</span>)) +
     <span class='fu'>geom_line</span>() +

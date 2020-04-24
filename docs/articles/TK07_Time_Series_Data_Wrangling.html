@@ -355,13 +355,13 @@
                    <span class="kw">.facet_ncol</span> <span class="kw">=</span> <span class="fl">2</span>, <span class="kw">.smooth</span> <span class="kw">=</span> <span class="fl">FALSE</span>,
                    <span class="kw">.interactive</span> <span class="kw">=</span> <span class="fl">FALSE</span>)</pre></body></html></div>
 <p><img src="TK07_Time_Series_Data_Wrangling_files/figure-html/unnamed-chunk-11-1.png" width="95%" style="display: block; margin: auto;"></p>
-<p>For simple rolling calculations (rolling average), we can accomplish this operation faster with <code><a href="../reference/roll_apply_vec.html">roll_apply_vec()</a></code> - A vectorized rolling function for simple summary rolls (e.g. <code><a href="https://rdrr.io/r/base/mean.html">mean()</a></code>, <code><a href="https://rdrr.io/r/stats/sd.html">sd()</a></code>, <code><a href="https://rdrr.io/r/base/sum.html">sum()</a></code>, etc)</p>
+<p>For simple rolling calculations (rolling average), we can accomplish this operation faster with <code><a href="../reference/slidify_vec.html">slidify_vec()</a></code> - A vectorized rolling function for simple summary rolls (e.g. <code><a href="https://rdrr.io/r/base/mean.html">mean()</a></code>, <code><a href="https://rdrr.io/r/stats/sd.html">sd()</a></code>, <code><a href="https://rdrr.io/r/base/sum.html">sum()</a></code>, etc)</p>
 <div class="sourceCode" id="cb14"><html><body><pre class="r"><span class="no">FANG</span> <span class="kw">%&gt;%</span>
   <span class="fu">select</span>(<span class="no">symbol</span>, <span class="no">date</span>, <span class="no">adjusted</span>) <span class="kw">%&gt;%</span>
   <span class="fu">group_by</span>(<span class="no">symbol</span>) <span class="kw">%&gt;%</span>
   <span class="co"># Apply roll apply Function</span>
-  <span class="fu">mutate</span>(<span class="kw">rolling_avg_30</span> <span class="kw">=</span> <span class="fu"><a href="../reference/roll_apply_vec.html">roll_apply_vec</a></span>(<span class="no">adjusted</span>,  ~ <span class="fu"><a href="https://rdrr.io/pkg/tidyquant/man/excel_stat_summary_functions.html">AVERAGE</a></span>(<span class="no">.</span>),
-                                         <span class="kw">.period</span> <span class="kw">=</span> <span class="fl">30</span>, <span class="kw">.partial</span> <span class="kw">=</span> <span class="fl">TRUE</span>))</pre></body></html></div>
+  <span class="fu">mutate</span>(<span class="kw">rolling_avg_30</span> <span class="kw">=</span> <span class="fu"><a href="../reference/slidify_vec.html">slidify_vec</a></span>(<span class="no">adjusted</span>,  ~ <span class="fu"><a href="https://rdrr.io/pkg/tidyquant/man/excel_stat_summary_functions.html">AVERAGE</a></span>(<span class="no">.</span>),
+                                      <span class="kw">.period</span> <span class="kw">=</span> <span class="fl">30</span>, <span class="kw">.partial</span> <span class="kw">=</span> <span class="fl">TRUE</span>))</pre></body></html></div>
 <pre><code>## # A tibble: 4,032 x 4
 ## # Groups:   symbol [4]
 ##    symbol date       adjusted rolling_avg_30

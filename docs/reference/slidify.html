@@ -277,12 +277,12 @@ Function</p></li>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Transformation Functions:</p><ul>
-<li><p><code><a href='roll_apply_vec.html'>roll_apply_vec()</a></code> - A simple vectorized function for applying summary functions
+<li><p><code><a href='slidify_vec.html'>slidify_vec()</a></code> - A simple vectorized function for applying summary functions
 to rolling windows.</p></li>
 </ul>
 
 <p>Augmentation Functions (Add Rolling Multiple Columns):</p><ul>
-<li><p><code><a href='tk_augment_roll_apply.html'>tk_augment_roll_apply()</a></code> - For easily adding multiple rolling windows to you data</p></li>
+<li><p><code><a href='tk_augment_slidify.html'>tk_augment_slidify()</a></code> - For easily adding multiple rolling windows to you data</p></li>
 </ul>
 
 <p>Slider R Package:</p><ul>
@@ -361,11 +361,11 @@ to rolling windows.</p></li>
 #&gt; </span><span style='color: #555555;'>10</span><span> FB     2013-01-15     30.1           30.9            29.8
 #&gt; </span><span style='color: #555555;'># … with 998 more rows</span><span></div><div class='input'>
 <span class='co'># For summary operations like rolling means, we can accomplish large-scale</span>
-<span class='co'># multi-rolls with tk_augment_roll_apply()</span>
+<span class='co'># multi-rolls with tk_augment_slidify()</span>
 
 <span class='no'>FB</span> <span class='kw'>%&gt;%</span>
     <span class='fu'>select</span>(<span class='no'>symbol</span>, <span class='no'>date</span>, <span class='no'>adjusted</span>) <span class='kw'>%&gt;%</span>
-    <span class='fu'><a href='tk_augment_roll_apply.html'>tk_augment_roll_apply</a></span>(
+    <span class='fu'><a href='tk_augment_slidify.html'>tk_augment_slidify</a></span>(
         <span class='no'>adjusted</span>, <span class='kw'>.period</span> <span class='kw'>=</span> <span class='fl'>5</span>:<span class='fl'>10</span>, <span class='kw'>.f</span> <span class='kw'>=</span> <span class='no'>mean</span>, <span class='kw'>.align</span> <span class='kw'>=</span> <span class='st'>"right"</span>,
         <span class='kw'>.names</span> <span class='kw'>=</span> <span class='fu'>str_c</span>(<span class='st'>"MA_"</span>, <span class='fl'>5</span>:<span class='fl'>10</span>)
     )</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 1,008 x 9</span><span>
