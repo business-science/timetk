@@ -632,6 +632,13 @@ convert_n_future_chr_to_num_regular <- function(idx, n_future, include_endpoints
         start_date <- idx_summary$end
         end_date   <- start_date %+time% n_future
 
+        # For months that don't have day values (e.g. Feb 31st doesn't exist),
+        #  end_date is returned as NA
+        if (is.na(end_date)) {
+            start_date <- lubridate::ceiling_date(start_date, unit = "month")
+            end_date   <- start_date %+time% n_future
+        }
+
         # Calculate approximate horizon
         idx_horizon <- tk_make_timeseries(start_date, end_date,
                                           by = stringr::str_glue("{idx_summary$diff.median} sec"),
