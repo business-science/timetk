@@ -203,15 +203,15 @@ FANG %>%
                    .interactive = FALSE)
 ```
 
-For simple rolling calculations (rolling average), we can accomplish this operation faster with `roll_apply_vec()` - A vectorized rolling function for simple summary rolls (e.g. `mean()`, `sd()`, `sum()`, etc)
+For simple rolling calculations (rolling average), we can accomplish this operation faster with `slidify_vec()` - A vectorized rolling function for simple summary rolls (e.g. `mean()`, `sd()`, `sum()`, etc)
 
 ```{r}
 FANG %>%
   select(symbol, date, adjusted) %>%
   group_by(symbol) %>%
   # Apply roll apply Function
-  mutate(rolling_avg_30 = roll_apply_vec(adjusted,  ~ AVERAGE(.), 
-                                         .period = 30, .partial = TRUE))
+  mutate(rolling_avg_30 = slidify_vec(adjusted,  ~ AVERAGE(.), 
+                                      .period = 30, .partial = TRUE))
 ```
 
 ## Rolling Regression

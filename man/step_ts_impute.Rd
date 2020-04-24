@@ -129,18 +129,10 @@ Time Series Analysis:
 \itemize{
 \item Engineered Features: \code{\link[=step_timeseries_signature]{step_timeseries_signature()}}, \code{\link[=step_holiday_signature]{step_holiday_signature()}}, \code{\link[=step_fourier]{step_fourier()}}
 \item Diffs & Lags \code{\link[=step_diff]{step_diff()}}, \code{\link[recipes:step_lag]{recipes::step_lag()}}
-\item Smoothing: \code{\link[=step_roll_apply]{step_roll_apply()}}, \code{\link[=step_smooth]{step_smooth()}}
+\item Smoothing: \code{\link[=step_slidify]{step_slidify()}}, \code{\link[=step_smooth]{step_smooth()}}
 \item Variance Reduction: \code{\link[=step_box_cox]{step_box_cox()}}
-\item Imputation: \code{\link[=step_ts_impute]{step_ts_impute()}}
-}
-
-Time Series Analysis:
-\itemize{
-\item \code{\link[=step_timeseries_signature]{step_timeseries_signature()}}, \code{\link[=step_holiday_signature]{step_holiday_signature()}}
-\item \code{\link[=step_diff]{step_diff()}}, \code{\link[recipes:step_lag]{recipes::step_lag()}}
-\item \code{\link[=step_roll_apply]{step_roll_apply()}}, \code{\link[=step_smooth]{step_smooth()}}
-\item \code{\link[=step_box_cox]{step_box_cox()}}
-\item \code{\link[=step_ts_impute]{step_ts_impute()}}
+\item Imputation: \code{\link[=step_ts_impute]{step_ts_impute()}}, \code{\link[=step_ts_clean]{step_ts_clean()}}
+\item Padding: \code{\link[=step_ts_pad]{step_ts_pad()}}
 }
 
 Recipe Setup and Application:

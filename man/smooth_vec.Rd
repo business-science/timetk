@@ -87,8 +87,8 @@ FB_tbl \%>\%
 FB_tbl \%>\%
     mutate(
         adjusted_loess_30 = smooth_vec(adjusted, period = 30, degree = 0),
-        adjusted_ma_30    = roll_apply_vec(adjusted, .period = 30,
-                                           .f = AVERAGE, .partial = TRUE)
+        adjusted_ma_30    = slidify_vec(adjusted, .period = 30,
+                                        .f = AVERAGE, .partial = TRUE)
     ) \%>\%
     ggplot(aes(date, adjusted)) +
     geom_line() +
@@ -110,7 +110,7 @@ Additional Vector Functions:
 \item Box Cox Transformation: \code{\link[=box_cox_vec]{box_cox_vec()}}
 \item Lag Transformation: \code{\link[=lag_vec]{lag_vec()}}
 \item Differencing Transformation: \code{\link[=diff_vec]{diff_vec()}}
-\item Rolling Window Transformation: \code{\link[=roll_apply_vec]{roll_apply_vec()}}
+\item Rolling Window Transformation: \code{\link[=slidify_vec]{slidify_vec()}}
 \item Loess Smoothing Transformation: \code{\link[=smooth_vec]{smooth_vec()}}
 \item Fourier Series: \code{\link[=fourier_vec]{fourier_vec()}}
 \item Missing Value Imputation for Time Series: \code{\link[=ts_impute_vec]{ts_impute_vec()}}

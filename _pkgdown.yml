@@ -79,7 +79,7 @@ reference:
     contents:
     - "tk_augment_timeseries_signature"
     - "tk_augment_holiday_signature"
-    - "tk_augment_roll_apply"
+    - "tk_augment_slidify"
     - "tk_augment_differences"
     - "tk_augment_lags"
     - contains("augment")
@@ -97,7 +97,7 @@ reference:
   - subtitle: Smoothing & Rolling
   - contents:
     - "step_smooth"
-    - "step_roll_apply"
+    - "step_slidify"
   - subtitle: Variance Reduction
     desc: See `recipes::step_log()` for log transformation.
   - contents:

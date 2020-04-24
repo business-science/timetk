@@ -121,11 +121,11 @@ FB \%>\%
     )
 
 # For summary operations like rolling means, we can accomplish large-scale
-# multi-rolls with tk_augment_roll_apply()
+# multi-rolls with tk_augment_slidify()
 
 FB \%>\%
     select(symbol, date, adjusted) \%>\%
-    tk_augment_roll_apply(
+    tk_augment_slidify(
         adjusted, .period = 5:10, .f = mean, .align = "right",
         .names = str_c("MA_", 5:10)
     )
@@ -231,13 +231,13 @@ Function
 \seealso{
 Transformation Functions:
 \itemize{
-\item \code{\link[=roll_apply_vec]{roll_apply_vec()}} - A simple vectorized function for applying summary functions
+\item \code{\link[=slidify_vec]{slidify_vec()}} - A simple vectorized function for applying summary functions
 to rolling windows.
 }
 
 Augmentation Functions (Add Rolling Multiple Columns):
 \itemize{
-\item \code{\link[=tk_augment_roll_apply]{tk_augment_roll_apply()}} - For easily adding multiple rolling windows to you data
+\item \code{\link[=tk_augment_slidify]{tk_augment_slidify()}} - For easily adding multiple rolling windows to you data
 }
 
 Slider R Package:

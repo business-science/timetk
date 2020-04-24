@@ -159,7 +159,7 @@ The `timetk` package wouldn't be possible without other amazing time series pack
     - `slidify()` is basically `rollify()` using `slider` (see below).
 * [slider](https://davisvaughan.github.io/slider/): A powerful R package that provides a `purrr`-syntax for complex rolling (sliding) calculations. 
     - `slidify()` uses `slider::pslide` under the hood. 
-    - `roll_apply_vec()` uses `slider::slide_vec()` for simple vectorized rolls (slides).
+    - `slidify_vec()` uses `slider::slide_vec()` for simple vectorized rolls (slides).
 * [padr](https://edwinth.github.io/padr/): Used for padding time series from low frequency to high frequency and filling in gaps. 
     - The `pad_by_time()` function is a wrapper for `padr::pad()`.
     - See the `step_ts_pad()` to apply padding as a preprocessing recipe!

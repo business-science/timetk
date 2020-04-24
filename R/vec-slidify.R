@@ -1,6 +1,6 @@
 #' Rolling Window Transformation
 #'
-#' `roll_apply_vec()` applies a _summary function_ to a rolling sequence of windows.
+#' `slidify_vec()` applies a _summary function_ to a rolling sequence of windows.
 #'
 #' @param .x A vector to have a rolling window transformation applied.
 #' @param .period The number of periods to include in the local rolling window.
@@ -22,7 +22,7 @@
 #' @return A numeric vector
 #'
 #' @details
-#' The `roll_apply_vec()` function is a wrapper for `slider::slide_vec()` with parameters
+#' The `slidify_vec()` function is a wrapper for `slider::slide_vec()` with parameters
 #' simplified "center", "left", "right" alignment.
 #'
 #' __Vector Length In == Vector Length Out__
@@ -56,8 +56,8 @@
 #' @seealso
 #'
 #' Modeling and More Complex Rolling Operations:
-#'   - [step_roll_apply()] - Roll apply for `tidymodels` modeling
-#'   - [tk_augment_roll_apply()] - Add many rolling columns group-wise
+#'   - [step_slidify()] - Roll apply for `tidymodels` modeling
+#'   - [tk_augment_slidify()] - Add many rolling columns group-wise
 #'   - [slidify()] - Turn any function into a rolling function. Great for
 #'     rolling cor, rolling regression, etc.
 #'   - For more complex rolling operations, check out the `slider` R package.
@@ -67,7 +67,7 @@
 #'   - Box Cox Transformation: [box_cox_vec()]
 #'   - Lag Transformation: [lag_vec()]
 #'   - Differencing Transformation: [diff_vec()]
-#'   - Rolling Window Transformation: [roll_apply_vec()]
+#'   - Rolling Window Transformation: [slidify_vec()]
 #'   - Loess Smoothing Transformation: [smooth_vec()]
 #'   - Fourier Series: [fourier_vec()]
 #'   - Missing Value Imputation for Time Series: [ts_impute_vec()]
@@ -90,7 +90,7 @@
 #' # ---- FUNCTION FORMAT ----
 #' # - The `.f = mean` function is used. Argument `na.rm = TRUE` is passed as ...
 #' FB_tbl %>%
-#'     mutate(adjusted_30_ma = roll_apply_vec(
+#'     mutate(adjusted_30_ma = slidify_vec(
 #'         .x      = adjusted,
 #'         .period = 30,
 #'         .f      = mean,
@@ -103,7 +103,7 @@
 #' # ---- FORMULA FORMAT ----
 #' # - Anonymous function `.f = ~ mean(., na.rm = TRUE)` is used
 #' FB_tbl %>%
-#'     mutate(adjusted_30_ma = roll_apply_vec(
+#'     mutate(adjusted_30_ma = slidify_vec(
 #'         .x      = adjusted,
 #'         .period = 30,
 #'         .f      = ~ mean(., na.rm = TRUE),
@@ -115,7 +115,7 @@
 #' # ---- PARTIAL VALUES ----
 #' # - set `.partial = TRUE`
 #' FB_tbl %>%
-#'     mutate(adjusted_30_ma = roll_apply_vec(
+#'     mutate(adjusted_30_ma = slidify_vec(
 #'         .x       = adjusted,
 #'         .f       = ~ mean(., na.rm = TRUE),
 #'         .period  = 30,
@@ -131,7 +131,7 @@
 #' FB_tbl %>%
 #'     mutate(
 #'         adjusted_loess_30 = smooth_vec(adjusted, period = 30, degree = 0),
-#'         adjusted_ma_30    = roll_apply_vec(adjusted, .f = AVERAGE,
+#'         adjusted_ma_30    = slidify_vec(adjusted, .f = AVERAGE,
 #'                                            .period = 30, .partial = TRUE)
 #'     ) %>%
 #'     ggplot(aes(date, adjusted)) +
@@ -143,7 +143,7 @@
 #'
 #'
 #' @export
-roll_apply_vec <- function(.x, .f, ..., .period = 1, .align = c("center", "left", "right"), .partial = FALSE) {
+slidify_vec <- function(.x, .f, ..., .period = 1, .align = c("center", "left", "right"), .partial = FALSE) {
 
     roll_to_slide(
         .slider_fun = slider::slide_vec,

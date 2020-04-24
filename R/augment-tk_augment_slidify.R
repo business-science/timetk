@@ -18,8 +18,8 @@
 #' @return Returns a `tibble` object describing the timeseries.
 #'
 #' @details
-#' `tk_augment_roll_apply()` scales the [`roll_apply_vec()`] function to multiple
-#' time series `.periods`. See [`roll_apply_vec()`] for examples and usage of the core function
+#' `tk_augment_slidify()` scales the [`slidify_vec()`] function to multiple
+#' time series `.periods`. See [`slidify_vec()`] for examples and usage of the core function
 #' arguments.
 #'
 #'
@@ -30,15 +30,14 @@
 #'
 #' - [tk_augment_timeseries_signature()] - Group-wise augmentation of timestamp features
 #' - [tk_augment_holiday_signature()] - Group-wise augmentation of holiday features
-#' - [tk_augment_roll_apply()] - Group-wise augmentation of rolling functions
+#' - [tk_augment_slidify()] - Group-wise augmentation of rolling functions
 #' - [tk_augment_lags()] - Group-wise augmentation of lagged data
 #' - [tk_augment_differences()] - Group-wise augmentation of differenced data
-#' - [tk_augment_fourier()] - Group-wise augmentation of differenced data
 #' - [tk_augment_fourier()] - Group-wise augmentation of fourier series
 #'
 #' Underlying Function:
 #'
-#' - [`roll_apply_vec()`] - The underlying function that powers `tk_augment_roll_apply()`
+#' - [`slidify_vec()`] - The underlying function that powers `tk_augment_slidify()`
 #'
 #' @examples
 #' library(tidyverse)
@@ -48,7 +47,7 @@
 #' FANG %>%
 #'     select(symbol, date, adjusted) %>%
 #'     group_by(symbol) %>%
-#'     tk_augment_roll_apply(
+#'     tk_augment_slidify(
 #'         .value  = adjusted,
 #'         # Multiple rolling windows
 #'         .period  = c(10, 30, 60, 90),
@@ -57,12 +56,12 @@
 #'         .names   = str_c("MA_", c(10, 30, 60, 90))
 #'     )
 #'
-#' @name tk_augment_roll_apply
+#' @name tk_augment_slidify
 NULL
 
 #' @export
-#' @rdname tk_augment_roll_apply
-tk_augment_roll_apply <- function(.data,
+#' @rdname tk_augment_slidify
+tk_augment_slidify <- function(.data,
                                   .value,
                                   .period,
                                   .f,
@@ -70,11 +69,11 @@ tk_augment_roll_apply <- function(.data,
                                   .align = c("center", "left", "right"),
                                   .partial = FALSE,
                                   .names = "auto") {
-    UseMethod("tk_augment_roll_apply", .data)
+    UseMethod("tk_augment_slidify", .data)
 }
 
 #' @export
-tk_augment_roll_apply.data.frame <- function(.data,
+tk_augment_slidify.data.frame <- function(.data,
                                              .value,
                                              .period,
                                              .f,
@@ -85,9 +84,9 @@ tk_augment_roll_apply.data.frame <- function(.data,
 
     column_expr <- enquo(.value)
 
-    if (rlang::quo_is_missing(column_expr)) stop(call. = FALSE, "tk_augment_roll_apply(.value) is missing.")
-    if (rlang::is_missing(.period)) stop(call. = FALSE, "tk_augment_roll_apply(.period) is missing.")
-    if (rlang::is_missing(.f)) stop(call. = FALSE, "tk_augment_roll_apply(.f) is missing.")
+    if (rlang::quo_is_missing(column_expr)) stop(call. = FALSE, "tk_augment_slidify(.value) is missing.")
+    if (rlang::is_missing(.period)) stop(call. = FALSE, "tk_augment_slidify(.period) is missing.")
+    if (rlang::is_missing(.f)) stop(call. = FALSE, "tk_augment_slidify(.f) is missing.")
 
     ret_1 <- .data
 
@@ -95,7 +94,7 @@ tk_augment_roll_apply.data.frame <- function(.data,
         purrr::map_dfc(.f = function(period) {
             .data %>%
                 dplyr::pull(!! column_expr) %>%
-                roll_apply_vec(
+                slidify_vec(
                     .period  = period,
                     .f       = .f,
                     ...,
@@ -124,7 +123,7 @@ tk_augment_roll_apply.data.frame <- function(.data,
 
 }
 
-tk_augment_roll_apply.grouped_df <- function(.data,
+tk_augment_slidify.grouped_df <- function(.data,
                                              .value,
                                              .period,
                                              .f,
@@ -138,15 +137,15 @@ tk_augment_roll_apply.grouped_df <- function(.data,
     group_names <- dplyr::group_vars(.data)
 
     # Checks
-    if (rlang::quo_is_missing(column_expr)) stop(call. = FALSE, "tk_augment_roll_apply(.value) is missing.")
-    if (rlang::is_missing(.period)) stop(call. = FALSE, "tk_augment_roll_apply(.period) is missing.")
-    if (rlang::is_missing(.f)) stop(call. = FALSE, "tk_augment_roll_apply(.f) is missing.")
+    if (rlang::quo_is_missing(column_expr)) stop(call. = FALSE, "tk_augment_slidify(.value) is missing.")
+    if (rlang::is_missing(.period)) stop(call. = FALSE, "tk_augment_slidify(.period) is missing.")
+    if (rlang::is_missing(.f)) stop(call. = FALSE, "tk_augment_slidify(.f) is missing.")
 
     .data %>%
         tidyr::nest() %>%
         dplyr::mutate(nested.col = purrr::map(
             .x         = data,
-            .f         = function(df) tk_augment_roll_apply(
+            .f         = function(df) tk_augment_slidify(
                 .data      = df,
                 .value    = !! enquo(.value),
                 .period    = .period,
@@ -164,7 +163,7 @@ tk_augment_roll_apply.grouped_df <- function(.data,
 
 
 #' @export
-tk_augment_roll_apply.default <- function(.data,
+tk_augment_slidify.default <- function(.data,
                                           .value,
                                           .period,
                                           .f,
@@ -172,5 +171,5 @@ tk_augment_roll_apply.default <- function(.data,
                                           .align = c("center", "left", "right"),
                                           .partial = FALSE,
                                           .names = "auto") {
-    stop(paste0("`tk_augment_roll_apply` has no method for class ", class(data)[[1]]))
+    stop(paste0("`tk_augment_slidify` has no method for class ", class(data)[[1]]))
 }

@@ -63,6 +63,7 @@ frames or tibbles).
 | Holiday Feature Engineering                                                                                                         | ✅                                                    | :x:                                                 | :x:                                               | :x:                                                          |
 | Fourier Series                                                                                                                      | ✅                                                    | :x:                                                 | :x:                                               | :x:                                                          |
 | Smoothing & Rolling                                                                                                                 | ✅                                                    | :x:                                                 | :x:                                               | :x:                                                          |
+| Padding                                                                                                                             | ✅                                                    | :x:                                                 | :x:                                               | :x:                                                          |
 | Imputation                                                                                                                          | ✅                                                    | :x:                                                 | :x:                                               | :x:                                                          |
 | **Cross Validation (rsample)**                                                                                                      |                                                      |                                                     |                                                   |                                                              |
 | [Time Series Cross Validation](https://business-science.github.io/timetk/reference/time_series_cv.html)                             | ✅                                                    | :x:                                                 | :x:                                               | :x:                                                          |
@@ -176,8 +177,8 @@ series packages.
     package that provides a `purrr`-syntax for complex rolling (sliding)
     calculations.
       - `slidify()` uses `slider::pslide` under the hood.
-      - `roll_apply_vec()` uses `slider::slide_vec()` for simple
-        vectorized rolls (slides).
+      - `slidify_vec()` uses `slider::slide_vec()` for simple vectorized
+        rolls (slides).
   - [padr](https://edwinth.github.io/padr/): Used for padding time
     series from low frequency to high frequency and filling in gaps.
       - The `pad_by_time()` function is a wrapper for `padr::pad()`.

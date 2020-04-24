@@ -97,7 +97,7 @@ Augment Operations:
 \itemize{
 \item \code{\link[=tk_augment_timeseries_signature]{tk_augment_timeseries_signature()}} - Group-wise augmentation of timestamp features
 \item \code{\link[=tk_augment_holiday_signature]{tk_augment_holiday_signature()}} - Group-wise augmentation of holiday features
-\item \code{\link[=tk_augment_roll_apply]{tk_augment_roll_apply()}} - Group-wise augmentation of rolling functions
+\item \code{\link[=tk_augment_slidify]{tk_augment_slidify()}} - Group-wise augmentation of rolling functions
 \item \code{\link[=tk_augment_lags]{tk_augment_lags()}} - Group-wise augmentation of lagged data
 \item \code{\link[=tk_augment_differences]{tk_augment_differences()}} - Group-wise augmentation of differenced data
 \item \code{\link[=tk_augment_fourier]{tk_augment_fourier()}} - Group-wise augmentation of fourier series

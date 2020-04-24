@@ -52,7 +52,7 @@
 #'   - Box Cox Transformation: [box_cox_vec()]
 #'   - Lag Transformation: [lag_vec()]
 #'   - Differencing Transformation: [diff_vec()]
-#'   - Rolling Window Transformation: [roll_apply_vec()]
+#'   - Rolling Window Transformation: [slidify_vec()]
 #'   - Loess Smoothing Transformation: [smooth_vec()]
 #'   - Fourier Series: [fourier_vec()]
 #'   - Missing Value Imputation for Time Series: [ts_impute_vec()]
@@ -89,8 +89,8 @@
 #' FB_tbl %>%
 #'     mutate(
 #'         adjusted_loess_30 = smooth_vec(adjusted, period = 30, degree = 0),
-#'         adjusted_ma_30    = roll_apply_vec(adjusted, .period = 30,
-#'                                            .f = AVERAGE, .partial = TRUE)
+#'         adjusted_ma_30    = slidify_vec(adjusted, .period = 30,
+#'                                         .f = AVERAGE, .partial = TRUE)
 #'     ) %>%
 #'     ggplot(aes(date, adjusted)) +
 #'     geom_line() +

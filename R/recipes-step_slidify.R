@@ -1,6 +1,6 @@
 #' Rolling Window Transformation
 #'
-#' `step_roll_apply` creates a a *specification* of a recipe
+#' `step_slidify` creates a a *specification* of a recipe
 #'  step that will apply a function
 #'  to one or more a Numeric column(s).
 #'
@@ -49,7 +49,7 @@
 #'  using skip = TRUE as it may affect the computations for subsequent operations.
 #' @param id A character string that is unique to this step to identify it.
 #'
-#' @return For `step_roll_apply`, an updated version of recipe with
+#' @return For `step_slidify`, an updated version of recipe with
 #'  the new step added to the sequence of existing steps (if any).
 #'  For the `tidy` method, a tibble with columns `terms`
 #'  (the selectors or variables selected), `value` (the feature
@@ -88,9 +88,10 @@
 #'  Time Series Analysis:
 #'  - Engineered Features: [step_timeseries_signature()], [step_holiday_signature()], [step_fourier()]
 #'  - Diffs & Lags [step_diff()], [recipes::step_lag()]
-#'  - Smoothing: [step_roll_apply()], [step_smooth()]
+#'  - Smoothing: [step_slidify()], [step_smooth()]
 #'  - Variance Reduction: [step_box_cox()]
-#'  - Imputation: [step_ts_impute()]
+#'  - Imputation: [step_ts_impute()], [step_ts_clean()]
+#'  - Padding: [step_ts_pad()]
 #'
 #'  Main Recipe Functions:
 #'  - [recipes::recipe()]
@@ -117,9 +118,9 @@
 #'     bind_cols(FB_tbl %>% slice((n() - 90 + 1):n()))
 #'
 #'
-#' # Create a recipe object with a step_roll_apply
+#' # Create a recipe object with a step_slidify
 #' rec_ma_50 <- recipe(adjusted ~ ., data = FB_tbl) %>%
-#'     step_roll_apply(adjusted, period = 50, .f = ~ AVERAGE(.x))
+#'     step_slidify(adjusted, period = 50, .f = ~ AVERAGE(.x))
 #'
 #' # Bake the recipe object - Applies the Moving Average Transformation
 #' training_data_baked <- bake(prep(rec_ma_50), FB_tbl)
@@ -137,7 +138,7 @@
 #' # Use the `names` argument to create new columns instead of overwriting existing
 #'
 #' rec_ma_30_names <- recipe(adjusted ~ ., data = FB_tbl) %>%
-#'     step_roll_apply(adjusted, period = 30, .f = AVERAGE, names = "adjusted_ma_30")
+#'     step_slidify(adjusted, period = 30, .f = AVERAGE, names = "adjusted_ma_30")
 #'
 #' bake(prep(rec_ma_30_names), FB_tbl) %>%
 #'     ggplot(aes(date, adjusted)) +
@@ -148,7 +149,7 @@
 #'
 #' @importFrom recipes rand_id
 #' @export
-step_roll_apply <-
+step_slidify <-
     function(recipe,
              ...,
              period,
@@ -160,16 +161,16 @@ step_roll_apply <-
              columns = NULL,
              f_name  = NULL,
              skip = FALSE,
-             id = rand_id("roll_apply")) {
+             id = rand_id("slidify")) {
 
-        if (rlang::quo(.f) %>% rlang::quo_is_missing()) stop(call. = FALSE, "step_roll_apply(.f) is missing.")
-        if (rlang::is_missing(period)) stop(call. = FALSE, "step_roll_apply(period) is missing.")
+        if (rlang::quo(.f) %>% rlang::quo_is_missing()) stop(call. = FALSE, "step_slidify(.f) is missing.")
+        if (rlang::is_missing(period)) stop(call. = FALSE, "step_slidify(period) is missing.")
 
         f_name <- rlang::enquo(.f) %>% rlang::expr_text()
 
         recipes::add_step(
             recipe,
-            step_roll_apply_new(
+            step_slidify_new(
                 terms      = recipes::ellipse_check(...),
                 period     = period,
                 .f         = .f,
@@ -185,10 +186,10 @@ step_roll_apply <-
         )
     }
 
-step_roll_apply_new <-
+step_slidify_new <-
     function(terms, role, trained, columns, period, .f, align, names, f_name, skip, id) {
         step(
-            subclass   = "roll_apply",
+            subclass   = "slidify",
             terms      = terms,
             role       = role,
             names      = names,
@@ -205,7 +206,7 @@ step_roll_apply_new <-
 
 
 #' @export
-prep.step_roll_apply <- function(x, training, info = NULL, ...) {
+prep.step_slidify <- function(x, training, info = NULL, ...) {
 
     col_names <- recipes::terms_select(x$terms, info = info)
 
@@ -222,7 +223,7 @@ prep.step_roll_apply <- function(x, training, info = NULL, ...) {
             )
     }
 
-    step_roll_apply_new(
+    step_slidify_new(
         terms    = x$terms,
         role     = x$role,
         trained  = TRUE,
@@ -238,7 +239,7 @@ prep.step_roll_apply <- function(x, training, info = NULL, ...) {
 }
 
 #' @export
-bake.step_roll_apply <- function(object, new_data, ...) {
+bake.step_slidify <- function(object, new_data, ...) {
 
     col_names <- object$columns
 
@@ -249,7 +250,7 @@ bake.step_roll_apply <- function(object, new_data, ...) {
         for (i in seq_along(object$names)) {
             new_data[,object$names[i]] <- new_data %>%
                 dplyr::pull(col_names[i]) %>%
-                roll_apply_vec(
+                slidify_vec(
                     .period  = object$period,
                     .f       = object$.f,
                     .align   = align,
@@ -260,7 +261,7 @@ bake.step_roll_apply <- function(object, new_data, ...) {
         for (i in seq_along(col_names)) {
             new_data[,col_names[i]] <- new_data %>%
                 dplyr::pull(col_names[i]) %>%
-                roll_apply_vec(
+                slidify_vec(
                     .period  = object$period,
                     .f       = object$.f,
                     .align   = align,
@@ -272,17 +273,17 @@ bake.step_roll_apply <- function(object, new_data, ...) {
 }
 
 
-print.step_roll_apply <-
+print.step_slidify <-
     function(x, width = max(20, options()$width - 35), ...) {
         cat("Rolling Apply on ")
         printer(x$columns, x$terms, x$trained, width = width)
         invisible(x)
     }
 
-#' @rdname step_roll_apply
-#' @param x A `step_roll_apply` object.
+#' @rdname step_slidify
+#' @param x A `step_slidify` object.
 #' @export
-tidy.step_roll_apply <- function(x, ...) {
+tidy.step_slidify <- function(x, ...) {
     out        <- simple_terms(x, ...)
     out$period <- x$period
     out$.f     <- x$f_name

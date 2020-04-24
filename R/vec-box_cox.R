@@ -32,10 +32,10 @@
 #'   - Box Cox Transformation: [box_cox_vec()]
 #'   - Lag Transformation: [lag_vec()]
 #'   - Differencing Transformation: [diff_vec()]
-#'   - Rolling Window Transformation: [roll_apply_vec()]
+#'   - Rolling Window Transformation: [slidify_vec()]
 #'   - Loess Smoothing Transformation: [smooth_vec()]
 #'   - Fourier Series: [fourier_vec()]
-#'   - Missing Value Imputation for Time Series: [ts_impute_vec()]
+#'   - Missing Value Imputation for Time Series: [ts_impute_vec()], [ts_clean_vec()]
 #'
 #' Other common transformations to reduce variance: `log()`, `log1p()` and `sqrt()`
 #'

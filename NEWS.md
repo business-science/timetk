@@ -48,8 +48,13 @@ __Bug Fixes__:
     
 __Breaking Changes__:
 
+These should not be of major impact since the 1.0.0 version was just released. 
+
 * Renamed `impute_ts_vec()` to `ts_impute_vec()` for consistency with `ts_clean_vec()`
 * Renamed `step_impute_ts()` to `step_ts_impute()` for consistency with underlying function
+* Renamed `roll_apply_vec()` to `slidify_vec()` for consistency with `slidify()` & relationship to `slider` R package
+* Renamed `step_roll_apply` to `step_slidify()` for consistency with `slidify()` & relationship to `slider` R package
+* Renamed `tk_augment_roll_apply` to `tk_augment_slidify()` for consistency with `slidify()` & relationship to `slider` R package
 
 # timetk 1.0.0 
 
