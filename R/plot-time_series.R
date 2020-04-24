@@ -214,7 +214,7 @@ plot_time_series.data.frame <- function(.data, .date_var, .value, ..., .color_va
     # ---- DATA SETUP ----
 
     # Evaluate Formula
-    data_formatted <- .data %>%
+    data_formatted <- tibble::as_tibble(.data) %>%
         dplyr::group_by(!!! facets_expr) %>%
         dplyr::mutate(.value_mod = !! value_expr) %>%
         dplyr::ungroup()

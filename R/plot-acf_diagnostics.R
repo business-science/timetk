@@ -144,7 +144,7 @@ plot_acf_diagnostics.data.frame <- function(.data, .date_var, .value, ..., .lags
     # ---- DATA PREPARATION ----
 
     data_formatted <- tk_acf_diagnostics(
-        .data     = .data,
+        .data     = tibble::as_tibble(.data),
         .date_var = !! rlang::enquo(.date_var),
         .value    = !! value_expr,
         ...       = ...,

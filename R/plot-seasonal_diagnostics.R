@@ -138,7 +138,7 @@ plot_seasonal_diagnostics.data.frame <- function(.data, .date_var, .value, ...,
     date_var_expr <- rlang::enquo(.date_var)
     facets_expr   <- rlang::enquos(...)
 
-    data_formatted      <- .data
+    data_formatted      <- tibble::as_tibble(.data)
     .facet_collapse     <- TRUE
     .facet_collapse_sep <- " "
 
@@ -309,6 +309,8 @@ plot_seasonal_diagnostics.grouped_df <- function(.data, .date_var, .value, ...,
     # Tidy Eval Setup
     group_names   <- dplyr::group_vars(.data)
     facets_expr   <- rlang::enquos(...)
+
+    .data <- tibble::as_tibble(.data)
 
     # Checks
     facet_names <- .data %>% dplyr::ungroup() %>% dplyr::select(!!! facets_expr) %>% colnames()

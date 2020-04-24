@@ -171,7 +171,7 @@ plot_anomaly_diagnostics.data.frame <- function(.data, .date_var, .value, ...,
     date_var_expr <- rlang::enquo(.date_var)
     facets_expr   <- rlang::enquos(...)
 
-    data_formatted      <- .data
+    data_formatted      <- tibble::as_tibble(.data)
     .facet_collapse     <- TRUE
     .facet_collapse_sep <- " "
 
