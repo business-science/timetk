@@ -87,6 +87,16 @@ taylor_30_min %>%
 
 ![](man/figures/README-unnamed-chunk-3-1.png)<!-- -->
 
+Visualize anomalies…
+
+``` r
+walmart_sales_weekly %>%
+    plot_anomaly_diagnostics(Date, Weekly_Sales, Store, Dept, 
+                             .facet_ncol = 3, .interactive = FALSE)
+```
+
+![](man/figures/README-unnamed-chunk-4-1.png)<!-- -->
+
 Make a seasonality plot…
 
 ``` r
@@ -94,7 +104,7 @@ taylor_30_min %>%
     plot_seasonal_diagnostics(date, value, .interactive = FALSE)
 ```
 
-![](man/figures/README-unnamed-chunk-4-1.png)<!-- -->
+![](man/figures/README-unnamed-chunk-5-1.png)<!-- -->
 
 Inspect autocorrelation, partial autocorrelation (and cross correlations
 too)…
@@ -104,7 +114,7 @@ taylor_30_min %>%
     plot_acf_diagnostics(date, value, .lags = 0:(48*7), .interactive = FALSE)
 ```
 
-![](man/figures/README-unnamed-chunk-5-1.png)<!-- -->
+![](man/figures/README-unnamed-chunk-6-1.png)<!-- -->
 
 ## Installation
 
@@ -156,9 +166,9 @@ series packages.
     (retired)](https://business-science.github.io/tibbletime/): While
     `timetk` does not import `tibbletime`, it uses much of the
     innovative functionality to interpret time-based phrases:
-      - `tk_make_timeseries()` - Extends `seq.Date()` and
-        `seq.POSIXct()` using a simple phase like “2012-02” to populate
-        the entire time series from start to finish in February 2012.
+      - `tk_make_timeseries()` - Extends `seq.Date()` and `seq.POSIXt()`
+        using a simple phase like “2012-02” to populate the entire time
+        series from start to finish in February 2012.
       - `filter_by_time()`, `between_time()` - Uses innovative endpoint
         detection from phrases like “2012”
       - `slidify()` is basically `rollify()` using `slider` (see below).

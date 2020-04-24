@@ -69,6 +69,7 @@ There are _many_ R packages for working with Time Series data. Here's how `timet
 | Holiday Feature Engineering  |  ✅  |  :x:  |  :x:   |  :x:  |  
 | Fourier Series               |  ✅  |  :x:  |  :x:   |  :x:  |  
 | Smoothing & Rolling          |  ✅  |  :x:  |  :x:   |  :x:  |  
+| Padding                      |  ✅  |  :x:  |  :x:   |  :x:  |  
 | Imputation                   |  ✅  |  :x:  |  :x:   |  :x:  |  
 | __Cross Validation (rsample)__  |        |         |         |             |             
 | [Time Series Cross Validation](https://business-science.github.io/timetk/reference/time_series_cv.html)      |  ✅  |  :x:  |  :x:   |  :x:  |  
@@ -97,6 +98,14 @@ taylor_30_min %>%
                      .interactive = FALSE, .color_lab = "Week")
 ```
 
+Visualize anomalies...
+
+```{r, fig.height=7}
+walmart_sales_weekly %>%
+    plot_anomaly_diagnostics(Date, Weekly_Sales, Store, Dept, 
+                             .facet_ncol = 3, .interactive = FALSE)
+```
+
 Make a seasonality plot...
 
 ```{r, fig.height=8}
@@ -110,6 +119,9 @@ Inspect autocorrelation, partial autocorrelation (and cross correlations too)...
 taylor_30_min %>%
     plot_acf_diagnostics(date, value, .lags = 0:(48*7), .interactive = FALSE)
 ```
+
+
+
 
 
 ## Installation
@@ -142,7 +154,7 @@ The `timetk` package wouldn't be possible without other amazing time series pack
     - The `ts_clean_vec()` function for low-level vectorized imputation using STL + Linear Interpolation uses `tsclean()` under the hood.
     - Box Cox transformation `auto_lambda()` uses `BoxCox.Lambda()`.  
 * [tibbletime (retired)](https://business-science.github.io/tibbletime/): While `timetk` does not import `tibbletime`, it uses much of the innovative functionality to interpret time-based phrases:
-    - `tk_make_timeseries()` - Extends `seq.Date()` and `seq.POSIXct()` using a simple phase like "2012-02" to populate the entire time series from start to finish in February 2012.
+    - `tk_make_timeseries()` - Extends `seq.Date()` and `seq.POSIXt()` using a simple phase like "2012-02" to populate the entire time series from start to finish in February 2012.
     - `filter_by_time()`, `between_time()` - Uses innovative endpoint detection from phrases like "2012"
     - `slidify()` is basically `rollify()` using `slider` (see below).
 * [slider](https://davisvaughan.github.io/slider/): A powerful R package that provides a `purrr`-syntax for complex rolling (sliding) calculations. 
