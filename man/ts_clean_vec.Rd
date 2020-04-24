@@ -18,19 +18,21 @@ first performed and a linear interpolation is applied to the seasonally adjusted
 automated lambda selection.}
 }
 \description{
-This is mainly a wrapper for the Seasonally Adjusted Missing Value using Linear Interpolation function,
-\code{tsclean()}, from the \code{forecast} R package. The \code{ts_clean_vec()} function includes arguments for applying
+This is mainly a wrapper for the outlier cleaning function,
+\code{tsclean()}, from the \code{forecast} R package.
+The \code{ts_clean_vec()} function includes arguments for applying
 seasonality to numeric vector (non-\code{ts}) via the \code{period} argument.
 }
 \details{
 \strong{Cleaning Outliers}
 \enumerate{
 \item Non-Seasonal (\code{period = 1}): Uses \code{stats::supsmu()}
-\item Seasonal (\code{period > 1}): Uses robust STL decomposition for seasonal series.
+\item Seasonal (\code{period > 1}): Uses \code{forecast::mstl()} with \code{robust = TRUE} (robust STL decomposition)
+for seasonal series.
 }
 
 To estimate missing values and outlier replacements, linear interpolation is used on the
-(possibly seasonally adjusted) series. See \code{forecast::tsoutliers()}.
+(possibly seasonally adjusted) series. See \code{forecast::tsoutliers()} for the outlier detection method.
 
 \strong{Box Cox Transformation}
 

@@ -2,7 +2,6 @@
 <!--
 __TODO:__
 
-
 SMALLER ITEMS:
 1. Outlier diagnostics
 2. Missing value diagnostics
@@ -10,7 +9,7 @@ SMALLER ITEMS:
 4. tsibble integration
 
 Steps:
-- step_pad_time_series
+- step_ts_pad
 - Step 
 
 - Tests (Boooo)

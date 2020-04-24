@@ -105,7 +105,7 @@ reference:
   - subtitle: Imputation
     desc: See `recipes::step_rollimpute()` for rolling imputation.
   - contents:
-    - "step_impute_ts"
+    - "step_ts_impute"
   - title: Rsample Operations (Cross Validation)
     desc: __Resampling for time series cross validation using `rsamples`__
     contents:

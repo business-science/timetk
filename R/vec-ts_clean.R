@@ -1,7 +1,8 @@
 #' Replace Outliers & Missing Values in a Time Series
 #'
-#' This is mainly a wrapper for the Seasonally Adjusted Missing Value using Linear Interpolation function,
-#' `tsclean()`, from the `forecast` R package. The `ts_clean_vec()` function includes arguments for applying
+#' This is mainly a wrapper for the outlier cleaning function,
+#' `tsclean()`, from the `forecast` R package.
+#' The `ts_clean_vec()` function includes arguments for applying
 #' seasonality to numeric vector (non-`ts`) via the `period` argument.
 #'
 #' @param x A numeric vector.
@@ -17,10 +18,11 @@
 #' __Cleaning Outliers__
 #'
 #' 1. Non-Seasonal (`period = 1`): Uses `stats::supsmu()`
-#' 2. Seasonal (`period > 1`): Uses robust STL decomposition for seasonal series.
+#' 2. Seasonal (`period > 1`): Uses `forecast::mstl()` with `robust = TRUE` (robust STL decomposition)
+#'  for seasonal series.
 #'
 #' To estimate missing values and outlier replacements, linear interpolation is used on the
-#' (possibly seasonally adjusted) series. See `forecast::tsoutliers()`.
+#' (possibly seasonally adjusted) series. See `forecast::tsoutliers()` for the outlier detection method.
 #'
 #'
 #' __Box Cox Transformation__
