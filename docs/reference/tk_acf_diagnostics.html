@@ -260,61 +260,61 @@ group-wise analysis. Rather, it's used for processing Cross Correlations (CCFs).
     <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span>(<span class='no'>symbol</span> <span class='kw'>==</span> <span class='st'>"FB"</span>) <span class='kw'>%&gt;%</span>
     <span class='fu'>tk_acf_diagnostics</span>(<span class='no'>date</span>, <span class='no'>adjusted</span>, <span class='co'># ACF &amp; PACF</span>
                        <span class='no'>volume</span>, <span class='no'>close</span>,  <span class='co'># CCFs</span>
-                       <span class='kw'>.lags</span> <span class='kw'>=</span> <span class='fl'>0</span>:<span class='fl'>500</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 501 x 5</span><span>
+                       <span class='kw'>.lags</span> <span class='kw'>=</span> <span class='fl'>0</span>:<span class='fl'>500</span>)</div><div class='output co'>#&gt; # A tibble: 501 x 5
 #&gt;      lag   ACF      PACF CCF_volume CCF_close
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span>     0 1.00   1            -</span><span style='color: #BB0000;'>0.447</span><span>     1.00 
-#&gt; </span><span style='color: #555555;'> 2</span><span>     1 0.997  0.997        -</span><span style='color: #BB0000;'>0.444</span><span>     0.997
-#&gt; </span><span style='color: #555555;'> 3</span><span>     2 0.994 -</span><span style='color: #BB0000;'>0.022</span><span style='color: #BB0000;text-decoration: underline;'>7</span><span>       -</span><span style='color: #BB0000;'>0.442</span><span>     0.994
-#&gt; </span><span style='color: #555555;'> 4</span><span>     3 0.990  0.010</span><span style='text-decoration: underline;'>1</span><span>       -</span><span style='color: #BB0000;'>0.438</span><span>     0.990
-#&gt; </span><span style='color: #555555;'> 5</span><span>     4 0.987  0.031</span><span style='text-decoration: underline;'>1</span><span>       -</span><span style='color: #BB0000;'>0.437</span><span>     0.987
-#&gt; </span><span style='color: #555555;'> 6</span><span>     5 0.985  0.018</span><span style='text-decoration: underline;'>0</span><span>       -</span><span style='color: #BB0000;'>0.438</span><span>     0.985
-#&gt; </span><span style='color: #555555;'> 7</span><span>     6 0.982  0.005</span><span style='text-decoration: underline;'>02</span><span>      -</span><span style='color: #BB0000;'>0.437</span><span>     0.982
-#&gt; </span><span style='color: #555555;'> 8</span><span>     7 0.979  0.017</span><span style='text-decoration: underline;'>1</span><span>       -</span><span style='color: #BB0000;'>0.437</span><span>     0.979
-#&gt; </span><span style='color: #555555;'> 9</span><span>     8 0.976 -</span><span style='color: #BB0000;'>0.000</span><span style='color: #BB0000;text-decoration: underline;'>118</span><span>     -</span><span style='color: #BB0000;'>0.436</span><span>     0.976
-#&gt; </span><span style='color: #555555;'>10</span><span>     9 0.974 -</span><span style='color: #BB0000;'>0.002</span><span style='color: #BB0000;text-decoration: underline;'>43</span><span>      -</span><span style='color: #BB0000;'>0.435</span><span>     0.974
-#&gt; </span><span style='color: #555555;'># … with 491 more rows</span><span></div><div class='input'>
+#&gt;    &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;
+#&gt;  1     0 1.00   1            -0.447     1.00 
+#&gt;  2     1 0.997  0.997        -0.444     0.997
+#&gt;  3     2 0.994 -0.0227       -0.442     0.994
+#&gt;  4     3 0.990  0.0101       -0.438     0.990
+#&gt;  5     4 0.987  0.0311       -0.437     0.987
+#&gt;  6     5 0.985  0.0180       -0.438     0.985
+#&gt;  7     6 0.982  0.00502      -0.437     0.982
+#&gt;  8     7 0.979  0.0171       -0.437     0.979
+#&gt;  9     8 0.976 -0.000118     -0.436     0.976
+#&gt; 10     9 0.974 -0.00243      -0.435     0.974
+#&gt; # … with 491 more rows</div><div class='input'>
 <span class='co'># Scale with groups using group_by()</span>
 <span class='no'>FANG</span> <span class='kw'>%&gt;%</span>
     <span class='fu'>group_by</span>(<span class='no'>symbol</span>) <span class='kw'>%&gt;%</span>
-    <span class='fu'>tk_acf_diagnostics</span>(<span class='no'>date</span>, <span class='no'>adjusted</span>, <span class='no'>volume</span>, <span class='no'>close</span>, <span class='kw'>.lags</span> <span class='kw'>=</span> <span class='fl'>0</span>:<span class='fl'>500</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 2,004 x 6</span><span>
-#&gt; </span><span style='color: #555555;'># Groups:   symbol [4]</span><span>
+    <span class='fu'>tk_acf_diagnostics</span>(<span class='no'>date</span>, <span class='no'>adjusted</span>, <span class='no'>volume</span>, <span class='no'>close</span>, <span class='kw'>.lags</span> <span class='kw'>=</span> <span class='fl'>0</span>:<span class='fl'>500</span>)</div><div class='output co'>#&gt; # A tibble: 2,004 x 6
+#&gt; # Groups:   symbol [4]
 #&gt;    symbol   lag   ACF      PACF CCF_volume CCF_close
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> FB         0 1.00   1            -</span><span style='color: #BB0000;'>0.447</span><span>     1.00 
-#&gt; </span><span style='color: #555555;'> 2</span><span> FB         1 0.997  0.997        -</span><span style='color: #BB0000;'>0.444</span><span>     0.997
-#&gt; </span><span style='color: #555555;'> 3</span><span> FB         2 0.994 -</span><span style='color: #BB0000;'>0.022</span><span style='color: #BB0000;text-decoration: underline;'>7</span><span>       -</span><span style='color: #BB0000;'>0.442</span><span>     0.994
-#&gt; </span><span style='color: #555555;'> 4</span><span> FB         3 0.990  0.010</span><span style='text-decoration: underline;'>1</span><span>       -</span><span style='color: #BB0000;'>0.438</span><span>     0.990
-#&gt; </span><span style='color: #555555;'> 5</span><span> FB         4 0.987  0.031</span><span style='text-decoration: underline;'>1</span><span>       -</span><span style='color: #BB0000;'>0.437</span><span>     0.987
-#&gt; </span><span style='color: #555555;'> 6</span><span> FB         5 0.985  0.018</span><span style='text-decoration: underline;'>0</span><span>       -</span><span style='color: #BB0000;'>0.438</span><span>     0.985
-#&gt; </span><span style='color: #555555;'> 7</span><span> FB         6 0.982  0.005</span><span style='text-decoration: underline;'>02</span><span>      -</span><span style='color: #BB0000;'>0.437</span><span>     0.982
-#&gt; </span><span style='color: #555555;'> 8</span><span> FB         7 0.979  0.017</span><span style='text-decoration: underline;'>1</span><span>       -</span><span style='color: #BB0000;'>0.437</span><span>     0.979
-#&gt; </span><span style='color: #555555;'> 9</span><span> FB         8 0.976 -</span><span style='color: #BB0000;'>0.000</span><span style='color: #BB0000;text-decoration: underline;'>118</span><span>     -</span><span style='color: #BB0000;'>0.436</span><span>     0.976
-#&gt; </span><span style='color: #555555;'>10</span><span> FB         9 0.974 -</span><span style='color: #BB0000;'>0.002</span><span style='color: #BB0000;text-decoration: underline;'>43</span><span>      -</span><span style='color: #BB0000;'>0.435</span><span>     0.974
-#&gt; </span><span style='color: #555555;'># … with 1,994 more rows</span><span></div><div class='input'>
+#&gt;    &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;
+#&gt;  1 FB         0 1.00   1            -0.447     1.00 
+#&gt;  2 FB         1 0.997  0.997        -0.444     0.997
+#&gt;  3 FB         2 0.994 -0.0227       -0.442     0.994
+#&gt;  4 FB         3 0.990  0.0101       -0.438     0.990
+#&gt;  5 FB         4 0.987  0.0311       -0.437     0.987
+#&gt;  6 FB         5 0.985  0.0180       -0.438     0.985
+#&gt;  7 FB         6 0.982  0.00502      -0.437     0.982
+#&gt;  8 FB         7 0.979  0.0171       -0.437     0.979
+#&gt;  9 FB         8 0.976 -0.000118     -0.436     0.976
+#&gt; 10 FB         9 0.974 -0.00243      -0.435     0.974
+#&gt; # … with 1,994 more rows</div><div class='input'>
 <span class='co'># Apply Transformations</span>
 <span class='no'>FANG</span> <span class='kw'>%&gt;%</span>
     <span class='fu'>group_by</span>(<span class='no'>symbol</span>) <span class='kw'>%&gt;%</span>
     <span class='fu'>tk_acf_diagnostics</span>(
         <span class='no'>date</span>, <span class='fu'><a href='diff_vec.html'>diff_vec</a></span>(<span class='no'>adjusted</span>),  <span class='co'># Apply differencing transformation</span>
         <span class='kw'>.lags</span> <span class='kw'>=</span> <span class='fl'>0</span>:<span class='fl'>500</span>
-    )</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 2,004 x 4</span><span>
-#&gt; </span><span style='color: #555555;'># Groups:   symbol [4]</span><span>
+    )</div><div class='output co'>#&gt; # A tibble: 2,004 x 4
+#&gt; # Groups:   symbol [4]
 #&gt;    symbol   lag      ACF     PACF
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> FB         0  1        1      
-#&gt; </span><span style='color: #555555;'> 2</span><span> FB         1  0.027</span><span style='text-decoration: underline;'>2</span><span>   0.027</span><span style='text-decoration: underline;'>2</span><span> 
-#&gt; </span><span style='color: #555555;'> 3</span><span> FB         2 -</span><span style='color: #BB0000;'>0.021</span><span style='color: #BB0000;text-decoration: underline;'>9</span><span>  -</span><span style='color: #BB0000;'>0.022</span><span style='color: #BB0000;text-decoration: underline;'>6</span><span> 
-#&gt; </span><span style='color: #555555;'> 4</span><span> FB         3 -</span><span style='color: #BB0000;'>0.097</span><span style='color: #BB0000;text-decoration: underline;'>3</span><span>  -</span><span style='color: #BB0000;'>0.096</span><span style='color: #BB0000;text-decoration: underline;'>2</span><span> 
-#&gt; </span><span style='color: #555555;'> 5</span><span> FB         4 -</span><span style='color: #BB0000;'>0.055</span><span style='color: #BB0000;text-decoration: underline;'>4</span><span>  -</span><span style='color: #BB0000;'>0.051</span><span style='color: #BB0000;text-decoration: underline;'>2</span><span> 
-#&gt; </span><span style='color: #555555;'> 6</span><span> FB         5  0.010</span><span style='text-decoration: underline;'>4</span><span>   0.008</span><span style='text-decoration: underline;'>96</span><span>
-#&gt; </span><span style='color: #555555;'> 7</span><span> FB         6 -</span><span style='color: #BB0000;'>0.062</span><span style='color: #BB0000;text-decoration: underline;'>2</span><span>  -</span><span style='color: #BB0000;'>0.075</span><span style='color: #BB0000;text-decoration: underline;'>1</span><span> 
-#&gt; </span><span style='color: #555555;'> 8</span><span> FB         7  0.003</span><span style='text-decoration: underline;'>63</span><span> -</span><span style='color: #BB0000;'>0.003</span><span style='color: #BB0000;text-decoration: underline;'>34</span><span>
-#&gt; </span><span style='color: #555555;'> 9</span><span> FB         8 -</span><span style='color: #BB0000;'>0.016</span><span style='color: #BB0000;text-decoration: underline;'>8</span><span>  -</span><span style='color: #BB0000;'>0.021</span><span style='color: #BB0000;text-decoration: underline;'>2</span><span> 
-#&gt; </span><span style='color: #555555;'>10</span><span> FB         9  0.030</span><span style='text-decoration: underline;'>0</span><span>   0.018</span><span style='text-decoration: underline;'>7</span><span> 
-#&gt; </span><span style='color: #555555;'># … with 1,994 more rows</span><span></div><div class='input'>
+#&gt;    &lt;chr&gt;  &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
+#&gt;  1 FB         0  1        1      
+#&gt;  2 FB         1  0.0272   0.0272 
+#&gt;  3 FB         2 -0.0219  -0.0226 
+#&gt;  4 FB         3 -0.0973  -0.0962 
+#&gt;  5 FB         4 -0.0554  -0.0512 
+#&gt;  6 FB         5  0.0104   0.00896
+#&gt;  7 FB         6 -0.0622  -0.0751 
+#&gt;  8 FB         7  0.00363 -0.00334
+#&gt;  9 FB         8 -0.0168  -0.0212 
+#&gt; 10 FB         9  0.0300   0.0187 
+#&gt; # … with 1,994 more rows</div><div class='input'>
 
-</div></span></pre>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
