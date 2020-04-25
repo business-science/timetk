@@ -30,6 +30,7 @@ __New Diagnostic / Data Processing Functions__
 __New Vectorized Functions__:
 
 * `ts_clean_vec()` - Replace Outliers & Missing Values in a Time Series
+* `standardize_vec()` - Centers and scales a time series
 
 __New Recipes Preprocessing Steps__:
 

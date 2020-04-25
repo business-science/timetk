@@ -91,6 +91,11 @@
 #'
 #' @name diff_vec
 #' @export
+
+# DIFF ----
+
+#' @export
+#' @rdname diff_vec
 diff_vec <- function(x, lag = 1, difference = 1, log = FALSE) {
     # Checks
     if (length(lag) > 1) stop(call. = FALSE, "diff_vec(length(lag) > 1): Multiple lags detected. Use tk_augment_diff().")
