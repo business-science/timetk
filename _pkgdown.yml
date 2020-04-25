@@ -74,6 +74,7 @@ reference:
     - contains("diff_vec")
     - contains("lag_vec")
     - "standardize_vec"
+    - "normalize_vec"
     - contains("_vec")
   - title: Augment Operations (Quickly Add Many Features)
     desc: __Add multiple columns to the original data. Respects `dplyr` groups.__

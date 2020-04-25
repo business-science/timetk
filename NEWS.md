@@ -31,6 +31,7 @@ __New Vectorized Functions__:
 
 * `ts_clean_vec()` - Replace Outliers & Missing Values in a Time Series
 * `standardize_vec()` - Centers and scales a time series
+* `normalize_vec()` - Normalizes a time series to Range: (0, 1)
 
 __New Recipes Preprocessing Steps__:
 

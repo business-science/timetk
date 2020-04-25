@@ -6,7 +6,7 @@
 #' @param x A numeric vector.
 #' @param mean The mean used to invert the standardization
 #' @param sd The standard deviation used to invert the standardization process.
-#' @param silent Whether or not to report the automated `lambda` selection as a message.
+#' @param silent Whether or not to report the automated `mean` and `sd` parameters as a message.
 #'
 #' @details
 #' __Standardization vs Normalization__
@@ -17,6 +17,7 @@
 #' - __Normalization__ refers to a transformation that reduces the min-max range: (0, 1)
 #'
 #' @seealso
+#'   - Normalization/Standardization: [standardize_vec()], [normalize_vec()]
 #'   - Box Cox Transformation: [box_cox_vec()]
 #'   - Lag Transformation: [lag_vec()]
 #'   - Differencing Transformation: [diff_vec()]
@@ -25,7 +26,6 @@
 #'   - Fourier Series: [fourier_vec()]
 #'   - Missing Value Imputation for Time Series: [ts_impute_vec()], [ts_clean_vec()]
 #'
-#' Other common transformations to reduce variance: `log()`, `log1p()` and `sqrt()`
 #'
 #'
 #' @examples
