@@ -59,7 +59,7 @@ reference:
     contents:
     - contains("summarise")
     - contains("filter")
-    - contains("pad")
+    - contains("by_time")
   - subtitle: Function Operations
     contents:
     - "slidify"
@@ -102,6 +102,9 @@ reference:
     desc: See `recipes::step_log()` for log transformation.
   - contents:
     - "step_box_cox"
+  - subtitle: Add Rows to a Time series
+    contents:
+    - "step_ts_pad"
   - subtitle: Imputation & Outlier Cleaning
     desc: See `recipes::step_rollimpute()` for rolling imputation.
   - contents:

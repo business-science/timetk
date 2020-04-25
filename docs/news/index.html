@@ -219,6 +219,10 @@
 <li>Prevent name collisions when underlying data has column “id” or “splits”</li>
 </ul>
 </li>
+<li>
+<code><a href="../reference/tk_make_future_timeseries.html">tk_make_future_timeseries()</a></code>: Fix bug when day of month doesn’t exist. Lubridate <code>period()</code> returns <code>NA</code>. Fix implemented with <code>ceiling_date()</code>.</li>
+<li>
+<code><a href="../reference/pad_by_time.html">pad_by_time()</a></code>: Fix <code>pad_value</code> so only inserts pad values where new row was inserted.</li>
 </ul>
 <p><strong>Breaking Changes</strong>:</p>
 <p>These should not be of major impact since the 1.0.0 version was just released.</p>
