@@ -80,7 +80,7 @@
 #'
 #' # Apply Imputation
 #' recipe_box_cox <- recipe(~ ., data = FANG_wide) %>%
-#'     step_ts_impute(FB, AMZN, NFLX, GOOG, period = 252) %>%
+#'     step_ts_impute(FB, AMZN, NFLX, GOOG, period = 252, lambda = "auto") %>%
 #'     prep()
 #'
 #' recipe_box_cox %>% bake(FANG_wide)
@@ -94,7 +94,7 @@ step_ts_impute <-
     function(recipe,
              ...,
              period = 1,
-             lambda = "auto",
+             lambda = NULL,
              role = NA,
              trained = FALSE,
              lambdas_trained = NULL,
@@ -142,12 +142,12 @@ prep.step_ts_impute <- function(x, training, info = NULL, ...) {
     recipes::check_type(training[, col_names])
 
     # Lambda Calculation
-    if (x$lambda[1] == "auto") {
+    if (is.null(x$lambda[1])) {
+        lambda_values <- rep(NA, length(col_names))
+        names(lambda_values) <- col_names
+    } else if (x$lambda[1] == "auto") {
         lambda_values <- training[, col_names] %>%
             purrr::map(auto_lambda)
-    } else if (is.null(x$lamda[1])) {
-        lambda_values <- rep(NULL, length(col_names))
-        names(lambda_values) <- col_names
     } else {
         lambda_values <- rep(x$lambda[1], length(col_names))
         names(lambda_values) <- col_names
@@ -176,7 +176,7 @@ bake.step_ts_impute <- function(object, new_data, ...) {
 
         # Handle "non-numeric" naming issue
         val_i <- object$lambdas_trained[i]
-        if (!is.null(val_i)) {
+        if (!is.na(val_i)) {
             val_i <- as.numeric(val_i)
         }
 

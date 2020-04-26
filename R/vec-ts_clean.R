@@ -75,6 +75,11 @@ ts_clean_vec <- function(x, period = 1, lambda = NULL) {
 
     x_ts        <- tk_ts(x, frequency = period)
 
+    # Treat NA as NULL (Needed for step_ts_clean)
+    if (!is.null(lambda)) {
+        if (is.na(lambda)) lambda <- NULL
+    }
+
     x_ts_clean <- forecast::tsclean(x = x_ts, lambda = lambda, replace.missing = TRUE)
 
     as.numeric(x_ts_clean)

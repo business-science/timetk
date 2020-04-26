@@ -49,6 +49,7 @@ __Bug Fixes__:
     - Prevent name collisions when underlying data has column "id" or "splits"
 * `tk_make_future_timeseries()`: Fix bug when day of month doesn't exist. Lubridate `period()` returns `NA`. Fix implemented with `ceiling_date()`.
 * `pad_by_time()`: Fix `pad_value` so only inserts pad values where new row was inserted. 
+* `step_ts_clean()`, `step_ts_impute()`: Fix issue with `lambda = NULL`
     
 __Breaking Changes__:
 

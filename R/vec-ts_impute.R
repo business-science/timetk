@@ -76,6 +76,11 @@ ts_impute_vec <- function(x, period = 1, lambda = NULL) {
 
     x_ts        <- tk_ts(x, frequency = period)
 
+    # Treat NA as NULL (Needed for step_ts_impute)
+    if (!is.null(lambda)) {
+        if (is.na(lambda)) lambda <- NULL
+    }
+
     # Use strictly linear interpolation when any of the following conditions exist:
     # 1. Period is 1
     # 2. Number of available values is less than or equal to twice the period

@@ -9,7 +9,7 @@ step_ts_impute(
   recipe,
   ...,
   period = 1,
-  lambda = "auto",
+  lambda = NULL,
   role = NA,
   trained = FALSE,
   lambdas_trained = NULL,
@@ -108,7 +108,7 @@ FANG_wide
 
 # Apply Imputation
 recipe_box_cox <- recipe(~ ., data = FANG_wide) \%>\%
-    step_ts_impute(FB, AMZN, NFLX, GOOG, period = 252) \%>\%
+    step_ts_impute(FB, AMZN, NFLX, GOOG, period = 252, lambda = "auto") \%>\%
     prep()
 
 recipe_box_cox \%>\% bake(FANG_wide)
