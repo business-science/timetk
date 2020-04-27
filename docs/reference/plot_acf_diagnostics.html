@@ -191,7 +191,7 @@ to multiple time series with <code>group_by()</code>.</p>
   <span class='no'>.date_var</span>,
   <span class='no'>.value</span>,
   <span class='no'>...</span>,
-  <span class='kw'>.lags</span> <span class='kw'>=</span> <span class='fl'>0</span>:<span class='fl'>20</span>,
+  <span class='kw'>.lags</span> <span class='kw'>=</span> <span class='fl'>1000</span>,
   <span class='kw'>.facet_ncol</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>.facet_scales</span> <span class='kw'>=</span> <span class='st'>"fixed"</span>,
   <span class='kw'>.line_color</span> <span class='kw'>=</span> <span class='st'>"#2c3e50"</span>,
@@ -232,7 +232,7 @@ versus the <code>.value</code>. Useful for evaluating external lagged regressors
     </tr>
     <tr>
       <th>.lags</th>
-      <td><p>A seqence of one or more lags to evaluate.</p></td>
+      <td><p>A sequence of one or more lags to evaluate.</p></td>
     </tr>
     <tr>
       <th>.facet_ncol</th>
@@ -298,7 +298,7 @@ versus the <code>.value</code>. Useful for evaluating external lagged regressors
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p><strong>Simplified ACF, PACF, &amp; CCF</strong></p>
-<p>We are often interested in all 3 of these functions. Why not get all 3 at once?
+<p>We are often interested in all 3 of these functions. Why not get all 3+ at once?
 Now you can.</p><ul>
 <li><p><strong>ACF</strong> - Autocorrelation between a target variable and lagged versions of itself</p></li>
 <li><p><strong>PACF</strong> - Partial Autocorrelation removes the dependence of lags on
@@ -307,7 +307,14 @@ other lags highlighting key seasonalities.</p></li>
 variable.</p></li>
 </ul>
 
-<p><strong>Scales to Multiple Time Series with Groupes</strong></p>
+<p><strong>Lag Specification</strong></p>
+<p>Lags (<code>.lags</code>) can either be specified as:</p><ul>
+<li><p>A time-based phrase indicating a duraction (e.g. <code>2 months</code>)</p></li>
+<li><p>A maximum lag (e.g. <code>.lags = 28</code>)</p></li>
+<li><p>A sequence of lags (e.g. <code>.lags = 7:28</code>)</p></li>
+</ul>
+
+<p><strong>Scales to Multiple Time Series with Groups</strong></p>
 <p>The <code>plot_acf_diagnostics()</code> works with <code>grouped_df</code>'s, meaning you can
 group your time series by one or more categorical columns with <code><a href='https://dplyr.tidyverse.org/reference/group_by.html'>dplyr::group_by()</a></code>
 and then apply <code>plot_acf_diagnostics()</code> to return group-wise lag diagnostics.</p>
@@ -336,7 +343,7 @@ group-wise analysis. Rather, it's used for processing Cross Correlations (CCFs).
     <span class='fu'>group_by</span>(<span class='no'>id</span>) <span class='kw'>%&gt;%</span>
     <span class='fu'>plot_acf_diagnostics</span>(
         <span class='no'>date</span>, <span class='no'>value</span>,               <span class='co'># ACF &amp; PACF</span>
-        <span class='kw'>.lags</span> <span class='kw'>=</span> <span class='fl'>0</span>:(<span class='fl'>24</span>*<span class='fl'>7</span>),          <span class='co'># 7-Days of hourly lags</span>
+        <span class='kw'>.lags</span> <span class='kw'>=</span> <span class='st'>"7 days"</span>,          <span class='co'># 7-Days of hourly lags</span>
         <span class='kw'>.interactive</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
     )</div><div class='img'><img src='plot_acf_diagnostics-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Apply Transformations</span>
@@ -357,7 +364,7 @@ group-wise analysis. Rather, it's used for processing Cross Correlations (CCFs).
     <span class='fu'>plot_acf_diagnostics</span>(
         <span class='no'>Date</span>, <span class='no'>Weekly_Sales</span>,        <span class='co'># ACF &amp; PACF</span>
         <span class='no'>Temperature</span>, <span class='no'>Fuel_Price</span>,   <span class='co'># CCFs</span>
-        <span class='kw'>.lags</span>        <span class='kw'>=</span> <span class='fl'>0</span>:(<span class='fl'>4</span>*<span class='fl'>3</span>),    <span class='co'># 3 months of weekly lags</span>
+        <span class='kw'>.lags</span>        <span class='kw'>=</span> <span class='st'>"3 months"</span>, <span class='co'># 3 months of weekly lags</span>
         <span class='kw'>.interactive</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
     )</div><div class='img'><img src='plot_acf_diagnostics-3.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>

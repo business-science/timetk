@@ -50,7 +50,7 @@ m4_hourly %>%
     group_by(id) %>%
     plot_acf_diagnostics(
         date, value,               # ACF & PACF
-        .lags = 0:(24*7),          # 7-Days of hourly lags
+        .lags = "7 days",          # 7-Days of hourly lags
         .interactive = interactive
     )
 ```
@@ -64,7 +64,7 @@ walmart_sales_weekly %>%
     plot_acf_diagnostics(
         Date, Weekly_Sales,        # ACF & PACF
         Temperature, Fuel_Price,   # CCFs
-        .lags        = 0:(4*3),    # 3 months of weekly lags
+        .lags        = "3 months",    # 3 months of weekly lags
         .interactive = interactive
     )
 ```
