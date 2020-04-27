@@ -200,6 +200,8 @@ to multiple time series with <code>group_by()</code>.</p>
   <span class='kw'>.point_color</span> <span class='kw'>=</span> <span class='st'>"#2c3e50"</span>,
   <span class='kw'>.point_size</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>.point_alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>.x_intercept</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>.x_intercept_color</span> <span class='kw'>=</span> <span class='st'>"#E31A1C"</span>,
   <span class='kw'>.hline_color</span> <span class='kw'>=</span> <span class='st'>"#2c3e50"</span>,
   <span class='kw'>.title</span> <span class='kw'>=</span> <span class='st'>"Lag Diagnostics"</span>,
   <span class='kw'>.x_lab</span> <span class='kw'>=</span> <span class='st'>"Lag"</span>,
@@ -265,6 +267,14 @@ versus the <code>.value</code>. Useful for evaluating external lagged regressors
     <tr>
       <th>.point_alpha</th>
       <td><p>Opacity. Adjust the transparency of the points. Range: (0, 1)</p></td>
+    </tr>
+    <tr>
+      <th>.x_intercept</th>
+      <td><p>Numeric lag. Adds a vertical line.</p></td>
+    </tr>
+    <tr>
+      <th>.x_intercept_color</th>
+      <td><p>Color for the x-intercept line.</p></td>
     </tr>
     <tr>
       <th>.hline_color</th>
