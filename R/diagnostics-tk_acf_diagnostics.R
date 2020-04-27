@@ -29,6 +29,14 @@
 #' - __CCF__ - Shows how lagged predictors can be used for prediction of a target
 #'  variable.
 #'
+#' __Lag Specification__
+#'
+#' Lags (`.lags`) can either be specified as:
+#'
+#' - A time-based phrase indicating a duraction (e.g. `2 months`)
+#' - A maximum lag (e.g. `.lags = 28`)
+#' - A sequence of lags (e.g. `.lags = 7:28`)
+#'
 #' __Scales to Multiple Time Series with Groupes__
 #'
 #' The `tk_acf_diagnostics()` works with `grouped_df`'s, meaning you can
@@ -59,12 +67,12 @@
 #'     filter(symbol == "FB") %>%
 #'     tk_acf_diagnostics(date, adjusted, # ACF & PACF
 #'                        volume, close,  # CCFs
-#'                        .lags = 0:500)
+#'                        .lags = 500)
 #'
 #' # Scale with groups using group_by()
 #' FANG %>%
 #'     group_by(symbol) %>%
-#'     tk_acf_diagnostics(date, adjusted, volume, close, .lags = 0:500)
+#'     tk_acf_diagnostics(date, adjusted, volume, close, .lags = "3 months")
 #'
 #' # Apply Transformations
 #' FANG %>%
@@ -76,7 +84,7 @@
 #'
 #'
 #' @export
-tk_acf_diagnostics <- function(.data, .date_var, .value, ..., .lags = 0:60) {
+tk_acf_diagnostics <- function(.data, .date_var, .value, ..., .lags = 1000) {
     # Checks
     date_var_expr <- enquo(.date_var)
     value_expr    <- enquo(.value)
@@ -89,7 +97,7 @@ tk_acf_diagnostics <- function(.data, .date_var, .value, ..., .lags = 0:60) {
 }
 
 #' @export
-tk_acf_diagnostics.data.frame <- function(.data, .date_var, .value, ..., .lags = 0:60) {
+tk_acf_diagnostics.data.frame <- function(.data, .date_var, .value, ..., .lags = 1000) {
 
     # Tidyeval Setup
     value_expr <- rlang::enquo(.value)
@@ -98,11 +106,37 @@ tk_acf_diagnostics.data.frame <- function(.data, .date_var, .value, ..., .lags =
     # Apply transformations
     .data <- .data %>% dplyr::mutate(.value_mod = !! value_expr)
 
+    # Convert character lags to numeric
+    if (is.character(.lags)) {
+        tryCatch({
+            idx   <- .data %>% dplyr::pull(!! rlang::enquo(.date_var))
+            row_count <- .data %>%
+                filter_by_time(!! rlang::enquo(.date_var), "start", idx[1] %+time% .lags) %>%
+                nrow()
+
+            .lags <- row_count - 1
+        }, error = function(e) {
+            rlang::abort("Could not parse `.lags` value.")
+        })
+
+    }
+    # Generage lag sequence if needed
+    if (length(.lags) == 1) {
+        .lags <- 0:.lags
+    }
+
     # Calcs
     .lags   <- sort(.lags)
     x       <- .data %>% dplyr::pull(.value_mod)
     lag_max <- max(.lags)
     lag_min <- min(.lags)
+
+    # Check max lag
+    max_lag_possible <- nrow(.data) - 1
+    if (lag_max > max_lag_possible) {
+        message("Max lag exceeds data available. Using max lag: ", max_lag_possible)
+        lag_max <- max_lag_possible
+    }
 
     # ---- ACF ----
 
@@ -164,7 +198,7 @@ tk_acf_diagnostics.data.frame <- function(.data, .date_var, .value, ..., .lags =
 
 
 #' @export
-tk_acf_diagnostics.grouped_df <- function(.data, .date_var, .value, ..., .lags = 0:60) {
+tk_acf_diagnostics.grouped_df <- function(.data, .date_var, .value, ..., .lags = 1000) {
 
     # Tidy Eval Setup
     value_expr  <- rlang::enquo(.value)

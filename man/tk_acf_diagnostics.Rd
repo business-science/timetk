@@ -4,7 +4,7 @@
 \alias{tk_acf_diagnostics}
 \title{Group-wise ACF, PACF, and CCF Data Preparation}
 \usage{
-tk_acf_diagnostics(.data, .date_var, .value, ..., .lags = 0:60)
+tk_acf_diagnostics(.data, .date_var, .value, ..., .lags = 1000)
 }
 \arguments{
 \item{.data}{A data frame or tibble with numeric features (values) in descending
@@ -39,6 +39,15 @@ other lags highlighting key seasonalities.
 variable.
 }
 
+\strong{Lag Specification}
+
+Lags (\code{.lags}) can either be specified as:
+\itemize{
+\item A time-based phrase indicating a duraction (e.g. \verb{2 months})
+\item A maximum lag (e.g. \code{.lags = 28})
+\item A sequence of lags (e.g. \code{.lags = 7:28})
+}
+
 \strong{Scales to Multiple Time Series with Groupes}
 
 The \code{tk_acf_diagnostics()} works with \code{grouped_df}'s, meaning you can
@@ -64,12 +73,12 @@ FANG \%>\%
     filter(symbol == "FB") \%>\%
     tk_acf_diagnostics(date, adjusted, # ACF & PACF
                        volume, close,  # CCFs
-                       .lags = 0:500)
+                       .lags = 500)
 
 # Scale with groups using group_by()
 FANG \%>\%
     group_by(symbol) \%>\%
-    tk_acf_diagnostics(date, adjusted, volume, close, .lags = 0:500)
+    tk_acf_diagnostics(date, adjusted, volume, close, .lags = "3 months")
 
 # Apply Transformations
 FANG \%>\%
