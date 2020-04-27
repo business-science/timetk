@@ -18,6 +18,8 @@ plot_acf_diagnostics(
   .point_color = "#2c3e50",
   .point_size = 1,
   .point_alpha = 1,
+  .x_intercept = NULL,
+  .x_intercept_color = "#E31A1C",
   .hline_color = "#2c3e50",
   .title = "Lag Diagnostics",
   .x_lab = "Lag",
@@ -55,6 +57,10 @@ versus the \code{.value}. Useful for evaluating external lagged regressors.}
 \item{.point_size}{Point size}
 
 \item{.point_alpha}{Opacity. Adjust the transparency of the points. Range: (0, 1)}
+
+\item{.x_intercept}{Numeric lag. Adds a vertical line.}
+
+\item{.x_intercept_color}{Color for the x-intercept line.}
 
 \item{.hline_color}{Color for the y-intercept = 0 line.}
 

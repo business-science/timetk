@@ -38,6 +38,10 @@ __New Recipes Preprocessing Steps__:
 * `step_ts_pad()` - Preprocessing for padding time series data. Adds rows to fill in gaps and can be used with `step_ts_impute()` to interpolate going from low to high frequency!
 * `step_ts_clean()` - Preprocessing step for cleaning outliers and imputing missing values in a time series.
 
+__Improvements__:
+
+* `plot_acf_diagnostics()`: The `.lags` argument now handles time-based phrases (e.g. `.lags = "1 month"`).
+
 __Bug Fixes__:
 
 * `time_series_cv()`: 

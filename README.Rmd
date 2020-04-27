@@ -117,7 +117,7 @@ Inspect autocorrelation, partial autocorrelation (and cross correlations too)...
 
 ```{r}
 taylor_30_min %>%
-    plot_acf_diagnostics(date, value, .lags = 0:(48*7), .interactive = FALSE)
+    plot_acf_diagnostics(date, value, .lags = "1 week", .interactive = FALSE)
 ```
 
 

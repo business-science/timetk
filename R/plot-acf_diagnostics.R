@@ -21,6 +21,8 @@
 #' @param .point_color Point color. Use keyword: "scale_color" to change the color by the facet.
 #' @param .point_size Point size
 #' @param .point_alpha Opacity. Adjust the transparency of the points. Range: (0, 1)
+#' @param .x_intercept Numeric lag. Adds a vertical line.
+#' @param .x_intercept_color Color for the x-intercept line.
 #' @param .hline_color Color for the y-intercept = 0 line.
 #' @param .title Title for the plot
 #' @param .x_lab X-axis label for the plot
@@ -116,6 +118,8 @@ plot_acf_diagnostics <- function(.data, .date_var, .value, ..., .lags = 1000,
                                  .line_alpha = 1,
                                  .point_color = "#2c3e50", .point_size = 1,
                                  .point_alpha = 1,
+                                 .x_intercept = NULL,
+                                 .x_intercept_color = "#E31A1C",
                                  .hline_color = "#2c3e50",
                                  .title = "Lag Diagnostics",
                                  .x_lab = "Lag", .y_lab = "Correlation",
@@ -140,6 +144,8 @@ plot_acf_diagnostics.data.frame <- function(.data, .date_var, .value, ..., .lags
                                             .line_alpha = 1,
                                             .point_color = "#2c3e50", .point_size = 1,
                                             .point_alpha = 1,
+                                            .x_intercept = NULL,
+                                            .x_intercept_color = "#E31A1C",
                                             .hline_color = "#2c3e50",
                                             .title = "Lag Diagnostics",
                                             .x_lab = "Lag", .y_lab = "Correlation",
@@ -170,6 +176,11 @@ plot_acf_diagnostics.data.frame <- function(.data, .date_var, .value, ..., .lags
         ggplot2::facet_wrap(~ name, ncol = .facet_ncol, scales = .facet_scales) +
         ggplot2::expand_limits(y = 0) +
         ggplot2::labs(x = .x_lab, y = .y_lab, title = .title)
+
+    if (!is.null(.x_intercept)) {
+        if (!is.numeric(.x_intercept)) rlang::abort("`.x_intercept` must be a numeric value.")
+        g <- g + ggplot2::geom_vline(xintercept = .x_intercept, color = .x_intercept_color)
+    }
 
     # Add line
     if (.line_color == "scale_color") {
@@ -221,6 +232,8 @@ plot_acf_diagnostics.grouped_df <- function(.data, .date_var, .value, ..., .lags
                                             .line_alpha = 1,
                                             .point_color = "#2c3e50", .point_size = 1,
                                             .point_alpha = 1,
+                                            .x_intercept = NULL,
+                                            .x_intercept_color = "#E31A1C",
                                             .hline_color = "#2c3e50",
                                             .title = "ACF Diagnostics",
                                             .x_lab = "Lag", .y_lab = "Correlation",
@@ -262,6 +275,11 @@ plot_acf_diagnostics.grouped_df <- function(.data, .date_var, .value, ..., .lags
                             scales = .facet_scales) +
         ggplot2::expand_limits(y = 0) +
         ggplot2::labs(x = .x_lab, y = .y_lab, title = .title)
+
+    if (!is.null(.x_intercept)) {
+        if (!is.numeric(.x_intercept)) rlang::abort("`.x_intercept` must be a numeric value.")
+        g <- g + ggplot2::geom_vline(xintercept = .x_intercept, color = .x_intercept_color)
+    }
 
     # Add line
     if (.line_color == "scale_color") {
