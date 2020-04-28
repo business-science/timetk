@@ -51,9 +51,11 @@ FB_tbl <- FANG \%>\%
 
 resample_spec <- time_series_cv(
     FB_tbl,
-    initial = 150, assess = 50, skip = 50,
-    cumulative = FALSE,
-    lag = 30,
+    initial = "1 year",
+    assess  = "6 weeks",
+    skip    = "3 months",
+    lag     = "1 month",
+    cumulative  = FALSE,
     slice_limit = 6
 )
 
@@ -63,7 +65,7 @@ resample_spec \%>\%
     plot_time_series_cv_plan(
         date, adjusted, # date variable and value variable
         # Additional arguments passed to plot_time_series(),
-        .facet_ncol = 3,
+        .facet_ncol = 2,
         .line_alpha = 0.5,
         .interactive = FALSE
     )

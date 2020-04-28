@@ -6,11 +6,12 @@
 \usage{
 time_series_cv(
   data,
+  date_var = NULL,
   initial = 5,
   assess = 1,
-  cumulative = TRUE,
   skip = 1,
   lag = 0,
+  cumulative = FALSE,
   slice_limit = n(),
   ...
 )
@@ -18,13 +19,12 @@ time_series_cv(
 \arguments{
 \item{data}{A data frame.}
 
+\item{date_var}{A date or date-time variable.}
+
 \item{initial}{The number of samples used for analysis/modeling in the
 initial resample.}
 
 \item{assess}{The number of samples used for each assessment resample.}
-
-\item{cumulative}{A logical. Should the analysis resample grow beyond the
-size specified by \code{initial} at each resample?.}
 
 \item{skip}{A integer indicating how many (if any) \emph{additional} resamples
 to skip to thin the total amount of data points in the analysis resample.
@@ -33,6 +33,9 @@ See the example below.}
 \item{lag}{A value to include an lag between the assessment
 and analysis set. This is useful if lagged predictors will be used
 during training and testing.}
+
+\item{cumulative}{A logical. Should the analysis resample grow beyond the
+size specified by \code{initial} at each resample?.}
 
 \item{slice_limit}{The number of slices to return. Set to \code{dplyr::n()},
 which returns the maximum number of slices.}
@@ -53,21 +56,21 @@ is similar to \code{rsample::rolling_origin()}, but places the focus
 of the cross validation on the most recent time series data.
 }
 \details{
-\strong{Intial (Training Set) and Assess (Testing Set)}
+\strong{Time-Based Specification}
+
+the
+\code{initial}, \code{assess}, \code{skip}, and \code{lag} variables can be specified as:
+\itemize{
+\item Numeric: \code{initial = 24}
+\item Time-Based Phrases: \code{initial = "2 years"}, if the \code{data} contains
+a \code{date_var} (date or datetime)
+}
+
+\strong{Initial (Training Set) and Assess (Testing Set)}
 
 The main options, \code{initial} and \code{assess}, control the number of
 data points from the original data that are in the analysis (training set)
 and the assessment (testing set), respectively.
-
-\strong{Cumulative vs Sliding Window}
-
-When \code{cumulative = TRUE}, the \code{initial} parameter is ignored and the
-analysis (training) set will grow as
-resampling continues while the assessment (testing) set size will always remain
-static.
-
-When \code{cumulative = FALSE}, the \code{initial} parameter fixes the analysis (training)
-set and resampling occurs over a fixed window.
 
 \strong{Skip}
 
@@ -82,6 +85,16 @@ assessment set size is not affected by this option.
 
 The Lag parameter creates an overlap between the Testing set. This is needed
 when lagged predictors are used.
+
+\strong{Cumulative vs Sliding Window}
+
+When \code{cumulative = TRUE}, the \code{initial} parameter is ignored and the
+analysis (training) set will grow as
+resampling continues while the assessment (testing) set size will always remain
+static.
+
+When \code{cumulative = FALSE}, the \code{initial} parameter fixes the analysis (training)
+set and resampling occurs over a fixed window.
 
 \strong{Slice Limit}
 
@@ -99,11 +112,11 @@ m750 \%>\% plot_time_series(date, value)
 
 # RESAMPLE SPEC ----
 resample_spec <- time_series_cv(data = m750,
-                                initial     = 12 * 6,
-                                assess      = 12 * 2,
-                                skip        = 12 * 2,
+                                initial     = "6 years",
+                                assess      = "24 months",
+                                skip        = "24 months",
                                 cumulative  = FALSE,
-                                slice_limit = 2)
+                                slice_limit = 3)
 
 resample_spec
 

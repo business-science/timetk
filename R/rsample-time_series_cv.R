@@ -7,6 +7,7 @@
 #' of the cross validation on the most recent time series data.
 #'
 #' @inheritParams rsample::rolling_origin
+#' @param date_var A date or date-time variable.
 #' @param lag A value to include an lag between the assessment
 #'  and analysis set. This is useful if lagged predictors will be used
 #'  during training and testing.
@@ -15,21 +16,21 @@
 #'
 #' @details
 #'
-#' __Intial (Training Set) and Assess (Testing Set)__
+#' __Time-Based Specification__
+#'
+#'  the
+#' `initial`, `assess`, `skip`, and `lag` variables can be specified as:
+#'
+#' - Numeric: `initial = 24`
+#' - Time-Based Phrases: `initial = "2 years"`, if the `data` contains
+#'  a `date_var` (date or datetime)
+#'
+#' __Initial (Training Set) and Assess (Testing Set)__
 #'
 #' The main options, `initial` and `assess`, control the number of
 #'  data points from the original data that are in the analysis (training set)
 #'  and the assessment (testing set), respectively.
 #'
-#' __Cumulative vs Sliding Window__
-#'
-#' When `cumulative = TRUE`, the `initial` parameter is ignored and the
-#' analysis (training) set will grow as
-#'  resampling continues while the assessment (testing) set size will always remain
-#'  static.
-#'
-#' When `cumulative = FALSE`, the `initial` parameter fixes the analysis (training)
-#' set and resampling occurs over a fixed window.
 #'
 #' __Skip__
 #'
@@ -44,6 +45,16 @@
 #'
 #' The Lag parameter creates an overlap between the Testing set. This is needed
 #' when lagged predictors are used.
+#'
+#' __Cumulative vs Sliding Window__
+#'
+#' When `cumulative = TRUE`, the `initial` parameter is ignored and the
+#' analysis (training) set will grow as
+#'  resampling continues while the assessment (testing) set size will always remain
+#'  static.
+#'
+#' When `cumulative = FALSE`, the `initial` parameter fixes the analysis (training)
+#' set and resampling occurs over a fixed window.
 #'
 #' __Slice Limit__
 #'
@@ -74,11 +85,11 @@
 #'
 #' # RESAMPLE SPEC ----
 #' resample_spec <- time_series_cv(data = m750,
-#'                                 initial     = 12 * 6,
-#'                                 assess      = 12 * 2,
-#'                                 skip        = 12 * 2,
+#'                                 initial     = "6 years",
+#'                                 assess      = "24 months",
+#'                                 skip        = "24 months",
 #'                                 cumulative  = FALSE,
-#'                                 slice_limit = 2)
+#'                                 slice_limit = 3)
 #'
 #' resample_spec
 #'
@@ -92,9 +103,53 @@
 #'
 #' @export
 #' @importFrom dplyr n
-time_series_cv <- function(data, initial = 5, assess = 1,
-                           cumulative = TRUE, skip = 1, lag = 0,
+time_series_cv <- function(data, date_var = NULL, initial = 5, assess = 1,
+                           skip = 1, lag = 0, cumulative = FALSE,
                            slice_limit = n(), ...) {
+
+    date_var_expr <- rlang::enquo(date_var)
+
+    # TIME-BASED PHRASES ----
+    character_args <- c(
+        is.character(initial),
+        is.character(assess),
+        is.character(skip),
+        is.character(lag)
+    )
+
+    if (any(character_args)) {
+
+        # Check date_var
+        if (rlang::quo_is_null(date_var_expr)) {
+            date_var_text <- tk_get_timeseries_variables(data)[1]
+            message("Using date_var: ", date_var_text)
+            date_var_expr <- rlang::sym(date_var_text)
+        }
+
+        # initial
+        if (character_args[1]) {
+            initial <- period_chr_to_n(data, !! date_var_expr, period = initial)
+        }
+
+        # assess
+        if (character_args[2]) {
+            assess <- period_chr_to_n(data, !! date_var_expr, period = assess)
+        }
+
+        # skip
+        if (character_args[3]) {
+            skip <- period_chr_to_n(data, !! date_var_expr, period = skip)
+        }
+
+        # initial
+        if (character_args[4]) {
+            lag <- period_chr_to_n(data, !! date_var_expr, period = lag)
+        }
+
+    }
+
+
+    # CROSS VALIDATION SETS ----
     n <- nrow(data)
 
     if (n < initial + assess) {
@@ -116,7 +171,7 @@ time_series_cv <- function(data, initial = 5, assess = 1,
         stop("`lag` must be less than or equal to the number of training observations.", call. = FALSE)
     }
 
-    # --- IMPLEMENT REVERSED ROLLING ORIGIN ----
+    # IMPLEMENT REVERSED ROLLING ORIGIN ----
 
     # Update assess to account for lag (added to backend of assess)
     # stops <- n - seq(initial, (n - assess), by = skip + 1)
@@ -282,4 +337,11 @@ add_id <- function(split, id) {
 }
 
 
+period_chr_to_n <- function(data, date_var, period) {
+    idx <- data %>% dplyr::pull(!! rlang::enquo(date_var))
+    row_count <- data %>%
+        filter_by_time(!! rlang::enquo(date_var), "start", idx[1] %+time% period) %>%
+        nrow()
 
+    row_count - 1
+}
