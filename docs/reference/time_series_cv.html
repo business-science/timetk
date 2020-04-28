@@ -192,11 +192,12 @@ of the cross validation on the most recent time series data.</p>
 
     <pre class="usage"><span class='fu'>time_series_cv</span>(
   <span class='no'>data</span>,
+  <span class='kw'>date_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>initial</span> <span class='kw'>=</span> <span class='fl'>5</span>,
   <span class='kw'>assess</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>cumulative</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>skip</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>lag</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>cumulative</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>slice_limit</span> <span class='kw'>=</span> <span class='fu'>n</span>(),
   <span class='no'>...</span>
 )</pre>
@@ -209,6 +210,10 @@ of the cross validation on the most recent time series data.</p>
       <td><p>A data frame.</p></td>
     </tr>
     <tr>
+      <th>date_var</th>
+      <td><p>A date or date-time variable.</p></td>
+    </tr>
+    <tr>
       <th>initial</th>
       <td><p>The number of samples used for analysis/modeling in the
 initial resample.</p></td>
@@ -216,11 +221,6 @@ initial resample.</p></td>
     <tr>
       <th>assess</th>
       <td><p>The number of samples used for each assessment resample.</p></td>
-    </tr>
-    <tr>
-      <th>cumulative</th>
-      <td><p>A logical. Should the analysis resample grow beyond the
-size specified by <code>initial</code> at each resample?.</p></td>
     </tr>
     <tr>
       <th>skip</th>
@@ -233,6 +233,11 @@ See the example below.</p></td>
       <td><p>A value to include an lag between the assessment
 and analysis set. This is useful if lagged predictors will be used
 during training and testing.</p></td>
+    </tr>
+    <tr>
+      <th>cumulative</th>
+      <td><p>A logical. Should the analysis resample grow beyond the
+size specified by <code>initial</code> at each resample?.</p></td>
     </tr>
     <tr>
       <th>slice_limit</th>
@@ -253,17 +258,18 @@ and a column called <code>id</code> that has a character string with the resampl
 identifier.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p><strong>Intial (Training Set) and Assess (Testing Set)</strong></p>
+    <p><strong>Time-Based Specification</strong></p>
+<p>the
+<code>initial</code>, <code>assess</code>, <code>skip</code>, and <code>lag</code> variables can be specified as:</p><ul>
+<li><p>Numeric: <code>initial = 24</code></p></li>
+<li><p>Time-Based Phrases: <code>initial = "2 years"</code>, if the <code>data</code> contains
+a <code>date_var</code> (date or datetime)</p></li>
+</ul>
+
+<p><strong>Initial (Training Set) and Assess (Testing Set)</strong></p>
 <p>The main options, <code>initial</code> and <code>assess</code>, control the number of
 data points from the original data that are in the analysis (training set)
 and the assessment (testing set), respectively.</p>
-<p><strong>Cumulative vs Sliding Window</strong></p>
-<p>When <code>cumulative = TRUE</code>, the <code>initial</code> parameter is ignored and the
-analysis (training) set will grow as
-resampling continues while the assessment (testing) set size will always remain
-static.</p>
-<p>When <code>cumulative = FALSE</code>, the <code>initial</code> parameter fixes the analysis (training)
-set and resampling occurs over a fixed window.</p>
 <p><strong>Skip</strong></p>
 <p><code>skip</code> enables the function to not use every data point in the resamples.
 When <code>skip = 1</code>, the resampling data sets will increment by one position.</p>
@@ -273,6 +279,13 @@ assessment set size is not affected by this option.</p>
 <p><strong>Lag</strong></p>
 <p>The Lag parameter creates an overlap between the Testing set. This is needed
 when lagged predictors are used.</p>
+<p><strong>Cumulative vs Sliding Window</strong></p>
+<p>When <code>cumulative = TRUE</code>, the <code>initial</code> parameter is ignored and the
+analysis (training) set will grow as
+resampling continues while the assessment (testing) set size will always remain
+static.</p>
+<p>When <code>cumulative = FALSE</code>, the <code>initial</code> parameter fixes the analysis (training)
+set and resampling occurs over a fixed window.</p>
 <p><strong>Slice Limit</strong></p>
 <p>This controls the number of slices. If <code>slice_limit = 5</code>, only the most recent
 5 slices will be returned.</p>
@@ -298,22 +311,22 @@ time series resample plan.</p></li>
 
 <span class='co'># RESAMPLE SPEC ----</span>
 <span class='no'>resample_spec</span> <span class='kw'>&lt;-</span> <span class='fu'>time_series_cv</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>m750</span>,
-                                <span class='kw'>initial</span>     <span class='kw'>=</span> <span class='fl'>12</span> * <span class='fl'>6</span>,
-                                <span class='kw'>assess</span>      <span class='kw'>=</span> <span class='fl'>12</span> * <span class='fl'>2</span>,
-                                <span class='kw'>skip</span>        <span class='kw'>=</span> <span class='fl'>12</span> * <span class='fl'>2</span>,
+                                <span class='kw'>initial</span>     <span class='kw'>=</span> <span class='st'>"6 years"</span>,
+                                <span class='kw'>assess</span>      <span class='kw'>=</span> <span class='st'>"24 months"</span>,
+                                <span class='kw'>skip</span>        <span class='kw'>=</span> <span class='st'>"24 months"</span>,
                                 <span class='kw'>cumulative</span>  <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-                                <span class='kw'>slice_limit</span> <span class='kw'>=</span> <span class='fl'>2</span>)
-
+                                <span class='kw'>slice_limit</span> <span class='kw'>=</span> <span class='fl'>3</span>)</div><div class='output co'>#&gt; <span class='message'>Using date_var: date</span></div><div class='input'>
 <span class='no'>resample_spec</span></div><div class='output co'>#&gt; # Time Series Cross Validation Plan 
-#&gt; <span style='color: #555555;'># A tibble: 2 x 2</span><span>
+#&gt; <span style='color: #555555;'># A tibble: 3 x 2</span><span>
 #&gt;   splits          id    
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>          </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> 
 #&gt; </span><span style='color: #555555;'>1</span><span> </span><span style='color: #555555;'>&lt;split [72/24]&gt;</span><span> Slice1
-#&gt; </span><span style='color: #555555;'>2</span><span> </span><span style='color: #555555;'>&lt;split [72/24]&gt;</span><span> Slice2</div><div class='input'>
+#&gt; </span><span style='color: #555555;'>2</span><span> </span><span style='color: #555555;'>&lt;split [72/24]&gt;</span><span> Slice2
+#&gt; </span><span style='color: #555555;'>3</span><span> </span><span style='color: #555555;'>&lt;split [72/24]&gt;</span><span> Slice3</div><div class='input'>
 <span class='co'># VISUALIZE CV PLAN ----</span>
 
 <span class='co'># Select date and value columns from the tscv diagnostic tool</span>
-<span class='no'>resample_spec</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='tk_time_series_cv_plan.html'>tk_time_series_cv_plan</a></span>()</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 192 x 5</span><span>
+<span class='no'>resample_spec</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='tk_time_series_cv_plan.html'>tk_time_series_cv_plan</a></span>()</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 288 x 5</span><span>
 #&gt;    .id    .key     id    date       value
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
 #&gt; </span><span style='color: #555555;'> 1</span><span> Slice1 training M750  2007-07-01  </span><span style='text-decoration: underline;'>8</span><span>710
@@ -326,7 +339,7 @@ time series resample plan.</p></li>
 #&gt; </span><span style='color: #555555;'> 8</span><span> Slice1 training M750  2008-02-01  </span><span style='text-decoration: underline;'>9</span><span>970
 #&gt; </span><span style='color: #555555;'> 9</span><span> Slice1 training M750  2008-03-01 </span><span style='text-decoration: underline;'>10</span><span>120
 #&gt; </span><span style='color: #555555;'>10</span><span> Slice1 training M750  2008-04-01 </span><span style='text-decoration: underline;'>10</span><span>150
-#&gt; </span><span style='color: #555555;'># … with 182 more rows</span><span></div><div class='input'>
+#&gt; </span><span style='color: #555555;'># … with 278 more rows</span><span></div><div class='input'>
 <span class='co'># Plot the date and value columns to see the CV Plan</span>
 <span class='no'>resample_spec</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='plot_time_series_cv_plan.html'>plot_time_series_cv_plan</a></span>(<span class='no'>date</span>, <span class='no'>value</span>, <span class='kw'>.interactive</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='time_series_cv-1.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></span></pre>
