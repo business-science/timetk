@@ -6,19 +6,20 @@
 \usage{
 tk_make_future_timeseries(
   idx,
-  n_future,
+  length_out,
   inspect_weekdays = FALSE,
   inspect_months = FALSE,
   skip_values = NULL,
   insert_values = NULL,
-  include_endpoints = TRUE
+  include_endpoints = TRUE,
+  n_future = NULL
 )
 }
 \arguments{
 \item{idx}{A vector of dates}
 
-\item{n_future}{Number of future observations. Can be numeric number or a phrase
-like "1 year".}
+\item{length_out}{Optional length of the sequence. Can be used instead of one of:
+\code{start_date}, \code{end_date}, or \code{by}. Can be specified as a number or a time-based phrase.}
 
 \item{inspect_weekdays}{Uses a logistic regression algorithm to inspect
 whether certain weekdays (e.g. weekends) should be excluded from the future dates.
@@ -37,6 +38,9 @@ values to insert.}
 
 \item{include_endpoints}{Logical. Whether or not to keep the last value when \code{length_out} is
 a time-based phrase. Default is \code{TRUE} (keep last value).}
+
+\item{n_future}{(DEPRECATED) Number of future observations. Can be numeric number or a phrase
+like "1 year".}
 }
 \value{
 A vector containing future index of the same class as the incoming index \code{idx}
@@ -50,13 +54,13 @@ Make future time series from existing
 \code{tk_make_future_timeseries} returns a time series based
 on the input index frequency and attributes.
 
-\strong{Specifying N Future}
+\strong{Specifying Length of Future Observations}
 
-The argument \code{n_future} determines how many future index observations to compute. It can be specified
+The argument \code{length_out} determines how many future index observations to compute. It can be specified
 as:
 \itemize{
-\item A numeric value - the number of future observations
-\item A time-based phrase - The span into the future to include (e.g. "6 months" or "30 minutes")
+\item \strong{A numeric value} - the number of future observations to return
+\item \strong{A time-based phrase} - The span into the future to include (e.g. "6 months" or "30 minutes")
 }
 
 \strong{Weekday and Month Inspection}
@@ -85,7 +89,7 @@ excluded.
 
 \strong{Removing Endpoints}
 
-When \code{n_future} is a character phrase, how many observations into the future can differ
+When \code{length_out} is a character phrase, how many observations into the future can differ
 based on the user's interpretation to the time-span. For example, should "1 year" mean
 1 year from the last value in an index or 1 year from the next value.
 
@@ -102,13 +106,13 @@ idx <- tk_make_timeseries("2016-01-01 00:00:00", by = "3 sec", length_out = 3)
 idx
 
 # Make next three timestamps in series
-idx \%>\% tk_make_future_timeseries(n_future = 3)
+idx \%>\% tk_make_future_timeseries(length_out = 3)
 
 # Make next 6 seconds of timestamps from the next timestamp
-idx \%>\% tk_make_future_timeseries(n_future = "6 sec")
+idx \%>\% tk_make_future_timeseries(length_out = "6 sec")
 
 # Make next 6 seconds of timestamps from the previous timestamp
-idx \%>\% tk_make_future_timeseries(n_future = "6 sec", include_endpoints = FALSE)
+idx \%>\% tk_make_future_timeseries(length_out = "6 sec", include_endpoints = FALSE)
 
 
 # Basic Example - By 1 Month
@@ -118,10 +122,10 @@ idx <- tk_make_timeseries("2016-01-01", by = "1 month",
 idx
 
 # Make 12 months of timestamps from the next timestamp
-idx \%>\% tk_make_future_timeseries(n_future = "12 months")
+idx \%>\% tk_make_future_timeseries(length_out = "12 months")
 
 # Make 12 months of timestamps from the previous timestamp
-idx \%>\% tk_make_future_timeseries(n_future = "12 months", include_endpoints = FALSE)
+idx \%>\% tk_make_future_timeseries(length_out = "12 months", include_endpoints = FALSE)
 
 
 # --- APPLICATION ---
@@ -138,7 +142,7 @@ holidays <- tk_make_holiday_sequence(
 # Remove holidays with skip_values, and remove weekends with inspect_weekdays = TRUE
 FB_tbl \%>\%
     tk_index() \%>\%
-    tk_make_future_timeseries(n_future         = "1 year",
+    tk_make_future_timeseries(length_out         = "1 year",
                               inspect_weekdays = TRUE,
                               skip_values      = holidays)
 
