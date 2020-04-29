@@ -262,6 +262,18 @@ tk_make_future_timeseries.Date <- function(idx, n_future, inspect_weekdays = FAL
                 include_endpoints = include_endpoints) %>%
             lubridate::as_date()
 
+        # Handle day of month that gets dropped in yearmon conversion
+        day_of_month <- lubridate::mday(idx)[1]
+        date_seq_origin <- date_seq
+        date_seq        <- date_seq %+time% stringr::str_glue("{day_of_month - 1} days")
+
+        # Fix endpoints if needed
+        day_of_month_is_wrong <- lubridate::mday(date_seq) != day_of_month
+        if (any(day_of_month_is_wrong)) {
+            date_seq_shifted <- date_seq_origin %>% lubridate::ceiling_date("month")
+            date_seq_shifted <- date_seq_shifted %-time% "1 day"
+            date_seq[day_of_month_is_wrong] <- date_seq_shifted[day_of_month_is_wrong]
+        }
 
     } else if (idx_summary$scale == "quarter") {
 
@@ -294,6 +306,19 @@ tk_make_future_timeseries.Date <- function(idx, n_future, inspect_weekdays = FAL
                 insert_values     = insert_values,
                 include_endpoints = include_endpoints) %>%
             lubridate::as_date()
+
+        # Handle day of month that gets dropped in yearmon conversion
+        day_of_month <- lubridate::mday(idx)[1]
+        date_seq_origin <- date_seq
+        date_seq        <- date_seq %+time% stringr::str_glue("{day_of_month - 1} days")
+
+        # Fix endpoints if needed
+        day_of_month_is_wrong <- lubridate::mday(date_seq) != day_of_month
+        if (any(day_of_month_is_wrong)) {
+            date_seq_shifted <- date_seq_origin %>% lubridate::ceiling_date("month")
+            date_seq_shifted <- date_seq_shifted %-time% "1 day"
+            date_seq[day_of_month_is_wrong] <- date_seq_shifted[day_of_month_is_wrong]
+        }
     }
 
     return(date_seq)
