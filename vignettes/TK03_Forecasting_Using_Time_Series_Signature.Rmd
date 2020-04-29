@@ -250,7 +250,7 @@ bikes_summary[7:12]
 From the summary, we know that the data is 100% regular because the median and mean differences are 86400 seconds or 1 day. We don't need to do any special inspections when we use `tk_make_future_timeseries()`. If the data was irregular, meaning weekends or holidays were excluded, you'd want to account for this. Otherwise your forecast would be inaccurate.
 
 ```{r}
-idx_future <- idx %>% tk_make_future_timeseries(n_future = 180)
+idx_future <- idx %>% tk_make_future_timeseries(length_out = 180)
 
 future_tbl <- tibble(date = idx_future) 
 

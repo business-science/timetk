@@ -142,7 +142,7 @@ holidays <- tk_make_holiday_sequence(
 # Remove holidays with skip_values, and remove weekends with inspect_weekdays = TRUE
 FB_tbl \%>\%
     tk_index() \%>\%
-    tk_make_future_timeseries(length_out         = "1 year",
+    tk_make_future_timeseries(length_out       = "1 year",
                               inspect_weekdays = TRUE,
                               skip_values      = holidays)
 

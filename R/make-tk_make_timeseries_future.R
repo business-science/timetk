@@ -117,7 +117,7 @@
 #' # Remove holidays with skip_values, and remove weekends with inspect_weekdays = TRUE
 #' FB_tbl %>%
 #'     tk_index() %>%
-#'     tk_make_future_timeseries(length_out         = "1 year",
+#'     tk_make_future_timeseries(length_out       = "1 year",
 #'                               inspect_weekdays = TRUE,
 #'                               skip_values      = holidays)
 #'
@@ -317,6 +317,14 @@ tk_make_future_timeseries.Date <- function(idx, length_out, inspect_weekdays = F
         # Quarterly scale - Switch to yearqtr and then back to date -----
         if (!is.null(skip_values)) skip_values <- zoo::as.yearqtr(skip_values)
         if (!is.null(insert_values)) insert_values <- zoo::as.yearqtr(insert_values)
+
+        # list(
+        #     length_out        = length_out,
+        #     skip_values       = skip_values,
+        #     insert_values     = insert_values,
+        #     include_endpoints = include_endpoints,
+        #     n_future          = n_future
+        # ) %>% print()
 
         date_seq  <- zoo::as.yearqtr(idx) %>%
             tk_make_future_timeseries.yearqtr(
@@ -728,12 +736,22 @@ make_sequential_timeseries_regular_freq <- function(idx, length_out, skip_values
 
     # NEW BEHAVIOR
     # - length_out = "1 year" or 12 periods always returns full observations)
+    idx_summary <- tk_get_timeseries_summary(idx)
     if (length_out_is_chr) {
         # Character Period: Return values up to the offset
         endpoint <- lubridate::as_date(idx_summary$end) %+time% period_offset
         less_than_endpoint <- lubridate::as_date(date_sequence) %>% between_time_vec("start", endpoint)
         ret <- date_sequence[less_than_endpoint]
         ret <- ret[!is.na(ret)]
+
+        # list(
+        #     idx_end = idx_summary$end,
+        #     period_offset = period_offset,
+        #     endpoint = endpoint,
+        #     date_sequence = date_sequence,
+        #     between_endpoint = lubridate::as_date(date_sequence) %>% between_time_vec("start", endpoint)
+        # ) %>% print()
+
     } else {
         # Numeric: Return exactly length_out values
         ret <- date_sequence[1:length_out]

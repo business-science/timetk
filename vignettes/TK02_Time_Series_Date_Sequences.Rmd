@@ -108,7 +108,7 @@ __Make a Future Time Series from an Existing__
 We can create a future time sequence from the existing sequence using `tk_make_future_timeseries()`. 
 
 ```{r}
-tk_make_future_timeseries(idx, n_future = "2 years", include_endpoints = FALSE)
+tk_make_future_timeseries(idx, length_out = "2 years")
 ```
 
 
@@ -144,7 +144,7 @@ holidays <- tk_make_holiday_sequence(
     calendar   = "NYSE")
 
 idx_future <- idx %>%
-   tk_make_future_timeseries(n_future         = "1 year",
+   tk_make_future_timeseries(length_out       = "1 year",
                              inspect_weekdays = TRUE,
                              skip_values      = holidays)
 
