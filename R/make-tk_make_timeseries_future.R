@@ -54,14 +54,6 @@
 #' - The `insert_values` argument is useful for adding values back that the algorithm may have
 #' excluded.
 #'
-#' __Removing Endpoints__
-#'
-#' When `length_out` is a character phrase, how many observations into the future can differ
-#' based on the user's interpretation to the time-span. For example, should "1 year" mean
-#' 1 year from the last value in an index or 1 year from the next value.
-#'
-#' To account for this, the user has the option `include_endpoints`, which simply subtracts the
-#' last value in the future time series.
 #'
 #'
 #' @return A vector containing future index of the same class as the incoming index `idx`
@@ -86,21 +78,15 @@
 #' # Make next 6 seconds of timestamps from the next timestamp
 #' idx %>% tk_make_future_timeseries(length_out = "6 sec")
 #'
-#' # Make next 6 seconds of timestamps from the previous timestamp
-#' idx %>% tk_make_future_timeseries(length_out = "6 sec", include_endpoints = FALSE)
-#'
 #'
 #' # Basic Example - By 1 Month
 #' idx <- tk_make_timeseries("2016-01-01", by = "1 month",
-#'                           length_out = "12 months",
-#'                           include_endpoints = FALSE)
+#'                           length_out = "12 months")
 #' idx
 #'
 #' # Make 12 months of timestamps from the next timestamp
 #' idx %>% tk_make_future_timeseries(length_out = "12 months")
 #'
-#' # Make 12 months of timestamps from the previous timestamp
-#' idx %>% tk_make_future_timeseries(length_out = "12 months", include_endpoints = FALSE)
 #'
 #'
 #' # --- APPLICATION ---
@@ -133,7 +119,7 @@ NULL
 #' @rdname tk_make_future_timeseries
 tk_make_future_timeseries <- function(idx, length_out, inspect_weekdays = FALSE,
                                       inspect_months = FALSE, skip_values = NULL, insert_values = NULL,
-                                      include_endpoints = TRUE, n_future = NULL) {
+                                      n_future = NULL) {
 
     if (!is.null(n_future)) {
             rlang::warn(stringr::str_glue("ARGUMENT DEPRECATION: `n_future` is deprecated. Please use `length_out` instead.
@@ -148,7 +134,7 @@ tk_make_future_timeseries <- function(idx, length_out, inspect_weekdays = FALSE,
 #' @export
 tk_make_future_timeseries.POSIXt <- function(idx, length_out, inspect_weekdays = FALSE,
                                              inspect_months = FALSE, skip_values = NULL, insert_values = NULL,
-                                             include_endpoints = TRUE, n_future = NULL) {
+                                             n_future = NULL) {
 
     # Remove once `n_future` is fully deprecated
     if (!is.null(n_future)) {
@@ -178,7 +164,6 @@ tk_make_future_timeseries.POSIXt <- function(idx, length_out, inspect_weekdays =
             inspect_months    = inspect_months,
             skip_values       = skip_values,
             insert_values     = insert_values,
-            include_endpoints = include_endpoints,
             n_future          = n_future
         )
 
@@ -188,7 +173,6 @@ tk_make_future_timeseries.POSIXt <- function(idx, length_out, inspect_weekdays =
             length_out        = length_out,
             skip_values       = skip_values,
             insert_values     = insert_values,
-            include_endpoints = include_endpoints,
             n_future          = n_future
         )
     }
@@ -202,7 +186,7 @@ tk_make_future_timeseries.POSIXt <- function(idx, length_out, inspect_weekdays =
 #' @export
 tk_make_future_timeseries.Date <- function(idx, length_out, inspect_weekdays = FALSE,
                                            inspect_months = FALSE, skip_values = NULL, insert_values = NULL,
-                                           include_endpoints = TRUE, n_future = NULL) {
+                                           n_future = NULL) {
 
     # Remove once `n_future` is fully deprecated
     if (!is.null(n_future)) {
@@ -233,7 +217,6 @@ tk_make_future_timeseries.Date <- function(idx, length_out, inspect_weekdays = F
                 inspect_months    = inspect_months,
                 skip_values       = skip_values,
                 insert_values     = insert_values,
-                include_endpoints = include_endpoints,
                 n_future          = n_future
             )
 
@@ -245,7 +228,6 @@ tk_make_future_timeseries.Date <- function(idx, length_out, inspect_weekdays = F
                 length_out        = length_out,
                 skip_values       = skip_values,
                 insert_values     = insert_values,
-                include_endpoints = include_endpoints,
                 n_future          = n_future
             )
 
@@ -261,7 +243,6 @@ tk_make_future_timeseries.Date <- function(idx, length_out, inspect_weekdays = F
             length_out        = length_out,
             skip_values       = skip_values,
             insert_values     = insert_values,
-            include_endpoints = include_endpoints,
             n_future          = n_future
         )
 
@@ -275,7 +256,6 @@ tk_make_future_timeseries.Date <- function(idx, length_out, inspect_weekdays = F
             length_out        = length_out,
             skip_values       = skip_values,
             insert_values     = insert_values,
-            include_endpoints = include_endpoints,
             n_future          = n_future
         )
 
@@ -292,7 +272,6 @@ tk_make_future_timeseries.Date <- function(idx, length_out, inspect_weekdays = F
                 length_out        = length_out,
                 skip_values       = skip_values,
                 insert_values     = insert_values,
-                include_endpoints = include_endpoints,
                 n_future          = n_future
             ) %>%
             lubridate::as_date()
@@ -331,7 +310,6 @@ tk_make_future_timeseries.Date <- function(idx, length_out, inspect_weekdays = F
                 length_out        = length_out,
                 skip_values       = skip_values,
                 insert_values     = insert_values,
-                include_endpoints = include_endpoints,
                 n_future          = n_future
             ) %>%
             lubridate::as_date()
@@ -349,7 +327,6 @@ tk_make_future_timeseries.Date <- function(idx, length_out, inspect_weekdays = F
                 length_out        = length_out,
                 skip_values       = skip_values,
                 insert_values     = insert_values,
-                include_endpoints = include_endpoints,
                 n_future          = n_future) %>%
             lubridate::as_date()
 
@@ -374,7 +351,7 @@ tk_make_future_timeseries.Date <- function(idx, length_out, inspect_weekdays = F
 #' @export
 tk_make_future_timeseries.yearmon <- function(idx, length_out, inspect_weekdays = FALSE,
                                               inspect_months = FALSE, skip_values = NULL, insert_values = NULL,
-                                              include_endpoints = TRUE, n_future = NULL) {
+                                              n_future = NULL) {
 
     # Remove once `n_future` is fully deprecated
     if (!is.null(n_future)) {
@@ -393,7 +370,6 @@ tk_make_future_timeseries.yearmon <- function(idx, length_out, inspect_weekdays 
         length_out        = length_out,
         skip_values       = skip_values,
         insert_values     = insert_values,
-        include_endpoints = include_endpoints,
         n_future          = n_future)
 
     return(ret)
@@ -402,7 +378,7 @@ tk_make_future_timeseries.yearmon <- function(idx, length_out, inspect_weekdays 
 #' @export
 tk_make_future_timeseries.yearqtr <- function(idx, length_out, inspect_weekdays = FALSE,
                                               inspect_months = FALSE, skip_values = NULL, insert_values = NULL,
-                                              include_endpoints = TRUE, n_future = NULL) {
+                                              n_future = NULL) {
 
     # Remove once `n_future` is fully deprecated
     if (!is.null(n_future)) {
@@ -420,7 +396,6 @@ tk_make_future_timeseries.yearqtr <- function(idx, length_out, inspect_weekdays 
         length_out        = length_out,
         skip_values       = skip_values,
         insert_values     = insert_values,
-        include_endpoints = include_endpoints,
         n_future          = n_future)
 
     return(ret)
@@ -429,7 +404,7 @@ tk_make_future_timeseries.yearqtr <- function(idx, length_out, inspect_weekdays 
 #' @export
 tk_make_future_timeseries.numeric <- function(idx, length_out, inspect_weekdays = FALSE,
                                               inspect_months = FALSE, skip_values = NULL, insert_values = NULL,
-                                              include_endpoints = TRUE, n_future = NULL) {
+                                              n_future = NULL) {
 
     # Remove once `n_future` is fully deprecated
     if (!is.null(n_future)) {
@@ -447,7 +422,6 @@ tk_make_future_timeseries.numeric <- function(idx, length_out, inspect_weekdays 
         length_out        = length_out,
         skip_values       = skip_values,
         insert_values     = insert_values,
-        include_endpoints = include_endpoints,
         n_future          = n_future)
 
     return(ret)
@@ -457,7 +431,7 @@ tk_make_future_timeseries.numeric <- function(idx, length_out, inspect_weekdays 
 # UTILITIY FUNCTIONS -----
 
 predict_future_timeseries_daily <- function(idx, length_out, inspect_weekdays, inspect_months,
-                                            skip_values, insert_values, include_endpoints, n_future) {
+                                            skip_values, insert_values, n_future) {
 
     # n_future will be TRUE/FALSE (and length_out = n_future)
     # - If TRUE, returns the old n_future behavior of number of observations being potentially fewer than n_future
@@ -496,7 +470,7 @@ predict_future_timeseries_daily <- function(idx, length_out, inspect_weekdays, i
         period_offset <- length_out
         # print(period_offset)
     }
-    length_out <- convert_length_out_chr_to_num(idx, length_out, include_endpoints = include_endpoints)
+    length_out <- convert_length_out_chr_to_num(idx, length_out, include_endpoints = TRUE)
 
     # Format data frame
     suppressMessages({
@@ -579,7 +553,7 @@ predict_future_timeseries_daily <- function(idx, length_out, inspect_weekdays, i
     return(ret)
 }
 
-make_sequential_timeseries_irregular_freq <- function(idx, length_out, skip_values, insert_values, include_endpoints, n_future) {
+make_sequential_timeseries_irregular_freq <- function(idx, length_out, skip_values, insert_values, n_future) {
 
     # n_future will be TRUE/FALSE (and length_out = n_future)
     # - If TRUE, returns the old n_future behavior of number of observations being potentially fewer than n_future
@@ -608,7 +582,7 @@ make_sequential_timeseries_irregular_freq <- function(idx, length_out, skip_valu
     if (length_out_is_chr) {
         period_offset <- length_out
     }
-    length_out <- convert_length_out_chr_to_num(idx, length_out, include_endpoints = include_endpoints)
+    length_out <- convert_length_out_chr_to_num(idx, length_out, include_endpoints = TRUE)
 
     # Create date sequence based on index.num and median frequency
     last_numeric_date <- dplyr::last(idx_signature$index.num)
@@ -662,7 +636,7 @@ make_sequential_timeseries_irregular_freq <- function(idx, length_out, skip_valu
 }
 
 
-make_sequential_timeseries_regular_freq <- function(idx, length_out, skip_values, insert_values, include_endpoints, n_future) {
+make_sequential_timeseries_regular_freq <- function(idx, length_out, skip_values, insert_values, n_future) {
 
     # n_future will be TRUE/FALSE (and length_out = n_future)
     # - If TRUE, returns the old n_future behavior of number of observations being potentially fewer than n_future
@@ -694,7 +668,7 @@ make_sequential_timeseries_regular_freq <- function(idx, length_out, skip_values
     if (length_out_is_chr) {
         period_offset <- length_out
     }
-    length_out <- convert_length_out_chr_to_num(idx, length_out, include_endpoints = include_endpoints)
+    length_out <- convert_length_out_chr_to_num(idx, length_out, include_endpoints = TRUE)
 
     # Create date sequence based on index.num and median frequency
     last_numeric_date <- dplyr::last(idx_numeric)
@@ -873,48 +847,6 @@ make_daily_prediction_formula <- function(ts_signature_tbl_train, inspect_weekda
 }
 
 
-# convert_length_out_chr_to_num <- function(idx, length_out, include_endpoints) {
-#
-#     if (is.character(length_out)) {
-#
-#         # Convert zoo classes to date class
-#         if (inherits(idx, "yearmon") | inherits(idx, "yearqtr")) {
-#             idx <- lubridate::as_date(idx)
-#         }
-#
-#         # Get index attributes
-#         idx_summary <- tk_get_timeseries_summary(idx)
-#
-#         # Find start / end
-#         start_date <- idx_summary$end
-#         end_date   <- start_date %+time% length_out
-#
-#         # Frequency check
-#         frequency      <- idx_summary$diff.median
-#         num_start_date <- as.numeric(as.POSIXct(start_date))
-#         num_end_date   <- as.numeric(as.POSIXct(end_date))
-#         num_periods    <- (num_end_date - num_start_date) / frequency
-#
-#         # print(ceiling(num_periods))
-#
-#         print(list(start_date, end_date, frequency, num_periods))
-#
-#         # Calculate approximate horizon
-#         idx_horizon <- tk_make_timeseries(start_date, end_date,
-#                                           by = stringr::str_glue("{idx_summary$diff.median} sec"),
-#                                           include_endpoints = TRUE)
-#         # print(idx_horizon)
-#
-#         if (include_endpoints) {
-#             length_out    <- length(idx_horizon)
-#         } else {
-#             length_out    <- length(idx_horizon) - 1
-#         }
-#
-#     }
-#
-#     return(length_out)
-# }
 
 
 convert_length_out_chr_to_num <- function(idx, length_out, include_endpoints) {

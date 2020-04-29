@@ -11,7 +11,6 @@ tk_make_future_timeseries(
   inspect_months = FALSE,
   skip_values = NULL,
   insert_values = NULL,
-  include_endpoints = TRUE,
   n_future = NULL
 )
 }
@@ -35,9 +34,6 @@ values to skip.}
 
 \item{insert_values}{A vector of same class as \code{idx} of timeseries
 values to insert.}
-
-\item{include_endpoints}{Logical. Whether or not to keep the last value when \code{length_out} is
-a time-based phrase. Default is \code{TRUE} (keep last value).}
 
 \item{n_future}{(DEPRECATED) Number of future observations. Can be numeric number or a phrase
 like "1 year".}
@@ -86,15 +82,6 @@ be excluded from the future time series.
 \item The \code{insert_values} argument is useful for adding values back that the algorithm may have
 excluded.
 }
-
-\strong{Removing Endpoints}
-
-When \code{length_out} is a character phrase, how many observations into the future can differ
-based on the user's interpretation to the time-span. For example, should "1 year" mean
-1 year from the last value in an index or 1 year from the next value.
-
-To account for this, the user has the option \code{include_endpoints}, which simply subtracts the
-last value in the future time series.
 }
 \examples{
 library(dplyr)
@@ -111,21 +98,15 @@ idx \%>\% tk_make_future_timeseries(length_out = 3)
 # Make next 6 seconds of timestamps from the next timestamp
 idx \%>\% tk_make_future_timeseries(length_out = "6 sec")
 
-# Make next 6 seconds of timestamps from the previous timestamp
-idx \%>\% tk_make_future_timeseries(length_out = "6 sec", include_endpoints = FALSE)
-
 
 # Basic Example - By 1 Month
 idx <- tk_make_timeseries("2016-01-01", by = "1 month",
-                          length_out = "12 months",
-                          include_endpoints = FALSE)
+                          length_out = "12 months")
 idx
 
 # Make 12 months of timestamps from the next timestamp
 idx \%>\% tk_make_future_timeseries(length_out = "12 months")
 
-# Make 12 months of timestamps from the previous timestamp
-idx \%>\% tk_make_future_timeseries(length_out = "12 months", include_endpoints = FALSE)
 
 
 # --- APPLICATION ---
