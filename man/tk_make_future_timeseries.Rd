@@ -17,8 +17,8 @@ tk_make_future_timeseries(
 \arguments{
 \item{idx}{A vector of dates}
 
-\item{length_out}{Optional length of the sequence. Can be used instead of one of:
-\code{start_date}, \code{end_date}, or \code{by}. Can be specified as a number or a time-based phrase.}
+\item{length_out}{Number of future observations. Can be numeric number or a phrase
+like "1 year".}
 
 \item{inspect_weekdays}{Uses a logistic regression algorithm to inspect
 whether certain weekdays (e.g. weekends) should be excluded from the future dates.

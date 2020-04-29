@@ -291,21 +291,21 @@ Time units are collapsed using <code><a href='http://lubridate.tidyverse.org/ref
     <span class='fu'>summarise_by_time</span>(
         <span class='no'>date</span>, <span class='kw'>.by</span> <span class='kw'>=</span> <span class='st'>"month"</span>, <span class='co'># Setup for monthly aggregation</span>
         <span class='kw'>adjusted</span>  <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/tidyquant/man/excel_stat_summary_functions.html'>FIRST</a></span>(<span class='no'>adjusted</span>)
-    )</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 192 x 3</span><span>
-#&gt; </span><span style='color: #555555;'># Groups:   symbol [4]</span><span>
+    )</div><div class='output co'>#&gt; # A tibble: 192 x 3
+#&gt; # Groups:   symbol [4]
 #&gt;    symbol date       adjusted
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>        </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> AMZN   2013-01-01     257.
-#&gt; </span><span style='color: #555555;'> 2</span><span> AMZN   2013-02-01     265 
-#&gt; </span><span style='color: #555555;'> 3</span><span> AMZN   2013-03-01     266.
-#&gt; </span><span style='color: #555555;'> 4</span><span> AMZN   2013-04-01     262.
-#&gt; </span><span style='color: #555555;'> 5</span><span> AMZN   2013-05-01     248.
-#&gt; </span><span style='color: #555555;'> 6</span><span> AMZN   2013-06-01     267.
-#&gt; </span><span style='color: #555555;'> 7</span><span> AMZN   2013-07-01     282.
-#&gt; </span><span style='color: #555555;'> 8</span><span> AMZN   2013-08-01     306.
-#&gt; </span><span style='color: #555555;'> 9</span><span> AMZN   2013-09-01     289.
-#&gt; </span><span style='color: #555555;'>10</span><span> AMZN   2013-10-01     321.
-#&gt; </span><span style='color: #555555;'># … with 182 more rows</span><span></div><div class='input'>
+#&gt;    &lt;chr&gt;  &lt;date&gt;        &lt;dbl&gt;
+#&gt;  1 AMZN   2013-01-01     257.
+#&gt;  2 AMZN   2013-02-01     265 
+#&gt;  3 AMZN   2013-03-01     266.
+#&gt;  4 AMZN   2013-04-01     262.
+#&gt;  5 AMZN   2013-05-01     248.
+#&gt;  6 AMZN   2013-06-01     267.
+#&gt;  7 AMZN   2013-07-01     282.
+#&gt;  8 AMZN   2013-08-01     306.
+#&gt;  9 AMZN   2013-09-01     289.
+#&gt; 10 AMZN   2013-10-01     321.
+#&gt; # … with 182 more rows</div><div class='input'>
 <span class='co'># Last adjused price in each month (day is first day of next month with ceiling option)</span>
 <span class='no'>FANG</span> <span class='kw'>%&gt;%</span>
     <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>symbol</span>) <span class='kw'>%&gt;%</span>
@@ -315,49 +315,49 @@ Time units are collapsed using <code><a href='http://lubridate.tidyverse.org/ref
         <span class='kw'>adjusted</span>   <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/tidyquant/man/excel_stat_summary_functions.html'>LAST</a></span>(<span class='no'>adjusted</span>),
         <span class='kw'>.type</span>      <span class='kw'>=</span> <span class='st'>"ceiling"</span>) <span class='kw'>%&gt;%</span>
     <span class='co'># Shift to the last day of the month</span>
-    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>date</span> <span class='kw'>=</span> <span class='no'>date</span> <span class='kw'>%-time%</span> <span class='st'>"1 day"</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 192 x 3</span><span>
-#&gt; </span><span style='color: #555555;'># Groups:   symbol [4]</span><span>
+    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>date</span> <span class='kw'>=</span> <span class='no'>date</span> <span class='kw'>%-time%</span> <span class='st'>"1 day"</span>)</div><div class='output co'>#&gt; # A tibble: 192 x 3
+#&gt; # Groups:   symbol [4]
 #&gt;    symbol date       adjusted
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>        </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> AMZN   2013-01-31     266.
-#&gt; </span><span style='color: #555555;'> 2</span><span> AMZN   2013-02-28     264.
-#&gt; </span><span style='color: #555555;'> 3</span><span> AMZN   2013-03-31     266.
-#&gt; </span><span style='color: #555555;'> 4</span><span> AMZN   2013-04-30     254.
-#&gt; </span><span style='color: #555555;'> 5</span><span> AMZN   2013-05-31     269.
-#&gt; </span><span style='color: #555555;'> 6</span><span> AMZN   2013-06-30     278.
-#&gt; </span><span style='color: #555555;'> 7</span><span> AMZN   2013-07-31     301.
-#&gt; </span><span style='color: #555555;'> 8</span><span> AMZN   2013-08-31     281.
-#&gt; </span><span style='color: #555555;'> 9</span><span> AMZN   2013-09-30     313.
-#&gt; </span><span style='color: #555555;'>10</span><span> AMZN   2013-10-31     364.
-#&gt; </span><span style='color: #555555;'># … with 182 more rows</span><span></div><div class='input'>
+#&gt;    &lt;chr&gt;  &lt;date&gt;        &lt;dbl&gt;
+#&gt;  1 AMZN   2013-01-31     266.
+#&gt;  2 AMZN   2013-02-28     264.
+#&gt;  3 AMZN   2013-03-31     266.
+#&gt;  4 AMZN   2013-04-30     254.
+#&gt;  5 AMZN   2013-05-31     269.
+#&gt;  6 AMZN   2013-06-30     278.
+#&gt;  7 AMZN   2013-07-31     301.
+#&gt;  8 AMZN   2013-08-31     281.
+#&gt;  9 AMZN   2013-09-30     313.
+#&gt; 10 AMZN   2013-10-31     364.
+#&gt; # … with 182 more rows</div><div class='input'>
 <span class='co'># Total Volume each year (.by is set to "year" now)</span>
 <span class='no'>FANG</span> <span class='kw'>%&gt;%</span>
     <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>symbol</span>) <span class='kw'>%&gt;%</span>
     <span class='fu'>summarise_by_time</span>(
         <span class='kw'>.date_var</span>  <span class='kw'>=</span> <span class='no'>date</span>,
         <span class='kw'>.by</span>        <span class='kw'>=</span> <span class='st'>"year"</span>,
-        <span class='kw'>adjusted</span>   <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/tidyquant/man/excel_stat_summary_functions.html'>SUM</a></span>(<span class='no'>volume</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 16 x 3</span><span>
-#&gt; </span><span style='color: #555555;'># Groups:   symbol [4]</span><span>
+        <span class='kw'>adjusted</span>   <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/tidyquant/man/excel_stat_summary_functions.html'>SUM</a></span>(<span class='no'>volume</span>))</div><div class='output co'>#&gt; # A tibble: 16 x 3
+#&gt; # Groups:   symbol [4]
 #&gt;    symbol date          adjusted
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>           </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> AMZN   2013-01-01   747</span><span style='text-decoration: underline;'>905</span><span>700
-#&gt; </span><span style='color: #555555;'> 2</span><span> AMZN   2014-01-01  </span><span style='text-decoration: underline;'>1</span><span>029</span><span style='text-decoration: underline;'>066</span><span>700
-#&gt; </span><span style='color: #555555;'> 3</span><span> AMZN   2015-01-01   956</span><span style='text-decoration: underline;'>936</span><span>800
-#&gt; </span><span style='color: #555555;'> 4</span><span> AMZN   2016-01-01  </span><span style='text-decoration: underline;'>1</span><span>037</span><span style='text-decoration: underline;'>105</span><span>600
-#&gt; </span><span style='color: #555555;'> 5</span><span> FB     2013-01-01 </span><span style='text-decoration: underline;'>15</span><span>143</span><span style='text-decoration: underline;'>182</span><span>600
-#&gt; </span><span style='color: #555555;'> 6</span><span> FB     2014-01-01 </span><span style='text-decoration: underline;'>11</span><span>977</span><span style='text-decoration: underline;'>699</span><span>100
-#&gt; </span><span style='color: #555555;'> 7</span><span> FB     2015-01-01  </span><span style='text-decoration: underline;'>6</span><span>792</span><span style='text-decoration: underline;'>708</span><span>200
-#&gt; </span><span style='color: #555555;'> 8</span><span> FB     2016-01-01  </span><span style='text-decoration: underline;'>6</span><span>414</span><span style='text-decoration: underline;'>357</span><span>000
-#&gt; </span><span style='color: #555555;'> 9</span><span> GOOG   2013-01-01  </span><span style='text-decoration: underline;'>1</span><span>055</span><span style='text-decoration: underline;'>967</span><span>100
-#&gt; </span><span style='color: #555555;'>10</span><span> GOOG   2014-01-01   626</span><span style='text-decoration: underline;'>733</span><span>500
-#&gt; </span><span style='color: #555555;'>11</span><span> GOOG   2015-01-01   521</span><span style='text-decoration: underline;'>446</span><span>300
-#&gt; </span><span style='color: #555555;'>12</span><span> GOOG   2016-01-01   461</span><span style='text-decoration: underline;'>120</span><span>900
-#&gt; </span><span style='color: #555555;'>13</span><span> NFLX   2013-01-01  </span><span style='text-decoration: underline;'>6</span><span>915</span><span style='text-decoration: underline;'>790</span><span>700
-#&gt; </span><span style='color: #555555;'>14</span><span> NFLX   2014-01-01  </span><span style='text-decoration: underline;'>4</span><span>898</span><span style='text-decoration: underline;'>415</span><span>200
-#&gt; </span><span style='color: #555555;'>15</span><span> NFLX   2015-01-01  </span><span style='text-decoration: underline;'>4</span><span>679</span><span style='text-decoration: underline;'>881</span><span>700
-#&gt; </span><span style='color: #555555;'>16</span><span> NFLX   2016-01-01  </span><span style='text-decoration: underline;'>3</span><span>228</span><span style='text-decoration: underline;'>349</span><span>500</div><div class='input'>
+#&gt;    &lt;chr&gt;  &lt;date&gt;           &lt;dbl&gt;
+#&gt;  1 AMZN   2013-01-01   747905700
+#&gt;  2 AMZN   2014-01-01  1029066700
+#&gt;  3 AMZN   2015-01-01   956936800
+#&gt;  4 AMZN   2016-01-01  1037105600
+#&gt;  5 FB     2013-01-01 15143182600
+#&gt;  6 FB     2014-01-01 11977699100
+#&gt;  7 FB     2015-01-01  6792708200
+#&gt;  8 FB     2016-01-01  6414357000
+#&gt;  9 GOOG   2013-01-01  1055967100
+#&gt; 10 GOOG   2014-01-01   626733500
+#&gt; 11 GOOG   2015-01-01   521446300
+#&gt; 12 GOOG   2016-01-01   461120900
+#&gt; 13 NFLX   2013-01-01  6915790700
+#&gt; 14 NFLX   2014-01-01  4898415200
+#&gt; 15 NFLX   2015-01-01  4679881700
+#&gt; 16 NFLX   2016-01-01  3228349500</div><div class='input'>
 
-</div></span></pre>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

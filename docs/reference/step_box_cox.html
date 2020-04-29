@@ -338,28 +338,28 @@ with seasonal dummy variables is used.</p></li>
     <span class='fu'>step_box_cox</span>(<span class='no'>FB</span>, <span class='no'>AMZN</span>, <span class='no'>NFLX</span>, <span class='no'>GOOG</span>) <span class='kw'>%&gt;%</span>
     <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/prep.html'>prep</a></span>()
 
-<span class='no'>recipe_box_cox</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/bake.html'>bake</a></span>(<span class='no'>FANG_wide</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 1,008 x 5</span><span>
+<span class='no'>recipe_box_cox</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/bake.html'>bake</a></span>(<span class='no'>FANG_wide</span>)</div><div class='output co'>#&gt; # A tibble: 1,008 x 5
 #&gt;    date          FB  AMZN  NFLX  GOOG
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> 2013-01-02  12.5  8.28  4.92  5.26
-#&gt; </span><span style='color: #555555;'> 2</span><span> 2013-01-03  12.4  8.28  5.08  5.27
-#&gt; </span><span style='color: #555555;'> 3</span><span> 2013-01-04  12.7  8.29  5.06  5.28
-#&gt; </span><span style='color: #555555;'> 4</span><span> 2013-01-07  12.9  8.37  5.17  5.28
-#&gt; </span><span style='color: #555555;'> 5</span><span> 2013-01-08  12.8  8.35  5.10  5.28
-#&gt; </span><span style='color: #555555;'> 6</span><span> 2013-01-09  13.3  8.35  5.06  5.28
-#&gt; </span><span style='color: #555555;'> 7</span><span> 2013-01-10  13.5  8.34  5.13  5.28
-#&gt; </span><span style='color: #555555;'> 8</span><span> 2013-01-11  13.7  8.36  5.24  5.28
-#&gt; </span><span style='color: #555555;'> 9</span><span> 2013-01-14  13.4  8.40  5.32  5.26
-#&gt; </span><span style='color: #555555;'>10</span><span> 2013-01-15  13.1  8.39  5.26  5.27
-#&gt; </span><span style='color: #555555;'># … with 998 more rows</span><span></div><div class='input'>
-<span class='no'>recipe_box_cox</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/reexports.html'>tidy</a></span>(<span class='fl'>1</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 4 x 3</span><span>
+#&gt;    &lt;date&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+#&gt;  1 2013-01-02  12.5  8.28  4.92  5.26
+#&gt;  2 2013-01-03  12.4  8.28  5.08  5.27
+#&gt;  3 2013-01-04  12.7  8.29  5.06  5.28
+#&gt;  4 2013-01-07  12.9  8.37  5.17  5.28
+#&gt;  5 2013-01-08  12.8  8.35  5.10  5.28
+#&gt;  6 2013-01-09  13.3  8.35  5.06  5.28
+#&gt;  7 2013-01-10  13.5  8.34  5.13  5.28
+#&gt;  8 2013-01-11  13.7  8.36  5.24  5.28
+#&gt;  9 2013-01-14  13.4  8.40  5.32  5.26
+#&gt; 10 2013-01-15  13.1  8.39  5.26  5.27
+#&gt; # … with 998 more rows</div><div class='input'>
+<span class='no'>recipe_box_cox</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/reexports.html'>tidy</a></span>(<span class='fl'>1</span>)</div><div class='output co'>#&gt; # A tibble: 4 x 3
 #&gt;   terms  lambda id           
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>        
-#&gt; </span><span style='color: #555555;'>1</span><span> FB     0.671  box_cox_SwlKL
-#&gt; </span><span style='color: #555555;'>2</span><span> AMZN   0.135  box_cox_SwlKL
-#&gt; </span><span style='color: #555555;'>3</span><span> NFLX   0.458  box_cox_SwlKL
-#&gt; </span><span style='color: #555555;'>4</span><span> GOOG  -</span><span style='color: #BB0000;'>0.038</span><span style='color: #BB0000;text-decoration: underline;'>8</span><span> box_cox_SwlKL</div><div class='input'>
-</div></span></pre>
+#&gt;   &lt;chr&gt;   &lt;dbl&gt; &lt;chr&gt;        
+#&gt; 1 FB     0.671  box_cox_SwlKL
+#&gt; 2 AMZN   0.135  box_cox_SwlKL
+#&gt; 3 NFLX   0.458  box_cox_SwlKL
+#&gt; 4 GOOG  -0.0388 box_cox_SwlKL</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

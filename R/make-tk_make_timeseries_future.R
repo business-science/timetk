@@ -2,6 +2,8 @@
 #'
 #' @inheritParams tk_make_timeseries
 #' @param idx A vector of dates
+#' @param length_out Number of future observations. Can be numeric number or a phrase
+#'  like "1 year".
 #' @param inspect_weekdays Uses a logistic regression algorithm to inspect
 #'  whether certain weekdays (e.g. weekends) should be excluded from the future dates.
 #'  Default is `FALSE`.

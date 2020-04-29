@@ -129,7 +129,7 @@
       <h1 data-toc-skip>Intelligent Date &amp; Time Sequences</h1>
                         <h4 class="author">Matt Dancho</h4>
             
-            <h4 class="date">2020-04-28</h4>
+            <h4 class="date">2020-04-29</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/business-science/timetk/blob/master/vignettes/TK02_Time_Series_Date_Sequences.Rmd"><code>vignettes/TK02_Time_Series_Date_Sequences.Rmd</code></a></small>
       <div class="hidden name"><code>TK02_Time_Series_Date_Sequences.Rmd</code></div>
@@ -218,7 +218,7 @@
 ## [6] "2013-04-01" "2013-07-01" "2013-10-01"</code></pre>
 <p><strong>Make a Future Time Series from an Existing</strong></p>
 <p>We can create a future time sequence from the existing sequence using <code><a href="../reference/tk_make_future_timeseries.html">tk_make_future_timeseries()</a></code>.</p>
-<div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="fu"><a href="../reference/tk_make_future_timeseries.html">tk_make_future_timeseries</a></span>(<span class="no">idx</span>, <span class="kw">n_future</span> <span class="kw">=</span> <span class="st">"2 years"</span>, <span class="kw">include_endpoints</span> <span class="kw">=</span> <span class="fl">FALSE</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="fu"><a href="../reference/tk_make_future_timeseries.html">tk_make_future_timeseries</a></span>(<span class="no">idx</span>, <span class="kw">length_out</span> <span class="kw">=</span> <span class="st">"2 years"</span>)</pre></body></html></div>
 <pre><code>## [1] "2014-01-01" "2014-04-01" "2014-07-01" "2014-10-01" "2015-01-01"
 ## [6] "2015-04-01" "2015-07-01" "2015-10-01"</code></pre>
 </div>
@@ -253,7 +253,7 @@
     <span class="kw">calendar</span>   <span class="kw">=</span> <span class="st">"NYSE"</span>)
 
 <span class="no">idx_future</span> <span class="kw">&lt;-</span> <span class="no">idx</span> <span class="kw">%&gt;%</span>
-   <span class="fu"><a href="../reference/tk_make_future_timeseries.html">tk_make_future_timeseries</a></span>(<span class="kw">n_future</span>         <span class="kw">=</span> <span class="st">"1 year"</span>,
+   <span class="fu"><a href="../reference/tk_make_future_timeseries.html">tk_make_future_timeseries</a></span>(<span class="kw">length_out</span>       <span class="kw">=</span> <span class="st">"1 year"</span>,
                              <span class="kw">inspect_weekdays</span> <span class="kw">=</span> <span class="fl">TRUE</span>,
                              <span class="kw">skip_values</span>      <span class="kw">=</span> <span class="no">holidays</span>)
 
@@ -261,7 +261,7 @@
 <pre><code>## # A tibble: 1 x 12
 ##   n.obs start      end        units scale tzone diff.minimum diff.q1 diff.median
 ##   &lt;int&gt; &lt;date&gt;     &lt;date&gt;     &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;        &lt;dbl&gt;   &lt;dbl&gt;       &lt;dbl&gt;
-## 1   253 2013-01-02 2014-01-01 days  day   UTC          86400   86400       86400
+## 1   252 2013-01-02 2013-12-31 days  day   UTC          86400   86400       86400
 ## # … with 3 more variables: diff.mean &lt;dbl&gt;, diff.q3 &lt;dbl&gt;, diff.maximum &lt;dbl&gt;</code></pre>
 </div>
 <div id="learning-more" class="section level1">

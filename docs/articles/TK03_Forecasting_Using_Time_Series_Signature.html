@@ -129,7 +129,7 @@
       <h1 data-toc-skip>Time Series Machine Learning</h1>
                         <h4 class="author">Matt Dancho</h4>
             
-            <h4 class="date">2020-04-28</h4>
+            <h4 class="date">2020-04-29</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/business-science/timetk/blob/master/vignettes/TK03_Forecasting_Using_Time_Series_Signature.Rmd"><code>vignettes/TK03_Forecasting_Using_Time_Series_Signature.Rmd</code></a></small>
       <div class="hidden name"><code>TK03_Forecasting_Using_Time_Series_Signature.Rmd</code></div>
@@ -415,7 +415,7 @@
 ##          &lt;dbl&gt;   &lt;dbl&gt;       &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;        &lt;dbl&gt;
 ## 1        86400   86400       86400     86400   86400        86400</code></pre>
 <p>From the summary, we know that the data is 100% regular because the median and mean differences are 86400 seconds or 1 day. We don’t need to do any special inspections when we use <code><a href="../reference/tk_make_future_timeseries.html">tk_make_future_timeseries()</a></code>. If the data was irregular, meaning weekends or holidays were excluded, you’d want to account for this. Otherwise your forecast would be inaccurate.</p>
-<div class="sourceCode" id="cb28"><html><body><pre class="r"><span class="no">idx_future</span> <span class="kw">&lt;-</span> <span class="no">idx</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/tk_make_future_timeseries.html">tk_make_future_timeseries</a></span>(<span class="kw">n_future</span> <span class="kw">=</span> <span class="fl">180</span>)
+<div class="sourceCode" id="cb28"><html><body><pre class="r"><span class="no">idx_future</span> <span class="kw">&lt;-</span> <span class="no">idx</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/tk_make_future_timeseries.html">tk_make_future_timeseries</a></span>(<span class="kw">length_out</span> <span class="kw">=</span> <span class="fl">180</span>)
 
 <span class="no">future_tbl</span> <span class="kw">&lt;-</span> <span class="fu">tibble</span>(<span class="kw">date</span> <span class="kw">=</span> <span class="no">idx_future</span>)
 
