@@ -45,6 +45,8 @@ __Improvements__:
 
 __Bug Fixes__:
 
+* `tk_make_future_timeseries()`: 
+    - Respect timezones
 * `time_series_cv()`: 
     - Fix incorrect calculation of starts/stops
     - Make `skip = 1` default. `skip = 0` does not make sense. 
@@ -52,9 +54,12 @@ __Bug Fixes__:
     - Fix printing method
 * `plot_time_series_cv_plan()` & `tk_time_series_cv_plan()`: 
     - Prevent name collisions when underlying data has column "id" or "splits"
-* `tk_make_future_timeseries()`: Fix bug when day of month doesn't exist. Lubridate `period()` returns `NA`. Fix implemented with `ceiling_date()`.
-* `pad_by_time()`: Fix `pad_value` so only inserts pad values where new row was inserted. 
-* `step_ts_clean()`, `step_ts_impute()`: Fix issue with `lambda = NULL`
+* `tk_make_future_timeseries()`: 
+    - Fix bug when day of month doesn't exist. Lubridate `period()` returns `NA`. Fix implemented with `ceiling_date()`.
+* `pad_by_time()`: 
+    - Fix `pad_value` so only inserts pad values where new row was inserted. 
+* `step_ts_clean()`, `step_ts_impute()`: 
+    - Fix issue with `lambda = NULL`
     
 __Breaking Changes__:
 

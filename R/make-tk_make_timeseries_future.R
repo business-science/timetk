@@ -141,9 +141,40 @@ tk_make_future_timeseries <- function(idx, n_future, inspect_weekdays = FALSE,
 tk_make_future_timeseries.POSIXt <- function(idx, n_future, inspect_weekdays = FALSE,
                                              inspect_months = FALSE, skip_values = NULL, insert_values = NULL,
                                              include_endpoints = TRUE) {
-    return(make_sequential_timeseries_irregular_freq(idx = idx, n_future = n_future,
-                                                     skip_values = skip_values, insert_values = insert_values,
-                                                     include_endpoints = include_endpoints))
+
+    idx_summary <- tk_get_timeseries_summary(idx)
+
+    tzone <- lubridate::tz(idx)
+    lubridate::tz(idx) <- "UTC"
+
+    # Handle Date formatted as date-time
+    if (idx_summary$scale %in% c("day", "week", "month", "quarter", "year")) {
+
+        idx <- lubridate::as_date(idx)
+        date_seq <- tk_make_future_timeseries(
+            idx               = idx,
+            n_future          = n_future,
+            inspect_weekdays  = inspect_weekdays,
+            inspect_months    = inspect_months,
+            skip_values       = skip_values,
+            insert_values     = insert_values,
+            include_endpoints = include_endpoints
+        )
+
+    } else {
+        date_seq <- make_sequential_timeseries_irregular_freq(
+            idx               = idx,
+            n_future          = n_future,
+            skip_values       = skip_values,
+            insert_values     = insert_values,
+            include_endpoints = include_endpoints
+        )
+    }
+
+    # Re-apply time zone
+    lubridate::tz(date_seq) <- tzone
+
+    return(date_seq)
 }
 
 #' @export
@@ -151,82 +182,121 @@ tk_make_future_timeseries.Date <- function(idx, n_future, inspect_weekdays = FAL
                                            inspect_months = FALSE, skip_values = NULL, insert_values = NULL,
                                            include_endpoints = TRUE) {
 
+    # Checks
     if (missing(n_future)) {
-        warning("Argument `n_future` is missing with no default")
-        return(NA)
+        rlang::abort("Argument `n_future` is missing with no default")
     }
 
-    # Daily Periodicity + Inspect Weekdays
+    # NOTE: Date - Ignores Timezone
+
     idx_summary <- tk_get_timeseries_summary(idx)
 
     if (idx_summary$scale == "day" && (inspect_weekdays || inspect_months)) {
 
+        # print("day + inspect_weekdays or inspect_months")
+
         # Daily scale with weekday and/or month inspection
         tryCatch({
 
-            return(predict_future_timeseries_daily(idx = idx, n_future = n_future, inspect_weekdays = inspect_weekdays, inspect_months = inspect_months,
-                                                   skip_values = skip_values, insert_values = insert_values,
-                                                   include_endpoints = include_endpoints))
+            date_seq <- predict_future_timeseries_daily(
+                idx               = idx,
+                n_future          = n_future,
+                inspect_weekdays  = inspect_weekdays,
+                inspect_months    = inspect_months,
+                skip_values       = skip_values,
+                insert_values     = insert_values,
+                include_endpoints = include_endpoints
+            )
 
         }, error = function(e) {
 
             warning(paste0("Could not perform `glm()`: ", e, "\nMaking sequential timeseries."))
-            return(make_sequential_timeseries_irregular_freq(idx = idx, n_future = n_future,
-                                                             skip_values = skip_values, insert_values = insert_values,
-                                                             include_endpoints = include_endpoints))
+            date_seq <- make_sequential_timeseries_irregular_freq(
+                idx               = idx,
+                n_future          = n_future,
+                skip_values       = skip_values,
+                insert_values     = insert_values,
+                include_endpoints = include_endpoints)
 
         })
 
     } else if (idx_summary$scale == "day") {
 
+        # print("day")
+
         # Daily scale without weekday inspection
-        return(make_sequential_timeseries_irregular_freq(idx = idx, n_future = n_future,
-                                                         skip_values = skip_values, insert_values = insert_values,
-                                                         include_endpoints = include_endpoints))
+        date_seq <- make_sequential_timeseries_irregular_freq(
+            idx               = idx,
+            n_future          = n_future,
+            skip_values       = skip_values,
+            insert_values     = insert_values,
+            include_endpoints = include_endpoints
+        )
 
     } else if (idx_summary$scale == "week") {
 
+        # print("week")
+
         # Weekly scale
-        return(make_sequential_timeseries_irregular_freq(idx = idx, n_future = n_future,
-                                                         skip_values = skip_values, insert_values = insert_values,
-                                                         include_endpoints = include_endpoints))
+        date_seq <- make_sequential_timeseries_irregular_freq(
+            idx               = idx,
+            n_future          = n_future,
+            skip_values       = skip_values,
+            insert_values     = insert_values,
+            include_endpoints = include_endpoints
+        )
 
     } else if (idx_summary$scale == "month") {
+
+        # print("month")
 
         # Monthly scale - Switch to yearmon and then back to date
         if (!is.null(skip_values)) skip_values <- zoo::as.yearmon(skip_values)
         if (!is.null(insert_values)) insert_values <- zoo::as.yearmon(insert_values)
-        ret  <- zoo::as.yearmon(idx) %>%
-            tk_make_future_timeseries(n_future = n_future,
-                                      skip_values = skip_values, insert_values = insert_values,
-                                      include_endpoints = include_endpoints) %>%
+
+        date_seq  <- zoo::as.yearmon(idx) %>%
+            tk_make_future_timeseries(
+                n_future          = n_future,
+                skip_values       = skip_values,
+                insert_values     = insert_values,
+                include_endpoints = include_endpoints) %>%
             lubridate::as_date()
-        return(ret)
+
 
     } else if (idx_summary$scale == "quarter") {
+
+        # print("quarter")
 
         # Quarterly scale - Switch to yearqtr and then back to date
         if (!is.null(skip_values)) skip_values <- zoo::as.yearqtr(skip_values)
         if (!is.null(insert_values)) insert_values <- zoo::as.yearqtr(insert_values)
-        ret  <- zoo::as.yearqtr(idx) %>%
-            tk_make_future_timeseries(n_future = n_future,
-                                      skip_values = skip_values, insert_values = insert_values,
-                                      include_endpoints = include_endpoints) %>%
+
+        date_seq  <- zoo::as.yearqtr(idx) %>%
+            tk_make_future_timeseries(
+                n_future          = n_future,
+                skip_values       = skip_values,
+                insert_values     = insert_values,
+                include_endpoints = include_endpoints) %>%
             lubridate::as_date()
-        return(ret)
 
     } else {
+
+        # print("year")
 
         # Yearly scale - Use yearmon and rely on frequency to dictate yearly scale
         if (!is.null(skip_values)) skip_values <- zoo::as.yearmon(skip_values)
         if (!is.null(insert_values)) insert_values <- zoo::as.yearmon(insert_values)
-        ret  <- zoo::as.yearmon(idx) %>%
-            tk_make_future_timeseries(n_future = n_future,
-                                      skip_values = skip_values, insert_values,
-                                      include_endpoints = include_endpoints) %>%
+
+        date_seq  <- zoo::as.yearmon(idx) %>%
+            tk_make_future_timeseries(
+                n_future          = n_future,
+                skip_values       = skip_values,
+                insert_values     = insert_values,
+                include_endpoints = include_endpoints) %>%
             lubridate::as_date()
-        return(ret)
     }
+
+    return(date_seq)
 
 }
 
@@ -353,15 +423,13 @@ make_sequential_timeseries_irregular_freq <- function(idx, n_future, skip_values
     # Validation
     if (!is.null(skip_values)) {
         if (class(skip_values)[[1]] != class(idx)[[1]]) {
-            warning("Class `skip_values` does not match class `idx`.", call. = FALSE)
-            return(NA)
+            rlang::abort("Class `skip_values` does not match class `idx`.")
         }
     }
 
     if (!is.null(insert_values)) {
         if (class(insert_values)[[1]] != class(idx)[[1]]) {
-            warning("Class `insert_values` does not match class `idx`.", call. = FALSE)
-            return(NA)
+            rlang::abort("Class `insert_values` does not match class `idx`.")
         }
     }
 
@@ -454,6 +522,11 @@ filter_skip_values <- function(date_sequence, skip_values, n_future) {
     # Filter skip_values
     if (!is.null(skip_values)) {
 
+        # Check classes
+        if (!identical(class(date_sequence)[1], class(skip_values)[1])) {
+            rlang::abort("`skip_values` must be same class as `idx`.")
+        }
+
         # Remove duplicates
         skip_values <- unique(skip_values)
 
@@ -476,6 +549,11 @@ add_insert_values <- function(date_sequence, insert_values) {
     ret <- date_sequence
 
     if (!is.null(insert_values)) {
+
+        # Check classes
+        if (!identical(class(date_sequence)[1], class(insert_values)[1])) {
+            rlang::abort("`insert_values` must be same class as `idx`.")
+        }
 
         # Remove duplicates
         insert_values <- unique(insert_values)

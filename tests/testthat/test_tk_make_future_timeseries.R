@@ -29,14 +29,26 @@ test_that("tk_make_future_timeseries(datetime) test returns correct format.", {
     expect_equal(test, expectation)
 
     # Inspect validation of skip_values
-    expect_warning(test <- tk_make_future_timeseries(test_datetime, n_future = 10, skip_values = 1))
-    expect_equal(test, NA)
+    expect_error(test <- tk_make_future_timeseries(test_datetime, n_future = 10, skip_values = 1))
 
     # Insert values
     insert <- tail(test_datetime, 1)
-    test <- tk_make_future_timeseries(test_datetime, n_future = 3, insert_values = insert)
+    test   <- tk_make_future_timeseries(test_datetime, n_future = 3, insert_values = insert)
     expectation <- c("2016-01-01 00:00:06", "2016-01-01 00:00:09", "2016-01-01 00:00:12", "2016-01-01 00:00:15") %>%
         ymd_hms()
+    expect_equal(test, expectation)
+
+    # Test Time Zones
+    idx <- c("2015-04-05 00:00:00",
+             "2015-04-05 01:00:00",
+             "2015-04-05 02:00:00") %>%
+      ymd_hms(tz = 'Africa/Bujumbura')
+
+    test <- idx %>% tk_make_future_timeseries(n_future = 3)
+    expectation <- c("2015-04-05 03:00:00",
+                     "2015-04-05 04:00:00",
+                     "2015-04-05 05:00:00") %>%
+      ymd_hms(tz = 'Africa/Bujumbura')
     expect_equal(test, expectation)
 
 })
@@ -83,12 +95,10 @@ test_that("tk_make_future_timeseries(date) test returns correct format.", {
     expect_equal(test, expectation)
 
     # inspect_weekdays = T: n_future missing
-    expect_warning(test <- tk_make_future_timeseries(test_date))
-    expect_equal(test, NA)
+    expect_error(test <- tk_make_future_timeseries(test_date))
 
     # Inspect validation of skip_values
-    expect_warning(test <- tk_make_future_timeseries(test_date, n_future = 10, skip_values = 1))
-    expect_equal(test, NA)
+    expect_error(test <- tk_make_future_timeseries(test_date, n_future = 10, skip_values = 1))
 
     # Insert dates
     insert <- ymd(c("2017-01-03", "2017-01-01"))
