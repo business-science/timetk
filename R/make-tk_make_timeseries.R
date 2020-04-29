@@ -359,6 +359,21 @@ tk_make_timeseries <- function(start_date, end_date, by, length_out = NULL,
             length.out = length_out
         )
 
+        # * HANDLE DAY OF MONTH ----
+        seq_summary <- tk_get_timeseries_summary(seq)
+
+        if (any(seq_summary$scale %in% c("month", "quarter"))) {
+
+            # Handle day of month that gets miss-applied
+            day_of_month <- lubridate::mday(seq)[1]
+            day_of_month_is_wrong <- lubridate::mday(seq) != day_of_month
+            if (any(day_of_month_is_wrong)) {
+                seq_shifted <- lubridate::floor_date(seq, "month") %-time% "1 day"
+                seq[day_of_month_is_wrong] <- seq_shifted[day_of_month_is_wrong]
+            }
+        }
+
+
         # Drop last value if length_out is character
         # - This happens because the end_date is 1 period longer than the desired length out
         if (drop_begin_1 && !include_endpoints) {
