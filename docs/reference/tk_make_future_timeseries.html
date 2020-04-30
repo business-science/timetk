@@ -201,8 +201,8 @@
     </tr>
     <tr>
       <th>length_out</th>
-      <td><p>Optional length of the sequence. Can be used instead of one of:
-<code>start_date</code>, <code>end_date</code>, or <code>by</code>. Can be specified as a number or a time-based phrase.</p></td>
+      <td><p>Number of future observations. Can be numeric number or a phrase
+like "1 year".</p></td>
     </tr>
     <tr>
       <th>inspect_weekdays</th>
@@ -245,8 +245,16 @@ on the input index frequency and attributes.</p>
 <p><strong>Specifying Length of Future Observations</strong></p>
 <p>The argument <code>length_out</code> determines how many future index observations to compute. It can be specified
 as:</p><ul>
-<li><p><strong>A numeric value</strong> - the number of future observations to return</p></li>
-<li><p><strong>A time-based phrase</strong> - The span into the future to include (e.g. "6 months" or "30 minutes")</p></li>
+<li><p><strong>A numeric value</strong> - the number of future observations to return.</p><ul>
+<li><p>The number of observations returned is <em>always</em> equal to the value the user inputs.</p></li>
+<li><p>The <strong>end date can vary</strong> based on the number of timestamps chosen.</p></li>
+</ul></li>
+<li><p><strong>A time-based phrase</strong> - The duration into the future to include (e.g. "6 months" or "30 minutes").</p><ul>
+<li><p>The <em>duration</em> defines the <em>end date</em> for observations.</p></li>
+<li><p>The <strong>end date will not change</strong> and those timestamps that fall within the end date will be returned
+(e.g. a quarterly time series will return 4 quarters if <code>length_out = "1 year"</code>).</p></li>
+<li><p>The number of observations will vary to fit within the end date.</p></li>
+</ul></li>
 </ul>
 
 <p><strong>Weekday and Month Inspection</strong></p>
@@ -274,7 +282,7 @@ excluded.</p></li>
     <div class='dont-index'>
 <ul>
 <li><p>Making Time Series: <code><a href='tk_make_timeseries.html'>tk_make_timeseries()</a></code></p></li>
-<li><p>Working with Holidays: <code><a href='tk_make_holiday_sequence.html'>tk_make_holiday_sequence()</a></code></p></li>
+<li><p>Working with Holidays &amp; Weekends: <code><a href='tk_make_holiday_sequence.html'>tk_make_holiday_sequence()</a></code>, <code><a href='tk_make_holiday_sequence.html'>tk_make_weekend_sequence()</a></code>, <code><a href='tk_make_holiday_sequence.html'>tk_make_weekday_sequence()</a></code></p></li>
 <li><p>Working with Timestamp Index: <code><a href='tk_index.html'>tk_index()</a></code>, <code><a href='tk_get_timeseries.html'>tk_get_timeseries_summary()</a></code>, <code><a href='tk_get_timeseries.html'>tk_get_timeseries_signature()</a></code></p></li>
 </ul>
 </div>

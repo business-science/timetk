@@ -30,11 +30,15 @@
 #' The argument `length_out` determines how many future index observations to compute. It can be specified
 #' as:
 #'
-#' - __A numeric value__ - the number of future observations to return. The number of observations returned
-#'  is _always_ equal to the value the user inputs.
-#' - __A time-based phrase__ - The duration into the future to include (e.g. "6 months" or "30 minutes"). The
-#'  _duration_ defines the maximum date for observations, and those that fall within the end date will be returned
+#' - __A numeric value__ - the number of future observations to return.
+#'     - The number of observations returned is _always_ equal to the value the user inputs.
+#'     - The __end date can vary__ based on the number of timestamps chosen.
+#'
+#' - __A time-based phrase__ - The duration into the future to include (e.g. "6 months" or "30 minutes").
+#'     - The _duration_ defines the _end date_ for observations.
+#'     - The __end date will not change__ and those timestamps that fall within the end date will be returned
 #'  (e.g. a quarterly time series will return 4 quarters if `length_out = "1 year"`).
+#'     - The number of observations will vary to fit within the end date.
 #'
 #' __Weekday and Month Inspection__
 #'
@@ -64,7 +68,7 @@
 #'
 #' @seealso
 #' - Making Time Series: [tk_make_timeseries()]
-#' - Working with Holidays: [tk_make_holiday_sequence()]
+#' - Working with Holidays & Weekends: [tk_make_holiday_sequence()], [tk_make_weekend_sequence()], [tk_make_weekday_sequence()]
 #' - Working with Timestamp Index: [tk_index()], [tk_get_timeseries_summary()], [tk_get_timeseries_signature()]
 #'
 #' @examples

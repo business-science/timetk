@@ -42,6 +42,7 @@ __Improvements__:
 
 * `plot_acf_diagnostics()`: The `.lags` argument now handles time-based phrases (e.g. `.lags = "1 month"`).
 * `time_series_cv()`: Implements time-based phrases (e.g. `initial = "5 years"` and `assess = "1 year"`)
+* `tk_make_future_timeseries()`: The `n_future` argument has been deprecated for a new `length_out` argument that accepts both numeric input (e.g. `length_out = 12`) and time-based phrases (e.g. `length_out = "12 months"`). A major improvement is that numeric values define the number of timestamps returned even if weekends are removed or holidays are removed. Thus, you can always anticipate the length. ([Issue #19](https://github.com/business-science/timetk/issues/19)).
 
 __Bug Fixes__:
 

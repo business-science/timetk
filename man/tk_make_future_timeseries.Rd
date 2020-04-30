@@ -55,11 +55,18 @@ on the input index frequency and attributes.
 The argument \code{length_out} determines how many future index observations to compute. It can be specified
 as:
 \itemize{
-\item \strong{A numeric value} - the number of future observations to return. The number of observations returned
-is \emph{always} equal to the value the user inputs.
-\item \strong{A time-based phrase} - The duration into the future to include (e.g. "6 months" or "30 minutes"). The
-\emph{duration} defines the maximum date for observations, and those that fall within the end date will be returned
+\item \strong{A numeric value} - the number of future observations to return.
+\itemize{
+\item The number of observations returned is \emph{always} equal to the value the user inputs.
+\item The \strong{end date can vary} based on the number of timestamps chosen.
+}
+\item \strong{A time-based phrase} - The duration into the future to include (e.g. "6 months" or "30 minutes").
+\itemize{
+\item The \emph{duration} defines the \emph{end date} for observations.
+\item The \strong{end date will not change} and those timestamps that fall within the end date will be returned
 (e.g. a quarterly time series will return 4 quarters if \code{length_out = "1 year"}).
+\item The number of observations will vary to fit within the end date.
+}
 }
 
 \strong{Weekday and Month Inspection}
@@ -137,7 +144,7 @@ FB_tbl \%>\%
 \seealso{
 \itemize{
 \item Making Time Series: \code{\link[=tk_make_timeseries]{tk_make_timeseries()}}
-\item Working with Holidays: \code{\link[=tk_make_holiday_sequence]{tk_make_holiday_sequence()}}
+\item Working with Holidays & Weekends: \code{\link[=tk_make_holiday_sequence]{tk_make_holiday_sequence()}}, \code{\link[=tk_make_weekend_sequence]{tk_make_weekend_sequence()}}, \code{\link[=tk_make_weekday_sequence]{tk_make_weekday_sequence()}}
 \item Working with Timestamp Index: \code{\link[=tk_index]{tk_index()}}, \code{\link[=tk_get_timeseries_summary]{tk_get_timeseries_summary()}}, \code{\link[=tk_get_timeseries_signature]{tk_get_timeseries_signature()}}
 }
 }

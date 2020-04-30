@@ -258,102 +258,102 @@ Filter on an index to identify all holidays that are commonly non-working.</p>
 
 <span class='co'># --- BASIC USAGE ----</span>
 
-<span class='fu'>tk_get_holiday_signature</span>(<span class='no'>idx</span>)</div><div class='output co'>#&gt; # A tibble: 365 x 130
+<span class='fu'>tk_get_holiday_signature</span>(<span class='no'>idx</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 365 x 130</span><span>
 #&gt;    index      exch_NYSE exch_LONDON exch_NERC exch_TSX exch_ZURICH locale_GB
-#&gt;    &lt;date&gt;         &lt;dbl&gt;       &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;       &lt;dbl&gt;     &lt;dbl&gt;
-#&gt;  1 2017-01-01         0           0         0        0           0         0
-#&gt;  2 2017-01-02         1           1         1        1           1         0
-#&gt;  3 2017-01-03         0           0         0        0           0         0
-#&gt;  4 2017-01-04         0           0         0        0           0         0
-#&gt;  5 2017-01-05         0           0         0        0           0         0
-#&gt;  6 2017-01-06         0           0         0        0           0         0
-#&gt;  7 2017-01-07         0           0         0        0           0         0
-#&gt;  8 2017-01-08         0           0         0        0           0         0
-#&gt;  9 2017-01-09         0           0         0        0           0         0
-#&gt; 10 2017-01-10         0           0         0        0           0         0
-#&gt; # … with 355 more rows, and 123 more variables: locale_JP &lt;dbl&gt;,
-#&gt; #   locale_US &lt;dbl&gt;, locale_World &lt;dbl&gt;, locale_CH &lt;dbl&gt;, locale_IT &lt;dbl&gt;,
-#&gt; #   locale_FR &lt;dbl&gt;, locale_CA &lt;dbl&gt;, locale_DE &lt;dbl&gt;, GB_MilleniumDay &lt;dbl&gt;,
-#&gt; #   JP_Gantan &lt;dbl&gt;, JP_NewYearsDay &lt;dbl&gt;, World_NewYearsDay &lt;dbl&gt;,
-#&gt; #   World_SolemnityOfMary &lt;dbl&gt;, US_NewYearsDay &lt;dbl&gt;, CH_BerchtoldsDay &lt;dbl&gt;,
-#&gt; #   JP_BankHolidayJan2 &lt;dbl&gt;, JP_BankHolidayJan3 &lt;dbl&gt;, World_Epiphany &lt;dbl&gt;,
-#&gt; #   IT_Epiphany &lt;dbl&gt;, JP_ComingOfAgeDay &lt;dbl&gt;, JP_SeijinNoHi &lt;dbl&gt;,
-#&gt; #   US_MLKingsBirthday &lt;dbl&gt;, US_InaugurationDay &lt;dbl&gt;,
-#&gt; #   World_PresentationOfLord &lt;dbl&gt;, JP_KenkokuKinenNoHi &lt;dbl&gt;,
-#&gt; #   JP_NatFoundationDay &lt;dbl&gt;, World_Septuagesima &lt;dbl&gt;,
-#&gt; #   US_LincolnsBirthday &lt;dbl&gt;, US_PresidentsDay &lt;dbl&gt;,
-#&gt; #   US_WashingtonsBirthday &lt;dbl&gt;, World_Quinquagesima &lt;dbl&gt;,
-#&gt; #   World_AshWednesday &lt;dbl&gt;, US_CPulaskisBirthday &lt;dbl&gt;,
-#&gt; #   World_Annunciation &lt;dbl&gt;, World_PalmSunday &lt;dbl&gt;, World_GoodFriday &lt;dbl&gt;,
-#&gt; #   US_GoodFriday &lt;dbl&gt;, World_Easter &lt;dbl&gt;, World_EasterSunday &lt;dbl&gt;,
-#&gt; #   CH_Sechselaeuten &lt;dbl&gt;, World_EasterMonday &lt;dbl&gt;, IT_LiberationDay &lt;dbl&gt;,
-#&gt; #   JP_GreeneryDay &lt;dbl&gt;, JP_MidoriNoHi &lt;dbl&gt;, GB_MayDay &lt;dbl&gt;,
-#&gt; #   World_LaborDay &lt;dbl&gt;, JP_ConstitutionDay &lt;dbl&gt;, JP_KenpouKinenBi &lt;dbl&gt;,
-#&gt; #   JP_KokuminNoKyujitu &lt;dbl&gt;, JP_NationHoliday &lt;dbl&gt;, JP_ChildrensDay &lt;dbl&gt;,
-#&gt; #   JP_KodomoNoHi &lt;dbl&gt;, FR_FetDeLaVictoire1945 &lt;dbl&gt;,
-#&gt; #   World_RogationSunday &lt;dbl&gt;, CA_VictoriaDay &lt;dbl&gt;, World_Ascension &lt;dbl&gt;,
-#&gt; #   CH_Ascension &lt;dbl&gt;, DE_Ascension &lt;dbl&gt;, FR_Ascension &lt;dbl&gt;,
-#&gt; #   GB_BankHoliday &lt;dbl&gt;, US_MemorialDay &lt;dbl&gt;, US_DecorationMemorialDay &lt;dbl&gt;,
-#&gt; #   World_Pentecost &lt;dbl&gt;, World_PentecostMonday &lt;dbl&gt;,
-#&gt; #   World_TrinitySunday &lt;dbl&gt;, World_CorpusChristi &lt;dbl&gt;,
-#&gt; #   DE_CorpusChristi &lt;dbl&gt;, CA_CanadaDay &lt;dbl&gt;, US_IndependenceDay &lt;dbl&gt;,
-#&gt; #   FR_BastilleDay &lt;dbl&gt;, JP_MarineDay &lt;dbl&gt;, JP_UmiNoHi &lt;dbl&gt;,
-#&gt; #   CH_ConfederationDay &lt;dbl&gt;, World_TransfigurationOfLord &lt;dbl&gt;,
-#&gt; #   CA_CivicProvincialHoliday &lt;dbl&gt;, World_AssumptionOfMary &lt;dbl&gt;,
-#&gt; #   FR_AssumptionVirginMary &lt;dbl&gt;, IT_AssumptionOfVirginMary &lt;dbl&gt;,
-#&gt; #   GB_SummerBankHoliday &lt;dbl&gt;, CA_LabourDay &lt;dbl&gt;, US_LaborDay &lt;dbl&gt;,
-#&gt; #   World_BirthOfVirginMary &lt;dbl&gt;, CH_Knabenschiessen &lt;dbl&gt;,
-#&gt; #   World_CelebrationOfHolyCross &lt;dbl&gt;, JP_KeirouNOhi &lt;dbl&gt;,
-#&gt; #   JP_RespectForTheAgedDay &lt;dbl&gt;, JP_AutumnalEquinox &lt;dbl&gt;,
-#&gt; #   JP_ShuubunNoHi &lt;dbl&gt;, World_MassOfArchangels &lt;dbl&gt;, DE_GermanUnity &lt;dbl&gt;,
-#&gt; #   CA_ThanksgivingDay &lt;dbl&gt;, US_ColumbusDay &lt;dbl&gt;,
-#&gt; #   JP_HealthandSportsDay &lt;dbl&gt;, JP_TaiikuNoHi &lt;dbl&gt;, World_AllSaints &lt;dbl&gt;,
-#&gt; #   FR_AllSaints &lt;dbl&gt;, IT_AllSaints &lt;dbl&gt;, World_AllSouls &lt;dbl&gt;,
-#&gt; #   JP_BunkaNoHi &lt;dbl&gt;, JP_NationalCultureDay &lt;dbl&gt;, …</div><div class='input'>
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>       </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>       </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> 2017-01-01         0           0         0        0           0         0
+#&gt; </span><span style='color: #555555;'> 2</span><span> 2017-01-02         1           1         1        1           1         0
+#&gt; </span><span style='color: #555555;'> 3</span><span> 2017-01-03         0           0         0        0           0         0
+#&gt; </span><span style='color: #555555;'> 4</span><span> 2017-01-04         0           0         0        0           0         0
+#&gt; </span><span style='color: #555555;'> 5</span><span> 2017-01-05         0           0         0        0           0         0
+#&gt; </span><span style='color: #555555;'> 6</span><span> 2017-01-06         0           0         0        0           0         0
+#&gt; </span><span style='color: #555555;'> 7</span><span> 2017-01-07         0           0         0        0           0         0
+#&gt; </span><span style='color: #555555;'> 8</span><span> 2017-01-08         0           0         0        0           0         0
+#&gt; </span><span style='color: #555555;'> 9</span><span> 2017-01-09         0           0         0        0           0         0
+#&gt; </span><span style='color: #555555;'>10</span><span> 2017-01-10         0           0         0        0           0         0
+#&gt; </span><span style='color: #555555;'># … with 355 more rows, and 123 more variables: locale_JP </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   locale_US </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, locale_World </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, locale_CH </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, locale_IT </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   locale_FR </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, locale_CA </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, locale_DE </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, GB_MilleniumDay </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   JP_Gantan </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, JP_NewYearsDay </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, World_NewYearsDay </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   World_SolemnityOfMary </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, US_NewYearsDay </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, CH_BerchtoldsDay </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   JP_BankHolidayJan2 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, JP_BankHolidayJan3 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, World_Epiphany </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   IT_Epiphany </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, JP_ComingOfAgeDay </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, JP_SeijinNoHi </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   US_MLKingsBirthday </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, US_InaugurationDay </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   World_PresentationOfLord </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, JP_KenkokuKinenNoHi </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   JP_NatFoundationDay </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, World_Septuagesima </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   US_LincolnsBirthday </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, US_PresidentsDay </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   US_WashingtonsBirthday </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, World_Quinquagesima </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   World_AshWednesday </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, US_CPulaskisBirthday </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   World_Annunciation </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, World_PalmSunday </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, World_GoodFriday </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   US_GoodFriday </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, World_Easter </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, World_EasterSunday </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   CH_Sechselaeuten </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, World_EasterMonday </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, IT_LiberationDay </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   JP_GreeneryDay </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, JP_MidoriNoHi </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, GB_MayDay </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   World_LaborDay </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, JP_ConstitutionDay </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, JP_KenpouKinenBi </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   JP_KokuminNoKyujitu </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, JP_NationHoliday </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, JP_ChildrensDay </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   JP_KodomoNoHi </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, FR_FetDeLaVictoire1945 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   World_RogationSunday </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, CA_VictoriaDay </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, World_Ascension </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   CH_Ascension </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, DE_Ascension </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, FR_Ascension </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   GB_BankHoliday </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, US_MemorialDay </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, US_DecorationMemorialDay </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   World_Pentecost </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, World_PentecostMonday </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   World_TrinitySunday </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, World_CorpusChristi </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   DE_CorpusChristi </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, CA_CanadaDay </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, US_IndependenceDay </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   FR_BastilleDay </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, JP_MarineDay </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, JP_UmiNoHi </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   CH_ConfederationDay </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, World_TransfigurationOfLord </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   CA_CivicProvincialHoliday </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, World_AssumptionOfMary </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   FR_AssumptionVirginMary </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, IT_AssumptionOfVirginMary </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   GB_SummerBankHoliday </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, CA_LabourDay </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, US_LaborDay </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   World_BirthOfVirginMary </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, CH_Knabenschiessen </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   World_CelebrationOfHolyCross </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, JP_KeirouNOhi </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   JP_RespectForTheAgedDay </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, JP_AutumnalEquinox </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   JP_ShuubunNoHi </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, World_MassOfArchangels </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, DE_GermanUnity </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   CA_ThanksgivingDay </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, US_ColumbusDay </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   JP_HealthandSportsDay </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, JP_TaiikuNoHi </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, World_AllSaints </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   FR_AllSaints </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, IT_AllSaints </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, World_AllSouls </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   JP_BunkaNoHi </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, JP_NationalCultureDay </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, …</span><span></div><div class='input'>
 <span class='co'># ---- FILTERING WITH PATTERNS &amp; SETS ----</span>
 
 <span class='co'># List available holidays - see patterns</span>
 <span class='fu'>tk_get_holidays_by_year</span>(<span class='fl'>2020</span>) <span class='kw'>%&gt;%</span>
-    <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span>(<span class='no'>holiday_name</span> <span class='kw'>%&gt;%</span> <span class='fu'>str_detect</span>(<span class='st'>"US_"</span>))</div><div class='output co'>#&gt; # A tibble: 17 x 3
+    <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span>(<span class='no'>holiday_name</span> <span class='kw'>%&gt;%</span> <span class='fu'>str_detect</span>(<span class='st'>"US_"</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 17 x 3</span><span>
 #&gt;    date       locale holiday_name            
-#&gt;    &lt;date&gt;     &lt;chr&gt;  &lt;chr&gt;                   
-#&gt;  1 2020-01-01 US     US_NewYearsDay          
-#&gt;  2 2020-01-20 US     US_InaugurationDay      
-#&gt;  3 2020-01-20 US     US_MLKingsBirthday      
-#&gt;  4 2020-02-12 US     US_LincolnsBirthday     
-#&gt;  5 2020-02-17 US     US_PresidentsDay        
-#&gt;  6 2020-02-22 US     US_WashingtonsBirthday  
-#&gt;  7 2020-03-02 US     US_CPulaskisBirthday    
-#&gt;  8 2020-04-10 US     US_GoodFriday           
-#&gt;  9 2020-05-25 US     US_MemorialDay          
-#&gt; 10 2020-05-30 US     US_DecorationMemorialDay
-#&gt; 11 2020-07-04 US     US_IndependenceDay      
-#&gt; 12 2020-09-07 US     US_LaborDay             
-#&gt; 13 2020-10-12 US     US_ColumbusDay          
-#&gt; 14 2020-11-03 US     US_ElectionDay          
-#&gt; 15 2020-11-11 US     US_VeteransDay          
-#&gt; 16 2020-11-26 US     US_ThanksgivingDay      
-#&gt; 17 2020-12-25 US     US_ChristmasDay         </div><div class='input'>
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                   
+#&gt; </span><span style='color: #555555;'> 1</span><span> 2020-01-01 US     US_NewYearsDay          
+#&gt; </span><span style='color: #555555;'> 2</span><span> 2020-01-20 US     US_InaugurationDay      
+#&gt; </span><span style='color: #555555;'> 3</span><span> 2020-01-20 US     US_MLKingsBirthday      
+#&gt; </span><span style='color: #555555;'> 4</span><span> 2020-02-12 US     US_LincolnsBirthday     
+#&gt; </span><span style='color: #555555;'> 5</span><span> 2020-02-17 US     US_PresidentsDay        
+#&gt; </span><span style='color: #555555;'> 6</span><span> 2020-02-22 US     US_WashingtonsBirthday  
+#&gt; </span><span style='color: #555555;'> 7</span><span> 2020-03-02 US     US_CPulaskisBirthday    
+#&gt; </span><span style='color: #555555;'> 8</span><span> 2020-04-10 US     US_GoodFriday           
+#&gt; </span><span style='color: #555555;'> 9</span><span> 2020-05-25 US     US_MemorialDay          
+#&gt; </span><span style='color: #555555;'>10</span><span> 2020-05-30 US     US_DecorationMemorialDay
+#&gt; </span><span style='color: #555555;'>11</span><span> 2020-07-04 US     US_IndependenceDay      
+#&gt; </span><span style='color: #555555;'>12</span><span> 2020-09-07 US     US_LaborDay             
+#&gt; </span><span style='color: #555555;'>13</span><span> 2020-10-12 US     US_ColumbusDay          
+#&gt; </span><span style='color: #555555;'>14</span><span> 2020-11-03 US     US_ElectionDay          
+#&gt; </span><span style='color: #555555;'>15</span><span> 2020-11-11 US     US_VeteransDay          
+#&gt; </span><span style='color: #555555;'>16</span><span> 2020-11-26 US     US_ThanksgivingDay      
+#&gt; </span><span style='color: #555555;'>17</span><span> 2020-12-25 US     US_ChristmasDay         </div><div class='input'>
 <span class='co'># Filter using holiday patterns</span>
 <span class='co'># - Get New Years, Christmas and Thanksgiving Features in US</span>
 <span class='fu'>tk_get_holiday_signature</span>(
     <span class='no'>idx</span>,
     <span class='kw'>holiday_pattern</span> <span class='kw'>=</span> <span class='st'>"(US_NewYears)|(US_Christmas)|(US_Thanks)"</span>,
     <span class='kw'>locale_set</span>      <span class='kw'>=</span> <span class='st'>"none"</span>,
-    <span class='kw'>exchange_set</span>    <span class='kw'>=</span> <span class='st'>"none"</span>)</div><div class='output co'>#&gt; # A tibble: 365 x 4
+    <span class='kw'>exchange_set</span>    <span class='kw'>=</span> <span class='st'>"none"</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 365 x 4</span><span>
 #&gt;    index      US_NewYearsDay US_ThanksgivingDay US_ChristmasDay
-#&gt;    &lt;date&gt;              &lt;dbl&gt;              &lt;dbl&gt;           &lt;dbl&gt;
-#&gt;  1 2017-01-01              1                  0               0
-#&gt;  2 2017-01-02              0                  0               0
-#&gt;  3 2017-01-03              0                  0               0
-#&gt;  4 2017-01-04              0                  0               0
-#&gt;  5 2017-01-05              0                  0               0
-#&gt;  6 2017-01-06              0                  0               0
-#&gt;  7 2017-01-07              0                  0               0
-#&gt;  8 2017-01-08              0                  0               0
-#&gt;  9 2017-01-09              0                  0               0
-#&gt; 10 2017-01-10              0                  0               0
-#&gt; # … with 355 more rows</div><div class='input'>
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>              </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>              </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>           </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> 2017-01-01              1                  0               0
+#&gt; </span><span style='color: #555555;'> 2</span><span> 2017-01-02              0                  0               0
+#&gt; </span><span style='color: #555555;'> 3</span><span> 2017-01-03              0                  0               0
+#&gt; </span><span style='color: #555555;'> 4</span><span> 2017-01-04              0                  0               0
+#&gt; </span><span style='color: #555555;'> 5</span><span> 2017-01-05              0                  0               0
+#&gt; </span><span style='color: #555555;'> 6</span><span> 2017-01-06              0                  0               0
+#&gt; </span><span style='color: #555555;'> 7</span><span> 2017-01-07              0                  0               0
+#&gt; </span><span style='color: #555555;'> 8</span><span> 2017-01-08              0                  0               0
+#&gt; </span><span style='color: #555555;'> 9</span><span> 2017-01-09              0                  0               0
+#&gt; </span><span style='color: #555555;'>10</span><span> 2017-01-10              0                  0               0
+#&gt; </span><span style='color: #555555;'># … with 355 more rows</span><span></div><div class='input'>
 <span class='co'># ---- APPLYING FILTERS ----</span>
 
 <span class='co'># Filter with locale sets - Signals all holidays in a locale</span>
@@ -361,40 +361,40 @@ Filter on an index to identify all holidays that are commonly non-working.</p>
     <span class='no'>idx</span>,
     <span class='kw'>holiday_pattern</span> <span class='kw'>=</span> <span class='st'>"$^"</span>, <span class='co'># Matches nothing on purpose</span>
     <span class='kw'>locale_set</span>      <span class='kw'>=</span> <span class='st'>"US"</span>,
-    <span class='kw'>exchange_set</span>    <span class='kw'>=</span> <span class='st'>"none"</span>)</div><div class='output co'>#&gt; # A tibble: 365 x 2
+    <span class='kw'>exchange_set</span>    <span class='kw'>=</span> <span class='st'>"none"</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 365 x 2</span><span>
 #&gt;    index      locale_US
-#&gt;    &lt;date&gt;         &lt;dbl&gt;
-#&gt;  1 2017-01-01         1
-#&gt;  2 2017-01-02         0
-#&gt;  3 2017-01-03         0
-#&gt;  4 2017-01-04         0
-#&gt;  5 2017-01-05         0
-#&gt;  6 2017-01-06         0
-#&gt;  7 2017-01-07         0
-#&gt;  8 2017-01-08         0
-#&gt;  9 2017-01-09         0
-#&gt; 10 2017-01-10         0
-#&gt; # … with 355 more rows</div><div class='input'>
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> 2017-01-01         1
+#&gt; </span><span style='color: #555555;'> 2</span><span> 2017-01-02         0
+#&gt; </span><span style='color: #555555;'> 3</span><span> 2017-01-03         0
+#&gt; </span><span style='color: #555555;'> 4</span><span> 2017-01-04         0
+#&gt; </span><span style='color: #555555;'> 5</span><span> 2017-01-05         0
+#&gt; </span><span style='color: #555555;'> 6</span><span> 2017-01-06         0
+#&gt; </span><span style='color: #555555;'> 7</span><span> 2017-01-07         0
+#&gt; </span><span style='color: #555555;'> 8</span><span> 2017-01-08         0
+#&gt; </span><span style='color: #555555;'> 9</span><span> 2017-01-09         0
+#&gt; </span><span style='color: #555555;'>10</span><span> 2017-01-10         0
+#&gt; </span><span style='color: #555555;'># … with 355 more rows</span><span></div><div class='input'>
 <span class='co'># Filter with exchange sets - Signals Common Non-Business Days</span>
 <span class='fu'>tk_get_holiday_signature</span>(
     <span class='no'>idx</span>,
     <span class='kw'>holiday_pattern</span> <span class='kw'>=</span> <span class='st'>"$^"</span>, <span class='co'># Matches nothing on purpose</span>
     <span class='kw'>locale_set</span>      <span class='kw'>=</span> <span class='st'>"none"</span>,
-    <span class='kw'>exchange_set</span>    <span class='kw'>=</span> <span class='st'>"NYSE"</span>)</div><div class='output co'>#&gt; # A tibble: 365 x 2
+    <span class='kw'>exchange_set</span>    <span class='kw'>=</span> <span class='st'>"NYSE"</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 365 x 2</span><span>
 #&gt;    index      exch_NYSE
-#&gt;    &lt;date&gt;         &lt;dbl&gt;
-#&gt;  1 2017-01-01         0
-#&gt;  2 2017-01-02         1
-#&gt;  3 2017-01-03         0
-#&gt;  4 2017-01-04         0
-#&gt;  5 2017-01-05         0
-#&gt;  6 2017-01-06         0
-#&gt;  7 2017-01-07         0
-#&gt;  8 2017-01-08         0
-#&gt;  9 2017-01-09         0
-#&gt; 10 2017-01-10         0
-#&gt; # … with 355 more rows</div><div class='input'>
-</div></pre>
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> 2017-01-01         0
+#&gt; </span><span style='color: #555555;'> 2</span><span> 2017-01-02         1
+#&gt; </span><span style='color: #555555;'> 3</span><span> 2017-01-03         0
+#&gt; </span><span style='color: #555555;'> 4</span><span> 2017-01-04         0
+#&gt; </span><span style='color: #555555;'> 5</span><span> 2017-01-05         0
+#&gt; </span><span style='color: #555555;'> 6</span><span> 2017-01-06         0
+#&gt; </span><span style='color: #555555;'> 7</span><span> 2017-01-07         0
+#&gt; </span><span style='color: #555555;'> 8</span><span> 2017-01-08         0
+#&gt; </span><span style='color: #555555;'> 9</span><span> 2017-01-09         0
+#&gt; </span><span style='color: #555555;'>10</span><span> 2017-01-10         0
+#&gt; </span><span style='color: #555555;'># … with 355 more rows</span><span></div><div class='input'>
+</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
