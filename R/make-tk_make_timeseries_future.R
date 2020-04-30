@@ -1,6 +1,5 @@
 #' Make future time series from existing
 #'
-#' @inheritParams tk_make_timeseries
 #' @param idx A vector of dates
 #' @param length_out Number of future observations. Can be numeric number or a phrase
 #'  like "1 year".
@@ -31,8 +30,11 @@
 #' The argument `length_out` determines how many future index observations to compute. It can be specified
 #' as:
 #'
-#' - __A numeric value__ - the number of future observations to return
-#' - __A time-based phrase__ - The span into the future to include (e.g. "6 months" or "30 minutes")
+#' - __A numeric value__ - the number of future observations to return. The number of observations returned
+#'  is _always_ equal to the value the user inputs.
+#' - __A time-based phrase__ - The duration into the future to include (e.g. "6 months" or "30 minutes"). The
+#'  _duration_ defines the maximum date for observations, and those that fall within the end date will be returned
+#'  (e.g. a quarterly time series will return 4 quarters if `length_out = "1 year"`).
 #'
 #' __Weekday and Month Inspection__
 #'

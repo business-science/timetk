@@ -2,24 +2,29 @@ context("Testing tk_make_future_timeseries")
 
 # tk_make_future_timeseries_signature -----
 
-test_datetime <- c("2016-01-01 00:00:00",
-                   "2016-01-01 00:00:03",
-                   "2016-01-01 00:00:06") %>%
-    ymd_hms()
+
 
 test_that("tk_make_future_timeseries(datetime) test returns correct format.", {
+
+    # DATE-TIME -----
+    test_datetime <- c("2016-01-01 00:00:00",
+                       "2016-01-01 00:00:03",
+                       "2016-01-01 00:00:06") %>% ymd_hms()
+
     # No skip values
-    test <- tk_make_future_timeseries(test_datetime, length_out = 3)
+    test_1 <- tk_make_future_timeseries(test_datetime, length_out = 3)
+    test_2 <- tk_make_future_timeseries(test_datetime, length_out = "10 sec")
     expectation <- c("2016-01-01 00:00:09", "2016-01-01 00:00:12", "2016-01-01 00:00:15") %>%
         ymd_hms()
-    expect_equal(test, expectation)
+    expect_identical(test_1, test_2, expectation)
 
     # Skip values
     skip <- ymd_hms("2016-01-01 00:00:15")
-    test <- tk_make_future_timeseries(test_datetime, length_out = 3, skip_values = skip)
+    test_1 <- tk_make_future_timeseries(test_datetime, length_out = 3, skip_values = skip)
+    test_2 <- tk_make_future_timeseries(test_datetime, length_out = "12 sec", skip_values = skip)
     expectation <- c("2016-01-01 00:00:09", "2016-01-01 00:00:12", "2016-01-01 00:00:18") %>%
         ymd_hms()
-    expect_equal(test, expectation)
+    expect_identical(test_1, test_2, expectation)
 
     # Skip values not within sequence
     skip <- ymd_hms("2016-01-01 00:00:10")
@@ -44,7 +49,7 @@ test_that("tk_make_future_timeseries(datetime) test returns correct format.", {
              "2015-04-05 02:00:00") %>%
       ymd_hms(tz = 'Africa/Bujumbura')
 
-    test <- idx %>% tk_make_future_timeseries(length_out = 3)
+    test <- idx %>% tk_make_future_timeseries(length_out = "3 hours")
     expectation <- c("2015-04-05 03:00:00",
                      "2015-04-05 04:00:00",
                      "2015-04-05 05:00:00") %>%
@@ -62,19 +67,19 @@ test_that("tk_make_future_timeseries(date) test returns correct format.", {
         filter(symbol == "FB") %>%
         tk_index()
 
-    # DAILY SCALE
+    # DAILY SCALE ----
 
     # No skip values, inspect_weekdays = FALSE
-    test <- tk_make_future_timeseries(test_date, length_out = 3, skip_values = NULL, inspect_weekdays = FALSE)
-    expectation <- c("2016-12-31", "2017-01-01", "2017-01-02") %>%
-        ymd()
-    expect_equal(test, expectation)
+    test_1 <- tk_make_future_timeseries(test_date, length_out = 3, skip_values = NULL, inspect_weekdays = FALSE)
+    test_2 <- tk_make_future_timeseries(test_date, length_out = "3 days", skip_values = NULL, inspect_weekdays = FALSE)
+    expectation <- c("2016-12-31", "2017-01-01", "2017-01-02") %>% ymd()
+    expect_identical(test_1, test_2, expectation)
 
     # No skip values, inspect_weekdays = TRUE
-    test <- tk_make_future_timeseries(test_date, length_out = 3, skip_values = NULL, inspect_weekdays = TRUE)
-    expectation <- c("2017-01-02", "2017-01-03", "2017-01-04") %>%
-        ymd()
-    expect_equal(test, expectation)
+    test_1 <- tk_make_future_timeseries(test_date, length_out = 3, skip_values = NULL, inspect_weekdays = TRUE)
+    test_2 <- tk_make_future_timeseries(test_date, length_out = "5 days", skip_values = NULL, inspect_weekdays = TRUE)
+    expectation <- c("2017-01-02", "2017-01-03", "2017-01-04") %>% ymd()
+    expect_identical(test_1, test_2, expectation)
 
     # Skip values, inspect_weekdays = TRUE
     holidays <- c("2017-01-03", "2017-01-04") %>% ymd()
@@ -92,7 +97,7 @@ test_that("tk_make_future_timeseries(date) test returns correct format.", {
 
     # inspect_weekdays = F: Test when skip values are not within future index
     skip <- ymd(c("2018-01-01", "2016-12-31"))
-    expect_message(test <- tk_make_future_timeseries(test_date, length_out = 4, skip_values = skip, inspect_weekdays = F))
+    expect_message(test <- tk_make_future_timeseries(test_date, length_out = "5 days", skip_values = skip, inspect_weekdays = F))
     expectation <- c("2017-01-01", "2017-01-02", "2017-01-03", "2017-01-04") %>%
         ymd()
     expect_equal(test, expectation)
@@ -111,18 +116,19 @@ test_that("tk_make_future_timeseries(date) test returns correct format.", {
     expect_equal(test, expectation)
 
 
-    # WEEKLY SCALE
+    # WEEKLY SCALE ----
 
     # No skip
     test_date   <- c("2017-01-01", "2017-01-08") %>% ymd()
     expectation <- c("2017-01-15", "2017-01-22") %>% ymd()
-    test <- tk_make_future_timeseries(test_date, length_out = 2)
-    expect_equal(test, expectation)
+    test_1 <- tk_make_future_timeseries(test_date, length_out = 2)
+    test_2 <- tk_make_future_timeseries(test_date, length_out = "2 weeks")
+    expect_identical(test_1, test_2, expectation)
 
     # With skip
-    test_date   <- c("2017-01-01", "2017-01-08") %>% ymd()
+    test_date    <- c("2017-01-01", "2017-01-08") %>% ymd()
     skip_values  <- c("2017-01-22") %>% ymd()
-    expectation <- c("2017-01-15", "2017-01-29") %>% ymd()
+    expectation  <- c("2017-01-15", "2017-01-29") %>% ymd()
     test <- tk_make_future_timeseries(test_date, length_out = 2, skip_values = skip_values)
     expect_equal(test, expectation)
 
@@ -140,13 +146,14 @@ test_that("tk_make_future_timeseries(date) test returns correct format.", {
     expect_message(test <- tk_make_future_timeseries(test_date, length_out = 2, insert_values = insert))
     expect_equal(expectation, test)
 
-    # MONTHLY SCALE
+    # MONTHLY SCALE ----
 
     # No skip
-    idx   <- c("2017-01-01", "2017-02-01") %>% ymd()
-    expectation <- c("2017-03-01", "2017-04-01") %>% ymd()
-    test <- tk_make_future_timeseries(idx, length_out = 2)
-    expect_equal(test, expectation)
+    idx   <- c("2017-01-15", "2017-02-15") %>% ymd()
+    expectation <- c("2017-03-15", "2017-04-15") %>% ymd()
+    test_1 <- tk_make_future_timeseries(idx, length_out = 2)
+    test_2 <- tk_make_future_timeseries(idx, length_out = "2 months")
+    expect_identical(test_1, test_2, expectation)
 
     # With skip
     test_date   <- c("2017-01-01", "2017-02-01") %>% ymd()
@@ -162,13 +169,14 @@ test_that("tk_make_future_timeseries(date) test returns correct format.", {
     expect_message(test <- tk_make_future_timeseries(test_date, length_out = 2, insert_values = insert))
     expect_equal(test, expectation)
 
-    # QUARTERLY SCALE
+    # QUARTERLY SCALE ----
 
     # No skip
-    test_date   <- c("2017-01-01", "2017-04-01") %>% ymd()
-    expectation <- c("2017-07-01", "2017-10-01") %>% ymd()
-    expect_equal(tk_make_future_timeseries(test_date, length_out = 2),
-                 expectation)
+    test_date   <- c("2017-01-15", "2017-04-15") %>% ymd()
+    test_1 <- tk_make_future_timeseries(test_date, length_out = 2)
+    test_2 <- tk_make_future_timeseries(test_date, length_out = "6 months")
+    expectation <- c("2017-07-15", "2017-10-15") %>% ymd()
+    expect_identical(test_1, test_2, expectation)
 
     # With skip
     test_date    <- c("2017-01-01", "2017-04-01") %>% ymd()
@@ -179,13 +187,14 @@ test_that("tk_make_future_timeseries(date) test returns correct format.", {
 
 
 
-    # YEARLY SCALE
+    # YEARLY SCALE ----
 
     # No skip
-    test_date   <- c("2017-06-01", "2018-06-01") %>% ymd()
-    expectation <- c("2019-06-01", "2020-06-01") %>% ymd()
-    expect_equal(tk_make_future_timeseries(test_date, length_out = 2),
-                 expectation)
+    test_date   <- c("2017-06-30", "2018-06-30") %>% ymd()
+    expectation <- c("2019-06-30", "2020-06-30") %>% ymd()
+    test_1 <- tk_make_future_timeseries(test_date, length_out = 2)
+    test_2 <- tk_make_future_timeseries(test_date, length_out = "2 years")
+    expect_identical(test_1, test_2, expectation)
 
     # With skip
     test_date   <- c("2017-04-01", "2018-04-01") %>% ymd()
@@ -194,13 +203,14 @@ test_that("tk_make_future_timeseries(date) test returns correct format.", {
     test <- tk_make_future_timeseries(test_date, length_out = 2, skip_values = skip_values)
     expect_equal(test, expectation)
 
-    # 1.5 YEARLY SCALE
+    # 1.5X YEARLY SCALE ----
 
     # No skip
     test_date   <- c("2017-07-01", "2019-01-01") %>% ymd()
     expectation <- c("2020-07-01", "2022-01-01") %>% ymd()
-    expect_equal(tk_make_future_timeseries(test_date, length_out = 2),
-                 expectation)
+    test_1 <- tk_make_future_timeseries(test_date, length_out = 2)
+    test_2 <- tk_make_future_timeseries(test_date, length_out = "3 years")
+    expect_identical(test_1, test_2, expectation)
 
 
 
@@ -208,6 +218,7 @@ test_that("tk_make_future_timeseries(date) test returns correct format.", {
 })
 
 
+# YEARMON ----
 
 test_that("tk_make_future_timeseries(yearmon) test returns correct format.", {
 
@@ -217,7 +228,7 @@ test_that("tk_make_future_timeseries(yearmon) test returns correct format.", {
                       "2016-03") %>% as.yearmon()
 
     # No skip values
-    test <- tk_make_future_timeseries(test_yearmon, length_out = 3)
+    test <- tk_make_future_timeseries(test_yearmon, length_out = "3 months")
     expectation <- c("2016-04", "2016-05", "2016-06") %>%
         as.yearmon()
     expect_equal(test, expectation)
@@ -246,6 +257,7 @@ test_that("tk_make_future_timeseries(yearmon) test returns correct format.", {
 
 })
 
+# YEARQTR ----
 
 test_that("tk_make_future_timeseries(yearqtr) test returns correct format.", {
 
@@ -256,7 +268,7 @@ test_that("tk_make_future_timeseries(yearqtr) test returns correct format.", {
                       "2016 Q4") %>% as.yearqtr()
 
     # No skip values
-    test <- tk_make_future_timeseries(test_yearqtr, length_out = 4)
+    test <- tk_make_future_timeseries(test_yearqtr, length_out = "1 year")
     expectation <- c("2017 Q1", "2017 Q2", "2017 Q3", "2017 Q4") %>%
         as.yearqtr()
     expect_equal(test, expectation)
