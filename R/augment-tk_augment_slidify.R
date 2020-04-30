@@ -123,6 +123,7 @@ tk_augment_slidify.data.frame <- function(.data,
 
 }
 
+#' @export
 tk_augment_slidify.grouped_df <- function(.data,
                                              .value,
                                              .period,
