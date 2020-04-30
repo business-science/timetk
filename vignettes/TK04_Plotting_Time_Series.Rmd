@@ -89,29 +89,6 @@ m4_daily %>%
                    .interactive = interactive)
 ```
 
-# Adjusting the Smoother
-
-By default, a LOESS smoother is added to capture trend. This smoother is similar to `geom_smooth()`. However, there are advanced controls including being able to change the flexibility of the smoother using time-based phrases: 
-
-- `.smooth_period = "auto"` Selects 75% of the data for the smoother span. 
-- `.smooth_period = "2 years"` Each series uses a loess trend consisting of 2 full years of data. 
-- `.smooth_period = 365.5 * 2` Selects exactly 731 observations.
-- `.smooth_span = 0.75` Each series uses 75% of the data. Overrides the `.smooth_period`. 
-
-Note that setting `smooth_message = TRUE` returns a message with the number of observations used for the loess trend. 
-
-```{r, message=TRUE}
-m4_daily %>%
-  group_by(id) %>%
-  plot_time_series(date, value, 
-                   .facet_ncol = 2, .facet_scales = "free", 
-                    # Note that D10 and D410 have less than 730 observations
-                   .smooth_period  = "2 year",
-                   # Shows the trend period selected
-                   .smooth_message = TRUE, 
-                   .interactive = interactive) 
-```
-
 
 
 # Visualizing Transformations & Sub-Groups
