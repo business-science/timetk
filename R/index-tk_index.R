@@ -102,27 +102,25 @@ tk_index.ts <- function(data, timetk_idx = FALSE, silent = FALSE) {
     if (timetk_idx && !is.null(tk_idx)) {
         # Return timetk "time-based" index
 
-        # Coerce numeric date to date-time
-        ret <- attr(data, "index") %>%
-            lubridate::as_datetime()
+        # Coerce numeric class to date-time
+        ret <- attr(data, "index")
 
         # Set time class to date if Date class
-        tclass <- attr(attr(data, "index"), "tclass")
+        tclass <- attr(tk_idx, "tclass")
         if (!is.null(tclass)) {
-            if ("Date" %in% tclass) ret <- lubridate::as_date(ret)
-            if ("yearmon" %in% tclass) ret <- zoo::as.yearmon(ret)
-            if ("yearqtr" %in% tclass) ret <- zoo::as.yearqtr(ret)
+            if ("Date" %in% tclass)    ret <- ret %>% lubridate::as_datetime() %>% lubridate::as_date()
+            if ("yearmon" %in% tclass) ret <- ret %>% lubridate::as_datetime() %>% zoo::as.yearmon()
+            if ("yearqtr" %in% tclass) ret <- ret %>% lubridate::as_datetime() %>% zoo::as.yearqtr()
+            if ("POSIXt" %in% tclass) {
+                tzone <- attr(ret, "tzone")
+                ret <- ret %>% as.numeric() %>% lubridate::as_datetime(tz = tzone)
+            }
         }
 
         class <- attr(attr(data, "index"), "class")
         if (!is.null(class))
             if (class == "Date") ret <- lubridate::as_date(ret)
 
-        # Set the timezone
-        tzone <- attr(attr(data, "index"), "tzone")
-        if (!is.null(tzone))
-            if (!(tclass[[1]] %in% c("yearmon", "yearqtr", "Date")))
-                lubridate::tz(ret) <- tzone[[1]]
 
     }
 
@@ -195,20 +193,22 @@ tk_index.xts <- function(data, timetk_idx = FALSE, silent = FALSE) {
     }
 
     # Coerce numeric class to date-time
-    ret <- attr(data, "index") %>%
-        lubridate::as_datetime()
+    ret <- attr(data, "index")
 
     # Set time class to date if Date class
     tclass <- xts::tclass(data)
-    if ("Date" %in% tclass)    ret <- lubridate::as_date(ret)
-    if ("yearmon" %in% tclass) ret <- zoo::as.yearmon(ret)
-    if ("yearqtr" %in% tclass) ret <- zoo::as.yearqtr(ret)
+    if ("Date" %in% tclass)    ret <- ret %>% lubridate::as_datetime() %>% lubridate::as_date()
+    if ("yearmon" %in% tclass) ret <- ret %>% lubridate::as_datetime() %>% zoo::as.yearmon()
+    if ("yearqtr" %in% tclass) ret <- ret %>% lubridate::as_datetime() %>% zoo::as.yearqtr()
+    if ("POSIXt" %in% tclass) {
+        tzone <- attr(ret, "tzone")
+        ret <- ret %>% as.numeric() %>% lubridate::as_datetime(tz = tzone)
+    }
 
-    # Set the timezone
-    tzone <- xts::tzone(data)
-    if (!is.null(tzone))
-        if (!(tclass[[1]] %in% c("yearmon", "yearqtr", "Date")))
-            lubridate::tz(ret) <- tzone[[1]]
+    # # Set the timezone
+    # if (!is.null(tzone))
+    #     if (!(tclass[[1]] %in% c("yearmon", "yearqtr", "Date")))
+    #         lubridate::tz(ret) <- tzone[[1]]
 
     return(ret)
 
