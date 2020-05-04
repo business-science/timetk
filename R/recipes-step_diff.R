@@ -157,6 +157,7 @@ bake.step_diff <- function(object, new_data, ...) {
             lag        = lag_val,
             difference = diff_val,
             log        = object$log,
+            silent     = TRUE,
             .ns        = "timetk"
         )
     }

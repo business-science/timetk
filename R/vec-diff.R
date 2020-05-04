@@ -13,6 +13,8 @@
 #'  _Note that difference inversion of a log-difference is approximate._
 #' @param initial_values A numeric vector of the initial values, which are used for difference inversion.
 #'  This vector is the original values that are the length of the `NA` missing differences.
+#' @param silent Whether or not to report the initial values used to invert the difference
+#'  as a message.
 #'
 #' @return A numeric vector
 #'
@@ -61,15 +63,20 @@
 #' library(dplyr)
 #' library(timetk)
 #'
+#' # --- USAGE ----
+#'
+#' diff_vec(1:10, lag = 2, difference = 2) %>%
+#'     diff_inv_vec(lag = 2, difference = 2, initial_values = 1:4)
+#'
 #' # --- VECTOR ----
 #'
-#' # Change
+#' # Get Change
 #' 1:10 %>% diff_vec()
 #'
-#' # Acceleration
+#' # Get Acceleration
 #' 1:10 %>% diff_vec(difference = 2)
 #'
-#' # Approximate rate of change
+#' # Get approximate rate of change
 #' 1:10 %>% diff_vec(log = TRUE) %>% exp() - 1
 #'
 #'
@@ -96,30 +103,34 @@
 
 #' @export
 #' @rdname diff_vec
-diff_vec <- function(x, lag = 1, difference = 1, log = FALSE) {
+diff_vec <- function(x, lag = 1, difference = 1, log = FALSE, silent = FALSE) {
     # Checks
-    if (length(lag) > 1) stop(call. = FALSE, "diff_vec(length(lag) > 1): Multiple lags detected. Use tk_augment_diff().")
-    if (length(difference) > 1) stop(call. = FALSE, "diff_vec(length(difference) > 1): Multiple differences detected. Use tk_augment_diff().")
+    if (length(lag) > 1) rlang::abort("length(lag) > 1): Multiple lags detected. Use tk_augment_diff().")
+    if (length(difference) > 1) rlang::abort("diff_vec(length(difference) > 1): Multiple differences detected. Use tk_augment_diff().")
 
     UseMethod("diff_vec", x)
 }
 
 #' @export
-diff_vec.default <- function(x, lag = 1, difference = 1, log = FALSE) {
-    stop(paste0("diff_vec: No method for class ", class(x)[[1]], "."), call. = FALSE)
+diff_vec.default <- function(x, lag = 1, difference = 1, log = FALSE, silent = FALSE) {
+    rlang::abort(paste0("diff_vec: No method for class ", class(x)[[1]], "."))
 }
 
 #' @export
-diff_vec.double <- function(x, lag = 1, difference = 1, log = FALSE) {
-    diff_calc(x, lag, difference, log)
+diff_vec.double <- function(x, lag = 1, difference = 1, log = FALSE, silent = FALSE) {
+    diff_calc(x, lag, difference, log, silent)
 }
 
 #' @export
-diff_vec.integer <- function(x, lag = 1, difference = 1, log = FALSE) {
-    diff_calc(x, lag, difference, log)
+diff_vec.integer <- function(x, lag = 1, difference = 1, log = FALSE, silent = FALSE) {
+    diff_calc(x, lag, difference, log, silent)
 }
 
-diff_calc <- function(x, lag, difference, log) {
+diff_calc <- function(x, lag, difference, log, silent = FALSE) {
+
+    if (!silent) message("diff_vec(): Initial values: ",
+                         stringr::str_c(x[1:(lag * difference)], collapse = ", "))
+
     ret_vec <- xts::diff.xts(
         x           = x,
         lag         = lag,

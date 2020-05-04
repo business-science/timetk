@@ -5,7 +5,7 @@
 \alias{diff_inv_vec}
 \title{Differencing Transformation}
 \usage{
-diff_vec(x, lag = 1, difference = 1, log = FALSE)
+diff_vec(x, lag = 1, difference = 1, log = FALSE, silent = FALSE)
 
 diff_inv_vec(x, lag = 1, difference = 1, log = FALSE, initial_values = NULL)
 }
@@ -22,6 +22,9 @@ diff_inv_vec(x, lag = 1, difference = 1, log = FALSE, initial_values = NULL)
 
 \item{log}{If log differences should be calculated.
 \emph{Note that difference inversion of a log-difference is approximate.}}
+
+\item{silent}{Whether or not to report the initial values used to invert the difference
+as a message.}
 
 \item{initial_values}{A numeric vector of the initial values, which are used for difference inversion.
 This vector is the original values that are the length of the \code{NA} missing differences.}
@@ -62,15 +65,20 @@ where \code{diff_vec(difference = 1, log = TRUE) \%>\% exp()} is approximately \
 library(dplyr)
 library(timetk)
 
+# --- USAGE ----
+
+diff_vec(1:10, lag = 2, difference = 2) \%>\%
+    diff_inv_vec(lag = 2, difference = 2, initial_values = 1:4)
+
 # --- VECTOR ----
 
-# Change
+# Get Change
 1:10 \%>\% diff_vec()
 
-# Acceleration
+# Get Acceleration
 1:10 \%>\% diff_vec(difference = 2)
 
-# Approximate rate of change
+# Get approximate rate of change
 1:10 \%>\% diff_vec(log = TRUE) \%>\% exp() - 1
 
 

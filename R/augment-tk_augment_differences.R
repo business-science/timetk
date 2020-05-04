@@ -90,6 +90,7 @@ tk_augment_differences.data.frame <- function(.data,
             lag        = lag_val,
             difference = diff_val,
             log        = .log,
+            silent     = TRUE,
             .ns        = "timetk"
         )
     }
