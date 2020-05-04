@@ -184,7 +184,14 @@ diff_inv_vec() inverts the differencing transformation." />
 <code>diff_inv_vec()</code> inverts the differencing transformation.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>diff_vec</span>(<span class='no'>x</span>, <span class='kw'>lag</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>difference</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>log</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>silent</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+    <pre class="usage"><span class='fu'>diff_vec</span>(
+  <span class='no'>x</span>,
+  <span class='kw'>lag</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>difference</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>log</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>initial_values</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>silent</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+)
 
 <span class='fu'>diff_inv_vec</span>(<span class='no'>x</span>, <span class='kw'>lag</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>difference</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>log</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>initial_values</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
 
@@ -212,14 +219,15 @@ diff_inv_vec() inverts the differencing transformation." />
 <em>Note that difference inversion of a log-difference is approximate.</em></p></td>
     </tr>
     <tr>
+      <th>initial_values</th>
+      <td><p>Only used in the <code>diff_vec_inv()</code> operation.
+A numeric vector of the initial values, which are used to invert differences.
+This vector is the original values that are the length of the <code>NA</code> missing differences.</p></td>
+    </tr>
+    <tr>
       <th>silent</th>
       <td><p>Whether or not to report the initial values used to invert the difference
 as a message.</p></td>
-    </tr>
-    <tr>
-      <th>initial_values</th>
-      <td><p>A numeric vector of the initial values, which are used for difference inversion.
-This vector is the original values that are the length of the <code>NA</code> missing differences.</p></td>
     </tr>
     </table>
 
