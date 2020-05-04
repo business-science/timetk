@@ -366,7 +366,7 @@ group-wise analysis. Rather, it's used for processing Cross Correlations (CCFs).
         <span class='kw'>.lags</span>        <span class='kw'>=</span> <span class='fl'>0</span>:(<span class='fl'>24</span>*<span class='fl'>7</span>),   <span class='co'># 7-Days of hourly lags</span>
         <span class='kw'>.interactive</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
     ) +
-    <span class='fu'>ggtitle</span>(<span class='st'>"ACF Diagnostics"</span>,  <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='st'>"1st Difference"</span>)</div><div class='img'><img src='plot_acf_diagnostics-2.png' alt='' width='700' height='433' /></div><div class='input'>
+    <span class='fu'>ggtitle</span>(<span class='st'>"ACF Diagnostics"</span>,  <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='st'>"1st Difference"</span>)</div><div class='output co'>#&gt; <span class='message'>diff_vec(): Initial values: 513</span></div><div class='output co'>#&gt; <span class='message'>diff_vec(): Initial values: 39325</span></div><div class='output co'>#&gt; <span class='message'>diff_vec(): Initial values: 45</span></div><div class='output co'>#&gt; <span class='message'>diff_vec(): Initial values: 153</span></div><div class='img'><img src='plot_acf_diagnostics-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># CCFs Too!</span>
 <span class='no'>walmart_sales_weekly</span> <span class='kw'>%&gt;%</span>
     <span class='fu'>select</span>(<span class='no'>id</span>, <span class='no'>Date</span>, <span class='no'>Weekly_Sales</span>, <span class='no'>Temperature</span>, <span class='no'>Fuel_Price</span>) <span class='kw'>%&gt;%</span>

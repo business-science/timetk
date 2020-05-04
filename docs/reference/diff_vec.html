@@ -184,7 +184,7 @@ diff_inv_vec() inverts the differencing transformation." />
 <code>diff_inv_vec()</code> inverts the differencing transformation.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>diff_vec</span>(<span class='no'>x</span>, <span class='kw'>lag</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>difference</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>log</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+    <pre class="usage"><span class='fu'>diff_vec</span>(<span class='no'>x</span>, <span class='kw'>lag</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>difference</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>log</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>silent</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
 <span class='fu'>diff_inv_vec</span>(<span class='no'>x</span>, <span class='kw'>lag</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>difference</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>log</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>initial_values</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
 
@@ -210,6 +210,11 @@ diff_inv_vec() inverts the differencing transformation." />
       <th>log</th>
       <td><p>If log differences should be calculated.
 <em>Note that difference inversion of a log-difference is approximate.</em></p></td>
+    </tr>
+    <tr>
+      <th>silent</th>
+      <td><p>Whether or not to report the initial values used to invert the difference
+as a message.</p></td>
     </tr>
     <tr>
       <th>initial_values</th>
@@ -260,14 +265,18 @@ where <code>diff_vec(difference = 1, log = TRUE) %&gt;% exp()</code> is approxim
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>)
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>timetk</span>)
 
+<span class='co'># --- USAGE ----</span>
+
+<span class='fu'>diff_vec</span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='kw'>lag</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>difference</span> <span class='kw'>=</span> <span class='fl'>2</span>) <span class='kw'>%&gt;%</span>
+    <span class='fu'>diff_inv_vec</span>(<span class='kw'>lag</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>difference</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>initial_values</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>4</span>)</div><div class='output co'>#&gt; <span class='message'>diff_vec(): Initial values: 1, 2, 3, 4</span></div><div class='output co'>#&gt;  [1]  1  2  3  4  5  6  7  8  9 10</div><div class='input'>
 <span class='co'># --- VECTOR ----</span>
 
-<span class='co'># Change</span>
-<span class='fl'>1</span>:<span class='fl'>10</span> <span class='kw'>%&gt;%</span> <span class='fu'>diff_vec</span>()</div><div class='output co'>#&gt;  [1] NA  1  1  1  1  1  1  1  1  1</div><div class='input'>
-<span class='co'># Acceleration</span>
-<span class='fl'>1</span>:<span class='fl'>10</span> <span class='kw'>%&gt;%</span> <span class='fu'>diff_vec</span>(<span class='kw'>difference</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt;  [1] NA NA  0  0  0  0  0  0  0  0</div><div class='input'>
-<span class='co'># Approximate rate of change</span>
-<span class='fl'>1</span>:<span class='fl'>10</span> <span class='kw'>%&gt;%</span> <span class='fu'>diff_vec</span>(<span class='kw'>log</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span>() - <span class='fl'>1</span></div><div class='output co'>#&gt;  [1]        NA 1.0000000 0.5000000 0.3333333 0.2500000 0.2000000 0.1666667
+<span class='co'># Get Change</span>
+<span class='fl'>1</span>:<span class='fl'>10</span> <span class='kw'>%&gt;%</span> <span class='fu'>diff_vec</span>()</div><div class='output co'>#&gt; <span class='message'>diff_vec(): Initial values: 1</span></div><div class='output co'>#&gt;  [1] NA  1  1  1  1  1  1  1  1  1</div><div class='input'>
+<span class='co'># Get Acceleration</span>
+<span class='fl'>1</span>:<span class='fl'>10</span> <span class='kw'>%&gt;%</span> <span class='fu'>diff_vec</span>(<span class='kw'>difference</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; <span class='message'>diff_vec(): Initial values: 1, 2</span></div><div class='output co'>#&gt;  [1] NA NA  0  0  0  0  0  0  0  0</div><div class='input'>
+<span class='co'># Get approximate rate of change</span>
+<span class='fl'>1</span>:<span class='fl'>10</span> <span class='kw'>%&gt;%</span> <span class='fu'>diff_vec</span>(<span class='kw'>log</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span>() - <span class='fl'>1</span></div><div class='output co'>#&gt; <span class='message'>diff_vec(): Initial values: 1</span></div><div class='output co'>#&gt;  [1]        NA 1.0000000 0.5000000 0.3333333 0.2500000 0.2000000 0.1666667
 #&gt;  [8] 0.1428571 0.1250000 0.1111111</div><div class='input'>
 
 <span class='co'># --- MUTATE ----</span>
@@ -282,7 +291,7 @@ where <code>diff_vec(difference = 1, log = TRUE) %&gt;% exp()</code> is approxim
             <span class='co'># Add initial value to calculate the inverse difference</span>
             <span class='kw'>initial_values</span> <span class='kw'>=</span> <span class='no'>value</span>[<span class='fl'>1</span>]
         )
-    )</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 9,743 x 5</span><span>
+    )</div><div class='output co'>#&gt; <span class='message'>diff_vec(): Initial values: 2076.2</span></div><div class='output co'>#&gt; <span class='message'>diff_vec(): Initial values: 1821.9</span></div><div class='output co'>#&gt; <span class='message'>diff_vec(): Initial values: 9109.38</span></div><div class='output co'>#&gt; <span class='message'>diff_vec(): Initial values: 5647.3</span></div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 9,743 x 5</span><span>
 #&gt; </span><span style='color: #555555;'># Groups:   id [4]</span><span>
 #&gt;    id    date       value difference difference_inv
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>          </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>

@@ -219,6 +219,8 @@
 <code><a href="../reference/time_series_cv.html">time_series_cv()</a></code>: Implements time-based phrases (e.g. <code>initial = "5 years"</code> and <code>assess = "1 year"</code>)</li>
 <li>
 <code><a href="../reference/tk_make_future_timeseries.html">tk_make_future_timeseries()</a></code>: The <code>n_future</code> argument has been deprecated for a new <code>length_out</code> argument that accepts both numeric input (e.g. <code>length_out = 12</code>) and time-based phrases (e.g. <code>length_out = "12 months"</code>). A major improvement is that numeric values define the number of timestamps returned even if weekends are removed or holidays are removed. Thus, you can always anticipate the length. (<a href="https://github.com/business-science/timetk/issues/19">Issue <a href='https://github.com/business-science/timetk/issues/19'>#19</a></a>).</li>
+<li>
+<code>diff_vec</code>: Now reports the initial values used in the differencing calculation.</li>
 </ul>
 <p><strong>Bug Fixes</strong>:</p>
 <ul>
