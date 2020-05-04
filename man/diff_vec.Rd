@@ -5,7 +5,14 @@
 \alias{diff_inv_vec}
 \title{Differencing Transformation}
 \usage{
-diff_vec(x, lag = 1, difference = 1, log = FALSE, silent = FALSE)
+diff_vec(
+  x,
+  lag = 1,
+  difference = 1,
+  log = FALSE,
+  initial_values = NULL,
+  silent = FALSE
+)
 
 diff_inv_vec(x, lag = 1, difference = 1, log = FALSE, initial_values = NULL)
 }
@@ -23,11 +30,12 @@ diff_inv_vec(x, lag = 1, difference = 1, log = FALSE, initial_values = NULL)
 \item{log}{If log differences should be calculated.
 \emph{Note that difference inversion of a log-difference is approximate.}}
 
+\item{initial_values}{Only used in the \code{diff_vec_inv()} operation.
+A numeric vector of the initial values, which are used to invert differences.
+This vector is the original values that are the length of the \code{NA} missing differences.}
+
 \item{silent}{Whether or not to report the initial values used to invert the difference
 as a message.}
-
-\item{initial_values}{A numeric vector of the initial values, which are used for difference inversion.
-This vector is the original values that are the length of the \code{NA} missing differences.}
 }
 \value{
 A numeric vector

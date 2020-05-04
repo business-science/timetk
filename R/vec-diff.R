@@ -11,7 +11,8 @@
 #'  - 2 Differences is equivalent to measuring period acceleration.
 #' @param log If log differences should be calculated.
 #'  _Note that difference inversion of a log-difference is approximate._
-#' @param initial_values A numeric vector of the initial values, which are used for difference inversion.
+#' @param initial_values Only used in the `diff_vec_inv()` operation.
+#'  A numeric vector of the initial values, which are used to invert differences.
 #'  This vector is the original values that are the length of the `NA` missing differences.
 #' @param silent Whether or not to report the initial values used to invert the difference
 #'  as a message.
@@ -103,26 +104,27 @@
 
 #' @export
 #' @rdname diff_vec
-diff_vec <- function(x, lag = 1, difference = 1, log = FALSE, silent = FALSE) {
+diff_vec <- function(x, lag = 1, difference = 1, log = FALSE, initial_values = NULL, silent = FALSE) {
     # Checks
     if (length(lag) > 1) rlang::abort("length(lag) > 1): Multiple lags detected. Use tk_augment_diff().")
     if (length(difference) > 1) rlang::abort("diff_vec(length(difference) > 1): Multiple differences detected. Use tk_augment_diff().")
+    if (!is.null(initial_values)) rlang::warn("`initial_values` are not required for the `diff_vec()` calculation.")
 
     UseMethod("diff_vec", x)
 }
 
 #' @export
-diff_vec.default <- function(x, lag = 1, difference = 1, log = FALSE, silent = FALSE) {
+diff_vec.default <- function(x, lag = 1, difference = 1, log = FALSE, initial_values = NULL, silent = FALSE) {
     rlang::abort(paste0("diff_vec: No method for class ", class(x)[[1]], "."))
 }
 
 #' @export
-diff_vec.double <- function(x, lag = 1, difference = 1, log = FALSE, silent = FALSE) {
+diff_vec.double <- function(x, lag = 1, difference = 1, log = FALSE, initial_values = NULL, silent = FALSE) {
     diff_calc(x, lag, difference, log, silent)
 }
 
 #' @export
-diff_vec.integer <- function(x, lag = 1, difference = 1, log = FALSE, silent = FALSE) {
+diff_vec.integer <- function(x, lag = 1, difference = 1, log = FALSE, initial_values = NULL, silent = FALSE) {
     diff_calc(x, lag, difference, log, silent)
 }
 
