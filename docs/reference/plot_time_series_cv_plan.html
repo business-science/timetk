@@ -201,7 +201,8 @@ or <code>time_series_cv</code> class.</p>
     <tr>
       <th>.rset</th>
       <td><p>A time series resample specification of of either <code>rolling_origin</code>
-or <code>time_series_cv</code> class.</p></td>
+or <code>time_series_cv</code> class or a data frame (tibble) that has been prepared
+using <code><a href='tk_time_series_cv_plan.html'>tk_time_series_cv_plan()</a></code>.</p></td>
     </tr>
     <tr>
       <th>.date_var</th>
@@ -275,6 +276,7 @@ time series resample plan.</p></li>
 #&gt; </span><span style='color: #555555;'>10</span><span> Slice1 training FB     2015-12-03     104.
 #&gt; </span><span style='color: #555555;'># … with 1,802 more rows</span><span></div><div class='input'>
 <span class='no'>resample_spec</span> <span class='kw'>%&gt;%</span>
+    <span class='fu'><a href='tk_time_series_cv_plan.html'>tk_time_series_cv_plan</a></span>() <span class='kw'>%&gt;%</span>
     <span class='fu'>plot_time_series_cv_plan</span>(
         <span class='no'>date</span>, <span class='no'>adjusted</span>, <span class='co'># date variable and value variable</span>
         <span class='co'># Additional arguments passed to plot_time_series(),</span>

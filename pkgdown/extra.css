@@ -27,3 +27,7 @@ div.comparison .header {
   border: solid;
   border-width: 2px 0;
 }
+
+.ref-index h3 {
+  color: #18bc9c;
+}

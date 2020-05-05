@@ -52,7 +52,10 @@ reference:
     desc: __Detect relationships through visualizations__
     contents:
     - "plot_time_series"
-    - contains("plot_")
+    - contains("plot_acf")
+    - contains("plot_anomaly")
+    - contains("plot_seasonal")
+    - contains("plot_stl")
   - title: Time Series Data Wrangling Operations
     desc: __Extension for `dplyr` for time-series data manipulations__
   - subtitle: Data Frame Operations
@@ -115,8 +118,13 @@ reference:
     - "step_ts_clean"
   - title: Rsample Operations (Cross Validation)
     desc: __Resampling for time series cross validation using `rsamples`__
+  - subtitle: Time Series Cross Validation Resample Sets
     contents:
     - "time_series_cv"
+  - subtitle: Cross Validation Plan Visualization
+    contents:
+    - "plot_time_series_cv_plan"
+    - "tk_time_series_cv_plan"
   - title: Index Operations
     desc: __Extract and check the date or date-time index.__
     contents:
@@ -142,7 +150,6 @@ reference:
     - "tk_acf_diagnostics"
     - "tk_seasonal_diagnostics"
     - "tk_stl_diagnostics"
-    - "tk_time_series_cv_plan"
   - title: Conversion Operations
     desc: __Functions for converting between common time series formats.__
     contents:
