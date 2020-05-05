@@ -15,7 +15,8 @@ plot_time_series_cv_plan(
 }
 \arguments{
 \item{.rset}{A time series resample specification of of either \code{rolling_origin}
-or \code{time_series_cv} class.}
+or \code{time_series_cv} class or a data frame (tibble) that has been prepared
+using \code{\link[=tk_time_series_cv_plan]{tk_time_series_cv_plan()}}.}
 
 \item{.date_var}{A column containing either date or date-time values}
 
@@ -62,6 +63,7 @@ resample_spec <- time_series_cv(
 resample_spec \%>\% tk_time_series_cv_plan()
 
 resample_spec \%>\%
+    tk_time_series_cv_plan() \%>\%
     plot_time_series_cv_plan(
         date, adjusted, # date variable and value variable
         # Additional arguments passed to plot_time_series(),

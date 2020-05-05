@@ -6,7 +6,8 @@
 #'
 #' @inheritParams plot_time_series
 #' @param .rset A time series resample specification of of either `rolling_origin`
-#' or `time_series_cv` class.
+#' or `time_series_cv` class or a data frame (tibble) that has been prepared
+#' using [tk_time_series_cv_plan()].
 #' @param ... Additional parameters passed to [plot_time_series()]
 #'
 #' @details
@@ -45,6 +46,7 @@
 #' resample_spec %>% tk_time_series_cv_plan()
 #'
 #' resample_spec %>%
+#'     tk_time_series_cv_plan() %>%
 #'     plot_time_series_cv_plan(
 #'         date, adjusted, # date variable and value variable
 #'         # Additional arguments passed to plot_time_series(),
@@ -66,7 +68,7 @@ plot_time_series_cv_plan.rolling_origin <- function(.rset, .date_var, .value, ..
                                                     .smooth = FALSE,
                                                     .title = "Time Series Cross Validation Plan") {
 
-    plot_ts_cv(
+    plot_ts_cv_rset(
         .rset,
         .date_var   = !! rlang::enquo(.date_var),
         .value      = !! rlang::enquo(.value),
@@ -84,7 +86,7 @@ plot_time_series_cv_plan.time_series_cv <- function(.rset, .date_var, .value, ..
                                                     .smooth = FALSE,
                                                     .title = "Time Series Cross Validation Plan") {
 
-    plot_ts_cv(
+    plot_ts_cv_rset(
         .rset,
         .date_var   = !! rlang::enquo(.date_var),
         .value      = !! rlang::enquo(.value),
@@ -97,6 +99,24 @@ plot_time_series_cv_plan.time_series_cv <- function(.rset, .date_var, .value, ..
 }
 
 #' @export
+plot_time_series_cv_plan.data.frame <- function(.rset, .date_var, .value, ...,
+                                                .smooth = FALSE,
+                                                .title = "Time Series Cross Validation Plan") {
+
+    plot_ts_cv_dataframe(
+        .rset,
+        .date_var   = !! rlang::enquo(.date_var),
+        .value      = !! rlang::enquo(.value),
+        ...,
+        .smooth     = .smooth,
+        .title = "Time Series Cross Validation Plan"
+    )
+
+
+}
+
+
+#' @export
 plot_time_series_cv_plan.default <- function(.rset, .date_var, .value, ...,
                                              .smooth = FALSE,
                                              .title = "Time Series Cross Validation Plan") {
@@ -104,9 +124,9 @@ plot_time_series_cv_plan.default <- function(.rset, .date_var, .value, ...,
 }
 
 
-plot_ts_cv <- function(.rset, .date_var, .value, ...,
-                       .smooth = FALSE,
-                       .title = "Time Series Cross Validation Plan") {
+plot_ts_cv_rset <- function(.rset, .date_var, .value, ...,
+                            .smooth = FALSE,
+                            .title = "Time Series Cross Validation Plan") {
 
     date_var_expr <- rlang::enquo(.date_var)
     value_expr    <- rlang::enquo(.value)
@@ -127,3 +147,29 @@ plot_ts_cv <- function(.rset, .date_var, .value, ...,
 
 }
 
+plot_ts_cv_dataframe <- function(.rset, .date_var, .value, ...,
+                                 .smooth = FALSE,
+                                 .title = "Time Series Cross Validation Plan") {
+
+    date_var_expr <- rlang::enquo(.date_var)
+    value_expr    <- rlang::enquo(.value)
+
+    # Format data
+    data_formatted <- .rset
+
+    # Checks
+    id_key_in_data <- all(c(".id", ".key") %in% names(data_formatted))
+    if (!id_key_in_data) rlang::abort("The data frame must have 'id' and 'key' columns. Try using `tk_time_series_cv_plan()` to unpack the `.rset`.")
+
+    data_formatted %>%
+        dplyr::ungroup() %>%
+        dplyr::group_by(.id) %>%
+        plot_time_series(
+            .date_var   = !! date_var_expr,
+            .value      = !! value_expr,
+            .color_var  = .key,
+            ...,
+            .smooth     = .smooth,
+            .title      = .title)
+
+}
