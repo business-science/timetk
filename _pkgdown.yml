@@ -50,8 +50,11 @@ navbar:
 reference:
   - title: Plotting Time Series
     desc: __Detect relationships through visualizations__
+  - subtitle: Time Series Plotting
     contents:
     - "plot_time_series"
+  - subtitle: Correlation, Seasonalilty, & Anomaly Plotting
+    contents:
     - contains("plot_acf")
     - contains("plot_anomaly")
     - contains("plot_seasonal")
