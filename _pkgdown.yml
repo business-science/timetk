@@ -74,6 +74,7 @@ reference:
     contents:
     - "between_time"
     - "add_time"
+    - "parse_date2"
   - title: Vectorized Transformations
     desc: __Use with `mutate` to apply vectorized transformations to time series data__
     contents:

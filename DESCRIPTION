@@ -42,6 +42,7 @@ Imports:
     zoo (>= 1.7-14),
     rlang (>= 0.1.2),
     slider,
+    anytime,
     timeDate,
     forecast,
     hms,

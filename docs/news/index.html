@@ -211,6 +211,11 @@
 <li>
 <code><a href="../reference/step_ts_clean.html">step_ts_clean()</a></code> - Preprocessing step for cleaning outliers and imputing missing values in a time series.</li>
 </ul>
+<p><strong>New Parsing Functions</strong></p>
+<ul>
+<li>
+<code><a href="../reference/parse_date2.html">parse_date2()</a></code> and <code><a href="../reference/parse_date2.html">parse_datetime2()</a></code>: These are similar to <code><a href="https://readr.tidyverse.org/reference/parse_datetime.html">readr::parse_date()</a></code> and <code><a href="http://lubridate.tidyverse.org/reference/as_date.html">lubridate::as_date()</a></code> in that they parse character vectors to date and datetimes. The key advantage is SPEED. <code><a href="../reference/parse_date2.html">parse_date2()</a></code> uses <code>anytime</code> package to process using C++ <code>Boost.Date_Time</code> library.</li>
+</ul>
 <p><strong>Improvements</strong>:</p>
 <ul>
 <li>

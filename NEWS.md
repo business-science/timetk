@@ -42,6 +42,10 @@ __New Recipes Preprocessing Steps__:
 * `step_ts_pad()` - Preprocessing for padding time series data. Adds rows to fill in gaps and can be used with `step_ts_impute()` to interpolate going from low to high frequency!
 * `step_ts_clean()` - Preprocessing step for cleaning outliers and imputing missing values in a time series.
 
+__New Parsing Functions__
+
+* `parse_date2()` and `parse_datetime2()`: These are similar to `readr::parse_date()` and `lubridate::as_date()` in that they parse character vectors to date and datetimes. The key advantage is SPEED. `parse_date2()` uses `anytime` package to process using C++ `Boost.Date_Time` library.
+
 __Improvements__:
 
 * `plot_acf_diagnostics()`: The `.lags` argument now handles time-based phrases (e.g. `.lags = "1 month"`).
