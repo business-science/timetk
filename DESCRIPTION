@@ -50,6 +50,7 @@ Imports:
 Suggests:
     tidyquant,
     workflows,
+    tune,
     parsnip,
     yardstick, 
     tidyverse,
