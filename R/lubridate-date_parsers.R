@@ -1,7 +1,7 @@
 #' Fast, flexible date and datetime parsing
 #'
 #' Significantly faster time series parsing than `readr::parse_date`, `readr::parse_datetime`,
-#' `lubridate::as_date()`, etc. Uses `anytime` package, which relies on
+#' `lubridate::as_date()`, and `lubridate::as_datetime()`. Uses `anytime` package, which relies on
 #' `Boost.Date_Time` C++ library for date/datetime parsing.
 #'
 #' @param x A character vector
