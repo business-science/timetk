@@ -2,7 +2,7 @@
 % Please edit documentation in R/tune-tk_tune_performance.R
 \name{tk_tune_select_parameters}
 \alias{tk_tune_select_parameters}
-\title{Select Hyperparameter Tuning Results}
+\title{Select Hyperparameters}
 \usage{
 tk_tune_select_parameters(.data, .n = 1)
 }

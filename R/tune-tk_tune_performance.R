@@ -98,7 +98,7 @@ tk_tune_rank_parameters.tune_results <- function(.data, .metric, .max_failure_ra
 
 # PARAMETER SELECTION ----
 
-#' Select Hyperparameter Tuning Results
+#' Select Hyperparameters
 #'
 #' `tk_tune_select_parameters()` provides a wrapper to `tune::select_best()` that
 #' makes it easy to select the n-th model.
