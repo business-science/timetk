@@ -42,6 +42,11 @@ __New Recipes Preprocessing Steps__:
 * `step_ts_pad()` - Preprocessing for padding time series data. Adds rows to fill in gaps and can be used with `step_ts_impute()` to interpolate going from low to high frequency!
 * `step_ts_clean()` - Preprocessing step for cleaning outliers and imputing missing values in a time series.
 
+__New Tune Parameter Ranking and Selection Tools__:
+
+- `tk_tune_rank_parameters` - Ranks parameters using tune error metrics (model accuracy), failure rates (model robustness), and standard error (model variability)
+- `tk_tune_select_parameters` - Selection tool for ranked parameters.
+
 __New Parsing Functions__
 
 * `parse_date2()` and `parse_datetime2()`: These are similar to `readr::parse_date()` and `lubridate::as_date()` in that they parse character vectors to date and datetimes. The key advantage is SPEED. `parse_date2()` uses `anytime` package to process using C++ `Boost.Date_Time` library.

@@ -129,6 +129,12 @@ reference:
     contents:
     - "plot_time_series_cv_plan"
     - "tk_time_series_cv_plan"
+  - title: Tune Operations (Hyperparameter Tuning)
+    desc: __Cross validation performance analysis and parameter selection for `tune` results__
+  - subtitle: Tune Parameter Visualization & Selection
+    contents:
+    - "tk_tune_rank_parameters"
+    - "tk_tune_select_parameters"
   - title: Index Operations
     desc: __Extract and check the date or date-time index.__
     contents:
