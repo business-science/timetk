@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Select Hyperparameters — tk_tune_select_parameters • timetk</title>
+<title>Visualize a Hyperparameter Rankings — plot_tune_rank_parameters • timetk</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -48,9 +48,10 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Select Hyperparameters — tk_tune_select_parameters" />
-<meta property="og:description" content="tk_tune_select_parameters() provides a wrapper to tune::select_best() that
-makes it easy to select the n-th model." />
+<meta property="og:title" content="Visualize a Hyperparameter Rankings — plot_tune_rank_parameters" />
+<meta property="og:description" content="The plot_tune_rank_parameters() function provides a visualization
+for time series hyperparameter tuning results (tune_results) of either rolling_origin
+or time_series_cv class that have been tuned." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -174,17 +175,29 @@ makes it easy to select the n-th model." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Select Hyperparameters</h1>
-    <small class="dont-index">Source: <a href='https://github.com/business-science/timetk/blob/master/R/tune-tk_tune_parameters.R'><code>R/tune-tk_tune_parameters.R</code></a></small>
-    <div class="hidden name"><code>tk_tune_select_parameters.Rd</code></div>
+    <h1>Visualize a Hyperparameter Rankings</h1>
+    <small class="dont-index">Source: <a href='https://github.com/business-science/timetk/blob/master/R/tune-plot_tune_parameter_ranking.R'><code>R/tune-plot_tune_parameter_ranking.R</code></a></small>
+    <div class="hidden name"><code>plot_tune_rank_parameters.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><code>tk_tune_select_parameters()</code> provides a wrapper to <code><a href='https://rdrr.io/pkg/tune/man/show_best.html'>tune::select_best()</a></code> that
-makes it easy to select the n-th model.</p>
+    <p>The <code>plot_tune_rank_parameters()</code> function provides a visualization
+for time series hyperparameter tuning results (<code>tune_results</code>) of either <code>rolling_origin</code>
+or <code>time_series_cv</code> class that have been tuned.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>tk_tune_select_parameters</span>(<span class='no'>.data</span>, <span class='kw'>.n</span> <span class='kw'>=</span> <span class='fl'>1</span>)</pre>
+    <pre class="usage"><span class='fu'>plot_tune_rank_parameters</span>(
+  <span class='no'>.data</span>,
+  <span class='kw'>.point_alpha</span> <span class='kw'>=</span> <span class='fl'>0.6</span>,
+  <span class='kw'>.point_color_best</span> <span class='kw'>=</span> <span class='st'>"#2C3E50"</span>,
+  <span class='kw'>.point_color_worst</span> <span class='kw'>=</span> <span class='st'>"#E31A1C"</span>,
+  <span class='kw'>.point_size_best</span> <span class='kw'>=</span> <span class='fl'>4</span>,
+  <span class='kw'>.point_size_worst</span> <span class='kw'>=</span> <span class='fl'>2</span>,
+  <span class='kw'>.title</span> <span class='kw'>=</span> <span class='st'>"Hyperparameter Tuning Performance"</span>,
+  <span class='kw'>.color_lab</span> <span class='kw'>=</span> <span class='st'>"Failure Rate Rank"</span>,
+  <span class='kw'>.size_lab</span> <span class='kw'>=</span> <span class='st'>"Variability Rank"</span>,
+  <span class='kw'>.interactive</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -194,27 +207,75 @@ makes it easy to select the n-th model.</p>
       <td><p>A <code>tibble</code> of class "tune_results"</p></td>
     </tr>
     <tr>
-      <th>.n</th>
-      <td><p>Row to select from the model ranking</p></td>
+      <th>.point_alpha</th>
+      <td><p>Opacity for points. Set to 0.6 by default.</p></td>
+    </tr>
+    <tr>
+      <th>.point_color_best</th>
+      <td><p>Color of point for best model rank</p></td>
+    </tr>
+    <tr>
+      <th>.point_color_worst</th>
+      <td><p>Color of point for worst model rank</p></td>
+    </tr>
+    <tr>
+      <th>.point_size_best</th>
+      <td><p>Size of point for the best model rank</p></td>
+    </tr>
+    <tr>
+      <th>.point_size_worst</th>
+      <td><p>Size of point for the worst model rank</p></td>
+    </tr>
+    <tr>
+      <th>.title</th>
+      <td><p>Plot title</p></td>
+    </tr>
+    <tr>
+      <th>.color_lab</th>
+      <td><p>Legend label for color (Failure Rate Ranking)</p></td>
+    </tr>
+    <tr>
+      <th>.size_lab</th>
+      <td><p>Legend label for the size (Standard Error Ranking)</p></td>
+    </tr>
+    <tr>
+      <th>.interactive</th>
+      <td><p>Toggle between interactive plotly chart and static ggplot chart</p></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>A <code>tibble</code> or <code>data.frame</code> with parameter values.</p>
+    <p><strong>Metric Ranking (Model Accuracy, Y-Axis)</strong></p>
+<p>The model with the lowest (best) rank is that with the lowest mean error. Y-Axis is the Metric value.</p>
+<p><strong>Failure Rate Ranking (Robustness to New Data, Color)</strong></p>
+<p>Models with lower failure rates are more robust to new data. Color is the Failure Rate.
+Failure rate rank is a score based on the proportion of models that failed during tuning.</p><ul>
+<li><p>Calculation: <em>Failure Rate = n / No. of Resample Slices</em></p></li>
+<li><p>Models with a non-zero failure rate have a higher likelihood of failing on new data
+and are therefore less robust.</p></li>
+</ul>
+
+<p><strong>Standard Error Ranking (Model Variability, Size)</strong></p>
+<p>Models with lower standard error are more consistent (less variability). Size of the point is
+the standard error ranking.</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'>
+<ul>
+<li><p><a href='tk_tune_rank_parameters.html'>tk_tune_rank_parameters</a> - Ranking parameters</p></li>
+<li><p><a href='tk_tune_select_parameters.html'>tk_tune_select_parameters</a> - Selecting the best parameters</p></li>
+</ul>
+</div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>tune</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>timetk</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>tune</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: package ‘tune’ was built under R version 3.6.2</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>timetk</span>)
 
 <span class='no'>arima_workflow_tuned</span> <span class='kw'>%&gt;%</span>
-    <span class='fu'><a href='tk_tune_rank_parameters.html'>tk_tune_rank_parameters</a></span>(<span class='kw'>.max_failure_rate</span> <span class='kw'>=</span> <span class='fl'>1</span>) <span class='kw'>%&gt;%</span>
-    <span class='fu'>tk_tune_select_parameters</span>(<span class='kw'>.n</span> <span class='kw'>=</span> <span class='fl'>3</span>)</div><div class='output co'>#&gt; <span class='message'>Using .metric = 'mae'</span></div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 1 x 6</span><span>
-#&gt;       p     d     q     P     D     Q
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span>     4     1     4     1     0     1</div><div class='input'>
-</div></span></pre>
+    <span class='fu'><a href='tk_tune_rank_parameters.html'>tk_tune_rank_parameters</a></span>() <span class='kw'>%&gt;%</span>
+    <span class='fu'>plot_tune_rank_parameters</span>(<span class='kw'>.interactive</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='message'>Using .metric = 'mae'</span></div><div class='img'><img src='plot_tune_rank_parameters-1.png' alt='' width='700' height='433' /></div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
