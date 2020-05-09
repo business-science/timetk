@@ -15,11 +15,11 @@
 #'
 #' @details
 #'
-#' __Metric Ranking__
+#' __Metric Ranking (Model Accuracy)__
 #'
-#' Models with optimal
+#' The model with the lowest (best) rank is that with the lowest mean error.
 #'
-#' __Failure Rate Ranking__
+#' __Failure Rate Ranking (Robustness to New Data)__
 #'
 #' Models with lower failure rates are more robust to new data.
 #' Failure rate rank is a score based on the proportion of models that failed during tuning.
@@ -28,7 +28,7 @@
 #' - Models with a non-zero failure rate have a higher likelihood of failing on new data
 #' and are therefore less robust.
 #'
-#' __Standard Error Ranking__
+#' __Standard Error Ranking (Model Variability)__
 #'
 #' Models with lower standard error are more consistent (less variability).
 #'

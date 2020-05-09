@@ -92,7 +92,7 @@ plot_time_series_cv_plan.time_series_cv <- function(.rset, .date_var, .value, ..
         .value      = !! rlang::enquo(.value),
         ...,
         .smooth     = .smooth,
-        .title = "Time Series Cross Validation Plan"
+        .title      = .title
     )
 
 
@@ -109,7 +109,7 @@ plot_time_series_cv_plan.data.frame <- function(.rset, .date_var, .value, ...,
         .value      = !! rlang::enquo(.value),
         ...,
         .smooth     = .smooth,
-        .title = "Time Series Cross Validation Plan"
+        .title      = .title
     )
 
 
