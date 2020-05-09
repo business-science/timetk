@@ -24,6 +24,7 @@ Depends:
 Imports:
     recipes (>= 0.1.4),
     rsample,
+    tune,
     broom,
     dplyr (>= 0.7.0),
     ggplot2,
@@ -50,7 +51,6 @@ Imports:
 Suggests:
     tidyquant,
     workflows,
-    tune,
     parsnip,
     yardstick, 
     tidyverse,
