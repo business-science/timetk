@@ -1,6 +1,6 @@
 #' Visualize a Hyperparameter Rankings
 #'
-#' The `plot_tune_parameter_ranking()` function provides a visualization
+#' The `plot_tune_rank_parameters()` function provides a visualization
 #' for time series hyperparameter tuning results (`tune_results`) of either `rolling_origin`
 #' or `time_series_cv` class that have been tuned.
 #'
@@ -46,10 +46,10 @@
 #'
 #' arima_workflow_tuned %>%
 #'     tk_tune_rank_parameters() %>%
-#'     plot_tune_parameter_ranking(.interactive = FALSE)
+#'     plot_tune_rank_parameters(.interactive = FALSE)
 #'
 #' @export
-plot_tune_parameter_ranking <- function(.data,
+plot_tune_rank_parameters <- function(.data,
                                         .point_alpha = 0.6,
                                         .point_color_best = "#2C3E50",
                                         .point_color_worst = "#E31A1C",
@@ -60,11 +60,11 @@ plot_tune_parameter_ranking <- function(.data,
                                         .size_lab  = "Variability Rank",
                                         .interactive = TRUE) {
 
-    UseMethod("plot_tune_parameter_ranking", .data)
+    UseMethod("plot_tune_rank_parameters", .data)
 }
 
 #' @export
-plot_tune_parameter_ranking.rolling_origin <- function(.data,
+plot_tune_rank_parameters.rolling_origin <- function(.data,
                                                        .point_alpha = 0.6,
                                                        .point_color_best = "#2C3E50",
                                                        .point_color_worst = "#E31A1C",
@@ -80,7 +80,7 @@ plot_tune_parameter_ranking.rolling_origin <- function(.data,
 }
 
 #' @export
-plot_tune_parameter_ranking.time_series_cv <- function(.data,
+plot_tune_rank_parameters.time_series_cv <- function(.data,
                                                        .point_alpha = 0.6,
                                                        .point_color_best = "#2C3E50",
                                                        .point_color_worst = "#E31A1C",
@@ -96,7 +96,7 @@ plot_tune_parameter_ranking.time_series_cv <- function(.data,
 }
 
 #' @export
-plot_tune_parameter_ranking.data.frame <- function(.data,
+plot_tune_rank_parameters.data.frame <- function(.data,
                                                    .point_alpha = 0.6,
                                                    .point_color_best = "#2C3E50",
                                                    .point_color_worst = "#E31A1C",

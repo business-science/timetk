@@ -22,6 +22,7 @@ Research
 __New Interactive Plotting Functions__
 
 * `plot_anomaly_diagnostics()`: Visualize Anomalies for One or More Time Series
+* `plot_tune_rank_parameters()`: Plots the ranked hyperparameter tuning result output from `tk_tune_rank_parameters()`
 
 __New Data Wrangling Functions__
 
