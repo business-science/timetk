@@ -2,7 +2,7 @@
 % Please edit documentation in R/tune-plot_tune_parameter_ranking.R
 \name{plot_parameter_ranking}
 \alias{plot_parameter_ranking}
-\title{Visualize a Hyperparameter Rankings}
+\title{Visualize Hyperparameter Rankings}
 \usage{
 plot_parameter_ranking(
   .data,
@@ -46,8 +46,7 @@ plot_parameter_ranking(
 }
 \description{
 The \code{plot_parameter_ranking()} function provides a visualization
-for time series hyperparameter tuning results (\code{tune_results}) of either \code{rolling_origin}
-or \code{time_series_cv} class that have been tuned.
+for time series hyperparameter tuning results (\code{tune_results}), the output of \code{tune::tune_grid()}.
 }
 \details{
 \strong{Metric Ranking (Model Accuracy, Y-Axis)}
@@ -81,6 +80,8 @@ library(dplyr)
 library(tune)
 library(timetk)
 
+# Output of tune::tune_grid()
+arima_workflow_tuned
 
 # TUNE RESULTS INTERFACE ----
 arima_workflow_tuned \%>\%
@@ -96,6 +97,6 @@ arima_workflow_tuned \%>\%
 \seealso{
 \itemize{
 \item \code{\link[=tk_parameter_ranking]{tk_parameter_ranking()}} - Underlying parameter ranking function
-\item \code{\link[=tk_parameter_select]{tk_parameter_select()}} - Select the best parameters from the \code{tk_parameter_ranking()}
+\item \code{\link[=tk_parameter_select_by_row]{tk_parameter_select_by_row()}} - Select the best parameters from the \code{tk_parameter_ranking()}
 }
 }

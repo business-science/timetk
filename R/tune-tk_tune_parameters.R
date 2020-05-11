@@ -43,8 +43,17 @@
 #' library(tune)
 #' library(timetk)
 #'
+#' # Output of tune::tune_grid()
+#' arima_workflow_tuned
+#'
+#' # PARAMETER RANKING ----
 #' arima_workflow_tuned %>%
 #'     tk_parameter_ranking(.max_failure_rate = 1)
+#'
+#' # PARAMETER SELECTION ----
+#' arima_workflow_tuned %>%
+#'     tk_parameter_ranking(.max_failure_rate = 1) %>%
+#'     tk_parameter_select_by_row(.n = 3)
 #'
 #' @name tk_parameter_ranking
 #' @export
@@ -107,7 +116,7 @@ tk_parameter_ranking.tune_results <- function(.data, .metric, .max_failure_rate 
 
 #' Select Hyperparameters
 #'
-#' `tk_parameter_select()` provides a wrapper to `tune::select_best()` that
+#' `tk_parameter_select_by_row()` provides a wrapper to `tune::select_best()` that
 #' makes it easy to select the n-th model.
 #'
 #' @param .data A `tibble` of class "tune_results"
@@ -120,29 +129,37 @@ tk_parameter_ranking.tune_results <- function(.data, .metric, .max_failure_rate 
 #' library(tune)
 #' library(timetk)
 #'
+#' # Output of tune::tune_grid()
+#' arima_workflow_tuned
+#'
+#' # PARAMETER RANKING ----
+#' arima_workflow_tuned %>%
+#'     tk_parameter_ranking(.max_failure_rate = 1)
+#'
+#' # PARAMETER SELECTION ----
 #' arima_workflow_tuned %>%
 #'     tk_parameter_ranking(.max_failure_rate = 1) %>%
-#'     tk_parameter_select(.n = 3)
+#'     tk_parameter_select_by_row(.n = 3)
 #'
-#' @name tk_parameter_select
+#' @name tk_parameter_select_by_row
 #' @export
-tk_parameter_select <- function(.data, .n = 1) {
-    UseMethod("tk_parameter_select", .data)
+tk_parameter_select_by_row <- function(.data, .n = 1) {
+    UseMethod("tk_parameter_select_by_row", .data)
 }
 
 #' @export
-tk_parameter_select.default <- function(.data, .n = 1) {
+tk_parameter_select_by_row.default <- function(.data, .n = 1) {
     rlang::abort("No method for class: ", class(.data)[[1]])
 }
 
 #' @export
-tk_parameter_select.tune_results <- function(.data, .n = 1) {
+tk_parameter_select_by_row.tune_results <- function(.data, .n = 1) {
     message("Ranking Not Detected: Tune results are expected to be ranked with 'tk_parameter_ranking()' first. Reverting to tune::select_best(). '.n' argument not being used.")
     tune::select_best(.data, metric = tune_results_pull_metric(.data, .n_metric = 1))
 }
 
 #' @export
-tk_parameter_select.data.frame <- function(.data, .n = 1) {
+tk_parameter_select_by_row.data.frame <- function(.data, .n = 1) {
 
     nms <- names(.data)
 

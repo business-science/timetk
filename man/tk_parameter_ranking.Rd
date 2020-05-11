@@ -53,7 +53,16 @@ library(dplyr)
 library(tune)
 library(timetk)
 
+# Output of tune::tune_grid()
+arima_workflow_tuned
+
+# PARAMETER RANKING ----
 arima_workflow_tuned \%>\%
     tk_parameter_ranking(.max_failure_rate = 1)
+
+# PARAMETER SELECTION ----
+arima_workflow_tuned \%>\%
+    tk_parameter_ranking(.max_failure_rate = 1) \%>\%
+    tk_parameter_select_by_row(.n = 3)
 
 }

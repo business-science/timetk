@@ -120,21 +120,22 @@ reference:
   - contents:
     - "step_ts_impute"
     - "step_ts_clean"
-  - title: Rsample Operations (Cross Validation)
+  - title: Cross Validation Operations (Rsample & Tune)
     desc: __Resampling for time series cross validation using `rsamples`__
-  - subtitle: Time Series Cross Validation Resample Sets
+  - subtitle: Time Series Cross Validation (Resample Sets)
     contents:
     - "time_series_cv"
-  - subtitle: Cross Validation Plan Visualization
+  - subtitle: Cross Validation Plan Visualization (Resample Sets)
+    desc: Uses the output of `time_series_cv` or `rsample::rolling_origin`
     contents:
     - "plot_time_series_cv_plan"
     - "tk_time_series_cv_plan"
-  - title: Tune Operations (Hyperparameter Tuning)
-    desc: __Model selection for `tune` cross validation results__
+  - subtitle: Model Parameter Selection (Tune Results)
+    desc: Uses the output of `tune::tune_grid()`
     contents:
-    - "plot_tune_rank_parameters"
-    - "tk_tune_rank_parameters"
-    - "tk_tune_select_parameters"
+    - "plot_parameter_ranking"
+    - "tk_parameter_ranking"
+    - contains("tk_parameter_select")
   - title: Index Operations
     desc: __Extract and check the date or date-time index.__
     contents:

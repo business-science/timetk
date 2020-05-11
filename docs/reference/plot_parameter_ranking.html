@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Visualize a Time Series Resample Plan — plot_time_series_cv_plan • timetk</title>
+<title>Visualize Hyperparameter Rankings — plot_parameter_ranking • timetk</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -48,10 +48,9 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Visualize a Time Series Resample Plan — plot_time_series_cv_plan" />
-<meta property="og:description" content="The plot_time_series_cv_plan() function provides a visualization
-for a time series resample specification (rset) of either rolling_origin
-or time_series_cv class." />
+<meta property="og:title" content="Visualize Hyperparameter Rankings — plot_parameter_ranking" />
+<meta property="og:description" content="The plot_parameter_ranking() function provides a visualization
+for time series hyperparameter tuning results (tune_results), the output of tune::tune_grid()." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -175,24 +174,29 @@ or time_series_cv class." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Visualize a Time Series Resample Plan</h1>
-    <small class="dont-index">Source: <a href='https://github.com/business-science/timetk/blob/master/R/rsample-plot_time_series_cv_plan.R'><code>R/rsample-plot_time_series_cv_plan.R</code></a></small>
-    <div class="hidden name"><code>plot_time_series_cv_plan.Rd</code></div>
+    <h1>Visualize Hyperparameter Rankings</h1>
+    <small class="dont-index">Source: <a href='https://github.com/business-science/timetk/blob/master/R/tune-plot_tune_parameter_ranking.R'><code>R/tune-plot_tune_parameter_ranking.R</code></a></small>
+    <div class="hidden name"><code>plot_parameter_ranking.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>The <code>plot_time_series_cv_plan()</code> function provides a visualization
-for a time series resample specification (<code>rset</code>) of either <code>rolling_origin</code>
-or <code>time_series_cv</code> class.</p>
+    <p>The <code>plot_parameter_ranking()</code> function provides a visualization
+for time series hyperparameter tuning results (<code>tune_results</code>), the output of <code><a href='https://rdrr.io/pkg/tune/man/tune_grid.html'>tune::tune_grid()</a></code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>plot_time_series_cv_plan</span>(
+    <pre class="usage"><span class='fu'>plot_parameter_ranking</span>(
   <span class='no'>.data</span>,
-  <span class='no'>.date_var</span>,
-  <span class='no'>.value</span>,
-  <span class='no'>...</span>,
-  <span class='kw'>.smooth</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>.title</span> <span class='kw'>=</span> <span class='st'>"Time Series Cross Validation Plan"</span>
+  <span class='no'>.metric</span>,
+  <span class='kw'>.max_failure_rate</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>.point_alpha</span> <span class='kw'>=</span> <span class='fl'>0.6</span>,
+  <span class='kw'>.point_color_best</span> <span class='kw'>=</span> <span class='st'>"#2C3E50"</span>,
+  <span class='kw'>.point_color_worst</span> <span class='kw'>=</span> <span class='st'>"#E31A1C"</span>,
+  <span class='kw'>.point_size_best</span> <span class='kw'>=</span> <span class='fl'>4</span>,
+  <span class='kw'>.point_size_worst</span> <span class='kw'>=</span> <span class='fl'>2</span>,
+  <span class='kw'>.title</span> <span class='kw'>=</span> <span class='st'>"Hyperparameter Ranking &amp; Model Selection"</span>,
+  <span class='kw'>.color_lab</span> <span class='kw'>=</span> <span class='st'>"Failure Rate Rank"</span>,
+  <span class='kw'>.size_lab</span> <span class='kw'>=</span> <span class='st'>"Variability Rank"</span>,
+  <span class='kw'>.interactive</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -200,90 +204,105 @@ or <code>time_series_cv</code> class.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>.data</th>
-      <td><p>A time series resample specification of of either <code>rolling_origin</code>
-or <code>time_series_cv</code> class or a data frame (tibble) that has been prepared
-using <code><a href='tk_time_series_cv_plan.html'>tk_time_series_cv_plan()</a></code>.</p></td>
+      <td><p>A <code>tibble</code> of class "tune_results" or the output from <code><a href='tk_parameter_ranking.html'>tk_parameter_ranking()</a></code></p></td>
     </tr>
     <tr>
-      <th>.date_var</th>
-      <td><p>A column containing either date or date-time values</p></td>
+      <th>.metric</th>
+      <td><p>Select a metric to use for tuning performance investigation.</p></td>
     </tr>
     <tr>
-      <th>.value</th>
-      <td><p>A column containing numeric values</p></td>
+      <th>.max_failure_rate</th>
+      <td><p>Range (0,1). Use to <code>.max_failure_rate</code> to filter models below an acceptable failure threshold.</p></td>
     </tr>
     <tr>
-      <th>...</th>
-      <td><p>Additional parameters passed to <code><a href='plot_time_series.html'>plot_time_series()</a></code></p></td>
+      <th>.point_alpha</th>
+      <td><p>Opacity for points. Set to 0.6 by default.</p></td>
     </tr>
     <tr>
-      <th>.smooth</th>
-      <td><p>Logical - Whether or not to include a trendline smoother.
-Uses See <code><a href='smooth_vec.html'>smooth_vec()</a></code> to apply a LOESS smoother.</p></td>
+      <th>.point_color_best</th>
+      <td><p>Color of point for best model rank</p></td>
+    </tr>
+    <tr>
+      <th>.point_color_worst</th>
+      <td><p>Color of point for worst model rank</p></td>
+    </tr>
+    <tr>
+      <th>.point_size_best</th>
+      <td><p>Size of point for the best model rank</p></td>
+    </tr>
+    <tr>
+      <th>.point_size_worst</th>
+      <td><p>Size of point for the worst model rank</p></td>
     </tr>
     <tr>
       <th>.title</th>
-      <td><p>Title for the plot</p></td>
+      <td><p>Plot title</p></td>
+    </tr>
+    <tr>
+      <th>.color_lab</th>
+      <td><p>Legend label for color (Failure Rate Ranking)</p></td>
+    </tr>
+    <tr>
+      <th>.size_lab</th>
+      <td><p>Legend label for the size (Standard Error Ranking)</p></td>
+    </tr>
+    <tr>
+      <th>.interactive</th>
+      <td><p>Toggle between interactive plotly chart and static ggplot chart</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p><strong>Resample Set</strong></p>
-<p>A resample set is an output of the <code><a href='time_series_cv.html'>timetk::time_series_cv()</a></code> function or the
-<code><a href='https://tidymodels.github.io/rsample/reference/rolling_origin.html'>rsample::rolling_origin()</a></code> function.</p>
+    <p><strong>Metric Ranking (Model Accuracy, Y-Axis)</strong></p>
+<p>The model with the lowest (best) rank is that with the lowest mean error. Y-Axis is the Metric value.</p><ul>
+<li><p><strong>Metric Calculation</strong> - Refer to the appropriate metric from the <code>yardstick</code> R package.</p></li>
+<li><p><strong>Metric Ranking</strong> - Sort Best to Worst mean metric. Rank 1 to N.</p></li>
+</ul>
+
+<p><strong>Failure Rate Ranking (Robustness to New Data, Color)</strong></p>
+<p>Models with lower failure rates are more robust to new data. Color is the Failure Rate.
+Failure rate rank is a score based on the proportion of models that failed during tuning.</p><ul>
+<li><p><strong>Failure Rate Calculation:</strong> <em>Failure Rate = n / No. of Resample Slices</em></p></li>
+<li><p><strong>Failure Rate Ranking:</strong> Use Min Ranking (<code><a href='https://dplyr.tidyverse.org/reference/ranking.html'>dplyr::min_rank()</a></code>) on the Failure Rate Calculation.</p></li>
+</ul>
+
+<p><strong>Standard Error Ranking (Model Variability, Size)</strong></p>
+<p>Models with lower standard error are more consistent (less variability). Size of the point is
+the standard error ranking.</p><ul>
+<li><p><strong>Standard Error Calculation</strong> - See <code>base::sd()</code>.</p></li>
+<li><p><strong>Standard Error Ranking</strong> - Sort Best to Worst standard error. Rank 1 to N.</p></li>
+</ul>
+
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'>
 <ul>
-<li><p><code><a href='time_series_cv.html'>time_series_cv()</a></code> and <code><a href='https://tidymodels.github.io/rsample/reference/rolling_origin.html'>rsample::rolling_origin()</a></code> - Functions used to create
-time series resample specfications.</p></li>
-<li><p><code>plot_time_series_cv_plan()</code> - The plotting function used for visualizing the
-time series resample plan.</p></li>
+<li><p><code><a href='tk_parameter_ranking.html'>tk_parameter_ranking()</a></code> - Underlying parameter ranking function</p></li>
+<li><p><code><a href='tk_parameter_select_by_row.html'>tk_parameter_select_by_row()</a></code> - Select the best parameters from the <code><a href='tk_parameter_ranking.html'>tk_parameter_ranking()</a></code></p></li>
 </ul>
 </div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>tidyverse</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>tidyquant</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>rsample</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: package ‘rsample’ was built under R version 3.6.2</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>timetk</span>)
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>tune</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>timetk</span>)
 
-<span class='no'>FB_tbl</span> <span class='kw'>&lt;-</span> <span class='no'>FANG</span> <span class='kw'>%&gt;%</span>
-    <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span>(<span class='no'>symbol</span> <span class='kw'>==</span> <span class='st'>"FB"</span>) <span class='kw'>%&gt;%</span>
-    <span class='fu'>select</span>(<span class='no'>symbol</span>, <span class='no'>date</span>, <span class='no'>adjusted</span>)
-
-<span class='no'>resample_spec</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='time_series_cv.html'>time_series_cv</a></span>(
-    <span class='no'>FB_tbl</span>,
-    <span class='kw'>initial</span> <span class='kw'>=</span> <span class='st'>"1 year"</span>,
-    <span class='kw'>assess</span>  <span class='kw'>=</span> <span class='st'>"6 weeks"</span>,
-    <span class='kw'>skip</span>    <span class='kw'>=</span> <span class='st'>"3 months"</span>,
-    <span class='kw'>lag</span>     <span class='kw'>=</span> <span class='st'>"1 month"</span>,
-    <span class='kw'>cumulative</span>  <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-    <span class='kw'>slice_limit</span> <span class='kw'>=</span> <span class='fl'>6</span>
-)</div><div class='output co'>#&gt; <span class='message'>Using date_var: date</span></div><div class='input'>
-<span class='no'>resample_spec</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='tk_time_series_cv_plan.html'>tk_time_series_cv_plan</a></span>()</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 1,812 x 5</span><span>
-#&gt;    .id    .key     symbol date       adjusted
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>        </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> Slice1 training FB     2015-11-19     106.
-#&gt; </span><span style='color: #555555;'> 2</span><span> Slice1 training FB     2015-11-20     107.
-#&gt; </span><span style='color: #555555;'> 3</span><span> Slice1 training FB     2015-11-23     107.
-#&gt; </span><span style='color: #555555;'> 4</span><span> Slice1 training FB     2015-11-24     106.
-#&gt; </span><span style='color: #555555;'> 5</span><span> Slice1 training FB     2015-11-25     105.
-#&gt; </span><span style='color: #555555;'> 6</span><span> Slice1 training FB     2015-11-27     105.
-#&gt; </span><span style='color: #555555;'> 7</span><span> Slice1 training FB     2015-11-30     104.
-#&gt; </span><span style='color: #555555;'> 8</span><span> Slice1 training FB     2015-12-01     107.
-#&gt; </span><span style='color: #555555;'> 9</span><span> Slice1 training FB     2015-12-02     106.
-#&gt; </span><span style='color: #555555;'>10</span><span> Slice1 training FB     2015-12-03     104.
-#&gt; </span><span style='color: #555555;'># … with 1,802 more rows</span><span></div><div class='input'>
-<span class='no'>resample_spec</span> <span class='kw'>%&gt;%</span>
-    <span class='fu'><a href='tk_time_series_cv_plan.html'>tk_time_series_cv_plan</a></span>() <span class='kw'>%&gt;%</span>
-    <span class='fu'>plot_time_series_cv_plan</span>(
-        <span class='no'>date</span>, <span class='no'>adjusted</span>, <span class='co'># date variable and value variable</span>
-        <span class='co'># Additional arguments passed to plot_time_series(),</span>
-        <span class='kw'>.facet_ncol</span> <span class='kw'>=</span> <span class='fl'>2</span>,
-        <span class='kw'>.line_alpha</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
-        <span class='kw'>.interactive</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
-    )</div><div class='img'><img src='plot_time_series_cv_plan-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># Output of tune::tune_grid()</span>
+<span class='no'>arima_workflow_tuned</span></div><div class='output co'>#&gt; # Time Series Cross Validation Plan 
+#&gt; <span style='color: #555555;'># A tibble: 2 x 4</span><span>
+#&gt;   splits          id     .metrics           .notes          
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>          </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>             </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>          
+#&gt; </span><span style='color: #555555;'>1</span><span> </span><span style='color: #555555;'>&lt;split [72/24]&gt;</span><span> Slice1 </span><span style='color: #555555;'>&lt;tibble [294 × 9]&gt;</span><span> </span><span style='color: #555555;'>&lt;tibble [1 × 1]&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>2</span><span> </span><span style='color: #555555;'>&lt;split [72/24]&gt;</span><span> Slice2 </span><span style='color: #555555;'>&lt;tibble [288 × 9]&gt;</span><span> </span><span style='color: #555555;'>&lt;tibble [2 × 1]&gt;</span><span></div><div class='input'>
+<span class='co'># TUNE RESULTS INTERFACE ----</span>
+<span class='no'>arima_workflow_tuned</span> <span class='kw'>%&gt;%</span>
+    <span class='fu'>plot_parameter_ranking</span>(<span class='kw'>.interactive</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='message'>Using .metric = 'mae'</span></div><div class='img'><img src='plot_parameter_ranking-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># RANKED PARAMETERS INTERFACE ----</span>
+<span class='co'># - Rank using tk_parameter_ranking() first, then plot</span>
+<span class='no'>arima_workflow_tuned</span> <span class='kw'>%&gt;%</span>
+    <span class='fu'><a href='tk_parameter_ranking.html'>tk_parameter_ranking</a></span>(<span class='kw'>.metric</span> <span class='kw'>=</span> <span class='st'>"rsq"</span>, <span class='kw'>.max_failure_rate</span> <span class='kw'>=</span> <span class='fl'>0.6</span>) <span class='kw'>%&gt;%</span>
+    <span class='fu'>plot_parameter_ranking</span>(<span class='kw'>.interactive</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='plot_parameter_ranking-2.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

@@ -1,8 +1,7 @@
-#' Visualize a Hyperparameter Rankings
+#' Visualize Hyperparameter Rankings
 #'
 #' The `plot_parameter_ranking()` function provides a visualization
-#' for time series hyperparameter tuning results (`tune_results`) of either `rolling_origin`
-#' or `time_series_cv` class that have been tuned.
+#' for time series hyperparameter tuning results (`tune_results`), the output of `tune::tune_grid()`.
 #'
 #' @param .data A `tibble` of class "tune_results" or the output from [tk_parameter_ranking()]
 #' @param .metric Select a metric to use for tuning performance investigation.
@@ -44,13 +43,15 @@
 #'
 #' @seealso
 #' - [tk_parameter_ranking()] - Underlying parameter ranking function
-#' - [tk_parameter_select()] - Select the best parameters from the `tk_parameter_ranking()`
+#' - [tk_parameter_select_by_row()] - Select the best parameters from the `tk_parameter_ranking()`
 #'
 #' @examples
 #' library(dplyr)
 #' library(tune)
 #' library(timetk)
 #'
+#' # Output of tune::tune_grid()
+#' arima_workflow_tuned
 #'
 #' # TUNE RESULTS INTERFACE ----
 #' arima_workflow_tuned %>%

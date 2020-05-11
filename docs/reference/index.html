@@ -616,7 +616,7 @@
     </tbody><tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-rsample-operations-cross-validation-" class="hasAnchor"><a href="#section-rsample-operations-cross-validation-" class="anchor"></a>Rsample Operations (Cross Validation)</h2>
+          <h2 id="section-cross-validation-operations-rsample-tune-" class="hasAnchor"><a href="#section-cross-validation-operations-rsample-tune-" class="anchor"></a>Cross Validation Operations (Rsample &amp; Tune)</h2>
           <p class="section-desc"><p><strong>Resampling for time series cross validation using <code>rsamples</code></strong></p></p>
         </th>
       </tr>
@@ -626,7 +626,7 @@
       
       <tr>
         <th colspan="2">
-          <h3 id="section-time-series-cross-validation-resample-sets" class="hasAnchor"><a href="#section-time-series-cross-validation-resample-sets" class="anchor"></a>Time Series Cross Validation Resample Sets</h3>
+          <h3 id="section-time-series-cross-validation-resample-sets-" class="hasAnchor"><a href="#section-time-series-cross-validation-resample-sets-" class="anchor"></a>Time Series Cross Validation (Resample Sets)</h3>
           <p class="section-desc"></p>
         </th>
       </tr>
@@ -645,8 +645,8 @@
       
       <tr>
         <th colspan="2">
-          <h3 id="section-cross-validation-plan-visualization" class="hasAnchor"><a href="#section-cross-validation-plan-visualization" class="anchor"></a>Cross Validation Plan Visualization</h3>
-          <p class="section-desc"></p>
+          <h3 id="section-cross-validation-plan-visualization-resample-sets-" class="hasAnchor"><a href="#section-cross-validation-plan-visualization-resample-sets-" class="anchor"></a>Cross Validation Plan Visualization (Resample Sets)</h3>
+          <p class="section-desc"><p>Uses the output of <code>time_series_cv</code> or <code><a href="https://tidymodels.github.io/rsample/reference/rolling_origin.html">rsample::rolling_origin</a></code></p></p>
         </th>
       </tr>
       
@@ -667,13 +667,13 @@
         <td><p>Time Series Resample Plan Data Preparation</p></td>
       </tr>
     </tbody><tbody>
+      
       <tr>
         <th colspan="2">
-          <h2 id="section-tune-operations-hyperparameter-tuning-" class="hasAnchor"><a href="#section-tune-operations-hyperparameter-tuning-" class="anchor"></a>Tune Operations (Hyperparameter Tuning)</h2>
-          <p class="section-desc"><p><strong>Cross validation performance analysis and parameter selection for <code>tune</code> results</strong></p></p>
+          <h3 id="section-model-parameter-selection-tune-results-" class="hasAnchor"><a href="#section-model-parameter-selection-tune-results-" class="anchor"></a>Model Parameter Selection (Tune Results)</h3>
+          <p class="section-desc"><p>Uses the output of <code><a href="https://rdrr.io/pkg/tune/man/tune_grid.html">tune::tune_grid()</a></code></p></p>
         </th>
       </tr>
-      
       
     </tbody><tbody>
       
@@ -681,19 +681,19 @@
       <tr>
         
         <td>
-          <p><code><a href="plot_tune_rank_parameters.html">plot_tune_rank_parameters()</a></code> </p>
+          <p><code><a href="plot_parameter_ranking.html">plot_parameter_ranking()</a></code> </p>
         </td>
-        <td><p>Visualize a Hyperparameter Rankings</p></td>
+        <td><p>Visualize Hyperparameter Rankings</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="tk_tune_rank_parameters.html">tk_tune_rank_parameters()</a></code> </p>
+          <p><code><a href="tk_parameter_ranking.html">tk_parameter_ranking()</a></code> </p>
         </td>
         <td><p>Rank Hyperparameter Tuning Results</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="tk_tune_select_parameters.html">tk_tune_select_parameters()</a></code> </p>
+          <p><code><a href="tk_parameter_select_by_row.html">tk_parameter_select_by_row()</a></code> </p>
         </td>
         <td><p>Select Hyperparameters</p></td>
       </tr>
