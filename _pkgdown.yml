@@ -93,7 +93,7 @@ reference:
     - "tk_augment_differences"
     - "tk_augment_lags"
     - contains("augment")
-  - title: Recipe Operations (Feature Engineering Steps)
+  - title: Feature Engineering Operations (Recipe Steps)
     desc: __Preprocessing & feature engineering operations for use with `recipes` and the `tidymodels` ecosystem__
   - subtitle: Engineered Features
   - contents:
