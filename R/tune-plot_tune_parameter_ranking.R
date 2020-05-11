@@ -21,19 +21,24 @@
 #'
 #' The model with the lowest (best) rank is that with the lowest mean error. Y-Axis is the Metric value.
 #'
+#' - __Metric Calculation__ - Refer to the appropriate metric from the `yardstick` R package.
+#' - __Metric Ranking__ - Sort Best to Worst mean metric. Rank 1 to N.
+#'
 #' __Failure Rate Ranking (Robustness to New Data, Color)__
 #'
 #' Models with lower failure rates are more robust to new data. Color is the Failure Rate.
 #' Failure rate rank is a score based on the proportion of models that failed during tuning.
 #'
-#' - Calculation: _Failure Rate = n / No. of Resample Slices_
-#' - Models with a non-zero failure rate have a higher likelihood of failing on new data
-#' and are therefore less robust.
+#' - __Failure Rate Calculation:__ _Failure Rate = n / No. of Resample Slices_
+#' - __Failure Rate Ranking:__ Use Min Ranking (`dplyr::min_rank()`) on the Failure Rate Calculation.
 #'
 #' __Standard Error Ranking (Model Variability, Size)__
 #'
 #' Models with lower standard error are more consistent (less variability). Size of the point is
 #' the standard error ranking.
+#'
+#' - __Standard Error Calculation__ - See `base::sd()`.
+#' - __Standard Error Ranking__ - Sort Best to Worst standard error. Rank 1 to N.
 #'
 #' @seealso
 #' - [tk_tune_rank_parameters] - Ranking parameters
@@ -55,7 +60,7 @@ plot_tune_rank_parameters <- function(.data,
                                         .point_color_worst = "#E31A1C",
                                         .point_size_best = 4,
                                         .point_size_worst = 2,
-                                        .title = "Hyperparameter Tuning Performance",
+                                        .title = "Hyperparameter Model Ranking & Selection",
                                         .color_lab = "Failure Rate Rank",
                                         .size_lab  = "Variability Rank",
                                         .interactive = TRUE) {
@@ -70,7 +75,7 @@ plot_tune_rank_parameters.rolling_origin <- function(.data,
                                                        .point_color_worst = "#E31A1C",
                                                        .point_size_best = 4,
                                                        .point_size_worst = 2,
-                                                       .title = "Hyperparameter Tuning Performance",
+                                                       .title = "Hyperparameter Model Ranking & Selection",
                                                        .color_lab = "Failure Rate Rank",
                                                        .size_lab  = "Variability Rank",
                                                        .interactive = TRUE) {
@@ -86,7 +91,7 @@ plot_tune_rank_parameters.time_series_cv <- function(.data,
                                                        .point_color_worst = "#E31A1C",
                                                        .point_size_best = 4,
                                                        .point_size_worst = 2,
-                                                       .title = "Hyperparameter Tuning Performance",
+                                                       .title = "Hyperparameter Model Ranking & Selection",
                                                        .color_lab = "Failure Rate Rank",
                                                        .size_lab  = "Variability Rank",
                                                        .interactive = TRUE) {
@@ -102,7 +107,7 @@ plot_tune_rank_parameters.data.frame <- function(.data,
                                                    .point_color_worst = "#E31A1C",
                                                    .point_size_best = 4,
                                                    .point_size_worst = 2,
-                                                   .title = "Hyperparameter Tuning Performance",
+                                                   .title = "Hyperparameter Model Ranking & Selection",
                                                    .color_lab = "Failure Rate Rank",
                                                    .size_lab  = "Variability Rank",
                                                    .interactive = TRUE) {
@@ -124,8 +129,16 @@ plot_tune_rank_parameters.data.frame <- function(.data,
         }) %>%
         stringr::str_c(collapse = "\n")
 
+
     data_formatted <- data_formatted %>%
-        dplyr::mutate(.txt = stringr::str_glue(txt))
+        dplyr::mutate(.param_txt = stringr::str_glue(txt)) %>%
+        dplyr::mutate(.txt = stringr::str_glue("Parameters:
+                             {.param_txt}
+                             ---
+                             mean_err: {round(mean, 2)}
+                             failure_rate: {scales::percent(failure_rate)}
+                             std_err: {round(std_err)}
+                             ---"))
 
     # PLOT ----
 

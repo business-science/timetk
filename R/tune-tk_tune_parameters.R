@@ -15,22 +15,28 @@
 #'
 #' @details
 #'
-#' __Metric Ranking (Model Accuracy)__
+#' __Metric Ranking (Model Accuracy, Y-Axis)__
 #'
-#' The model with the lowest (best) rank is that with the lowest mean error.
+#' The model with the lowest (best) rank is that with the lowest mean error. Y-Axis is the Metric value.
 #'
-#' __Failure Rate Ranking (Robustness to New Data)__
+#' - __Metric Calculation__ - Refer to the appropriate metric from the `yardstick` R package.
+#' - __Metric Ranking__ - Sort Best to Worst mean metric. Rank 1 to N.
 #'
-#' Models with lower failure rates are more robust to new data.
+#' __Failure Rate Ranking (Robustness to New Data, Color)__
+#'
+#' Models with lower failure rates are more robust to new data. Color is the Failure Rate.
 #' Failure rate rank is a score based on the proportion of models that failed during tuning.
 #'
-#' - Calculation: _Failure Rate = n / No. of Resample Slices_
-#' - Models with a non-zero failure rate have a higher likelihood of failing on new data
-#' and are therefore less robust.
+#' - __Failure Rate Calculation:__ _Failure Rate = n / No. of Resample Slices_
+#' - __Failure Rate Ranking:__ Use Min Ranking (`dplyr::min_rank()`) on the Failure Rate Calculation.
 #'
-#' __Standard Error Ranking (Model Variability)__
+#' __Standard Error Ranking (Model Variability, Size)__
 #'
-#' Models with lower standard error are more consistent (less variability).
+#' Models with lower standard error are more consistent (less variability). Size of the point is
+#' the standard error ranking.
+#'
+#' - __Standard Error Calculation__ - See `base::sd()`.
+#' - __Standard Error Ranking__ - Sort Best to Worst standard error. Rank 1 to N.
 #'
 #' @examples
 #' library(dplyr)
@@ -77,7 +83,8 @@ tk_tune_rank_parameters.tune_results <- function(.data, .metric, .max_failure_ra
 
             # Failure Rate Rank
             dplyr::arrange(failure_rate, .rank_metric) %>%
-            dplyr::mutate(.rank_failure_rate = seq(1, dplyr::n())) %>%
+            # dplyr::mutate(.rank_failure_rate = seq(1, dplyr::n())) %>%
+            dplyr::mutate(.rank_failure_rate = dplyr::min_rank(failure_rate)) %>%
 
             # std_error Rank
             dplyr::arrange(std_err) %>%

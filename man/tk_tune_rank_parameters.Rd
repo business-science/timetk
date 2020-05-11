@@ -22,23 +22,31 @@ from functions like \code{tune::tune_grid()}. If possible, adds parameter rankin
 results based on metric performance, model failure rates, and standard error (variability).
 }
 \details{
-\strong{Metric Ranking (Model Accuracy)}
+\strong{Metric Ranking (Model Accuracy, Y-Axis)}
 
-The model with the lowest (best) rank is that with the lowest mean error.
-
-\strong{Failure Rate Ranking (Robustness to New Data)}
-
-Models with lower failure rates are more robust to new data.
-Failure rate rank is a score based on the proportion of models that failed during tuning.
+The model with the lowest (best) rank is that with the lowest mean error. Y-Axis is the Metric value.
 \itemize{
-\item Calculation: \emph{Failure Rate = n / No. of Resample Slices}
-\item Models with a non-zero failure rate have a higher likelihood of failing on new data
-and are therefore less robust.
+\item \strong{Metric Calculation} - Refer to the appropriate metric from the \code{yardstick} R package.
+\item \strong{Metric Ranking} - Sort Best to Worst mean metric. Rank 1 to N.
 }
 
-\strong{Standard Error Ranking (Model Variability)}
+\strong{Failure Rate Ranking (Robustness to New Data, Color)}
 
-Models with lower standard error are more consistent (less variability).
+Models with lower failure rates are more robust to new data. Color is the Failure Rate.
+Failure rate rank is a score based on the proportion of models that failed during tuning.
+\itemize{
+\item \strong{Failure Rate Calculation:} \emph{Failure Rate = n / No. of Resample Slices}
+\item \strong{Failure Rate Ranking:} Use Min Ranking (\code{dplyr::min_rank()}) on the Failure Rate Calculation.
+}
+
+\strong{Standard Error Ranking (Model Variability, Size)}
+
+Models with lower standard error are more consistent (less variability). Size of the point is
+the standard error ranking.
+\itemize{
+\item \strong{Standard Error Calculation} - See \code{base::sd()}.
+\item \strong{Standard Error Ranking} - Sort Best to Worst standard error. Rank 1 to N.
+}
 }
 \examples{
 library(dplyr)

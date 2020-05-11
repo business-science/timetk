@@ -11,7 +11,7 @@ plot_tune_rank_parameters(
   .point_color_worst = "#E31A1C",
   .point_size_best = 4,
   .point_size_worst = 2,
-  .title = "Hyperparameter Tuning Performance",
+  .title = "Hyperparameter Model Ranking & Selection",
   .color_lab = "Failure Rate Rank",
   .size_lab = "Variability Rank",
   .interactive = TRUE
@@ -47,21 +47,28 @@ or \code{time_series_cv} class that have been tuned.
 \strong{Metric Ranking (Model Accuracy, Y-Axis)}
 
 The model with the lowest (best) rank is that with the lowest mean error. Y-Axis is the Metric value.
+\itemize{
+\item \strong{Metric Calculation} - Refer to the appropriate metric from the \code{yardstick} R package.
+\item \strong{Metric Ranking} - Sort Best to Worst mean metric. Rank 1 to N.
+}
 
 \strong{Failure Rate Ranking (Robustness to New Data, Color)}
 
 Models with lower failure rates are more robust to new data. Color is the Failure Rate.
 Failure rate rank is a score based on the proportion of models that failed during tuning.
 \itemize{
-\item Calculation: \emph{Failure Rate = n / No. of Resample Slices}
-\item Models with a non-zero failure rate have a higher likelihood of failing on new data
-and are therefore less robust.
+\item \strong{Failure Rate Calculation:} \emph{Failure Rate = n / No. of Resample Slices}
+\item \strong{Failure Rate Ranking:} Use Min Ranking (\code{dplyr::min_rank()}) on the Failure Rate Calculation.
 }
 
 \strong{Standard Error Ranking (Model Variability, Size)}
 
 Models with lower standard error are more consistent (less variability). Size of the point is
 the standard error ranking.
+\itemize{
+\item \strong{Standard Error Calculation} - See \code{base::sd()}.
+\item \strong{Standard Error Ranking} - Sort Best to Worst standard error. Rank 1 to N.
+}
 }
 \examples{
 library(dplyr)
