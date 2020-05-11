@@ -2,7 +2,7 @@
 
 #' Rank Hyperparameter Tuning Results
 #'
-#' `tk_tune_rank_parameters()` returns the tuning performance results
+#' `tk_parameter_ranking()` returns the tuning performance results
 #' from functions like `tune::tune_grid()`. If possible, adds parameter ranking
 #' results based on metric performance, model failure rates, and standard error (variability).
 #'
@@ -44,21 +44,21 @@
 #' library(timetk)
 #'
 #' arima_workflow_tuned %>%
-#'     tk_tune_rank_parameters(.max_failure_rate = 1)
+#'     tk_parameter_ranking(.max_failure_rate = 1)
 #'
-#' @name tk_tune_rank_parameters
+#' @name tk_parameter_ranking
 #' @export
-tk_tune_rank_parameters <- function(.data, .metric, .max_failure_rate = 1) {
-    UseMethod("tk_tune_rank_parameters", .data)
+tk_parameter_ranking <- function(.data, .metric, .max_failure_rate = 1) {
+    UseMethod("tk_parameter_ranking", .data)
 }
 
 #' @export
-tk_tune_rank_parameters.default <- function(.data, .metric, .max_failure_rate = 1) {
+tk_parameter_ranking.default <- function(.data, .metric, .max_failure_rate = 1) {
     rlang::abort("No method for class: ", class(.data)[[1]])
 }
 
 #' @export
-tk_tune_rank_parameters.tune_results <- function(.data, .metric, .max_failure_rate = 1) {
+tk_parameter_ranking.tune_results <- function(.data, .metric, .max_failure_rate = 1) {
 
     data_formatted <- .data
     slice_count    <- data_formatted %>% dplyr::pull(id) %>% length()
@@ -107,7 +107,7 @@ tk_tune_rank_parameters.tune_results <- function(.data, .metric, .max_failure_ra
 
 #' Select Hyperparameters
 #'
-#' `tk_tune_select_parameters()` provides a wrapper to `tune::select_best()` that
+#' `tk_parameter_select()` provides a wrapper to `tune::select_best()` that
 #' makes it easy to select the n-th model.
 #'
 #' @param .data A `tibble` of class "tune_results"
@@ -121,28 +121,28 @@ tk_tune_rank_parameters.tune_results <- function(.data, .metric, .max_failure_ra
 #' library(timetk)
 #'
 #' arima_workflow_tuned %>%
-#'     tk_tune_rank_parameters(.max_failure_rate = 1) %>%
-#'     tk_tune_select_parameters(.n = 3)
+#'     tk_parameter_ranking(.max_failure_rate = 1) %>%
+#'     tk_parameter_select(.n = 3)
 #'
-#' @name tk_tune_select_parameters
+#' @name tk_parameter_select
 #' @export
-tk_tune_select_parameters <- function(.data, .n = 1) {
-    UseMethod("tk_tune_select_parameters", .data)
+tk_parameter_select <- function(.data, .n = 1) {
+    UseMethod("tk_parameter_select", .data)
 }
 
 #' @export
-tk_tune_select_parameters.default <- function(.data, .n = 1) {
+tk_parameter_select.default <- function(.data, .n = 1) {
     rlang::abort("No method for class: ", class(.data)[[1]])
 }
 
 #' @export
-tk_tune_select_parameters.tune_results <- function(.data, .n = 1) {
-    message("Ranking Not Detected: Tune results are expected to be ranked with 'tk_tune_rank_parameters()' first. Reverting to tune::select_best(). '.n' argument not being used.")
+tk_parameter_select.tune_results <- function(.data, .n = 1) {
+    message("Ranking Not Detected: Tune results are expected to be ranked with 'tk_parameter_ranking()' first. Reverting to tune::select_best(). '.n' argument not being used.")
     tune::select_best(.data, metric = tune_results_pull_metric(.data, .n_metric = 1))
 }
 
 #' @export
-tk_tune_select_parameters.data.frame <- function(.data, .n = 1) {
+tk_parameter_select.data.frame <- function(.data, .n = 1) {
 
     nms <- names(.data)
 

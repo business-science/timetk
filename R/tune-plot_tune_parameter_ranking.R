@@ -1,10 +1,12 @@
 #' Visualize a Hyperparameter Rankings
 #'
-#' The `plot_tune_rank_parameters()` function provides a visualization
+#' The `plot_parameter_ranking()` function provides a visualization
 #' for time series hyperparameter tuning results (`tune_results`) of either `rolling_origin`
 #' or `time_series_cv` class that have been tuned.
 #'
-#' @param .data A `tibble` of class "tune_results"
+#' @param .data A `tibble` of class "tune_results" or the output from [tk_parameter_ranking()]
+#' @param .metric Select a metric to use for tuning performance investigation.
+#' @param .max_failure_rate Range (0,1). Use to `.max_failure_rate` to filter models below an acceptable failure threshold.
 #' @param .point_alpha Opacity for points. Set to 0.6 by default.
 #' @param .point_color_best Color of point for best model rank
 #' @param .point_color_worst Color of point for worst model rank
@@ -41,76 +43,122 @@
 #' - __Standard Error Ranking__ - Sort Best to Worst standard error. Rank 1 to N.
 #'
 #' @seealso
-#' - [tk_tune_rank_parameters] - Ranking parameters
-#' - [tk_tune_select_parameters] - Selecting the best parameters
+#' - [tk_parameter_ranking()] - Underlying parameter ranking function
+#' - [tk_parameter_select()] - Select the best parameters from the `tk_parameter_ranking()`
 #'
 #' @examples
 #' library(dplyr)
 #' library(tune)
 #' library(timetk)
 #'
+#'
+#' # TUNE RESULTS INTERFACE ----
 #' arima_workflow_tuned %>%
-#'     tk_tune_rank_parameters() %>%
-#'     plot_tune_rank_parameters(.interactive = FALSE)
+#'     plot_parameter_ranking(.interactive = FALSE)
+#'
+#' # RANKED PARAMETERS INTERFACE ----
+#' # - Rank using tk_parameter_ranking() first, then plot
+#' arima_workflow_tuned %>%
+#'     tk_parameter_ranking(.metric = "rsq", .max_failure_rate = 0.6) %>%
+#'     plot_parameter_ranking(.interactive = FALSE)
 #'
 #' @export
-plot_tune_rank_parameters <- function(.data,
-                                        .point_alpha = 0.6,
-                                        .point_color_best = "#2C3E50",
-                                        .point_color_worst = "#E31A1C",
-                                        .point_size_best = 4,
-                                        .point_size_worst = 2,
-                                        .title = "Hyperparameter Model Ranking & Selection",
-                                        .color_lab = "Failure Rate Rank",
-                                        .size_lab  = "Variability Rank",
-                                        .interactive = TRUE) {
+plot_parameter_ranking <- function(.data,
+                                   .metric,
+                                   .max_failure_rate = 1,
+                                   .point_alpha = 0.6,
+                                   .point_color_best = "#2C3E50",
+                                   .point_color_worst = "#E31A1C",
+                                   .point_size_best = 4,
+                                   .point_size_worst = 2,
+                                   .title = "Hyperparameter Ranking & Model Selection",
+                                   .color_lab = "Failure Rate Rank",
+                                   .size_lab  = "Variability Rank",
+                                   .interactive = TRUE) {
 
-    UseMethod("plot_tune_rank_parameters", .data)
+    UseMethod("plot_parameter_ranking", .data)
 }
 
 #' @export
-plot_tune_rank_parameters.rolling_origin <- function(.data,
-                                                       .point_alpha = 0.6,
-                                                       .point_color_best = "#2C3E50",
-                                                       .point_color_worst = "#E31A1C",
-                                                       .point_size_best = 4,
-                                                       .point_size_worst = 2,
-                                                       .title = "Hyperparameter Model Ranking & Selection",
-                                                       .color_lab = "Failure Rate Rank",
-                                                       .size_lab  = "Variability Rank",
-                                                       .interactive = TRUE) {
+plot_parameter_ranking.tune_results <- function(.data,
+                                                  .metric,
+                                                  .max_failure_rate = 1,
+                                                  .point_alpha = 0.6,
+                                                  .point_color_best = "#2C3E50",
+                                                  .point_color_worst = "#E31A1C",
+                                                  .point_size_best = 4,
+                                                  .point_size_worst = 2,
+                                                  .title = "Hyperparameter Ranking & Model Selection",
+                                                  .color_lab = "Failure Rate Rank",
+                                                  .size_lab  = "Variability Rank",
+                                                  .interactive = TRUE) {
 
-    rlang::abort("Please use 'tk_tune_rank_parameters()' first.")
+    data_formatted <- tk_parameter_ranking(.data, .metric = .metric, .max_failure_rate = .max_failure_rate)
+
+    plot_parameter_ranking.data.frame(
+        .data              = data_formatted,
+        .point_alpha       = .point_alpha,
+        .point_color_best  = .point_color_best,
+        .point_color_worst = .point_color_worst,
+        .point_size_best   = .point_size_best,
+        .point_size_worst  = .point_size_worst,
+        .title             = .title,
+        .color_lab         = .color_lab,
+        .size_lab          = .size_lab,
+        .interactive       = .interactive
+    )
 
 }
 
+# #' @export
+# plot_parameter_ranking.rolling_origin <- function(.data,
+#                                                   .metric,
+#                                                   .max_failure_rate = 1,
+#                                                   .point_alpha = 0.6,
+#                                                   .point_color_best = "#2C3E50",
+#                                                   .point_color_worst = "#E31A1C",
+#                                                   .point_size_best = 4,
+#                                                   .point_size_worst = 2,
+#                                                   .title = "Hyperparameter Ranking & Model Selection",
+#                                                   .color_lab = "Failure Rate Rank",
+#                                                   .size_lab  = "Variability Rank",
+#                                                   .interactive = TRUE) {
+#
+#     rlang::abort("Please use 'tk_tune_rank_parameters()' first.")
+#
+# }
+
+# #' @export
+# plot_parameter_ranking.time_series_cv <- function(.data,
+#                                                   .metric,
+#                                                   .max_failure_rate = 1,
+#                                                   .point_alpha = 0.6,
+#                                                   .point_color_best = "#2C3E50",
+#                                                   .point_color_worst = "#E31A1C",
+#                                                   .point_size_best = 4,
+#                                                   .point_size_worst = 2,
+#                                                   .title = "Hyperparameter Ranking & Model Selection",
+#                                                   .color_lab = "Failure Rate Rank",
+#                                                   .size_lab  = "Variability Rank",
+#                                                   .interactive = TRUE) {
+#
+#     rlang::abort("Please use 'tk_tune_rank_parameters()' first.")
+#
+# }
+
 #' @export
-plot_tune_rank_parameters.time_series_cv <- function(.data,
-                                                       .point_alpha = 0.6,
-                                                       .point_color_best = "#2C3E50",
-                                                       .point_color_worst = "#E31A1C",
-                                                       .point_size_best = 4,
-                                                       .point_size_worst = 2,
-                                                       .title = "Hyperparameter Model Ranking & Selection",
-                                                       .color_lab = "Failure Rate Rank",
-                                                       .size_lab  = "Variability Rank",
-                                                       .interactive = TRUE) {
-
-    rlang::abort("Please use 'tk_tune_rank_parameters()' first.")
-
-}
-
-#' @export
-plot_tune_rank_parameters.data.frame <- function(.data,
-                                                   .point_alpha = 0.6,
-                                                   .point_color_best = "#2C3E50",
-                                                   .point_color_worst = "#E31A1C",
-                                                   .point_size_best = 4,
-                                                   .point_size_worst = 2,
-                                                   .title = "Hyperparameter Model Ranking & Selection",
-                                                   .color_lab = "Failure Rate Rank",
-                                                   .size_lab  = "Variability Rank",
-                                                   .interactive = TRUE) {
+plot_parameter_ranking.data.frame <- function(.data,
+                                              .metric,
+                                              .max_failure_rate = 1,
+                                              .point_alpha = 0.6,
+                                              .point_color_best = "#2C3E50",
+                                              .point_color_worst = "#E31A1C",
+                                              .point_size_best = 4,
+                                              .point_size_worst = 2,
+                                              .title = "Hyperparameter Ranking & Model Selection",
+                                              .color_lab = "Failure Rate Rank",
+                                              .size_lab  = "Variability Rank",
+                                              .interactive = TRUE) {
 
     # Checks
 
