@@ -5,7 +5,7 @@
 \title{Visualize a Time Series Resample Plan}
 \usage{
 plot_time_series_cv_plan(
-  .rset,
+  .data,
   .date_var,
   .value,
   ...,
@@ -14,7 +14,7 @@ plot_time_series_cv_plan(
 )
 }
 \arguments{
-\item{.rset}{A time series resample specification of of either \code{rolling_origin}
+\item{.data}{A time series resample specification of of either \code{rolling_origin}
 or \code{time_series_cv} class or a data frame (tibble) that has been prepared
 using \code{\link[=tk_time_series_cv_plan]{tk_time_series_cv_plan()}}.}
 
