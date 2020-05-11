@@ -86,6 +86,7 @@ These should not be of major impact since the 1.0.0 version was just released.
 * Renamed `roll_apply_vec()` to `slidify_vec()` for consistency with `slidify()` & relationship to `slider` R package
 * Renamed `step_roll_apply` to `step_slidify()` for consistency with `slidify()` & relationship to `slider` R package
 * Renamed `tk_augment_roll_apply` to `tk_augment_slidify()` for consistency with `slidify()` & relationship to `slider` R package
+* `plot_time_series_cv_plan()` and `tk_time_series_cv_plan()`: Changed argument from `.rset` to `.data`. 
 
 
 # timetk 1.0.0 

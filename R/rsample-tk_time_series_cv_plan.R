@@ -4,7 +4,7 @@
 #' prepare a time series resample specification (`rset`) of either `rolling_origin`
 #' or `time_series_cv` class.
 #'
-#' @param .rset A time series resample specification of of either `rolling_origin`
+#' @param .data A time series resample specification of of either `rolling_origin`
 #' or `time_series_cv` class.
 #'
 #' @details
@@ -40,28 +40,28 @@
 #' resample_spec %>% tk_time_series_cv_plan()
 #'
 #' @export
-tk_time_series_cv_plan <- function(.rset) {
-    UseMethod("tk_time_series_cv_plan", .rset)
+tk_time_series_cv_plan <- function(.data) {
+    UseMethod("tk_time_series_cv_plan", .data)
 }
 
 #' @export
-tk_time_series_cv_plan.rolling_origin <- function(.rset) {
-    time_series_cv_plan(.rset)
+tk_time_series_cv_plan.rolling_origin <- function(.data) {
+    time_series_cv_plan(.data)
 }
 
 #' @export
-tk_time_series_cv_plan.time_series_cv <- function(.rset) {
-    time_series_cv_plan(.rset)
+tk_time_series_cv_plan.time_series_cv <- function(.data) {
+    time_series_cv_plan(.data)
 }
 
 #' @export
-tk_time_series_cv_plan.default <- function(.rset) {
-    rlang::abort("tk_time_series_cv_plan: No method for class, ", class(.rset)[1])
+tk_time_series_cv_plan.default <- function(.data) {
+    rlang::abort("tk_time_series_cv_plan: No method for class, ", class(.data)[1])
 }
 
-time_series_cv_plan <- function(.rset) {
+time_series_cv_plan <- function(.data) {
 
-    .rset %>%
+    .data %>%
         # Prevent name collisions
         dplyr::rename(.splits = splits, .id = id) %>%
 

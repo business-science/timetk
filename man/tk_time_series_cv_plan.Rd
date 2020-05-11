@@ -4,10 +4,10 @@
 \alias{tk_time_series_cv_plan}
 \title{Time Series Resample Plan Data Preparation}
 \usage{
-tk_time_series_cv_plan(.rset)
+tk_time_series_cv_plan(.data)
 }
 \arguments{
-\item{.rset}{A time series resample specification of of either \code{rolling_origin}
+\item{.data}{A time series resample specification of of either \code{rolling_origin}
 or \code{time_series_cv} class.}
 }
 \description{
