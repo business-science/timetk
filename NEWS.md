@@ -19,7 +19,7 @@ Research
 __New Interactive Plotting Functions__
 
 * `plot_anomaly_diagnostics()`: Visualize Anomalies for One or More Time Series
-* `plot_tune_rank_parameters()`: Plots the ranked hyperparameter tuning result output from `tk_tune_rank_parameters()`
+* `plot_parameter_ranking()`: Plots the ranked hyperparameter tuning result output from `tk_parameter_ranking()`
 
 __New Data Wrangling Functions__
 
@@ -42,8 +42,8 @@ __New Recipes Preprocessing Steps__:
 
 __New Tune Parameter Ranking and Selection Tools__:
 
-- `tk_tune_rank_parameters` - Ranks parameters using tune error metrics (model accuracy), failure rates (model robustness), and standard error (model variability)
-- `tk_tune_select_parameters` - Selection tool for ranked parameters.
+- `tk_parameter_ranking` - Ranks parameters using tune error metrics (model accuracy), failure rates (model robustness), and standard error (model variability)
+- `tk_parameter_select_by_row` - Selection tool for ranked parameters.
 
 __New Parsing Functions__
 
@@ -58,7 +58,8 @@ __Improvements__:
 
 __Bug Fixes__:
 
-* `plot_time_series()`: Fix name collision when `.value = .value`. 
+* `plot_time_series()`: 
+    - Fix name collision when `.value = .value`. 
 * `tk_make_future_timeseries()`: 
     - Respect timezones
 * `time_series_cv()`: 
