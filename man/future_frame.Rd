@@ -117,8 +117,7 @@ holidays <- tk_make_holiday_sequence(
 
 FANG \%>\%
     group_by(symbol) \%>\%
-    future_frame(.date_var         = date,
-                 .length_out       = "1 year",
+    future_frame(.length_out       = "1 year",
                  .inspect_weekdays = TRUE,
                  .skip_values      = holidays)
 

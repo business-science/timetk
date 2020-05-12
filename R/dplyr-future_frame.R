@@ -93,8 +93,7 @@
 #'
 #' FANG %>%
 #'     group_by(symbol) %>%
-#'     future_frame(.date_var         = date,
-#'                  .length_out       = "1 year",
+#'     future_frame(.length_out       = "1 year",
 #'                  .inspect_weekdays = TRUE,
 #'                  .skip_values      = holidays)
 #'
@@ -111,7 +110,9 @@ future_frame <- function(.data, .date_var, .length_out,
 
     # Checks
     if (rlang::is_missing(.data)) rlang::abort("`.data` is missing.")
-    if (rlang::quo_is_missing(enquo(.date_var))) rlang::abort(".date_var is missing.")
+    if (rlang::quo_is_missing(rlang::enquo(.date_var))) {
+        message(".date_var is missing. Using: ", tk_get_timeseries_variables(.data)[1])
+    }
     if (rlang::is_missing(.length_out)) rlang::abort("`.length_out` is missing.")
 
     UseMethod("future_frame")
@@ -124,23 +125,15 @@ future_frame.data.frame <- function(.data, .date_var, .length_out,
                                     .inspect_weekdays = FALSE, .inspect_months = FALSE,
                                     .skip_values = NULL, .insert_values = NULL) {
 
-    date_var_expr <- rlang::enquo(.date_var)
+    future_framer(.data             = .data,
+                  .date_var         = !! enquo(.date_var),
+                  .length_out       = .length_out,
+                  .inspect_weekdays = .inspect_weekdays,
+                  .inspect_months   = .inspect_months,
+                  .skip_values      = .skip_values,
+                  .insert_values    = .insert_values)
 
-    idx      <- .data %>% dplyr::pull(!! date_var_expr)
-    idx_name <- rlang::quo_name(date_var_expr)
 
-    idx_future <- tk_make_future_timeseries(
-        idx              = idx,
-        length_out       = .length_out,
-        inspect_weekdays = .inspect_weekdays,
-        inspect_months   = .inspect_months,
-        skip_values      = .skip_values,
-        insert_values    = .insert_values
-    )
-
-    tibble::tibble(
-        !! idx_name := idx_future
-    )
 
 }
 
@@ -156,7 +149,7 @@ future_frame.grouped_df <- function(.data, .date_var, .length_out,
         tidyr::nest() %>%
         dplyr::mutate(nested.col = purrr::map(
             .x         = data,
-            .f         = function(df) future_frame(
+            .f         = function(df) future_framer(
                 .data             = df,
                 .date_var         = !! enquo(.date_var),
                 .length_out       = .length_out,
@@ -178,4 +171,37 @@ future_frame.default <- function(.data, .date_var, .length_out,
                                  .inspect_weekdays = FALSE, .inspect_months = FALSE,
                                  .skip_values = NULL, .insert_values = NULL) {
     rlang::abort("Object is not of class `data.frame`.")
+}
+
+# UTILITIES ----
+
+future_framer <- function(.data, .date_var, .length_out,
+                          .inspect_weekdays = FALSE, .inspect_months = FALSE,
+                          .skip_values = NULL, .insert_values = NULL) {
+
+    date_var_expr <- rlang::enquo(.date_var)
+
+    if (rlang::quo_is_missing(date_var_expr)) {
+        # print(tk_get_timeseries_variables(.data)[1])
+        date_var_expr <- rlang::sym(tk_get_timeseries_variables(.data)[1])
+    }
+
+    idx      <- .data %>% dplyr::pull(!! date_var_expr)
+    idx_name <- rlang::quo_name(date_var_expr)
+
+    idx_future <- tk_make_future_timeseries(
+        idx              = idx,
+        length_out       = .length_out,
+        inspect_weekdays = .inspect_weekdays,
+        inspect_months   = .inspect_months,
+        skip_values      = .skip_values,
+        insert_values    = .insert_values
+    )
+
+    ret <- tibble::tibble(
+        !! idx_name := idx_future
+    )
+
+    return(ret)
+
 }
