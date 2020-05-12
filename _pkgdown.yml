@@ -74,7 +74,6 @@ reference:
     contents:
     - "between_time"
     - "add_time"
-    - "parse_date2"
   - title: Vectorized Transformations
     desc: __Use with `mutate` to apply vectorized transformations to time series data__
     contents:
@@ -189,5 +188,9 @@ reference:
     - "bike_sharing_daily"
     - "taylor_30_min"
     - "arima_workflow_tuned"
+  - title: Date Utilities
+    contents:
+    - "parse_date2"
+    - "is_date_class"
 
 
