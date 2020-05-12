@@ -77,7 +77,7 @@ missing_data_tbl \%>\%
 # --- GROUPS ----
 FANG \%>\%
     group_by(symbol) \%>\%
-    pad_by_time(date, .by = "day")
+    pad_by_time(.by = "day")
 
 }
 \references{

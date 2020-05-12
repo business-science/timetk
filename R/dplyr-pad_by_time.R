@@ -81,7 +81,7 @@
 #' # --- GROUPS ----
 #' FANG %>%
 #'     group_by(symbol) %>%
-#'     pad_by_time(date, .by = "day")
+#'     pad_by_time(.by = "day")
 #'
 #' @name pad_by_time
 #' @export
@@ -111,7 +111,7 @@ pad_by_time.grouped_df <- function(.data, .date_var, .by = "auto", .pad_value = 
     date_var_expr <- rlang::enquo(.date_var)
 
     if (rlang::quo_is_missing(rlang::enquo(.date_var))) {
-        date_var_expr <- rlang::ensym(tk_get_timeseries_variables(.data)[1])
+        date_var_expr <- rlang::sym(tk_get_timeseries_variables(.data)[1])
     }
 
 
