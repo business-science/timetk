@@ -64,6 +64,21 @@ tk_get_timeseries_unit_frequency <- function() {
 }
 
 
+#' Check if an object is a date class
+#'
+#' @param x A vector to check
+#'
+#' @return Logical (TRUE/FALSE)
+#'
+#' @examples
+#' library(dplyr)
+#'
+#' tk_make_timeseries("2011") %>% is_date_class()
+#'
+#' letters %>% is_date_class()
+#'
+#'
+#' @export
 is_date_class <- function(x) {
     classes <- class(x)
 
