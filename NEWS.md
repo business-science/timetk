@@ -6,11 +6,8 @@ SMALLER ITEMS:
 1. Missing value diagnostics
 2. tsibble integration
 
-Steps:
-- step_pad_by_time
-
-
-- Tests (Boooo)
+TESTS (Boooo)
+- Wait until timetk has stabilized
 
 Research
 - Weather?
@@ -61,6 +58,7 @@ __Improvements__:
 
 __Bug Fixes__:
 
+* `plot_time_series()`: Fix name collision when `.value = .value`. 
 * `tk_make_future_timeseries()`: 
     - Respect timezones
 * `time_series_cv()`: 

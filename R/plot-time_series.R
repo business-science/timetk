@@ -281,6 +281,11 @@ plot_time_series.data.frame <- function(.data, .date_var, .value, ..., .color_va
             dplyr::ungroup()
     }
 
+    # If .value exists, remove it
+    if (any(".value" %in% names(data_formatted))) {
+        data_formatted <- data_formatted %>%
+            dplyr::select(-.value)
+    }
 
 
     # ---- PLOT SETUP ----
