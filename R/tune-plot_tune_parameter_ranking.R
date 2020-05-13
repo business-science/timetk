@@ -170,6 +170,7 @@ plot_parameter_ranking.data.frame <- function(.data,
 
     nms <- colnames(data_formatted)
     remove_names <- (nms %in% ".metric") %>% cumsum() %>% as.logical()
+    remove_names[1] <-  TRUE #.row_id
     nms_to_keep  <- nms[!remove_names]
 
     txt <- nms_to_keep %>%
@@ -181,7 +182,9 @@ plot_parameter_ranking.data.frame <- function(.data,
 
     data_formatted <- data_formatted %>%
         dplyr::mutate(.param_txt = stringr::str_glue(txt)) %>%
-        dplyr::mutate(.txt = stringr::str_glue("Parameters:
+        dplyr::mutate(.txt = stringr::str_glue("Row ID: {.row_id}
+                             ---
+                             Parameters:
                              {.param_txt}
                              ---
                              mean_err: {round(mean, 2)}

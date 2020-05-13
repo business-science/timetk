@@ -63,6 +63,6 @@ arima_workflow_tuned \%>\%
 # PARAMETER SELECTION ----
 arima_workflow_tuned \%>\%
     tk_parameter_ranking(.max_failure_rate = 1) \%>\%
-    tk_parameter_select_by_row(.n = 3)
+    tk_parameter_select_by_row(.row_id = 3)
 
 }

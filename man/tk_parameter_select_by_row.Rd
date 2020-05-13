@@ -4,12 +4,12 @@
 \alias{tk_parameter_select_by_row}
 \title{Select Hyperparameters}
 \usage{
-tk_parameter_select_by_row(.data, .n = 1)
+tk_parameter_select_by_row(.data, .row_id = 1)
 }
 \arguments{
 \item{.data}{A \code{tibble} of class "tune_results"}
 
-\item{.n}{Row to select from the model ranking}
+\item{.row_id}{A numeric Row ID to select from the model ranking}
 }
 \value{
 A \code{tibble} or \code{data.frame} with parameter values.
@@ -33,6 +33,6 @@ arima_workflow_tuned \%>\%
 # PARAMETER SELECTION ----
 arima_workflow_tuned \%>\%
     tk_parameter_ranking(.max_failure_rate = 1) \%>\%
-    tk_parameter_select_by_row(.n = 3)
+    tk_parameter_select_by_row(.row_id = 3)
 
 }

@@ -53,7 +53,7 @@
 #' # PARAMETER SELECTION ----
 #' arima_workflow_tuned %>%
 #'     tk_parameter_ranking(.max_failure_rate = 1) %>%
-#'     tk_parameter_select_by_row(.n = 3)
+#'     tk_parameter_select_by_row(.row_id = 3)
 #'
 #' @name tk_parameter_ranking
 #' @export
@@ -100,7 +100,8 @@ tk_parameter_ranking.tune_results <- function(.data, .metric, .max_failure_rate 
             dplyr::mutate(.rank_std_err = seq(1, dplyr::n())) %>%
 
             # Arrange by metric
-            dplyr::arrange(.rank_metric)
+            dplyr::arrange(.rank_metric) %>%
+            tibble::rowid_to_column(var = ".row_id")
 
         return(data_formatted)
 
@@ -120,7 +121,7 @@ tk_parameter_ranking.tune_results <- function(.data, .metric, .max_failure_rate 
 #' makes it easy to select the n-th model.
 #'
 #' @param .data A `tibble` of class "tune_results"
-#' @param .n Row to select from the model ranking
+#' @param .row_id A numeric Row ID to select from the model ranking
 #'
 #' @return A `tibble` or `data.frame` with parameter values.
 #'
@@ -139,37 +140,38 @@ tk_parameter_ranking.tune_results <- function(.data, .metric, .max_failure_rate 
 #' # PARAMETER SELECTION ----
 #' arima_workflow_tuned %>%
 #'     tk_parameter_ranking(.max_failure_rate = 1) %>%
-#'     tk_parameter_select_by_row(.n = 3)
+#'     tk_parameter_select_by_row(.row_id = 3)
 #'
 #' @name tk_parameter_select_by_row
 #' @export
-tk_parameter_select_by_row <- function(.data, .n = 1) {
+tk_parameter_select_by_row <- function(.data, .row_id = 1) {
     UseMethod("tk_parameter_select_by_row", .data)
 }
 
 #' @export
-tk_parameter_select_by_row.default <- function(.data, .n = 1) {
+tk_parameter_select_by_row.default <- function(.data, .row_id = 1) {
     rlang::abort("No method for class: ", class(.data)[[1]])
 }
 
 #' @export
-tk_parameter_select_by_row.tune_results <- function(.data, .n = 1) {
-    message("Ranking Not Detected: Tune results are expected to be ranked with 'tk_parameter_ranking()' first. Reverting to tune::select_best(). '.n' argument not being used.")
+tk_parameter_select_by_row.tune_results <- function(.data, .row_id = 1) {
+    message("Ranking Not Detected: Tune results are expected to be ranked with 'tk_parameter_ranking()' first. Reverting to tune::select_best(). '.row_id' argument not being used.")
     tune::select_best(.data, metric = tune_results_pull_metric(.data, .n_metric = 1))
 }
 
 #' @export
-tk_parameter_select_by_row.data.frame <- function(.data, .n = 1) {
+tk_parameter_select_by_row.data.frame <- function(.data, .row_id = 1) {
 
     nms <- names(.data)
 
     # Locate .metric column and remove everything after
-    remove_names <- (nms %in% ".metric") %>% cumsum() %>% as.logical()
-    nms_to_keep  <- nms[!remove_names]
+    remove_names    <- (nms %in% ".metric") %>% cumsum() %>% as.logical()
+    remove_names[1] <-  TRUE #.row_id
+    nms_to_keep     <- nms[!remove_names]
 
     .data %>%
         dplyr::select(!!! rlang::syms(nms_to_keep)) %>%
-        dplyr::slice(.n)
+        dplyr::filter(.row_id == .row_id)
 
 }
 
