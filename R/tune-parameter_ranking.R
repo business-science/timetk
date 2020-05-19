@@ -162,16 +162,19 @@ tk_parameter_select_by_row.tune_results <- function(.data, .row_id = 1) {
 #' @export
 tk_parameter_select_by_row.data.frame <- function(.data, .row_id = 1) {
 
+    # Setup
+    id  <- as.character(.row_id)
     nms <- names(.data)
 
     # Locate .metric column and remove everything after
     remove_names    <- (nms %in% ".metric") %>% cumsum() %>% as.logical()
-    remove_names[1] <-  TRUE #.row_id
     nms_to_keep     <- nms[!remove_names]
 
     .data %>%
         dplyr::select(!!! rlang::syms(nms_to_keep)) %>%
-        dplyr::filter(.row_id == .row_id)
+        dplyr::mutate(.row_id = as.character(.row_id)) %>%
+        dplyr::filter(.row_id == id) %>%
+        dplyr::select(-.row_id)
 
 }
 
