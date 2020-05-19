@@ -181,6 +181,7 @@ bake.step_box_cox <- function(object, new_data, ...) {
     tibble::as_tibble(new_data)
 }
 
+#' @export
 print.step_box_cox <-
     function(x, width = max(20, options()$width - 35), ...) {
         cat("Box-Cox transformation on ", sep = "")

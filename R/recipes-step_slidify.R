@@ -272,7 +272,7 @@ bake.step_slidify <- function(object, new_data, ...) {
     new_data
 }
 
-
+#' @export
 print.step_slidify <-
     function(x, width = max(20, options()$width - 35), ...) {
         cat("Rolling Apply on ")

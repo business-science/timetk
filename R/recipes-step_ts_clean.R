@@ -186,12 +186,12 @@ bake.step_ts_clean <- function(object, new_data, ...) {
     tibble::as_tibble(new_data)
 }
 
-print.step_ts_clean <-
-    function(x, width = max(20, options()$width - 35), ...) {
-        cat("Time Series Outlier Cleaning on ", sep = "")
-        printer(names(x$lambdas_trained), x$terms, x$trained, width = width)
-        invisible(x)
-    }
+#' @export
+print.step_ts_clean <- function(x, width = max(20, options()$width - 35), ...) {
+    cat("Time Series Outlier Cleaning on ", sep = "")
+    printer(names(x$lambdas_trained), x$terms, x$trained, width = width)
+    invisible(x)
+}
 
 
 

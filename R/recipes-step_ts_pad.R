@@ -216,12 +216,11 @@ bake.step_ts_pad <- function(object, new_data, ...) {
 
 
 #' @export
-print.step_ts_pad <-
-    function(x, width = max(20, options()$width - 29), ...) {
-        cat("Padded time series features from ")
-        recipes::printer(x$columns, x$terms, x$trained, width = width)
-        invisible(x)
-    }
+print.step_ts_pad <- function(x, width = max(20, options()$width - 29), ...) {
+    cat("Padded time series features from ")
+    recipes::printer(x$columns, x$terms, x$trained, width = width)
+    invisible(x)
+}
 
 #' @rdname step_ts_pad
 #' @param x A `step_ts_pad` object.

@@ -26,8 +26,10 @@
 #'  conducted on new data (e.g. processing the outcome variable(s)).
 #'  Care should be taken when using `skip = TRUE` as it may affect
 #'  the computations for subsequent operations
+#'
 #' @return An updated version of `recipe` with the
 #'   new step added to the sequence of existing steps (if any).
+#'
 #' @details The step assumes that the data are already _in the proper sequential
 #'  order_ for lagging.
 #'
@@ -175,6 +177,7 @@ bake.step_diff <- function(object, new_data, ...) {
     tibble::as_tibble(dplyr::mutate(new_data, !!!calls))
 }
 
+#' @export
 print.step_diff <-
     function(x, width = max(20, options()$width - 30), ...) {
         cat("Differencing ",  sep = "")

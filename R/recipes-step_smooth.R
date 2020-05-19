@@ -283,7 +283,7 @@ bake.step_smooth <- function(object, new_data, ...) {
     new_data
 }
 
-
+#' @export
 print.step_smooth <-
     function(x, width = max(20, options()$width - 35), ...) {
         cat("Smoother: Local Polynomial Regression Fitting (Loess) on ")
