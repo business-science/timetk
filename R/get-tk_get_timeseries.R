@@ -174,14 +174,11 @@ get_timeseries_summary_date <- function(idx) {
     idx_diff <- diff(idx_numeric)
     idx_diff_summary <- idx_diff %>%
         summary() %>%
-        broom::tidy() %>%
-        tibble::as_tibble()
-        # dplyr::bind_cols() %>%
-        # purrr::set_names(
-        #     c("minimum", "q1", "median", "mean", "q3", "maximum")
-        # )
-
-    colnames(idx_diff_summary) <- stringr::str_c("diff.", colnames(idx_diff_summary), sep = "")
+        as.list() %>%
+        purrr::set_names(
+            c("diff.minimum", "diff.q1", "diff.median", "diff.mean", "diff.q3", "diff.maximum")
+        ) %>%
+        purrr::map_df(~ .x)
 
     idx_periodicity <- xts::periodicity(idx)
     idx_period_summary <- tibble::tibble(
