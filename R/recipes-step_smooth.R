@@ -107,13 +107,10 @@
 #'     filter(symbol == "FB") %>%
 #'     select(symbol, date, adjusted)
 #'
-#' # New Data
+#' # New Data - Make some fake new data next 90 time stamps
 #' new_data <- FB_tbl %>%
-#'     tk_index() %>%
-#'     tk_make_future_timeseries(n_future = 90) %>%
-#'     tibble(date = .)  %>%
-#'     mutate(date = date) %>%
-#'     bind_cols(FB_tbl %>% slice((n() - 90 + 1):n()))
+#'     tail(90) %>%
+#'     mutate(date = date %>% tk_make_future_timeseries(length_out = 90))
 #'
 #' # ---- PERIOD ----
 #'

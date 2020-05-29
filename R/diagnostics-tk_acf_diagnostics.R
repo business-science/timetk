@@ -100,8 +100,9 @@ tk_acf_diagnostics <- function(.data, .date_var, .value, ..., .lags = 1000) {
 tk_acf_diagnostics.data.frame <- function(.data, .date_var, .value, ..., .lags = 1000) {
 
     # Tidyeval Setup
-    value_expr <- rlang::enquo(.value)
-    dots_exprs <- rlang::enquos(...)
+    date_var_expr <- rlang::enquo(.date_var)
+    value_expr    <- rlang::enquo(.value)
+    dots_exprs    <- rlang::enquos(...)
 
     # Apply transformations
     .data <- .data %>% dplyr::mutate(.value_mod = !! value_expr)
@@ -109,9 +110,9 @@ tk_acf_diagnostics.data.frame <- function(.data, .date_var, .value, ..., .lags =
     # Convert character lags to numeric
     if (is.character(.lags)) {
         tryCatch({
-            idx   <- .data %>% dplyr::pull(!! rlang::enquo(.date_var))
+            idx   <- .data %>% dplyr::pull(!! date_var_expr)
             row_count <- .data %>%
-                filter_by_time(!! rlang::enquo(.date_var), "start", idx[1] %+time% .lags) %>%
+                filter_by_time(!! date_var_expr, "start", idx[1] %+time% .lags) %>%
                 nrow()
 
             .lags <- row_count - 1
@@ -187,8 +188,14 @@ tk_acf_diagnostics.data.frame <- function(.data, .date_var, .value, ..., .lags =
     ret <- tibble::tibble(
         ACF  = acf_values,
         PACF = pacf_values
-    ) %>%
-        dplyr::bind_cols(ccf_tbl) %>%
+    )
+
+    if (nrow(ret) == nrow(ccf_tbl)) {
+        ret <- ret %>%
+            dplyr::bind_cols(ccf_tbl)
+    }
+
+    ret <- ret %>%
         tibble::rowid_to_column(var = "lag") %>%
         dplyr::mutate(lag = lag - 1) %>%
         dplyr::filter(lag %in% .lags)

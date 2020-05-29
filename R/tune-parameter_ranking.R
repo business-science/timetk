@@ -81,7 +81,7 @@ tk_parameter_ranking.tune_results <- function(.data, .metric, .max_failure_rate 
     data_formatted <- data_formatted %>%
         tune::show_best(.metric, n = Inf)
 
-    tryCatch({
+    data_formatted <- tryCatch({
         data_formatted <- data_formatted %>%
             # Failure Rate Calc
             dplyr::mutate(failure_rate = 1 - (n / slice_count)) %>%
@@ -103,12 +103,15 @@ tk_parameter_ranking.tune_results <- function(.data, .metric, .max_failure_rate 
             dplyr::arrange(.rank_metric) %>%
             tibble::rowid_to_column(var = ".row_id")
 
-        return(data_formatted)
+        data_formatted
 
     }, error = function(e) {
         warning(call. = FALSE, "Ranking calculations could not be performed. Possible issues are that model metrics do not produce columns 'std_err' or 'n'.")
-        return(data_formatted)
+        data_formatted
     })
+
+    return(data_formatted)
+
 
 }
 
