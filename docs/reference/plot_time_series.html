@@ -423,8 +423,11 @@ or a numeric value (e.g. <code>smooth_period = 365</code>).</p>
                      <span class='kw'>.interactive</span>  <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='plot_time_series-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Plotly - Interactive Visualization By Default (Great for Exploration)</span>
 <span class='no'>FANG</span> <span class='kw'>%&gt;%</span>
-    <span class='fu'>plot_time_series</span>(<span class='no'>date</span>, <span class='no'>adjusted</span>, <span class='no'>symbol</span>, <span class='kw'>.smooth_alpha</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>.plotly_slider</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-
+    <span class='fu'>plot_time_series</span>(<span class='no'>date</span>, <span class='no'>adjusted</span>, <span class='no'>symbol</span>, <span class='kw'>.smooth_alpha</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>.plotly_slider</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: `group_by_()` is deprecated as of dplyr 0.7.0.</span>
+#&gt; <span class='warning'>Please use `group_by()` instead.</span>
+#&gt; <span class='warning'>See vignette('programming') for more help</span>
+#&gt; <span class='warning'><span style='color: #555555;'>This warning is displayed once every 8 hours.</span><span></span>
+#&gt; <span class='warning'></span><span style='color: #555555;'>Call `lifecycle::last_warnings()` to see where this warning was generated.</span><span></span></div><div class='input'>
 <span class='co'># ggplot2 - static visualization (Great for PDF Reports)</span>
 <span class='no'>FANG</span> <span class='kw'>%&gt;%</span>
     <span class='fu'>plot_time_series</span>(
@@ -437,7 +440,7 @@ or a numeric value (e.g. <code>smooth_period = 365</code>).</p>
    <span class='fu'>scale_color_viridis_d</span>()</div><div class='output co'>#&gt; <span class='message'>Scale for 'colour' is already present. Adding another scale for 'colour',</span>
 #&gt; <span class='message'>which will replace the existing scale.</span></div><div class='img'><img src='plot_time_series-5.png' alt='' width='700' height='433' /></div><div class='input'>
 
-</div></pre>
+</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

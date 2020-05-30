@@ -186,7 +186,7 @@ of the cross validation on the most recent time series data." />
     <p>Create <code>rsample</code> cross validation sets for time series.
 This function produces a sampling plan starting with the most recent
 time series observations, rolling backwards. The sampling procedure
-is similar to <code><a href='https://tidymodels.github.io/rsample/reference/rolling_origin.html'>rsample::rolling_origin()</a></code>, but places the focus
+is similar to <code><a href='https://rsample.tidymodels.org/reference/rolling_origin.html'>rsample::rolling_origin()</a></code>, but places the focus
 of the cross validation on the most recent time series data.</p>
     </div>
 
@@ -241,7 +241,7 @@ size specified by <code>initial</code> at each resample?.</p></td>
     </tr>
     <tr>
       <th>slice_limit</th>
-      <td><p>The number of slices to return. Set to <code><a href='https://dplyr.tidyverse.org/reference/n.html'>dplyr::n()</a></code>,
+      <td><p>The number of slices to return. Set to <code><a href='https://dplyr.tidyverse.org/reference/context.html'>dplyr::n()</a></code>,
 which returns the maximum number of slices.</p></td>
     </tr>
     <tr>
@@ -293,7 +293,7 @@ set and resampling occurs over a fixed window.</p>
 
     <div class='dont-index'>
 <ul>
-<li><p><code>time_series_cv()</code> and <code><a href='https://tidymodels.github.io/rsample/reference/rolling_origin.html'>rsample::rolling_origin()</a></code> - Functions used to create
+<li><p><code>time_series_cv()</code> and <code><a href='https://rsample.tidymodels.org/reference/rolling_origin.html'>rsample::rolling_origin()</a></code> - Functions used to create
 time series resample specfications.</p></li>
 <li><p><code><a href='plot_time_series_cv_plan.html'>plot_time_series_cv_plan()</a></code> - The plotting function used for visualizing the
 time series resample plan.</p></li>

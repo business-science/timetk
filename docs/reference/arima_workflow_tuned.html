@@ -226,10 +226,10 @@ M750 data set, which came from the M4 Forecast Competition.</p>
 <span class='no'>recipe_spec</span> <span class='kw'>&amp;</span><span class='no'>lt</span>;- <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/recipe.html'>recipe</a></span>(<span class='no'>value</span> ~ <span class='no'>date</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>m750</span>)
 
 <span class='co'># GRID SPEC ----</span>
-<span class='no'>arima_params</span> <span class='kw'>&amp;</span><span class='no'>lt</span>;- <span class='fu'><a href='https://rdrr.io/pkg/tune/man/reexports.html'>parameters</a></span>(<span class='fu'><a href='https://rdrr.io/pkg/modeltime/man/arima_params.html'>p</a></span>(), <span class='fu'><a href='https://rdrr.io/pkg/modeltime/man/arima_params.html'>d</a></span>(), <span class='fu'><a href='https://rdrr.io/pkg/modeltime/man/arima_params.html'>q</a></span>(), <span class='fu'><a href='https://rdrr.io/pkg/modeltime/man/arima_params.html'>P</a></span>(), <span class='fu'><a href='https://rdrr.io/pkg/modeltime/man/arima_params.html'>D</a></span>(), <span class='fu'><a href='https://rdrr.io/pkg/modeltime/man/arima_params.html'>Q</a></span>())
+<span class='no'>arima_params</span> <span class='kw'>&amp;</span><span class='no'>lt</span>;- <span class='fu'><a href='https://rdrr.io/pkg/tune/man/reexports.html'>parameters</a></span>(<span class='fu'>p</span>(), <span class='fu'>d</span>(), <span class='fu'><a href='https://rdrr.io/r/base/quit.html'>q</a></span>(), <span class='fu'>P</span>(), <span class='fu'><a href='https://rdrr.io/r/stats/deriv.html'>D</a></span>(), <span class='fu'>Q</span>())
 
 <span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>3</span>)
-<span class='no'>arima_grid</span> <span class='kw'>&amp;</span><span class='no'>lt</span>;- <span class='fu'><a href='https://rdrr.io/pkg/dials/man/grid_max_entropy.html'>grid_latin_hypercube</a></span>(<span class='no'>arima_params</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>50</span>)
+<span class='no'>arima_grid</span> <span class='kw'>&amp;</span><span class='no'>lt</span>;- <span class='fu'><a href='https://dials.tidymodels.org/reference/grid_max_entropy.html'>grid_latin_hypercube</a></span>(<span class='no'>arima_params</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>50</span>)
 
 
 <span class='co'># HYPER PARAMETER TUNING ----</span>

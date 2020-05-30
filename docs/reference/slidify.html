@@ -368,7 +368,13 @@ to rolling windows.</p></li>
     <span class='fu'><a href='tk_augment_slidify.html'>tk_augment_slidify</a></span>(
         <span class='no'>adjusted</span>, <span class='kw'>.period</span> <span class='kw'>=</span> <span class='fl'>5</span>:<span class='fl'>10</span>, <span class='kw'>.f</span> <span class='kw'>=</span> <span class='no'>mean</span>, <span class='kw'>.align</span> <span class='kw'>=</span> <span class='st'>"right"</span>,
         <span class='kw'>.names</span> <span class='kw'>=</span> <span class='fu'>str_c</span>(<span class='st'>"MA_"</span>, <span class='fl'>5</span>:<span class='fl'>10</span>)
-    )</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 1,008 x 9</span><span>
+    )</div><div class='output co'>#&gt; <span class='message'>New names:</span>
+#&gt; <span class='message'>* NA -&gt; ...1</span>
+#&gt; <span class='message'>* NA -&gt; ...2</span>
+#&gt; <span class='message'>* NA -&gt; ...3</span>
+#&gt; <span class='message'>* NA -&gt; ...4</span>
+#&gt; <span class='message'>* NA -&gt; ...5</span>
+#&gt; <span class='message'>* ...</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 1,008 x 9</span><span>
 #&gt;    symbol date       adjusted  MA_5  MA_6  MA_7  MA_8  MA_9 MA_10
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>        </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
 #&gt; </span><span style='color: #555555;'> 1</span><span> FB     2013-01-02     28    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>  

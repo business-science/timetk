@@ -176,7 +176,7 @@ results based on metric performance, model failure rates, and standard error (va
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Rank Hyperparameter Tuning Results</h1>
-    <small class="dont-index">Source: <a href='https://github.com/business-science/timetk/blob/master/R/tune-tk_tune_parameters.R'><code>R/tune-tk_tune_parameters.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/business-science/timetk/blob/master/R/tune-parameter_ranking.R'><code>R/tune-parameter_ranking.R</code></a></small>
     <div class="hidden name"><code>tk_parameter_ranking.Rd</code></div>
     </div>
 
@@ -245,25 +245,25 @@ the standard error ranking.</p><ul>
 #&gt; </span><span style='color: #555555;'>2</span><span> </span><span style='color: #555555;'>&lt;split [72/24]&gt;</span><span> Slice2 </span><span style='color: #555555;'>&lt;tibble [288 × 9]&gt;</span><span> </span><span style='color: #555555;'>&lt;tibble [2 × 1]&gt;</span><span></div><div class='input'>
 <span class='co'># PARAMETER RANKING ----</span>
 <span class='no'>arima_workflow_tuned</span> <span class='kw'>%&gt;%</span>
-    <span class='fu'>tk_parameter_ranking</span>(<span class='kw'>.max_failure_rate</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; <span class='message'>Using .metric = 'mae'</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 50 x 15</span><span>
-#&gt;        p     d     q     P     D     Q .metric .estimator  mean     n std_err
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span>     3     1     2     2     0     2 mae     standard    142.     1   </span><span style='color: #BB0000;'>NA</span><span>   
-#&gt; </span><span style='color: #555555;'> 2</span><span>     2     1     1     2     0     2 mae     standard    142.     1   </span><span style='color: #BB0000;'>NA</span><span>   
-#&gt; </span><span style='color: #555555;'> 3</span><span>     4     1     4     1     0     1 mae     standard    183.     2  108.  
-#&gt; </span><span style='color: #555555;'> 4</span><span>     2     1     1     1     0     1 mae     standard    190.     2  117.  
-#&gt; </span><span style='color: #555555;'> 5</span><span>     2     1     2     1     0     1 mae     standard    190.     2  117.  
-#&gt; </span><span style='color: #555555;'> 6</span><span>     2     0     3     0     1     0 mae     standard    203.     2   43.5 
-#&gt; </span><span style='color: #555555;'> 7</span><span>     1     0     4     1     0     0 mae     standard    207.     2    3.09
-#&gt; </span><span style='color: #555555;'> 8</span><span>     3     0     1     1     0     0 mae     standard    214.     2    1.50
-#&gt; </span><span style='color: #555555;'> 9</span><span>     3     0     4     1     0     1 mae     standard    224.     2   40.5 
-#&gt; </span><span style='color: #555555;'>10</span><span>     3     1     5     1     0     2 mae     standard    225.     2  151.  
-#&gt; </span><span style='color: #555555;'># … with 40 more rows, and 4 more variables: failure_rate </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
+    <span class='fu'>tk_parameter_ranking</span>(<span class='kw'>.max_failure_rate</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; <span class='message'>Using .metric = 'mae'</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 50 x 16</span><span>
+#&gt;    .row_id     p     d     q     P     D     Q .metric .estimator  mean     n
+#&gt;      </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span>       1     3     1     2     2     0     2 mae     standard    142.     1
+#&gt; </span><span style='color: #555555;'> 2</span><span>       2     2     1     1     2     0     2 mae     standard    142.     1
+#&gt; </span><span style='color: #555555;'> 3</span><span>       3     4     1     4     1     0     1 mae     standard    183.     2
+#&gt; </span><span style='color: #555555;'> 4</span><span>       4     2     1     1     1     0     1 mae     standard    190.     2
+#&gt; </span><span style='color: #555555;'> 5</span><span>       5     2     1     2     1     0     1 mae     standard    190.     2
+#&gt; </span><span style='color: #555555;'> 6</span><span>       6     2     0     3     0     1     0 mae     standard    203.     2
+#&gt; </span><span style='color: #555555;'> 7</span><span>       7     1     0     4     1     0     0 mae     standard    207.     2
+#&gt; </span><span style='color: #555555;'> 8</span><span>       8     3     0     1     1     0     0 mae     standard    214.     2
+#&gt; </span><span style='color: #555555;'> 9</span><span>       9     3     0     4     1     0     1 mae     standard    224.     2
+#&gt; </span><span style='color: #555555;'>10</span><span>      10     3     1     5     1     0     2 mae     standard    225.     2
+#&gt; </span><span style='color: #555555;'># … with 40 more rows, and 5 more variables: std_err </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, failure_rate </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
 #&gt; </span><span style='color: #555555;'>#   .rank_metric </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>, .rank_failure_rate </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>, .rank_std_err </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span></div><div class='input'>
 <span class='co'># PARAMETER SELECTION ----</span>
 <span class='no'>arima_workflow_tuned</span> <span class='kw'>%&gt;%</span>
     <span class='fu'>tk_parameter_ranking</span>(<span class='kw'>.max_failure_rate</span> <span class='kw'>=</span> <span class='fl'>1</span>) <span class='kw'>%&gt;%</span>
-    <span class='fu'><a href='tk_parameter_select_by_row.html'>tk_parameter_select_by_row</a></span>(<span class='kw'>.n</span> <span class='kw'>=</span> <span class='fl'>3</span>)</div><div class='output co'>#&gt; <span class='message'>Using .metric = 'mae'</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 1 x 6</span><span>
+    <span class='fu'><a href='tk_parameter_select_by_row.html'>tk_parameter_select_by_row</a></span>(<span class='kw'>.row_id</span> <span class='kw'>=</span> <span class='fl'>3</span>)</div><div class='output co'>#&gt; <span class='message'>Using .metric = 'mae'</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 1 x 6</span><span>
 #&gt;       p     d     q     P     D     Q
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
 #&gt; </span><span style='color: #555555;'>1</span><span>     4     1     4     1     0     1</div><div class='input'>
