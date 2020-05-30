@@ -12,6 +12,13 @@ TESTS (Boooo)
 Research
 - Weather?
 
+__New Tune Parameter Ranking and Selection Tools__:
+
+- `tk_parameter_ranking` - Ranks parameters using tune error metrics (model accuracy), failure rates (model robustness), and standard error (model variability)
+- `tk_parameter_select_by_row` - Selection tool for ranked parameters.
+
+* `plot_parameter_ranking()`: Plots the ranked hyperparameter tuning result output from `tk_parameter_ranking()`
+
 -->
 
 # timetk 1.0.0.9000
@@ -19,7 +26,6 @@ Research
 __New Interactive Plotting Functions__
 
 * `plot_anomaly_diagnostics()`: Visualize Anomalies for One or More Time Series
-* `plot_parameter_ranking()`: Plots the ranked hyperparameter tuning result output from `tk_parameter_ranking()`
 
 __New Data Wrangling Functions__
 
@@ -40,10 +46,7 @@ __New Recipes Preprocessing Steps__:
 * `step_ts_pad()` - Preprocessing for padding time series data. Adds rows to fill in gaps and can be used with `step_ts_impute()` to interpolate going from low to high frequency!
 * `step_ts_clean()` - Preprocessing step for cleaning outliers and imputing missing values in a time series.
 
-__New Tune Parameter Ranking and Selection Tools__:
 
-- `tk_parameter_ranking` - Ranks parameters using tune error metrics (model accuracy), failure rates (model robustness), and standard error (model variability)
-- `tk_parameter_select_by_row` - Selection tool for ranked parameters.
 
 __New Parsing Functions__
 

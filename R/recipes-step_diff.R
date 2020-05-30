@@ -129,6 +129,9 @@ step_diff_new <-
 
 #' @export
 prep.step_diff <- function(x, training, info = NULL, ...) {
+
+    # TODO - PRESERVE INITIAL VALUES x[1:(lag * difference)]
+
     step_diff_new(
         terms       = x$terms,
         role        = x$role,

@@ -51,6 +51,7 @@ Suggests:
     tidyquant,
     workflows,
     parsnip,
+    tune,
     yardstick, 
     tidyverse,
     knitr,

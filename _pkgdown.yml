@@ -6,9 +6,9 @@ template:
 navbar:
   title: "timetk"
   left:
-    - text: "Home"
+    - icon: "fa-home"
       href: index.html
-    - text: "Tutorials"
+    - text: "Documentation"
       href: articles/index.html
       menu:
         - text: 'Visualization'
@@ -129,12 +129,12 @@ reference:
     contents:
     - "plot_time_series_cv_plan"
     - "tk_time_series_cv_plan"
-  - subtitle: Model Parameter Selection (Tune Results)
-    desc: Uses the output of `tune::tune_grid()`
-    contents:
-    - "plot_parameter_ranking"
-    - "tk_parameter_ranking"
-    - contains("tk_parameter_select")
+  # - subtitle: Model Parameter Selection (Tune Results)
+  #   desc: Uses the output of `tune::tune_grid()`
+  #   contents:
+  #   - "plot_parameter_ranking"
+  #   - "tk_parameter_ranking"
+  #   - contains("tk_parameter_select")
   - title: Index Operations
     desc: __Extract and check the date or date-time index.__
     contents:
