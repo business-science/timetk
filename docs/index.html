@@ -148,6 +148,7 @@
 <h2 class="hasAnchor">
 <a href="#mission" class="anchor"></a>Mission</h2>
 <p>To make it easy to <strong><em>visualize, wrangle and preprocess time series data</em></strong> for forecasting and machine learning prediction.</p>
+<p><img src="articles/timetk_version_2.jpg"><!-- --></p>
 </div>
 <div id="documentation" class="section level2">
 <h2 class="hasAnchor">
@@ -399,20 +400,20 @@
 <div class="sourceCode" id="cb1"><pre class="r"><span class="no">taylor_30_min</span> <span class="kw">%&gt;%</span>
     <span class="fu"><a href="reference/plot_time_series.html">plot_time_series</a></span>(<span class="no">date</span>, <span class="no">value</span>, <span class="kw">.color_var</span> <span class="kw">=</span> <span class="fu">week</span>(<span class="no">date</span>),
                      <span class="kw">.interactive</span> <span class="kw">=</span> <span class="fl">FALSE</span>, <span class="kw">.color_lab</span> <span class="kw">=</span> <span class="st">"Week"</span>)</pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-3-1.png"><!-- --></p>
+<p><img src="reference/figures/README-unnamed-chunk-4-1.png"><!-- --></p>
 <p>Visualize anomalies…</p>
 <div class="sourceCode" id="cb2"><pre class="r"><span class="no">walmart_sales_weekly</span> <span class="kw">%&gt;%</span>
     <span class="fu"><a href="reference/plot_anomaly_diagnostics.html">plot_anomaly_diagnostics</a></span>(<span class="no">Date</span>, <span class="no">Weekly_Sales</span>, <span class="no">Store</span>, <span class="no">Dept</span>,
                              <span class="kw">.facet_ncol</span> <span class="kw">=</span> <span class="fl">3</span>, <span class="kw">.interactive</span> <span class="kw">=</span> <span class="fl">FALSE</span>)</pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-4-1.png"><!-- --></p>
+<p><img src="reference/figures/README-unnamed-chunk-5-1.png"><!-- --></p>
 <p>Make a seasonality plot…</p>
 <div class="sourceCode" id="cb3"><pre class="r"><span class="no">taylor_30_min</span> <span class="kw">%&gt;%</span>
     <span class="fu"><a href="reference/plot_seasonal_diagnostics.html">plot_seasonal_diagnostics</a></span>(<span class="no">date</span>, <span class="no">value</span>, <span class="kw">.interactive</span> <span class="kw">=</span> <span class="fl">FALSE</span>)</pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-5-1.png"><!-- --></p>
+<p><img src="reference/figures/README-unnamed-chunk-6-1.png"><!-- --></p>
 <p>Inspect autocorrelation, partial autocorrelation (and cross correlations too)…</p>
 <div class="sourceCode" id="cb4"><pre class="r"><span class="no">taylor_30_min</span> <span class="kw">%&gt;%</span>
-    <span class="fu"><a href="reference/plot_acf_diagnostics.html">plot_acf_diagnostics</a></span>(<span class="no">date</span>, <span class="no">value</span>, <span class="kw">.lags</span> <span class="kw">=</span> <span class="fl">0</span>:(<span class="fl">48</span>*<span class="fl">7</span>), <span class="kw">.interactive</span> <span class="kw">=</span> <span class="fl">FALSE</span>)</pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-6-1.png"><!-- --></p>
+    <span class="fu"><a href="reference/plot_acf_diagnostics.html">plot_acf_diagnostics</a></span>(<span class="no">date</span>, <span class="no">value</span>, <span class="kw">.lags</span> <span class="kw">=</span> <span class="st">"1 week"</span>, <span class="kw">.interactive</span> <span class="kw">=</span> <span class="fl">FALSE</span>)</pre></div>
+<p><img src="reference/figures/README-unnamed-chunk-7-1.png"><!-- --></p>
 </div>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">

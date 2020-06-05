@@ -30,9 +30,16 @@ devtools::load_all()
 
 > A toolkit for working with time series in R
 
+
+
 ## Mission
 
 To make it easy to ___visualize, wrangle and preprocess time series data___ for forecasting and machine learning prediction. 
+
+```{r, echo=FALSE}
+knitr::include_graphics("vignettes/timetk_version_2.jpg")
+```
+
 
 ## Documentation
 
@@ -119,8 +126,6 @@ Inspect autocorrelation, partial autocorrelation (and cross correlations too)...
 taylor_30_min %>%
     plot_acf_diagnostics(date, value, .lags = "1 week", .interactive = FALSE)
 ```
-
-
 
 
 

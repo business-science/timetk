@@ -24,7 +24,6 @@ Depends:
 Imports:
     recipes (>= 0.1.4),
     rsample,
-    tune,
     dplyr (>= 0.7.0),
     ggplot2,
     forcats,
