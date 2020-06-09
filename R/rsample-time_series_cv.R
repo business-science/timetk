@@ -18,8 +18,7 @@
 #'
 #' __Time-Based Specification__
 #'
-#'  the
-#' `initial`, `assess`, `skip`, and `lag` variables can be specified as:
+#'  The `initial`, `assess`, `skip`, and `lag` variables can be specified as:
 #'
 #' - Numeric: `initial = 24`
 #' - Time-Based Phrases: `initial = "2 years"`, if the `data` contains
@@ -70,9 +69,11 @@
 #'
 #' @seealso
 #' - [time_series_cv()] and [rsample::rolling_origin()] - Functions used to create
-#'   time series resample specfications.
+#'   time series resample specifications.
 #' - [plot_time_series_cv_plan()] - The plotting function used for visualizing the
 #'   time series resample plan.
+#' - [initial_timeseries_split()] - A convient function to return a single time series
+#'   split containing a training/testing sample.
 #'
 #' @examples
 #' library(tidyverse)

@@ -123,6 +123,7 @@ reference:
     desc: __Resampling for time series cross validation using `rsamples`__
   - subtitle: Time Series Cross Validation (Resample Sets)
     contents:
+    - "initial_timeseries_split"
     - "time_series_cv"
   - subtitle: Cross Validation Plan Visualization (Resample Sets)
     desc: Uses the output of `time_series_cv` or `rsample::rolling_origin`

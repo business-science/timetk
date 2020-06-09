@@ -21,7 +21,13 @@ __New Tune Parameter Ranking and Selection Tools__:
 
 -->
 
-# timetk 1.0.0.9000
+# timetk 2.0.0.9000
+
+* `initial_timeseries_split()`: Initial Timeseries Split - A simple way to split time series by 
+
+
+
+# timetk 2.0.0
 
 __New Interactive Plotting Functions__
 
