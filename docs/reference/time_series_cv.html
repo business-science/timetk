@@ -96,7 +96,7 @@ of the cross validation on the most recent time series data." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">timetk</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.0.9000</span>
       </span>
     </div>
 
@@ -262,8 +262,7 @@ identifier.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p><strong>Time-Based Specification</strong></p>
-<p>the
-<code>initial</code>, <code>assess</code>, <code>skip</code>, and <code>lag</code> variables can be specified as:</p><ul>
+<p>The <code>initial</code>, <code>assess</code>, <code>skip</code>, and <code>lag</code> variables can be specified as:</p><ul>
 <li><p>Numeric: <code>initial = 24</code></p></li>
 <li><p>Time-Based Phrases: <code>initial = "2 years"</code>, if the <code>data</code> contains
 a <code>date_var</code> (date or datetime)</p></li>
@@ -297,9 +296,11 @@ set and resampling occurs over a fixed window.</p>
     <div class='dont-index'>
 <ul>
 <li><p><code>time_series_cv()</code> and <code><a href='https://rsample.tidymodels.org/reference/rolling_origin.html'>rsample::rolling_origin()</a></code> - Functions used to create
-time series resample specfications.</p></li>
+time series resample specifications.</p></li>
 <li><p><code><a href='plot_time_series_cv_plan.html'>plot_time_series_cv_plan()</a></code> - The plotting function used for visualizing the
 time series resample plan.</p></li>
+<li><p><code><a href='initial_timeseries_split.html'>initial_timeseries_split()</a></code> - A convient function to return a single time series
+split containing a training/testing sample.</p></li>
 </ul>
 </div>
 

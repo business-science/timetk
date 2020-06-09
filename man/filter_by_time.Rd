@@ -4,17 +4,13 @@
 \alias{filter_by_time}
 \title{Filter (for Time-Series Data)}
 \usage{
-filter_by_time(
-  .data,
-  .date_var = NULL,
-  .start_date = "start",
-  .end_date = "end"
-)
+filter_by_time(.data, .date_var, .start_date = "start", .end_date = "end")
 }
 \arguments{
 \item{.data}{A tibble with a time-based column.}
 
-\item{.date_var}{A column containing date or date-time values to filter}
+\item{.date_var}{A column containing date or date-time values to filter.
+If missing, attempts to auto-detect date column.}
 
 \item{.start_date}{The starting date for the filter sequence}
 
@@ -72,7 +68,7 @@ library(timetk)
 # Filter values in January 1st through end of February, 2013
 FANG \%>\%
     group_by(symbol) \%>\%
-    filter_by_time(date, "start", "2013-02") \%>\%
+    filter_by_time(.start_date = "start", .end_date = "2013-02") \%>\%
     plot_time_series(date, adjusted, .facet_ncol = 2, .interactive = FALSE)
 
 }

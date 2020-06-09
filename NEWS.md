@@ -25,7 +25,9 @@ __New Tune Parameter Ranking and Selection Tools__:
 
 * `initial_timeseries_split()`: Initial Timeseries Split - A simple way to split time series by 
 
+__Improvements__
 
+* `summarise_by_time()`, `filter_by_time()`: Auto-detect date and date-time by allowing `.date_var` to be `NULL`. 
 
 # timetk 2.0.0
 

@@ -7,7 +7,7 @@
 \usage{
 summarise_by_time(
   .data,
-  .date_var = NULL,
+  .date_var,
   .by = "day",
   ...,
   .type = c("floor", "ceiling", "round")
@@ -15,7 +15,7 @@ summarise_by_time(
 
 summarize_by_time(
   .data,
-  .date_var = NULL,
+  .date_var,
   .by = "day",
   ...,
   .type = c("floor", "ceiling", "round")
@@ -24,7 +24,8 @@ summarize_by_time(
 \arguments{
 \item{.data}{A \code{tbl} object or \code{data.frame}}
 
-\item{.date_var}{A column of date or date-time (e.g. POSIXct) data class}
+\item{.date_var}{A column containing date or date-time values to summarize.
+If missing, attempts to auto-detect date column.}
 
 \item{.by}{A time unit to summarise by.
 Time units are collapsed using \code{lubridate::floor_date()} or \code{lubridate::ceiling_date()}.
@@ -83,6 +84,7 @@ calculation by groups like "5 seconds", "week", or "3 months".
 
 \examples{
 # Libraries
+library(tidyquant)
 library(timetk)
 library(dplyr)
 
@@ -90,7 +92,9 @@ library(dplyr)
 m4_daily \%>\%
     group_by(id) \%>\%
     summarise_by_time(
-        date, .by = "month", # Setup for monthly aggregation
+        .date_var = date,
+        .by       = "month", # Setup for monthly aggregation
+        # Summarization
         value  = first(value)
     )
 
@@ -98,7 +102,6 @@ m4_daily \%>\%
 m4_daily \%>\%
     group_by(id) \%>\%
     summarise_by_time(
-        .date_var  = date,
         .by        = "month",
         value      = last(value),
         .type      = "ceiling"
@@ -110,7 +113,6 @@ m4_daily \%>\%
 m4_daily \%>\%
     group_by(id) \%>\%
     summarise_by_time(
-        .date_var  = date,
         .by        = "year",
         value      = sum(value)
     )

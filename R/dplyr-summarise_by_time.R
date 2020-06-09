@@ -20,7 +20,8 @@
 #'
 #' @export
 #' @param .data A `tbl` object or `data.frame`
-#' @param .date_var A column of date or date-time (e.g. POSIXct) data class
+#' @param .date_var A column containing date or date-time values to summarize.
+#'  If missing, attempts to auto-detect date column.
 #' @param ... Name-value pairs of summary functions.
 #'   The name will be the name of the variable in the result.
 #'
@@ -66,6 +67,7 @@
 #'
 #' @examples
 #' # Libraries
+#' library(tidyquant)
 #' library(timetk)
 #' library(dplyr)
 #'
@@ -73,7 +75,9 @@
 #' m4_daily %>%
 #'     group_by(id) %>%
 #'     summarise_by_time(
-#'         date, .by = "month", # Setup for monthly aggregation
+#'         .date_var = date,
+#'         .by       = "month", # Setup for monthly aggregation
+#'         # Summarization
 #'         value  = first(value)
 #'     )
 #'
@@ -81,7 +85,6 @@
 #' m4_daily %>%
 #'     group_by(id) %>%
 #'     summarise_by_time(
-#'         .date_var  = date,
 #'         .by        = "month",
 #'         value      = last(value),
 #'         .type      = "ceiling"
@@ -93,15 +96,19 @@
 #' m4_daily %>%
 #'     group_by(id) %>%
 #'     summarise_by_time(
-#'         .date_var  = date,
 #'         .by        = "year",
 #'         value      = sum(value)
 #'     )
 #'
 #'
 #' @export
-summarise_by_time <- function(.data, .date_var = NULL, .by = "day", ...,
+summarise_by_time <- function(.data, .date_var, .by = "day", ...,
                               .type = c("floor", "ceiling", "round")) {
+
+    if (rlang::quo_is_missing(rlang::enquo(.date_var))) {
+        message(".date_var is missing. Using: ", tk_get_timeseries_variables(.data)[1])
+    }
+
     UseMethod("summarise_by_time")
 }
 
@@ -110,7 +117,7 @@ summarise_by_time <- function(.data, .date_var = NULL, .by = "day", ...,
 summarize_by_time <- summarise_by_time
 
 #' @export
-summarise_by_time.default <- function(.data, .date_var = NULL, .by = "day", ...,
+summarise_by_time.default <- function(.data, .date_var, .by = "day", ...,
                                       .type = c("floor", "ceiling", "round")) {
 
     stop("Object is not of class `data.frame`.", call. = FALSE)
@@ -118,16 +125,15 @@ summarise_by_time.default <- function(.data, .date_var = NULL, .by = "day", ...,
 }
 
 #' @export
-summarise_by_time.data.frame <- function(.data, .date_var = NULL, .by = "day", ...,
+summarise_by_time.data.frame <- function(.data, .date_var, .by = "day", ...,
                                          .type = c("floor", "ceiling", "round")) {
 
     data_groups_expr   <- rlang::syms(dplyr::group_vars(.data))
     date_var_expr      <- rlang::enquo(.date_var)
 
     # Check date_var
-    if (rlang::quo_is_null(date_var_expr)) {
+    if (rlang::quo_is_missing(date_var_expr)) {
         date_var_text <- tk_get_timeseries_variables(.data)[1]
-        message("Using .date_var: ", date_var_text)
         date_var_expr <- rlang::sym(date_var_text)
     }
 

@@ -4,7 +4,8 @@
 #' See [between_time()] for the date and date-time vector implementation.
 #'
 #' @param .data A tibble with a time-based column.
-#' @param .date_var A column containing date or date-time values to filter
+#' @param .date_var A column containing date or date-time values to filter.
+#'  If missing, attempts to auto-detect date column.
 #' @param .start_date The starting date for the filter sequence
 #' @param .end_date The ending date for the filter sequence
 #'
@@ -63,33 +64,46 @@
 #' # Filter values in January 1st through end of February, 2013
 #' FANG %>%
 #'     group_by(symbol) %>%
-#'     filter_by_time(date, "start", "2013-02") %>%
+#'     filter_by_time(.start_date = "start", .end_date = "2013-02") %>%
 #'     plot_time_series(date, adjusted, .facet_ncol = 2, .interactive = FALSE)
 #'
 #' @name filter_by_time
 #' @export
-filter_by_time <- function(.data, .date_var = NULL, .start_date = "start", .end_date = "end") {
+filter_by_time <- function(.data, .date_var, .start_date = "start", .end_date = "end") {
+
+    if (rlang::quo_is_missing(rlang::enquo(.date_var))) {
+        message(".date_var is missing. Using: ", tk_get_timeseries_variables(.data)[1])
+    }
+
     UseMethod("filter_by_time", .data)
 }
 
 #' @export
-filter_by_time.default <- function(.data, .date_var= NULL, .start_date = "start", .end_date = "end") {
+filter_by_time.default <- function(.data, .date_var, .start_date = "start", .end_date = "end") {
     stop("Object is not of class `tbl_time`.", call. = FALSE)
 }
 
 #' @export
-filter_by_time.data.frame <- function(.data, .date_var = NULL, .start_date = "start", .end_date = "end") {
+filter_by_time.data.frame <- function(.data, .date_var, .start_date = "start", .end_date = "end") {
 
     date_var_expr      <- rlang::enquo(.date_var)
 
     # Check date_var
-    if (rlang::quo_is_null(date_var_expr)) {
+    if (rlang::quo_is_missing(date_var_expr)) {
         date_var_text <- tk_get_timeseries_variables(.data)[1]
-        message("Using .date_var: ", date_var_text)
         date_var_expr <- rlang::sym(date_var_text)
     }
 
-    .data %>%
-        dplyr::filter(between_time(!! enquo(.date_var), !! enquo(.start_date), !! enquo(.end_date)))
+    # Check index exists
+    date_var_text <- rlang::quo_name(date_var_expr)
+    if (!date_var_text %in% names(.data)) {
+        rlang::abort(stringr::str_glue("Attempting to use .date_var = {date_var_text}. Column does not exist in .data. Please specify a date or date-time column."))
+    }
+
+    ret <- .data %>%
+        dplyr::filter((!! date_var_expr) %>% between_time(!! enquo(.start_date), !! enquo(.end_date)))
+
+
+    return(ret)
 
 }

@@ -45,7 +45,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">timetk</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.0.9000</span>
       </span>
     </div>
 
@@ -126,13 +126,13 @@
 
       
 
-      </header><div class="row">
+      </header><script src="TK03_Forecasting_Using_Time_Series_Signature_files/header-attrs-2.1/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Time Series Machine Learning</h1>
                         <h4 class="author">Matt Dancho</h4>
             
-            <h4 class="date">2020-06-05</h4>
+            <h4 class="date">2020-06-09</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/business-science/timetk/blob/master/vignettes/TK03_Forecasting_Using_Time_Series_Signature.Rmd"><code>vignettes/TK03_Forecasting_Using_Time_Series_Signature.Rmd</code></a></small>
       <div class="hidden name"><code>TK03_Forecasting_Using_Time_Series_Signature.Rmd</code></div>
@@ -294,8 +294,8 @@
 <h2 class="hasAnchor">
 <a href="#model-specification" class="anchor"></a>Model Specification</h2>
 <p>Next, let’s create a model specification. We’ll use a <code>glmnet</code>.</p>
-<div class="sourceCode" id="cb13"><html><body><pre class="r"><span class="no">model_spec_glmnet</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/parsnip/man/linear_reg.html">linear_reg</a></span>(<span class="kw">mode</span> <span class="kw">=</span> <span class="st">"regression"</span>) <span class="kw">%&gt;%</span>
-    <span class="fu"><a href="https://rdrr.io/pkg/parsnip/man/set_engine.html">set_engine</a></span>(<span class="st">"lm"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb13"><html><body><pre class="r"><span class="no">model_spec_glmnet</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://parsnip.tidymodels.org/reference/linear_reg.html">linear_reg</a></span>(<span class="kw">mode</span> <span class="kw">=</span> <span class="st">"regression"</span>) <span class="kw">%&gt;%</span>
+    <span class="fu"><a href="https://parsnip.tidymodels.org/reference/set_engine.html">set_engine</a></span>(<span class="st">"lm"</span>)</pre></body></html></div>
 </div>
 <div id="workflow" class="section level2">
 <h2 class="hasAnchor">
@@ -306,11 +306,11 @@
     <span class="fu"><a href="https://rdrr.io/pkg/workflows/man/add_model.html">add_model</a></span>(<span class="no">model_spec_glmnet</span>)
 
 <span class="no">workflow_glmnet</span></pre></body></html></div>
-<pre><code>## ══ Workflow ════════════════════════════════════════════════════════════════════════════════════════════════════════════
+<pre><code>## ══ Workflow ═══════════════════════════════════════════════════════════════════════════════════════════════
 ## Preprocessor: Recipe
 ## Model: linear_reg()
 ## 
-## ── Preprocessor ────────────────────────────────────────────────────────────────────────────────────────────────────────
+## ── Preprocessor ───────────────────────────────────────────────────────────────────────────────────────────
 ## 5 Recipe Steps
 ## 
 ## ● step_timeseries_signature()
@@ -319,7 +319,7 @@
 ## ● step_normalize()
 ## ● step_dummy()
 ## 
-## ── Model ───────────────────────────────────────────────────────────────────────────────────────────────────────────────
+## ── Model ──────────────────────────────────────────────────────────────────────────────────────────────────
 ## Linear Regression Model Specification (regression)
 ## 
 ## Computational engine: lm</code></pre>
@@ -327,8 +327,8 @@
 <div id="training" class="section level2">
 <h2 class="hasAnchor">
 <a href="#training" class="anchor"></a>Training</h2>
-<p>The workflow can be trained with the <code><a href="https://rdrr.io/pkg/parsnip/man/reexports.html">fit()</a></code> function.</p>
-<div class="sourceCode" id="cb16"><html><body><pre class="r"><span class="no">workflow_trained</span> <span class="kw">&lt;-</span> <span class="no">workflow_glmnet</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/parsnip/man/reexports.html">fit</a></span>(<span class="kw">data</span> <span class="kw">=</span> <span class="no">train_tbl</span>)</pre></body></html></div>
+<p>The workflow can be trained with the <code><a href="https://parsnip.tidymodels.org/reference/reexports.html">fit()</a></code> function.</p>
+<div class="sourceCode" id="cb16"><html><body><pre class="r"><span class="no">workflow_trained</span> <span class="kw">&lt;-</span> <span class="no">workflow_glmnet</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="https://parsnip.tidymodels.org/reference/reexports.html">fit</a></span>(<span class="kw">data</span> <span class="kw">=</span> <span class="no">train_tbl</span>)</pre></body></html></div>
 </div>
 <div id="test-validation" class="section level2">
 <h2 class="hasAnchor">
@@ -439,7 +439,7 @@
 ## # … with 170 more rows</code></pre>
 <p>Retrain the model specification on the full data set, then predict the next 6-months.</p>
 <div class="sourceCode" id="cb30"><html><body><pre class="r"><span class="no">future_predictions_tbl</span> <span class="kw">&lt;-</span> <span class="no">workflow_glmnet</span> <span class="kw">%&gt;%</span>
-    <span class="fu"><a href="https://rdrr.io/pkg/parsnip/man/reexports.html">fit</a></span>(<span class="kw">data</span> <span class="kw">=</span> <span class="no">bikes_tbl</span>) <span class="kw">%&gt;%</span>
+    <span class="fu"><a href="https://parsnip.tidymodels.org/reference/reexports.html">fit</a></span>(<span class="kw">data</span> <span class="kw">=</span> <span class="no">bikes_tbl</span>) <span class="kw">%&gt;%</span>
     <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span>(<span class="no">future_tbl</span>) <span class="kw">%&gt;%</span>
     <span class="fu">bind_cols</span>(<span class="no">future_tbl</span>)</pre></body></html></div>
 <p>Visualize the forecast.</p>

@@ -93,7 +93,7 @@ See between_time() for the date and date-time vector implementation." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">timetk</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.0.9000</span>
       </span>
     </div>
 
@@ -198,7 +198,8 @@ See <code><a href='between_time.html'>between_time()</a></code> for the date and
     </tr>
     <tr>
       <th>.date_var</th>
-      <td><p>A column containing date or date-time values to filter</p></td>
+      <td><p>A column containing date or date-time values to filter.
+If missing, attempts to auto-detect date column.</p></td>
     </tr>
     <tr>
       <th>.start_date</th>
@@ -269,8 +270,8 @@ index is a POSIXct):</p><ul>
 <span class='co'># Filter values in January 1st through end of February, 2013</span>
 <span class='no'>FANG</span> <span class='kw'>%&gt;%</span>
     <span class='fu'>group_by</span>(<span class='no'>symbol</span>) <span class='kw'>%&gt;%</span>
-    <span class='fu'>filter_by_time</span>(<span class='no'>date</span>, <span class='st'>"start"</span>, <span class='st'>"2013-02"</span>) <span class='kw'>%&gt;%</span>
-    <span class='fu'><a href='plot_time_series.html'>plot_time_series</a></span>(<span class='no'>date</span>, <span class='no'>adjusted</span>, <span class='kw'>.facet_ncol</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>.interactive</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='filter_by_time-1.png' alt='' width='700' height='433' /></div><div class='input'>
+    <span class='fu'>filter_by_time</span>(<span class='kw'>.start_date</span> <span class='kw'>=</span> <span class='st'>"start"</span>, <span class='kw'>.end_date</span> <span class='kw'>=</span> <span class='st'>"2013-02"</span>) <span class='kw'>%&gt;%</span>
+    <span class='fu'><a href='plot_time_series.html'>plot_time_series</a></span>(<span class='no'>date</span>, <span class='no'>adjusted</span>, <span class='kw'>.facet_ncol</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>.interactive</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='message'>.date_var is missing. Using: date</span></div><div class='img'><img src='filter_by_time-1.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
