@@ -4,7 +4,12 @@
 \alias{filter_by_time}
 \title{Filter (for Time-Series Data)}
 \usage{
-filter_by_time(.data, .date_var, .start_date = "start", .end_date = "end")
+filter_by_time(
+  .data,
+  .date_var = NULL,
+  .start_date = "start",
+  .end_date = "end"
+)
 }
 \arguments{
 \item{.data}{A tibble with a time-based column.}

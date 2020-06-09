@@ -66,40 +66,41 @@
 #'
 #' @examples
 #' # Libraries
-#' library(tidyquant)
 #' library(timetk)
 #' library(dplyr)
 #'
-#' # First adjusted price in each month
-#' FANG %>%
-#'     group_by(symbol) %>%
+#' # First value in each month
+#' m4_daily %>%
+#'     group_by(id) %>%
 #'     summarise_by_time(
 #'         date, .by = "month", # Setup for monthly aggregation
-#'         adjusted  = FIRST(adjusted)
+#'         value  = first(value)
 #'     )
 #'
-#' # Last adjused price in each month (day is first day of next month with ceiling option)
-#' FANG %>%
-#'     group_by(symbol) %>%
+#' # Last value in each month (day is first day of next month with ceiling option)
+#' m4_daily %>%
+#'     group_by(id) %>%
 #'     summarise_by_time(
 #'         .date_var  = date,
 #'         .by        = "month",
-#'         adjusted   = LAST(adjusted),
-#'         .type      = "ceiling") %>%
+#'         value      = last(value),
+#'         .type      = "ceiling"
+#'     ) %>%
 #'     # Shift to the last day of the month
 #'     mutate(date = date %-time% "1 day")
 #'
-#' # Total Volume each year (.by is set to "year" now)
-#' FANG %>%
-#'     group_by(symbol) %>%
+#' # Total each year (.by is set to "year" now)
+#' m4_daily %>%
+#'     group_by(id) %>%
 #'     summarise_by_time(
 #'         .date_var  = date,
 #'         .by        = "year",
-#'         adjusted   = SUM(volume))
+#'         value      = sum(value)
+#'     )
 #'
 #'
 #' @export
-summarise_by_time <- function(.data, .date_var, ..., .by = "day",
+summarise_by_time <- function(.data, .date_var = NULL, .by = "day", ...,
                               .type = c("floor", "ceiling", "round")) {
     UseMethod("summarise_by_time")
 }
@@ -109,7 +110,7 @@ summarise_by_time <- function(.data, .date_var, ..., .by = "day",
 summarize_by_time <- summarise_by_time
 
 #' @export
-summarise_by_time.default <- function(.data, .date_var, ..., .by = "day",
+summarise_by_time.default <- function(.data, .date_var = NULL, .by = "day", ...,
                                       .type = c("floor", "ceiling", "round")) {
 
     stop("Object is not of class `data.frame`.", call. = FALSE)
@@ -117,11 +118,18 @@ summarise_by_time.default <- function(.data, .date_var, ..., .by = "day",
 }
 
 #' @export
-summarise_by_time.data.frame <- function(.data, .date_var, ..., .by = "day",
+summarise_by_time.data.frame <- function(.data, .date_var = NULL, .by = "day", ...,
                                          .type = c("floor", "ceiling", "round")) {
 
     data_groups_expr   <- rlang::syms(dplyr::group_vars(.data))
     date_var_expr      <- rlang::enquo(.date_var)
+
+    # Check date_var
+    if (rlang::quo_is_null(date_var_expr)) {
+        date_var_text <- tk_get_timeseries_variables(.data)[1]
+        message("Using .date_var: ", date_var_text)
+        date_var_expr <- rlang::sym(date_var_text)
+    }
 
     # Choose lubridate function
     fun_type <- tolower(.type[[1]])

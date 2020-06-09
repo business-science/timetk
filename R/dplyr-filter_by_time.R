@@ -68,17 +68,26 @@
 #'
 #' @name filter_by_time
 #' @export
-filter_by_time <- function(.data, .date_var, .start_date = "start", .end_date = "end") {
+filter_by_time <- function(.data, .date_var = NULL, .start_date = "start", .end_date = "end") {
     UseMethod("filter_by_time", .data)
 }
 
 #' @export
-filter_by_time.default <- function(.data, .date_var, .start_date = "start", .end_date = "end") {
+filter_by_time.default <- function(.data, .date_var= NULL, .start_date = "start", .end_date = "end") {
     stop("Object is not of class `tbl_time`.", call. = FALSE)
 }
 
 #' @export
-filter_by_time.data.frame <- function(.data, .date_var, .start_date = "start", .end_date = "end") {
+filter_by_time.data.frame <- function(.data, .date_var = NULL, .start_date = "start", .end_date = "end") {
+
+    date_var_expr      <- rlang::enquo(.date_var)
+
+    # Check date_var
+    if (rlang::quo_is_null(date_var_expr)) {
+        date_var_text <- tk_get_timeseries_variables(.data)[1]
+        message("Using .date_var: ", date_var_text)
+        date_var_expr <- rlang::sym(date_var_text)
+    }
 
     .data %>%
         dplyr::filter(between_time(!! enquo(.date_var), !! enquo(.start_date), !! enquo(.end_date)))
