@@ -9,7 +9,8 @@ tk_summary_diagnostics(.data, .date_var)
 \arguments{
 \item{.data}{A \code{tibble} or \code{data.frame} with a time-based column}
 
-\item{.date_var}{A column containing either date or date-time values}
+\item{.date_var}{A column containing either date or date-time values.
+If missing, attempts to auto-detect the date or date-time column.}
 }
 \value{
 A \code{tibble} or \code{data.frame} with timeseries summary features
@@ -30,12 +31,19 @@ time series groups.
 library(dplyr)
 library(timetk)
 
+# ---- NON-GROUPED EXAMPLES ----
+
+# Monthly Data
+m4_monthly \%>\%
+    filter(id == "M750") \%>\%
+    tk_summary_diagnostics()
+
 # ---- GROUPED EXAMPLES ----
 
-# Hourly Data
-m4_hourly \%>\%
+# Monthly Data
+m4_monthly \%>\%
     group_by(id) \%>\%
-    tk_summary_diagnostics(date)
+    tk_summary_diagnostics()
 
 
 }

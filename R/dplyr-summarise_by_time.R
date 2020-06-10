@@ -67,7 +67,6 @@
 #'
 #' @examples
 #' # Libraries
-#' library(tidyquant)
 #' library(timetk)
 #' library(dplyr)
 #'

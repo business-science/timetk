@@ -84,7 +84,6 @@ calculation by groups like "5 seconds", "week", or "3 months".
 
 \examples{
 # Libraries
-library(tidyquant)
 library(timetk)
 library(dplyr)
 
