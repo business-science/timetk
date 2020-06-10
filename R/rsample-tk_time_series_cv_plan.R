@@ -55,6 +55,24 @@ tk_time_series_cv_plan.time_series_cv <- function(.data) {
 }
 
 #' @export
+tk_time_series_cv_plan.rsplit <- function(.data) {
+
+    tib_2 <- tibble::tibble(
+        trn = list(rsample::training(!! rlang::enquo(.data)))
+    )
+
+    tib_3 <- tibble::tibble(
+        tst = list(rsample::testing(!! rlang::enquo(.data)))
+    )
+
+    dplyr::bind_rows(tib_2, tib_3) %>%
+        tidyr::gather(trn:tst, key = ".key", value = ".value", factor_key = TRUE) %>%
+        tidyr::unnest(.value) %>%
+        tibble::as_tibble() %>%
+        tibble::add_column(.id = "Slice1", .before = 1)
+}
+
+#' @export
 tk_time_series_cv_plan.default <- function(.data) {
     rlang::abort("tk_time_series_cv_plan: No method for class, ", class(.data)[1])
 }
@@ -76,4 +94,6 @@ time_series_cv_plan <- function(.data) {
         tibble::as_tibble()
 
 }
+
+
 

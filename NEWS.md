@@ -28,6 +28,8 @@ __New Tune Parameter Ranking and Selection Tools__:
 __Improvements__
 
 * `summarise_by_time()`, `filter_by_time()`: Auto-detect date and date-time by allowing `.date_var` to be `NULL`. 
+* `tk_summary_diagnostics`: Auto-detect date and date-time
+* `tk_time_series_cv_plan()`: Allow a single resample from `initial_time_split` or `initial_timeseries_split`
 
 # timetk 2.0.0
 
