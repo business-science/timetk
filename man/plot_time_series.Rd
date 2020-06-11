@@ -28,6 +28,7 @@ plot_time_series(
   .smooth_color = "#3366FF",
   .smooth_size = 1,
   .smooth_alpha = 1,
+  .legend_show = TRUE,
   .title = "Time Series Plot",
   .x_lab = "",
   .y_lab = "",
@@ -93,6 +94,8 @@ Either 0, 1, 2 (0 = lest flexible, 2 = more flexible).}
 \item{.smooth_size}{Smoother line size}
 
 \item{.smooth_alpha}{Smoother alpha (opacity). Range: (0, 1).}
+
+\item{.legend_show}{Toggles on/off the Legend}
 
 \item{.title}{Title for the plot}
 

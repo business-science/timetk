@@ -38,6 +38,7 @@
 #' @param .smooth_color Smoother line color
 #' @param .smooth_size Smoother line size
 #' @param .smooth_alpha Smoother alpha (opacity). Range: (0, 1).
+#' @param .legend_show Toggles on/off the Legend
 #' @param .title Title for the plot
 #' @param .x_lab X-axis label for the plot
 #' @param .y_lab Y-axis label for the plot
@@ -165,6 +166,8 @@ plot_time_series <- function(.data, .date_var, .value, .color_var = NULL,
                              .smooth_span = NULL, .smooth_degree = 2,
                              .smooth_color = "#3366FF", .smooth_size = 1, .smooth_alpha = 1,
 
+                             .legend_show = TRUE,
+
                              .title = "Time Series Plot", .x_lab = "", .y_lab = "",
                              .color_lab = "Legend",
 
@@ -203,6 +206,8 @@ plot_time_series.data.frame <- function(.data, .date_var, .value, .color_var = N
                                         .smooth_message = FALSE,
                                         .smooth_span = NULL, .smooth_degree = 2,
                                         .smooth_color = "#3366FF", .smooth_size = 1, .smooth_alpha = 1,
+
+                                        .legend_show = TRUE,
 
                                         .title = "Time Series Plot", .x_lab = "", .y_lab = "",
                                         .color_lab = "Legend",
@@ -367,6 +372,11 @@ plot_time_series.data.frame <- function(.data, .date_var, .value, .color_var = N
         theme_tq() +
         ggplot2::labs(x = .x_lab, y = .y_lab, title = .title, color = .color_lab)
 
+    if (!.legend_show) {
+        g <- g +
+            ggplot2::theme(legend.position = "none")
+    }
+
     if (.interactive) {
 
         p <- plotly::ggplotly(g, dynamicTicks = TRUE)
@@ -399,6 +409,8 @@ plot_time_series.grouped_df <- function(.data, .date_var, .value, .color_var = N
                                         .smooth_message = FALSE,
                                         .smooth_span = NULL, .smooth_degree = 2,
                                         .smooth_color = "#3366FF", .smooth_size = 1, .smooth_alpha = 1,
+
+                                        .legend_show = TRUE,
 
                                         .title = "Time Series Plot", .x_lab = "", .y_lab = "",
                                         .color_lab = "Legend",
@@ -450,6 +462,8 @@ plot_time_series.grouped_df <- function(.data, .date_var, .value, .color_var = N
         .smooth_color          = .smooth_color,
         .smooth_size           = .smooth_size,
         .smooth_alpha          = .smooth_alpha,
+
+        .legend_show           = .legend_show,
 
         .title                 = .title,
         .x_lab                 = .x_lab,
