@@ -8,8 +8,8 @@ plot_time_series(
   .data,
   .date_var,
   .value,
-  ...,
   .color_var = NULL,
+  .facet_vars = NULL,
   .facet_ncol = 1,
   .facet_scales = "free_y",
   .facet_collapse = TRUE,
@@ -43,11 +43,11 @@ plot_time_series(
 
 \item{.value}{A column containing numeric values}
 
-\item{...}{One or more grouping columns that broken out into \code{ggplot2} facets.
-These can be selected using \code{tidyselect()} helpers (e.g \code{contains()}).}
-
 \item{.color_var}{A categorical column that can be used to change the
 line color}
+
+\item{.facet_vars}{One or more grouping columns that broken out into \code{ggplot2} facets.
+These can be selected using \code{tidyselect()} helpers (e.g \code{contains()}).}
 
 \item{.facet_ncol}{Number of facet columns.}
 
@@ -132,7 +132,7 @@ By default, an interactive \code{plotly} visualization is returned.
 \code{plot_time_series()} returns multiple time series plots using \code{ggplot2} facets:
 \itemize{
 \item \code{group_by()} - If groups are detected, multiple facets are returned
-\item \code{plot_time_series(.facets)} - You can manually supply facets as well.
+\item \code{plot_time_series(.facet_vars)} - You can manually supply facets as well.
 }
 
 \strong{Can Transform Values just like ggplot}
@@ -181,8 +181,8 @@ FANG \%>\%
 FANG \%>\%
     mutate(year = year(date)) \%>\%
     plot_time_series(date, adjusted,
-                     symbol, year,         # add groups
-                     .color_var    = year, # color by year
+                     .facet_vars   = c(symbol, year), # add groups/facets
+                     .color_var    = year,            # color by year
                      .facet_ncol   = 4,
                      .facet_scales = "free",
                      .interactive  = FALSE)
@@ -191,21 +191,24 @@ FANG \%>\%
 # - .value = log(adjusted)
 # - .color_var = year(date)
 FANG \%>\%
-    plot_time_series(date, log(adjusted), symbol,
-                     .color_var = year(date),
+    plot_time_series(date, log(adjusted),
+                     .color_var    = year(date),
+                     .facet_vars   = contains("symbol"),
                      .facet_ncol   = 2,
                      .facet_scales = "free",
-                     .y_lab = "Log Scale",
+                     .y_lab        = "Log Scale",
                      .interactive  = FALSE)
 
 # Plotly - Interactive Visualization By Default (Great for Exploration)
 FANG \%>\%
-    plot_time_series(date, adjusted, symbol, .smooth_alpha = 0.5, .plotly_slider = TRUE)
+    group_by(symbol) \%>\%
+    plot_time_series(date, adjusted, .smooth_alpha = 0.5, .plotly_slider = TRUE)
 
 # ggplot2 - static visualization (Great for PDF Reports)
 FANG \%>\%
+    group_by(symbol) \%>\%
     plot_time_series(
-        date, adjusted, symbol,
+        date, adjusted,
         .color_var     = symbol,
         .facet_ncol    = 2,
         .smooth_period = "6 months",

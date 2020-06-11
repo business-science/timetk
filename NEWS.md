@@ -23,13 +23,18 @@ __New Tune Parameter Ranking and Selection Tools__:
 
 # timetk 2.0.0.9000
 
+__New Functions__
+
 * `initial_timeseries_split()`: Initial Timeseries Split - A simple way to split time series by 
 
 __Improvements__
 
-* `summarise_by_time()`, `filter_by_time()`: Auto-detect date and date-time by allowing `.date_var` to be `NULL`. 
-* `tk_summary_diagnostics`: Auto-detect date and date-time
+* __Auto-detect date and date-time__: Affects `summarise_by_time()`, `filter_by_time()`, `tk_summary_diagnostics`
 * `tk_time_series_cv_plan()`: Allow a single resample from `initial_time_split` or `initial_timeseries_split`
+
+__Breaking Changes__
+
+* Remove `...` as grouping / facet - This change is needed to improve tab-completion. It affects `plot_time_series()`
 
 # timetk 2.0.0
 

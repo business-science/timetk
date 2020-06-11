@@ -110,13 +110,12 @@ m4_hourly %>% group_by(id)
 The intent is to showcase the groups in faceted plots, but to highlight weekly windows (sub-groups) within the data while simultaneously doing a `log()` transformation to the value. This is simple to do:
 
 1. `.value = log(value)` Applies the Log Transformation
-2. The data is ungrouped, so we can add facets internally using the `...` to supply one or more facet columns.
-3. `.color_var = week(date)` The date column is transformed to a `lubridate::week()` number. The color is applied to each of the week numbers. 
+2. `.color_var = week(date)` The date column is transformed to a `lubridate::week()` number. The color is applied to each of the week numbers. 
 
 ```{r}
 m4_hourly %>%
+  group_by(id) %>%
   plot_time_series(date, log(value),             # Apply a Log Transformation
-                   id,                           # Faceting (Group) 
                    .color_var = week(date),      # Color applied to Week transformation
                    # Facet formatting
                    .facet_ncol = 2, 

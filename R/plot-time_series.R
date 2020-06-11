@@ -7,10 +7,10 @@
 #' @param .data A `tibble` or `data.frame` with a time-based column
 #' @param .date_var A column containing either date or date-time values
 #' @param .value A column containing numeric values
-#' @param ... One or more grouping columns that broken out into `ggplot2` facets.
-#'  These can be selected using `tidyselect()` helpers (e.g `contains()`).
 #' @param .color_var A categorical column that can be used to change the
 #'  line color
+#' @param .facet_vars One or more grouping columns that broken out into `ggplot2` facets.
+#'  These can be selected using `tidyselect()` helpers (e.g `contains()`).
 #' @param .facet_ncol Number of facet columns.
 #' @param .facet_scales Control facet x & y-axis ranges.
 #'  Options include "fixed", "free", "free_y", "free_x"
@@ -66,7 +66,7 @@
 #' `plot_time_series()` returns multiple time series plots using `ggplot2` facets:
 #'
 #'  - `group_by()` - If groups are detected, multiple facets are returned
-#'  - `plot_time_series(.facets)` - You can manually supply facets as well.
+#'  - `plot_time_series(.facet_vars)` - You can manually supply facets as well.
 #'
 #' __Can Transform Values just like ggplot__
 #'
@@ -115,8 +115,8 @@
 #' FANG %>%
 #'     mutate(year = year(date)) %>%
 #'     plot_time_series(date, adjusted,
-#'                      symbol, year,         # add groups
-#'                      .color_var    = year, # color by year
+#'                      .facet_vars   = c(symbol, year), # add groups/facets
+#'                      .color_var    = year,            # color by year
 #'                      .facet_ncol   = 4,
 #'                      .facet_scales = "free",
 #'                      .interactive  = FALSE)
@@ -125,21 +125,24 @@
 #' # - .value = log(adjusted)
 #' # - .color_var = year(date)
 #' FANG %>%
-#'     plot_time_series(date, log(adjusted), symbol,
-#'                      .color_var = year(date),
+#'     plot_time_series(date, log(adjusted),
+#'                      .color_var    = year(date),
+#'                      .facet_vars   = contains("symbol"),
 #'                      .facet_ncol   = 2,
 #'                      .facet_scales = "free",
-#'                      .y_lab = "Log Scale",
+#'                      .y_lab        = "Log Scale",
 #'                      .interactive  = FALSE)
 #'
 #' # Plotly - Interactive Visualization By Default (Great for Exploration)
 #' FANG %>%
-#'     plot_time_series(date, adjusted, symbol, .smooth_alpha = 0.5, .plotly_slider = TRUE)
+#'     group_by(symbol) %>%
+#'     plot_time_series(date, adjusted, .smooth_alpha = 0.5, .plotly_slider = TRUE)
 #'
 #' # ggplot2 - static visualization (Great for PDF Reports)
 #' FANG %>%
+#'     group_by(symbol) %>%
 #'     plot_time_series(
-#'         date, adjusted, symbol,
+#'         date, adjusted,
 #'         .color_var     = symbol,
 #'         .facet_ncol    = 2,
 #'         .smooth_period = "6 months",
@@ -149,7 +152,8 @@
 #'
 #'
 #' @export
-plot_time_series <- function(.data, .date_var, .value, ..., .color_var = NULL,
+plot_time_series <- function(.data, .date_var, .value, .color_var = NULL,
+                             .facet_vars = NULL,
                              .facet_ncol = 1, .facet_scales = "free_y",
                              .facet_collapse = TRUE, .facet_collapse_sep = " ",
                              .line_color = "#2c3e50", .line_size = 0.5,
@@ -187,7 +191,8 @@ plot_time_series <- function(.data, .date_var, .value, ..., .color_var = NULL,
 }
 
 #' @export
-plot_time_series.data.frame <- function(.data, .date_var, .value, ..., .color_var = NULL,
+plot_time_series.data.frame <- function(.data, .date_var, .value, .color_var = NULL,
+                                        .facet_vars = NULL,
                                         .facet_ncol = 1, .facet_scales = "free_y",
                                         .facet_collapse = TRUE, .facet_collapse_sep = " ",
                                         .line_color = "#2c3e50", .line_size = 0.5,
@@ -208,8 +213,12 @@ plot_time_series.data.frame <- function(.data, .date_var, .value, ..., .color_va
     # Tidyeval Setup
     date_var_expr  <- rlang::enquo(.date_var)
     value_expr     <- rlang::enquo(.value)
-    facets_expr    <- rlang::enquos(...)
+    facets_expr    <- rlang::enquo(.facet_vars)
     color_var_expr <- rlang::enquo(.color_var)
+
+    # Facet Names
+    facets_expr <- names(tidyselect::eval_select(facets_expr, .data))
+
 
     # ---- DATA SETUP ----
 
@@ -378,7 +387,8 @@ plot_time_series.data.frame <- function(.data, .date_var, .value, ..., .color_va
 }
 
 #' @export
-plot_time_series.grouped_df <- function(.data, .date_var, .value, ..., .color_var = NULL,
+plot_time_series.grouped_df <- function(.data, .date_var, .value, .color_var = NULL,
+                                        .facet_vars = NULL,
                                         .facet_ncol = 1, .facet_scales = "free_y",
                                         .facet_collapse = TRUE, .facet_collapse_sep = " ",
                                         .line_color = "#2c3e50", .line_size = 0.5,
@@ -398,7 +408,7 @@ plot_time_series.grouped_df <- function(.data, .date_var, .value, ..., .color_va
     # Tidy Eval Setup
     group_names   <- dplyr::group_vars(.data)
     value_expr    <- rlang::enquo(.value)
-    facets_expr   <- rlang::enquos(...)
+    facets_expr   <- rlang::enquos(.facet_vars)
 
     # Checks
     facet_names <- .data %>% dplyr::ungroup() %>% dplyr::select(!!! facets_expr) %>% colnames()
@@ -419,7 +429,7 @@ plot_time_series.grouped_df <- function(.data, .date_var, .value, ..., .color_va
         .color_var         = !! rlang::enquo(.color_var),
 
         # ...
-        !!! syms(group_names),
+        .facet_vars        = !! enquo(group_names),
 
         .facet_ncol            = .facet_ncol,
         .facet_scales          = .facet_scales,
