@@ -25,7 +25,7 @@ __New Tune Parameter Ranking and Selection Tools__:
 
 __New Functions__
 
-* `initial_timeseries_split()`: Initial Timeseries Split - A simple way to split time series by 
+* `initial_time_series_split()`: Initial Timeseries Split - A simple way to split time series by 
 
 __Improvements__
 
@@ -33,11 +33,11 @@ __Improvements__
 * `tk_time_series_cv_plan()`: Allow a single resample from `initial_time_split` or `initial_timeseries_split`
 * `plot_time_series()`: 
     - Add `.legend_show` to toggle on/off legends. 
-    - 
+    - Permit numeric index (fix issue with smoother failing)
 
 __Breaking Changes__
 
-* __Tab Completion__: Replace `...` with `.facet_vars`. This change is needed to improve tab-completion. It affects `plot_time_series()`.
+* __Tab Completion__: Replace `...` with `.facet_vars` or `.ccf_vars`. This change is needed to improve tab-completion. It affects `plot_time_series()`, `plot_acf_diagnostics()`.
 
 # timetk 2.0.0
 

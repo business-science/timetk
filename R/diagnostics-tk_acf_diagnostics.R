@@ -10,7 +10,7 @@
 #' @param .date_var A column containing either date or date-time values
 #' @param .value A numeric column with a value to have ACF and PACF calculations
 #'  performed.
-#' @param ... Additional features to perform Lag Cross Correlations (CCFs)
+#' @param .ccf_vars Additional features to perform Lag Cross Correlations (CCFs)
 #' versus the `.value`. Useful for evaluating external lagged regressors.
 #' @param .lags A seqence of one or more lags to evaluate.
 #'
@@ -65,14 +65,16 @@
 #' # - Get CCF between adjusted and volume and close
 #' FANG %>%
 #'     filter(symbol == "FB") %>%
-#'     tk_acf_diagnostics(date, adjusted, # ACF & PACF
-#'                        volume, close,  # CCFs
-#'                        .lags = 500)
+#'     tk_acf_diagnostics(date, adjusted,                # ACF & PACF
+#'                        .ccf_vars = c(volume, close),  # CCFs
+#'                        .lags     = 500)
 #'
 #' # Scale with groups using group_by()
 #' FANG %>%
 #'     group_by(symbol) %>%
-#'     tk_acf_diagnostics(date, adjusted, volume, close, .lags = "3 months")
+#'     tk_acf_diagnostics(date, adjusted,
+#'                        .ccf_vars = c(volume, close),
+#'                        .lags     = "3 months")
 #'
 #' # Apply Transformations
 #' FANG %>%
@@ -84,7 +86,7 @@
 #'
 #'
 #' @export
-tk_acf_diagnostics <- function(.data, .date_var, .value, ..., .lags = 1000) {
+tk_acf_diagnostics <- function(.data, .date_var, .value, .ccf_vars = NULL, .lags = 1000) {
     # Checks
     date_var_expr <- enquo(.date_var)
     value_expr    <- enquo(.value)
@@ -97,12 +99,15 @@ tk_acf_diagnostics <- function(.data, .date_var, .value, ..., .lags = 1000) {
 }
 
 #' @export
-tk_acf_diagnostics.data.frame <- function(.data, .date_var, .value, ..., .lags = 1000) {
+tk_acf_diagnostics.data.frame <- function(.data, .date_var, .value, .ccf_vars = NULL, .lags = 1000) {
 
     # Tidyeval Setup
     date_var_expr <- rlang::enquo(.date_var)
     value_expr    <- rlang::enquo(.value)
-    dots_exprs    <- rlang::enquos(...)
+    ccf_expr      <- rlang::enquo(.ccf_vars)
+
+    ccf_expr <- names(tidyselect::eval_select(ccf_expr, .data))
+    # dots_exprs    <- rlang::enquos(...)
 
     # Apply transformations
     .data <- .data %>% dplyr::mutate(.value_mod = !! value_expr)
@@ -168,7 +173,7 @@ tk_acf_diagnostics.data.frame <- function(.data, .date_var, .value, ..., .lags =
 
     # ---- CCF ----
     ccf_tbl <- .data %>%
-        dplyr::select(!!! dots_exprs) %>%
+        dplyr::select(!!! ccf_expr) %>%
         purrr::map(.f = function(y) {
             stats::ccf(
                 x         = x,
@@ -205,7 +210,7 @@ tk_acf_diagnostics.data.frame <- function(.data, .date_var, .value, ..., .lags =
 
 
 #' @export
-tk_acf_diagnostics.grouped_df <- function(.data, .date_var, .value, ..., .lags = 1000) {
+tk_acf_diagnostics.grouped_df <- function(.data, .date_var, .value, .ccf_vars = NULL, .lags = 1000) {
 
     # Tidy Eval Setup
     value_expr  <- rlang::enquo(.value)
@@ -220,7 +225,7 @@ tk_acf_diagnostics.grouped_df <- function(.data, .date_var, .value, ..., .lags =
                 .data      = df,
                 .date_var  = !! rlang::enquo(.date_var),
                 .value     = !! value_expr,
-                ...,
+                .ccf_vars  = !! rlang::enquo(.ccf_vars),
                 .lags      = .lags
             )
         )) %>%

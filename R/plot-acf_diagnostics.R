@@ -10,7 +10,7 @@
 #' @param .date_var A column containing either date or date-time values
 #' @param .value A numeric column with a value to have ACF and PACF calculations
 #'  performed.
-#' @param ... Additional features to perform Lag Cross Correlations (CCFs)
+#' @param .ccf_vars Additional features to perform Lag Cross Correlations (CCFs)
 #' versus the `.value`. Useful for evaluating external lagged regressors.
 #' @param .lags A sequence of one or more lags to evaluate.
 #' @param .facet_ncol Facets: Number of facet columns. Has no effect if using `grouped_df`.
@@ -61,11 +61,9 @@
 #' group your time series by one or more categorical columns with `dplyr::group_by()`
 #' and then apply `plot_acf_diagnostics()` to return group-wise lag diagnostics.
 #'
-#' __Special Note on Dots (...)__
+#' __Special Note on Groups__
 #'
-#' Unlike other plotting utilities, the `...` arguments is NOT used for
-#' group-wise analysis. Rather, it's used for processing Cross Correlations (CCFs).
-#'
+#' Unlike other plotting utilities, the `.facet_vars` arguments is NOT included.
 #' Use `dplyr::group_by()` for processing multiple time series groups.
 #'
 #' @seealso
@@ -105,14 +103,14 @@
 #'     select(id, Date, Weekly_Sales, Temperature, Fuel_Price) %>%
 #'     group_by(id) %>%
 #'     plot_acf_diagnostics(
-#'         Date, Weekly_Sales,        # ACF & PACF
-#'         Temperature, Fuel_Price,   # CCFs
+#'         Date, Weekly_Sales,                        # ACF & PACF
+#'         .ccf_vars    = c(Temperature, Fuel_Price), # CCFs
 #'         .lags        = "3 months", # 3 months of weekly lags
 #'         .interactive = FALSE
 #'     )
 #'
 #' @export
-plot_acf_diagnostics <- function(.data, .date_var, .value, ..., .lags = 1000,
+plot_acf_diagnostics <- function(.data, .date_var, .value, .ccf_vars = NULL, .lags = 1000,
                                  .facet_ncol = 1, .facet_scales = "fixed",
                                  .line_color = "#2c3e50", .line_size = 0.5,
                                  .line_alpha = 1,
@@ -138,7 +136,7 @@ plot_acf_diagnostics <- function(.data, .date_var, .value, ..., .lags = 1000,
 }
 
 #' @export
-plot_acf_diagnostics.data.frame <- function(.data, .date_var, .value, ..., .lags = 1000,
+plot_acf_diagnostics.data.frame <- function(.data, .date_var, .value, .ccf_vars = NULL, .lags = 1000,
                                             .facet_ncol = 1, .facet_scales = "fixed",
                                             .line_color = "#2c3e50", .line_size = 0.5,
                                             .line_alpha = 1,
@@ -160,7 +158,8 @@ plot_acf_diagnostics.data.frame <- function(.data, .date_var, .value, ..., .lags
         .data     = tibble::as_tibble(.data),
         .date_var = !! rlang::enquo(.date_var),
         .value    = !! value_expr,
-        ...       = ...,
+        .ccf_vars = !! rlang::enquo(.ccf_vars),
+        # ...       = ...,
         .lags     = .lags
     )
 
@@ -226,7 +225,7 @@ plot_acf_diagnostics.data.frame <- function(.data, .date_var, .value, ..., .lags
 }
 
 #' @export
-plot_acf_diagnostics.grouped_df <- function(.data, .date_var, .value, ..., .lags = 1000,
+plot_acf_diagnostics.grouped_df <- function(.data, .date_var, .value, .ccf_vars = NULL, .lags = 1000,
                                             .facet_ncol = 1, .facet_scales = "fixed",
                                             .line_color = "#2c3e50", .line_size = 0.5,
                                             .line_alpha = 1,
@@ -235,7 +234,7 @@ plot_acf_diagnostics.grouped_df <- function(.data, .date_var, .value, ..., .lags
                                             .x_intercept = NULL,
                                             .x_intercept_color = "#E31A1C",
                                             .hline_color = "#2c3e50",
-                                            .title = "ACF Diagnostics",
+                                            .title = "Lag Diagnostics",
                                             .x_lab = "Lag", .y_lab = "Correlation",
                                             .interactive = TRUE, .plotly_slider = FALSE) {
 
@@ -249,7 +248,8 @@ plot_acf_diagnostics.grouped_df <- function(.data, .date_var, .value, ..., .lags
         .data     = .data,
         .date_var = !! rlang::enquo(.date_var),
         .value    = !! value_expr,
-        ...       = ...,
+        .ccf_vars = !! rlang::enquo(.ccf_vars),
+        # ...       = ...,
         .lags     = .lags
     )
 
@@ -305,6 +305,7 @@ plot_acf_diagnostics.grouped_df <- function(.data, .date_var, .value, ..., .lags
 
     # Add theme
     g <- g + theme_tq()
+
 
     if (.interactive) {
         return(plotly::ggplotly(g))

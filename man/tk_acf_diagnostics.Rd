@@ -4,7 +4,7 @@
 \alias{tk_acf_diagnostics}
 \title{Group-wise ACF, PACF, and CCF Data Preparation}
 \usage{
-tk_acf_diagnostics(.data, .date_var, .value, ..., .lags = 1000)
+tk_acf_diagnostics(.data, .date_var, .value, .ccf_vars = NULL, .lags = 1000)
 }
 \arguments{
 \item{.data}{A data frame or tibble with numeric features (values) in descending
@@ -15,7 +15,7 @@ chronological order}
 \item{.value}{A numeric column with a value to have ACF and PACF calculations
 performed.}
 
-\item{...}{Additional features to perform Lag Cross Correlations (CCFs)
+\item{.ccf_vars}{Additional features to perform Lag Cross Correlations (CCFs)
 versus the \code{.value}. Useful for evaluating external lagged regressors.}
 
 \item{.lags}{A seqence of one or more lags to evaluate.}
@@ -71,14 +71,16 @@ library(timetk)
 # - Get CCF between adjusted and volume and close
 FANG \%>\%
     filter(symbol == "FB") \%>\%
-    tk_acf_diagnostics(date, adjusted, # ACF & PACF
-                       volume, close,  # CCFs
-                       .lags = 500)
+    tk_acf_diagnostics(date, adjusted,                # ACF & PACF
+                       .ccf_vars = c(volume, close),  # CCFs
+                       .lags     = 500)
 
 # Scale with groups using group_by()
 FANG \%>\%
     group_by(symbol) \%>\%
-    tk_acf_diagnostics(date, adjusted, volume, close, .lags = "3 months")
+    tk_acf_diagnostics(date, adjusted,
+                       .ccf_vars = c(volume, close),
+                       .lags     = "3 months")
 
 # Apply Transformations
 FANG \%>\%

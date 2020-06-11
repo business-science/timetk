@@ -8,7 +8,7 @@ plot_acf_diagnostics(
   .data,
   .date_var,
   .value,
-  ...,
+  .ccf_vars = NULL,
   .lags = 1000,
   .facet_ncol = 1,
   .facet_scales = "fixed",
@@ -37,7 +37,7 @@ chronological order}
 \item{.value}{A numeric column with a value to have ACF and PACF calculations
 performed.}
 
-\item{...}{Additional features to perform Lag Cross Correlations (CCFs)
+\item{.ccf_vars}{Additional features to perform Lag Cross Correlations (CCFs)
 versus the \code{.value}. Useful for evaluating external lagged regressors.}
 
 \item{.lags}{A sequence of one or more lags to evaluate.}
@@ -110,11 +110,9 @@ The \code{plot_acf_diagnostics()} works with \code{grouped_df}'s, meaning you ca
 group your time series by one or more categorical columns with \code{dplyr::group_by()}
 and then apply \code{plot_acf_diagnostics()} to return group-wise lag diagnostics.
 
-\strong{Special Note on Dots (...)}
+\strong{Special Note on Groups}
 
-Unlike other plotting utilities, the \code{...} arguments is NOT used for
-group-wise analysis. Rather, it's used for processing Cross Correlations (CCFs).
-
+Unlike other plotting utilities, the \code{.facet_vars} arguments is NOT included.
 Use \code{dplyr::group_by()} for processing multiple time series groups.
 }
 \examples{
@@ -149,8 +147,8 @@ walmart_sales_weekly \%>\%
     select(id, Date, Weekly_Sales, Temperature, Fuel_Price) \%>\%
     group_by(id) \%>\%
     plot_acf_diagnostics(
-        Date, Weekly_Sales,        # ACF & PACF
-        Temperature, Fuel_Price,   # CCFs
+        Date, Weekly_Sales,                        # ACF & PACF
+        .ccf_vars    = c(Temperature, Fuel_Price), # CCFs
         .lags        = "3 months", # 3 months of weekly lags
         .interactive = FALSE
     )
