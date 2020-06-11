@@ -119,6 +119,8 @@ plot_anomaly_diagnostics <- function(.data, .date_var, .value, .facet_vars = NUL
 
                                      .ribbon_fill = "grey20", .ribbon_alpha = 1,
 
+                                     .legend_show = TRUE,
+
                                      .title = "Anomaly Diagnostics",
                                      .x_lab = "", .y_lab = "",
                                      .color_lab = "Anomaly",
@@ -159,6 +161,8 @@ plot_anomaly_diagnostics.data.frame <- function(.data, .date_var, .value, .facet
                                                 .anom_alpha = 1, .anom_size = 1.5,
 
                                                 .ribbon_fill = "grey20", .ribbon_alpha = 1,
+
+                                                .legend_show = TRUE,
 
                                                 .title = "Anomaly Diagnostics",
                                                 .x_lab = "", .y_lab = "",
@@ -250,6 +254,11 @@ plot_anomaly_diagnostics.data.frame <- function(.data, .date_var, .value, .facet
                             data = . %>% dplyr::filter(anomaly == "Yes")) +
         ggplot2::scale_color_manual(values = c("Yes" = .anom_color))
 
+    # Show Legend?
+    if (!.legend_show) {
+        g <- g +
+            ggplot2::theme(legend.position = "none")
+    }
 
     # Convert to interactive if selected
     if (.interactive) {
@@ -276,6 +285,8 @@ plot_anomaly_diagnostics.grouped_df <- function(.data, .date_var, .value, .facet
                                                 .anom_alpha = 1, .anom_size = 1.5,
 
                                                 .ribbon_fill = "grey20", .ribbon_alpha = 1,
+
+                                                .legend_show = TRUE,
 
                                                 .title = "Anomaly Diagnostics",
                                                 .x_lab = "", .y_lab = "",
@@ -328,6 +339,8 @@ plot_anomaly_diagnostics.grouped_df <- function(.data, .date_var, .value, .facet
 
         .ribbon_fill        = .ribbon_fill,
         .ribbon_alpha       = .ribbon_alpha,
+
+        .legend_show        = .legend_show,
 
         .title              = .title,
         .x_lab              = .x_lab,

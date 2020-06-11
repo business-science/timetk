@@ -25,6 +25,7 @@ plot_anomaly_diagnostics(
   .anom_size = 1.5,
   .ribbon_fill = "grey20",
   .ribbon_alpha = 1,
+  .legend_show = TRUE,
   .title = "Anomaly Diagnostics",
   .x_lab = "",
   .y_lab = "",

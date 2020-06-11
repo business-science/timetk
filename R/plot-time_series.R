@@ -372,6 +372,7 @@ plot_time_series.data.frame <- function(.data, .date_var, .value, .color_var = N
         theme_tq() +
         ggplot2::labs(x = .x_lab, y = .y_lab, title = .title, color = .color_lab)
 
+    # Show Legend?
     if (!.legend_show) {
         g <- g +
             ggplot2::theme(legend.position = "none")
