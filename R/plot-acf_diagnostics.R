@@ -13,6 +13,7 @@
 #' @param .ccf_vars Additional features to perform Lag Cross Correlations (CCFs)
 #' versus the `.value`. Useful for evaluating external lagged regressors.
 #' @param .lags A sequence of one or more lags to evaluate.
+#' @param .show_ccf_vars_only Hides the ACF and PACF plots so you can focus on only CCFs.
 #' @param .facet_ncol Facets: Number of facet columns. Has no effect if using `grouped_df`.
 #' @param .facet_scales Facets: Options include "fixed", "free", "free_y", "free_x"
 #' @param .line_color Line color. Use keyword: "scale_color" to change the color by the facet.
@@ -111,6 +112,7 @@
 #'
 #' @export
 plot_acf_diagnostics <- function(.data, .date_var, .value, .ccf_vars = NULL, .lags = 1000,
+                                 .show_ccf_vars_only = FALSE,
                                  .facet_ncol = 1, .facet_scales = "fixed",
                                  .line_color = "#2c3e50", .line_size = 0.5,
                                  .line_alpha = 1,
@@ -137,6 +139,7 @@ plot_acf_diagnostics <- function(.data, .date_var, .value, .ccf_vars = NULL, .la
 
 #' @export
 plot_acf_diagnostics.data.frame <- function(.data, .date_var, .value, .ccf_vars = NULL, .lags = 1000,
+                                            .show_ccf_vars_only = FALSE,
                                             .facet_ncol = 1, .facet_scales = "fixed",
                                             .line_color = "#2c3e50", .line_size = 0.5,
                                             .line_alpha = 1,
@@ -163,9 +166,16 @@ plot_acf_diagnostics.data.frame <- function(.data, .date_var, .value, .ccf_vars 
         .lags     = .lags
     )
 
+    if (.show_ccf_vars_only) {
+        data_formatted <- data_formatted %>%
+            dplyr::select(-dplyr::contains("ACF"))
+    }
+
     data_formatted <- data_formatted %>%
         tidyr::pivot_longer(cols = -lag, values_to = "value", names_to = "name") %>%
         dplyr::mutate(name = forcats::as_factor(name))
+
+
 
     # ---- VISUALIZATION ----
 
@@ -226,6 +236,7 @@ plot_acf_diagnostics.data.frame <- function(.data, .date_var, .value, .ccf_vars 
 
 #' @export
 plot_acf_diagnostics.grouped_df <- function(.data, .date_var, .value, .ccf_vars = NULL, .lags = 1000,
+                                            .show_ccf_vars_only = FALSE,
                                             .facet_ncol = 1, .facet_scales = "fixed",
                                             .line_color = "#2c3e50", .line_size = 0.5,
                                             .line_alpha = 1,
@@ -253,6 +264,11 @@ plot_acf_diagnostics.grouped_df <- function(.data, .date_var, .value, .ccf_vars 
         .lags     = .lags
     )
 
+    if (.show_ccf_vars_only) {
+        data_formatted <- data_formatted %>%
+            dplyr::select(-dplyr::contains("ACF"))
+    }
+
     # dont_pivot_these <- c(group_names, "lag")
     data_formatted <- data_formatted %>%
         dplyr::ungroup() %>%
@@ -264,6 +280,8 @@ plot_acf_diagnostics.grouped_df <- function(.data, .date_var, .value, .ccf_vars 
                             values_to = "value",
                             names_to  = "name") %>%
         dplyr::mutate(name = forcats::as_factor(name))
+
+
 
     # data_formatted
 

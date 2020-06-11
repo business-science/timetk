@@ -10,6 +10,7 @@ plot_acf_diagnostics(
   .value,
   .ccf_vars = NULL,
   .lags = 1000,
+  .show_ccf_vars_only = FALSE,
   .facet_ncol = 1,
   .facet_scales = "fixed",
   .line_color = "#2c3e50",
@@ -41,6 +42,8 @@ performed.}
 versus the \code{.value}. Useful for evaluating external lagged regressors.}
 
 \item{.lags}{A sequence of one or more lags to evaluate.}
+
+\item{.show_ccf_vars_only}{Hides the ACF and PACF plots so you can focus on only CCFs.}
 
 \item{.facet_ncol}{Facets: Number of facet columns. Has no effect if using \code{grouped_df}.}
 
