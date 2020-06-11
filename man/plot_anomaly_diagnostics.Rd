@@ -8,7 +8,7 @@ plot_anomaly_diagnostics(
   .data,
   .date_var,
   .value,
-  ...,
+  .facet_vars = NULL,
   .frequency = "auto",
   .trend = "auto",
   .alpha = 0.05,
@@ -23,7 +23,7 @@ plot_anomaly_diagnostics(
   .anom_color = "#e31a1c",
   .anom_alpha = 1,
   .anom_size = 1.5,
-  .ribbon_fill = "grey70",
+  .ribbon_fill = "grey20",
   .ribbon_alpha = 1,
   .title = "Anomaly Diagnostics",
   .x_lab = "",
@@ -39,7 +39,7 @@ plot_anomaly_diagnostics(
 
 \item{.value}{A column containing numeric values}
 
-\item{...}{One or more grouping columns that broken out into \code{ggplot2} facets.
+\item{.facet_vars}{One or more grouping columns that broken out into \code{ggplot2} facets.
 These can be selected using \code{tidyselect()} helpers (e.g \code{contains()}).}
 
 \item{.frequency}{Controls the seasonal adjustment (removal of seasonality).

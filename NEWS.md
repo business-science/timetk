@@ -21,7 +21,7 @@ __New Tune Parameter Ranking and Selection Tools__:
 
 -->
 
-# timetk 2.0.0.9000
+# timetk 2.0.0.9000 (Development Version)
 
 __New Functions__
 
@@ -37,7 +37,10 @@ __Improvements__
 
 __Breaking Changes__
 
-* __Tab Completion__: Replace `...` with `.facet_vars` or `.ccf_vars`. This change is needed to improve tab-completion. It affects `plot_time_series()`, `plot_acf_diagnostics()`.
+* __Tab Completion__: Replace `...` with `.facet_vars` or `.ccf_vars`. This change is needed to improve tab-completion. It affects : 
+    - `plot_time_series()`
+    - `plot_acf_diagnostics()`
+    - `plot_anomaly_diagnostics()`
 
 # timetk 2.0.0
 
