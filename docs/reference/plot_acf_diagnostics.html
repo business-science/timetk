@@ -193,8 +193,9 @@ to multiple time series with <code>group_by()</code>.</p>
   <span class='no'>.data</span>,
   <span class='no'>.date_var</span>,
   <span class='no'>.value</span>,
-  <span class='no'>...</span>,
+  <span class='kw'>.ccf_vars</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>.lags</span> <span class='kw'>=</span> <span class='fl'>1000</span>,
+  <span class='kw'>.show_ccf_vars_only</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>.facet_ncol</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>.facet_scales</span> <span class='kw'>=</span> <span class='st'>"fixed"</span>,
   <span class='kw'>.line_color</span> <span class='kw'>=</span> <span class='st'>"#2c3e50"</span>,
@@ -231,13 +232,17 @@ chronological order</p></td>
 performed.</p></td>
     </tr>
     <tr>
-      <th>...</th>
+      <th>.ccf_vars</th>
       <td><p>Additional features to perform Lag Cross Correlations (CCFs)
 versus the <code>.value</code>. Useful for evaluating external lagged regressors.</p></td>
     </tr>
     <tr>
       <th>.lags</th>
       <td><p>A sequence of one or more lags to evaluate.</p></td>
+    </tr>
+    <tr>
+      <th>.show_ccf_vars_only</th>
+      <td><p>Hides the ACF and PACF plots so you can focus on only CCFs.</p></td>
     </tr>
     <tr>
       <th>.facet_ncol</th>
@@ -331,10 +336,9 @@ variable.</p></li>
 <p>The <code>plot_acf_diagnostics()</code> works with <code>grouped_df</code>'s, meaning you can
 group your time series by one or more categorical columns with <code><a href='https://dplyr.tidyverse.org/reference/group_by.html'>dplyr::group_by()</a></code>
 and then apply <code>plot_acf_diagnostics()</code> to return group-wise lag diagnostics.</p>
-<p><strong>Special Note on Dots (...)</strong></p>
-<p>Unlike other plotting utilities, the <code>...</code> arguments is NOT used for
-group-wise analysis. Rather, it's used for processing Cross Correlations (CCFs).</p>
-<p>Use <code><a href='https://dplyr.tidyverse.org/reference/group_by.html'>dplyr::group_by()</a></code> for processing multiple time series groups.</p>
+<p><strong>Special Note on Groups</strong></p>
+<p>Unlike other plotting utilities, the <code>.facet_vars</code> arguments is NOT included.
+Use <code><a href='https://dplyr.tidyverse.org/reference/group_by.html'>dplyr::group_by()</a></code> for processing multiple time series groups.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'>
@@ -375,8 +379,8 @@ group-wise analysis. Rather, it's used for processing Cross Correlations (CCFs).
     <span class='fu'>select</span>(<span class='no'>id</span>, <span class='no'>Date</span>, <span class='no'>Weekly_Sales</span>, <span class='no'>Temperature</span>, <span class='no'>Fuel_Price</span>) <span class='kw'>%&gt;%</span>
     <span class='fu'>group_by</span>(<span class='no'>id</span>) <span class='kw'>%&gt;%</span>
     <span class='fu'>plot_acf_diagnostics</span>(
-        <span class='no'>Date</span>, <span class='no'>Weekly_Sales</span>,        <span class='co'># ACF &amp; PACF</span>
-        <span class='no'>Temperature</span>, <span class='no'>Fuel_Price</span>,   <span class='co'># CCFs</span>
+        <span class='no'>Date</span>, <span class='no'>Weekly_Sales</span>,                        <span class='co'># ACF &amp; PACF</span>
+        <span class='kw'>.ccf_vars</span>    <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>Temperature</span>, <span class='no'>Fuel_Price</span>), <span class='co'># CCFs</span>
         <span class='kw'>.lags</span>        <span class='kw'>=</span> <span class='st'>"3 months"</span>, <span class='co'># 3 months of weekly lags</span>
         <span class='kw'>.interactive</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
     )</div><div class='img'><img src='plot_acf_diagnostics-3.png' alt='' width='700' height='433' /></div><div class='input'>

@@ -183,14 +183,31 @@
 <h1 class="page-header" data-toc-text="2.0.0.9000">
 <a href="#timetk-2009000" class="anchor"></a>timetk 2.0.0.9000<small> Unreleased </small>
 </h1>
+<p><strong>New Functions</strong></p>
 <ul>
 <li>
-<code><a href="../reference/initial_timeseries_split.html">initial_timeseries_split()</a></code>: Initial Timeseries Split - A simple way to split time series by</li>
+<code>initial_time_series_split()</code>: Initial Timeseries Split - A simple way to split time series by</li>
 </ul>
 <p><strong>Improvements</strong></p>
 <ul>
 <li>
-<code><a href="../reference/summarise_by_time.html">summarise_by_time()</a></code>, <code><a href="../reference/filter_by_time.html">filter_by_time()</a></code>: Auto-detect date and date-time by allowing <code>.date_var</code> to be <code>NULL</code>.</li>
+<strong>Auto-detect date and date-time</strong>: Affects <code><a href="../reference/summarise_by_time.html">summarise_by_time()</a></code>, <code><a href="../reference/filter_by_time.html">filter_by_time()</a></code>, <code>tk_summary_diagnostics</code>
+</li>
+<li>
+<code><a href="../reference/tk_time_series_cv_plan.html">tk_time_series_cv_plan()</a></code>: Allow a single resample from <code>initial_time_split</code> or <code>initial_timeseries_split</code>
+</li>
+<li>
+<code><a href="../reference/plot_time_series.html">plot_time_series()</a></code>:
+<ul>
+<li>Add <code>.legend_show</code> to toggle on/off legends.</li>
+<li>Permit numeric index (fix issue with smoother failing)</li>
+</ul>
+</li>
+</ul>
+<p><strong>Breaking Changes</strong></p>
+<ul>
+<li>
+<strong>Tab Completion</strong>: Replace <code>...</code> with <code>.facet_vars</code> or <code>.ccf_vars</code>. This change is needed to improve tab-completion. It affects <code><a href="../reference/plot_time_series.html">plot_time_series()</a></code>, <code><a href="../reference/plot_acf_diagnostics.html">plot_acf_diagnostics()</a></code>.</li>
 </ul>
 </div>
     <div id="timetk-200" class="section level1">

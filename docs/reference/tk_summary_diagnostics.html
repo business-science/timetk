@@ -198,7 +198,8 @@ one or more timeseries groups in a tibble.</p>
     </tr>
     <tr>
       <th>.date_var</th>
-      <td><p>A column containing either date or date-time values</p></td>
+      <td><p>A column containing either date or date-time values.
+If missing, attempts to auto-detect the date or date-time column.</p></td>
     </tr>
     </table>
 
@@ -218,21 +219,31 @@ time series groups.</p><ul>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>)
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>timetk</span>)
 
+<span class='co'># ---- NON-GROUPED EXAMPLES ----</span>
+
+<span class='co'># Monthly Data</span>
+<span class='no'>m4_monthly</span> <span class='kw'>%&gt;%</span>
+    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='no'>id</span> <span class='kw'>==</span> <span class='st'>"M750"</span>) <span class='kw'>%&gt;%</span>
+    <span class='fu'>tk_summary_diagnostics</span>()</div><div class='output co'>#&gt; <span class='message'>tk_augment_timeseries_signature(): Using the following .date_var variable: date</span></div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 1 x 12</span><span>
+#&gt;   n.obs start      end        units scale tzone diff.minimum diff.q1 diff.median
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>        </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>       </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span>   306 1990-01-01 2015-06-01 days  month UTC        2</span><span style='text-decoration: underline;'>419</span><span>200 2</span><span style='text-decoration: underline;'>592</span><span>000     2</span><span style='text-decoration: underline;'>678</span><span>400
+#&gt; </span><span style='color: #555555;'># … with 3 more variables: diff.mean </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, diff.q3 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, diff.maximum </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span></div><div class='input'>
 <span class='co'># ---- GROUPED EXAMPLES ----</span>
 
-<span class='co'># Hourly Data</span>
-<span class='no'>m4_hourly</span> <span class='kw'>%&gt;%</span>
+<span class='co'># Monthly Data</span>
+<span class='no'>m4_monthly</span> <span class='kw'>%&gt;%</span>
     <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>id</span>) <span class='kw'>%&gt;%</span>
-    <span class='fu'>tk_summary_diagnostics</span>(<span class='no'>date</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 4 x 13</span><span>
+    <span class='fu'>tk_summary_diagnostics</span>()</div><div class='output co'>#&gt; <span class='message'>tk_augment_timeseries_signature(): Using the following .date_var variable: date</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 4 x 13</span><span>
 #&gt; </span><span style='color: #555555;'># Groups:   id [4]</span><span>
-#&gt;   id    n.obs start               end                 units scale tzone
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dttm&gt;</span><span>              </span><span style='color: #555555;font-style: italic;'>&lt;dttm&gt;</span><span>              </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span> H10     700 2015-07-01 </span><span style='color: #555555;'>12:00:00</span><span> 2015-07-30 </span><span style='color: #555555;'>15:00:00</span><span> hours hour  UTC  
-#&gt; </span><span style='color: #555555;'>2</span><span> H50     700 2015-07-01 </span><span style='color: #555555;'>12:00:00</span><span> 2015-07-30 </span><span style='color: #555555;'>15:00:00</span><span> hours hour  UTC  
-#&gt; </span><span style='color: #555555;'>3</span><span> H150    700 2013-09-01 </span><span style='color: #555555;'>12:00:00</span><span> 2013-09-30 </span><span style='color: #555555;'>15:00:00</span><span> hours hour  UTC  
-#&gt; </span><span style='color: #555555;'>4</span><span> H410    960 2017-01-01 </span><span style='color: #555555;'>12:00:00</span><span> 2017-02-10 </span><span style='color: #555555;'>11:00:00</span><span> hours hour  UTC  
-#&gt; </span><span style='color: #555555;'># … with 6 more variables: diff.minimum </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, diff.q1 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   diff.median </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, diff.mean </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, diff.q3 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, diff.maximum </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span></div><div class='input'>
+#&gt;   id    n.obs start      end        units scale tzone diff.minimum diff.q1
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>        </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span> M1      469 1976-06-01 2015-06-01 days  month UTC        2</span><span style='text-decoration: underline;'>419</span><span>200 2</span><span style='text-decoration: underline;'>592</span><span>000
+#&gt; </span><span style='color: #555555;'>2</span><span> M2      469 1976-06-01 2015-06-01 days  month UTC        2</span><span style='text-decoration: underline;'>419</span><span>200 2</span><span style='text-decoration: underline;'>592</span><span>000
+#&gt; </span><span style='color: #555555;'>3</span><span> M750    306 1990-01-01 2015-06-01 days  month UTC        2</span><span style='text-decoration: underline;'>419</span><span>200 2</span><span style='text-decoration: underline;'>592</span><span>000
+#&gt; </span><span style='color: #555555;'>4</span><span> M1000   330 1988-01-01 2015-06-01 days  month UTC        2</span><span style='text-decoration: underline;'>419</span><span>200 2</span><span style='text-decoration: underline;'>592</span><span>000
+#&gt; </span><span style='color: #555555;'># … with 4 more variables: diff.median </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, diff.mean </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, diff.q3 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   diff.maximum </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span></div><div class='input'>
 
 </div></span></pre>
   </div>

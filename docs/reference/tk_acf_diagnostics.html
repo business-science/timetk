@@ -191,7 +191,7 @@ Predictors in one <code>tibble</code>. This function powers the <code><a href='p
 visualization.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>tk_acf_diagnostics</span>(<span class='no'>.data</span>, <span class='no'>.date_var</span>, <span class='no'>.value</span>, <span class='no'>...</span>, <span class='kw'>.lags</span> <span class='kw'>=</span> <span class='fl'>1000</span>)</pre>
+    <pre class="usage"><span class='fu'>tk_acf_diagnostics</span>(<span class='no'>.data</span>, <span class='no'>.date_var</span>, <span class='no'>.value</span>, <span class='kw'>.ccf_vars</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>.lags</span> <span class='kw'>=</span> <span class='fl'>1000</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -211,7 +211,7 @@ chronological order</p></td>
 performed.</p></td>
     </tr>
     <tr>
-      <th>...</th>
+      <th>.ccf_vars</th>
       <td><p>Additional features to perform Lag Cross Correlations (CCFs)
 versus the <code>.value</code>. Useful for evaluating external lagged regressors.</p></td>
     </tr>
@@ -268,9 +268,9 @@ group-wise analysis. Rather, it's used for processing Cross Correlations (CCFs).
 <span class='co'># - Get CCF between adjusted and volume and close</span>
 <span class='no'>FANG</span> <span class='kw'>%&gt;%</span>
     <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span>(<span class='no'>symbol</span> <span class='kw'>==</span> <span class='st'>"FB"</span>) <span class='kw'>%&gt;%</span>
-    <span class='fu'>tk_acf_diagnostics</span>(<span class='no'>date</span>, <span class='no'>adjusted</span>, <span class='co'># ACF &amp; PACF</span>
-                       <span class='no'>volume</span>, <span class='no'>close</span>,  <span class='co'># CCFs</span>
-                       <span class='kw'>.lags</span> <span class='kw'>=</span> <span class='fl'>500</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 501 x 5</span><span>
+    <span class='fu'>tk_acf_diagnostics</span>(<span class='no'>date</span>, <span class='no'>adjusted</span>,                <span class='co'># ACF &amp; PACF</span>
+                       <span class='kw'>.ccf_vars</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>volume</span>, <span class='no'>close</span>),  <span class='co'># CCFs</span>
+                       <span class='kw'>.lags</span>     <span class='kw'>=</span> <span class='fl'>500</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 501 x 5</span><span>
 #&gt;      lag   ACF      PACF CCF_volume CCF_close
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
 #&gt; </span><span style='color: #555555;'> 1</span><span>     0 1.00   1            -</span><span style='color: #BB0000;'>0.447</span><span>     1.00 
@@ -287,7 +287,9 @@ group-wise analysis. Rather, it's used for processing Cross Correlations (CCFs).
 <span class='co'># Scale with groups using group_by()</span>
 <span class='no'>FANG</span> <span class='kw'>%&gt;%</span>
     <span class='fu'>group_by</span>(<span class='no'>symbol</span>) <span class='kw'>%&gt;%</span>
-    <span class='fu'>tk_acf_diagnostics</span>(<span class='no'>date</span>, <span class='no'>adjusted</span>, <span class='no'>volume</span>, <span class='no'>close</span>, <span class='kw'>.lags</span> <span class='kw'>=</span> <span class='st'>"3 months"</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 248 x 6</span><span>
+    <span class='fu'>tk_acf_diagnostics</span>(<span class='no'>date</span>, <span class='no'>adjusted</span>,
+                       <span class='kw'>.ccf_vars</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>volume</span>, <span class='no'>close</span>),
+                       <span class='kw'>.lags</span>     <span class='kw'>=</span> <span class='st'>"3 months"</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 248 x 6</span><span>
 #&gt; </span><span style='color: #555555;'># Groups:   symbol [4]</span><span>
 #&gt;    symbol   lag   ACF      PACF CCF_volume CCF_close
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>

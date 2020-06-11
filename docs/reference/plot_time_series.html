@@ -191,8 +191,8 @@ consolidates 20+ lines of <code>ggplot2</code> code, and scales well to many tim
   <span class='no'>.data</span>,
   <span class='no'>.date_var</span>,
   <span class='no'>.value</span>,
-  <span class='no'>...</span>,
   <span class='kw'>.color_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>.facet_vars</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>.facet_ncol</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>.facet_scales</span> <span class='kw'>=</span> <span class='st'>"free_y"</span>,
   <span class='kw'>.facet_collapse</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
@@ -211,6 +211,7 @@ consolidates 20+ lines of <code>ggplot2</code> code, and scales well to many tim
   <span class='kw'>.smooth_color</span> <span class='kw'>=</span> <span class='st'>"#3366FF"</span>,
   <span class='kw'>.smooth_size</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>.smooth_alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>.legend_show</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>.title</span> <span class='kw'>=</span> <span class='st'>"Time Series Plot"</span>,
   <span class='kw'>.x_lab</span> <span class='kw'>=</span> <span class='st'>""</span>,
   <span class='kw'>.y_lab</span> <span class='kw'>=</span> <span class='st'>""</span>,
@@ -235,14 +236,14 @@ consolidates 20+ lines of <code>ggplot2</code> code, and scales well to many tim
       <td><p>A column containing numeric values</p></td>
     </tr>
     <tr>
-      <th>...</th>
-      <td><p>One or more grouping columns that broken out into <code>ggplot2</code> facets.
-These can be selected using <code>tidyselect()</code> helpers (e.g <code>contains()</code>).</p></td>
-    </tr>
-    <tr>
       <th>.color_var</th>
       <td><p>A categorical column that can be used to change the
 line color</p></td>
+    </tr>
+    <tr>
+      <th>.facet_vars</th>
+      <td><p>One or more grouping columns that broken out into <code>ggplot2</code> facets.
+These can be selected using <code>tidyselect()</code> helpers (e.g <code>contains()</code>).</p></td>
     </tr>
     <tr>
       <th>.facet_ncol</th>
@@ -326,6 +327,10 @@ Either 0, 1, 2 (0 = lest flexible, 2 = more flexible).</p></td>
       <td><p>Smoother alpha (opacity). Range: (0, 1).</p></td>
     </tr>
     <tr>
+      <th>.legend_show</th>
+      <td><p>Toggles on/off the Legend</p></td>
+    </tr>
+    <tr>
       <th>.title</th>
       <td><p>Title for the plot</p></td>
     </tr>
@@ -368,7 +373,7 @@ Either 0, 1, 2 (0 = lest flexible, 2 = more flexible).</p></td>
 <p><strong>Scalable with Facets &amp; Dplyr Groups</strong></p>
 <p><code>plot_time_series()</code> returns multiple time series plots using <code>ggplot2</code> facets:</p><ul>
 <li><p><code>group_by()</code> - If groups are detected, multiple facets are returned</p></li>
-<li><p><code>plot_time_series(.facets)</code> - You can manually supply facets as well.</p></li>
+<li><p><code>plot_time_series(.facet_vars)</code> - You can manually supply facets as well.</p></li>
 </ul>
 
 <p><strong>Can Transform Values just like ggplot</strong></p>
@@ -409,8 +414,8 @@ or a numeric value (e.g. <code>smooth_period = 365</code>).</p>
 <span class='no'>FANG</span> <span class='kw'>%&gt;%</span>
     <span class='fu'>mutate</span>(<span class='kw'>year</span> <span class='kw'>=</span> <span class='fu'><a href='http://lubridate.tidyverse.org/reference/year.html'>year</a></span>(<span class='no'>date</span>)) <span class='kw'>%&gt;%</span>
     <span class='fu'>plot_time_series</span>(<span class='no'>date</span>, <span class='no'>adjusted</span>,
-                     <span class='no'>symbol</span>, <span class='no'>year</span>,         <span class='co'># add groups</span>
-                     <span class='kw'>.color_var</span>    <span class='kw'>=</span> <span class='no'>year</span>, <span class='co'># color by year</span>
+                     <span class='kw'>.facet_vars</span>   <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>symbol</span>, <span class='no'>year</span>), <span class='co'># add groups/facets</span>
+                     <span class='kw'>.color_var</span>    <span class='kw'>=</span> <span class='no'>year</span>,            <span class='co'># color by year</span>
                      <span class='kw'>.facet_ncol</span>   <span class='kw'>=</span> <span class='fl'>4</span>,
                      <span class='kw'>.facet_scales</span> <span class='kw'>=</span> <span class='st'>"free"</span>,
                      <span class='kw'>.interactive</span>  <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='plot_time_series-3.png' alt='' width='700' height='433' /></div><div class='input'>
@@ -418,23 +423,26 @@ or a numeric value (e.g. <code>smooth_period = 365</code>).</p>
 <span class='co'># - .value = log(adjusted)</span>
 <span class='co'># - .color_var = year(date)</span>
 <span class='no'>FANG</span> <span class='kw'>%&gt;%</span>
-    <span class='fu'>plot_time_series</span>(<span class='no'>date</span>, <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span>(<span class='no'>adjusted</span>), <span class='no'>symbol</span>,
-                     <span class='kw'>.color_var</span> <span class='kw'>=</span> <span class='fu'><a href='http://lubridate.tidyverse.org/reference/year.html'>year</a></span>(<span class='no'>date</span>),
+    <span class='fu'>plot_time_series</span>(<span class='no'>date</span>, <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span>(<span class='no'>adjusted</span>),
+                     <span class='kw'>.color_var</span>    <span class='kw'>=</span> <span class='fu'><a href='http://lubridate.tidyverse.org/reference/year.html'>year</a></span>(<span class='no'>date</span>),
+                     <span class='kw'>.facet_vars</span>   <span class='kw'>=</span> <span class='fu'>contains</span>(<span class='st'>"symbol"</span>),
                      <span class='kw'>.facet_ncol</span>   <span class='kw'>=</span> <span class='fl'>2</span>,
                      <span class='kw'>.facet_scales</span> <span class='kw'>=</span> <span class='st'>"free"</span>,
-                     <span class='kw'>.y_lab</span> <span class='kw'>=</span> <span class='st'>"Log Scale"</span>,
+                     <span class='kw'>.y_lab</span>        <span class='kw'>=</span> <span class='st'>"Log Scale"</span>,
                      <span class='kw'>.interactive</span>  <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='plot_time_series-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Plotly - Interactive Visualization By Default (Great for Exploration)</span>
 <span class='no'>FANG</span> <span class='kw'>%&gt;%</span>
-    <span class='fu'>plot_time_series</span>(<span class='no'>date</span>, <span class='no'>adjusted</span>, <span class='no'>symbol</span>, <span class='kw'>.smooth_alpha</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>.plotly_slider</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: `group_by_()` is deprecated as of dplyr 0.7.0.</span>
+    <span class='fu'>group_by</span>(<span class='no'>symbol</span>) <span class='kw'>%&gt;%</span>
+    <span class='fu'>plot_time_series</span>(<span class='no'>date</span>, <span class='no'>adjusted</span>, <span class='kw'>.smooth_alpha</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>.plotly_slider</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: `group_by_()` is deprecated as of dplyr 0.7.0.</span>
 #&gt; <span class='warning'>Please use `group_by()` instead.</span>
 #&gt; <span class='warning'>See vignette('programming') for more help</span>
 #&gt; <span class='warning'><span style='color: #555555;'>This warning is displayed once every 8 hours.</span><span></span>
 #&gt; <span class='warning'></span><span style='color: #555555;'>Call `lifecycle::last_warnings()` to see where this warning was generated.</span><span></span></div><div class='input'>
 <span class='co'># ggplot2 - static visualization (Great for PDF Reports)</span>
 <span class='no'>FANG</span> <span class='kw'>%&gt;%</span>
+    <span class='fu'>group_by</span>(<span class='no'>symbol</span>) <span class='kw'>%&gt;%</span>
     <span class='fu'>plot_time_series</span>(
-        <span class='no'>date</span>, <span class='no'>adjusted</span>, <span class='no'>symbol</span>,
+        <span class='no'>date</span>, <span class='no'>adjusted</span>,
         <span class='kw'>.color_var</span>     <span class='kw'>=</span> <span class='no'>symbol</span>,
         <span class='kw'>.facet_ncol</span>    <span class='kw'>=</span> <span class='fl'>2</span>,
         <span class='kw'>.smooth_period</span> <span class='kw'>=</span> <span class='st'>"6 months"</span>,
