@@ -72,7 +72,7 @@
 #'   time series resample specifications.
 #' - [plot_time_series_cv_plan()] - The plotting function used for visualizing the
 #'   time series resample plan.
-#' - [initial_timeseries_split()] - A convient function to return a single time series
+#' - [time_series_split()] - A convenience function to return a single time series
 #'   split containing a training/testing sample.
 #'
 #' @examples

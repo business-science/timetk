@@ -134,7 +134,7 @@ resample_spec \%>\% plot_time_series_cv_plan(date, value, .interactive = FALSE)
 time series resample specifications.
 \item \code{\link[=plot_time_series_cv_plan]{plot_time_series_cv_plan()}} - The plotting function used for visualizing the
 time series resample plan.
-\item \code{\link[=initial_timeseries_split]{initial_timeseries_split()}} - A convient function to return a single time series
+\item \code{\link[=time_series_split]{time_series_split()}} - A convenience function to return a single time series
 split containing a training/testing sample.
 }
 }

@@ -20,6 +20,7 @@
 #' @param .anom_size Size for the anomaly dots
 #' @param .ribbon_fill Fill color for the acceptable range
 #' @param .ribbon_alpha Fill opacity for the acceptable range. Range: (0, 1).
+#' @param .legend_show Toggles on/off the Legend
 #' @param .title Plot title.
 #' @param .x_lab Plot x-axis label
 #' @param .y_lab Plot y-axis label

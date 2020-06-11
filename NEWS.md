@@ -25,12 +25,16 @@ __New Tune Parameter Ranking and Selection Tools__:
 
 __New Functions__
 
-* `initial_time_series_split()`: Initial Timeseries Split - A simple way to split time series by 
+* `time_series_split()`: A convenient way to return a single split from `time_series_cv()`. Returns the split in the same format as `rsample::initial_time_split()`.
 
 __Improvements__
 
 * __Auto-detect date and date-time__: Affects `summarise_by_time()`, `filter_by_time()`, `tk_summary_diagnostics`
-* `tk_time_series_cv_plan()`: Allow a single resample from `initial_time_split` or `initial_timeseries_split`
+* `tk_time_series_cv_plan()`: Allow a single resample from `rsample::initial_time_split` or `timetk::time_series_split`
+
+__Plotting Improvements__
+
+* __All plotting functions now support Tab Completion__ (a minor breaking change was needed to do so, see breaking changes below)
 * `plot_time_series()`: 
     - Add `.legend_show` to toggle on/off legends. 
     - Permit numeric index (fix issue with smoother failing)

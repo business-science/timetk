@@ -82,6 +82,8 @@ and trend selection (if applicable).}
 
 \item{.ribbon_alpha}{Fill opacity for the acceptable range. Range: (0, 1).}
 
+\item{.legend_show}{Toggles on/off the Legend}
+
 \item{.title}{Plot title.}
 
 \item{.x_lab}{Plot x-axis label}

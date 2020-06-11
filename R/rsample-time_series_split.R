@@ -1,6 +1,6 @@
 #' Simple Training/Test Set Splitting for Time Series
 #'
-#' `initial_timeseries_split` creates resample splits using [time_series_cv()] but
+#' `time_series_split` creates resample splits using [time_series_cv()] but
 #' returns only a __single split.__ This is useful when creating a single
 #' train/test split.
 #'
@@ -71,11 +71,11 @@
 #'
 #' # Get the most recent 3 years as testing, and previous 10 years as training
 #' m750 %>%
-#'     initial_timeseries_split(initial = "10 years", assess = "3 years")
+#'     time_series_split(initial = "10 years", assess = "3 years")
 #'
 #' # Skip the most recent 3 years
 #' m750 %>%
-#'     initial_timeseries_split(
+#'     time_series_split(
 #'         initial = "10 years",
 #'         assess  = "3 years",
 #'         skip    = "3 years",
@@ -84,7 +84,7 @@
 #'
 #' # Add 1 year lag for testing overlap
 #' m750 %>%
-#'     initial_timeseries_split(
+#'     time_series_split(
 #'         initial = "10 years",
 #'         assess  = "3 years",
 #'         skip    = "3 years",
@@ -94,8 +94,8 @@
 #'
 #'
 #' @export
-initial_timeseries_split <- function(data, date_var = NULL, initial = 5, assess = 1,
-                                     skip = 1, lag = 0, cumulative = FALSE, slice = 1, ...) {
+time_series_split <- function(data, date_var = NULL, initial = 5, assess = 1,
+                              skip = 1, lag = 0, cumulative = FALSE, slice = 1, ...) {
 
     date_var_expr <- rlang::enquo(date_var)
 
