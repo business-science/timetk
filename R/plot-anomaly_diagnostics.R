@@ -118,7 +118,7 @@ plot_anomaly_diagnostics <- function(.data, .date_var, .value, .facet_vars = NUL
                                      .anom_color = "#e31a1c",
                                      .anom_alpha = 1, .anom_size = 1.5,
 
-                                     .ribbon_fill = "grey20", .ribbon_alpha = 1,
+                                     .ribbon_fill = "grey20", .ribbon_alpha = 0.20,
 
                                      .legend_show = TRUE,
 
@@ -161,7 +161,7 @@ plot_anomaly_diagnostics.data.frame <- function(.data, .date_var, .value, .facet
                                                 .anom_color = "#e31a1c",
                                                 .anom_alpha = 1, .anom_size = 1.5,
 
-                                                .ribbon_fill = "grey20", .ribbon_alpha = 1,
+                                                .ribbon_fill = "grey20", .ribbon_alpha = 0.20,
 
                                                 .legend_show = TRUE,
 
@@ -285,7 +285,7 @@ plot_anomaly_diagnostics.grouped_df <- function(.data, .date_var, .value, .facet
                                                 .anom_color = "#e31a1c",
                                                 .anom_alpha = 1, .anom_size = 1.5,
 
-                                                .ribbon_fill = "grey20", .ribbon_alpha = 1,
+                                                .ribbon_fill = "grey20", .ribbon_alpha = 0.20,
 
                                                 .legend_show = TRUE,
 
