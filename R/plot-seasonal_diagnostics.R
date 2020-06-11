@@ -6,7 +6,7 @@
 #' @param .data A `tibble` or `data.frame` with a time-based column
 #' @param .date_var A column containing either date or date-time values
 #' @param .value A column containing numeric values
-#' @param ... One or more grouping columns that broken out into `ggplot2` facets.
+#' @param .facet_vars One or more grouping columns that broken out into `ggplot2` facets.
 #'  These can be selected using `tidyselect()` helpers (e.g `contains()`).
 #' @param .feature_set One or multiple selections to analyze for seasonality. Choices include:
 #'  - "auto" - Automatically selects features based on the time stamps and length of the series.
@@ -91,7 +91,7 @@
 #'
 #' @name plot_seasonal_diagnostics
 #' @export
-plot_seasonal_diagnostics <- function(.data, .date_var, .value, ...,
+plot_seasonal_diagnostics <- function(.data, .date_var, .value, .facet_vars = NULL,
                                       .feature_set = "auto",
                                       .geom = c("boxplot", "violin"),
                                       .geom_color = "#2c3e50",
@@ -121,7 +121,7 @@ plot_seasonal_diagnostics <- function(.data, .date_var, .value, ...,
 }
 
 #' @export
-plot_seasonal_diagnostics.data.frame <- function(.data, .date_var, .value, ...,
+plot_seasonal_diagnostics.data.frame <- function(.data, .date_var, .value, .facet_vars = NULL,
                                                  .feature_set = "auto",
                                                  .geom = c("boxplot", "violin"),
                                                  .geom_color = "#2c3e50",
@@ -134,13 +134,16 @@ plot_seasonal_diagnostics.data.frame <- function(.data, .date_var, .value, ...,
                                                  .interactive = TRUE) {
 
     # Tidy Eval Setup
-    value_expr    <- rlang::enquo(.value)
-    date_var_expr <- rlang::enquo(.date_var)
-    facets_expr   <- rlang::enquos(...)
+    value_expr     <- rlang::enquo(.value)
+    date_var_expr  <- rlang::enquo(.date_var)
+    facets_expr    <- rlang::enquo(.facet_vars)
 
     data_formatted      <- tibble::as_tibble(.data)
     .facet_collapse     <- TRUE
     .facet_collapse_sep <- " "
+
+    # Facet Names
+    facets_expr <- names(tidyselect::eval_select(facets_expr, .data))
 
     # FACET SETUP ----
     facet_names <- data_formatted %>% dplyr::select(!!! facets_expr) %>% colnames()
@@ -293,7 +296,7 @@ plot_seasonal_diagnostics.data.frame <- function(.data, .date_var, .value, ...,
 }
 
 #' @export
-plot_seasonal_diagnostics.grouped_df <- function(.data, .date_var, .value, ...,
+plot_seasonal_diagnostics.grouped_df <- function(.data, .date_var, .value, .facet_vars = NULL,
                                                  .feature_set = "auto",
                                                  .geom = c("boxplot", "violin"),
                                                  .geom_color = "#2c3e50",
@@ -308,7 +311,7 @@ plot_seasonal_diagnostics.grouped_df <- function(.data, .date_var, .value, ...,
 
     # Tidy Eval Setup
     group_names   <- dplyr::group_vars(.data)
-    facets_expr   <- rlang::enquos(...)
+    facets_expr   <- rlang::enquos(.facet_vars)
 
     .data <- tibble::as_tibble(.data)
 
@@ -329,7 +332,8 @@ plot_seasonal_diagnostics.grouped_df <- function(.data, .date_var, .value, ...,
         .value              = !! rlang::enquo(.value),
 
         # ...
-        !!! rlang::syms(group_names),
+        # !!! rlang::syms(group_names),
+        .facet_vars         = !! enquo(group_names),
 
         .feature_set        = .feature_set,
         .geom               = .geom,

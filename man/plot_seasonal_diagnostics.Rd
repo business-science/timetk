@@ -8,7 +8,7 @@ plot_seasonal_diagnostics(
   .data,
   .date_var,
   .value,
-  ...,
+  .facet_vars = NULL,
   .feature_set = "auto",
   .geom = c("boxplot", "violin"),
   .geom_color = "#2c3e50",
@@ -26,7 +26,7 @@ plot_seasonal_diagnostics(
 
 \item{.value}{A column containing numeric values}
 
-\item{...}{One or more grouping columns that broken out into \code{ggplot2} facets.
+\item{.facet_vars}{One or more grouping columns that broken out into \code{ggplot2} facets.
 These can be selected using \code{tidyselect()} helpers (e.g \code{contains()}).}
 
 \item{.feature_set}{One or multiple selections to analyze for seasonality. Choices include:
