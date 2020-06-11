@@ -45,6 +45,8 @@ __Breaking Changes__
     - `plot_time_series()`
     - `plot_acf_diagnostics()`
     - `plot_anomaly_diagnostics()`
+    - `plot_seasonal_diagnostics()`
+    - `plot_stl_diagnostics()`
 
 # timetk 2.0.0
 

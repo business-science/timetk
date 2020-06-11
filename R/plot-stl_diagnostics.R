@@ -7,7 +7,7 @@
 #' @param .data A `tibble` or `data.frame` with a time-based column
 #' @param .date_var A column containing either date or date-time values
 #' @param .value A column containing numeric values
-#' @param ... One or more grouping columns that broken out into `ggplot2` facets.
+#' @param .facet_vars One or more grouping columns that broken out into `ggplot2` facets.
 #'  These can be selected using `tidyselect()` helpers (e.g `contains()`).
 #' @param .feature_set The STL decompositions to visualize.
 #'  Select one or more of "observed", "season", "trend", "remainder", "seasadj".
@@ -79,7 +79,7 @@
 #'
 #' @name plot_stl_diagnostics
 #' @export
-plot_stl_diagnostics <- function(.data, .date_var, .value, ...,
+plot_stl_diagnostics <- function(.data, .date_var, .value, .facet_vars = NULL,
                                  .feature_set = c("observed", "season", "trend", "remainder", "seasadj"),
                                  .frequency = "auto", .trend = "auto", .message = TRUE,
 
@@ -112,7 +112,7 @@ plot_stl_diagnostics <- function(.data, .date_var, .value, ...,
 }
 
 #' @export
-plot_stl_diagnostics.data.frame <- function(.data, .date_var, .value, ...,
+plot_stl_diagnostics.data.frame <- function(.data, .date_var, .value, .facet_vars = NULL,
                                             .feature_set = c("observed", "season", "trend", "remainder", "seasadj"),
                                             .frequency = "auto", .trend = "auto", .message = TRUE,
 
@@ -127,11 +127,14 @@ plot_stl_diagnostics.data.frame <- function(.data, .date_var, .value, ...,
     # Tidy Eval Setup
     value_expr    <- rlang::enquo(.value)
     date_var_expr <- rlang::enquo(.date_var)
-    facets_expr   <- rlang::enquos(...)
+    facets_expr   <- rlang::enquo(.facet_vars)
 
     data_formatted      <- tibble::as_tibble(.data)
     .facet_collapse     <- TRUE
     .facet_collapse_sep <- " "
+
+    # Facet Names
+    facets_expr <- names(tidyselect::eval_select(facets_expr, .data))
 
     # FACET SETUP ----
     facet_names <- data_formatted %>% dplyr::select(!!! facets_expr) %>% colnames()
@@ -217,7 +220,7 @@ plot_stl_diagnostics.data.frame <- function(.data, .date_var, .value, ...,
 }
 
 #' @export
-plot_stl_diagnostics.grouped_df <- function(.data, .date_var, .value, ...,
+plot_stl_diagnostics.grouped_df <- function(.data, .date_var, .value, .facet_vars = NULL,
                                             .feature_set = c("observed", "season", "trend", "remainder", "seasadj"),
                                             .frequency = "auto", .trend = "auto", .message = TRUE,
 
@@ -232,7 +235,7 @@ plot_stl_diagnostics.grouped_df <- function(.data, .date_var, .value, ...,
 
     # Tidy Eval Setup
     group_names   <- dplyr::group_vars(.data)
-    facets_expr   <- rlang::enquos(...)
+    facets_expr   <- rlang::enquos(.facet_vars)
 
     # Checks
     facet_names <- .data %>% dplyr::ungroup() %>% dplyr::select(!!! facets_expr) %>% colnames()
@@ -251,7 +254,8 @@ plot_stl_diagnostics.grouped_df <- function(.data, .date_var, .value, ...,
         .value              = !! rlang::enquo(.value),
 
         # ...
-        !!! rlang::syms(group_names),
+        # !!! rlang::syms(group_names),
+        .facet_vars         = !! enquo(group_names),
 
         .frequency          = .frequency,
         .trend              = .trend,

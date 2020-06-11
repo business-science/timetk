@@ -8,7 +8,7 @@ plot_stl_diagnostics(
   .data,
   .date_var,
   .value,
-  ...,
+  .facet_vars = NULL,
   .feature_set = c("observed", "season", "trend", "remainder", "seasadj"),
   .frequency = "auto",
   .trend = "auto",
@@ -31,7 +31,7 @@ plot_stl_diagnostics(
 
 \item{.value}{A column containing numeric values}
 
-\item{...}{One or more grouping columns that broken out into \code{ggplot2} facets.
+\item{.facet_vars}{One or more grouping columns that broken out into \code{ggplot2} facets.
 These can be selected using \code{tidyselect()} helpers (e.g \code{contains()}).}
 
 \item{.feature_set}{The STL decompositions to visualize.
