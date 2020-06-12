@@ -106,7 +106,7 @@ tk_acf_diagnostics.data.frame <- function(.data, .date_var, .value, .ccf_vars = 
     value_expr    <- rlang::enquo(.value)
     ccf_expr      <- rlang::enquo(.ccf_vars)
 
-    ccf_expr <- names(tidyselect::eval_select(ccf_expr, .data))
+    ccf_expr <- rlang::syms(names(tidyselect::eval_select(ccf_expr, .data)))
     # dots_exprs    <- rlang::enquos(...)
 
     # Apply transformations

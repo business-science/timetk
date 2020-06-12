@@ -134,7 +134,7 @@ plot_stl_diagnostics.data.frame <- function(.data, .date_var, .value, .facet_var
     .facet_collapse_sep <- " "
 
     # Facet Names
-    facets_expr <- names(tidyselect::eval_select(facets_expr, .data))
+    facets_expr <- rlang::syms(names(tidyselect::eval_select(facets_expr, .data)))
 
     # FACET SETUP ----
     facet_names <- data_formatted %>% dplyr::select(!!! facets_expr) %>% colnames()

@@ -222,7 +222,7 @@ plot_time_series.data.frame <- function(.data, .date_var, .value, .color_var = N
     color_var_expr <- rlang::enquo(.color_var)
 
     # Facet Names
-    facets_expr <- names(tidyselect::eval_select(facets_expr, .data))
+    facets_expr <- rlang::syms(names(tidyselect::eval_select(facets_expr, .data)))
 
 
     # ---- DATA SETUP ----

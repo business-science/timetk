@@ -177,7 +177,7 @@ plot_anomaly_diagnostics.data.frame <- function(.data, .date_var, .value, .facet
     facets_expr   <- rlang::enquo(.facet_vars)
 
     # Facet Names
-    facets_expr <- names(tidyselect::eval_select(facets_expr, .data))
+    facets_expr <- rlang::syms(names(tidyselect::eval_select(facets_expr, .data)))
 
     data_formatted      <- tibble::as_tibble(.data)
     .facet_collapse     <- TRUE
