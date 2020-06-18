@@ -58,15 +58,15 @@ tk_time_series_cv_plan.time_series_cv <- function(.data) {
 tk_time_series_cv_plan.rsplit <- function(.data) {
 
     tib_2 <- tibble::tibble(
-        trn = list(rsample::training(!! rlang::enquo(.data)))
+        training = list(rsample::training(!! rlang::enquo(.data)))
     )
 
     tib_3 <- tibble::tibble(
-        tst = list(rsample::testing(!! rlang::enquo(.data)))
+        testing = list(rsample::testing(!! rlang::enquo(.data)))
     )
 
     dplyr::bind_rows(tib_2, tib_3) %>%
-        tidyr::gather(trn:tst, key = ".key", value = ".value", factor_key = TRUE) %>%
+        tidyr::gather(training:testing, key = ".key", value = ".value", factor_key = TRUE) %>%
         tidyr::unnest(.value) %>%
         tibble::as_tibble() %>%
         tibble::add_column(.id = "Slice1", .before = 1)
