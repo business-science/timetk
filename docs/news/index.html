@@ -179,14 +179,16 @@
       <small>Source: <a href='https://github.com/business-science/timetk/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="timetk-2009000" class="section level1">
+    <div id="timetk-2009000-development-version" class="section level1">
 <h1 class="page-header" data-toc-text="2.0.0.9000">
-<a href="#timetk-2009000" class="anchor"></a>timetk 2.0.0.9000<small> Unreleased </small>
+<a href="#timetk-2009000-development-version" class="anchor"></a>timetk 2.0.0.9000 (Development Version)<small> Unreleased </small>
 </h1>
 <p><strong>New Functions</strong></p>
 <ul>
 <li>
-<code>initial_time_series_split()</code>: Initial Timeseries Split - A simple way to split time series by</li>
+<code><a href="../reference/plot_time_series_regression.html">plot_time_series_regression()</a></code>: Convenience function to visualize &amp; explore features using Linear Regression (<code><a href="https://rdrr.io/r/stats/lm.html">stats::lm()</a></code> formula).</li>
+<li>
+<code><a href="../reference/time_series_split.html">time_series_split()</a></code>: A convenient way to return a single split from <code><a href="../reference/time_series_cv.html">time_series_cv()</a></code>. Returns the split in the same format as <code><a href="https://rsample.tidymodels.org/reference/initial_split.html">rsample::initial_time_split()</a></code>.</li>
 </ul>
 <p><strong>Improvements</strong></p>
 <ul>
@@ -194,8 +196,13 @@
 <strong>Auto-detect date and date-time</strong>: Affects <code><a href="../reference/summarise_by_time.html">summarise_by_time()</a></code>, <code><a href="../reference/filter_by_time.html">filter_by_time()</a></code>, <code>tk_summary_diagnostics</code>
 </li>
 <li>
-<code><a href="../reference/tk_time_series_cv_plan.html">tk_time_series_cv_plan()</a></code>: Allow a single resample from <code>initial_time_split</code> or <code>initial_timeseries_split</code>
+<code><a href="../reference/tk_time_series_cv_plan.html">tk_time_series_cv_plan()</a></code>: Allow a single resample from <code><a href="https://rsample.tidymodels.org/reference/initial_split.html">rsample::initial_time_split</a></code> or <code><a href="../reference/time_series_split.html">timetk::time_series_split</a></code>
 </li>
+</ul>
+<p><strong>Plotting Improvements</strong></p>
+<ul>
+<li>
+<strong>All plotting functions now support Tab Completion</strong> (a minor breaking change was needed to do so, see breaking changes below)</li>
 <li>
 <code><a href="../reference/plot_time_series.html">plot_time_series()</a></code>:
 <ul>
@@ -207,7 +214,15 @@
 <p><strong>Breaking Changes</strong></p>
 <ul>
 <li>
-<strong>Tab Completion</strong>: Replace <code>...</code> with <code>.facet_vars</code> or <code>.ccf_vars</code>. This change is needed to improve tab-completion. It affects <code><a href="../reference/plot_time_series.html">plot_time_series()</a></code>, <code><a href="../reference/plot_acf_diagnostics.html">plot_acf_diagnostics()</a></code>.</li>
+<strong>Tab Completion</strong>: Replace <code>...</code> with <code>.facet_vars</code> or <code>.ccf_vars</code>. This change is needed to improve tab-completion. It affects :
+<ul>
+<li><code><a href="../reference/plot_time_series.html">plot_time_series()</a></code></li>
+<li><code><a href="../reference/plot_acf_diagnostics.html">plot_acf_diagnostics()</a></code></li>
+<li><code><a href="../reference/plot_anomaly_diagnostics.html">plot_anomaly_diagnostics()</a></code></li>
+<li><code><a href="../reference/plot_seasonal_diagnostics.html">plot_seasonal_diagnostics()</a></code></li>
+<li><code><a href="../reference/plot_stl_diagnostics.html">plot_stl_diagnostics()</a></code></li>
+</ul>
+</li>
 </ul>
 </div>
     <div id="timetk-200" class="section level1">

@@ -59,6 +59,7 @@ reference:
     - contains("plot_anomaly")
     - contains("plot_seasonal")
     - contains("plot_stl")
+    - "plot_time_series_regression"
   - title: Time Series Data Wrangling Operations
     desc: __Extension for `dplyr` for time-series data manipulations__
   - subtitle: Data Frame Operations

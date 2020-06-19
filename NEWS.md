@@ -25,6 +25,7 @@ __New Tune Parameter Ranking and Selection Tools__:
 
 __New Functions__
 
+* `plot_time_series_regression()`: Convenience function to visualize & explore features using Linear Regression (`stats::lm()` formula).
 * `time_series_split()`: A convenient way to return a single split from `time_series_cv()`. Returns the split in the same format as `rsample::initial_time_split()`.
 
 __Improvements__
