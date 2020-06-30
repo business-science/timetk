@@ -57,6 +57,8 @@ library(timetk)
 We'll use the Facebook stock prices from the `FANG` data set from `tidyquant`. These are the historical stock prices (open, high, low, close, volume, and adjusted) for the "FB" stock from 2013 through 2016.
 
 ```{r}
+data("FANG")
+
 FB_tbl <- FANG %>% filter(symbol == "FB")
 FB_tbl
 ```

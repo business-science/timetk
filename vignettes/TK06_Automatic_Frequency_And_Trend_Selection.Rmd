@@ -43,6 +43,8 @@ __Daily Irregular Data__
 The daily stock prices of Facebook from 2013 to 2016 (courtesy of `tidyquant`). Note that trading days only occur on "business days" (non-weekends and non-business-holidays).
 
 ```{r}
+data(FANG)
+
 FB_tbl <- FANG %>% filter(symbol == "FB")
 FB_tbl
 ```

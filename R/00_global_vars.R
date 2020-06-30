@@ -7,4 +7,4 @@ globalVariables(c("index", "index.num", "y", "yhat", "week", "mday", "diff.media
                   "centerline", "direction", "limit_lower", "limit_upper", "max_abs_diff", "outlier", "outlier_reported",
                   "sorting", "anomaly", "recomposed_l1", "recomposed_l2", "remainder_l1", "remainder_l2",
                   ".metric", ".metrics", ".rank_metric", ".rank_std_err", "failure_rate", "std_err",
-                  ".rank_failure_rate", ".txt", "training", "testing", "fitted", "model"))
+                  ".rank_failure_rate", ".txt", "training", "testing", "fitted", "model", "..val", "..nm"))
