@@ -135,16 +135,15 @@ plot_time_series_regression.grouped_df <- function(.data, .date_var, .formula, .
         dplyr::mutate(model = purrr::map(data, ~ tibble::tibble(fitted = stats::lm(.formula, data = .x)$fitted.values))) %>%
         tidyr::unnest(cols = c(data, model))
 
+
     # Data Formatted
     data_formatted <- data_modeled %>%
         dplyr::mutate(!! rlang::quo_name(value_expr) := !! value_expr) %>%
-        dplyr::select(!!! rlang::enquos(group_names), !! date_var_expr, rlang::quo_name(value_expr), fitted) %>%
-        tidyr::pivot_longer(cols = c(rlang::quo_name(value_expr), fitted))
-
-    # return(data_formatted)
+        dplyr::select(!!! rlang::enquos(group_names), !! date_var_expr, !! rlang::quo_name(value_expr), fitted) %>%
+        tidyr::pivot_longer(cols = c(rlang::quo_name(value_expr), fitted), names_to = "..nm", values_to = "..val")
 
     # Plot
     data_formatted %>%
-        plot_time_series(!! date_var_expr, value, .color_var = name, .smooth = FALSE, ...)
+        plot_time_series(!! date_var_expr, ..val, .color_var = ..nm, .smooth = FALSE, ...)
 
 }
