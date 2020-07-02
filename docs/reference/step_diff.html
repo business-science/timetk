@@ -283,7 +283,7 @@ order</em> for lagging.</p>
 
     <div class='dont-index'><p>Time Series Analysis:</p><ul>
 <li><p>Engineered Features: <code><a href='step_timeseries_signature.html'>step_timeseries_signature()</a></code>, <code><a href='step_holiday_signature.html'>step_holiday_signature()</a></code>, <code><a href='step_fourier.html'>step_fourier()</a></code></p></li>
-<li><p>Diffs &amp; Lags <code>step_diff()</code>, <code><a href='https://rdrr.io/pkg/recipes/man/step_lag.html'>recipes::step_lag()</a></code></p></li>
+<li><p>Diffs &amp; Lags <code>step_diff()</code>, <code><a href='https://recipes.tidymodels.org/reference/step_lag.html'>recipes::step_lag()</a></code></p></li>
 <li><p>Smoothing: <code><a href='step_slidify.html'>step_slidify()</a></code>, <code><a href='step_smooth.html'>step_smooth()</a></code></p></li>
 <li><p>Variance Reduction: <code><a href='step_box_cox.html'>step_box_cox()</a></code></p></li>
 <li><p>Imputation: <code><a href='step_ts_impute.html'>step_ts_impute()</a></code>, <code><a href='step_ts_clean.html'>step_ts_clean()</a></code></p></li>
@@ -291,13 +291,13 @@ order</em> for lagging.</p>
 </ul>
 
 <p>Remove NA Values:</p><ul>
-<li><p><code><a href='https://rdrr.io/pkg/recipes/man/step_naomit.html'>recipes::step_naomit()</a></code></p></li>
+<li><p><code><a href='https://recipes.tidymodels.org/reference/step_naomit.html'>recipes::step_naomit()</a></code></p></li>
 </ul>
 
 <p>Main Recipe Functions:</p><ul>
-<li><p><code><a href='https://rdrr.io/pkg/recipes/man/recipe.html'>recipes::recipe()</a></code></p></li>
-<li><p><code><a href='https://rdrr.io/pkg/recipes/man/prep.html'>recipes::prep.recipe()</a></code></p></li>
-<li><p><code><a href='https://rdrr.io/pkg/recipes/man/bake.html'>recipes::bake.recipe()</a></code></p></li>
+<li><p><code><a href='https://recipes.tidymodels.org/reference/recipe.html'>recipes::recipe()</a></code></p></li>
+<li><p><code><a href='https://recipes.tidymodels.org/reference/prep.html'>recipes::prep.recipe()</a></code></p></li>
+<li><p><code><a href='https://recipes.tidymodels.org/reference/bake.html'>recipes::bake.recipe()</a></code></p></li>
 </ul>
 </div>
 
@@ -315,11 +315,11 @@ order</em> for lagging.</p>
 
 <span class='co'># Make and apply recipe ----</span>
 
-<span class='no'>recipe_diff</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/recipe.html'>recipe</a></span>(~ <span class='no'>.</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>FANG_wide</span>) <span class='kw'>%&gt;%</span>
+<span class='no'>recipe_diff</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://recipes.tidymodels.org/reference/recipe.html'>recipe</a></span>(~ <span class='no'>.</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>FANG_wide</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'>step_diff</span>(<span class='no'>FB</span>, <span class='no'>AMZN</span>, <span class='no'>NFLX</span>, <span class='no'>GOOG</span>, <span class='kw'>lag</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>3</span>, <span class='kw'>difference</span> <span class='kw'>=</span> <span class='fl'>1</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/prep.html'>prep</a></span>()
+  <span class='fu'><a href='https://recipes.tidymodels.org/reference/prep.html'>prep</a></span>()
 
-<span class='no'>recipe_diff</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/bake.html'>bake</a></span>(<span class='no'>FANG_wide</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 1,008 x 17</span><span>
+<span class='no'>recipe_diff</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://recipes.tidymodels.org/reference/bake.html'>bake</a></span>(<span class='no'>FANG_wide</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 1,008 x 17</span><span>
 #&gt;    date          FB  AMZN  NFLX  GOOG diff_1_1_FB diff_1_1_AMZN diff_1_1_NFLX
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>       </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
 #&gt; </span><span style='color: #555555;'> 1</span><span> 2013-01-02  28    257.  13.1  361.      </span><span style='color: #BB0000;'>NA</span><span>           </span><span style='color: #BB0000;'>NA</span><span>            </span><span style='color: #BB0000;'>NA</span><span>     
@@ -339,11 +339,11 @@ order</em> for lagging.</p>
 
 <span class='co'># Get information with tidy ----</span>
 
-<span class='no'>recipe_diff</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/reexports.html'>tidy</a></span>()</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 1 x 6</span><span>
+<span class='no'>recipe_diff</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://recipes.tidymodels.org/reference/reexports.html'>tidy</a></span>()</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 1 x 6</span><span>
 #&gt;   number operation type  trained skip  id        
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     
 #&gt; </span><span style='color: #555555;'>1</span><span>      1 step      diff  TRUE    FALSE diff_UUEdL</div><div class='input'>
-<span class='no'>recipe_diff</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/reexports.html'>tidy</a></span>(<span class='fl'>1</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 12 x 5</span><span>
+<span class='no'>recipe_diff</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://recipes.tidymodels.org/reference/reexports.html'>tidy</a></span>(<span class='fl'>1</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 12 x 5</span><span>
 #&gt;    terms           lag  diff log   id        
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     
 #&gt; </span><span style='color: #555555;'> 1</span><span> diff_FB_1_1       1     1 FALSE diff_UUEdL

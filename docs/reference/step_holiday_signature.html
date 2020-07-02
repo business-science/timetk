@@ -221,7 +221,7 @@ sequence of operations for this recipe.</p></td>
       <td><p>One or more selector functions to choose which
 variables that will be used to create the new variables. The
 selected variables should have class <code>Date</code> or
-<code>POSIXct</code>. See <code><a href='https://rdrr.io/pkg/recipes/man/selections.html'>recipes::selections()</a></code> for more details.
+<code>POSIXct</code>. See <code><a href='https://recipes.tidymodels.org/reference/selections.html'>recipes::selections()</a></code> for more details.
 For the <code>tidy</code> method, these are not currently used.</p></td>
     </tr>
     <tr>
@@ -254,13 +254,13 @@ preprocessing have been estimated.</p></td>
       <th>columns</th>
       <td><p>A character string of variables that will be
 used as inputs. This field is a placeholder and will be
-populated once <code><a href='https://rdrr.io/pkg/recipes/man/prep.html'>recipes::prep.recipe()</a></code> is used.</p></td>
+populated once <code><a href='https://recipes.tidymodels.org/reference/prep.html'>recipes::prep.recipe()</a></code> is used.</p></td>
     </tr>
     <tr>
       <th>features</th>
       <td><p>A character string of features that will be
 generated. This field is a placeholder and will be
-populated once <code><a href='https://rdrr.io/pkg/recipes/man/prep.html'>recipes::prep.recipe()</a></code> is used.</p></td>
+populated once <code><a href='https://recipes.tidymodels.org/reference/prep.html'>recipes::prep.recipe()</a></code> is used.</p></td>
     </tr>
     <tr>
       <th>skip</th>
@@ -306,12 +306,12 @@ For example, <code>exchange_set = "NYSE"</code> returns business holidays for Ne
 
 <p><strong>Removing Unnecessary Features</strong>
 By default, many features are created automatically. Unnecessary features can
-be removed using <code><a href='https://rdrr.io/pkg/recipes/man/step_rm.html'>recipes::step_rm()</a></code> and <code><a href='https://rdrr.io/pkg/recipes/man/selections.html'>recipes::selections()</a></code> for more details.</p>
+be removed using <code><a href='https://recipes.tidymodels.org/reference/step_rm.html'>recipes::step_rm()</a></code> and <code><a href='https://recipes.tidymodels.org/reference/selections.html'>recipes::selections()</a></code> for more details.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Time Series Analysis:</p><ul>
 <li><p>Engineered Features: <code><a href='step_timeseries_signature.html'>step_timeseries_signature()</a></code>, <code>step_holiday_signature()</code>, <code><a href='step_fourier.html'>step_fourier()</a></code></p></li>
-<li><p>Diffs &amp; Lags <code><a href='step_diff.html'>step_diff()</a></code>, <code><a href='https://rdrr.io/pkg/recipes/man/step_lag.html'>recipes::step_lag()</a></code></p></li>
+<li><p>Diffs &amp; Lags <code><a href='step_diff.html'>step_diff()</a></code>, <code><a href='https://recipes.tidymodels.org/reference/step_lag.html'>recipes::step_lag()</a></code></p></li>
 <li><p>Smoothing: <code><a href='step_slidify.html'>step_slidify()</a></code>, <code><a href='step_smooth.html'>step_smooth()</a></code></p></li>
 <li><p>Variance Reduction: <code><a href='step_box_cox.html'>step_box_cox()</a></code></p></li>
 <li><p>Imputation: <code><a href='step_ts_impute.html'>step_ts_impute()</a></code>, <code><a href='step_ts_clean.html'>step_ts_clean()</a></code></p></li>
@@ -319,9 +319,9 @@ be removed using <code><a href='https://rdrr.io/pkg/recipes/man/step_rm.html'>re
 </ul>
 
 <p>Main Recipe Functions:</p><ul>
-<li><p><code><a href='https://rdrr.io/pkg/recipes/man/recipe.html'>recipes::recipe()</a></code></p></li>
-<li><p><code><a href='https://rdrr.io/pkg/recipes/man/prep.html'>recipes::prep.recipe()</a></code></p></li>
-<li><p><code><a href='https://rdrr.io/pkg/recipes/man/bake.html'>recipes::bake.recipe()</a></code></p></li>
+<li><p><code><a href='https://recipes.tidymodels.org/reference/recipe.html'>recipes::recipe()</a></code></p></li>
+<li><p><code><a href='https://recipes.tidymodels.org/reference/prep.html'>recipes::prep.recipe()</a></code></p></li>
+<li><p><code><a href='https://recipes.tidymodels.org/reference/bake.html'>recipes::bake.recipe()</a></code></p></li>
 </ul>
 </div>
 
@@ -337,24 +337,24 @@ be removed using <code><a href='https://rdrr.io/pkg/recipes/man/step_rm.html'>re
 
 <span class='co'># Add US holidays and Non-Working Days due to Holidays</span>
 <span class='co'># - Physical Holidays are added with holiday pattern (individual) and locale_set</span>
-<span class='no'>rec_holiday</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/recipe.html'>recipe</a></span>(~ <span class='no'>.</span>, <span class='no'>dates_in_2017_tbl</span>) <span class='kw'>%&gt;%</span>
+<span class='no'>rec_holiday</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://recipes.tidymodels.org/reference/recipe.html'>recipe</a></span>(~ <span class='no'>.</span>, <span class='no'>dates_in_2017_tbl</span>) <span class='kw'>%&gt;%</span>
     <span class='fu'>step_holiday_signature</span>(<span class='no'>index</span>,
                            <span class='kw'>holiday_pattern</span> <span class='kw'>=</span> <span class='st'>"^US_"</span>,
                            <span class='kw'>locale_set</span>      <span class='kw'>=</span> <span class='st'>"US"</span>,
                            <span class='kw'>exchange_set</span>    <span class='kw'>=</span> <span class='st'>"NYSE"</span>)
 
 <span class='co'># Not yet prep'ed - just returns parameters selected</span>
-<span class='no'>rec_holiday</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/reexports.html'>tidy</a></span>(<span class='fl'>1</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 3 x 4</span><span>
+<span class='no'>rec_holiday</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://recipes.tidymodels.org/reference/reexports.html'>tidy</a></span>(<span class='fl'>1</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 3 x 4</span><span>
 #&gt;   terms param           value id                     
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>           </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                  
 #&gt; </span><span style='color: #555555;'>1</span><span> index holiday_pattern ^US_  holiday_signature_mb92Q
 #&gt; </span><span style='color: #555555;'>2</span><span> index locale_set      US    holiday_signature_mb92Q
 #&gt; </span><span style='color: #555555;'>3</span><span> index exchange_set    NYSE  holiday_signature_mb92Q</div><div class='input'>
 <span class='co'># Prep the recipe</span>
-<span class='no'>rec_holiday_prep</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/prep.html'>prep</a></span>(<span class='no'>rec_holiday</span>)
+<span class='no'>rec_holiday_prep</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://recipes.tidymodels.org/reference/prep.html'>prep</a></span>(<span class='no'>rec_holiday</span>)
 
 <span class='co'># Now prep'ed - returns new features that will be created</span>
-<span class='no'>rec_holiday_prep</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/reexports.html'>tidy</a></span>(<span class='fl'>1</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 19 x 3</span><span>
+<span class='no'>rec_holiday_prep</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://recipes.tidymodels.org/reference/reexports.html'>tidy</a></span>(<span class='fl'>1</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 19 x 3</span><span>
 #&gt;    terms value                    id                     
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>                    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                  
 #&gt; </span><span style='color: #555555;'> 1</span><span> index exch_NYSE                holiday_signature_mb92Q
@@ -377,7 +377,7 @@ be removed using <code><a href='https://rdrr.io/pkg/recipes/man/step_rm.html'>re
 #&gt; </span><span style='color: #555555;'>18</span><span> index US_ThanksgivingDay       holiday_signature_mb92Q
 #&gt; </span><span style='color: #555555;'>19</span><span> index US_ChristmasDay          holiday_signature_mb92Q</div><div class='input'>
 <span class='co'># Apply the recipe to add new holiday features!</span>
-<span class='fu'><a href='https://rdrr.io/pkg/recipes/man/bake.html'>bake</a></span>(<span class='no'>rec_holiday_prep</span>, <span class='no'>dates_in_2017_tbl</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 365 x 20</span><span>
+<span class='fu'><a href='https://recipes.tidymodels.org/reference/bake.html'>bake</a></span>(<span class='no'>rec_holiday_prep</span>, <span class='no'>dates_in_2017_tbl</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 365 x 20</span><span>
 #&gt;    index      index_exch_NYSE index_locale_US index_US_NewYea… index_US_MLKing…
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>               </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>           </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>            </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>            </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
 #&gt; </span><span style='color: #555555;'> 1</span><span> 2017-01-01               0               1                1                0

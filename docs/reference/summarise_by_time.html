@@ -296,7 +296,7 @@ The name will be the name of the variable in the result.</p>
         <span class='kw'>.by</span>       <span class='kw'>=</span> <span class='st'>"month"</span>, <span class='co'># Setup for monthly aggregation</span>
         <span class='co'># Summarization</span>
         <span class='kw'>value</span>  <span class='kw'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/nth.html'>first</a></span>(<span class='no'>value</span>)
-    )</div><div class='output co'>#&gt; <span class='message'>tidyquant::summarise_by_time() is deprecated. Don't fret! The timetk::summarise_by_time() replaces it.</span></div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 323 x 3</span><span>
+    )</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 323 x 3</span><span>
 #&gt; </span><span style='color: #555555;'># Groups:   id [4]</span><span>
 #&gt;    id    date       value
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
@@ -320,14 +320,42 @@ The name will be the name of the variable in the result.</p>
         <span class='kw'>.type</span>      <span class='kw'>=</span> <span class='st'>"ceiling"</span>
     ) <span class='kw'>%&gt;%</span>
     <span class='co'># Shift to the last day of the month</span>
-    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>date</span> <span class='kw'>=</span> <span class='no'>date</span> <span class='kw'>%-time%</span> <span class='st'>"1 day"</span>)</div><div class='output co'>#&gt; <span class='message'>tidyquant::summarise_by_time() is deprecated. Don't fret! The timetk::summarise_by_time() replaces it.</span></div><div class='output co'>#&gt; <span class='message'>.date_var is missing. Using: date</span></div><div class='output co'>#&gt; <span class='error'>Error in is_quosure(x): argument "x" is missing, with no default</span></div><div class='input'>
+    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>date</span> <span class='kw'>=</span> <span class='no'>date</span> <span class='kw'>%-time%</span> <span class='st'>"1 day"</span>)</div><div class='output co'>#&gt; <span class='message'>.date_var is missing. Using: date</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 323 x 3</span><span>
+#&gt; </span><span style='color: #555555;'># Groups:   id [4]</span><span>
+#&gt;    id    date       value
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> D10   2014-07-31 </span><span style='text-decoration: underline;'>1</span><span>917.
+#&gt; </span><span style='color: #555555;'> 2</span><span> D10   2014-08-31 </span><span style='text-decoration: underline;'>1</span><span>921.
+#&gt; </span><span style='color: #555555;'> 3</span><span> D10   2014-09-30 </span><span style='text-decoration: underline;'>2</span><span>024.
+#&gt; </span><span style='color: #555555;'> 4</span><span> D10   2014-10-31 </span><span style='text-decoration: underline;'>2</span><span>130 
+#&gt; </span><span style='color: #555555;'> 5</span><span> D10   2014-11-30 </span><span style='text-decoration: underline;'>2</span><span>217.
+#&gt; </span><span style='color: #555555;'> 6</span><span> D10   2014-12-31 </span><span style='text-decoration: underline;'>2</span><span>328.
+#&gt; </span><span style='color: #555555;'> 7</span><span> D10   2015-01-31 </span><span style='text-decoration: underline;'>2</span><span>210.
+#&gt; </span><span style='color: #555555;'> 8</span><span> D10   2015-02-28 </span><span style='text-decoration: underline;'>2</span><span>293.
+#&gt; </span><span style='color: #555555;'> 9</span><span> D10   2015-03-31 </span><span style='text-decoration: underline;'>2</span><span>392.
+#&gt; </span><span style='color: #555555;'>10</span><span> D10   2015-04-30 </span><span style='text-decoration: underline;'>2</span><span>368.
+#&gt; </span><span style='color: #555555;'># … with 313 more rows</span><span></div><div class='input'>
 <span class='co'># Total each year (.by is set to "year" now)</span>
 <span class='no'>m4_daily</span> <span class='kw'>%&gt;%</span>
     <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>id</span>) <span class='kw'>%&gt;%</span>
     <span class='fu'>summarise_by_time</span>(
         <span class='kw'>.by</span>        <span class='kw'>=</span> <span class='st'>"year"</span>,
         <span class='kw'>value</span>      <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='no'>value</span>)
-    )</div><div class='output co'>#&gt; <span class='message'>tidyquant::summarise_by_time() is deprecated. Don't fret! The timetk::summarise_by_time() replaces it.</span></div><div class='output co'>#&gt; <span class='message'>.date_var is missing. Using: date</span></div><div class='output co'>#&gt; <span class='error'>Error in is_quosure(x): argument "x" is missing, with no default</span></div><div class='input'>
+    )</div><div class='output co'>#&gt; <span class='message'>.date_var is missing. Using: date</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 30 x 3</span><span>
+#&gt; </span><span style='color: #555555;'># Groups:   id [4]</span><span>
+#&gt;    id    date          value
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>        </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> D10   2014-01-01  </span><span style='text-decoration: underline;'>377</span><span>389.
+#&gt; </span><span style='color: #555555;'> 2</span><span> D10   2015-01-01  </span><span style='text-decoration: underline;'>839</span><span>533.
+#&gt; </span><span style='color: #555555;'> 3</span><span> D10   2016-01-01  </span><span style='text-decoration: underline;'>307</span><span>401.
+#&gt; </span><span style='color: #555555;'> 4</span><span> D160  2000-01-01  </span><span style='text-decoration: underline;'>767</span><span>500.
+#&gt; </span><span style='color: #555555;'> 5</span><span> D160  2001-01-01  </span><span style='text-decoration: underline;'>871</span><span>497.
+#&gt; </span><span style='color: #555555;'> 6</span><span> D160  2002-01-01 1</span><span style='text-decoration: underline;'>464</span><span>374.
+#&gt; </span><span style='color: #555555;'> 7</span><span> D160  2003-01-01 3</span><span style='text-decoration: underline;'>160</span><span>291.
+#&gt; </span><span style='color: #555555;'> 8</span><span> D160  2004-01-01 5</span><span style='text-decoration: underline;'>424</span><span>860 
+#&gt; </span><span style='color: #555555;'> 9</span><span> D160  2005-01-01 6</span><span style='text-decoration: underline;'>127</span><span>995.
+#&gt; </span><span style='color: #555555;'>10</span><span> D160  2006-01-01 3</span><span style='text-decoration: underline;'>694</span><span>712.
+#&gt; </span><span style='color: #555555;'># … with 20 more rows</span><span></div><div class='input'>
 
 </div></span></pre>
   </div>

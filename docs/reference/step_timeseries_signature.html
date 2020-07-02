@@ -215,7 +215,7 @@ sequence of operations for this recipe.</p></td>
       <td><p>One or more selector functions to choose which
 variables that will be used to create the new variables. The
 selected variables should have class <code>Date</code> or
-<code>POSIXct</code>. See <code><a href='https://rdrr.io/pkg/recipes/man/selections.html'>recipes::selections()</a></code> for more details.
+<code>POSIXct</code>. See <code><a href='https://recipes.tidymodels.org/reference/selections.html'>recipes::selections()</a></code> for more details.
 For the <code>tidy</code> method, these are not currently used.</p></td>
     </tr>
     <tr>
@@ -234,7 +234,7 @@ preprocessing have been estimated.</p></td>
       <th>columns</th>
       <td><p>A character string of variables that will be
 used as inputs. This field is a placeholder and will be
-populated once <code><a href='https://rdrr.io/pkg/recipes/man/prep.html'>recipes::prep.recipe()</a></code> is used.</p></td>
+populated once <code><a href='https://recipes.tidymodels.org/reference/prep.html'>recipes::prep.recipe()</a></code> is used.</p></td>
     </tr>
     <tr>
       <th>skip</th>
@@ -265,19 +265,19 @@ names).</p>
 
     <p><strong>Date Variable</strong>
 Unlike other steps, <code>step_timeseries_signature</code> does <em>not</em>
-remove the original date variables. <code><a href='https://rdrr.io/pkg/recipes/man/step_rm.html'>recipes::step_rm()</a></code> can be
+remove the original date variables. <code><a href='https://recipes.tidymodels.org/reference/step_rm.html'>recipes::step_rm()</a></code> can be
 used for this purpose.</p>
 <p><strong>Scaling index.num</strong>
 The <code>index.num</code> feature created has a large magnitude (number of seconds since 1970-01-01).
-It's a good idea to scale and center this feature (e.g. use  <code><a href='https://rdrr.io/pkg/recipes/man/step_normalize.html'>recipes::step_normalize()</a></code>).</p>
+It's a good idea to scale and center this feature (e.g. use  <code><a href='https://recipes.tidymodels.org/reference/step_normalize.html'>recipes::step_normalize()</a></code>).</p>
 <p><strong>Removing Unnecessary Features</strong>
 By default, many features are created automatically. Unnecessary features can
-be removed using <code><a href='https://rdrr.io/pkg/recipes/man/step_rm.html'>recipes::step_rm()</a></code>.</p>
+be removed using <code><a href='https://recipes.tidymodels.org/reference/step_rm.html'>recipes::step_rm()</a></code>.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Time Series Analysis:</p><ul>
 <li><p>Engineered Features: <code>step_timeseries_signature()</code>, <code><a href='step_holiday_signature.html'>step_holiday_signature()</a></code>, <code><a href='step_fourier.html'>step_fourier()</a></code></p></li>
-<li><p>Diffs &amp; Lags <code><a href='step_diff.html'>step_diff()</a></code>, <code><a href='https://rdrr.io/pkg/recipes/man/step_lag.html'>recipes::step_lag()</a></code></p></li>
+<li><p>Diffs &amp; Lags <code><a href='step_diff.html'>step_diff()</a></code>, <code><a href='https://recipes.tidymodels.org/reference/step_lag.html'>recipes::step_lag()</a></code></p></li>
 <li><p>Smoothing: <code><a href='step_slidify.html'>step_slidify()</a></code>, <code><a href='step_smooth.html'>step_smooth()</a></code></p></li>
 <li><p>Variance Reduction: <code><a href='step_box_cox.html'>step_box_cox()</a></code></p></li>
 <li><p>Imputation: <code><a href='step_ts_impute.html'>step_ts_impute()</a></code>, <code><a href='step_ts_clean.html'>step_ts_clean()</a></code></p></li>
@@ -285,9 +285,9 @@ be removed using <code><a href='https://rdrr.io/pkg/recipes/man/step_rm.html'>re
 </ul>
 
 <p>Main Recipe Functions:</p><ul>
-<li><p><code><a href='https://rdrr.io/pkg/recipes/man/recipe.html'>recipes::recipe()</a></code></p></li>
-<li><p><code><a href='https://rdrr.io/pkg/recipes/man/prep.html'>recipes::prep.recipe()</a></code></p></li>
-<li><p><code><a href='https://rdrr.io/pkg/recipes/man/bake.html'>recipes::bake.recipe()</a></code></p></li>
+<li><p><code><a href='https://recipes.tidymodels.org/reference/recipe.html'>recipes::recipe()</a></code></p></li>
+<li><p><code><a href='https://recipes.tidymodels.org/reference/prep.html'>recipes::prep.recipe()</a></code></p></li>
+<li><p><code><a href='https://recipes.tidymodels.org/reference/bake.html'>recipes::bake.recipe()</a></code></p></li>
 </ul>
 </div>
 
@@ -300,7 +300,7 @@ be removed using <code><a href='https://rdrr.io/pkg/recipes/man/step_rm.html'>re
 <span class='no'>FB_tbl</span> <span class='kw'>&lt;-</span> <span class='no'>FANG</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span>(<span class='no'>symbol</span> <span class='kw'>==</span> <span class='st'>"FB"</span>)
 
 <span class='co'># Create a recipe object with a timeseries signature step</span>
-<span class='no'>rec_obj</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/recipe.html'>recipe</a></span>(<span class='no'>adjusted</span> ~ <span class='no'>.</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>FB_tbl</span>) <span class='kw'>%&gt;%</span>
+<span class='no'>rec_obj</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://recipes.tidymodels.org/reference/recipe.html'>recipe</a></span>(<span class='no'>adjusted</span> ~ <span class='no'>.</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>FB_tbl</span>) <span class='kw'>%&gt;%</span>
     <span class='fu'>step_timeseries_signature</span>(<span class='no'>date</span>)
 
 <span class='co'># View the recipe object</span>
@@ -316,7 +316,7 @@ be removed using <code><a href='https://rdrr.io/pkg/recipes/man/step_rm.html'>re
 #&gt; 
 #&gt; Timeseries signature features from date</div><div class='input'>
 <span class='co'># Prepare the recipe object</span>
-<span class='fu'><a href='https://rdrr.io/pkg/recipes/man/prep.html'>prep</a></span>(<span class='no'>rec_obj</span>)</div><div class='output co'>#&gt; Data Recipe
+<span class='fu'><a href='https://recipes.tidymodels.org/reference/prep.html'>prep</a></span>(<span class='no'>rec_obj</span>)</div><div class='output co'>#&gt; Data Recipe
 #&gt; 
 #&gt; Inputs:
 #&gt; 
@@ -330,7 +330,7 @@ be removed using <code><a href='https://rdrr.io/pkg/recipes/man/step_rm.html'>re
 #&gt; 
 #&gt; Timeseries signature features from date [trained]</div><div class='input'>
 <span class='co'># Bake the recipe object - Adds the Time Series Signature</span>
-<span class='fu'><a href='https://rdrr.io/pkg/recipes/man/bake.html'>bake</a></span>(<span class='fu'><a href='https://rdrr.io/pkg/recipes/man/prep.html'>prep</a></span>(<span class='no'>rec_obj</span>), <span class='no'>FB_tbl</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 1,008 x 35</span><span>
+<span class='fu'><a href='https://recipes.tidymodels.org/reference/bake.html'>bake</a></span>(<span class='fu'><a href='https://recipes.tidymodels.org/reference/prep.html'>prep</a></span>(<span class='no'>rec_obj</span>), <span class='no'>FB_tbl</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 1,008 x 35</span><span>
 #&gt;    symbol date        open  high   low close volume adjusted date_index.num
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>          </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
 #&gt; </span><span style='color: #555555;'> 1</span><span> FB     2013-01-02  27.4  28.2  27.4  28   6.98</span><span style='color: #555555;'>e</span><span>7     28       </span><span style='text-decoration: underline;'>1</span><span>357</span><span style='text-decoration: underline;'>084</span><span>800
@@ -353,10 +353,10 @@ be removed using <code><a href='https://rdrr.io/pkg/recipes/man/step_rm.html'>re
 #&gt; </span><span style='color: #555555;'>#   date_week3 </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>, date_week4 </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>, date_mday7 </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span></div><div class='input'>
 <span class='co'># Tidy shows which features have been added during the 1st step</span>
 <span class='co'>#  in this case, step 1 is the step_timeseries_signature step</span>
-<span class='fu'><a href='https://rdrr.io/pkg/recipes/man/reexports.html'>tidy</a></span>(<span class='no'>rec_obj</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 1 x 6</span><span>
+<span class='fu'><a href='https://recipes.tidymodels.org/reference/reexports.html'>tidy</a></span>(<span class='no'>rec_obj</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 1 x 6</span><span>
 #&gt;   number operation type                 trained skip  id                        
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                     
-#&gt; </span><span style='color: #555555;'>1</span><span>      1 step      timeseries_signature FALSE   FALSE timeseries_signature_ayUXK</div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/recipes/man/reexports.html'>tidy</a></span>(<span class='no'>rec_obj</span>, <span class='kw'>number</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 27 x 3</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span>      1 step      timeseries_signature FALSE   FALSE timeseries_signature_ayUXK</div><div class='input'><span class='fu'><a href='https://recipes.tidymodels.org/reference/reexports.html'>tidy</a></span>(<span class='no'>rec_obj</span>, <span class='kw'>number</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 27 x 3</span><span>
 #&gt;    terms value     id                        
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                     
 #&gt; </span><span style='color: #555555;'> 1</span><span> date  index.num timeseries_signature_ayUXK

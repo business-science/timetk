@@ -219,7 +219,7 @@ sequence of operations for this recipe.</p></td>
     <tr>
       <th>...</th>
       <td><p>One or more numeric columns to be smoothed.
-See <code><a href='https://rdrr.io/pkg/recipes/man/selections.html'>recipes::selections()</a></code> for more details.
+See <code><a href='https://recipes.tidymodels.org/reference/selections.html'>recipes::selections()</a></code> for more details.
 For the <code>tidy</code> method, these are not currently used.</p></td>
     </tr>
     <tr>
@@ -265,7 +265,7 @@ preprocessing have been estimated.</p></td>
       <th>columns</th>
       <td><p>A character string of variables that will be
 used as inputs. This field is a placeholder and will be
-populated once <code><a href='https://rdrr.io/pkg/recipes/man/prep.html'>recipes::prep.recipe()</a></code> is used.</p></td>
+populated once <code><a href='https://recipes.tidymodels.org/reference/prep.html'>recipes::prep.recipe()</a></code> is used.</p></td>
     </tr>
     <tr>
       <th>skip</th>
@@ -320,7 +320,7 @@ polynomial regression (loess) as the training data.</p>
 
     <div class='dont-index'><p>Time Series Analysis:</p><ul>
 <li><p>Engineered Features: <code><a href='step_timeseries_signature.html'>step_timeseries_signature()</a></code>, <code><a href='step_holiday_signature.html'>step_holiday_signature()</a></code>, <code><a href='step_fourier.html'>step_fourier()</a></code></p></li>
-<li><p>Diffs &amp; Lags <code><a href='step_diff.html'>step_diff()</a></code>, <code><a href='https://rdrr.io/pkg/recipes/man/step_lag.html'>recipes::step_lag()</a></code></p></li>
+<li><p>Diffs &amp; Lags <code><a href='step_diff.html'>step_diff()</a></code>, <code><a href='https://recipes.tidymodels.org/reference/step_lag.html'>recipes::step_lag()</a></code></p></li>
 <li><p>Smoothing: <code><a href='step_slidify.html'>step_slidify()</a></code>, <code>step_smooth()</code></p></li>
 <li><p>Variance Reduction: <code><a href='step_box_cox.html'>step_box_cox()</a></code></p></li>
 <li><p>Imputation: <code><a href='step_ts_impute.html'>step_ts_impute()</a></code>, <code><a href='step_ts_clean.html'>step_ts_clean()</a></code></p></li>
@@ -328,9 +328,9 @@ polynomial regression (loess) as the training data.</p>
 </ul>
 
 <p>Main Recipe Functions:</p><ul>
-<li><p><code><a href='https://rdrr.io/pkg/recipes/man/recipe.html'>recipes::recipe()</a></code></p></li>
-<li><p><code><a href='https://rdrr.io/pkg/recipes/man/prep.html'>recipes::prep.recipe()</a></code></p></li>
-<li><p><code><a href='https://rdrr.io/pkg/recipes/man/bake.html'>recipes::bake.recipe()</a></code></p></li>
+<li><p><code><a href='https://recipes.tidymodels.org/reference/recipe.html'>recipes::recipe()</a></code></p></li>
+<li><p><code><a href='https://recipes.tidymodels.org/reference/prep.html'>recipes::prep.recipe()</a></code></p></li>
+<li><p><code><a href='https://recipes.tidymodels.org/reference/bake.html'>recipes::bake.recipe()</a></code></p></li>
 </ul>
 </div>
 
@@ -353,14 +353,14 @@ polynomial regression (loess) as the training data.</p>
 <span class='co'># ---- PERIOD ----</span>
 
 <span class='co'># Create a recipe object with a step_smooth()</span>
-<span class='no'>rec_smooth_period</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/recipe.html'>recipe</a></span>(<span class='no'>adjusted</span> ~ <span class='no'>.</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>FB_tbl</span>) <span class='kw'>%&gt;%</span>
+<span class='no'>rec_smooth_period</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://recipes.tidymodels.org/reference/recipe.html'>recipe</a></span>(<span class='no'>adjusted</span> ~ <span class='no'>.</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>FB_tbl</span>) <span class='kw'>%&gt;%</span>
     <span class='fu'>step_smooth</span>(<span class='no'>adjusted</span>, <span class='kw'>period</span> <span class='kw'>=</span> <span class='fl'>30</span>)
 
 <span class='co'># Bake the recipe object - Applies the Loess Transformation</span>
-<span class='no'>training_data_baked</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/bake.html'>bake</a></span>(<span class='fu'><a href='https://rdrr.io/pkg/recipes/man/prep.html'>prep</a></span>(<span class='no'>rec_smooth_period</span>), <span class='no'>FB_tbl</span>)
+<span class='no'>training_data_baked</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://recipes.tidymodels.org/reference/bake.html'>bake</a></span>(<span class='fu'><a href='https://recipes.tidymodels.org/reference/prep.html'>prep</a></span>(<span class='no'>rec_smooth_period</span>), <span class='no'>FB_tbl</span>)
 
 <span class='co'># "Period" Effect on New Data</span>
-<span class='no'>new_data_baked</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/bake.html'>bake</a></span>(<span class='fu'><a href='https://rdrr.io/pkg/recipes/man/prep.html'>prep</a></span>(<span class='no'>rec_smooth_period</span>), <span class='no'>new_data</span>)
+<span class='no'>new_data_baked</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://recipes.tidymodels.org/reference/bake.html'>bake</a></span>(<span class='fu'><a href='https://recipes.tidymodels.org/reference/prep.html'>prep</a></span>(<span class='no'>rec_smooth_period</span>), <span class='no'>new_data</span>)
 
 <span class='co'># Smoother's fit on new data is very similar because</span>
 <span class='co'># 30 days are used in the new data regardless of the new data being 90 days</span>
@@ -371,14 +371,14 @@ polynomial regression (loess) as the training data.</p>
 <span class='co'># ---- SPAN ----</span>
 
 <span class='co'># Create a recipe object with a step_smooth</span>
-<span class='no'>rec_smooth_span</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/recipe.html'>recipe</a></span>(<span class='no'>adjusted</span> ~ <span class='no'>.</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>FB_tbl</span>) <span class='kw'>%&gt;%</span>
+<span class='no'>rec_smooth_span</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://recipes.tidymodels.org/reference/recipe.html'>recipe</a></span>(<span class='no'>adjusted</span> ~ <span class='no'>.</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>FB_tbl</span>) <span class='kw'>%&gt;%</span>
     <span class='fu'>step_smooth</span>(<span class='no'>adjusted</span>, <span class='kw'>span</span> <span class='kw'>=</span> <span class='fl'>0.03</span>)
 
 <span class='co'># Bake the recipe object - Applies the Loess Transformation</span>
-<span class='no'>training_data_baked</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/bake.html'>bake</a></span>(<span class='fu'><a href='https://rdrr.io/pkg/recipes/man/prep.html'>prep</a></span>(<span class='no'>rec_smooth_span</span>), <span class='no'>FB_tbl</span>)
+<span class='no'>training_data_baked</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://recipes.tidymodels.org/reference/bake.html'>bake</a></span>(<span class='fu'><a href='https://recipes.tidymodels.org/reference/prep.html'>prep</a></span>(<span class='no'>rec_smooth_span</span>), <span class='no'>FB_tbl</span>)
 
 <span class='co'># "Period" Effect on New Data</span>
-<span class='no'>new_data_baked</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/bake.html'>bake</a></span>(<span class='fu'><a href='https://rdrr.io/pkg/recipes/man/prep.html'>prep</a></span>(<span class='no'>rec_smooth_span</span>), <span class='no'>new_data</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: span too small.   fewer data values than degrees of freedom.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: pseudoinverse used at 0.555</span></div><div class='output co'>#&gt; <span class='warning'>Warning: neighborhood radius 1.445</span></div><div class='output co'>#&gt; <span class='warning'>Warning: reciprocal condition number  0</span></div><div class='output co'>#&gt; <span class='warning'>Warning: There are other near singularities as well. 2.088</span></div><div class='input'>
+<span class='no'>new_data_baked</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://recipes.tidymodels.org/reference/bake.html'>bake</a></span>(<span class='fu'><a href='https://recipes.tidymodels.org/reference/prep.html'>prep</a></span>(<span class='no'>rec_smooth_span</span>), <span class='no'>new_data</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: span too small.   fewer data values than degrees of freedom.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: pseudoinverse used at 0.555</span></div><div class='output co'>#&gt; <span class='warning'>Warning: neighborhood radius 1.445</span></div><div class='output co'>#&gt; <span class='warning'>Warning: reciprocal condition number  0</span></div><div class='output co'>#&gt; <span class='warning'>Warning: There are other near singularities as well. 2.088</span></div><div class='input'>
 <span class='co'># Smoother's fit is not the same using span because new data is only 90 days</span>
 <span class='co'># and 0.03 x 90 = 2.7 days</span>
 <span class='no'>training_data_baked</span> <span class='kw'>%&gt;%</span>
@@ -388,12 +388,12 @@ polynomial regression (loess) as the training data.</p>
 <span class='co'># ---- NEW COLUMNS ----</span>
 <span class='co'># Use the `names` argument to create new columns instead of overwriting existing</span>
 
-<span class='no'>rec_smooth_names</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/recipe.html'>recipe</a></span>(<span class='no'>adjusted</span> ~ <span class='no'>.</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>FB_tbl</span>) <span class='kw'>%&gt;%</span>
+<span class='no'>rec_smooth_names</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://recipes.tidymodels.org/reference/recipe.html'>recipe</a></span>(<span class='no'>adjusted</span> ~ <span class='no'>.</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>FB_tbl</span>) <span class='kw'>%&gt;%</span>
     <span class='fu'>step_smooth</span>(<span class='no'>adjusted</span>, <span class='kw'>period</span> <span class='kw'>=</span> <span class='fl'>30</span>, <span class='kw'>names</span> <span class='kw'>=</span> <span class='st'>"adjusted_smooth_30"</span>) <span class='kw'>%&gt;%</span>
     <span class='fu'>step_smooth</span>(<span class='no'>adjusted</span>, <span class='kw'>period</span> <span class='kw'>=</span> <span class='fl'>180</span>, <span class='kw'>names</span> <span class='kw'>=</span> <span class='st'>"adjusted_smooth_180"</span>) <span class='kw'>%&gt;%</span>
     <span class='fu'>step_smooth</span>(<span class='no'>adjusted</span>, <span class='kw'>span</span> <span class='kw'>=</span> <span class='fl'>0.75</span>, <span class='kw'>names</span> <span class='kw'>=</span> <span class='st'>"long_term_trend"</span>)
 
-<span class='fu'><a href='https://rdrr.io/pkg/recipes/man/bake.html'>bake</a></span>(<span class='fu'><a href='https://rdrr.io/pkg/recipes/man/prep.html'>prep</a></span>(<span class='no'>rec_smooth_names</span>), <span class='no'>FB_tbl</span>) <span class='kw'>%&gt;%</span>
+<span class='fu'><a href='https://recipes.tidymodels.org/reference/bake.html'>bake</a></span>(<span class='fu'><a href='https://recipes.tidymodels.org/reference/prep.html'>prep</a></span>(<span class='no'>rec_smooth_names</span>), <span class='no'>FB_tbl</span>) <span class='kw'>%&gt;%</span>
     <span class='fu'>ggplot</span>(<span class='fu'>aes</span>(<span class='no'>date</span>, <span class='no'>adjusted</span>)) +
     <span class='fu'>geom_line</span>(<span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.5</span>) +
     <span class='fu'>geom_line</span>(<span class='fu'>aes</span>(<span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>adjusted_smooth_30</span>), <span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"red"</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>1</span>) +

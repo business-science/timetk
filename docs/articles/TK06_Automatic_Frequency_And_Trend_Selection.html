@@ -126,7 +126,7 @@
 
       
 
-      </header><script src="TK06_Automatic_Frequency_And_Trend_Selection_files/header-attrs-2.1/header-attrs.js"></script><div class="row">
+      </header><script src="TK06_Automatic_Frequency_And_Trend_Selection_files/header-attrs-2.3/header-attrs.js"></script><script src="TK06_Automatic_Frequency_And_Trend_Selection_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Automatic Frequency and Trend Selection</h1>
@@ -156,7 +156,9 @@
 <a href="#data" class="anchor"></a>Data</h1>
 <p><strong>Daily Irregular Data</strong></p>
 <p>The daily stock prices of Facebook from 2013 to 2016 (courtesy of <code>tidyquant</code>). Note that trading days only occur on “business days” (non-weekends and non-business-holidays).</p>
-<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="no">FB_tbl</span> <span class="kw">&lt;-</span> <span class="no">FANG</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span>(<span class="no">symbol</span> <span class="kw">==</span> <span class="st">"FB"</span>)
+<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="no">FANG</span>)
+
+<span class="no">FB_tbl</span> <span class="kw">&lt;-</span> <span class="no">FANG</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span>(<span class="no">symbol</span> <span class="kw">==</span> <span class="st">"FB"</span>)
 <span class="no">FB_tbl</span></pre></body></html></div>
 <pre><code>## # A tibble: 1,008 x 8
 ##    symbol date        open  high   low close    volume adjusted

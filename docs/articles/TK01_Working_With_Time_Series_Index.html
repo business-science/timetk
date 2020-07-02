@@ -126,14 +126,14 @@
 
       
 
-      </header><script src="TK01_Working_With_Time_Series_Index_files/header-attrs-2.1/header-attrs.js"></script><div class="row">
+      </header><script src="TK01_Working_With_Time_Series_Index_files/header-attrs-2.3/header-attrs.js"></script><script src="TK01_Working_With_Time_Series_Index_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>What is the Time Series Signature?</h1>
             <h3 class="subtitle">And the timestamp index, and the time series summary?</h3>
                         <h4 class="author">Matt Dancho</h4>
             
-            <h4 class="date">2020-06-19</h4>
+            <h4 class="date">2020-07-02</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/business-science/timetk/blob/master/vignettes/TK01_Working_With_Time_Series_Index.Rmd"><code>vignettes/TK01_Working_With_Time_Series_Index.Rmd</code></a></small>
       <div class="hidden name"><code>TK01_Working_With_Time_Series_Index.Rmd</code></div>
@@ -166,7 +166,9 @@
 <h1 class="hasAnchor">
 <a href="#data" class="anchor"></a>Data</h1>
 <p>We’ll use the Facebook stock prices from the <code>FANG</code> data set from <code>tidyquant</code>. These are the historical stock prices (open, high, low, close, volume, and adjusted) for the “FB” stock from 2013 through 2016.</p>
-<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="no">FB_tbl</span> <span class="kw">&lt;-</span> <span class="no">FANG</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span>(<span class="no">symbol</span> <span class="kw">==</span> <span class="st">"FB"</span>)
+<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="st">"FANG"</span>)
+
+<span class="no">FB_tbl</span> <span class="kw">&lt;-</span> <span class="no">FANG</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span>(<span class="no">symbol</span> <span class="kw">==</span> <span class="st">"FB"</span>)
 <span class="no">FB_tbl</span></pre></body></html></div>
 <pre><code>## # A tibble: 1,008 x 8
 ##    symbol date        open  high   low close    volume adjusted

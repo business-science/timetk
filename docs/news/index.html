@@ -198,6 +198,8 @@
 <li>
 <code><a href="../reference/tk_time_series_cv_plan.html">tk_time_series_cv_plan()</a></code>: Allow a single resample from <code><a href="https://rsample.tidymodels.org/reference/initial_split.html">rsample::initial_time_split</a></code> or <code><a href="../reference/time_series_split.html">timetk::time_series_split</a></code>
 </li>
+<li>
+<strong>Updated Vignette:</strong> The vignette, “Forecasting Using the Time Series Signature”, has been updated with <code>modeltime</code> and <code>tidymodels</code>.</li>
 </ul>
 <p><strong>Plotting Improvements</strong></p>
 <ul>
@@ -222,6 +224,12 @@
 <li><code><a href="../reference/plot_seasonal_diagnostics.html">plot_seasonal_diagnostics()</a></code></li>
 <li><code><a href="../reference/plot_stl_diagnostics.html">plot_stl_diagnostics()</a></code></li>
 </ul>
+</li>
+</ul>
+<p><strong>Bug Fixes</strong></p>
+<ul>
+<li>
+<code><a href="../reference/fourier_vec.html">fourier_vec()</a></code> and <code>step_fourier_vec()</code>: Add error if observations have zero difference. <a href="https://github.com/business-science/timetk/issues/40">Issue <a href='https://github.com/business-science/timetk/issues/40'>#40</a>.</a>
 </li>
 </ul>
 </div>
@@ -378,11 +386,11 @@
 <li>
 <code><a href="../reference/step_fourier.html">step_fourier()</a></code> - New recipe step for adding fourier transforms for adding seasonal features to time series data</li>
 <li>
-<code>step_roll_apply()</code> - New recipe step for adding rolling summary functions. Similar to <code><a href="https://rdrr.io/pkg/recipes/man/step_window.html">recipes::step_window()</a></code> but is more flexible by enabling application of any summary function.</li>
+<code>step_roll_apply()</code> - New recipe step for adding rolling summary functions. Similar to <code><a href="https://recipes.tidymodels.org/reference/step_window.html">recipes::step_window()</a></code> but is more flexible by enabling application of any summary function.</li>
 <li>
 <code><a href="../reference/step_smooth.html">step_smooth()</a></code> - New recipe step for adding Local Polynomial Regression (LOESS) for smoothing noisy time series</li>
 <li>
-<code><a href="../reference/step_diff.html">step_diff()</a></code> - New recipe for adding multiple differenced columns. Similar to <code><a href="https://rdrr.io/pkg/recipes/man/step_lag.html">recipes::step_lag()</a></code>.</li>
+<code><a href="../reference/step_diff.html">step_diff()</a></code> - New recipe for adding multiple differenced columns. Similar to <code><a href="https://recipes.tidymodels.org/reference/step_lag.html">recipes::step_lag()</a></code>.</li>
 <li>
 <code><a href="../reference/step_box_cox.html">step_box_cox()</a></code> - New recipe for transforming predictors. Similar to <code>step_BoxCox()</code> with improvements for forecasting including “guerrero” method for lambda selection and handling of negative data.</li>
 <li>

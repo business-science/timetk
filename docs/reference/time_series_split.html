@@ -302,7 +302,7 @@ time series resample specifications.</p></li>
 
 <span class='co'># Get the most recent 3 years as testing, and previous 10 years as training</span>
 <span class='no'>m750</span> <span class='kw'>%&gt;%</span>
-    <span class='fu'>time_series_split</span>(<span class='kw'>initial</span> <span class='kw'>=</span> <span class='st'>"10 years"</span>, <span class='kw'>assess</span> <span class='kw'>=</span> <span class='st'>"3 years"</span>)</div><div class='output co'>#&gt; <span class='message'>Using date_var: date</span></div><div class='output co'>#&gt; &lt;Training/Validation/Total&gt;
+    <span class='fu'>time_series_split</span>(<span class='kw'>initial</span> <span class='kw'>=</span> <span class='st'>"10 years"</span>, <span class='kw'>assess</span> <span class='kw'>=</span> <span class='st'>"3 years"</span>)</div><div class='output co'>#&gt; <span class='message'>Using date_var: date</span></div><div class='output co'>#&gt; &lt;Analysis/Assess/Total&gt;
 #&gt; &lt;120/36/306&gt;</div><div class='input'>
 <span class='co'># Skip the most recent 3 years</span>
 <span class='no'>m750</span> <span class='kw'>%&gt;%</span>
@@ -311,7 +311,7 @@ time series resample specifications.</p></li>
         <span class='kw'>assess</span>  <span class='kw'>=</span> <span class='st'>"3 years"</span>,
         <span class='kw'>skip</span>    <span class='kw'>=</span> <span class='st'>"3 years"</span>,
         <span class='kw'>slice</span>   <span class='kw'>=</span> <span class='fl'>2</span>          <span class='co'># &lt;- Returns 2nd slice, 3-years back</span>
-    )</div><div class='output co'>#&gt; <span class='message'>Using date_var: date</span></div><div class='output co'>#&gt; &lt;Training/Validation/Total&gt;
+    )</div><div class='output co'>#&gt; <span class='message'>Using date_var: date</span></div><div class='output co'>#&gt; &lt;Analysis/Assess/Total&gt;
 #&gt; &lt;120/36/306&gt;</div><div class='input'>
 <span class='co'># Add 1 year lag for testing overlap</span>
 <span class='no'>m750</span> <span class='kw'>%&gt;%</span>
@@ -321,7 +321,7 @@ time series resample specifications.</p></li>
         <span class='kw'>skip</span>    <span class='kw'>=</span> <span class='st'>"3 years"</span>,
         <span class='kw'>slice</span>   <span class='kw'>=</span> <span class='fl'>2</span>,
         <span class='kw'>lag</span>     <span class='kw'>=</span> <span class='st'>"1 year"</span>   <span class='co'># &lt;- Overlaps training/testing by 1 year</span>
-    )</div><div class='output co'>#&gt; <span class='message'>Using date_var: date</span></div><div class='output co'>#&gt; &lt;Training/Validation/Total&gt;
+    )</div><div class='output co'>#&gt; <span class='message'>Using date_var: date</span></div><div class='output co'>#&gt; &lt;Analysis/Assess/Total&gt;
 #&gt; &lt;120/48/306&gt;</div><div class='input'>
 
 </div></pre>
