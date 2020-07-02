@@ -87,7 +87,7 @@
 #' # We could also remove weekends with inspect_weekdays = TRUE
 #' FB_tbl %>%
 #'     tk_index() %>%
-#'     tk_make_future_timeseries(n_future         = 366,
+#'     tk_make_future_timeseries(length_out       = 366,
 #'                               skip_values      = c(holidays, weekends))
 #'
 #'
