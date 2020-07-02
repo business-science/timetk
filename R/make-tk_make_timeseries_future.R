@@ -631,6 +631,12 @@ make_sequential_timeseries_irregular_freq <- function(idx, length_out, skip_valu
     if (length_out_is_chr) {
         # Character Period: Return values up to the offset
         endpoint <- idx_summary$end %+time% period_offset
+        if (is.na(endpoint)) {
+            # Offset is not available (happens if last day of month)
+            start_date <- lubridate::ceiling_date(idx_summary$end, unit = "month")
+            endpoint   <- start_date %+time% period_offset
+
+        }
         less_than_endpoint <- date_sequence %>% between_time_vec("start", endpoint)
         ret <- date_sequence[less_than_endpoint]
         ret <- ret[!is.na(ret)]
