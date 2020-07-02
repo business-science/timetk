@@ -34,8 +34,7 @@ tk_ts_(
 The column or set of columns to be coerced to \code{ts} class.}
 
 \item{start}{the time of the first observation.  Either a single
-    number or a vector of two numbers (the second of which is an integer),
-    which specify a natural time
+    number or a vector of two integers, which specify a natural time
     unit and a (1-based) number of samples into the time unit.  See
     the examples for the use of the second form.}
 

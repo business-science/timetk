@@ -112,7 +112,10 @@ fourier_vec.double <- function(x, period, K = 1, type = c("sin", "cos")) {
 fourier_vec.Date <- function(x, period, K = 1, type = c("sin", "cos")) {
 
     x_num    <- as.POSIXct(x) %>% as.numeric() %>% as.integer()
-    x_scaled <- x_num / date_to_seq_scale_factor(x)
+
+    scale_factor <- date_to_seq_scale_factor(x)
+    if (scale_factor == 0) rlang::abort("Time difference between observations is zero. Try arranging data to have a positive time difference between observations. If working with time series groups, arrange by groups first, then date.")
+    x_scaled <- x_num / scale_factor
 
     calc_fourier(x = x_scaled, period = period, K = K, type = type)
 }
@@ -121,7 +124,10 @@ fourier_vec.Date <- function(x, period, K = 1, type = c("sin", "cos")) {
 fourier_vec.POSIXct <- function(x, period, K = 1, type = c("sin", "cos")) {
 
     x_num    <- as.numeric(x) %>% as.integer()
-    x_scaled <- x_num / date_to_seq_scale_factor(x)
+
+    scale_factor <- date_to_seq_scale_factor(x)
+    if (scale_factor == 0) rlang::abort("Time difference between observations is zero. Try arranging data to have a positive time difference between observations. If working with time series groups, arrange by groups first, then date.")
+    x_scaled <- x_num / scale_factor
 
     calc_fourier(x = x_scaled, period = period, K = K, type = type)
 }

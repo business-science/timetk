@@ -40,6 +40,7 @@ __Plotting Improvements__
     - Add `.legend_show` to toggle on/off legends. 
     - Permit numeric index (fix issue with smoother failing)
 
+
 __Breaking Changes__
 
 * __Tab Completion__: Replace `...` with `.facet_vars` or `.ccf_vars`. This change is needed to improve tab-completion. It affects : 
@@ -48,6 +49,10 @@ __Breaking Changes__
     - `plot_anomaly_diagnostics()`
     - `plot_seasonal_diagnostics()`
     - `plot_stl_diagnostics()`
+    
+__Bug Fixes__
+
+- `fourier_vec()` and `step_fourier_vec()`: Add error if observations have zero difference. [Issue #40.](https://github.com/business-science/timetk/issues/40)
 
 # timetk 2.0.0
 
