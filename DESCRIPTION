@@ -49,6 +49,8 @@ Imports:
     assertthat
 Suggests:
     tidyquant,
+    tidymodels,
+    modeltime,
     workflows,
     parsnip,
     tune,

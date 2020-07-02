@@ -32,6 +32,7 @@ __Improvements__
 
 * __Auto-detect date and date-time__: Affects `summarise_by_time()`, `filter_by_time()`, `tk_summary_diagnostics`
 * `tk_time_series_cv_plan()`: Allow a single resample from `rsample::initial_time_split` or `timetk::time_series_split`
+* __Updated Vignette:__ The vignette, "Forecasting Using the Time Series Signature", has been updated with `modeltime` and `tidymodels`. 
 
 __Plotting Improvements__
 

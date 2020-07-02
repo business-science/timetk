@@ -36,13 +36,13 @@ The time series signature is a collection of useful features that describe the t
 Before we get started, load the following packages.
 
 ```{r, message = FALSE}
-library(workflows)
-library(parsnip)
-library(recipes)
-library(yardstick)
+library(tidymodels)
+library(modeltime)
 library(tidyverse)
-library(tidyquant)
 library(timetk)
+
+# Used to convert plots from interactive to static
+interactive = TRUE
 ```
 
 # Data
@@ -53,50 +53,50 @@ _Source: Fanaee-T, Hadi, and Gama, Joao, 'Event labeling combining ensemble dete
 
 ```{r}
 # Read data
-bikes_tbl <- bike_sharing_daily %>%
-    select(dteday, cnt) %>%
-    rename(date  = dteday,
-           value = cnt)
+bike_transactions_tbl <- bike_sharing_daily %>%
+  select(dteday, cnt) %>%
+  set_names(c("date", "value")) 
 
-bikes_tbl
+bike_transactions_tbl
 ```
 
-A visualization will help understand how we plan to tackle the problem of forecasting the data. We'll split the data into two regions: a training region and a testing region. 
+Next, visualize the dataset with the `plot_time_series()` function. Toggle `.interactive = TRUE` to get a plotly interactive plot. `FALSE` returns a ggplot2 static plot. 
 
 ```{r}
-# Visualize data and training/testing regions
-bikes_tbl %>%
-    ggplot(aes(x = date, y = value)) +
-    geom_rect(xmin = as.numeric(ymd("2012-07-01")),
-              xmax = as.numeric(ymd("2013-01-01")),
-              ymin = 0, ymax = 10000,
-              fill = palette_light()[[4]], alpha = 0.01) +
-    annotate("text", x = ymd("2011-10-01"), y = 7800,
-             color = palette_light()[[1]], label = "Train Region") +
-    annotate("text", x = ymd("2012-10-01"), y = 1550,
-             color = palette_light()[[1]], label = "Test Region") +
-    geom_point(alpha = 0.5, color = palette_light()[[1]]) +
-    labs(title = "Bikes Sharing Dataset: Daily Scale", x = "") +
-    theme_tq()
+bike_transactions_tbl %>%
+  plot_time_series(date, value, .interactive = interactive)
 ```
 
-Split the data into train and test sets at "2012-07-01". 
+# Train / Test 
+
+Next, use `time_series_split()` to make a train/test set. 
+
+- Setting `assess = "3 months"` tells the function to use the last 3-months of data as the testing set. 
+- Setting `cumulative = TRUE` tells the sampling to use all of the prior data as the training set. 
 
 ```{r}
-# Split into training and test sets
-train_tbl <- bikes_tbl %>% filter(date < ymd("2012-07-01"))
-test_tbl  <- bikes_tbl %>% filter(date >= ymd("2012-07-01"))
+splits <- bike_transactions_tbl %>%
+  time_series_split(assess = "3 months", cumulative = TRUE)
 ```
 
+Next, visualize the train/test split. 
+
+- `tk_time_series_cv_plan()`: Converts the splits object to a data frame 
+- `plot_time_series_cv_plan()`: Plots the time series sampling data using the "date" and "value" columns. 
+
+```{r}
+splits %>%
+  tk_time_series_cv_plan() %>%
+  plot_time_series_cv_plan(date, value, .interactive = interactive)
+```
 
 # Modeling
 
-Start with the training set, which has the "date" and "value" columns.  
+Machine learning models are more complex than univariate models (e.g. ARIMA, Exponential Smoothing). This complexity typically requires a ___workflow___ (sometimes called a _pipeline_ in other languages). The general process goes like this:
 
-```{r}
-# Training set
-train_tbl
-```
+- __Create Preprocessing Recipe__
+- __Create Model Specifications__
+- __Use Workflow to combine Model Spec and Preprocessing, and Fit Model__
 
 ## Recipe Preprocessing Specification
 
@@ -108,36 +108,37 @@ The first step is to add the _time series signature_ to the training set, which 
 
 ```{r}
 # Add time series signature
-recipe_spec_timeseries <- recipe(value ~ ., data = train_tbl) %>%
+recipe_spec_timeseries <- recipe(value ~ ., data = training(splits)) %>%
     step_timeseries_signature(date) 
 ```
 
 We can see what happens when we apply a prepared recipe `prep()` using the `bake()` function. Many new columns were added from the timestamp "date" feature. These are features we can use in our machine learning models. 
 
 ```{r}
-bake(prep(recipe_spec_timeseries), new_data = train_tbl)
+bake(prep(recipe_spec_timeseries), new_data = training(splits))
 ```
 
 Next, I apply various preprocessing steps to improve the modeling behavior. If you wish to learn more, I have an [Advanced Time Series course](https://mailchi.mp/business-science/time-series-forecasting-course-coming-soon) that will help you learn these techniques.  
 
 ```{r}
 recipe_spec_final <- recipe_spec_timeseries %>%
+    step_fourier(date, period = 365, K = 5) %>%
     step_rm(date) %>%
     step_rm(contains("iso"), contains("minute"), contains("hour"),
             contains("am.pm"), contains("xts")) %>%
     step_normalize(contains("index.num"), date_year) %>%
     step_dummy(contains("lbl"), one_hot = TRUE) 
 
-bake(prep(recipe_spec_final), new_data = train_tbl)
+juice(prep(recipe_spec_final))
 ```
 
 
 ## Model Specification
 
-Next, let's create a model specification. We'll use a `glmnet`. 
+Next, let's create a model specification. We'll use a `lm`. 
 
 ```{r}
-model_spec_glmnet <- linear_reg(mode = "regression") %>%
+model_spec_lm <- linear_reg(mode = "regression") %>%
     set_engine("lm")
 ```
 
@@ -146,11 +147,11 @@ model_spec_glmnet <- linear_reg(mode = "regression") %>%
 We can mary up the preprocessing recipe and the model using a `workflow()`.
 
 ```{r}
-workflow_glmnet <- workflow() %>%
+workflow_lm <- workflow() %>%
     add_recipe(recipe_spec_final) %>%
-    add_model(model_spec_glmnet)
+    add_model(model_spec_lm)
 
-workflow_glmnet
+workflow_lm
 ```
 
 ## Training
@@ -158,204 +159,93 @@ workflow_glmnet
 The workflow can be trained with the `fit()` function. 
 
 ```{r}
-workflow_trained <- workflow_glmnet %>% fit(data = train_tbl)
+workflow_fit_lm <- workflow_lm %>% fit(data = training(splits))
 ```
 
 
+## Hyperparameter Tuning
 
-## Test (Validation)
+Linear regression has no parameters. Therefore, this step is not needed. More complex models have hyperparameters that require tuning. Algorithms include:
 
-With a suitable model in hand, we can forecast using the "test" set for validation purposes. 
+- Elastic Net
+- XGBoost
+- Random Forest
+- Support Vector Machine (SVM)
+- K-Nearest Neighbors
+- Multivariate Adaptive Regression Spines (MARS)
+
+If you would like to learn how to tune these models for time series, then join the waitlist for my advanced [__Time Series Analysis & Forecasting Course__](https://mailchi.mp/business-science/time-series-forecasting-course-coming-soon).
+
+# Forecasting with Modeltime
+
+__The Modeltime Workflow__ is designed to speed up model evaluation and selection. Now that we have several time series models, let's analyze them and forecast the future with the `modeltime` package. 
+
+## Modeltime Table
+
+__The Modeltime Table__ organizes the models with IDs and creates generic descriptions to help us keep track of our models. Let's add the models to a `modeltime_table()`.  
+
+```{r, paged.print = F}
+model_table <- modeltime_table(
+  workflow_fit_lm
+) 
+
+model_table
+```
+
+## Calibration
+
+__Model Calibration__ is used to quantify error and estimate confidence intervals. We'll perform model calibration on the out-of-sample data (aka. the Testing Set) with the `modeltime_calibrate()` function. Two new columns are generated (".type" and ".calibration_data"), the most important of which is the ".calibration_data". This includes the actual values, fitted values, and residuals for the testing set. 
+
+```{r, paged.print = F}
+calibration_table <- model_table %>%
+  modeltime_calibrate(testing(splits))
+
+calibration_table
+```
+
+### Forecast (Testing Set)
+
+With calibrated data, we can visualize the testing predictions (forecast). 
+
+- Use `modeltime_forecast()` to generate the forecast data for the testing set as a tibble. 
+- Use `plot_modeltime_forecast()` to visualize the results in interactive and static plot formats.
+
 
 ```{r}
-prediction_tbl <- workflow_trained %>% 
-    predict(test_tbl) %>%
-    bind_cols(test_tbl) 
-
-prediction_tbl
+calibration_table %>%
+  modeltime_forecast(actual_data = bike_transactions_tbl) %>%
+  plot_modeltime_forecast(.interactive = interactive)
 ```
 
+### Accuracy (Testing Set)
 
-Visualize the results using `ggplot()`.
+Next, calculate the testing accuracy to compare the models. 
+
+- Use `modeltime_accuracy()` to generate the out-of-sample accuracy metrics as a tibble.
+- Use `table_modeltime_accuracy()` to generate interactive and static 
 
 ```{r}
-ggplot(aes(x = date), data = bikes_tbl) +
-    geom_rect(xmin = as.numeric(ymd("2012-07-01")),
-              xmax = as.numeric(ymd("2013-01-01")),
-              ymin = 0, ymax = 10000,
-              fill = palette_light()[[4]], alpha = 0.01) +
-    annotate("text", x = ymd("2011-10-01"), y = 7800,
-             color = palette_light()[[1]], label = "Train Region") +
-    annotate("text", x = ymd("2012-10-01"), y = 1550,
-             color = palette_light()[[1]], label = "Test Region") + 
-    geom_point(aes(x = date, y = value),  
-               alpha = 0.5, color = palette_light()[[1]]) +
-    # Add predictions
-    geom_point(aes(x = date, y = .pred), data = prediction_tbl, 
-               alpha = 0.5, color = palette_light()[[2]]) +
-    theme_tq() 
-    
+calibration_table %>%
+  modeltime_accuracy() %>%
+  table_modeltime_accuracy(.interactive = interactive)
 ```
 
 
+## Refit and Forecast Forward
 
-## Validation Accuracy (Out of Sample)
+__Refitting__ is a best-practice before forecasting the future. 
 
-The Out-of-Sample Forecast Accuracy can be measured with `yardstick`. 
+- `modeltime_refit()`: We re-train on full data (`bike_transactions_tbl`)
+- `modeltime_forecast()`: For models that only depend on the "date" feature, we can use `h` (horizon) to forecast forward. Setting `h = "12 months"` forecasts then next 12-months of data. 
 
 ```{r}
-# Calculating forecast error
-prediction_tbl %>% metrics(value, .pred)
-```
-
-Next we can visualize the residuals of the test set. The residuals of the model aren't perfect, but we can work with it. The residuals show that the model predicts low in October and high in December.    
-
-```{r}
-prediction_tbl %>%
-    ggplot(aes(x = date, y = value - .pred)) +
-    geom_hline(yintercept = 0, color = "red") +
-    geom_point(color = palette_light()[[1]], alpha = 0.5) +
-    geom_smooth() +
-    theme_tq() +
-    labs(title = "Test Set: GLM Model Residuals", x = "") +
-    scale_y_continuous(limits = c(-5000, 5000))
-```
-
-This is certainly not the best model we can come up with, but it will do for a quick tutorial. I have a ton of improvements that can be made, and I teach these expert techniques. If you are interested in learning from my advanced [__Time Series Analysis & Forecasting Course__](https://mailchi.mp/business-science/time-series-forecasting-course-coming-soon), then join my waitlist. The course is coming soon. 
-
-# Forecasting Future Data
-
-Let's use our model to predict What are the expected future values for the next six months. The first step is to create the date sequence. Let's use `tk_get_timeseries_summary()` to review the summary of the dates from the original dataset, "bikes". 
-
-```{r}
-# Extract bikes index
-idx <- bikes_tbl %>% tk_index()
-
-# Get time series summary from index
-bikes_summary <- idx %>% tk_get_timeseries_summary()
-```
-
-The first six parameters are general summary information.
-
-```{r}
-bikes_summary[1:6]
-```
-
-The second six parameters are the periodicity information.
-
-```{r}
-bikes_summary[7:12]
-```
-
-From the summary, we know that the data is 100% regular because the median and mean differences are 86400 seconds or 1 day. We don't need to do any special inspections when we use `tk_make_future_timeseries()`. If the data was irregular, meaning weekends or holidays were excluded, you'd want to account for this. Otherwise your forecast would be inaccurate.
-
-```{r}
-idx_future <- idx %>% tk_make_future_timeseries(length_out = 180)
-
-future_tbl <- tibble(date = idx_future) 
-
-future_tbl
-```
-
-Retrain the model specification on the full data set, then predict the next 6-months. 
-
-```{r}
-future_predictions_tbl <- workflow_glmnet %>% 
-    fit(data = bikes_tbl) %>%
-    predict(future_tbl) %>%
-    bind_cols(future_tbl)
+calibration_table %>%
+  modeltime_refit(bike_transactions_tbl) %>%
+  modeltime_forecast(h = "12 months", actual_data = bike_transactions_tbl) %>%
+  plot_modeltime_forecast(.interactive = interactive)
 ```
 
 
-
-Visualize the forecast.
-
-```{r}
-bikes_tbl %>%
-    ggplot(aes(x = date, y = value)) +
-    geom_rect(xmin = as.numeric(ymd("2012-07-01")),
-              xmax = as.numeric(ymd("2013-01-01")),
-              ymin = 0, ymax = 10000,
-              fill = palette_light()[[4]], alpha = 0.01) +
-    geom_rect(xmin = as.numeric(ymd("2013-01-01")),
-              xmax = as.numeric(ymd("2013-07-01")),
-              ymin = 0, ymax = 10000,
-              fill = palette_light()[[3]], alpha = 0.01) +
-    annotate("text", x = ymd("2011-10-01"), y = 7800,
-             color = palette_light()[[1]], label = "Train Region") +
-    annotate("text", x = ymd("2012-10-01"), y = 1550,
-             color = palette_light()[[1]], label = "Test Region") +
-    annotate("text", x = ymd("2013-4-01"), y = 1550,
-             color = palette_light()[[1]], label = "Forecast Region") +
-    geom_point(alpha = 0.5, color = palette_light()[[1]]) +
-    # future data
-    geom_point(aes(x = date, y = .pred), data = future_predictions_tbl,
-               alpha = 0.5, color = palette_light()[[2]]) +
-    geom_smooth(aes(x = date, y = .pred), data = future_predictions_tbl,
-                method = 'loess') + 
-    labs(title = "Bikes Sharing Dataset: 6-Month Forecast", x = "") +
-    theme_tq()
-    
-```
-
-# Forecast Error
-
-A forecast is never perfect. We need prediction intervals to account for the variance from the model predictions to the actual data. There's a number of methods to achieve this. We'll follow the [prediction interval](https://www.otexts.org/fpp/2/7) methodology from Forecasting: Principles and Practice.
-
-```{r}
-# Calculate standard deviation of residuals
-test_resid_sd <- prediction_tbl %>%
-    summarize(stdev = sd(value - .pred))
-
-future_predictions_tbl <- future_predictions_tbl %>%
-    mutate(
-        lo.95 = .pred - 1.96 * test_resid_sd$stdev,
-        lo.80 = .pred - 1.28 * test_resid_sd$stdev,
-        hi.80 = .pred + 1.28 * test_resid_sd$stdev,
-        hi.95 = .pred + 1.96 * test_resid_sd$stdev
-    )
-```
-
-Now, plotting the forecast with the prediction intervals.
-
-```{r}
-bikes_tbl %>%
-    ggplot(aes(x = date, y = value)) +
-    geom_point(alpha = 0.5, color = palette_light()[[1]]) +
-    geom_ribbon(aes(y = .pred, ymin = lo.95, ymax = hi.95), 
-                data = future_predictions_tbl, 
-                fill = "#D5DBFF", color = NA, size = 0) +
-    geom_ribbon(aes(y = .pred, ymin = lo.80, ymax = hi.80, fill = key), 
-                data = future_predictions_tbl,
-                fill = "#596DD5", color = NA, size = 0, alpha = 0.8) +
-    geom_point(aes(x = date, y = .pred), data = future_predictions_tbl,
-               alpha = 0.5, color = palette_light()[[2]]) +
-    geom_smooth(aes(x = date, y = .pred), data = future_predictions_tbl,
-                method = 'loess', color = "white") + 
-    labs(title = "Bikes Sharing Dataset: 6-Month Forecast with Prediction Intervals", x = "") +
-    theme_tq()
-```
-
- 
-
-<!--
-# Parting Thoughts
-
-Forecasting using the time series signature can be very accurate especially when time-based patterns are present in the underlying data. As with most machine learning applications, the prediction is only as good as the patterns in the data. Forecasting using this approach may _not_ be suitable when patterns are not present or when the future is highly uncertain (i.e. past is not a suitable predictor of future performance). However, in may situations the time series signature can provide an accurate forecast.
-
-One benefit to the machine learning approach that was not covered in this vignette but is an significant advantage is that other features (including non-time-based) can be included in the analysis if the values are present in the training and test sets and can be determined with some level of accuracy in the future. For example, one can expect that experts in Bike Sharing analytics have access to historical temperature and weather patterns, wind speeds, and so on that could have a significant affect on bicycle sharing. The beauty of this method is these features can easily be incorporated into the model and prediction.
-
-__Last, a few points on the modeling process - The following modeling steps are absolutely critical to developing forecasts that will return ROI to your company:__
-
-- Preprocessing 
-- Feature engineering using lagged variables 
-- Hyperparameter Tuning
-- Time series cross validation
-- Using Multiple Modeling Techniques
-- and more. 
-
-These will be covered in my upcoming [__Advanced Time Series Course (Register Here)__](https://mailchi.mp/business-science/time-series-forecasting-course-coming-soon). 
--->
 
 # Learning More
 
