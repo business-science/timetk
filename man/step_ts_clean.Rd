@@ -20,8 +20,7 @@ step_ts_clean(
 \method{tidy}{step_ts_clean}(x, ...)
 }
 \arguments{
-\item{recipe}{A recipe object. The step will be added to the
-sequence of operations for this recipe.}
+\item{recipe}{A \code{recipe} object. The step will be added to the sequence of operations for this recipe.}
 
 \item{...}{One or more selector functions to choose which
 variables are affected by the step. See \code{\link[=selections]{selections()}}
@@ -38,19 +37,16 @@ automated lambda selection.}
 \item{role}{Not used by this step since no new variables are
 created.}
 
-\item{trained}{A logical to indicate if the quantities for
-preprocessing have been estimated.}
+\item{trained}{A logical to indicate if the quantities for preprocessing have been estimated.}
 
 \item{lambdas_trained}{A named numeric vector of lambdas. This is \code{NULL} until computed
-by \code{\link[=prep.recipe]{prep.recipe()}}. Note that, if the original data are integers, the mean
+by \code{recipes::prep()}. Note that, if the original data are integers, the mean
 will be converted to an integer to maintain the same a data type.}
 
-\item{skip}{A logical. Should the step be skipped when the
-recipe is baked by \code{\link[recipes:bake.recipe]{bake.recipe()}}? While all operations are baked
-when \code{\link[recipes:prep.recipe]{prep.recipe()}} is run, some operations may not be able to be
-conducted on new data (e.g. processing the outcome variable(s)).
-Care should be taken when using \code{skip = TRUE} as it may affect
-the computations for subsequent operations}
+\item{skip}{A logical. Should the step be skipped when the recipe
+is baked by \code{bake.recipe()}? While all operations are baked when \code{prep.recipe()} is run,
+some operations may not be able to be conducted on new data (e.g. processing the outcome variable(s)).
+Care should be taken when using \code{skip = TRUE} as it may affect the computations for subsequent operations.}
 
 \item{id}{A character string that is unique to this step to identify it.}
 
@@ -139,7 +135,7 @@ recipe_box_cox \%>\% tidy(1)
 Time Series Analysis:
 \itemize{
 \item Engineered Features: \code{\link[=step_timeseries_signature]{step_timeseries_signature()}}, \code{\link[=step_holiday_signature]{step_holiday_signature()}}, \code{\link[=step_fourier]{step_fourier()}}
-\item Diffs & Lags \code{\link[=step_diff]{step_diff()}}, \code{\link[recipes:step_lag]{recipes::step_lag()}}
+\item Diffs & Lags \code{\link[=step_diff]{step_diff()}}, \code{recipes::step_lag()}
 \item Smoothing: \code{\link[=step_slidify]{step_slidify()}}, \code{\link[=step_smooth]{step_smooth()}}
 \item Variance Reduction: \code{\link[=step_box_cox]{step_box_cox()}}
 \item Imputation: \code{\link[=step_ts_impute]{step_ts_impute()}}, \code{\link[=step_ts_clean]{step_ts_clean()}}

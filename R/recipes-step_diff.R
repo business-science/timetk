@@ -21,8 +21,8 @@
 #'  be populated (eventually) by the `terms` argument.
 #' @param id A character string that is unique to this step to identify it.
 #' @param skip A logical. Should the step be skipped when the
-#'  recipe is baked by [bake.recipe()]? While all operations are baked
-#'  when [prep.recipe()] is run, some operations may not be able to be
+#'  recipe is baked by `bake.recipe()`? While all operations are baked
+#'  when `prep.recipe()` is run, some operations may not be able to be
 #'  conducted on new data (e.g. processing the outcome variable(s)).
 #'  Care should be taken when using `skip = TRUE` as it may affect
 #'  the computations for subsequent operations
@@ -46,9 +46,9 @@
 #'  - [recipes::step_naomit()]
 #'
 #'  Main Recipe Functions:
-#'  - [recipes::recipe()]
-#'  - [recipes::prep.recipe()]
-#'  - [recipes::bake.recipe()]
+#'  - `recipes::recipe()`
+#'  - `recipes::prep()`
+#'  - `recipes::bake()`
 #'
 #' @export
 #' @rdname step_diff

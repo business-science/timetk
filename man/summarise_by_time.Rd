@@ -76,8 +76,8 @@ calculation by groups like "5 seconds", "week", or "3 months".
 \item Center: \code{\link[=mean]{mean()}}, \code{\link[=median]{median()}}
 \item Spread: \code{\link[=sd]{sd()}}, \code{\link[=var]{var()}}
 \item Range: \code{\link[=min]{min()}}, \code{\link[=max]{max()}}
-\item Count: \code{\link[dplyr:n]{dplyr::n()}}, \code{\link[dplyr:n_distinct]{dplyr::n_distinct()}}
-\item Position: \code{\link[dplyr:first]{dplyr::first()}}, \code{\link[dplyr:last]{dplyr::last()}}, \code{\link[dplyr:nth]{dplyr::nth()}}
+\item Count: \code{dplyr::n()}, \code{dplyr::n_distinct()}
+\item Position: \code{dplyr::first()}, \code{dplyr::last()}, \code{dplyr::nth()}
 \item Correlation: \code{\link[=cor]{cor()}}, \code{\link[=cov]{cov()}}
 }
 }

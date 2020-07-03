@@ -39,7 +39,7 @@
 #'  will be used as predictors in a model.
 #' @param columns A character string of variables that will be
 #'  used as inputs. This field is a placeholder and will be
-#'  populated once [recipes::prep.recipe()] is used.
+#'  populated once `recipes::prep()` is used.
 #' @param f_name A character string for the function being applied.
 #'  This field is a placeholder and will be populated during the `tidy()` step.
 #' @param skip A logical. Should the step be skipped when the recipe is
@@ -87,16 +87,16 @@
 #' @seealso
 #'  Time Series Analysis:
 #'  - Engineered Features: [step_timeseries_signature()], [step_holiday_signature()], [step_fourier()]
-#'  - Diffs & Lags [step_diff()], [recipes::step_lag()]
+#'  - Diffs & Lags [step_diff()], `recipes::step_lag()`
 #'  - Smoothing: [step_slidify()], [step_smooth()]
 #'  - Variance Reduction: [step_box_cox()]
 #'  - Imputation: [step_ts_impute()], [step_ts_clean()]
 #'  - Padding: [step_ts_pad()]
 #'
 #'  Main Recipe Functions:
-#'  - [recipes::recipe()]
-#'  - [recipes::prep.recipe()]
-#'  - [recipes::bake.recipe()]
+#'  - `recipes::recipe()`
+#'  - `recipes::prep()`
+#'  - `recipes::bake()`
 #'
 #' @examples
 #' library(recipes)

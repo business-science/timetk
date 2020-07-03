@@ -2,26 +2,26 @@
 #'
 #' @description
 #'
-#' * \code{\link[rlang:quotation]{sym}()} creates a symbol from a string and
-#'   \code{\link[rlang:quotation]{syms}()} creates a list of symbols from a
+#' * \code{sym} creates a symbol from a string and
+#'   \code{syms} creates a list of symbols from a
 #'   character vector.
 #'
-#' * \code{\link[rlang:quotation]{enquo}()} and
-#'   \code{\link[rlang:quotation]{enquos}()} delay the execution of one or
+#' * \code{enquo} and
+#'   \code{enquos} delay the execution of one or
 #'   several function arguments. \code{enquo()} returns a single quoted
 #'   expression, which is like a blueprint for the delayed computation.
 #'   \code{enquos()} returns a list of such quoted expressions.
 #'
-#' * \code{\link[rlang:quotation]{expr}()} quotes a new expression _locally_. It
+#' * \code{expr} quotes a new expression _locally_. It
 #'   is mostly useful to build new expressions around arguments
 #'   captured with [enquo()] or [enquos()]:
 #'   \code{expr(mean(!!enquo(arg), na.rm = TRUE))}.
 #'
-#' * \code{\link[rlang]{as_name}()} transforms a quoted variable name
+#' * \code{as_name} transforms a quoted variable name
 #'   into a string. Supplying something else than a quoted variable
 #'   name is an error.
 #'
-#'   That's unlike \code{\link[rlang]{as_label}()} which also returns
+#'   That's unlike \code{as_label} which also returns
 #'   a single string but supports any kind of R object as input,
 #'   including quoted function calls and vectors. Its purpose is to
 #'   summarise that object into a single label. That label is often

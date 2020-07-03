@@ -10,7 +10,7 @@
 #' @param lambda A box cox transformation parameter. If set to `"auto"`, performs
 #'  automated lambda selection.
 #' @param lambdas_trained A named numeric vector of lambdas. This is `NULL` until computed
-#'  by [prep.recipe()]. Note that, if the original data are integers, the mean
+#'  by `recipes::prep()`. Note that, if the original data are integers, the mean
 #'  will be converted to an integer to maintain the same a data type.
 #'
 #' @return An updated version of `recipe` with the new step
@@ -47,7 +47,7 @@
 #'
 #'  Time Series Analysis:
 #'  - Engineered Features: [step_timeseries_signature()], [step_holiday_signature()], [step_fourier()]
-#'  - Diffs & Lags [step_diff()], [recipes::step_lag()]
+#'  - Diffs & Lags [step_diff()], `recipes::step_lag()`
 #'  - Smoothing: [step_slidify()], [step_smooth()]
 #'  - Variance Reduction: [step_box_cox()]
 #'  - Imputation: [step_ts_impute()], [step_ts_clean()]
@@ -55,9 +55,9 @@
 #'
 #'
 #' Recipe Setup and Application:
-#' - Create: [recipes::recipe()]
-#' - Prepare: [recipes::prep.recipe()]
-#' - Apply: [recipes::bake.recipe()]
+#' - `recipes::recipe()`
+#' - `recipes::prep()`
+#' - `recipes::bake()`
 #'
 #' @references
 #' - [Forecast R Package](https://github.com/robjhyndman/forecast)

@@ -48,7 +48,7 @@
 #' @seealso
 #'  Time Series Analysis:
 #'  - Engineered Features: [step_timeseries_signature()], [step_holiday_signature()], [step_fourier()]
-#'  - Diffs & Lags [step_diff()], [recipes::step_lag()]
+#'  - Diffs & Lags [step_diff()], `recipes::step_lag()`
 #'  - Smoothing: [step_slidify()], [step_smooth()]
 #'  - Variance Reduction: [step_box_cox()]
 #'  - Imputation: [step_ts_impute()], [step_ts_clean()]

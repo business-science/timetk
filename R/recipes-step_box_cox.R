@@ -7,7 +7,7 @@
 #'  including Guerrero lambda optimization and handling for
 #'  negative data used in the Forecast R Package.
 #'
-#' @inheritParams recipes::step_center
+#' @param recipe A `recipe` object. The step will be added to the sequence of operations for this recipe.
 #' @param ... One or more selector functions to choose which
 #'  variables are affected by the step. See [selections()]
 #'  for more details. For the `tidy` method, these are not
@@ -17,8 +17,14 @@
 #'  compute the transformation parameter lambda.
 #' @param role Not used by this step since no new variables are
 #'  created.
+#' @param trained A logical to indicate if the quantities for preprocessing have been estimated.
 #' @param lambdas_trained A numeric vector of transformation values. This
-#'  is `NULL` until computed by [prep.recipe()].
+#'  is `NULL` until computed by `prep()`.
+#' @param skip A logical. Should the step be skipped when the recipe
+#'  is baked by `bake.recipe()`? While all operations are baked when `prep.recipe()` is run,
+#'  some operations may not be able to be conducted on new data (e.g. processing the outcome variable(s)).
+#'  Care should be taken when using `skip = TRUE` as it may affect the computations for subsequent operations.
+#' @param id A character string that is unique to this step to identify it.
 #'
 #' @return An updated version of `recipe` with the new step
 #'  added to the sequence of existing steps (if any). For the
@@ -75,20 +81,20 @@
 #'
 #'  Time Series Analysis:
 #'  - Engineered Features: [step_timeseries_signature()], [step_holiday_signature()], [step_fourier()]
-#'  - Diffs & Lags [step_diff()], [recipes::step_lag()]
+#'  - Diffs & Lags [step_diff()], `recipes::step_lag()`
 #'  - Smoothing: [step_slidify()], [step_smooth()]
 #'  - Variance Reduction: [step_box_cox()]
 #'  - Imputation: [step_ts_impute()], [step_ts_clean()]
 #'  - Padding: [step_ts_pad()]
 #'
 #' Transformations to reduce variance:
-#' - [recipes::step_log()] - Log transformation
-#' - [recipes::step_sqrt()] - Square-Root Power Transformation
+#' - `recipes::step_log()` - Log transformation
+#' - `recipes::step_sqrt()` - Square-Root Power Transformation
 #'
 #' Recipe Setup and Application:
-#' - Create: [recipes::recipe()]
-#' - Prepare: [recipes::prep.recipe()]
-#' - Apply: [recipes::bake.recipe()]
+#' - `recipes::recipe()`
+#' - `recipes::prep()`
+#' - `recipes::bake()`
 #'
 #' @export
 step_box_cox <-

@@ -5,7 +5,6 @@
 
 ## R CMD check results
 
-0 errors | 0 warnings | 1 note
+0 errors | 0 warnings | 0 notes
 
-* installed size is  8.9Mb
-* sub-directories of 1Mb or more: doc   7.4Mb
+* This is an update

@@ -13,8 +13,8 @@
 #' * Center: [mean()], [median()]
 #' * Spread: [sd()], [var()]
 #' * Range: [min()], [max()]
-#' * Count: [dplyr::n()], [dplyr::n_distinct()]
-#' * Position: [dplyr::first()], [dplyr::last()], [dplyr::nth()]
+#' * Count: `dplyr::n()`, `dplyr::n_distinct()`
+#' * Position: `dplyr::first()`, `dplyr::last()`, `dplyr::nth()`
 #' * Correlation: [cor()], [cov()]
 #'
 #'

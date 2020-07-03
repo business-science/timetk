@@ -49,11 +49,11 @@ preprocessing have been estimated.}
 
 \item{columns}{A character string of variables that will be
 used as inputs. This field is a placeholder and will be
-populated once \code{\link[recipes:prep.recipe]{recipes::prep.recipe()}} is used.}
+populated once \code{recipes::prep()} is used.}
 
 \item{features}{A character string of features that will be
 generated. This field is a placeholder and will be
-populated once \code{\link[recipes:prep.recipe]{recipes::prep.recipe()}} is used.}
+populated once \code{recipes::prep()} is used.}
 
 \item{skip}{A logical. Should the step be skipped when the recipe is
 baked by bake.recipe()? While all operations are baked when prep.recipe()
@@ -137,7 +137,7 @@ bake(rec_holiday_prep, dates_in_2017_tbl)
 Time Series Analysis:
 \itemize{
 \item Engineered Features: \code{\link[=step_timeseries_signature]{step_timeseries_signature()}}, \code{\link[=step_holiday_signature]{step_holiday_signature()}}, \code{\link[=step_fourier]{step_fourier()}}
-\item Diffs & Lags \code{\link[=step_diff]{step_diff()}}, \code{\link[recipes:step_lag]{recipes::step_lag()}}
+\item Diffs & Lags \code{\link[=step_diff]{step_diff()}}, \code{recipes::step_lag()}
 \item Smoothing: \code{\link[=step_slidify]{step_slidify()}}, \code{\link[=step_smooth]{step_smooth()}}
 \item Variance Reduction: \code{\link[=step_box_cox]{step_box_cox()}}
 \item Imputation: \code{\link[=step_ts_impute]{step_ts_impute()}}, \code{\link[=step_ts_clean]{step_ts_clean()}}
@@ -146,9 +146,9 @@ Time Series Analysis:
 
 Main Recipe Functions:
 \itemize{
-\item \code{\link[recipes:recipe]{recipes::recipe()}}
-\item \code{\link[recipes:prep.recipe]{recipes::prep.recipe()}}
-\item \code{\link[recipes:bake.recipe]{recipes::bake.recipe()}}
+\item \code{recipes::recipe()}
+\item \code{recipes::prep()}
+\item \code{recipes::bake()}
 }
 }
 \concept{dates}
