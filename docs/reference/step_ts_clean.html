@@ -207,8 +207,7 @@ step that will clean outliers and impute time series data.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>recipe</th>
-      <td><p>A recipe object. The step will be added to the
-sequence of operations for this recipe.</p></td>
+      <td><p>A <code>recipe</code> object. The step will be added to the sequence of operations for this recipe.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -235,23 +234,20 @@ created.</p></td>
     </tr>
     <tr>
       <th>trained</th>
-      <td><p>A logical to indicate if the quantities for
-preprocessing have been estimated.</p></td>
+      <td><p>A logical to indicate if the quantities for preprocessing have been estimated.</p></td>
     </tr>
     <tr>
       <th>lambdas_trained</th>
       <td><p>A named numeric vector of lambdas. This is <code>NULL</code> until computed
-by <code>prep.recipe()</code>. Note that, if the original data are integers, the mean
+by <code><a href='https://recipes.tidymodels.org/reference/prep.html'>recipes::prep()</a></code>. Note that, if the original data are integers, the mean
 will be converted to an integer to maintain the same a data type.</p></td>
     </tr>
     <tr>
       <th>skip</th>
-      <td><p>A logical. Should the step be skipped when the
-recipe is baked by <code><a href='https://recipes.tidymodels.org/reference/bake.html'>bake.recipe()</a></code>? While all operations are baked
-when <code><a href='https://recipes.tidymodels.org/reference/prep.html'>prep.recipe()</a></code> is run, some operations may not be able to be
-conducted on new data (e.g. processing the outcome variable(s)).
-Care should be taken when using <code>skip = TRUE</code> as it may affect
-the computations for subsequent operations</p></td>
+      <td><p>A logical. Should the step be skipped when the recipe
+is baked by <code>bake.recipe()</code>? While all operations are baked when <code>prep.recipe()</code> is run,
+some operations may not be able to be conducted on new data (e.g. processing the outcome variable(s)).
+Care should be taken when using <code>skip = TRUE</code> as it may affect the computations for subsequent operations.</p></td>
     </tr>
     <tr>
       <th>id</th>

@@ -51,22 +51,22 @@
 <meta property="og:title" content="Tidy eval helpers — tidyeval" />
 <meta property="og:description" content="
 
-sym() creates a symbol from a string and
-syms() creates a list of symbols from a
+sym creates a symbol from a string and
+syms creates a list of symbols from a
 character vector.
-enquo() and
-enquos() delay the execution of one or
+enquo and
+enquos delay the execution of one or
 several function arguments. enquo() returns a single quoted
 expression, which is like a blueprint for the delayed computation.
 enquos() returns a list of such quoted expressions.
-expr() quotes a new expression locally. It
+expr quotes a new expression locally. It
 is mostly useful to build new expressions around arguments
 captured with enquo() or enquos():
 expr(mean(!!enquo(arg), na.rm = TRUE)).
-as_name() transforms a quoted variable name
+as_name transforms a quoted variable name
 into a string. Supplying something else than a quoted variable
 name is an error.
-That's unlike as_label() which also returns
+That's unlike as_label which also returns
 a single string but supports any kind of R object as input,
 including quoted function calls and vectors. Its purpose is to
 summarise that object into a single label. That label is often
@@ -216,22 +216,22 @@ section of Advanced R." />
     <div class="ref-description">
     
 <ul>
-<li><p><code><a href='https://rlang.r-lib.org/reference/nse-defuse.html'>sym</a>()</code> creates a symbol from a string and
-<code><a href='https://rlang.r-lib.org/reference/nse-defuse.html'>syms</a>()</code> creates a list of symbols from a
+<li><p><code>sym</code> creates a symbol from a string and
+<code>syms</code> creates a list of symbols from a
 character vector.</p></li>
-<li><p><code><a href='https://rlang.r-lib.org/reference/nse-defuse.html'>enquo</a>()</code> and
-<code><a href='https://rlang.r-lib.org/reference/nse-defuse.html'>enquos</a>()</code> delay the execution of one or
+<li><p><code>enquo</code> and
+<code>enquos</code> delay the execution of one or
 several function arguments. <code>enquo()</code> returns a single quoted
 expression, which is like a blueprint for the delayed computation.
 <code>enquos()</code> returns a list of such quoted expressions.</p></li>
-<li><p><code><a href='https://rlang.r-lib.org/reference/nse-defuse.html'>expr</a>()</code> quotes a new expression <em>locally</em>. It
+<li><p><code>expr</code> quotes a new expression <em>locally</em>. It
 is mostly useful to build new expressions around arguments
 captured with <code>enquo()</code> or <code>enquos()</code>:
 <code>expr(mean(!!enquo(arg), na.rm = TRUE))</code>.</p></li>
-<li><p><code><a href='https://rlang.r-lib.org/reference/as_name.html'>as_name</a>()</code> transforms a quoted variable name
+<li><p><code>as_name</code> transforms a quoted variable name
 into a string. Supplying something else than a quoted variable
 name is an error.</p>
-<p>That's unlike <code><a href='https://rlang.r-lib.org/reference/as_label.html'>as_label</a>()</code> which also returns
+<p>That's unlike <code>as_label</code> which also returns
 a single string but supports any kind of R object as input,
 including quoted function calls and vectors. Its purpose is to
 summarise that object into a single label. That label is often

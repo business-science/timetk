@@ -215,8 +215,7 @@ negative data used in the Forecast R Package.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>recipe</th>
-      <td><p>A recipe object. The step will be added to the
-sequence of operations for this recipe.</p></td>
+      <td><p>A <code>recipe</code> object. The step will be added to the sequence of operations for this recipe.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -241,22 +240,19 @@ created.</p></td>
     </tr>
     <tr>
       <th>trained</th>
-      <td><p>A logical to indicate if the quantities for
-preprocessing have been estimated.</p></td>
+      <td><p>A logical to indicate if the quantities for preprocessing have been estimated.</p></td>
     </tr>
     <tr>
       <th>lambdas_trained</th>
       <td><p>A numeric vector of transformation values. This
-is <code>NULL</code> until computed by <code>prep.recipe()</code>.</p></td>
+is <code>NULL</code> until computed by <code>prep()</code>.</p></td>
     </tr>
     <tr>
       <th>skip</th>
-      <td><p>A logical. Should the step be skipped when the
-recipe is baked by <code><a href='https://recipes.tidymodels.org/reference/bake.html'>bake.recipe()</a></code>? While all operations are baked
-when <code><a href='https://recipes.tidymodels.org/reference/prep.html'>prep.recipe()</a></code> is run, some operations may not be able to be
-conducted on new data (e.g. processing the outcome variable(s)).
-Care should be taken when using <code>skip = TRUE</code> as it may affect
-the computations for subsequent operations</p></td>
+      <td><p>A logical. Should the step be skipped when the recipe
+is baked by <code>bake.recipe()</code>? While all operations are baked when <code>prep.recipe()</code> is run,
+some operations may not be able to be conducted on new data (e.g. processing the outcome variable(s)).
+Care should be taken when using <code>skip = TRUE</code> as it may affect the computations for subsequent operations.</p></td>
     </tr>
     <tr>
       <th>id</th>
@@ -317,9 +313,9 @@ with seasonal dummy variables is used.</p></li>
 </ul>
 
 <p>Recipe Setup and Application:</p><ul>
-<li><p>Create: <code><a href='https://recipes.tidymodels.org/reference/recipe.html'>recipes::recipe()</a></code></p></li>
-<li><p>Prepare: <code><a href='https://recipes.tidymodels.org/reference/prep.html'>recipes::prep.recipe()</a></code></p></li>
-<li><p>Apply: <code><a href='https://recipes.tidymodels.org/reference/bake.html'>recipes::bake.recipe()</a></code></p></li>
+<li><p><code><a href='https://recipes.tidymodels.org/reference/recipe.html'>recipes::recipe()</a></code></p></li>
+<li><p><code><a href='https://recipes.tidymodels.org/reference/prep.html'>recipes::prep()</a></code></p></li>
+<li><p><code><a href='https://recipes.tidymodels.org/reference/bake.html'>recipes::bake()</a></code></p></li>
 </ul>
 </div>
 
