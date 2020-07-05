@@ -26,19 +26,9 @@ devtools::load_all()
 ![](http://cranlogs.r-pkg.org/badges/timetk?color=brightgreen)
 ![](http://cranlogs.r-pkg.org/badges/grand-total/timetk?color=brightgreen)
 
-
-
-> A toolkit for working with time series in R
-
-
-
 ## Mission
 
 To make it easy to ___visualize, wrangle and preprocess time series data___ for forecasting and machine learning prediction. 
-
-```{r, echo=FALSE}
-knitr::include_graphics("vignettes/timetk_version_2.jpg")
-```
 
 
 ## Documentation
@@ -109,7 +99,8 @@ Visualize anomalies...
 
 ```{r, fig.height=7}
 walmart_sales_weekly %>%
-    plot_anomaly_diagnostics(Date, Weekly_Sales, Store, Dept, 
+    group_by(Store, Dept) %>%
+    plot_anomaly_diagnostics(Date, Weekly_Sales, 
                              .facet_ncol = 3, .interactive = FALSE)
 ```
 

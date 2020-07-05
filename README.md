@@ -12,14 +12,10 @@ status](https://travis-ci.org/business-science/timetk.svg?branch=master)](https:
 ![](http://cranlogs.r-pkg.org/badges/timetk?color=brightgreen)
 ![](http://cranlogs.r-pkg.org/badges/grand-total/timetk?color=brightgreen)
 
-> A toolkit for working with time series in R
-
 ## Mission
 
 To make it easy to ***visualize, wrangle and preprocess time series
 data*** for forecasting and machine learning prediction.
-
-![](vignettes/timetk_version_2.jpg)<!-- -->
 
 ## Documentation
 
@@ -88,17 +84,18 @@ taylor_30_min %>%
                      .interactive = FALSE, .color_lab = "Week")
 ```
 
-![](man/figures/README-unnamed-chunk-4-1.png)<!-- -->
+![](man/figures/README-unnamed-chunk-3-1.png)<!-- -->
 
 Visualize anomalies…
 
 ``` r
 walmart_sales_weekly %>%
-    plot_anomaly_diagnostics(Date, Weekly_Sales, Store, Dept, 
+    group_by(Store, Dept) %>%
+    plot_anomaly_diagnostics(Date, Weekly_Sales, 
                              .facet_ncol = 3, .interactive = FALSE)
 ```
 
-![](man/figures/README-unnamed-chunk-5-1.png)<!-- -->
+![](man/figures/README-unnamed-chunk-4-1.png)<!-- -->
 
 Make a seasonality plot…
 
@@ -107,7 +104,7 @@ taylor_30_min %>%
     plot_seasonal_diagnostics(date, value, .interactive = FALSE)
 ```
 
-![](man/figures/README-unnamed-chunk-6-1.png)<!-- -->
+![](man/figures/README-unnamed-chunk-5-1.png)<!-- -->
 
 Inspect autocorrelation, partial autocorrelation (and cross correlations
 too)…
@@ -117,7 +114,7 @@ taylor_30_min %>%
     plot_acf_diagnostics(date, value, .lags = "1 week", .interactive = FALSE)
 ```
 
-![](man/figures/README-unnamed-chunk-7-1.png)<!-- -->
+![](man/figures/README-unnamed-chunk-6-1.png)<!-- -->
 
 ## Installation
 
