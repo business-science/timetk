@@ -90,7 +90,7 @@ box_cox_vec <- function(x, lambda = "auto", silent = FALSE) {
 box_cox_inv_vec <- function(x, lambda) {
 
     if (rlang::is_missing(lambda)) {
-        stop(call. = FALSE, "box_cox_inv_vec(lambda): Is missing. Please provide a value for lambda")
+        rlang::abort("box_cox_inv_vec(lambda): Is missing. Please provide a value for lambda.")
     }
 
     if (lambda < 0) {

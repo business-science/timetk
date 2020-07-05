@@ -23,6 +23,10 @@ __New Tune Parameter Ranking and Selection Tools__:
 
 # timetk 2.1.0.9000 (Development Version)
 
+__New Functions__
+
+- `log_interval_vec()` & `log_interval_inv_vec()`: For constrained interval forecasting. 
+
 # timetk 2.1.0 
 
 __New Functions__
