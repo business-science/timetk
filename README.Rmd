@@ -79,6 +79,7 @@ There are _many_ R packages for working with Time Series data. Here's how `timet
 
 </div>
 
+
 ## What can you do in 1 line of code?
 
 ```{r, echo=FALSE}

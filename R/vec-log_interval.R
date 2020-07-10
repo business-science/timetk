@@ -19,7 +19,7 @@
 #' The Log Interval Transformation constrains values to specified upper and lower limits.
 #' The transformation maps limits to a function:
 #'
-#' `log((x - a)/(b - x)) + offset`
+#' `log(((x + offset) - a)/(b - (x + offset)))`
 #'
 #' where `a` is the lower limit and `b` is the upper limit
 #'

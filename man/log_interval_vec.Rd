@@ -39,7 +39,7 @@ specified by an \code{upper_limit} and a \code{lower_limit}.
 The Log Interval Transformation constrains values to specified upper and lower limits.
 The transformation maps limits to a function:
 
-\code{log((x - a)/(b - x)) + offset}
+\code{log(((x + offset) - a)/(b - (x + offset)))}
 
 where \code{a} is the lower limit and \code{b} is the upper limit
 
