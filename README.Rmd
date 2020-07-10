@@ -179,7 +179,7 @@ You will learn:
 - Time series cross-validation
 - Ensembling Multiple Machine Learning & Univariate Modeling Techniques (Competition Winner)
 - NEW - Deep Learning with RNNs (Competition Winner)
-- and more.
+- and more!
 
 <p class="text-center" style="font-size:30px;">
 <a href="https://mailchi.mp/business-science/time-series-forecasting-course-coming-soon">Signup for the Time Series Course waitlist</a>

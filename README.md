@@ -207,7 +207,7 @@ You will learn:
   - Ensembling Multiple Machine Learning & Univariate Modeling
     Techniques (Competition Winner)
   - NEW - Deep Learning with RNNs (Competition Winner)
-  - and more.
+  - and more\!
 
 <p class="text-center" style="font-size:30px;">
 
