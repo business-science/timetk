@@ -4,7 +4,14 @@
 \alias{pad_by_time}
 \title{Insert time series rows with regularly spaced timestamps}
 \usage{
-pad_by_time(.data, .date_var, .by = "auto", .pad_value = NA)
+pad_by_time(
+  .data,
+  .date_var,
+  .by = "auto",
+  .pad_value = NA,
+  .start_date = NULL,
+  .end_date = NULL
+)
 }
 \arguments{
 \item{.data}{A tibble with a time-based column.}
@@ -15,6 +22,12 @@ pad_by_time(.data, .date_var, .by = "auto", .pad_value = NA)
 or a time expression like "5 min", or "7 days". See Details.}
 
 \item{.pad_value}{Fills in padded values. Default is \code{NA}.}
+
+\item{.start_date}{Specifies the start of the padded series.
+If NULL it will use the lowest value of the input variable.}
+
+\item{.end_date}{Specifies the end of the padded series.
+If NULL it will use the highest value of the input variable.}
 }
 \description{
 The easiest way to fill in missing timestamps or convert to a more
@@ -73,6 +86,10 @@ missing_data_tbl \%>\% pad_by_time(date, .by = "quarter", .pad_value = 0)
 missing_data_tbl \%>\%
     pad_by_time(date, .by = "quarter") \%>\%
     mutate(value = ts_impute_vec(value, period = 1))
+
+# Can specify a custom .start_date and .end_date
+missing_data_tbl \%>\%
+   pad_by_time(date, .by = "quarter", .start_date = "2013", .end_date = "2015-07-01")
 
 # --- GROUPS ----
 FANG \%>\%

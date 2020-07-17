@@ -31,6 +31,7 @@ __New Functions__
 __Improvements__
 
 - `plot_acf_diagnostics()`: A new argument, `.show_white_noise_bars` for adding white noise bars to an ACF / PACF Plot.
+- `pad_by_time()`: New arguments `.start_date` and `.end_date` for expanding/contracting the padding windows. 
 
 # timetk 2.1.0 
 
