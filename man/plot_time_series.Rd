@@ -180,7 +180,7 @@ FANG \%>\%
                      .facet_ncol  = 2,     # 2-column layout
                      .interactive = FALSE)
 
-# Can also group inside
+# Can also group inside & use .color_var
 FANG \%>\%
     mutate(year = year(date)) \%>\%
     plot_time_series(date, adjusted,
@@ -202,22 +202,6 @@ FANG \%>\%
                      .y_lab        = "Log Scale",
                      .interactive  = FALSE)
 
-# Plotly - Interactive Visualization By Default (Great for Exploration)
-FANG \%>\%
-    group_by(symbol) \%>\%
-    plot_time_series(date, adjusted, .smooth_alpha = 0.5, .plotly_slider = TRUE)
-
-# ggplot2 - static visualization (Great for PDF Reports)
-FANG \%>\%
-    group_by(symbol) \%>\%
-    plot_time_series(
-        date, adjusted,
-        .color_var     = symbol,
-        .facet_ncol    = 2,
-        .smooth_period = "6 months",
-        .interactive   = FALSE) +
-   theme_minimal() +
-   scale_color_viridis_d()
 
 
 }
