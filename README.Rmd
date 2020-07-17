@@ -28,7 +28,7 @@ devtools::load_all()
 
 ## Mission
 
-To make it easy to ___visualize, wrangle and preprocess time series data___ for forecasting and machine learning prediction. 
+To make it easy to ___visualize, wrangle, and feature engineer time series data___ for forecasting and machine learning prediction. 
 
 
 ## Documentation
@@ -61,7 +61,7 @@ There are _many_ R packages for working with Time Series data. Here's how `timet
 | Low to High Frequency        |  ✅  |  :x:  |  :x:   |  :x:  |  
 | Imputation                   |  ✅  |  ✅  |  :x:   |  :x:  |  
 | Sliding / Rolling            |  ✅  |  ✅  |  :x:   |  ✅  |  
-| [__Preprocessing (recipes)__](https://business-science.github.io/timetk/articles/TK03_Forecasting_Using_Time_Series_Signature.html)  |        |         |         |             |             
+| [__Feature Engineering (recipes)__](https://business-science.github.io/timetk/articles/TK03_Forecasting_Using_Time_Series_Signature.html)  |        |         |         |             |             
 | Date Feature Engineering     |  ✅  |  :x:  |  :x:   |  :x:  |  
 | Holiday Feature Engineering  |  ✅  |  :x:  |  :x:   |  :x:  |  
 | Fourier Series               |  ✅  |  :x:  |  :x:   |  :x:  |  

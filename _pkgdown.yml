@@ -184,7 +184,6 @@ reference:
     - contains("wikipedia")
     - "bike_sharing_daily"
     - "taylor_30_min"
-    - "arima_workflow_tuned"
   - title: Date Utilities
     contents:
     - "parse_date2"

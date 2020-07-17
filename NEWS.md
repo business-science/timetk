@@ -21,7 +21,7 @@ __New Tune Parameter Ranking and Selection Tools__:
 
 -->
 
-# timetk 2.1.0.9000 (Development Version)
+# timetk 2.2.0 
 
 __New Functions__
 
