@@ -14,6 +14,7 @@
 #' versus the `.value`. Useful for evaluating external lagged regressors.
 #' @param .lags A sequence of one or more lags to evaluate.
 #' @param .show_ccf_vars_only Hides the ACF and PACF plots so you can focus on only CCFs.
+#' @param .white_noise_bars Shows the white noise significance bounds.
 #' @param .facet_ncol Facets: Number of facet columns. Has no effect if using `grouped_df`.
 #' @param .facet_scales Facets: Options include "fixed", "free", "free_y", "free_x"
 #' @param .line_color Line color. Use keyword: "scale_color" to change the color by the facet.
@@ -67,6 +68,12 @@
 #' Unlike other plotting utilities, the `.facet_vars` arguments is NOT included.
 #' Use `dplyr::group_by()` for processing multiple time series groups.
 #'
+#' __Calculating the White Noise Significance Bars__
+#'
+#' The formula for the significance bars is ±2/√*T* where *T* is the length of the
+#' time series. For a white noise time series, 95% of the data points should fall
+#' within this range. Those that don't may be significant autocorrelations.
+#'
 #' @seealso
 #' - __Visualizing ACF, PACF, & CCF:__ [plot_acf_diagnostics()]
 #' - __Visualizing Seasonality:__ [plot_seasonal_diagnostics()]
@@ -113,6 +120,7 @@
 #' @export
 plot_acf_diagnostics <- function(.data, .date_var, .value, .ccf_vars = NULL, .lags = 1000,
                                  .show_ccf_vars_only = FALSE,
+                                 .white_noise_bars = FALSE,
                                  .facet_ncol = 1, .facet_scales = "fixed",
                                  .line_color = "#2c3e50", .line_size = 0.5,
                                  .line_alpha = 1,
@@ -140,6 +148,7 @@ plot_acf_diagnostics <- function(.data, .date_var, .value, .ccf_vars = NULL, .la
 #' @export
 plot_acf_diagnostics.data.frame <- function(.data, .date_var, .value, .ccf_vars = NULL, .lags = 1000,
                                             .show_ccf_vars_only = FALSE,
+                                            .white_noise_bars = FALSE,
                                             .facet_ncol = 1, .facet_scales = "fixed",
                                             .line_color = "#2c3e50", .line_size = 0.5,
                                             .line_alpha = 1,
@@ -175,6 +184,8 @@ plot_acf_diagnostics.data.frame <- function(.data, .date_var, .value, .ccf_vars 
         tidyr::pivot_longer(cols = -lag, values_to = "value", names_to = "name") %>%
         dplyr::mutate(name = forcats::as_factor(name))
 
+
+    time_series_length <- nrow(.data)
 
 
     # ---- VISUALIZATION ----
@@ -213,6 +224,15 @@ plot_acf_diagnostics.data.frame <- function(.data, .date_var, .value, .ccf_vars 
             ggplot2::geom_point(color = .point_color, size = .point_size, alpha = .point_alpha)
     }
 
+    # Add white noise bars
+    if (.white_noise_bars) {
+        g <- g +
+            ggplot2::geom_hline(yintercept = (2 / sqrt(time_series_length)),
+                                linetype = 2, color = "#A6CEE3") +
+            ggplot2::geom_hline(yintercept = -(2 / sqrt(time_series_length)),
+                                linetype = 2, color = "#A6CEE3")
+    }
+
     # Add theme
     g <- g + theme_tq()
 
@@ -237,6 +257,7 @@ plot_acf_diagnostics.data.frame <- function(.data, .date_var, .value, .ccf_vars 
 #' @export
 plot_acf_diagnostics.grouped_df <- function(.data, .date_var, .value, .ccf_vars = NULL, .lags = 1000,
                                             .show_ccf_vars_only = FALSE,
+                                            .white_noise_bars = FALSE,
                                             .facet_ncol = 1, .facet_scales = "fixed",
                                             .line_color = "#2c3e50", .line_size = 0.5,
                                             .line_alpha = 1,
@@ -281,7 +302,7 @@ plot_acf_diagnostics.grouped_df <- function(.data, .date_var, .value, .ccf_vars 
                             names_to  = "name") %>%
         dplyr::mutate(name = forcats::as_factor(name))
 
-
+    time_series_length <- .data %>% count() %>% pull(n) %>% mean()
 
     # data_formatted
 
@@ -319,6 +340,15 @@ plot_acf_diagnostics.grouped_df <- function(.data, .date_var, .value, .ccf_vars 
     } else {
         g <- g +
             ggplot2::geom_point(color = .point_color, size = .point_size, alpha = .point_alpha)
+    }
+
+    # Add white noise bars
+    if (.white_noise_bars) {
+        g <- g +
+            ggplot2::geom_hline(yintercept = (2 / sqrt(time_series_length)),
+                                linetype = 2, color = "#A6CEE3") +
+            ggplot2::geom_hline(yintercept = -(2 / sqrt(time_series_length)),
+                                linetype = 2, color = "#A6CEE3")
     }
 
     # Add theme
