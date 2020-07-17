@@ -14,7 +14,7 @@
 #' versus the `.value`. Useful for evaluating external lagged regressors.
 #' @param .lags A sequence of one or more lags to evaluate.
 #' @param .show_ccf_vars_only Hides the ACF and PACF plots so you can focus on only CCFs.
-#' @param .white_noise_bars Shows the white noise significance bounds.
+#' @param .show_white_noise_bars Shows the white noise significance bounds.
 #' @param .facet_ncol Facets: Number of facet columns. Has no effect if using `grouped_df`.
 #' @param .facet_scales Facets: Options include "fixed", "free", "free_y", "free_x"
 #' @param .line_color Line color. Use keyword: "scale_color" to change the color by the facet.
@@ -26,6 +26,9 @@
 #' @param .x_intercept Numeric lag. Adds a vertical line.
 #' @param .x_intercept_color Color for the x-intercept line.
 #' @param .hline_color Color for the y-intercept = 0 line.
+#' @param .white_noise_line_type Line type for white noise bars. Set to 2 for "dashed" by default.
+#' @param .white_noise_line_color Line color for white noise bars.
+#'  Set to `tidyquant::palette_light()` "steel blue" by default.
 #' @param .title Title for the plot
 #' @param .x_lab X-axis label for the plot
 #' @param .y_lab Y-axis label for the plot
@@ -120,7 +123,7 @@
 #' @export
 plot_acf_diagnostics <- function(.data, .date_var, .value, .ccf_vars = NULL, .lags = 1000,
                                  .show_ccf_vars_only = FALSE,
-                                 .white_noise_bars = FALSE,
+                                 .show_white_noise_bars = FALSE,
                                  .facet_ncol = 1, .facet_scales = "fixed",
                                  .line_color = "#2c3e50", .line_size = 0.5,
                                  .line_alpha = 1,
@@ -129,6 +132,8 @@ plot_acf_diagnostics <- function(.data, .date_var, .value, .ccf_vars = NULL, .la
                                  .x_intercept = NULL,
                                  .x_intercept_color = "#E31A1C",
                                  .hline_color = "#2c3e50",
+                                 .white_noise_line_type = 2,
+                                 .white_noise_line_color = "#A6CEE3",
                                  .title = "Lag Diagnostics",
                                  .x_lab = "Lag", .y_lab = "Correlation",
                                  .interactive = TRUE, .plotly_slider = FALSE) {
@@ -148,7 +153,7 @@ plot_acf_diagnostics <- function(.data, .date_var, .value, .ccf_vars = NULL, .la
 #' @export
 plot_acf_diagnostics.data.frame <- function(.data, .date_var, .value, .ccf_vars = NULL, .lags = 1000,
                                             .show_ccf_vars_only = FALSE,
-                                            .white_noise_bars = FALSE,
+                                            .show_white_noise_bars = FALSE,
                                             .facet_ncol = 1, .facet_scales = "fixed",
                                             .line_color = "#2c3e50", .line_size = 0.5,
                                             .line_alpha = 1,
@@ -157,6 +162,8 @@ plot_acf_diagnostics.data.frame <- function(.data, .date_var, .value, .ccf_vars 
                                             .x_intercept = NULL,
                                             .x_intercept_color = "#E31A1C",
                                             .hline_color = "#2c3e50",
+                                            .white_noise_line_type = 2,
+                                            .white_noise_line_color = "#A6CEE3",
                                             .title = "Lag Diagnostics",
                                             .x_lab = "Lag", .y_lab = "Correlation",
                                             .interactive = TRUE, .plotly_slider = FALSE) {
@@ -225,12 +232,14 @@ plot_acf_diagnostics.data.frame <- function(.data, .date_var, .value, .ccf_vars 
     }
 
     # Add white noise bars
-    if (.white_noise_bars) {
+    if (.show_white_noise_bars) {
         g <- g +
             ggplot2::geom_hline(yintercept = (2 / sqrt(time_series_length)),
-                                linetype = 2, color = "#A6CEE3") +
+                                linetype = .white_noise_line_type,
+                                color    = .white_noise_line_color) +
             ggplot2::geom_hline(yintercept = -(2 / sqrt(time_series_length)),
-                                linetype = 2, color = "#A6CEE3")
+                                linetype = .white_noise_line_type,
+                                color    = .white_noise_line_color)
     }
 
     # Add theme
@@ -257,7 +266,7 @@ plot_acf_diagnostics.data.frame <- function(.data, .date_var, .value, .ccf_vars 
 #' @export
 plot_acf_diagnostics.grouped_df <- function(.data, .date_var, .value, .ccf_vars = NULL, .lags = 1000,
                                             .show_ccf_vars_only = FALSE,
-                                            .white_noise_bars = FALSE,
+                                            .show_white_noise_bars = FALSE,
                                             .facet_ncol = 1, .facet_scales = "fixed",
                                             .line_color = "#2c3e50", .line_size = 0.5,
                                             .line_alpha = 1,
@@ -266,6 +275,8 @@ plot_acf_diagnostics.grouped_df <- function(.data, .date_var, .value, .ccf_vars 
                                             .x_intercept = NULL,
                                             .x_intercept_color = "#E31A1C",
                                             .hline_color = "#2c3e50",
+                                            .white_noise_line_type = 2,
+                                            .white_noise_line_color = "#A6CEE3",
                                             .title = "Lag Diagnostics",
                                             .x_lab = "Lag", .y_lab = "Correlation",
                                             .interactive = TRUE, .plotly_slider = FALSE) {
@@ -302,7 +313,7 @@ plot_acf_diagnostics.grouped_df <- function(.data, .date_var, .value, .ccf_vars 
                             names_to  = "name") %>%
         dplyr::mutate(name = forcats::as_factor(name))
 
-    time_series_length <- .data %>% count() %>% pull(n) %>% mean()
+    time_series_length <- .data %>% dplyr::count() %>% dplyr::pull(n) %>% mean()
 
     # data_formatted
 
@@ -343,12 +354,14 @@ plot_acf_diagnostics.grouped_df <- function(.data, .date_var, .value, .ccf_vars 
     }
 
     # Add white noise bars
-    if (.white_noise_bars) {
+    if (.show_white_noise_bars) {
         g <- g +
             ggplot2::geom_hline(yintercept = (2 / sqrt(time_series_length)),
-                                linetype = 2, color = "#A6CEE3") +
+                                linetype = .white_noise_line_type,
+                                color    = .white_noise_line_color) +
             ggplot2::geom_hline(yintercept = -(2 / sqrt(time_series_length)),
-                                linetype = 2, color = "#A6CEE3")
+                                linetype = .white_noise_line_type,
+                                color    = .white_noise_line_color)
     }
 
     # Add theme

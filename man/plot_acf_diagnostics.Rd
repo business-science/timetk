@@ -11,6 +11,7 @@ plot_acf_diagnostics(
   .ccf_vars = NULL,
   .lags = 1000,
   .show_ccf_vars_only = FALSE,
+  .show_white_noise_bars = FALSE,
   .facet_ncol = 1,
   .facet_scales = "fixed",
   .line_color = "#2c3e50",
@@ -22,6 +23,8 @@ plot_acf_diagnostics(
   .x_intercept = NULL,
   .x_intercept_color = "#E31A1C",
   .hline_color = "#2c3e50",
+  .white_noise_line_type = 2,
+  .white_noise_line_color = "#A6CEE3",
   .title = "Lag Diagnostics",
   .x_lab = "Lag",
   .y_lab = "Correlation",
@@ -45,6 +48,8 @@ versus the \code{.value}. Useful for evaluating external lagged regressors.}
 
 \item{.show_ccf_vars_only}{Hides the ACF and PACF plots so you can focus on only CCFs.}
 
+\item{.show_white_noise_bars}{Shows the white noise significance bounds.}
+
 \item{.facet_ncol}{Facets: Number of facet columns. Has no effect if using \code{grouped_df}.}
 
 \item{.facet_scales}{Facets: Options include "fixed", "free", "free_y", "free_x"}
@@ -66,6 +71,11 @@ versus the \code{.value}. Useful for evaluating external lagged regressors.}
 \item{.x_intercept_color}{Color for the x-intercept line.}
 
 \item{.hline_color}{Color for the y-intercept = 0 line.}
+
+\item{.white_noise_line_type}{Line type for white noise bars. Set to 2 for "dashed" by default.}
+
+\item{.white_noise_line_color}{Line color for white noise bars.
+Set to \code{tidyquant::palette_light()} "steel blue" by default.}
 
 \item{.title}{Title for the plot}
 
@@ -117,6 +127,12 @@ and then apply \code{plot_acf_diagnostics()} to return group-wise lag diagnostic
 
 Unlike other plotting utilities, the \code{.facet_vars} arguments is NOT included.
 Use \code{dplyr::group_by()} for processing multiple time series groups.
+
+\strong{Calculating the White Noise Significance Bars}
+
+The formula for the significance bars is ±2/√\emph{T} where \emph{T} is the length of the
+time series. For a white noise time series, 95\% of the data points should fall
+within this range. Those that don't may be significant autocorrelations.
 }
 \examples{
 library(tidyverse)

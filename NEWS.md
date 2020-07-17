@@ -27,6 +27,10 @@ __New Functions__
 
 - `log_interval_vec()` & `log_interval_inv_vec()`: For constrained interval forecasting. 
 
+__Improvements__
+
+- `plot_acf_diagnostics()`: A new argument, `.show_white_noise_bars` for adding white noise bars to an ACF / PACF Plot.
+
 # timetk 2.1.0 
 
 __New Functions__
