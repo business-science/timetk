@@ -188,11 +188,12 @@ plot_acf_diagnostics.data.frame <- function(.data, .date_var, .value, .ccf_vars 
     }
 
     data_formatted <- data_formatted %>%
-        tidyr::pivot_longer(cols = -lag, values_to = "value", names_to = "name") %>%
+        tidyr::pivot_longer(cols = -c(lag, .white_noise_upper, .white_noise_lower),
+                            values_to = "value", names_to = "name") %>%
         dplyr::mutate(name = forcats::as_factor(name))
 
 
-    time_series_length <- nrow(.data)
+    # time_series_length <- nrow(.data)
 
 
     # ---- VISUALIZATION ----
@@ -234,12 +235,12 @@ plot_acf_diagnostics.data.frame <- function(.data, .date_var, .value, .ccf_vars 
     # Add white noise bars
     if (.show_white_noise_bars) {
         g <- g +
-            ggplot2::geom_hline(yintercept = (2 / sqrt(time_series_length)),
-                                linetype = .white_noise_line_type,
-                                color    = .white_noise_line_color) +
-            ggplot2::geom_hline(yintercept = -(2 / sqrt(time_series_length)),
-                                linetype = .white_noise_line_type,
-                                color    = .white_noise_line_color)
+            ggplot2::geom_line(ggplot2::aes(y = .white_noise_upper),
+                               linetype = .white_noise_line_type,
+                               color    = .white_noise_line_color) +
+            ggplot2::geom_line(ggplot2::aes(y = .white_noise_lower),
+                               linetype = .white_noise_line_type,
+                               color    = .white_noise_line_color)
     }
 
     # Add theme
@@ -308,12 +309,10 @@ plot_acf_diagnostics.grouped_df <- function(.data, .date_var, .value, .ccf_vars 
         dplyr::mutate(.groups_consolidated = forcats::as_factor(.groups_consolidated)) %>%
         dplyr::select(-(!!! rlang::syms(group_names))) %>%
         dplyr::select(.groups_consolidated, lag, dplyr::everything()) %>%
-        tidyr::pivot_longer(cols      = -c(.groups_consolidated, lag),
+        tidyr::pivot_longer(cols      = -c(.groups_consolidated, lag, .white_noise_upper, .white_noise_lower),
                             values_to = "value",
                             names_to  = "name") %>%
         dplyr::mutate(name = forcats::as_factor(name))
-
-    time_series_length <- .data %>% dplyr::count() %>% dplyr::pull(n) %>% mean()
 
     # data_formatted
 
@@ -356,10 +355,10 @@ plot_acf_diagnostics.grouped_df <- function(.data, .date_var, .value, .ccf_vars 
     # Add white noise bars
     if (.show_white_noise_bars) {
         g <- g +
-            ggplot2::geom_hline(yintercept = (2 / sqrt(time_series_length)),
+            ggplot2::geom_line(ggplot2::aes(y = .white_noise_upper),
                                 linetype = .white_noise_line_type,
                                 color    = .white_noise_line_color) +
-            ggplot2::geom_hline(yintercept = -(2 / sqrt(time_series_length)),
+            ggplot2::geom_line(ggplot2::aes(y = .white_noise_lower),
                                 linetype = .white_noise_line_type,
                                 color    = .white_noise_line_color)
     }

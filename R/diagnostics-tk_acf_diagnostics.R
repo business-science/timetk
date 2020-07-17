@@ -112,6 +112,9 @@ tk_acf_diagnostics.data.frame <- function(.data, .date_var, .value, .ccf_vars = 
     # Apply transformations
     .data <- .data %>% dplyr::mutate(.value_mod = !! value_expr)
 
+    # Get time series length
+    n_obs <- nrow(.data)
+
     # Convert character lags to numeric
     if (is.character(.lags)) {
         tryCatch({
@@ -203,6 +206,10 @@ tk_acf_diagnostics.data.frame <- function(.data, .date_var, .value, .ccf_vars = 
     ret <- ret %>%
         tibble::rowid_to_column(var = "lag") %>%
         dplyr::mutate(lag = lag - 1) %>%
+        dplyr::mutate(
+            .white_noise_upper = (2 / sqrt(n_obs)),
+            .white_noise_lower = -(2 / sqrt(n_obs))
+        ) %>%
         dplyr::filter(lag %in% .lags)
 
     return(ret)
