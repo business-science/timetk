@@ -196,6 +196,7 @@ to multiple time series with <code>group_by()</code>.</p>
   <span class='kw'>.ccf_vars</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>.lags</span> <span class='kw'>=</span> <span class='fl'>1000</span>,
   <span class='kw'>.show_ccf_vars_only</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>.show_white_noise_bars</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>.facet_ncol</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>.facet_scales</span> <span class='kw'>=</span> <span class='st'>"fixed"</span>,
   <span class='kw'>.line_color</span> <span class='kw'>=</span> <span class='st'>"#2c3e50"</span>,
@@ -207,6 +208,8 @@ to multiple time series with <code>group_by()</code>.</p>
   <span class='kw'>.x_intercept</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>.x_intercept_color</span> <span class='kw'>=</span> <span class='st'>"#E31A1C"</span>,
   <span class='kw'>.hline_color</span> <span class='kw'>=</span> <span class='st'>"#2c3e50"</span>,
+  <span class='kw'>.white_noise_line_type</span> <span class='kw'>=</span> <span class='fl'>2</span>,
+  <span class='kw'>.white_noise_line_color</span> <span class='kw'>=</span> <span class='st'>"#A6CEE3"</span>,
   <span class='kw'>.title</span> <span class='kw'>=</span> <span class='st'>"Lag Diagnostics"</span>,
   <span class='kw'>.x_lab</span> <span class='kw'>=</span> <span class='st'>"Lag"</span>,
   <span class='kw'>.y_lab</span> <span class='kw'>=</span> <span class='st'>"Correlation"</span>,
@@ -243,6 +246,10 @@ versus the <code>.value</code>. Useful for evaluating external lagged regressors
     <tr>
       <th>.show_ccf_vars_only</th>
       <td><p>Hides the ACF and PACF plots so you can focus on only CCFs.</p></td>
+    </tr>
+    <tr>
+      <th>.show_white_noise_bars</th>
+      <td><p>Shows the white noise significance bounds.</p></td>
     </tr>
     <tr>
       <th>.facet_ncol</th>
@@ -287,6 +294,15 @@ versus the <code>.value</code>. Useful for evaluating external lagged regressors
     <tr>
       <th>.hline_color</th>
       <td><p>Color for the y-intercept = 0 line.</p></td>
+    </tr>
+    <tr>
+      <th>.white_noise_line_type</th>
+      <td><p>Line type for white noise bars. Set to 2 for "dashed" by default.</p></td>
+    </tr>
+    <tr>
+      <th>.white_noise_line_color</th>
+      <td><p>Line color for white noise bars.
+Set to <code><a href='https://rdrr.io/pkg/tidyquant/man/palette_tq.html'>tidyquant::palette_light()</a></code> "steel blue" by default.</p></td>
     </tr>
     <tr>
       <th>.title</th>
@@ -339,6 +355,10 @@ and then apply <code>plot_acf_diagnostics()</code> to return group-wise lag diag
 <p><strong>Special Note on Groups</strong></p>
 <p>Unlike other plotting utilities, the <code>.facet_vars</code> arguments is NOT included.
 Use <code><a href='https://dplyr.tidyverse.org/reference/group_by.html'>dplyr::group_by()</a></code> for processing multiple time series groups.</p>
+<p><strong>Calculating the White Noise Significance Bars</strong></p>
+<p>The formula for the significance bars is ±2/√<em>T</em> where <em>T</em> is the length of the
+time series. For a white noise time series, 95% of the data points should fall
+within this range. Those that don't may be significant autocorrelations.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'>

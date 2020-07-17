@@ -68,16 +68,16 @@
 #'         .date_var = date,
 #'         .by       = "month", # Setup for monthly aggregation
 #'         # mutate recycles a single value
-#'         first_value  = first(value)
+#'         first_value_by_month  = first(value)
 #'     )
-#'  m4_daily_first_by_month_tbl
+#' m4_daily_first_by_month_tbl
 #'
-#'  # Visualize Time Series vs 1st Value Each Month
-#'  m4_daily_first_by_month_tbl %>%
-#'      pivot_longer(value:first_value) %>%
-#'      plot_time_series(date, value, name,
-#'                       .facet_scale = "free", .facet_ncol = 2,
-#'                       .smooth = F, .interactive = F)
+#' # Visualize Time Series vs 1st Value Each Month
+#' m4_daily_first_by_month_tbl %>%
+#'     pivot_longer(value:first_value_by_month) %>%
+#'     plot_time_series(date, value, name,
+#'                      .facet_scale = "free", .facet_ncol = 2,
+#'                      .smooth = FALSE, .interactive = FALSE)
 #'
 #' @export
 mutate_by_time <- function(.data, .date_var, .by = "day", ...,

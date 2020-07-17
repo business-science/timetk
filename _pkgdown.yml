@@ -65,6 +65,7 @@ reference:
   - subtitle: Data Frame Operations
     contents:
     - contains("summarise")
+    - contains("mutate")
     - contains("filter")
     - contains("by_time")
     - "future_frame"

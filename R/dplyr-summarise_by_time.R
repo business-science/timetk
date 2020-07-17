@@ -152,6 +152,7 @@ summarise_by_time.data.frame <- function(.data, .date_var, .by = "day", ...,
         dplyr::arrange(!! date_var_expr, .by_group = TRUE) %>%
         dplyr::summarize(...)
 
+
     return(ret_tbl)
 
 }

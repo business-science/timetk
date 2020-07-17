@@ -25,6 +25,7 @@ __New Tune Parameter Ranking and Selection Tools__:
 
 __New Functions__
 
+- `mutate_by_time()`: For applying mutates by time windows
 - `log_interval_vec()` & `log_interval_inv_vec()`: For constrained interval forecasting. 
 
 __Improvements__
