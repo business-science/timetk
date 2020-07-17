@@ -89,6 +89,7 @@ A key improvement over \code{tibbletime::slidify()} is that \code{timetk::slidif
 \examples{
 library(tidyverse)
 library(tidyquant)
+library(tidyr)
 library(timetk)
 
 FB <- FANG \%>\% filter(symbol == "FB")
@@ -182,37 +183,13 @@ FB \%>\%
     mutate(roll_mean = roll_mean_na_rm(adjusted))
 
 
-# --- RETURNING MULTIPLE VALUES (SUMMARY) ----
-
-FB <- FANG \%>\% filter(symbol == "FB")
-
-# If the function returns >1 value, set the `.unlist = FALSE` argument
-# Running 5 number summary
-summary_roll <- slidify(summary,
-                        .period = 5, .unlist = FALSE, .align = "right")
-
-FB_summarised <- FB \%>\% mutate(summary_roll = summary_roll(adjusted))
-
-FB_summarised$summary_roll[[5]]
-
-# dplyr::bind_rows() is often helpful in these cases to get
-# meaningful output
-
-summary_roll <- slidify(~ bind_rows(summary(.)),
-                        .period = 5, .unlist = FALSE, .align = "right")
-
-FB \%>\%
-    mutate(summary_roll = summary_roll(adjusted)) \%>\%
-    filter(!is.na(summary_roll)) \%>\%
-    unnest(summary_roll)
-
-
 # --- ROLLING REGRESSIONS ----
 
 # Rolling regressions are easy to implement using `.unlist = FALSE`
 lm_roll <- slidify(~lm(.x ~ .y), .period = 90, .unlist = FALSE, .align = "right")
 
 FB \%>\%
+    drop_na() \%>\%
     mutate(numeric_date = as.numeric(date)) \%>\%
     mutate(rolling_lm = lm_roll(adjusted, numeric_date)) \%>\%
     filter(!is.na(rolling_lm))
