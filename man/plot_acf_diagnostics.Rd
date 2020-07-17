@@ -130,7 +130,7 @@ Use \code{dplyr::group_by()} for processing multiple time series groups.
 
 \strong{Calculating the White Noise Significance Bars}
 
-The formula for the significance bars is ±2/√\emph{T} where \emph{T} is the length of the
+The formula for the significance bars is \code{+2/sqrt(T)} and \code{-2/sqrt(T)} where \code{T} is the length of the
 time series. For a white noise time series, 95\% of the data points should fall
 within this range. Those that don't may be significant autocorrelations.
 }

@@ -73,7 +73,7 @@
 #'
 #' __Calculating the White Noise Significance Bars__
 #'
-#' The formula for the significance bars is ±2/√*T* where *T* is the length of the
+#' The formula for the significance bars is `+2/sqrt(T)` and `-2/sqrt(T)` where `T` is the length of the
 #' time series. For a white noise time series, 95% of the data points should fall
 #' within this range. Those that don't may be significant autocorrelations.
 #'
