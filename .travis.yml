@@ -12,6 +12,11 @@ cache: packages
 r_github_packages:
   - jimhester/covr
 
+dist: xenial
+addons:
+  apt:
+    packages: libnode-dev
+
 env:
  global:
    - CRAN: http://cran.rstudio.com
