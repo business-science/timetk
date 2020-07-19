@@ -39,7 +39,7 @@ To make it easy to ___visualize, wrangle, and feature engineer time series data_
 
 ## Package Functionality
 
-There are _many_ R packages for working with Time Series data. Here's how `timetk` compares to the "tidy" time series R packages for data visualization, wrangling, and preprocessing (those that leverage data frames or tibbles). 
+There are _many_ R packages for working with Time Series data. Here's how `timetk` compares to the "tidy" time series R packages for data visualization, wrangling, and feature engineeering (those that leverage data frames or tibbles). 
 
 
 <div class = "comparison">

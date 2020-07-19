@@ -93,7 +93,7 @@ consolidates 20+ lines of ggplot2 code, and scales well to many time series." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">timetk</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.1.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.2.0</span>
       </span>
     </div>
 
@@ -410,7 +410,7 @@ or a numeric value (e.g. <code>smooth_period = 365</code>).</p>
     <span class='fu'>plot_time_series</span>(<span class='no'>date</span>, <span class='no'>adjusted</span>,
                      <span class='kw'>.facet_ncol</span>  <span class='kw'>=</span> <span class='fl'>2</span>,     <span class='co'># 2-column layout</span>
                      <span class='kw'>.interactive</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='plot_time_series-2.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># Can also group inside</span>
+<span class='co'># Can also group inside &amp; use .color_var</span>
 <span class='no'>FANG</span> <span class='kw'>%&gt;%</span>
     <span class='fu'>mutate</span>(<span class='kw'>year</span> <span class='kw'>=</span> <span class='fu'><a href='http://lubridate.tidyverse.org/reference/year.html'>year</a></span>(<span class='no'>date</span>)) <span class='kw'>%&gt;%</span>
     <span class='fu'>plot_time_series</span>(<span class='no'>date</span>, <span class='no'>adjusted</span>,
@@ -430,28 +430,9 @@ or a numeric value (e.g. <code>smooth_period = 365</code>).</p>
                      <span class='kw'>.facet_scales</span> <span class='kw'>=</span> <span class='st'>"free"</span>,
                      <span class='kw'>.y_lab</span>        <span class='kw'>=</span> <span class='st'>"Log Scale"</span>,
                      <span class='kw'>.interactive</span>  <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='plot_time_series-4.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># Plotly - Interactive Visualization By Default (Great for Exploration)</span>
-<span class='no'>FANG</span> <span class='kw'>%&gt;%</span>
-    <span class='fu'>group_by</span>(<span class='no'>symbol</span>) <span class='kw'>%&gt;%</span>
-    <span class='fu'>plot_time_series</span>(<span class='no'>date</span>, <span class='no'>adjusted</span>, <span class='kw'>.smooth_alpha</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>.plotly_slider</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: `group_by_()` is deprecated as of dplyr 0.7.0.</span>
-#&gt; <span class='warning'>Please use `group_by()` instead.</span>
-#&gt; <span class='warning'>See vignette('programming') for more help</span>
-#&gt; <span class='warning'><span style='color: #555555;'>This warning is displayed once every 8 hours.</span><span></span>
-#&gt; <span class='warning'></span><span style='color: #555555;'>Call `lifecycle::last_warnings()` to see where this warning was generated.</span><span></span></div><div class='input'>
-<span class='co'># ggplot2 - static visualization (Great for PDF Reports)</span>
-<span class='no'>FANG</span> <span class='kw'>%&gt;%</span>
-    <span class='fu'>group_by</span>(<span class='no'>symbol</span>) <span class='kw'>%&gt;%</span>
-    <span class='fu'>plot_time_series</span>(
-        <span class='no'>date</span>, <span class='no'>adjusted</span>,
-        <span class='kw'>.color_var</span>     <span class='kw'>=</span> <span class='no'>symbol</span>,
-        <span class='kw'>.facet_ncol</span>    <span class='kw'>=</span> <span class='fl'>2</span>,
-        <span class='kw'>.smooth_period</span> <span class='kw'>=</span> <span class='st'>"6 months"</span>,
-        <span class='kw'>.interactive</span>   <span class='kw'>=</span> <span class='fl'>FALSE</span>) +
-   <span class='fu'>theme_minimal</span>() +
-   <span class='fu'>scale_color_viridis_d</span>()</div><div class='output co'>#&gt; <span class='message'>Scale for 'colour' is already present. Adding another scale for 'colour',</span>
-#&gt; <span class='message'>which will replace the existing scale.</span></div><div class='img'><img src='plot_time_series-5.png' alt='' width='700' height='433' /></div><div class='input'>
 
-</div></span></pre>
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

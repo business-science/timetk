@@ -34,8 +34,8 @@ series data*** for forecasting and machine learning prediction.
 
 There are *many* R packages for working with Time Series data. Here’s
 how `timetk` compares to the “tidy” time series R packages for data
-visualization, wrangling, and preprocessing (those that leverage data
-frames or tibbles).
+visualization, wrangling, and feature engineeering (those that leverage
+data frames or tibbles).
 
 <div class="comparison">
 

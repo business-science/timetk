@@ -45,7 +45,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">timetk</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.1.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.2.0</span>
       </span>
     </div>
 
@@ -133,7 +133,7 @@
             <h3 class="subtitle">Between ts, xts, zoo, and tbl</h3>
                         <h4 class="author">Matt Dancho</h4>
             
-            <h4 class="date">2020-07-17</h4>
+            <h4 class="date">2020-07-19</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/business-science/timetk/blob/master/vignettes/TK00_Time_Series_Coercion.Rmd"><code>vignettes/TK00_Time_Series_Coercion.Rmd</code></a></small>
       <div class="hidden name"><code>TK00_Time_Series_Coercion.Rmd</code></div>
@@ -725,7 +725,13 @@
 <p>We can coerce to <code>ts</code> and, although the “timetk index” is hidden, the <code>yearqtr</code> class is intact.</p>
 <div class="sourceCode" id="cb87"><html><body><pre class="r"><span class="no">yearqtr_ts</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/tk_ts.html">tk_ts</a></span>(<span class="no">yearqtr_xts</span>, <span class="kw">start</span> <span class="kw">=</span> <span class="fl">1997</span>, <span class="kw">freq</span> <span class="kw">=</span> <span class="fl">4</span>)
 <span class="no">yearqtr_ts</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>()</pre></body></html></div>
-<pre><code>## [1] 2329.0 2349.9 2332.9 2381.5 2382.6 2405.0</code></pre>
+<pre><code>##       value
+## [1,] 2329.0
+## [2,] 2349.9
+## [3,] 2332.9
+## [4,] 2381.5
+## [5,] 2382.6
+## [6,] 2405.0</code></pre>
 <p>Coercing from <code>ts</code> to <code>tbl</code> using <code>timetk_idx = TRUE</code> shows that the original index was maintained through each of the conversion steps.</p>
 <div class="sourceCode" id="cb89"><html><body><pre class="r"><span class="no">yearqtr_ts</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/tk_tbl.html">tk_tbl</a></span>(<span class="kw">timetk_idx</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
 <pre><code>## # A tibble: 59 x 2

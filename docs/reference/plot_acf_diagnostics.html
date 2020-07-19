@@ -94,7 +94,7 @@ to multiple time series with group_by()." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">timetk</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.1.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.2.0</span>
       </span>
     </div>
 
@@ -356,7 +356,7 @@ and then apply <code>plot_acf_diagnostics()</code> to return group-wise lag diag
 <p>Unlike other plotting utilities, the <code>.facet_vars</code> arguments is NOT included.
 Use <code><a href='https://dplyr.tidyverse.org/reference/group_by.html'>dplyr::group_by()</a></code> for processing multiple time series groups.</p>
 <p><strong>Calculating the White Noise Significance Bars</strong></p>
-<p>The formula for the significance bars is ±2/√<em>T</em> where <em>T</em> is the length of the
+<p>The formula for the significance bars is <code>+2/sqrt(T)</code> and <code>-2/sqrt(T)</code> where <code>T</code> is the length of the
 time series. For a white noise time series, 95% of the data points should fall
 within this range. Those that don't may be significant autocorrelations.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
