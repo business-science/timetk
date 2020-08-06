@@ -21,6 +21,16 @@ __New Tune Parameter Ranking and Selection Tools__:
 
 -->
 
+# timetk 2.2.0.9000 (Development)
+
+__New Functions__
+
+- `step_log_interval_vec()`
+
+__Bug Fixes__
+
+- `log_interval_vec()` - Fix output
+
 # timetk 2.2.0 
 
 __New Functions__

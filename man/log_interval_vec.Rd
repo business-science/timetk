@@ -3,7 +3,7 @@
 \name{log_interval_vec}
 \alias{log_interval_vec}
 \alias{log_interval_inv_vec}
-\title{Constrained Interval Transformation}
+\title{Log-Interval Transformation for Constrained Interval Forecasting}
 \usage{
 log_interval_vec(
   x,
@@ -19,10 +19,10 @@ log_interval_inv_vec(x, limit_lower, limit_upper, offset = 0)
 \item{x}{A positive numeric vector.}
 
 \item{limit_lower}{A lower limit. Must be less than the minimum value.
-If set to "auto", selects a value that is 10\% greater than the maximum value.}
+If set to "auto", selects zero.}
 
 \item{limit_upper}{An upper limit. Must be greater than the maximum value.
-If set to "auto", selects zero.}
+If set to "auto",  selects a value that is 10\% greater than the maximum value.}
 
 \item{offset}{An offset to include in the log transformation.
 Useful when the data contains values less than or equal to zero.}
@@ -31,7 +31,9 @@ Useful when the data contains values less than or equal to zero.}
 }
 \description{
 The \code{log_interval_vec()} transformation constrains a forecast to an interval
-specified by an \code{upper_limit} and a \code{lower_limit}.
+specified by an \code{upper_limit} and a \code{lower_limit}. The transformation provides
+similar benefits to \code{log()} transformation, while ensuring the inverted transformation
+stays within an upper and lower limit.
 }
 \details{
 \strong{Log Interval Transformation}
@@ -53,12 +55,14 @@ The inverse transformation:
 library(dplyr)
 library(timetk)
 
-d10_daily <- m4_daily \%>\% filter(id == "D10")
+values_trans <- log_interval_vec(1:10, limit_lower = 0, limit_upper = 11)
+values_trans
 
-# --- VECTOR ----
+values_trans_forecast <- c(values_trans, 3.4, 4.4, 5.4)
 
-value_interval <- log_interval_vec(d10_daily$value, limit_lower = 0, limit_upper = 2700)
-value          <- log_interval_inv_vec(value_interval, limit_lower = 0, limit_upper = 2700)
+values_trans_forecast \%>\%
+    log_interval_inv_vec(limit_lower = 0, limit_upper = 11) \%>\%
+    plot()
 
 
 }
@@ -75,7 +79,7 @@ value          <- log_interval_inv_vec(value_interval, limit_lower = 0, limit_up
 \item Rolling Window Transformation: \code{\link[=slidify_vec]{slidify_vec()}}
 \item Loess Smoothing Transformation: \code{\link[=smooth_vec]{smooth_vec()}}
 \item Fourier Series: \code{\link[=fourier_vec]{fourier_vec()}}
-\item Missing Value Imputation for Time Series: \code{\link[=ts_impute_vec]{ts_impute_vec()}}, \code{\link[=ts_clean_vec]{ts_clean_vec()}}
+\item Missing Value Imputation & Anomaly Cleaning for Time Series: \code{\link[=ts_impute_vec]{ts_impute_vec()}}, \code{\link[=ts_clean_vec]{ts_clean_vec()}}
 }
 
 Other common transformations to reduce variance: \code{log()}, \code{log1p()} and \code{sqrt()}
