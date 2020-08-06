@@ -93,7 +93,7 @@ to calendar dates. Works with dplyr groups too." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">timetk</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.2.0.9000</span>
       </span>
     </div>
 
@@ -285,7 +285,7 @@ Filter on an index to identify all holidays that are commonly non-working.</p>
 #&gt; </span><span style='color: #555555;'> 8</span><span> 2017-01-08         0
 #&gt; </span><span style='color: #555555;'> 9</span><span> 2017-01-09         0
 #&gt; </span><span style='color: #555555;'>10</span><span> 2017-01-10         0
-#&gt; </span><span style='color: #555555;'># … with 355 more rows</span><span></div><div class='input'>
+#&gt; </span><span style='color: #555555;'># ... with 355 more rows</span><span></div><div class='input'>
 <span class='co'># All holidays in US</span>
 <span class='no'>dates_in_2017_tbl</span> <span class='kw'>%&gt;%</span>
     <span class='fu'>tk_augment_holiday_signature</span>(
@@ -293,7 +293,7 @@ Filter on an index to identify all holidays that are commonly non-working.</p>
         <span class='kw'>.holiday_pattern</span> <span class='kw'>=</span> <span class='st'>"US_"</span>,
         <span class='kw'>.locale_set</span>      <span class='kw'>=</span> <span class='st'>"US"</span>,
         <span class='kw'>.exchange_set</span>    <span class='kw'>=</span> <span class='st'>"none"</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 365 x 19</span><span>
-#&gt;    index      locale_US US_NewYearsDay US_MLKingsBirth… US_Inauguration…
+#&gt;    index      locale_US US_NewYearsDay US_MLKingsBirth~ US_Inauguration~
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>          </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>            </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>            </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
 #&gt; </span><span style='color: #555555;'> 1</span><span> 2017-01-01         1              1                0                0
 #&gt; </span><span style='color: #555555;'> 2</span><span> 2017-01-02         0              0                0                0
@@ -305,7 +305,7 @@ Filter on an index to identify all holidays that are commonly non-working.</p>
 #&gt; </span><span style='color: #555555;'> 8</span><span> 2017-01-08         0              0                0                0
 #&gt; </span><span style='color: #555555;'> 9</span><span> 2017-01-09         0              0                0                0
 #&gt; </span><span style='color: #555555;'>10</span><span> 2017-01-10         0              0                0                0
-#&gt; </span><span style='color: #555555;'># … with 355 more rows, and 14 more variables: US_LincolnsBirthday </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'># ... with 355 more rows, and 14 more variables: US_LincolnsBirthday </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
 #&gt; </span><span style='color: #555555;'>#   US_PresidentsDay </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, US_WashingtonsBirthday </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
 #&gt; </span><span style='color: #555555;'>#   US_CPulaskisBirthday </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, US_GoodFriday </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, US_MemorialDay </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
 #&gt; </span><span style='color: #555555;'>#   US_DecorationMemorialDay </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, US_IndependenceDay </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
@@ -319,7 +319,7 @@ Filter on an index to identify all holidays that are commonly non-working.</p>
         <span class='kw'>.holiday_pattern</span> <span class='kw'>=</span> <span class='st'>"(World)|(IT_)"</span>,
         <span class='kw'>.locale_set</span>      <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"World"</span>, <span class='st'>"IT"</span>),
         <span class='kw'>.exchange_set</span>    <span class='kw'>=</span> <span class='st'>"none"</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 365 x 45</span><span>
-#&gt;    index      locale_World locale_IT World_NewYearsD… World_Solemnity…
+#&gt;    index      locale_World locale_IT World_NewYearsD~ World_Solemnity~
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>            </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>            </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>            </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
 #&gt; </span><span style='color: #555555;'> 1</span><span> 2017-01-01            1         0                1                1
 #&gt; </span><span style='color: #555555;'> 2</span><span> 2017-01-02            0         0                0                0
@@ -331,7 +331,7 @@ Filter on an index to identify all holidays that are commonly non-working.</p>
 #&gt; </span><span style='color: #555555;'> 8</span><span> 2017-01-08            0         0                0                0
 #&gt; </span><span style='color: #555555;'> 9</span><span> 2017-01-09            0         0                0                0
 #&gt; </span><span style='color: #555555;'>10</span><span> 2017-01-10            0         0                0                0
-#&gt; </span><span style='color: #555555;'># … with 355 more rows, and 40 more variables: World_Epiphany </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'># ... with 355 more rows, and 40 more variables: World_Epiphany </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
 #&gt; </span><span style='color: #555555;'>#   IT_Epiphany </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, World_PresentationOfLord </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
 #&gt; </span><span style='color: #555555;'>#   World_Septuagesima </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, World_Quinquagesima </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
 #&gt; </span><span style='color: #555555;'>#   World_AshWednesday </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, World_Annunciation </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, World_PalmSunday </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>

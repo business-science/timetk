@@ -45,7 +45,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">timetk</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.2.0.9000</span>
       </span>
     </div>
 
@@ -126,14 +126,14 @@
 
       
 
-      </header><script src="TK00_Time_Series_Coercion_files/header-attrs-2.3/header-attrs.js"></script><script src="TK00_Time_Series_Coercion_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><script src="TK00_Time_Series_Coercion_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Time Series Conversion</h1>
             <h3 class="subtitle">Between ts, xts, zoo, and tbl</h3>
                         <h4 class="author">Matt Dancho</h4>
             
-            <h4 class="date">2020-07-19</h4>
+            <h4 class="date">2020-08-05</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/business-science/timetk/blob/master/vignettes/TK00_Time_Series_Coercion.Rmd"><code>vignettes/TK00_Time_Series_Coercion.Rmd</code></a></small>
       <div class="hidden name"><code>TK00_Time_Series_Coercion.Rmd</code></div>
@@ -178,7 +178,7 @@
 ##  8 Q10   2001-10-01 2428.
 ##  9 Q10   2002-01-01 2392.
 ## 10 Q10   2002-04-01 2418.
-## # … with 49 more rows</code></pre>
+## # ... with 49 more rows</code></pre>
 </div>
 <div id="case-study-conversion-issues-with-ts" class="section level1">
 <h1 class="hasAnchor">
@@ -297,7 +297,7 @@
 ##  8 2001 Q4   2428.
 ##  9 2002 Q1   2392.
 ## 10 2002 Q2   2418.
-## # … with 49 more rows</code></pre>
+## # ... with 49 more rows</code></pre>
 <p>We can now get the original date index using the <code><a href="../reference/tk_tbl.html">tk_tbl()</a></code> argument <code>timetk_idx = TRUE</code>.</p>
 <div class="sourceCode" id="cb24"><html><body><pre class="r"><span class="co"># Conversion back to tibble now using the timetk index (date / date-time)</span>
 <span class="no">q10_quarterly_timetk</span> <span class="kw">&lt;-</span> <span class="no">q10_quarterly_ts_timetk</span> <span class="kw">%&gt;%</span>
@@ -317,7 +317,7 @@
 ##  8 2001-10-01 2428.
 ##  9 2002-01-01 2392.
 ## 10 2002-04-01 2418.
-## # … with 49 more rows</code></pre>
+## # ... with 49 more rows</code></pre>
 <p>We can see that in this case (and in most cases) you can get the same data frame you began with.</p>
 <div class="sourceCode" id="cb26"><html><body><pre class="r"><span class="co"># Comparing the coerced tibble with the original tibble</span>
 <span class="fu"><a href="https://rdrr.io/r/base/identical.html">identical</a></span>(<span class="no">q10_quarterly_timetk</span>, <span class="no">q10_quarterly</span> <span class="kw">%&gt;%</span> <span class="fu">select</span>(-<span class="no">id</span>))</pre></body></html></div>
@@ -347,7 +347,7 @@
 ##  8 Q10   2001-10-01 2428.
 ##  9 Q10   2002-01-01 2392.
 ## 10 Q10   2002-04-01 2418.
-## # … with 49 more rows</code></pre>
+## # ... with 49 more rows</code></pre>
 <div id="to-xts" class="section level3">
 <h3 class="hasAnchor">
 <a href="#to-xts" class="anchor"></a>to xts</h3>
@@ -488,7 +488,7 @@
 ##  8 2001-10-01 2428.
 ##  9 2002-01-01 2392.
 ## 10 2002-04-01 2418.
-## # … with 49 more rows</code></pre>
+## # ... with 49 more rows</code></pre>
 </div>
 <div id="from-zoo" class="section level3">
 <h3 class="hasAnchor">
@@ -518,7 +518,7 @@
 ##  8 2001-10-01 2428.
 ##  9 2002-01-01 2392.
 ## 10 2002-04-01 2418.
-## # … with 49 more rows</code></pre>
+## # ... with 49 more rows</code></pre>
 </div>
 <div id="from-zooreg" class="section level3">
 <h3 class="hasAnchor">
@@ -548,7 +548,7 @@
 ##  8 2001 Q4   2428.
 ##  9 2002 Q1   2392.
 ## 10 2002 Q2   2418.
-## # … with 49 more rows</code></pre>
+## # ... with 49 more rows</code></pre>
 <p>With <code>timetk_idx = TRUE</code> the index is the original date sequence. The result is the original <code>tbl</code> that we started with!</p>
 <div class="sourceCode" id="cb62"><html><body><pre class="r"><span class="co"># End - with timetk index that is the same as original time-based index</span>
 <span class="fu"><a href="../reference/tk_tbl.html">tk_tbl</a></span>(<span class="no">q10_quarterly_zooreg</span>, <span class="kw">timetk_idx</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
@@ -565,7 +565,7 @@
 ##  8 2001-10-01 2428.
 ##  9 2002-01-01 2392.
 ## 10 2002-04-01 2418.
-## # … with 49 more rows</code></pre>
+## # ... with 49 more rows</code></pre>
 </div>
 <div id="from-ts" class="section level3">
 <h3 class="hasAnchor">
@@ -604,7 +604,7 @@
 ##  8 2001 Q4   2428.
 ##  9 2002 Q1   2392.
 ## 10 2002 Q2   2418.
-## # … with 49 more rows</code></pre>
+## # ... with 49 more rows</code></pre>
 <p>With <code>timetk_idx = TRUE</code> the index is the original date sequence. The result is the original <code>tbl</code> that we started with!</p>
 <div class="sourceCode" id="cb68"><html><body><pre class="r"><span class="co"># End - with timetk index </span>
 <span class="fu"><a href="../reference/tk_tbl.html">tk_tbl</a></span>(<span class="no">q10_quarterly_ts</span>, <span class="kw">timetk_idx</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
@@ -621,7 +621,7 @@
 ##  8 2001-10-01 2428.
 ##  9 2002-01-01 2392.
 ## 10 2002-04-01 2418.
-## # … with 49 more rows</code></pre>
+## # ... with 49 more rows</code></pre>
 </div>
 </div>
 </div>
@@ -665,7 +665,7 @@
 ##  8 2001-10-01 2428.
 ##  9 2002-01-01 2392.
 ## 10 2002-04-01 2418.
-## # … with 49 more rows</code></pre>
+## # ... with 49 more rows</code></pre>
 </div>
 <div id="testing-other-data-types" class="section level2">
 <h2 class="hasAnchor">
@@ -709,7 +709,7 @@
 ##  8 Q10   2001 Q4   2428.
 ##  9 Q10   2002 Q1   2392.
 ## 10 Q10   2002 Q2   2418.
-## # … with 49 more rows</code></pre>
+## # ... with 49 more rows</code></pre>
 <p>We can coerce to <code>xts</code> and the <code>yearqtr</code> class is intact.</p>
 <div class="sourceCode" id="cb82"><html><body><pre class="r"><span class="no">yearqtr_xts</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/tk_xts.html">tk_xts</a></span>(<span class="no">yearqtr_tbl</span>)</pre></body></html></div>
 <pre><code>## Warning: Non-numeric columns being dropped: id, date</code></pre>
@@ -747,13 +747,13 @@
 ##  8 2001 Q4   2428.
 ##  9 2002 Q1   2392.
 ## 10 2002 Q2   2418.
-## # … with 49 more rows</code></pre>
+## # ... with 49 more rows</code></pre>
 </div>
 <div id="learning-more" class="section level1">
 <h1 class="hasAnchor">
 <a href="#learning-more" class="anchor"></a>Learning More</h1>
 <p>If you are interested in learning from my advanced <strong>Time Series Analysis &amp; Forecasting Course</strong>, then <a href="https://mailchi.mp/business-science/time-series-forecasting-course-coming-soon">join my waitlist</a>. The course is coming soon.</p>
-<p><img src="time_series_course.jpg" width="95%" style="display: block; margin: auto;"></p>
+<p><img src="../../../5%20-%20Development%20Code/timetk/vignettes/time_series_course.jpg" width="95%" style="display: block; margin: auto;"></p>
 <p>You will learn:</p>
 <ul>
 <li>Time Series Preprocessing, Noise Reduction, &amp; Anomaly Detection</li>

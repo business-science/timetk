@@ -92,7 +92,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">timetk</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.2.0.9000</span>
       </span>
     </div>
 
@@ -305,7 +305,7 @@ excluded.</p></li>
 #&gt; </span><span style='color: #555555;'> 8</span><span> 2000-08-28 </span><span style='color: #555555;'>03:30:00</span><span>
 #&gt; </span><span style='color: #555555;'> 9</span><span> 2000-08-28 </span><span style='color: #555555;'>04:00:00</span><span>
 #&gt; </span><span style='color: #555555;'>10</span><span> 2000-08-28 </span><span style='color: #555555;'>04:30:00</span><span>
-#&gt; </span><span style='color: #555555;'># … with 326 more rows</span><span></div><div class='input'>
+#&gt; </span><span style='color: #555555;'># ... with 326 more rows</span><span></div><div class='input'>
 <span class='co'># Daily Data (Grouped)</span>
 <span class='no'>m4_daily</span> <span class='kw'>%&gt;%</span>
     <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>id</span>) <span class='kw'>%&gt;%</span>
@@ -323,7 +323,7 @@ excluded.</p></li>
 #&gt; </span><span style='color: #555555;'> 8</span><span> D10   2016-05-14
 #&gt; </span><span style='color: #555555;'> 9</span><span> D10   2016-05-15
 #&gt; </span><span style='color: #555555;'>10</span><span> D10   2016-05-16
-#&gt; </span><span style='color: #555555;'># … with 158 more rows</span><span></div><div class='input'>
+#&gt; </span><span style='color: #555555;'># ... with 158 more rows</span><span></div><div class='input'>
 <span class='co'># Specify how many observations to project into the future</span>
 <span class='no'>m4_daily</span> <span class='kw'>%&gt;%</span>
     <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>id</span>) <span class='kw'>%&gt;%</span>
@@ -341,7 +341,7 @@ excluded.</p></li>
 #&gt; </span><span style='color: #555555;'> 8</span><span> D10   2016-05-14
 #&gt; </span><span style='color: #555555;'> 9</span><span> D10   2016-05-15
 #&gt; </span><span style='color: #555555;'>10</span><span> D10   2016-05-16
-#&gt; </span><span style='color: #555555;'># … with 390 more rows</span><span></div><div class='input'>
+#&gt; </span><span style='color: #555555;'># ... with 390 more rows</span><span></div><div class='input'>
 
 <span class='co'># Remove Non-Working Days (Weekends &amp; Holidays)</span>
 <span class='no'>holidays</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='tk_make_holiday_sequence.html'>tk_make_holiday_sequence</a></span>(
@@ -367,7 +367,7 @@ excluded.</p></li>
 #&gt; </span><span style='color: #555555;'> 8</span><span> FB     2017-01-12
 #&gt; </span><span style='color: #555555;'> 9</span><span> FB     2017-01-13
 #&gt; </span><span style='color: #555555;'>10</span><span> FB     2017-01-17
-#&gt; </span><span style='color: #555555;'># … with 994 more rows</span><span></div><div class='input'>
+#&gt; </span><span style='color: #555555;'># ... with 994 more rows</span><span></div><div class='input'>
 
 
 </div></span></pre>

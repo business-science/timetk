@@ -113,6 +113,7 @@ reference:
     desc: See `recipes::step_log()` for log transformation.
   - contents:
     - "step_box_cox"
+    - "step_log_interval"
   - subtitle: Add Rows to a Time series
     contents:
     - "step_ts_pad"

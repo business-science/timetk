@@ -97,7 +97,7 @@ negative data used in the Forecast R Package." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">timetk</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.2.0.9000</span>
       </span>
     </div>
 
@@ -323,9 +323,9 @@ with seasonal dummy variables is used.</p></li>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>tidyverse</span>)
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>tidyquant</span>)
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>recipes</span>)</div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Attaching package: ‘recipes’</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:stringr’:</span>
+#&gt; <span class='message'>Attaching package: 'recipes'</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from 'package:stringr':</span>
 #&gt; <span class='message'></span>
-#&gt; <span class='message'>    fixed</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:stats’:</span>
+#&gt; <span class='message'>    fixed</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from 'package:stats':</span>
 #&gt; <span class='message'></span>
 #&gt; <span class='message'>    step</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>timetk</span>)
 
@@ -350,7 +350,7 @@ with seasonal dummy variables is used.</p></li>
 #&gt; </span><span style='color: #555555;'> 8</span><span> 2013-01-11  13.7  8.36  5.24  5.28
 #&gt; </span><span style='color: #555555;'> 9</span><span> 2013-01-14  13.4  8.40  5.32  5.26
 #&gt; </span><span style='color: #555555;'>10</span><span> 2013-01-15  13.1  8.39  5.26  5.27
-#&gt; </span><span style='color: #555555;'># … with 998 more rows</span><span></div><div class='input'>
+#&gt; </span><span style='color: #555555;'># ... with 998 more rows</span><span></div><div class='input'>
 <span class='no'>recipe_box_cox</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://recipes.tidymodels.org/reference/reexports.html'>tidy</a></span>(<span class='fl'>1</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 4 x 3</span><span>
 #&gt;   terms  lambda id           
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>        

@@ -25,7 +25,7 @@ __New Tune Parameter Ranking and Selection Tools__:
 
 __New Functions__
 
-- `step_log_interval_vec()`
+- `step_log_interval_vec()` - Extends the `log_interval_vec()` for `recipes` preprocessing.
 
 __Bug Fixes__
 

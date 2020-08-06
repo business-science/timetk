@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Clean Outliers and Missing Data for Time Series — step_ts_clean • timetk</title>
+<title>Log Interval Transformation for Constrained Interval Forecasting — step_log_interval • timetk</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -48,9 +48,11 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Clean Outliers and Missing Data for Time Series — step_ts_clean" />
-<meta property="og:description" content="step_ts_clean creates a specification of a recipe
-step that will clean outliers and impute time series data." />
+<meta property="og:title" content="Log Interval Transformation for Constrained Interval Forecasting — step_log_interval" />
+<meta property="og:description" content="step_log_interval creates a specification of a recipe
+step that will transform data using a Log-Inerval
+transformation. This function provides a recipes interface
+for the log_interval_vec() transformation function." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -177,29 +179,33 @@ step that will clean outliers and impute time series data." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Clean Outliers and Missing Data for Time Series</h1>
-    <small class="dont-index">Source: <a href='https://github.com/business-science/timetk/blob/master/R/recipes-step_ts_clean.R'><code>R/recipes-step_ts_clean.R</code></a></small>
-    <div class="hidden name"><code>step_ts_clean.Rd</code></div>
+    <h1>Log Interval Transformation for Constrained Interval Forecasting</h1>
+    <small class="dont-index">Source: <a href='https://github.com/business-science/timetk/blob/master/R/recipes-step_log_interval.R'><code>R/recipes-step_log_interval.R</code></a></small>
+    <div class="hidden name"><code>step_log_interval.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><code>step_ts_clean</code> creates a <em>specification</em> of a recipe
-step that will clean outliers and impute time series data.</p>
+    <p><code>step_log_interval</code> creates a <em>specification</em> of a recipe
+step that will transform data using a Log-Inerval
+transformation. This function provides a <code>recipes</code> interface
+for the <code><a href='log_interval_vec.html'>log_interval_vec()</a></code> transformation function.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>step_ts_clean</span>(
+    <pre class="usage"><span class='fu'>step_log_interval</span>(
   <span class='no'>recipe</span>,
   <span class='no'>...</span>,
-  <span class='kw'>period</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>lambda</span> <span class='kw'>=</span> <span class='st'>"auto"</span>,
+  <span class='kw'>limit_lower</span> <span class='kw'>=</span> <span class='st'>"auto"</span>,
+  <span class='kw'>limit_upper</span> <span class='kw'>=</span> <span class='st'>"auto"</span>,
+  <span class='kw'>offset</span> <span class='kw'>=</span> <span class='fl'>0</span>,
   <span class='kw'>role</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
   <span class='kw'>trained</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>lambdas_trained</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>limit_lower_trained</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>limit_upper_trained</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>skip</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>id</span> <span class='kw'>=</span> <span class='fu'>rand_id</span>(<span class='st'>"ts_clean"</span>)
+  <span class='kw'>id</span> <span class='kw'>=</span> <span class='fu'>rand_id</span>(<span class='st'>"log_interval"</span>)
 )
 
-<span class='co'># S3 method for step_ts_clean</span>
+<span class='co'># S3 method for step_log_interval</span>
 <span class='fu'>tidy</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -217,15 +223,19 @@ for more details. For the <code>tidy</code> method, these are not
 currently used.</p></td>
     </tr>
     <tr>
-      <th>period</th>
-      <td><p>A seasonal period to use during the transformation. If <code>period = 1</code>,
-linear interpolation is performed. If <code>period &gt; 1</code>, a robust STL decomposition is
-first performed and a linear interpolation is applied to the seasonally adjusted data.</p></td>
+      <th>limit_lower</th>
+      <td><p>A lower limit. Must be less than the minimum value.
+If set to "auto", selects zero.</p></td>
     </tr>
     <tr>
-      <th>lambda</th>
-      <td><p>A box cox transformation parameter. If set to <code>"auto"</code>, performs
-automated lambda selection.</p></td>
+      <th>limit_upper</th>
+      <td><p>An upper limit. Must be greater than the maximum value.
+If set to "auto",  selects a value that is 10% greater than the maximum value.</p></td>
+    </tr>
+    <tr>
+      <th>offset</th>
+      <td><p>An offset to include in the log transformation.
+Useful when the data contains values less than or equal to zero.</p></td>
     </tr>
     <tr>
       <th>role</th>
@@ -237,10 +247,14 @@ created.</p></td>
       <td><p>A logical to indicate if the quantities for preprocessing have been estimated.</p></td>
     </tr>
     <tr>
-      <th>lambdas_trained</th>
-      <td><p>A named numeric vector of lambdas. This is <code>NULL</code> until computed
-by <code><a href='https://recipes.tidymodels.org/reference/prep.html'>recipes::prep()</a></code>. Note that, if the original data are integers, the mean
-will be converted to an integer to maintain the same a data type.</p></td>
+      <th>limit_lower_trained</th>
+      <td><p>A numeric vector of transformation values. This
+is <code>NULL</code> until computed by <code>prep()</code>.</p></td>
+    </tr>
+    <tr>
+      <th>limit_upper_trained</th>
+      <td><p>A numeric vector of transformation values. This
+is <code>NULL</code> until computed by <code>prep()</code>.</p></td>
     </tr>
     <tr>
       <th>skip</th>
@@ -255,7 +269,7 @@ Care should be taken when using <code>skip = TRUE</code> as it may affect the co
     </tr>
     <tr>
       <th>x</th>
-      <td><p>A <code>step_ts_clean</code> object.</p></td>
+      <td><p>A <code>step_log_interval</code> object.</p></td>
     </tr>
     </table>
 
@@ -268,105 +282,60 @@ selectors or variables selected) and <code>value</code> (the
 lambda estimate).</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The <code>step_ts_clean()</code> function is designed specifically to handle time series
-using seasonal outlier detection methods implemented in the Forecast R Package.</p>
-<p><strong>Cleaning Outliers</strong></p>
-<p>#' Outliers are replaced with missing values using the following methods:</p><ol>
-<li><p>Non-Seasonal (<code>period = 1</code>): Uses <code><a href='https://rdrr.io/r/stats/supsmu.html'>stats::supsmu()</a></code></p></li>
-<li><p>Seasonal (<code>period &gt; 1</code>): Uses <code><a href='https://rdrr.io/pkg/forecast/man/mstl.html'>forecast::mstl()</a></code> with <code>robust = TRUE</code> (robust STL decomposition)
-for seasonal series.</p></li>
-</ol>
-
-<p><strong>Imputation using Linear Interpolation</strong></p>
-<p>Three circumstances cause strictly linear interpolation:</p><ol>
-<li><p><strong>Period is 1:</strong> With <code>period = 1</code>, a seasonality cannot be interpreted and therefore linear is used.</p></li>
-<li><p><strong>Number of Non-Missing Values is less than 2-Periods</strong>: Insufficient values exist to detect seasonality.</p></li>
-<li><p><strong>Number of Total Values is less than 3-Periods</strong>: Insufficient values exist to detect seasonality.</p></li>
-</ol>
-
-<p><strong>Seasonal Imputation using Linear Interpolation</strong></p>
-<p>For seasonal series with <code>period &gt; 1</code>, a robust Seasonal Trend Loess (STL) decomposition is first computed.
-Then a linear interpolation is applied to the seasonally adjusted data, and
-the seasonal component is added back.</p>
-<p><strong>Box Cox Transformation</strong></p>
-<p>In many circumstances, a Box Cox transformation can help. Especially if the series is multiplicative
-meaning the variance grows exponentially. A Box Cox transformation can be automated by setting <code>lambda = "auto"</code>
-or can be specified by setting <code>lambda = numeric value</code>.</p>
-    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
-
-    
-<ul>
-<li><p><a href='https://github.com/robjhyndman/forecast'>Forecast R Package</a></p></li>
-<li><p><a href='https://otexts.com/fpp2/missing-outliers.html'>Forecasting Principles &amp; Practices: Dealing with missing values and outliers</a></p></li>
-</ul>
-
+    <p>The <code>step_log_interval()</code> function is designed specifically to handle time series
+using methods implemented in the Forecast R Package.</p>
+<p><strong>Positive Data</strong></p>
+<p>If data includes values of zero, use <code>offset</code> to adjust the series to make the values positive.</p>
+<p><strong>Implementation</strong></p>
+<p>Refer to the <code><a href='log_interval_vec.html'>log_interval_vec()</a></code> function for the transformation implementation details.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Time Series Analysis:</p><ul>
 <li><p>Engineered Features: <code><a href='step_timeseries_signature.html'>step_timeseries_signature()</a></code>, <code><a href='step_holiday_signature.html'>step_holiday_signature()</a></code>, <code><a href='step_fourier.html'>step_fourier()</a></code></p></li>
 <li><p>Diffs &amp; Lags <code><a href='step_diff.html'>step_diff()</a></code>, <code><a href='https://recipes.tidymodels.org/reference/step_lag.html'>recipes::step_lag()</a></code></p></li>
 <li><p>Smoothing: <code><a href='step_slidify.html'>step_slidify()</a></code>, <code><a href='step_smooth.html'>step_smooth()</a></code></p></li>
-<li><p>Variance Reduction: <code><a href='step_box_cox.html'>step_box_cox()</a></code></p></li>
-<li><p>Imputation: <code><a href='step_ts_impute.html'>step_ts_impute()</a></code>, <code>step_ts_clean()</code></p></li>
+<li><p>Variance Reduction: <code>step_log_interval()</code></p></li>
+<li><p>Imputation: <code><a href='step_ts_impute.html'>step_ts_impute()</a></code>, <code><a href='step_ts_clean.html'>step_ts_clean()</a></code></p></li>
 <li><p>Padding: <code><a href='step_ts_pad.html'>step_ts_pad()</a></code></p></li>
+</ul>
+
+<p>Transformations to reduce variance:</p><ul>
+<li><p><code><a href='https://recipes.tidymodels.org/reference/step_log.html'>recipes::step_log()</a></code> - Log transformation</p></li>
+<li><p><code><a href='https://recipes.tidymodels.org/reference/step_sqrt.html'>recipes::step_sqrt()</a></code> - Square-Root Power Transformation</p></li>
+</ul>
+
+<p>Recipe Setup and Application:</p><ul>
+<li><p><code><a href='https://recipes.tidymodels.org/reference/recipe.html'>recipes::recipe()</a></code></p></li>
+<li><p><code><a href='https://recipes.tidymodels.org/reference/prep.html'>recipes::prep()</a></code></p></li>
+<li><p><code><a href='https://recipes.tidymodels.org/reference/bake.html'>recipes::bake()</a></code></p></li>
 </ul>
 </div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>tidyverse</span>)
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>tidyverse</span>)
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>tidyquant</span>)
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>recipes</span>)
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>timetk</span>)
 
-<span class='co'># Get missing values</span>
 <span class='no'>FANG_wide</span> <span class='kw'>&lt;-</span> <span class='no'>FANG</span> <span class='kw'>%&gt;%</span>
     <span class='fu'>select</span>(<span class='no'>symbol</span>, <span class='no'>date</span>, <span class='no'>adjusted</span>) <span class='kw'>%&gt;%</span>
-    <span class='fu'>pivot_wider</span>(<span class='kw'>names_from</span> <span class='kw'>=</span> <span class='no'>symbol</span>, <span class='kw'>values_from</span> <span class='kw'>=</span> <span class='no'>adjusted</span>) <span class='kw'>%&gt;%</span>
-    <span class='fu'><a href='pad_by_time.html'>pad_by_time</a></span>()</div><div class='output co'>#&gt; <span class='message'>.date_var is missing. Using: date</span></div><div class='output co'>#&gt; <span class='message'>pad applied on the interval: day</span></div><div class='input'>
-<span class='no'>FANG_wide</span></div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 1,459 x 5</span><span>
-#&gt;    date          FB  AMZN  NFLX  GOOG
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> 2013-01-02  28    257.  13.1  361.
-#&gt; </span><span style='color: #555555;'> 2</span><span> 2013-01-03  27.8  258.  13.8  361.
-#&gt; </span><span style='color: #555555;'> 3</span><span> 2013-01-04  28.8  259.  13.7  369.
-#&gt; </span><span style='color: #555555;'> 4</span><span> 2013-01-05  </span><span style='color: #BB0000;'>NA</span><span>     </span><span style='color: #BB0000;'>NA</span><span>   </span><span style='color: #BB0000;'>NA</span><span>     </span><span style='color: #BB0000;'>NA</span><span> 
-#&gt; </span><span style='color: #555555;'> 5</span><span> 2013-01-06  </span><span style='color: #BB0000;'>NA</span><span>     </span><span style='color: #BB0000;'>NA</span><span>   </span><span style='color: #BB0000;'>NA</span><span>     </span><span style='color: #BB0000;'>NA</span><span> 
-#&gt; </span><span style='color: #555555;'> 6</span><span> 2013-01-07  29.4  268.  14.2  367.
-#&gt; </span><span style='color: #555555;'> 7</span><span> 2013-01-08  29.1  266.  13.9  366.
-#&gt; </span><span style='color: #555555;'> 8</span><span> 2013-01-09  30.6  266.  13.7  369.
-#&gt; </span><span style='color: #555555;'> 9</span><span> 2013-01-10  31.3  265.  14    370.
-#&gt; </span><span style='color: #555555;'>10</span><span> 2013-01-11  31.7  268.  14.5  370.
-#&gt; </span><span style='color: #555555;'># ... with 1,449 more rows</span><span></div><div class='input'>
-<span class='co'># Apply Imputation</span>
-<span class='no'>recipe_box_cox</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://recipes.tidymodels.org/reference/recipe.html'>recipe</a></span>(~ <span class='no'>.</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>FANG_wide</span>) <span class='kw'>%&gt;%</span>
-    <span class='fu'>step_ts_clean</span>(<span class='no'>FB</span>, <span class='no'>AMZN</span>, <span class='no'>NFLX</span>, <span class='no'>GOOG</span>, <span class='kw'>period</span> <span class='kw'>=</span> <span class='fl'>252</span>) <span class='kw'>%&gt;%</span>
+    <span class='fu'>pivot_wider</span>(<span class='kw'>names_from</span> <span class='kw'>=</span> <span class='no'>symbol</span>, <span class='kw'>values_from</span> <span class='kw'>=</span> <span class='no'>adjusted</span>)
+
+<span class='no'>recipe_log_interval</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://recipes.tidymodels.org/reference/recipe.html'>recipe</a></span>(~ <span class='no'>.</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>FANG_wide</span>) <span class='kw'>%&gt;%</span>
+    <span class='fu'>step_log_interval</span>(<span class='no'>FB</span>, <span class='no'>AMZN</span>, <span class='no'>NFLX</span>, <span class='no'>GOOG</span>, <span class='kw'>offset</span> <span class='kw'>=</span> <span class='fl'>1</span>) <span class='kw'>%&gt;%</span>
     <span class='fu'><a href='https://recipes.tidymodels.org/reference/prep.html'>prep</a></span>()
 
-<span class='no'>recipe_box_cox</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://recipes.tidymodels.org/reference/bake.html'>bake</a></span>(<span class='no'>FANG_wide</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 1,459 x 5</span><span>
-#&gt;    date          FB  AMZN  NFLX  GOOG
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> 2013-01-02  28    257.  13.1  361.
-#&gt; </span><span style='color: #555555;'> 2</span><span> 2013-01-03  27.8  258.  13.8  361.
-#&gt; </span><span style='color: #555555;'> 3</span><span> 2013-01-04  28.8  259.  13.7  369.
-#&gt; </span><span style='color: #555555;'> 4</span><span> 2013-01-05  28.7  261.  14.0  365.
-#&gt; </span><span style='color: #555555;'> 5</span><span> 2013-01-06  28.8  263.  14.5  365.
-#&gt; </span><span style='color: #555555;'> 6</span><span> 2013-01-07  29.4  268.  14.2  367.
-#&gt; </span><span style='color: #555555;'> 7</span><span> 2013-01-08  29.1  266.  13.9  366.
-#&gt; </span><span style='color: #555555;'> 8</span><span> 2013-01-09  30.6  266.  13.7  369.
-#&gt; </span><span style='color: #555555;'> 9</span><span> 2013-01-10  31.3  265.  14.   370.
-#&gt; </span><span style='color: #555555;'>10</span><span> 2013-01-11  31.7  268.  14.5  370.
-#&gt; </span><span style='color: #555555;'># ... with 1,449 more rows</span><span></div><div class='input'>
-<span class='co'># Lambda parameter used during imputation process</span>
-<span class='no'>recipe_box_cox</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://recipes.tidymodels.org/reference/reexports.html'>tidy</a></span>(<span class='fl'>1</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 4 x 3</span><span>
-#&gt;   terms lambda id            
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>         
-#&gt; </span><span style='color: #555555;'>1</span><span> FB     0.912 ts_clean_BBVkz
-#&gt; </span><span style='color: #555555;'>2</span><span> AMZN   0.557 ts_clean_BBVkz
-#&gt; </span><span style='color: #555555;'>3</span><span> NFLX   0.532 ts_clean_BBVkz
-#&gt; </span><span style='color: #555555;'>4</span><span> GOOG  -</span><span style='color: #BB0000;'>1.00</span><span>  ts_clean_BBVkz</div><div class='input'>
-
-
+<span class='no'>recipe_log_interval</span> <span class='kw'>%&gt;%</span>
+    <span class='fu'><a href='https://recipes.tidymodels.org/reference/bake.html'>bake</a></span>(<span class='no'>FANG_wide</span>) <span class='kw'>%&gt;%</span>
+    <span class='fu'>pivot_longer</span>(-<span class='no'>date</span>) <span class='kw'>%&gt;%</span>
+    <span class='fu'><a href='plot_time_series.html'>plot_time_series</a></span>(<span class='no'>date</span>, <span class='no'>value</span>, <span class='no'>name</span>, <span class='kw'>.smooth</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>.interactive</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='step_log_interval-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='no'>recipe_log_interval</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://recipes.tidymodels.org/reference/reexports.html'>tidy</a></span>(<span class='fl'>1</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 4 x 5</span><span>
+#&gt;   terms limit_lower limit_upper offset id                
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>       </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>       </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>             
+#&gt; </span><span style='color: #555555;'>1</span><span> FB              0        144.      1 log_interval_9QeuR
+#&gt; </span><span style='color: #555555;'>2</span><span> AMZN            0        904.      1 log_interval_9QeuR
+#&gt; </span><span style='color: #555555;'>3</span><span> NFLX            0        143.      1 log_interval_9QeuR
+#&gt; </span><span style='color: #555555;'>4</span><span> GOOG            0        859.      1 log_interval_9QeuR</div><div class='input'>
 </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
