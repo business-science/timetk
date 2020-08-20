@@ -112,3 +112,13 @@ time_series_split <- function(data, date_var = NULL, initial = 5, assess = 1,
         dplyr::slice(slice) %>%
         purrr::pluck("splits", 1)
 }
+
+#' @export
+#' @importFrom rsample complement
+complement.ts_cv_split <- function(x, ...) {
+    if (!all(is.na(x$out_id))) {
+        return(x$out_id)
+    } else {
+        setdiff(1:nrow(x$data), x$in_id)
+    }
+}

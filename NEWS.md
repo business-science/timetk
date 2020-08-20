@@ -29,7 +29,8 @@ __New Functions__
 
 __Bug Fixes__
 
-- `log_interval_vec()` - Fix output
+- `log_interval_vec()` - Correct the messaging
+- `complement.ts_cv_split` - Helper to show time series cross validation splits in list explorer. 
 
 # timetk 2.2.0 
 

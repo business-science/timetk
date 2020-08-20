@@ -275,7 +275,7 @@ test_that("tk_index(baggedETS) test returns correct format.", {
 test_that("tk_index(nnetar) test returns correct format.", {
 
     fit_nnetar <- USAccDeaths %>%
-        nnetar()
+        forecast::nnetar()
 
     # Test if object has timetk index
     expect_false(has_timetk_idx(fit_nnetar))
@@ -292,7 +292,7 @@ test_that("tk_index(fracdiff) test returns correct format.", {
 
     # ARFIMA model (class = "fracdiff")
     x <- fracdiff::fracdiff.sim( 100, ma=-.4, d=.3)$series
-    fit_arfima <- arfima(x)
+    fit_arfima <- forecast::arfima(x)
 
     # Test if object has timetk index
     expect_warning(
