@@ -249,7 +249,7 @@ index is a POSIXct):</p><ul>
 
     
 <ul>
-<li><p>This function is based on the <code><a href='https://rdrr.io/pkg/tibbletime/man/filter_time.html'>tibbletime::filter_time()</a></code> function developed by Davis Vaughan.</p></li>
+<li><p>This function is based on the <code>tibbletime::filter_time()</code> function developed by Davis Vaughan.</p></li>
 </ul>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
@@ -262,26 +262,26 @@ index is a POSIXct):</p><ul>
 </div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>tidyverse</span>)</div><div class='output co'>#&gt; <span class='message'>-- <span style='font-weight: bold;'>Attaching packages</span><span> -------------------------------------------------------------------------------------------- tidyverse 1.3.0 --</span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>v</span><span> </span><span style='color: #0000BB;'>ggplot2</span><span> 3.3.2     </span><span style='color: #00BB00;'>v</span><span> </span><span style='color: #0000BB;'>purrr  </span><span> 0.3.4</span>
-#&gt; <span class='message'></span><span style='color: #00BB00;'>v</span><span> </span><span style='color: #0000BB;'>tibble </span><span> 3.0.3     </span><span style='color: #00BB00;'>v</span><span> </span><span style='color: #0000BB;'>dplyr  </span><span> 1.0.0</span>
-#&gt; <span class='message'></span><span style='color: #00BB00;'>v</span><span> </span><span style='color: #0000BB;'>tidyr  </span><span> 1.1.0     </span><span style='color: #00BB00;'>v</span><span> </span><span style='color: #0000BB;'>stringr</span><span> 1.4.0</span>
-#&gt; <span class='message'></span><span style='color: #00BB00;'>v</span><span> </span><span style='color: #0000BB;'>readr  </span><span> 1.3.1     </span><span style='color: #00BB00;'>v</span><span> </span><span style='color: #0000BB;'>forcats</span><span> 0.5.0</span></div><div class='output co'>#&gt; <span class='message'>-- </span><span style='font-weight: bold;'>Conflicts</span><span> ----------------------------------------------------------------------------------------------- tidyverse_conflicts() --</span>
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>tidyverse</span>)</div><div class='output co'>#&gt; <span class='message'>── <span style='font-weight: bold;'>Attaching packages</span><span> ──────────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.3.0 ──</span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> </span><span style='color: #0000BB;'>ggplot2</span><span> 3.3.2     </span><span style='color: #00BB00;'>✓</span><span> </span><span style='color: #0000BB;'>purrr  </span><span> 0.3.4</span>
+#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> </span><span style='color: #0000BB;'>tibble </span><span> 3.0.3     </span><span style='color: #00BB00;'>✓</span><span> </span><span style='color: #0000BB;'>dplyr  </span><span> 1.0.2</span>
+#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> </span><span style='color: #0000BB;'>tidyr  </span><span> 1.1.1     </span><span style='color: #00BB00;'>✓</span><span> </span><span style='color: #0000BB;'>stringr</span><span> 1.4.0</span>
+#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> </span><span style='color: #0000BB;'>readr  </span><span> 1.3.1     </span><span style='color: #00BB00;'>✓</span><span> </span><span style='color: #0000BB;'>forcats</span><span> 0.5.0</span></div><div class='output co'>#&gt; <span class='message'>── </span><span style='font-weight: bold;'>Conflicts</span><span> ─────────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──</span>
 #&gt; <span class='message'></span><span style='color: #BB0000;'>x</span><span> </span><span style='color: #0000BB;'>dplyr</span><span>::</span><span style='color: #00BB00;'>filter()</span><span> masks </span><span style='color: #0000BB;'>stats</span><span>::filter()</span>
 #&gt; <span class='message'></span><span style='color: #BB0000;'>x</span><span> </span><span style='color: #0000BB;'>dplyr</span><span>::</span><span style='color: #00BB00;'>lag()</span><span>    masks </span><span style='color: #0000BB;'>stats</span><span>::lag()</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>tidyquant</span>)</div><div class='output co'>#&gt; <span class='message'>Loading required package: lubridate</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Attaching package: 'lubridate'</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from 'package:base':</span>
+#&gt; <span class='message'>Attaching package: ‘lubridate’</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:base’:</span>
 #&gt; <span class='message'></span>
 #&gt; <span class='message'>    date, intersect, setdiff, union</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: PerformanceAnalytics</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: xts</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: zoo</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Attaching package: 'zoo'</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from 'package:base':</span>
+#&gt; <span class='message'>Attaching package: ‘zoo’</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:base’:</span>
 #&gt; <span class='message'></span>
 #&gt; <span class='message'>    as.Date, as.Date.numeric</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Attaching package: 'xts'</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from 'package:dplyr':</span>
+#&gt; <span class='message'>Attaching package: ‘xts’</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:dplyr’:</span>
 #&gt; <span class='message'></span>
 #&gt; <span class='message'>    first, last</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Attaching package: 'PerformanceAnalytics'</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from 'package:graphics':</span>
+#&gt; <span class='message'>Attaching package: ‘PerformanceAnalytics’</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:graphics’:</span>
 #&gt; <span class='message'></span>
 #&gt; <span class='message'>    legend</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: quantmod</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: TTR</span></div><div class='output co'>#&gt; <span class='message'>Registered S3 method overwritten by 'quantmod':</span>
 #&gt; <span class='message'>  method            from</span>
-#&gt; <span class='message'>  as.zoo.data.frame zoo </span></div><div class='output co'>#&gt; <span class='message'>Version 0.4-0 included new data defaults. See ?getSymbols.</span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #000000;'>==</span><span> </span><span style='color: #000000;'>Need to Learn tidyquant?</span><span> </span><span style='color: #000000;'>=========================================================================================================</span><span style='color: #0000BB;'></span>
+#&gt; <span class='message'>  as.zoo.data.frame zoo </span></div><div class='output co'>#&gt; <span class='message'>Version 0.4-0 included new data defaults. See ?getSymbols.</span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #000000;'>══</span><span> </span><span style='color: #000000;'>Need to Learn tidyquant?</span><span> </span><span style='color: #000000;'>═════════════════════════════════════════════════════════════════════════════════════════════════════════</span><span style='color: #0000BB;'></span>
 #&gt; <span class='message'>Business Science offers a 1-hour course - Learning Lab #9: Performance Analysis &amp; Portfolio Optimization with tidyquant!</span>
 #&gt; <span class='message'>&lt;/&gt; Learn more at: https://university.business-science.io/p/learning-labs-pro &lt;/&gt;</span><span></span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>timetk</span>)
 
@@ -374,7 +374,7 @@ index is a POSIXct):</p><ul>
 #&gt; </span><span style='color: #555555;'> 8</span><span> FB     2016-01-13 101.  101.   95.2  95.4 33</span><span style='text-decoration: underline;'>410</span><span>600     95.4
 #&gt; </span><span style='color: #555555;'> 9</span><span> FB     2016-01-14  95.8  98.9  92.4  98.4 48</span><span style='text-decoration: underline;'>658</span><span>600     98.4
 #&gt; </span><span style='color: #555555;'>10</span><span> FB     2016-01-15  94.0  96.4  93.5  95.0 45</span><span style='text-decoration: underline;'>935</span><span>600     95.0
-#&gt; </span><span style='color: #555555;'># ... with 66 more rows</span><span></div><div class='input'>
+#&gt; </span><span style='color: #555555;'># … with 66 more rows</span><span></div><div class='input'>
 </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

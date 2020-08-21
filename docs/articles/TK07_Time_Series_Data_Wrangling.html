@@ -126,13 +126,13 @@
 
       
 
-      </header><script src="TK07_Time_Series_Data_Wrangling_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><script src="TK07_Time_Series_Data_Wrangling_files/header-attrs-2.3/header-attrs.js"></script><script src="TK07_Time_Series_Data_Wrangling_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Time Series Data Wrangling</h1>
                         <h4 class="author">Matt Dancho</h4>
             
-            <h4 class="date">2020-08-05</h4>
+            <h4 class="date">2020-08-21</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/business-science/timetk/blob/master/vignettes/TK07_Time_Series_Data_Wrangling.Rmd"><code>vignettes/TK07_Time_Series_Data_Wrangling.Rmd</code></a></small>
       <div class="hidden name"><code>TK07_Time_Series_Data_Wrangling.Rmd</code></div>
@@ -191,7 +191,7 @@
 ##  8 FB     2013-01-11  31.3  32.0  31.1  31.7  89598000     31.7
 ##  9 FB     2013-01-14  32.1  32.2  30.6  31.0  98892800     31.0
 ## 10 FB     2013-01-15  30.6  31.7  29.9  30.1 173242600     30.1
-## # ... with 4,022 more rows</code></pre>
+## # … with 4,022 more rows</code></pre>
 <p>The adjusted column contains the adjusted closing prices for each day.</p>
 <div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="no">FANG</span> <span class="kw">%&gt;%</span>
   <span class="fu">group_by</span>(<span class="no">symbol</span>) <span class="kw">%&gt;%</span>
@@ -305,7 +305,7 @@
 ##  8 FB     2013-01-09  29.7  30.6  29.5  30.6 104787700     30.6
 ##  9 FB     2013-01-10  30.6  31.5  30.3  31.3  95316400     31.3
 ## 10 FB     2013-01-11  31.3  32.0  31.1  31.7  89598000     31.7
-## # ... with 5,826 more rows</code></pre>
+## # … with 5,826 more rows</code></pre>
 </div>
 <div id="low-to-high-frequency" class="section level2">
 <h2 class="hasAnchor">
@@ -335,7 +335,7 @@
 <div id="sliding-rolling-calculations" class="section level1">
 <h1 class="hasAnchor">
 <a href="#sliding-rolling-calculations" class="anchor"></a>Sliding (Rolling) Calculations</h1>
-<p>We have a new function, <code><a href="../reference/slidify.html">slidify()</a></code> that turns any function into a sliding (rolling) window function. It takes concepts from <code><a href="https://rdrr.io/pkg/tibbletime/man/rollify.html">tibbletime::rollify()</a></code> and it improves them with the R package <code>slider</code>.</p>
+<p>We have a new function, <code><a href="../reference/slidify.html">slidify()</a></code> that turns any function into a sliding (rolling) window function. It takes concepts from <code>tibbletime::rollify()</code> and it improves them with the R package <code>slider</code>.</p>
 <div id="rolling-mean" class="section level2">
 <h2 class="hasAnchor">
 <a href="#rolling-mean" class="anchor"></a>Rolling Mean</h2>
@@ -379,7 +379,7 @@
 ##  8 FB     2013-01-11     31.7           30.2
 ##  9 FB     2013-01-14     31.0           30.1
 ## 10 FB     2013-01-15     30.1           30.1
-## # ... with 4,022 more rows</code></pre>
+## # … with 4,022 more rows</code></pre>
 </div>
 <div id="rolling-regression" class="section level2">
 <h2 class="hasAnchor">
@@ -417,14 +417,14 @@
 ##  8 FB     2013-05-21     25.7 26261300        15846 &lt;lm&gt;      
 ##  9 FB     2013-05-22     25.2 45314500        15847 &lt;lm&gt;      
 ## 10 FB     2013-05-23     25.1 37663100        15848 &lt;lm&gt;      
-## # ... with 3,666 more rows</code></pre>
+## # … with 3,666 more rows</code></pre>
 </div>
 </div>
 <div id="learning-more" class="section level1">
 <h1 class="hasAnchor">
 <a href="#learning-more" class="anchor"></a>Learning More</h1>
 <p>If you are interested in learning from my advanced <strong>Time Series Analysis &amp; Forecasting Course</strong>, then <a href="https://mailchi.mp/business-science/time-series-forecasting-course-coming-soon">join my waitlist</a>. The course is coming soon.</p>
-<p><img src="../../../5%20-%20Development%20Code/timetk/vignettes/time_series_course.jpg" width="95%" style="display: block; margin: auto;"></p>
+<p><img src="time_series_course.jpg" width="95%" style="display: block; margin: auto;"></p>
 <p>You will learn:</p>
 <ul>
 <li>Time Series Preprocessing, Noise Reduction, &amp; Anomaly Detection</li>
