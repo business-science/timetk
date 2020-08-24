@@ -46,7 +46,8 @@ Imports:
     timeDate,
     forecast,
     hms,
-    assertthat
+    assertthat,
+    generics
 Suggests:
     tidyquant,
     tidymodels,
