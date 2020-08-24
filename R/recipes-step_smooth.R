@@ -313,3 +313,9 @@ simple_terms <- function(x, ...) {
     }
     res
 }
+
+#' @rdname required_pkgs.timetk
+#' @export
+required_pkgs.step_smooth <- function(x, ...) {
+    c("timetk")
+}

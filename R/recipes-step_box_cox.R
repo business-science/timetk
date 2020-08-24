@@ -217,3 +217,19 @@ tidy.step_box_cox <- function(x, ...) {
     res$id <- x$id
     res
 }
+
+
+
+#' S3 methods for tracking which additional packages are needed for steps.
+#'
+#' Recipe-adjacent packages always list themselves as a required package so that
+#' the steps can function properly within parallel processing schemes.
+#' @param x A recipe step
+#' @return A character vector
+#' @rdname required_pkgs.timetk
+#' @keywords internal
+#' @export
+required_pkgs.step_box_cox <- function(x, ...) {
+    c("timetk")
+}
+

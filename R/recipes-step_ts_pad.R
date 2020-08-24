@@ -238,4 +238,9 @@ tidy.step_ts_pad <- function(x, ...) {
 
 }
 
+#' @rdname required_pkgs.timetk
+#' @export
+required_pkgs.step_ts_pad <- function(x, ...) {
+    c("timetk")
+}
 

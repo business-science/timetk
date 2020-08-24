@@ -302,3 +302,9 @@ tidy.step_holiday_signature <- function(x, ...) {
     res$id <- x$id
     tibble::as_tibble(res)
 }
+
+#' @rdname required_pkgs.timetk
+#' @export
+required_pkgs.step_holiday_signature <- function(x, ...) {
+    c("timetk")
+}
