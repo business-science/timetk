@@ -203,3 +203,9 @@ tidy.step_diff <- function(x, ...) {
     res$terms <- paste0("diff_", res$terms, "_", res$lag, "_", res$diff)
     tibble::as_tibble(res)
 }
+
+#' @rdname required_pkgs.timetk
+#' @export
+required_pkgs.step_diff <- function(x, ...) {
+    c("timetk")
+}

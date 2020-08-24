@@ -215,3 +215,9 @@ tidy.step_ts_clean <- function(x, ...) {
     res$id <- x$id
     res
 }
+
+#' @rdname required_pkgs.timetk
+#' @export
+required_pkgs.step_ts_clean <- function(x, ...) {
+    c("timetk")
+}

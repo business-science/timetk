@@ -296,3 +296,9 @@ tidy.step_fourier <- function(x, ...) {
 }
 
 
+#' @rdname required_pkgs.timetk
+#' @export
+required_pkgs.step_fourier <- function(x, ...) {
+    c("timetk")
+}
+

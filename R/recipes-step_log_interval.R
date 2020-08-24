@@ -240,3 +240,9 @@ tidy.step_log_interval <- function(x, ...) {
     res$id <- x$id
     res
 }
+
+#' @rdname required_pkgs.timetk
+#' @export
+required_pkgs.step_log_interval <- function(x, ...) {
+    c("timetk")
+}

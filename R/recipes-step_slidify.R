@@ -289,4 +289,10 @@ tidy.step_slidify <- function(x, ...) {
     out
 }
 
+#' @rdname required_pkgs.timetk
+#' @export
+required_pkgs.step_slidify <- function(x, ...) {
+    c("timetk")
+}
+
 
