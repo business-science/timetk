@@ -21,11 +21,15 @@ __New Tune Parameter Ranking and Selection Tools__:
 
 -->
 
-# timetk 2.2.0.9000 (Development)
+# timetk 2.2.1
 
 __New Functions__
 
 - `step_log_interval_vec()` - Extends the `log_interval_vec()` for `recipes` preprocessing.
+
+__Parallel Processing__
+
+- Parallel backend for use with `tune` and `recipes`
 
 __Bug Fixes__
 
