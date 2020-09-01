@@ -143,7 +143,7 @@ The `timetk` package wouldn't be possible without other amazing time series pack
 * [stats](https://rdrr.io/r/stats/stats-package.html) - Basically every `timetk` function that uses a period (frequency) argument owes it to `ts()`. 
     - `plot_acf_diagnostics()`: Leverages `stats::acf()`, `stats::pacf()` & `stats::ccf()`
     - `plot_stl_diagnostics()`: Leverages `stats::stl()`
-* [lubridate](https://github.com/hadley/lubridate): `timetk` makes heavy use of `floor_date()`, `ceiling_date()`, and `duration()` for "time-based phrases". 
+* [lubridate](https://lubridate.tidyverse.org/): `timetk` makes heavy use of `floor_date()`, `ceiling_date()`, and `duration()` for "time-based phrases". 
     - Add and Subtract Time (`%+time%` & `%-time%`): `"2012-01-01" %+time% "1 month 4 days"` uses `lubridate` to intelligently offset the day
 * [xts](https://github.com/joshuaulrich/xts): Used to calculate periodicity and fast lag automation. 
 * [forecast (retired)](https://pkg.robjhyndman.com/forecast/): Possibly my favorite R package of all time. It's based on `ts`, and it's predecessor is the `tidyverts` (`fable`, `tsibble`, `feasts`, and `fabletools`). 

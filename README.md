@@ -143,8 +143,8 @@ series packages.
       - `plot_acf_diagnostics()`: Leverages `stats::acf()`,
         `stats::pacf()` & `stats::ccf()`
       - `plot_stl_diagnostics()`: Leverages `stats::stl()`
-  - [lubridate](https://github.com/hadley/lubridate): `timetk` makes
-    heavy use of `floor_date()`, `ceiling_date()`, and `duration()` for
+  - [lubridate](https://lubridate.tidyverse.org/): `timetk` makes heavy
+    use of `floor_date()`, `ceiling_date()`, and `duration()` for
     “time-based phrases”.
       - Add and Subtract Time (`%+time%` & `%-time%`): `"2012-01-01"
         %+time% "1 month 4 days"` uses `lubridate` to intelligently
