@@ -55,6 +55,11 @@ tk_time_series_cv_plan.time_series_cv <- function(.data) {
 }
 
 #' @export
+tk_time_series_cv_plan.rset <- function(.data) {
+    time_series_cv_plan(.data)
+}
+
+#' @export
 tk_time_series_cv_plan.rsplit <- function(.data) {
 
     tib_2 <- tibble::tibble(
