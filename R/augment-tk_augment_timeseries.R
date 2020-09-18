@@ -92,6 +92,7 @@ tk_augment_timeseries_signature.data.frame <- function(.data, .date_var = NULL) 
 
 }
 
+#' @export
 tk_augment_timeseries_signature.grouped_df <- function(.data, .date_var = NULL) {
 
     # Tidy Eval Setup

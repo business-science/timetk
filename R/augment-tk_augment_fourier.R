@@ -127,6 +127,7 @@ tk_augment_fourier.data.frame <- function(.data,
 
 }
 
+#' @export
 tk_augment_fourier.grouped_df <- function(.data,
                                              .date_var,
                                              .periods = 1,

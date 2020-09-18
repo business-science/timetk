@@ -117,6 +117,7 @@ tk_augment_differences.data.frame <- function(.data,
 
 }
 
+#' @export
 tk_augment_differences.grouped_df <- function(.data,
                                              .value,
                                              .lags = 1,
