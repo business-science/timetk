@@ -99,6 +99,7 @@ tk_augment_lags.data.frame <- function(.data,
 
 }
 
+#' @export
 tk_augment_lags.grouped_df <- function(.data,
                                        .value,
                                        .lags = 1,

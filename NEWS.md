@@ -22,7 +22,13 @@ __New Tune Parameter Ranking and Selection Tools__:
 -->
 # timetk 2.2.1.9000 (Development Version)
 
-No items yet.
+__New Functionality__
+
+- `tk_time_series_cv_plan()` - Now works with k-fold cross validation objects from `vfold_cv()` function. 
+
+__Bug Fixes__
+
+- `tk_augment_lags()` - Fix bug with grouped lags
 
 # timetk 2.2.1
 
