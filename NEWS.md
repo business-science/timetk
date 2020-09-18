@@ -28,7 +28,7 @@ __New Functionality__
 
 __Bug Fixes__
 
-- `tk_augment_lags()` - Fix bug with grouped lags
+- Augment functions (e.g. `tk_augment_lags()`) - Fix bug with grouped functions not being exported
 
 # timetk 2.2.1
 
