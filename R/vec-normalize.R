@@ -53,6 +53,8 @@ NULL
 #' @export
 normalize_vec <- function(x, min = NULL, max = NULL, silent = FALSE) {
 
+    if (!is.numeric(x)) rlang::abort("Non-numeric data detected. 'x' must be numeric.")
+
     mn <- min
     mx <- max
 
@@ -80,6 +82,8 @@ normalize_vec <- function(x, min = NULL, max = NULL, silent = FALSE) {
 #' @rdname normalize_vec
 #' @export
 normalize_inv_vec <- function(x, min, max) {
+
+    if (!is.numeric(x)) rlang::abort("Non-numeric data detected. 'x' must be numeric.")
 
     if (rlang::is_missing(min)) {
         rlang::abort("`min` is missing with no default.")

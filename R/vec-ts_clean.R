@@ -73,6 +73,8 @@ NULL
 #' @export
 ts_clean_vec <- function(x, period = 1, lambda = NULL) {
 
+    if (!is.numeric(x)) rlang::abort("Non-numeric data detected. 'x' must be numeric.")
+
     x_ts        <- tk_ts(x, frequency = period)
 
     # Treat NA as NULL (Needed for step_ts_clean)

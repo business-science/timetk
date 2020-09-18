@@ -69,6 +69,8 @@ NULL
 #' @export
 log_interval_vec <- function(x, limit_lower = "auto", limit_upper = "auto", offset = 0, silent = FALSE) {
 
+    if (!is.numeric(x)) rlang::abort("Non-numeric data detected. 'x' must be numeric.")
+
     x <- x + offset
     if (any(x <= 0)) rlang::abort("x <= 0: Try using an offset to avoid values less than or equal to zero.")
 
@@ -96,6 +98,8 @@ log_interval_vec <- function(x, limit_lower = "auto", limit_upper = "auto", offs
 #' @rdname log_interval_vec
 #' @export
 log_interval_inv_vec <- function(x, limit_lower, limit_upper, offset = 0) {
+
+    if (!is.numeric(x)) rlang::abort("Non-numeric data detected. 'x' must be numeric.")
 
     if (rlang::is_missing(limit_lower)) {
         rlang::abort("log_interval_inv_vec(limit_lower): Is missing. Please provide a value.")

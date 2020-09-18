@@ -62,27 +62,9 @@
 #' @export
 lag_vec <- function(x, lag = 1) {
     # Checks
+    if (!is.numeric(x)) rlang::abort("Non-numeric data detected. 'x' must be numeric.")
     if (length(lag) > 1) stop(call. = FALSE, "lag_vec(length(lag) > 1): Multiple lags detected. Use tk_augment_lags().")
 
-    UseMethod("lag_vec", x)
-}
-
-#' @export
-lag_vec.default <- function(x, lag = 1) {
-    stop(paste0("lag_vec: No method for class ", class(x)[[1]], "."), call. = FALSE)
-}
-
-#' @export
-lag_vec.double <- function(x, lag = 1) {
-    lag_calc(x, lag)
-}
-
-#' @export
-lag_vec.integer <- function(x, lag = 1) {
-    lag_calc(x, lag)
-}
-
-lag_calc <- function(x, lag) {
     ret_vec <- xts::lag.xts(
         x           = x,
         k           = lag,

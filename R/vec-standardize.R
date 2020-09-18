@@ -55,6 +55,8 @@ NULL
 #' @export
 standardize_vec <- function(x, mean = NULL, sd = NULL, silent = FALSE) {
 
+    if (!is.numeric(x)) rlang::abort("Non-numeric data detected. 'x' must be numeric.")
+
     m <- mean
     s <- sd
 
@@ -82,6 +84,8 @@ standardize_vec <- function(x, mean = NULL, sd = NULL, silent = FALSE) {
 #' @rdname standardize_vec
 #' @export
 standardize_inv_vec <- function(x, mean, sd) {
+
+    if (!is.numeric(x)) rlang::abort("Non-numeric data detected. 'x' must be numeric.")
 
     if (rlang::is_missing(mean)) {
         rlang::abort("`mean` is missing with no default.")

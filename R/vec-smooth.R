@@ -102,25 +102,8 @@
 #'
 #' @export
 smooth_vec <- function(x, period = 30, span = NULL, degree = 2) {
-    UseMethod("smooth_vec", x)
-}
 
-#' @export
-smooth_vec.default <- function(x, period = 30, span = NULL, degree = 2) {
-    stop(paste0("smooth_vec: No method for class ", class(x)[[1]], "."), call. = FALSE)
-}
-
-#' @export
-smooth_vec.double <- function(x, period = 30, span = NULL, degree = 2) {
-    loess_smooth(x, period, span, degree)
-}
-
-#' @export
-smooth_vec.integer <- function(x, period = 30, span = NULL, degree = 2) {
-    loess_smooth(x, period, span, degree)
-}
-
-loess_smooth <- function(x, period, span, degree) {
+    if (!is.numeric(x)) rlang::abort("Non-numeric data detected. 'x' must be numeric.")
 
     # Span Calc
     if (is.null(span)) {
