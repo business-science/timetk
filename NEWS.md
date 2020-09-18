@@ -31,6 +31,8 @@ __Bug Fixes__
 - Augment functions (e.g. `tk_augment_lags()`) - Fix bug with grouped functions not being exported
 - Vectorized Functions - Compatabiliy with `ts` class 
 
+
+
 # timetk 2.2.1
 
 __New Functions__

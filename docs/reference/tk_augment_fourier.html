@@ -93,7 +93,7 @@ Works with dplyr groups too." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">timetk</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.2.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.2.1.9000</span>
       </span>
     </div>
 
@@ -250,6 +250,7 @@ the <code>.periods</code> argument (e.g. <code>lags = 1:20</code>)</p></li>
 <span class='no'>m4_monthly</span> <span class='kw'>%&gt;%</span>
     <span class='fu'>group_by</span>(<span class='no'>id</span>) <span class='kw'>%&gt;%</span>
     <span class='fu'>tk_augment_fourier</span>(<span class='no'>date</span>, <span class='kw'>.periods</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>6</span>, <span class='fl'>12</span>), <span class='kw'>.K</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 1,574 x 11</span><span>
+#&gt; </span><span style='color: #555555;'># Groups:   id [4]</span><span>
 #&gt;    id    date       value date_sin6_K1 date_cos6_K1 date_sin6_K2 date_cos6_K2
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>        </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>        </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>        </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>        </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
 #&gt; </span><span style='color: #555555;'> 1</span><span> M1    1976-06-01  </span><span style='text-decoration: underline;'>8</span><span>000       -</span><span style='color: #BB0000;'>0.571</span><span>      -</span><span style='color: #BB0000;'>0.821</span><span>        0.938         0.347

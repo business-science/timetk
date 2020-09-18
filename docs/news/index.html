@@ -91,7 +91,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">timetk</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.2.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.2.1.9000</span>
       </span>
     </div>
 
@@ -179,14 +179,34 @@
       <small>Source: <a href='https://github.com/business-science/timetk/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="timetk-2209000-development" class="section level1">
-<h1 class="page-header" data-toc-text="2.2.0.9000">
-<a href="#timetk-2209000-development" class="anchor"></a>timetk 2.2.0.9000 (Development)<small> Unreleased </small>
+    <div id="timetk-2219000-development-version" class="section level1">
+<h1 class="page-header" data-toc-text="2.2.1.9000">
+<a href="#timetk-2219000-development-version" class="anchor"></a>timetk 2.2.1.9000 (Development Version)<small> Unreleased </small>
+</h1>
+<p><strong>New Functionality</strong></p>
+<ul>
+<li>
+<code><a href="../reference/tk_time_series_cv_plan.html">tk_time_series_cv_plan()</a></code> - Now works with k-fold cross validation objects from <code>vfold_cv()</code> function.</li>
+</ul>
+<p><strong>Bug Fixes</strong></p>
+<ul>
+<li>Augment functions (e.g. <code><a href="../reference/tk_augment_lags.html">tk_augment_lags()</a></code>) - Fix bug with grouped functions not being exported</li>
+<li>Vectorized Functions - Compatabiliy with <code>ts</code> class</li>
+</ul>
+</div>
+    <div id="timetk-221" class="section level1">
+<h1 class="page-header" data-toc-text="2.2.1">
+<a href="#timetk-221" class="anchor"></a>timetk 2.2.1<small> 2020-09-01 </small>
 </h1>
 <p><strong>New Functions</strong></p>
 <ul>
 <li>
 <code>step_log_interval_vec()</code> - Extends the <code><a href="../reference/log_interval_vec.html">log_interval_vec()</a></code> for <code>recipes</code> preprocessing.</li>
+</ul>
+<p><strong>Parallel Processing</strong></p>
+<ul>
+<li>Parallel backend for use with <code>tune</code> and <code>recipes</code>
+</li>
 </ul>
 <p><strong>Bug Fixes</strong></p>
 <ul>

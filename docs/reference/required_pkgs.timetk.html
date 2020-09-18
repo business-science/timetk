@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Log-Interval Transformation for Constrained Interval Forecasting — log_interval_vec • timetk</title>
+<title>S3 methods for tracking which additional packages are needed for steps. — required_pkgs.step_box_cox • timetk</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -48,11 +48,9 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Log-Interval Transformation for Constrained Interval Forecasting — log_interval_vec" />
-<meta property="og:description" content="The log_interval_vec() transformation constrains a forecast to an interval
-specified by an upper_limit and a lower_limit. The transformation provides
-similar benefits to log() transformation, while ensuring the inverted transformation
-stays within an upper and lower limit." />
+<meta property="og:title" content="S3 methods for tracking which additional packages are needed for steps. — required_pkgs.step_box_cox" />
+<meta property="og:description" content="Recipe-adjacent packages always list themselves as a required package so that
+the steps can function properly within parallel processing schemes." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -179,104 +177,51 @@ stays within an upper and lower limit." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Log-Interval Transformation for Constrained Interval Forecasting</h1>
-    <small class="dont-index">Source: <a href='https://github.com/business-science/timetk/blob/master/R/vec-log_interval.R'><code>R/vec-log_interval.R</code></a></small>
-    <div class="hidden name"><code>log_interval_vec.Rd</code></div>
+    <h1>S3 methods for tracking which additional packages are needed for steps.</h1>
+    <small class="dont-index">Source: <a href='https://github.com/business-science/timetk/blob/master/R/recipes-step_box_cox.R'><code>R/recipes-step_box_cox.R</code></a>, <a href='https://github.com/business-science/timetk/blob/master/R/recipes-step_diff.R'><code>R/recipes-step_diff.R</code></a>, <a href='https://github.com/business-science/timetk/blob/master/R/recipes-step_fourier.R'><code>R/recipes-step_fourier.R</code></a>, and 8 more</small>
+    <div class="hidden name"><code>required_pkgs.timetk.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>The <code>log_interval_vec()</code> transformation constrains a forecast to an interval
-specified by an <code>upper_limit</code> and a <code>lower_limit</code>. The transformation provides
-similar benefits to <code><a href='https://rdrr.io/r/base/Log.html'>log()</a></code> transformation, while ensuring the inverted transformation
-stays within an upper and lower limit.</p>
+    <p>Recipe-adjacent packages always list themselves as a required package so that
+the steps can function properly within parallel processing schemes.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>log_interval_vec</span>(
-  <span class='no'>x</span>,
-  <span class='kw'>limit_lower</span> <span class='kw'>=</span> <span class='st'>"auto"</span>,
-  <span class='kw'>limit_upper</span> <span class='kw'>=</span> <span class='st'>"auto"</span>,
-  <span class='kw'>offset</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>silent</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
-)
+    <pre class="usage"><span class='fu'>required_pkgs.step_box_cox</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
-<span class='fu'>log_interval_inv_vec</span>(<span class='no'>x</span>, <span class='no'>limit_lower</span>, <span class='no'>limit_upper</span>, <span class='kw'>offset</span> <span class='kw'>=</span> <span class='fl'>0</span>)</pre>
+<span class='fu'>required_pkgs.step_diff</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+
+<span class='fu'>required_pkgs.step_fourier</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+
+<span class='fu'>required_pkgs.step_holiday_signature</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+
+<span class='fu'>required_pkgs.step_log_interval</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+
+<span class='fu'>required_pkgs.step_slidify</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+
+<span class='fu'>required_pkgs.step_smooth</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+
+<span class='fu'>required_pkgs.step_timeseries_signature</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+
+<span class='fu'>required_pkgs.step_ts_clean</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+
+<span class='fu'>required_pkgs.step_ts_impute</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+
+<span class='fu'>required_pkgs.step_ts_pad</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>A positive numeric vector.</p></td>
-    </tr>
-    <tr>
-      <th>limit_lower</th>
-      <td><p>A lower limit. Must be less than the minimum value.
-If set to "auto", selects zero.</p></td>
-    </tr>
-    <tr>
-      <th>limit_upper</th>
-      <td><p>An upper limit. Must be greater than the maximum value.
-If set to "auto",  selects a value that is 10% greater than the maximum value.</p></td>
-    </tr>
-    <tr>
-      <th>offset</th>
-      <td><p>An offset to include in the log transformation.
-Useful when the data contains values less than or equal to zero.</p></td>
-    </tr>
-    <tr>
-      <th>silent</th>
-      <td><p>Whether or not to report the parameter selections as a message.</p></td>
+      <td><p>A recipe step</p></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><strong>Log Interval Transformation</strong></p>
-<p>The Log Interval Transformation constrains values to specified upper and lower limits.
-The transformation maps limits to a function:</p>
-<p><code><a href='https://rdrr.io/r/base/Log.html'>log(((x + offset) - a)/(b - (x + offset)))</a></code></p>
-<p>where <code>a</code> is the lower limit and <code>b</code> is the upper limit</p>
-<p><strong>Inverse Transformation</strong></p>
-<p>The inverse transformation:</p>
-<p><code>(b-a)*(exp(x)) / (1 + exp(x)) + a - offset</code></p>
-    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+    <p>A character vector</p>
 
-    
-<ul>
-<li><p><a href='https://otexts.com/fpp2/limits.html'>Forecasting: Principles &amp; Practices: Forecasts constrained to an interval</a></p></li>
-</ul>
-
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'>
-<ul>
-<li><p>Box Cox Transformation: <code><a href='box_cox_vec.html'>box_cox_vec()</a></code></p></li>
-<li><p>Lag Transformation: <code><a href='lag_vec.html'>lag_vec()</a></code></p></li>
-<li><p>Differencing Transformation: <code><a href='diff_vec.html'>diff_vec()</a></code></p></li>
-<li><p>Rolling Window Transformation: <code><a href='slidify_vec.html'>slidify_vec()</a></code></p></li>
-<li><p>Loess Smoothing Transformation: <code><a href='smooth_vec.html'>smooth_vec()</a></code></p></li>
-<li><p>Fourier Series: <code><a href='fourier_vec.html'>fourier_vec()</a></code></p></li>
-<li><p>Missing Value Imputation &amp; Anomaly Cleaning for Time Series: <code><a href='ts_impute_vec.html'>ts_impute_vec()</a></code>, <code><a href='ts_clean_vec.html'>ts_clean_vec()</a></code></p></li>
-</ul>
-
-<p>Other common transformations to reduce variance: <code><a href='https://rdrr.io/r/base/Log.html'>log()</a></code>, <code><a href='https://rdrr.io/r/base/Log.html'>log1p()</a></code> and <code><a href='https://rdrr.io/r/base/MathFun.html'>sqrt()</a></code></p></div>
-
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>timetk</span>)
-
-<span class='no'>values_trans</span> <span class='kw'>&lt;-</span> <span class='fu'>log_interval_vec</span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='kw'>limit_lower</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>limit_upper</span> <span class='kw'>=</span> <span class='fl'>11</span>)</div><div class='output co'>#&gt; <span class='message'>log_interval_vec(): </span>
-#&gt; <span class='message'> Using limit_lower: 0</span>
-#&gt; <span class='message'> Using limit_upper: 11</span>
-#&gt; <span class='message'> Using offset: 0</span></div><div class='input'><span class='no'>values_trans</span></div><div class='output co'>#&gt;  [1] -2.3025851 -1.5040774 -0.9808293 -0.5596158 -0.1823216  0.1823216
-#&gt;  [7]  0.5596158  0.9808293  1.5040774  2.3025851</div><div class='input'>
-<span class='no'>values_trans_forecast</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>values_trans</span>, <span class='fl'>3.4</span>, <span class='fl'>4.4</span>, <span class='fl'>5.4</span>)
-
-<span class='no'>values_trans_forecast</span> <span class='kw'>%&gt;%</span>
-    <span class='fu'>log_interval_inv_vec</span>(<span class='kw'>limit_lower</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>limit_upper</span> <span class='kw'>=</span> <span class='fl'>11</span>) <span class='kw'>%&gt;%</span>
-    <span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>()</div><div class='img'><img src='log_interval_vec-1.png' alt='' width='700' height='433' /></div><div class='input'>
-
-</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
