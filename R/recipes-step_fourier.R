@@ -151,9 +151,9 @@ step_fourier <-
         # if (length(period) != length(K)) {
         #     stop("Number of periods does not match number of K's (fourier orders)")
         # }
-        if (any(2 * K > period)) {
-            stop("K must be not be greater than period/2")
-        }
+        # if (any(2 * K > period)) {
+        #     stop("K must be not be greater than period/2")
+        # }
         recipes::add_step(
             recipe,
             step_fourier_new(
