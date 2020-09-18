@@ -142,7 +142,24 @@ pad_by_time.grouped_df <- function(.data, .date_var, .by = "auto", .pad_value = 
         dplyr::group_by_at(.vars = group_names)
 }
 
+
 # UTILS ----
+
+parse_date_by <- function(.date, .by, idx) {
+    if (!is.null(.date)) {
+        if (is.null(.by)) {
+            if (inherits(idx, "POSIXct")) {
+                parse_datetime2(.date, tz = lubridate::tz(idx))
+            } else {
+                parse_date2(.date)
+            }
+        } else if (stringr::str_detect(.by, "(hour)|(min)|(sec)")) {
+            parse_datetime2(.date, tz = lubridate::tz(idx))
+        } else {
+            parse_date2(.date)
+        }
+    }
+}
 
 padder <- function(.data, .date_var, .by = "auto", .pad_value = NA,
                            .start_date = NULL, .end_date = NULL,
@@ -150,7 +167,7 @@ padder <- function(.data, .date_var, .by = "auto", .pad_value = NA,
 
     date_var_expr <- rlang::enquo(.date_var)
 
-    if (rlang::quo_is_missing(rlang::enquo(.date_var))) {
+    if (rlang::quo_is_missing(date_var_expr)) {
         date_var_expr <- rlang::sym(tk_get_timeseries_variables(.data)[1])
     }
 
@@ -160,34 +177,10 @@ padder <- function(.data, .date_var, .by = "auto", .pad_value = NA,
     if (.by == "auto") .by <- NULL
 
     # Convert Start Date
-    if (!is.null(.start_date)) {
-        if (is.null(.by)) {
-            if (inherits(idx, "POSIXct")) {
-                .start_date <- parse_datetime2(.start_date, tz = lubridate::tz(idx))
-            } else {
-                .start_date <- parse_date2(.start_date)
-            }
-        } else if (stringr::str_detect(.by, "(hour)|(min)|(sec)")) {
-            .start_date <- parse_datetime2(.start_date, tz = lubridate::tz(idx))
-        } else {
-            .start_date <- parse_date2(.start_date)
-        }
-    }
+    .start_date <- parse_date_by(.start_date, .by, idx)
 
     # Convert End Date
-    if (!is.null(.end_date)) {
-        if (is.null(.by)) {
-            if (inherits(idx, "POSIXct")) {
-                .end_date <- parse_datetime2(.start_date, tz = lubridate::tz(idx))
-            } else {
-                .end_date <- parse_date2(.end_date)
-            }
-        } else if (stringr::str_detect(.by, "(hour)|(min)|(sec)")) {
-            .end_date <- parse_datetime2(.end_date, tz = lubridate::tz(idx))
-        } else {
-            .end_date <- parse_date2(.end_date)
-        }
-    }
+    .end_date <- parse_date_by(.end_date, .by, idx)
 
     # Apply the padding
     ret <- .data %>%
@@ -220,6 +213,3 @@ padder <- function(.data, .date_var, .by = "auto", .pad_value = NA,
     return(ret)
 
 }
-
-
-
