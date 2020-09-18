@@ -189,29 +189,51 @@ series packages.
     package uses. A ton of inspiration for visuals came from using
     `TSstudio`.
 
-# Learning More
+## Learning More
 
-If you are interested in learning from my advanced **Time Series
-Analysis & Forecasting Course**, then [join my
-waitlist](https://mailchi.mp/business-science/time-series-forecasting-course-coming-soon).
-The course is coming soon.
+<p>
 
-![](vignettes/time_series_course.jpg)<!-- -->
+<iframe width="100%" height="450" src="https://www.youtube.com/embed/elQb4VzRINg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="box-shadow: 0 0 5px 2px rgba(0, 0, 0, .5);">
 
+<span id="selection-marker-1" class="redactor-selection-marker"></span><span id="selection-marker-1" class="redactor-selection-marker"></span><span id="selection-marker-1" class="redactor-selection-marker"></span><span id="selection-marker-1" class="redactor-selection-marker"></span>
+
+</iframe>
+
+</p>
+
+*My Talk on High-Performance Time Series Forecasting*
+
+Time series is changing. **Businesses now need 10,000+ time series
+forecasts every day.** This is what I call a *High-Performance Time
+Series Forecasting System (HPTSF)* - Accurate, Robust, and Scalable
+Forecasting.
+
+**High-Performance Forecasting Systems will save companies MILLIONS of
+dollars.** Imagine what will happen to your career if you can provide
+your organization a “High-Performance Time Series Forecasting System”
+(HPTSF System).
+
+I teach how to build a HPTFS System in my **High-Performance Time Series
+Forecasting Course**. If interested in learning Scalable
+High-Performance Forecasting Strategies then [take my
+course](https://university.business-science.io/p/ds4b-203-r-high-performance-time-series-forecasting).
 You will learn:
 
+  - Time Series Machine Learning (cutting-edge) with `Modeltime` - 30+
+    Models (Prophet, ARIMA, XGBoost, Random Forest, & many more)
+  - NEW - Deep Learning with `GluonTS` (Competition Winners)
   - Time Series Preprocessing, Noise Reduction, & Anomaly Detection
   - Feature engineering using lagged variables & external regressors
   - Hyperparameter Tuning
   - Time series cross-validation
   - Ensembling Multiple Machine Learning & Univariate Modeling
     Techniques (Competition Winner)
-  - NEW - Deep Learning with RNNs (Competition Winner)
-  - and more\!
+  - Scalable Forecasting - Forecast 1000+ time series in parallel
+  - and more.
 
 <p class="text-center" style="font-size:30px;">
 
-<a href="https://mailchi.mp/business-science/time-series-forecasting-course-coming-soon">Signup
-for the Time Series Course waitlist</a>
+<a href="https://university.business-science.io/p/ds4b-203-r-high-performance-time-series-forecasting">Unlock
+the High-Performance Time Series Forecasting Course</a>
 
 </p>
