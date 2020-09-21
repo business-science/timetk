@@ -191,17 +191,10 @@ series packages.
 
 ## Learning More
 
-<p>
+<a href="https://www.youtube.com/embed/elQb4VzRINg" target="_blank"><img src="http://img.youtube.com/vi/elQb4VzRINg/0.jpg" alt="Anomalize" width="100%" height="450"/></a>
 
-<iframe width="100%" height="450" src="https://www.youtube.com/embed/elQb4VzRINg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="box-shadow: 0 0 5px 2px rgba(0, 0, 0, .5);">
-
-<span id="selection-marker-1" class="redactor-selection-marker"></span><span id="selection-marker-1" class="redactor-selection-marker"></span><span id="selection-marker-1" class="redactor-selection-marker"></span><span id="selection-marker-1" class="redactor-selection-marker"></span>
-
-</iframe>
-
-</p>
-
-*My Talk on High-Performance Time Series Forecasting*
+[*My Talk on High-Performance Time Series
+Forecasting*](https://youtu.be/elQb4VzRINg)
 
 Time series is changing. **Businesses now need 10,000+ time series
 forecasts every day.** This is what I call a *High-Performance Time
