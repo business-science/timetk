@@ -145,9 +145,17 @@
 <a href="#mission" class="anchor"></a>Mission</h2>
 <p>To make it easy to <strong><em>visualize, wrangle, and feature engineer time series data</em></strong> for forecasting and machine learning prediction.</p>
 </div>
-<div id="documentation" class="section level2">
+<div id="installation" class="section level2">
 <h2 class="hasAnchor">
-<a href="#documentation" class="anchor"></a>Documentation</h2>
+<a href="#installation" class="anchor"></a>Installation</h2>
+<p><em>Download the development version with latest features</em>:</p>
+<div class="sourceCode" id="cb1"><pre class="r"><span class="kw pkg">remotes</span><span class="kw ns">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span>(<span class="st">"business-science/timetk"</span>)</pre></div>
+<p><em>Or, download CRAN approved version</em>:</p>
+<div class="sourceCode" id="cb2"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"timetk"</span>)</pre></div>
+</div>
+<div id="getting-started" class="section level2">
+<h2 class="hasAnchor">
+<a href="#getting-started" class="anchor"></a>Getting Started</h2>
 <ul>
 <li><p><a href="https://www.business-science.io/time-series/2020/03/18/time-series-machine-learning.html">Full Time Series Machine Learning and Feature Engineering Tutorial:</a> Showcases the (NEW) <code><a href="reference/step_timeseries_signature.html">step_timeseries_signature()</a></code> for building <strong><em>200+ time series features</em></strong> using <code>parsnip</code>, <code>recipes</code>, and <code>workflows</code>.</p></li>
 <li><p><a href="https://business-science.github.io/timetk/">Visit the timetk website documentation</a> for tutorials and a <a href="https://business-science.github.io/timetk/reference/index.html">complete list of function references</a>.</p></li>
@@ -392,33 +400,24 @@
 <h2 class="hasAnchor">
 <a href="#what-can-you-do-in-1-line-of-code" class="anchor"></a>What can you do in 1 line of code?</h2>
 <p>Investigate a time series…</p>
-<div class="sourceCode" id="cb1"><pre class="r"><span class="no">taylor_30_min</span> <span class="kw">%&gt;%</span>
+<div class="sourceCode" id="cb3"><pre class="r"><span class="no">taylor_30_min</span> <span class="kw">%&gt;%</span>
     <span class="fu"><a href="reference/plot_time_series.html">plot_time_series</a></span>(<span class="no">date</span>, <span class="no">value</span>, <span class="kw">.color_var</span> <span class="kw">=</span> <span class="fu">week</span>(<span class="no">date</span>),
                      <span class="kw">.interactive</span> <span class="kw">=</span> <span class="fl">FALSE</span>, <span class="kw">.color_lab</span> <span class="kw">=</span> <span class="st">"Week"</span>)</pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-3-1.png"><!-- --></p>
+<p><img src="reference/figures/README-unnamed-chunk-5-1.png"><!-- --></p>
 <p>Visualize anomalies…</p>
-<div class="sourceCode" id="cb2"><pre class="r"><span class="no">walmart_sales_weekly</span> <span class="kw">%&gt;%</span>
+<div class="sourceCode" id="cb4"><pre class="r"><span class="no">walmart_sales_weekly</span> <span class="kw">%&gt;%</span>
     <span class="fu">group_by</span>(<span class="no">Store</span>, <span class="no">Dept</span>) <span class="kw">%&gt;%</span>
     <span class="fu"><a href="reference/plot_anomaly_diagnostics.html">plot_anomaly_diagnostics</a></span>(<span class="no">Date</span>, <span class="no">Weekly_Sales</span>,
                              <span class="kw">.facet_ncol</span> <span class="kw">=</span> <span class="fl">3</span>, <span class="kw">.interactive</span> <span class="kw">=</span> <span class="fl">FALSE</span>)</pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-4-1.png"><!-- --></p>
-<p>Make a seasonality plot…</p>
-<div class="sourceCode" id="cb3"><pre class="r"><span class="no">taylor_30_min</span> <span class="kw">%&gt;%</span>
-    <span class="fu"><a href="reference/plot_seasonal_diagnostics.html">plot_seasonal_diagnostics</a></span>(<span class="no">date</span>, <span class="no">value</span>, <span class="kw">.interactive</span> <span class="kw">=</span> <span class="fl">FALSE</span>)</pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-5-1.png"><!-- --></p>
-<p>Inspect autocorrelation, partial autocorrelation (and cross correlations too)…</p>
-<div class="sourceCode" id="cb4"><pre class="r"><span class="no">taylor_30_min</span> <span class="kw">%&gt;%</span>
-    <span class="fu"><a href="reference/plot_acf_diagnostics.html">plot_acf_diagnostics</a></span>(<span class="no">date</span>, <span class="no">value</span>, <span class="kw">.lags</span> <span class="kw">=</span> <span class="st">"1 week"</span>, <span class="kw">.interactive</span> <span class="kw">=</span> <span class="fl">FALSE</span>)</pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-6-1.png"><!-- --></p>
-</div>
-<div id="installation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h2>
-<p>What are you waiting for? <em>Download the development version with latest features</em>:</p>
-<div class="sourceCode" id="cb5"><pre class="r"><span class="co"># install.packages("devtools")</span>
-<span class="kw pkg">devtools</span><span class="kw ns">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span>(<span class="st">"business-science/timetk"</span>)</pre></div>
-<p><em>Or, download CRAN approved version</em>:</p>
-<div class="sourceCode" id="cb6"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"timetk"</span>)</pre></div>
+<p>Make a seasonality plot…</p>
+<div class="sourceCode" id="cb5"><pre class="r"><span class="no">taylor_30_min</span> <span class="kw">%&gt;%</span>
+    <span class="fu"><a href="reference/plot_seasonal_diagnostics.html">plot_seasonal_diagnostics</a></span>(<span class="no">date</span>, <span class="no">value</span>, <span class="kw">.interactive</span> <span class="kw">=</span> <span class="fl">FALSE</span>)</pre></div>
+<p><img src="reference/figures/README-unnamed-chunk-7-1.png"><!-- --></p>
+<p>Inspect autocorrelation, partial autocorrelation (and cross correlations too)…</p>
+<div class="sourceCode" id="cb6"><pre class="r"><span class="no">taylor_30_min</span> <span class="kw">%&gt;%</span>
+    <span class="fu"><a href="reference/plot_acf_diagnostics.html">plot_acf_diagnostics</a></span>(<span class="no">date</span>, <span class="no">value</span>, <span class="kw">.lags</span> <span class="kw">=</span> <span class="st">"1 week"</span>, <span class="kw">.interactive</span> <span class="kw">=</span> <span class="fl">FALSE</span>)</pre></div>
+<p><img src="reference/figures/README-unnamed-chunk-8-1.png"><!-- --></p>
 </div>
 <div id="acknowledgements" class="section level2">
 <h2 class="hasAnchor">
