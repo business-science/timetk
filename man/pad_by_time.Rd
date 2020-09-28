@@ -9,6 +9,7 @@ pad_by_time(
   .date_var,
   .by = "auto",
   .pad_value = NA,
+  .fill_na_direction = c("none", "down", "up", "downup", "updown"),
   .start_date = NULL,
   .end_date = NULL
 )
@@ -22,6 +23,9 @@ pad_by_time(
 or a time expression like "5 min", or "7 days". See Details.}
 
 \item{.pad_value}{Fills in padded values. Default is \code{NA}.}
+
+\item{.fill_na_direction}{Users can provide an \code{NA} fill strategy using \code{tidyr::fill()}.
+Possible values: \code{'none'}, \code{'down'}, \code{'up'}, \code{'downup'}, \code{'updown'}. Default: \code{'none'}}
 
 \item{.start_date}{Specifies the start of the padded series.
 If NULL it will use the lowest value of the input variable.}
@@ -91,10 +95,23 @@ missing_data_tbl \%>\%
 missing_data_tbl \%>\%
    pad_by_time(date, .by = "quarter", .start_date = "2013", .end_date = "2015-07-01")
 
+# Can specify a tidyr::fill() direction
+missing_data_tbl \%>\%
+   pad_by_time(date, .by = "quarter",
+               .fill_na_direction = "downup",
+               .start_date = "2013", .end_date = "2015-07-01")
+
 # --- GROUPS ----
+
+# Apply standard NA padding to groups
 FANG \%>\%
     group_by(symbol) \%>\%
     pad_by_time(.by = "day")
+
+# Apply filled padding to groups
+FANG \%>\%
+    group_by(symbol) \%>\%
+    pad_by_time(.by = "day", .fill_na_direction = "down")
 
 }
 \references{
