@@ -30,8 +30,22 @@ devtools::load_all()
 
 To make it easy to ___visualize, wrangle, and feature engineer time series data___ for forecasting and machine learning prediction. 
 
+## Installation
 
-## Documentation
+_Download the development version with latest features_:
+
+``` {r, eval = FALSE}
+remotes::install_github("business-science/timetk")
+```
+
+_Or, download CRAN approved version_:
+
+```{r, eval = FALSE}
+install.packages("timetk")
+```
+
+
+## Getting Started
 
 - [Full Time Series Machine Learning and Feature Engineering Tutorial:](https://www.business-science.io/time-series/2020/03/18/time-series-machine-learning.html) Showcases the (NEW) `step_timeseries_signature()` for building ___200+ time series features___ using `parsnip`, `recipes`, and `workflows`. 
 
@@ -120,21 +134,6 @@ taylor_30_min %>%
 ```
 
 
-
-## Installation
-
-What are you waiting for? _Download the development version with latest features_:
-
-``` {r, eval = FALSE}
-# install.packages("devtools")
-devtools::install_github("business-science/timetk")
-```
-
-_Or, download CRAN approved version_:
-
-```{r, eval = FALSE}
-install.packages("timetk")
-```
 
 ## Acknowledgements
 
