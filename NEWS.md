@@ -1,30 +1,10 @@
-
-<!--
-__TODO:__
-
-SMALLER ITEMS:
-1. Missing value diagnostics
-2. tsibble integration
-
-TESTS (Boooo)
-- Wait until timetk has stabilized
-
-Research
-- Weather?
-
-__New Tune Parameter Ranking and Selection Tools__:
-
-- `tk_parameter_ranking` - Ranks parameters using tune error metrics (model accuracy), failure rates (model robustness), and standard error (model variability)
-- `tk_parameter_select_by_row` - Selection tool for ranked parameters.
-
-* `plot_parameter_ranking()`: Plots the ranked hyperparameter tuning result output from `tk_parameter_ranking()`
-
--->
-# timetk 2.2.1.9000 (Development Version)
+# timetk 2.3.0
 
 __New Functionality__
 
 - `tk_time_series_cv_plan()` - Now works with k-fold cross validation objects from `vfold_cv()` function. 
+
+- `pad_by_time()` - Added new argument `.fill_na_direction` to specify a `tidyr::fill()` strategy for filling missing data. 
 
 __Bug Fixes__
 
