@@ -36,6 +36,11 @@ test_that("Date Sequences", {
     seq_1 <- tk_make_timeseries("2011-02-15", by = "3 month", length_out = "1 year", include_endpoints = FALSE)
     expect_identical(seq_0, seq_1)
 
+    # GitHub Issue 60
+    seq_0 <- seq.Date(as.Date("2011-01-01"), by = "8 day", length.out = 10)
+    seq_1 <- tk_make_timeseries("2011-01-01", by = "8 day", length_out = 10)
+    expect_identical(seq_0, seq_1)
+
 
 })
 
@@ -54,6 +59,11 @@ test_that("Time Sequences", {
     seq_1 <- tk_make_timeseries("2017-01-01", "2017-01-02", by = "10 min")
     expect_identical(seq_0, seq_1)
 
+    # Date-Time Sequence - By 1 Month
+    # - Converts to date-time automatically & applies 10-min interval
+    seq_0 <- seq.POSIXt(ymd_hms("2017-01-15 00:00:00"), by = "1 month", length.out = 12)
+    seq_1 <- tk_make_timeseries("2017-01-15 00:00:00", by = "1 month", length_out = 12)
+    expect_identical(seq_0, seq_1)
 
 })
 

@@ -56,6 +56,27 @@ test_that("tk_make_future_timeseries(datetime) test returns correct format.", {
       ymd_hms(tz = 'Africa/Bujumbura')
     expect_equal(test, expectation)
 
+    # Test mid-month
+    test <- tk_make_timeseries(
+        start_date = "2011-01-15",
+        by         = "1 month",
+        length_out = 10
+    ) %>%
+        tk_make_future_timeseries(length_out = 3)
+    expectation <- c("2011-11-15", "2011-12-15", "2012-01-15") %>% ymd()
+    expect_equal(test, expectation)
+
+
+    # Test end of month
+    test <- tk_make_timeseries(
+        start_date = "2011-01-31",
+        by         = "1 month",
+        length_out = 10
+    )  %>%
+        tk_make_future_timeseries(length_out = 4)
+    expectation <- c("2011-11-30", "2011-12-31", "2012-01-31", "2012-02-29") %>% ymd()
+    expect_equal(test, expectation)
+
 })
 
 
