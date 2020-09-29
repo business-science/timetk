@@ -92,7 +92,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">timetk</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.3.0.9000</span>
       </span>
     </div>
 
@@ -306,18 +306,18 @@ using <code><a href='https://rdrr.io/pkg/zoo/man/zooreg.html'>zoo::zooreg()</a><
 <span class='co'># zoo::zooreg: Values coerced to character; Result does not retain index</span>
 <span class='no'>data_zooreg</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>zoo</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/zoo/man/zooreg.html'>zooreg</a></span>(<span class='no'>data_tbl</span>[,-<span class='fl'>1</span>], <span class='kw'>start</span> <span class='kw'>=</span> <span class='fl'>2016</span>, <span class='kw'>freq</span> <span class='kw'>=</span> <span class='fl'>365</span>)
 <span class='no'>data_zooreg</span>                <span class='co'># Numeric values coerced to character</span></div><div class='output co'>#&gt;         x          y  z        
-#&gt; 2016(1) chr values  1  9.822174
-#&gt; 2016(2) chr values  3 20.537273
-#&gt; 2016(3) chr values  6 32.145297
-#&gt; 2016(4) chr values 10 44.646246
-#&gt; 2016(5) chr values 15 58.040120</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>rownames</a></span>(<span class='no'>data_zooreg</span>)      <span class='co'># NULL, no dates retained</span></div><div class='output co'>#&gt; NULL</div><div class='input'>
+#&gt; 2016(1) chr values  1 0.2109535
+#&gt; 2016(2) chr values  3 0.4410846
+#&gt; 2016(3) chr values  6 0.6903933
+#&gt; 2016(4) chr values 10 0.9588796
+#&gt; 2016(5) chr values 15 1.2465435</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>rownames</a></span>(<span class='no'>data_zooreg</span>)      <span class='co'># NULL, no dates retained</span></div><div class='output co'>#&gt; NULL</div><div class='input'>
 <span class='co'># tk_zooreg: Only numeric columns get coerced; Result retains index as rownames</span>
 <span class='no'>data_tk_zooreg</span> <span class='kw'>&lt;-</span> <span class='fu'>tk_zooreg</span>(<span class='no'>data_tbl</span>, <span class='kw'>start</span> <span class='kw'>=</span> <span class='fl'>2016</span>, <span class='kw'>freq</span> <span class='kw'>=</span> <span class='fl'>365</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Non-numeric columns being dropped: date, x</span></div><div class='input'><span class='no'>data_tk_zooreg</span>             <span class='co'># No inadvertent coercion to character class</span></div><div class='output co'>#&gt;          y         z
-#&gt; 2016(1)  1  9.822174
-#&gt; 2016(2)  3 20.537273
-#&gt; 2016(3)  6 32.145297
-#&gt; 2016(4) 10 44.646246
-#&gt; 2016(5) 15 58.040120</div><div class='input'>
+#&gt; 2016(1)  1 0.2109535
+#&gt; 2016(2)  3 0.4410846
+#&gt; 2016(3)  6 0.6903933
+#&gt; 2016(4) 10 0.9588796
+#&gt; 2016(5) 15 1.2465435</div><div class='input'>
 <span class='co'># timetk index</span>
 <span class='fu'><a href='tk_index.html'>tk_index</a></span>(<span class='no'>data_tk_zooreg</span>, <span class='kw'>timetk_idx</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)   <span class='co'># Regularized index returned</span></div><div class='output co'>#&gt; [1] 2016.000 2016.003 2016.005 2016.008 2016.011</div><div class='input'><span class='fu'><a href='tk_index.html'>tk_index</a></span>(<span class='no'>data_tk_zooreg</span>, <span class='kw'>timetk_idx</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)    <span class='co'># Original date index returned</span></div><div class='output co'>#&gt; [1] "2016-01-01" "2016-01-02" "2016-01-03" "2016-01-04" "2016-01-05"</div><div class='input'>
 <span class='co'>### Using select and date_var</span>

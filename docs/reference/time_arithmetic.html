@@ -92,7 +92,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">timetk</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.3.0.9000</span>
       </span>
     </div>
 
@@ -252,7 +252,7 @@ time-based index. Great for:</p><ul>
 <span class='co'># ADD TIME</span>
 <span class='co'># - Note `NA` values created where a daily dates aren't possible</span>
 <span class='co'>#   (e.g. Feb 29 &amp; 30, 2016 doesn't exist).</span>
-<span class='no'>index_daily</span> <span class='kw'>%+time%</span> <span class='st'>"1 month"</span></div><div class='output co'>#&gt;  [1] "2016-02-01" "2016-02-02" "2016-02-03" "2016-02-04" "2016-02-05"
+<span class='no'>index_daily</span> <span class='kw'>%+time%</span> <span class='st'>"1 month"</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Missing values created during time addition. This can happen if dates do not exist.</span></div><div class='output co'>#&gt;  [1] "2016-02-01" "2016-02-02" "2016-02-03" "2016-02-04" "2016-02-05"
 #&gt;  [6] "2016-02-06" "2016-02-07" "2016-02-08" "2016-02-09" "2016-02-10"
 #&gt; [11] "2016-02-11" "2016-02-12" "2016-02-13" "2016-02-14" "2016-02-15"
 #&gt; [16] "2016-02-16" "2016-02-17" "2016-02-18" "2016-02-19" "2016-02-20"

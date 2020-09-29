@@ -91,7 +91,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">timetk</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.3.0.9000</span>
       </span>
     </div>
 
@@ -179,9 +179,24 @@
       <small>Source: <a href='https://github.com/business-science/timetk/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="timetk-development-version" class="section level1">
+<h1 class="page-header" data-toc-text="development version">
+<a href="#timetk-development-version" class="anchor"></a>timetk (development version)<small> Unreleased </small>
+</h1>
+<ul>
+<li>
+<code>step_slidify_agument()</code> - A variant of step slidify that adds multiple rolling columns inside of a recipe.</li>
+</ul>
+<p><strong>Bug Fixes</strong></p>
+<ul>
+<li>Add warning when <code>%+time</code> and <code><a href="../reference/time_arithmetic.html">%-time%</a></code> return missing values</li>
+<li>Fix issues with <code><a href="../reference/tk_make_timeseries.html">tk_make_timeseries()</a></code> and <code><a href="../reference/tk_make_future_timeseries.html">tk_make_future_timeseries()</a></code> providing odd results for regular time series. <a href="https://github.com/business-science/timetk/issues/60">GitHub Issue 60</a>
+</li>
+</ul>
+</div>
     <div id="timetk-230" class="section level1">
 <h1 class="page-header" data-toc-text="2.3.0">
-<a href="#timetk-230" class="anchor"></a>timetk 2.3.0<small> Unreleased </small>
+<a href="#timetk-230" class="anchor"></a>timetk 2.3.0<small> 2020-09-29 </small>
 </h1>
 <p><strong>New Functionality</strong></p>
 <ul>

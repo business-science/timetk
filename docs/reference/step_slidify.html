@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Rolling Window Transformation — step_slidify • timetk</title>
+<title>Slidify Rolling Window Transformation — step_slidify • timetk</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -48,7 +48,7 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Rolling Window Transformation — step_slidify" />
+<meta property="og:title" content="Slidify Rolling Window Transformation — step_slidify" />
 <meta property="og:description" content="step_slidify creates a a specification of a recipe
 step that will apply a function
 to one or more a Numeric column(s)." />
@@ -94,7 +94,7 @@ to one or more a Numeric column(s)." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">timetk</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.3.0.9000</span>
       </span>
     </div>
 
@@ -178,7 +178,7 @@ to one or more a Numeric column(s)." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Rolling Window Transformation</h1>
+    <h1>Slidify Rolling Window Transformation</h1>
     <small class="dont-index">Source: <a href='https://github.com/business-science/timetk/blob/master/R/recipes-step_slidify.R'><code>R/recipes-step_slidify.R</code></a></small>
     <div class="hidden name"><code>step_slidify.Rd</code></div>
     </div>
@@ -195,6 +195,7 @@ to one or more a Numeric column(s).</p>
   <span class='no'>period</span>,
   <span class='no'>.f</span>,
   <span class='kw'>align</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"center"</span>, <span class='st'>"left"</span>, <span class='st'>"right"</span>),
+  <span class='kw'>partial</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>names</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>role</span> <span class='kw'>=</span> <span class='st'>"predictor"</span>,
   <span class='kw'>trained</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
@@ -245,6 +246,11 @@ This is common for de-noising operations. See also <code>[smooth_vec()]</code> f
 <li><p><strong>Right:</strong> <code>NA</code> or <code>.partial</code> values are added to the beginning to shif the series to the Right. This is common in
 Financial Applications such as moving average cross-overs.</p></li>
 </ul></td>
+    </tr>
+    <tr>
+      <th>partial</th>
+      <td><p>Should the moving window be allowed to return partial (incomplete) windows instead of NA values.
+Set to FALSE by default, but can be switched to TRUE to remove NA's.</p></td>
     </tr>
     <tr>
       <th>names</th>
@@ -359,6 +365,7 @@ is <code><a href='step_smooth.html'>step_smooth()</a></code>, which implements l
     <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>tail</a></span>(<span class='fl'>90</span>) <span class='kw'>%&gt;%</span>
     <span class='fu'>mutate</span>(<span class='kw'>date</span> <span class='kw'>=</span> <span class='no'>date</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='tk_make_future_timeseries.html'>tk_make_future_timeseries</a></span>(<span class='kw'>length_out</span> <span class='kw'>=</span> <span class='fl'>90</span>))
 
+<span class='co'># OVERWRITE EXISTING COLUMNS -----</span>
 
 <span class='co'># Create a recipe object with a step_slidify</span>
 <span class='no'>rec_ma_50</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://recipes.tidymodels.org/reference/recipe.html'>recipe</a></span>(<span class='no'>adjusted</span> ~ <span class='no'>.</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>FB_tbl</span>) <span class='kw'>%&gt;%</span>
@@ -374,7 +381,7 @@ is <code><a href='step_smooth.html'>step_smooth()</a></code>, which implements l
 <span class='no'>training_data_baked</span> <span class='kw'>%&gt;%</span>
     <span class='fu'>ggplot</span>(<span class='fu'>aes</span>(<span class='no'>date</span>, <span class='no'>adjusted</span>)) +
     <span class='fu'>geom_line</span>() +
-    <span class='fu'>geom_line</span>(<span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"red"</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>new_data_baked</span>)</div><div class='img'><img src='step_slidify-1.png' alt='' width='700' height='433' /></div><div class='input'>
+    <span class='fu'>geom_line</span>(<span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"red"</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>new_data_baked</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 49 row(s) containing missing values (geom_path).</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 49 row(s) containing missing values (geom_path).</span></div><div class='img'><img src='step_slidify-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># ---- NEW COLUMNS ----</span>
 <span class='co'># Use the `names` argument to create new columns instead of overwriting existing</span>
 
@@ -384,7 +391,7 @@ is <code><a href='step_smooth.html'>step_smooth()</a></code>, which implements l
 <span class='fu'><a href='https://recipes.tidymodels.org/reference/bake.html'>bake</a></span>(<span class='fu'><a href='https://recipes.tidymodels.org/reference/prep.html'>prep</a></span>(<span class='no'>rec_ma_30_names</span>), <span class='no'>FB_tbl</span>) <span class='kw'>%&gt;%</span>
     <span class='fu'>ggplot</span>(<span class='fu'>aes</span>(<span class='no'>date</span>, <span class='no'>adjusted</span>)) +
     <span class='fu'>geom_line</span>(<span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.5</span>) +
-    <span class='fu'>geom_line</span>(<span class='fu'>aes</span>(<span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>adjusted_ma_30</span>), <span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"red"</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='img'><img src='step_slidify-2.png' alt='' width='700' height='433' /></div><div class='input'>
+    <span class='fu'>geom_line</span>(<span class='fu'>aes</span>(<span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>adjusted_ma_30</span>), <span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"red"</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 29 row(s) containing missing values (geom_path).</span></div><div class='img'><img src='step_slidify-2.png' alt='' width='700' height='433' /></div><div class='input'>
 
 
 </div></pre>
