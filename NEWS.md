@@ -1,10 +1,17 @@
+# timetk (development version)
+
+- `step_slidify_agument()` - A variant of step slidify that adds multiple rolling columns inside of a recipe. 
+
+__Bug Fixes__
+
+- Add warning when `%+time` and `%-time%` return missing values
+- Fix issues with `tk_make_timeseries()` and `tk_make_future_timeseries()` providing odd results for regular time series. [GitHub Issue 60](https://github.com/business-science/timetk/issues/60)
+
 # timetk 2.3.0
 
 __New Functionality__
 
 - `tk_time_series_cv_plan()` - Now works with k-fold cross validation objects from `vfold_cv()` function. 
-
-- `step_slidify_agument()` - A variant of step slidify that adds multiple rolling columns inside of a recipe. 
 
 - `pad_by_time()` - Added new argument `.fill_na_direction` to specify a `tidyr::fill()` strategy for filling missing data. 
 
