@@ -93,7 +93,7 @@ reference:
     - "tk_augment_slidify"
     - "tk_augment_differences"
     - "tk_augment_lags"
-    - contains("augment")
+    - starts_with("tk_augment")
   - title: Feature Engineering Operations (Recipe Steps)
     desc: __Preprocessing & feature engineering operations for use with `recipes` and the `tidymodels` ecosystem__
   - subtitle: Engineered Features
@@ -109,6 +109,7 @@ reference:
   - contents:
     - "step_smooth"
     - "step_slidify"
+    - "step_slidify_augment"
   - subtitle: Variance Reduction
     desc: See `recipes::step_log()` for log transformation.
   - contents:
