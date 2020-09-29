@@ -184,12 +184,18 @@ subtract_time.default <- function(index, period) {
 
 time_adder <- function(index, period) {
     check_quarter(period)
-    index + lubridate::period(period)
+    ret <- index + lubridate::period(period)
+
+    if (any(is.na(ret))) warning("Missing values created during time addition. This can happen if dates do not exist.")
+    return(ret)
 }
 
 time_subtracter <- function(index, period) {
     check_quarter(period)
-    index - lubridate::period(period)
+    ret <- index - lubridate::period(period)
+
+    if (any(is.na(ret))) warning("Missing values created during time subtraction. This can happen if dates do not exist.")
+    return(ret)
 }
 
 check_quarter <- function(period) {
