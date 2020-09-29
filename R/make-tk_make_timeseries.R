@@ -360,19 +360,7 @@ tk_make_timeseries <- function(start_date, end_date, by, length_out = NULL,
         )
 
         # * HANDLE DAY OF MONTH ----
-        seq_summary <- tk_get_timeseries_summary(seq)
-
-        if (any(seq_summary$scale %in% c("month", "quarter"))) {
-
-            # Handle day of month that gets miss-applied
-            day_of_month <- lubridate::mday(seq)[1]
-            day_of_month_is_wrong <- lubridate::mday(seq) != day_of_month
-            if (any(day_of_month_is_wrong)) {
-                seq_shifted <- lubridate::floor_date(seq, "month") %-time% "1 day"
-                seq[day_of_month_is_wrong] <- seq_shifted[day_of_month_is_wrong]
-            }
-        }
-
+        seq <- handle_day_of_month_irregular(seq)
 
         # Drop last value if length_out is character
         # - This happens because the end_date is 1 period longer than the desired length out
@@ -389,5 +377,34 @@ tk_make_timeseries <- function(start_date, end_date, by, length_out = NULL,
 
     return(seq)
 
+}
+
+# UTILITIES ----
+
+handle_day_of_month_irregular <- function(seq, MDAY = NULL) {
+
+    # Check if padded sequence is irregular, indicating monthly, quarterly sequence
+    seq_summary     <- tk_get_timeseries_summary(seq)
+    is_month_or_qtr <- any(seq_summary$scale %in% c("month", "quarter"))
+    is_irregular    <- seq_summary$diff.q1 != seq_summary$diff.q3
+
+    if (is_month_or_qtr & is_irregular) {
+
+        # Handle day of month that gets miss-applied
+        if (is.null(MDAY)) {
+            day_of_month          <- lubridate::mday(seq)[1]
+        } else {
+            day_of_month <- MDAY
+        }
+
+        day_of_month_is_wrong <- lubridate::mday(seq) != day_of_month
+
+        if (any(day_of_month_is_wrong)) {
+            seq_shifted <- lubridate::floor_date(seq, unit = "month") - lubridate::days(1)
+            seq[day_of_month_is_wrong] <- seq_shifted[day_of_month_is_wrong]
+        }
+    }
+
+    return(seq)
 }
 

@@ -285,17 +285,7 @@ tk_make_future_timeseries.Date <- function(idx, length_out, inspect_weekdays = F
             lubridate::as_date()
 
         # Handle day of month that gets dropped in yearmon conversion
-        day_of_month    <- lubridate::mday(idx)[1]
-        date_seq_origin <- date_seq
-        date_seq        <- date_seq %+time% stringr::str_glue("{day_of_month - 1} days")
-
-        # Fix endpoints if needed
-        day_of_month_is_wrong <- lubridate::mday(date_seq) != day_of_month
-        if (any(day_of_month_is_wrong)) {
-            date_seq_shifted <- date_seq_origin %>% lubridate::ceiling_date("month")
-            date_seq_shifted <- date_seq_shifted %-time% "1 day"
-            date_seq[day_of_month_is_wrong] <- date_seq_shifted[day_of_month_is_wrong]
-        }
+        date_seq <- handle_day_of_month_multi(date_seq, idx)
 
     } else if (idx_summary$scale == "quarter") {
 
@@ -321,6 +311,9 @@ tk_make_future_timeseries.Date <- function(idx, length_out, inspect_weekdays = F
                 n_future          = n_future
             ) %>%
             lubridate::as_date()
+
+        # Handle day of month that gets dropped in yearqtr conversion
+        date_seq <- handle_day_of_month_multi(date_seq, idx)
 
     } else {
 
@@ -956,5 +949,32 @@ convert_length_out_chr_to_num_zoo <- function(idx, length_out, include_endpoints
     }
 
     return(length_out)
+}
+
+handle_day_of_month_multi <- function(seq1, seq0) {
+
+    seq <- seq1
+
+    # Analyze original sequence for irregularity & monthly
+    seq_summary     <- tk_get_timeseries_summary(seq0)
+    is_month_or_qtr <- any(seq_summary$scale %in% c("month", "quarter"))
+    is_irregular    <- seq_summary$diff.q1 != seq_summary$diff.q3
+
+    if (is_month_or_qtr & is_irregular) {
+
+        # Apply correct day of month based on seq0
+        day_of_month          <- lubridate::mday(seq0) %>% stats::median()
+        lubridate::mday(seq)  <- day_of_month
+
+        # Handle day of month that gets miss-applied
+        day_of_month_is_wrong <- lubridate::mday(seq) != day_of_month
+        seq_shifted <- lubridate::floor_date(seq, unit = "month") - lubridate::days(1)
+        if (any(day_of_month_is_wrong)) {
+            seq[day_of_month_is_wrong] <- seq_shifted[day_of_month_is_wrong]
+        }
+
+    }
+
+    return(seq)
 }
 
