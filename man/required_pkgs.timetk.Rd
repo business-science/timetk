@@ -2,9 +2,9 @@
 % Please edit documentation in R/recipes-step_box_cox.R, R/recipes-step_diff.R,
 %   R/recipes-step_fourier.R, R/recipes-step_holiday_signature.R,
 %   R/recipes-step_log_interval.R, R/recipes-step_slidify.R,
-%   R/recipes-step_smooth.R, R/recipes-step_timeseries_signature.R,
-%   R/recipes-step_ts_clean.R, R/recipes-step_ts_impute.R,
-%   R/recipes-step_ts_pad.R
+%   R/recipes-step_slidify_augment.R, R/recipes-step_smooth.R,
+%   R/recipes-step_timeseries_signature.R, R/recipes-step_ts_clean.R,
+%   R/recipes-step_ts_impute.R, R/recipes-step_ts_pad.R
 \name{required_pkgs.step_box_cox}
 \alias{required_pkgs.step_box_cox}
 \alias{required_pkgs.step_diff}
@@ -12,6 +12,7 @@
 \alias{required_pkgs.step_holiday_signature}
 \alias{required_pkgs.step_log_interval}
 \alias{required_pkgs.step_slidify}
+\alias{required_pkgs.step_slidify_augment}
 \alias{required_pkgs.step_smooth}
 \alias{required_pkgs.step_timeseries_signature}
 \alias{required_pkgs.step_ts_clean}
@@ -30,6 +31,8 @@ required_pkgs.step_holiday_signature(x, ...)
 required_pkgs.step_log_interval(x, ...)
 
 required_pkgs.step_slidify(x, ...)
+
+required_pkgs.step_slidify_augment(x, ...)
 
 required_pkgs.step_smooth(x, ...)
 

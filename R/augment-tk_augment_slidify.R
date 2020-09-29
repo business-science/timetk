@@ -148,7 +148,7 @@ tk_augment_slidify.grouped_df <- function(.data,
             .x         = data,
             .f         = function(df) tk_augment_slidify(
                 .data      = df,
-                .value    = !! enquo(.value),
+                .value     = !! enquo(.value),
                 .period    = .period,
                 .f         = .f,
                 ...,

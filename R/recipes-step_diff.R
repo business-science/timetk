@@ -200,7 +200,7 @@ tidy.step_diff <- function(x, ...) {
         log      = x$log,
         stringsAsFactors = FALSE)
     res$id <- x$id
-    res$terms <- paste0("diff_", res$terms, "_", res$lag, "_", res$diff)
+    res$terms <- paste0(x$prefix, res$terms, "_", res$lag, "_", res$diff)
     tibble::as_tibble(res)
 }
 

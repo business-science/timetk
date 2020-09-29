@@ -1,4 +1,4 @@
-#' Rolling Window Transformation
+#' Slidify Rolling Window Transformation
 #'
 #' `step_slidify` creates a a *specification* of a recipe
 #'  step that will apply a function
@@ -25,6 +25,8 @@
 #'  - __Left:__ `NA` or `.partial` values are added to the end to shift the series to the Left.
 #'  - __Right:__ `NA` or `.partial` values are added to the beginning to shif the series to the Right. This is common in
 #'    Financial Applications such as moving average cross-overs.
+#' @param partial Should the moving window be allowed to return partial (incomplete) windows instead of NA values.
+#'  Set to FALSE by default, but can be switched to TRUE to remove NA's.
 #' @param names An optional character string that is the same
 #'  length of the number of terms selected by `terms`. These will be
 #'  the names of the __new columns__ created by the step.
@@ -114,6 +116,7 @@
 #'     tail(90) %>%
 #'     mutate(date = date %>% tk_make_future_timeseries(length_out = 90))
 #'
+#' # OVERWRITE EXISTING COLUMNS -----
 #'
 #' # Create a recipe object with a step_slidify
 #' rec_ma_50 <- recipe(adjusted ~ ., data = FB_tbl) %>%
@@ -152,6 +155,7 @@ step_slidify <-
              period,
              .f,
              align = c("center", "left", "right"),
+             partial = FALSE,
              names = NULL,
              role = "predictor",
              trained = FALSE,
@@ -165,6 +169,8 @@ step_slidify <-
 
         f_name <- rlang::enquo(.f) %>% rlang::expr_text()
 
+        if (length(period) > 1) rlang::abort("step_slidify() can only use one 'period'. For multiple periods, use step_slidify_augment().")
+
         recipes::add_step(
             recipe,
             step_slidify_new(
@@ -172,6 +178,7 @@ step_slidify <-
                 period     = period,
                 .f         = .f,
                 align      = align,
+                partial    = partial,
                 names      = names,
                 trained    = trained,
                 role       = role,
@@ -184,7 +191,7 @@ step_slidify <-
     }
 
 step_slidify_new <-
-    function(terms, role, trained, columns, period, .f, align, names, f_name, skip, id) {
+    function(terms, role, trained, columns, period, .f, align, partial, names, f_name, skip, id) {
         step(
             subclass   = "slidify",
             terms      = terms,
@@ -195,6 +202,7 @@ step_slidify_new <-
             period     = period,
             .f         = .f,
             align      = align,
+            partial    = partial,
             f_name     = f_name,
             skip       = skip,
             id         = id
@@ -228,6 +236,7 @@ prep.step_slidify <- function(x, training, info = NULL, ...) {
         period   = x$period,
         .f       = x$.f,
         align    = x$align,
+        partial  = x$partial,
         names    = x$names,
         f_name   = x$f_name,
         skip     = x$skip,
@@ -240,7 +249,8 @@ bake.step_slidify <- function(object, new_data, ...) {
 
     col_names <- object$columns
 
-    align <- object$align[1]
+    align   <- object$align[1]
+    partial <- object$partial[1]
 
     if (!is.null(object$names)) {
         # New columns provided
@@ -251,7 +261,7 @@ bake.step_slidify <- function(object, new_data, ...) {
                     .period  = object$period,
                     .f       = object$.f,
                     .align   = align,
-                    .partial = TRUE)
+                    .partial = partial)
         }
     } else {
         # No new columns - overwrite existing
@@ -262,7 +272,7 @@ bake.step_slidify <- function(object, new_data, ...) {
                     .period  = object$period,
                     .f       = object$.f,
                     .align   = align,
-                    .partial = TRUE)
+                    .partial = partial)
         }
     }
 
@@ -272,7 +282,7 @@ bake.step_slidify <- function(object, new_data, ...) {
 #' @export
 print.step_slidify <-
     function(x, width = max(20, options()$width - 35), ...) {
-        cat("Rolling Apply on ")
+        cat("Slidify Function Applied on ")
         printer(x$columns, x$terms, x$trained, width = width)
         invisible(x)
     }
@@ -281,11 +291,12 @@ print.step_slidify <-
 #' @param x A `step_slidify` object.
 #' @export
 tidy.step_slidify <- function(x, ...) {
-    out        <- simple_terms(x, ...)
-    out$period <- x$period
-    out$.f     <- x$f_name
-    out$align  <- x$align[1]
-    out$id     <- x$id
+    out         <- simple_terms(x, ...)
+    out$period  <- x$period
+    out$.f      <- x$f_name
+    out$align   <- x$align[1]
+    out$partial <- x$partial
+    out$id      <- x$id
     out
 }
 
