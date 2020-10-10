@@ -95,7 +95,7 @@ The auto_lambda() helps in selecting the optimal lambda value." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">timetk</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.3.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.4.0.9000</span>
       </span>
     </div>
 
@@ -191,16 +191,16 @@ The <code>box_cox_inv_vec()</code> inverts the transformation.
 The <code>auto_lambda()</code> helps in selecting the optimal <code>lambda</code> value.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>box_cox_vec</span>(<span class='no'>x</span>, <span class='kw'>lambda</span> <span class='kw'>=</span> <span class='st'>"auto"</span>, <span class='kw'>silent</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+    <pre class="usage"><span class='fu'>box_cox_vec</span><span class='op'>(</span><span class='va'>x</span>, lambda <span class='op'>=</span> <span class='st'>"auto"</span>, silent <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
-<span class='fu'>box_cox_inv_vec</span>(<span class='no'>x</span>, <span class='no'>lambda</span>)
+<span class='fu'>box_cox_inv_vec</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>lambda</span><span class='op'>)</span>
 
-<span class='fu'>auto_lambda</span>(
-  <span class='no'>x</span>,
-  <span class='kw'>method</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"guerrero"</span>, <span class='st'>"loglik"</span>),
-  <span class='kw'>lambda_lower</span> <span class='kw'>=</span> -<span class='fl'>1</span>,
-  <span class='kw'>lambda_upper</span> <span class='kw'>=</span> <span class='fl'>2</span>
-)</pre>
+<span class='fu'>auto_lambda</span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  method <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"guerrero"</span>, <span class='st'>"loglik"</span><span class='op'>)</span>,
+  lambda_lower <span class='op'>=</span> <span class='op'>-</span><span class='fl'>1</span>,
+  lambda_upper <span class='op'>=</span> <span class='fl'>2</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -239,7 +239,7 @@ Either "guerrero" or "loglik".</p></td>
 used to reduce variance of a time series.</p>
 <p><strong>Automatic Lambda Selection</strong></p>
 <p>If desired, the <code>lambda</code> argument can be selected using <code>auto_lambda()</code>,
-a wrapper for the Forecast R Package's <code><a href='https://rdrr.io/pkg/forecast/man/BoxCox.lambda.html'>forecast::BoxCox.lambda()</a></code> function.
+a wrapper for the Forecast R Package's <code><a href='https://pkg.robjhyndman.com/forecast/reference/BoxCox.lambda.html'>forecast::BoxCox.lambda()</a></code> function.
 Use either of 2 methods:</p><ol>
 <li><p>"guerrero" - Minimizes the non-seasonal variance</p></li>
 <li><p>"loglik" - Maximizes the log-likelihood of a linear model fit to <code>x</code></p></li>
@@ -270,20 +270,22 @@ Use either of 2 methods:</p><ol>
 <p>Other common transformations to reduce variance: <code><a href='https://rdrr.io/r/base/Log.html'>log()</a></code>, <code><a href='https://rdrr.io/r/base/Log.html'>log1p()</a></code> and <code><a href='https://rdrr.io/r/base/MathFun.html'>sqrt()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>timetk</span>)
+    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://dplyr.tidyverse.org'>dplyr</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/business-science/timetk'>timetk</a></span><span class='op'>)</span>
 
-<span class='no'>d10_daily</span> <span class='kw'>&lt;-</span> <span class='no'>m4_daily</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='no'>id</span> <span class='kw'>==</span> <span class='st'>"D10"</span>)
+<span class='va'>d10_daily</span> <span class='op'>&lt;-</span> <span class='va'>m4_daily</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>id</span> <span class='op'>==</span> <span class='st'>"D10"</span><span class='op'>)</span>
 
 <span class='co'># --- VECTOR ----</span>
 
-<span class='no'>value_bc</span> <span class='kw'>&lt;-</span> <span class='fu'>box_cox_vec</span>(<span class='no'>d10_daily</span>$<span class='no'>value</span>)</div><div class='output co'>#&gt; <span class='message'>box_cox_vec(): Using value for lambda: 1.25119350454964</span></div><div class='input'><span class='no'>value</span>    <span class='kw'>&lt;-</span> <span class='fu'>box_cox_inv_vec</span>(<span class='no'>value_bc</span>, <span class='kw'>lambda</span> <span class='kw'>=</span> <span class='fl'>1.25119350454964</span>)
+<span class='va'>value_bc</span> <span class='op'>&lt;-</span> <span class='fu'>box_cox_vec</span><span class='op'>(</span><span class='va'>d10_daily</span><span class='op'>$</span><span class='va'>value</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>box_cox_vec(): Using value for lambda: 1.25119350454964</span></div><div class='input'><span class='va'>value</span>    <span class='op'>&lt;-</span> <span class='fu'>box_cox_inv_vec</span><span class='op'>(</span><span class='va'>value_bc</span>, lambda <span class='op'>=</span> <span class='fl'>1.25119350454964</span><span class='op'>)</span>
 
 <span class='co'># --- MUTATE ----</span>
 
-<span class='no'>m4_daily</span> <span class='kw'>%&gt;%</span>
-    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>id</span>) <span class='kw'>%&gt;%</span>
-    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>value_bc</span> <span class='kw'>=</span> <span class='fu'>box_cox_vec</span>(<span class='no'>value</span>))</div><div class='output co'>#&gt; <span class='message'>box_cox_vec(): Using value for lambda: 1.25119350454964</span></div><div class='output co'>#&gt; <span class='message'>box_cox_vec(): Using value for lambda: 0.0882021886505848</span></div><div class='output co'>#&gt; <span class='message'>box_cox_vec(): Using value for lambda: 1.99992424816297</span></div><div class='output co'>#&gt; <span class='message'>box_cox_vec(): Using value for lambda: 0.401716085353735</span></div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 9,743 x 4</span><span>
+<span class='va'>m4_daily</span> <span class='op'>%&gt;%</span>
+    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>id</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>value_bc <span class='op'>=</span> <span class='fu'>box_cox_vec</span><span class='op'>(</span><span class='va'>value</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>box_cox_vec(): Using value for lambda: 1.25119350454964</span></div><div class='output co'>#&gt; <span class='message'>box_cox_vec(): Using value for lambda: 0.0882021886505848</span></div><div class='output co'>#&gt; <span class='message'>box_cox_vec(): Using value for lambda: 1.99992424816297</span></div><div class='output co'>#&gt; <span class='message'>box_cox_vec(): Using value for lambda: 0.401716085353735</span></div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 9,743 x 4</span><span>
 #&gt; </span><span style='color: #555555;'># Groups:   id [4]</span><span>
 #&gt;    id    date       value value_bc
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
@@ -314,7 +316,7 @@ Use either of 2 methods:</p><ol>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

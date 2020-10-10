@@ -45,7 +45,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">timetk</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.3.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.4.0.9000</span>
       </span>
     </div>
 
@@ -126,7 +126,7 @@
 
       
 
-      </header><script src="TK06_Automatic_Frequency_And_Trend_Selection_files/header-attrs-2.3/header-attrs.js"></script><script src="TK06_Automatic_Frequency_And_Trend_Selection_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><script src="TK06_Automatic_Frequency_And_Trend_Selection_files/header-attrs-2.4/header-attrs.js"></script><script src="TK06_Automatic_Frequency_And_Trend_Selection_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Automatic Frequency and Trend Selection</h1>
@@ -147,19 +147,21 @@
 <h1 class="hasAnchor">
 <a href="#prerequisites" class="anchor"></a>Prerequisites</h1>
 <p>Before we get started, load the following packages.</p>
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">tidyverse</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">tidyquant</span>) <span class="co"># Used for FANG dataset</span>
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">timetk</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb1"><pre class="downlit">
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/business-science/tidyquant">tidyquant</a></span><span class="op">)</span> <span class="co"># Used for FANG dataset</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/business-science/timetk">timetk</a></span><span class="op">)</span></pre></div>
 </div>
 <div id="data" class="section level1">
 <h1 class="hasAnchor">
 <a href="#data" class="anchor"></a>Data</h1>
 <p><strong>Daily Irregular Data</strong></p>
 <p>The daily stock prices of Facebook from 2013 to 2016 (courtesy of <code>tidyquant</code>). Note that trading days only occur on “business days” (non-weekends and non-business-holidays).</p>
-<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="no">FANG</span>)
+<div class="sourceCode" id="cb2"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">FANG</span><span class="op">)</span>
 
-<span class="no">FB_tbl</span> <span class="kw">&lt;-</span> <span class="no">FANG</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span>(<span class="no">symbol</span> <span class="kw">==</span> <span class="st">"FB"</span>)
-<span class="no">FB_tbl</span></pre></body></html></div>
+<span class="va">FB_tbl</span> <span class="op">&lt;-</span> <span class="va">FANG</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">symbol</span> <span class="op">==</span> <span class="st">"FB"</span><span class="op">)</span>
+<span class="va">FB_tbl</span></pre></div>
 <pre><code>## # A tibble: 1,008 x 8
 ##    symbol date        open  high   low close    volume adjusted
 ##    &lt;chr&gt;  &lt;date&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
@@ -176,7 +178,8 @@
 ## # … with 998 more rows</code></pre>
 <p><strong>Sub-Daily Data</strong></p>
 <p>Taylor’s Energy Demand data at a 30-minute timestamp interval.</p>
-<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="no">taylor_30_min</span></pre></body></html></div>
+<div class="sourceCode" id="cb4"><pre class="downlit">
+<span class="va">taylor_30_min</span></pre></div>
 <pre><code>## # A tibble: 4,032 x 2
 ##    date                value
 ##    &lt;dttm&gt;              &lt;dbl&gt;
@@ -196,10 +199,11 @@
 <h1 class="hasAnchor">
 <a href="#applications" class="anchor"></a>Applications</h1>
 <p>An example of where automatic frequency detection occurs is in the <code><a href="../reference/plot_stl_diagnostics.html">plot_stl_diagnostics()</a></code> function.</p>
-<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="no">taylor_30_min</span> <span class="kw">%&gt;%</span>
-    <span class="fu"><a href="../reference/plot_stl_diagnostics.html">plot_stl_diagnostics</a></span>(<span class="no">date</span>, <span class="no">value</span>,
-                         <span class="kw">.frequency</span> <span class="kw">=</span> <span class="st">"auto"</span>, <span class="kw">.trend</span> <span class="kw">=</span> <span class="st">"auto"</span>,
-                         <span class="kw">.interactive</span> <span class="kw">=</span> <span class="fl">FALSE</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb6"><pre class="downlit">
+<span class="va">taylor_30_min</span> <span class="op">%&gt;%</span>
+    <span class="fu"><a href="../reference/plot_stl_diagnostics.html">plot_stl_diagnostics</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">value</span>, 
+                         .frequency <span class="op">=</span> <span class="st">"auto"</span>, .trend <span class="op">=</span> <span class="st">"auto"</span>,
+                         .interactive <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></pre></div>
 <pre><code>## frequency = 48 observations per 1 day</code></pre>
 <pre><code>## trend = 672 observations per 14 days</code></pre>
 <p><img src="TK06_Automatic_Frequency_And_Trend_Selection_files/figure-html/unnamed-chunk-5-1.png" width="95%" style="display: block; margin: auto;"></p>
@@ -224,12 +228,14 @@
 <p>Using <code><a href="../reference/tk_get_frequency.html">tk_get_frequency()</a></code>, we can pick a number of observations that will roughly define a frequency for the series.</p>
 <p><strong>Daily Irregular Data</strong></p>
 <p>Because <code>FB_tbl</code> is irregular (weekends and holidays are not present), the frequency selected is weekly but each week is only 5-days typically. So 5 is selected.</p>
-<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="no">FB_tbl</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/tk_index.html">tk_index</a></span>() <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/tk_get_frequency.html">tk_get_frequency</a></span>(<span class="kw">period</span> <span class="kw">=</span> <span class="st">"auto"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb9"><pre class="downlit">
+<span class="va">FB_tbl</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/tk_index.html">tk_index</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/tk_get_frequency.html">tk_get_frequency</a></span><span class="op">(</span>period <span class="op">=</span> <span class="st">"auto"</span><span class="op">)</span></pre></div>
 <pre><code>## frequency = 5 observations per 1 week</code></pre>
 <pre><code>## [1] 5</code></pre>
 <p><strong>Sub-Daily Data</strong></p>
 <p>This works as well for a sub-daily time series. Here we’ll use <code>taylor_30_min</code> for a 30-minute timestamp series. The frequency selected is 48 because there are 48 timestamps (observations) in 1 day for the 30-minute cycle.</p>
-<div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="no">taylor_30_min</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/tk_index.html">tk_index</a></span>() <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/tk_get_frequency.html">tk_get_frequency</a></span>(<span class="st">"1 day"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb12"><pre class="downlit">
+<span class="va">taylor_30_min</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/tk_index.html">tk_index</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/tk_get_frequency.html">tk_get_frequency</a></span><span class="op">(</span><span class="st">"1 day"</span><span class="op">)</span></pre></div>
 <pre><code>## frequency = 48 observations per 1 day</code></pre>
 <pre><code>## [1] 48</code></pre>
 </div>
@@ -240,12 +246,14 @@
 <p>Using <code><a href="../reference/tk_get_frequency.html">tk_get_trend()</a></code>, we can pick a number of observations that will help describe a trend for the data.</p>
 <p><strong>Daily Irregular Data</strong></p>
 <p>Because <code>FB_tbl</code> is irregular (weekends and holidays are not present), the trend selected is 3 months but each week is only 5-days typically. So 64 observations is selected.</p>
-<div class="sourceCode" id="cb15"><html><body><pre class="r"><span class="no">FB_tbl</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/tk_index.html">tk_index</a></span>() <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/tk_get_frequency.html">tk_get_trend</a></span>(<span class="kw">period</span> <span class="kw">=</span> <span class="st">"auto"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb15"><pre class="downlit">
+<span class="va">FB_tbl</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/tk_index.html">tk_index</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/tk_get_frequency.html">tk_get_trend</a></span><span class="op">(</span>period <span class="op">=</span> <span class="st">"auto"</span><span class="op">)</span></pre></div>
 <pre><code>## trend = 64 observations per 3 months</code></pre>
 <pre><code>## [1] 64</code></pre>
 <p><strong>Sub-Daily Data</strong></p>
 <p>A 14-day (2 week) interval is selected for the “30-minute” interval data.</p>
-<div class="sourceCode" id="cb18"><html><body><pre class="r"><span class="no">taylor_30_min</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/tk_index.html">tk_index</a></span>() <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/tk_get_frequency.html">tk_get_trend</a></span>(<span class="st">"auto"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb18"><pre class="downlit">
+<span class="va">taylor_30_min</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/tk_index.html">tk_index</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/tk_get_frequency.html">tk_get_trend</a></span><span class="op">(</span><span class="st">"auto"</span><span class="op">)</span></pre></div>
 <pre><code>## trend = 672 observations per 14 days</code></pre>
 <pre><code>## [1] 672</code></pre>
 </div>
@@ -254,10 +262,11 @@
 <h1 class="hasAnchor">
 <a href="#time-scale-template" class="anchor"></a>Time Scale Template</h1>
 <p>A <strong><em>Time-Scale Template</em></strong> is used to get and set the time scale template, which is used by <code><a href="../reference/tk_get_frequency.html">tk_get_frequency()</a></code> and <code><a href="../reference/tk_get_frequency.html">tk_get_trend()</a></code> when <code>period = "auto"</code>.</p>
-<p>The predefined template is stored in a function <code><a href="../reference/tk_time_scale_template.html">tk_time_scale_template()</a></code>. This is the default used by <code>timetk</code>.</p>
+<p>The predefined template is stored in a function <code><a href="../reference/set_tk_time_scale_template.html">tk_time_scale_template()</a></code>. This is the default used by <code>timetk</code>.</p>
 <p><strong>Accessing the Default Template</strong></p>
-<p>You can access the current template with <code><a href="../reference/tk_time_scale_template.html">get_tk_time_scale_template()</a></code>.</p>
-<div class="sourceCode" id="cb21"><html><body><pre class="r"><span class="fu"><a href="../reference/tk_time_scale_template.html">get_tk_time_scale_template</a></span>()</pre></body></html></div>
+<p>You can access the current template with <code><a href="../reference/set_tk_time_scale_template.html">get_tk_time_scale_template()</a></code>.</p>
+<div class="sourceCode" id="cb21"><pre class="downlit">
+<span class="fu"><a href="../reference/set_tk_time_scale_template.html">get_tk_time_scale_template</a></span><span class="op">(</span><span class="op">)</span></pre></div>
 <pre><code>## # A tibble: 8 x 3
 ##   time_scale frequency trend   
 ##   &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt;   
@@ -270,7 +279,7 @@
 ## 7 quarter    1 year    10 years
 ## 8 year       5 years   30 years</code></pre>
 <p><strong>Changing the Default Template</strong></p>
-<p>You can modify the current template with <code><a href="../reference/tk_time_scale_template.html">set_tk_time_scale_template()</a></code>.</p>
+<p>You can modify the current template with <code><a href="../reference/set_tk_time_scale_template.html">set_tk_time_scale_template()</a></code>.</p>
 </div>
 <div id="learning-more" class="section level1">
 <h1 class="hasAnchor">
@@ -316,7 +325,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

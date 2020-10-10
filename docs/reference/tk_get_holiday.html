@@ -92,7 +92,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">timetk</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.3.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.4.0.9000</span>
       </span>
     </div>
 
@@ -185,15 +185,15 @@
     <p>Get holiday features from a time-series index</p>
     </div>
 
-    <pre class="usage"><span class='fu'>tk_get_holiday_signature</span>(
-  <span class='no'>idx</span>,
-  <span class='kw'>holiday_pattern</span> <span class='kw'>=</span> <span class='st'>"."</span>,
-  <span class='kw'>locale_set</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"all"</span>, <span class='st'>"none"</span>, <span class='st'>"World"</span>, <span class='st'>"US"</span>, <span class='st'>"CA"</span>, <span class='st'>"GB"</span>, <span class='st'>"FR"</span>, <span class='st'>"IT"</span>, <span class='st'>"JP"</span>, <span class='st'>"CH"</span>,
-    <span class='st'>"DE"</span>),
-  <span class='kw'>exchange_set</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"all"</span>, <span class='st'>"none"</span>, <span class='st'>"NYSE"</span>, <span class='st'>"LONDON"</span>, <span class='st'>"NERC"</span>, <span class='st'>"TSX"</span>, <span class='st'>"ZURICH"</span>)
-)
+    <pre class="usage"><span class='fu'>tk_get_holiday_signature</span><span class='op'>(</span>
+  <span class='va'>idx</span>,
+  holiday_pattern <span class='op'>=</span> <span class='st'>"."</span>,
+  locale_set <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"all"</span>, <span class='st'>"none"</span>, <span class='st'>"World"</span>, <span class='st'>"US"</span>, <span class='st'>"CA"</span>, <span class='st'>"GB"</span>, <span class='st'>"FR"</span>, <span class='st'>"IT"</span>, <span class='st'>"JP"</span>, <span class='st'>"CH"</span>,
+    <span class='st'>"DE"</span><span class='op'>)</span>,
+  exchange_set <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"all"</span>, <span class='st'>"none"</span>, <span class='st'>"NYSE"</span>, <span class='st'>"LONDON"</span>, <span class='st'>"NERC"</span>, <span class='st'>"TSX"</span>, <span class='st'>"ZURICH"</span><span class='op'>)</span>
+<span class='op'>)</span>
 
-<span class='fu'>tk_get_holidays_by_year</span>(<span class='kw'>years</span> <span class='kw'>=</span> <span class='fu'>year</span>(<span class='fu'>today</span>()))</pre>
+<span class='fu'>tk_get_holidays_by_year</span><span class='op'>(</span>years <span class='op'>=</span> <span class='fu'><a href='http://lubridate.tidyverse.org/reference/year.html'>year</a></span><span class='op'>(</span><span class='fu'><a href='http://lubridate.tidyverse.org/reference/now.html'>today</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -252,16 +252,17 @@ Filter on an index to identify all holidays that are commonly non-working.</p>
 </div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>tidyverse</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>tidyquant</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>timetk</span>)
+    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/business-science/tidyquant'>tidyquant</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/business-science/timetk'>timetk</a></span><span class='op'>)</span>
 
 <span class='co'># Works with time-based tibbles</span>
-<span class='no'>idx</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='tk_make_timeseries.html'>tk_make_timeseries</a></span>(<span class='st'>"2017-01-01"</span>, <span class='st'>"2017-12-31"</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"day"</span>)
+<span class='va'>idx</span> <span class='op'>&lt;-</span> <span class='fu'><a href='tk_make_timeseries.html'>tk_make_timeseries</a></span><span class='op'>(</span><span class='st'>"2017-01-01"</span>, <span class='st'>"2017-12-31"</span>, by <span class='op'>=</span> <span class='st'>"day"</span><span class='op'>)</span>
 
 <span class='co'># --- BASIC USAGE ----</span>
 
-<span class='fu'>tk_get_holiday_signature</span>(<span class='no'>idx</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 365 x 130</span><span>
+<span class='fu'>tk_get_holiday_signature</span><span class='op'>(</span><span class='va'>idx</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 365 x 130</span><span>
 #&gt;    index      exch_NYSE exch_LONDON exch_NERC exch_TSX exch_ZURICH locale_GB
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>       </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>       </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
 #&gt; </span><span style='color: #555555;'> 1</span><span> 2017-01-01         0           0         0        0           0         0
@@ -316,8 +317,9 @@ Filter on an index to identify all holidays that are commonly non-working.</p>
 <span class='co'># ---- FILTERING WITH PATTERNS &amp; SETS ----</span>
 
 <span class='co'># List available holidays - see patterns</span>
-<span class='fu'>tk_get_holidays_by_year</span>(<span class='fl'>2020</span>) <span class='kw'>%&gt;%</span>
-    <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span>(<span class='no'>holiday_name</span> <span class='kw'>%&gt;%</span> <span class='fu'>str_detect</span>(<span class='st'>"US_"</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 17 x 3</span><span>
+<span class='fu'>tk_get_holidays_by_year</span><span class='op'>(</span><span class='fl'>2020</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>holiday_name</span> <span class='op'>%&gt;%</span> <span class='fu'>str_detect</span><span class='op'>(</span><span class='st'>"US_"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 17 x 3</span><span>
 #&gt;    date       locale holiday_name            
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                   
 #&gt; </span><span style='color: #555555;'> 1</span><span> 2020-01-01 US     US_NewYearsDay          
@@ -339,11 +341,12 @@ Filter on an index to identify all holidays that are commonly non-working.</p>
 #&gt; </span><span style='color: #555555;'>17</span><span> 2020-12-25 US     US_ChristmasDay         </div><div class='input'>
 <span class='co'># Filter using holiday patterns</span>
 <span class='co'># - Get New Years, Christmas and Thanksgiving Features in US</span>
-<span class='fu'>tk_get_holiday_signature</span>(
-    <span class='no'>idx</span>,
-    <span class='kw'>holiday_pattern</span> <span class='kw'>=</span> <span class='st'>"(US_NewYears)|(US_Christmas)|(US_Thanks)"</span>,
-    <span class='kw'>locale_set</span>      <span class='kw'>=</span> <span class='st'>"none"</span>,
-    <span class='kw'>exchange_set</span>    <span class='kw'>=</span> <span class='st'>"none"</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 365 x 4</span><span>
+<span class='fu'>tk_get_holiday_signature</span><span class='op'>(</span>
+    <span class='va'>idx</span>,
+    holiday_pattern <span class='op'>=</span> <span class='st'>"(US_NewYears)|(US_Christmas)|(US_Thanks)"</span>,
+    locale_set      <span class='op'>=</span> <span class='st'>"none"</span>,
+    exchange_set    <span class='op'>=</span> <span class='st'>"none"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 365 x 4</span><span>
 #&gt;    index      US_NewYearsDay US_ThanksgivingDay US_ChristmasDay
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>              </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>              </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>           </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
 #&gt; </span><span style='color: #555555;'> 1</span><span> 2017-01-01              1                  0               0
@@ -360,11 +363,12 @@ Filter on an index to identify all holidays that are commonly non-working.</p>
 <span class='co'># ---- APPLYING FILTERS ----</span>
 
 <span class='co'># Filter with locale sets - Signals all holidays in a locale</span>
-<span class='fu'>tk_get_holiday_signature</span>(
-    <span class='no'>idx</span>,
-    <span class='kw'>holiday_pattern</span> <span class='kw'>=</span> <span class='st'>"$^"</span>, <span class='co'># Matches nothing on purpose</span>
-    <span class='kw'>locale_set</span>      <span class='kw'>=</span> <span class='st'>"US"</span>,
-    <span class='kw'>exchange_set</span>    <span class='kw'>=</span> <span class='st'>"none"</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 365 x 2</span><span>
+<span class='fu'>tk_get_holiday_signature</span><span class='op'>(</span>
+    <span class='va'>idx</span>,
+    holiday_pattern <span class='op'>=</span> <span class='st'>"$^"</span>, <span class='co'># Matches nothing on purpose</span>
+    locale_set      <span class='op'>=</span> <span class='st'>"US"</span>,
+    exchange_set    <span class='op'>=</span> <span class='st'>"none"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 365 x 2</span><span>
 #&gt;    index      locale_US
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
 #&gt; </span><span style='color: #555555;'> 1</span><span> 2017-01-01         1
@@ -379,11 +383,12 @@ Filter on an index to identify all holidays that are commonly non-working.</p>
 #&gt; </span><span style='color: #555555;'>10</span><span> 2017-01-10         0
 #&gt; </span><span style='color: #555555;'># … with 355 more rows</span><span></div><div class='input'>
 <span class='co'># Filter with exchange sets - Signals Common Non-Business Days</span>
-<span class='fu'>tk_get_holiday_signature</span>(
-    <span class='no'>idx</span>,
-    <span class='kw'>holiday_pattern</span> <span class='kw'>=</span> <span class='st'>"$^"</span>, <span class='co'># Matches nothing on purpose</span>
-    <span class='kw'>locale_set</span>      <span class='kw'>=</span> <span class='st'>"none"</span>,
-    <span class='kw'>exchange_set</span>    <span class='kw'>=</span> <span class='st'>"NYSE"</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 365 x 2</span><span>
+<span class='fu'>tk_get_holiday_signature</span><span class='op'>(</span>
+    <span class='va'>idx</span>,
+    holiday_pattern <span class='op'>=</span> <span class='st'>"$^"</span>, <span class='co'># Matches nothing on purpose</span>
+    locale_set      <span class='op'>=</span> <span class='st'>"none"</span>,
+    exchange_set    <span class='op'>=</span> <span class='st'>"NYSE"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 365 x 2</span><span>
 #&gt;    index      exch_NYSE
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
 #&gt; </span><span style='color: #555555;'> 1</span><span> 2017-01-01         0
@@ -413,7 +418,7 @@ Filter on an index to identify all holidays that are commonly non-working.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

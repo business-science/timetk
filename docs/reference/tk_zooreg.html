@@ -92,7 +92,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">timetk</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.3.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.4.0.9000</span>
       </span>
     </div>
 
@@ -185,31 +185,31 @@
     <p>Coerce time series objects and tibbles with date/date-time columns to ts.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>tk_zooreg</span>(
-  <span class='no'>data</span>,
-  <span class='kw'>select</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>date_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>start</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>end</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>numeric</a></span>(),
-  <span class='kw'>frequency</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>deltat</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>ts.eps</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"ts.eps"</span>),
-  <span class='kw'>order.by</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>silent</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
-)
+    <pre class="usage"><span class='fu'>tk_zooreg</span><span class='op'>(</span>
+  <span class='va'>data</span>,
+  select <span class='op'>=</span> <span class='cn'>NULL</span>,
+  date_var <span class='op'>=</span> <span class='cn'>NULL</span>,
+  start <span class='op'>=</span> <span class='fl'>1</span>,
+  end <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>numeric</a></span><span class='op'>(</span><span class='op'>)</span>,
+  frequency <span class='op'>=</span> <span class='fl'>1</span>,
+  deltat <span class='op'>=</span> <span class='fl'>1</span>,
+  ts.eps <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"ts.eps"</span><span class='op'>)</span>,
+  order.by <span class='op'>=</span> <span class='cn'>NULL</span>,
+  silent <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span>
 
-<span class='fu'>tk_zooreg_</span>(
-  <span class='no'>data</span>,
-  <span class='kw'>select</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>date_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>start</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>end</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>numeric</a></span>(),
-  <span class='kw'>frequency</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>deltat</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>ts.eps</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"ts.eps"</span>),
-  <span class='kw'>order.by</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>silent</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
-)</pre>
+<span class='fu'>tk_zooreg_</span><span class='op'>(</span>
+  <span class='va'>data</span>,
+  select <span class='op'>=</span> <span class='cn'>NULL</span>,
+  date_var <span class='op'>=</span> <span class='cn'>NULL</span>,
+  start <span class='op'>=</span> <span class='fl'>1</span>,
+  end <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>numeric</a></span><span class='op'>(</span><span class='op'>)</span>,
+  frequency <span class='op'>=</span> <span class='fl'>1</span>,
+  deltat <span class='op'>=</span> <span class='fl'>1</span>,
+  ts.eps <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"ts.eps"</span><span class='op'>)</span>,
+  order.by <span class='op'>=</span> <span class='cn'>NULL</span>,
+  silent <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -297,31 +297,38 @@ using <code><a href='https://rdrr.io/pkg/zoo/man/zooreg.html'>zoo::zooreg()</a><
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>### tibble to zooreg: Comparison between tk_zooreg() and zoo::zooreg()</span>
-<span class='no'>data_tbl</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>tibble</span><span class='kw ns'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(
-    <span class='kw'>date</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.Date.html'>seq.Date</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span>(<span class='st'>"2016-01-01"</span>), <span class='kw'>by</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>length.out</span> <span class='kw'>=</span> <span class='fl'>5</span>),
-    <span class='kw'>x</span>    <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='st'>"chr values"</span>, <span class='fl'>5</span>),
-    <span class='kw'>y</span>    <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/cumsum.html'>cumsum</a></span>(<span class='fl'>1</span>:<span class='fl'>5</span>),
-    <span class='kw'>z</span>    <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/cumsum.html'>cumsum</a></span>(<span class='fl'>11</span>:<span class='fl'>15</span>) * <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>1</span>))
+<span class='va'>data_tbl</span> <span class='op'>&lt;-</span> <span class='fu'>tibble</span><span class='fu'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span>
+    date <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.Date.html'>seq.Date</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span><span class='op'>(</span><span class='st'>"2016-01-01"</span><span class='op'>)</span>, by <span class='op'>=</span> <span class='fl'>1</span>, length.out <span class='op'>=</span> <span class='fl'>5</span><span class='op'>)</span>,
+    x    <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='st'>"chr values"</span>, <span class='fl'>5</span><span class='op'>)</span>,
+    y    <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/cumsum.html'>cumsum</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span><span class='op'>)</span>,
+    z    <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/cumsum.html'>cumsum</a></span><span class='op'>(</span><span class='fl'>11</span><span class='op'>:</span><span class='fl'>15</span><span class='op'>)</span> <span class='op'>*</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'># zoo::zooreg: Values coerced to character; Result does not retain index</span>
-<span class='no'>data_zooreg</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>zoo</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/zoo/man/zooreg.html'>zooreg</a></span>(<span class='no'>data_tbl</span>[,-<span class='fl'>1</span>], <span class='kw'>start</span> <span class='kw'>=</span> <span class='fl'>2016</span>, <span class='kw'>freq</span> <span class='kw'>=</span> <span class='fl'>365</span>)
-<span class='no'>data_zooreg</span>                <span class='co'># Numeric values coerced to character</span></div><div class='output co'>#&gt;         x          y  z        
+<span class='va'>data_zooreg</span> <span class='op'>&lt;-</span> <span class='fu'>zoo</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/zoo/man/zooreg.html'>zooreg</a></span><span class='op'>(</span><span class='va'>data_tbl</span><span class='op'>[</span>,<span class='op'>-</span><span class='fl'>1</span><span class='op'>]</span>, start <span class='op'>=</span> <span class='fl'>2016</span>, freq <span class='op'>=</span> <span class='fl'>365</span><span class='op'>)</span>
+<span class='va'>data_zooreg</span>                <span class='co'># Numeric values coerced to character</span>
+</div><div class='output co'>#&gt;         x          y  z        
 #&gt; 2016(1) chr values  1 0.2109535
 #&gt; 2016(2) chr values  3 0.4410846
 #&gt; 2016(3) chr values  6 0.6903933
 #&gt; 2016(4) chr values 10 0.9588796
-#&gt; 2016(5) chr values 15 1.2465435</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>rownames</a></span>(<span class='no'>data_zooreg</span>)      <span class='co'># NULL, no dates retained</span></div><div class='output co'>#&gt; NULL</div><div class='input'>
+#&gt; 2016(5) chr values 15 1.2465435</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>rownames</a></span><span class='op'>(</span><span class='va'>data_zooreg</span><span class='op'>)</span>      <span class='co'># NULL, no dates retained</span>
+</div><div class='output co'>#&gt; NULL</div><div class='input'>
 <span class='co'># tk_zooreg: Only numeric columns get coerced; Result retains index as rownames</span>
-<span class='no'>data_tk_zooreg</span> <span class='kw'>&lt;-</span> <span class='fu'>tk_zooreg</span>(<span class='no'>data_tbl</span>, <span class='kw'>start</span> <span class='kw'>=</span> <span class='fl'>2016</span>, <span class='kw'>freq</span> <span class='kw'>=</span> <span class='fl'>365</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Non-numeric columns being dropped: date, x</span></div><div class='input'><span class='no'>data_tk_zooreg</span>             <span class='co'># No inadvertent coercion to character class</span></div><div class='output co'>#&gt;          y         z
+<span class='va'>data_tk_zooreg</span> <span class='op'>&lt;-</span> <span class='fu'>tk_zooreg</span><span class='op'>(</span><span class='va'>data_tbl</span>, start <span class='op'>=</span> <span class='fl'>2016</span>, freq <span class='op'>=</span> <span class='fl'>365</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Non-numeric columns being dropped: date, x</span></div><div class='input'><span class='va'>data_tk_zooreg</span>             <span class='co'># No inadvertent coercion to character class</span>
+</div><div class='output co'>#&gt;          y         z
 #&gt; 2016(1)  1 0.2109535
 #&gt; 2016(2)  3 0.4410846
 #&gt; 2016(3)  6 0.6903933
 #&gt; 2016(4) 10 0.9588796
 #&gt; 2016(5) 15 1.2465435</div><div class='input'>
 <span class='co'># timetk index</span>
-<span class='fu'><a href='tk_index.html'>tk_index</a></span>(<span class='no'>data_tk_zooreg</span>, <span class='kw'>timetk_idx</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)   <span class='co'># Regularized index returned</span></div><div class='output co'>#&gt; [1] 2016.000 2016.003 2016.005 2016.008 2016.011</div><div class='input'><span class='fu'><a href='tk_index.html'>tk_index</a></span>(<span class='no'>data_tk_zooreg</span>, <span class='kw'>timetk_idx</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)    <span class='co'># Original date index returned</span></div><div class='output co'>#&gt; [1] "2016-01-01" "2016-01-02" "2016-01-03" "2016-01-04" "2016-01-05"</div><div class='input'>
+<span class='fu'><a href='tk_index.html'>tk_index</a></span><span class='op'>(</span><span class='va'>data_tk_zooreg</span>, timetk_idx <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>   <span class='co'># Regularized index returned</span>
+</div><div class='output co'>#&gt; [1] 2016.000 2016.003 2016.005 2016.008 2016.011</div><div class='input'><span class='fu'><a href='tk_index.html'>tk_index</a></span><span class='op'>(</span><span class='va'>data_tk_zooreg</span>, timetk_idx <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>    <span class='co'># Original date index returned</span>
+</div><div class='output co'>#&gt; [1] "2016-01-01" "2016-01-02" "2016-01-03" "2016-01-04" "2016-01-05"</div><div class='input'>
 <span class='co'>### Using select and date_var</span>
-<span class='fu'>tk_zooreg</span>(<span class='no'>data_tbl</span>, <span class='kw'>select</span> <span class='kw'>=</span> <span class='no'>y</span>, <span class='kw'>date_var</span> <span class='kw'>=</span> <span class='no'>date</span>, <span class='kw'>start</span> <span class='kw'>=</span> <span class='fl'>2016</span>, <span class='kw'>freq</span> <span class='kw'>=</span> <span class='fl'>365</span>)</div><div class='output co'>#&gt;          y
+<span class='fu'>tk_zooreg</span><span class='op'>(</span><span class='va'>data_tbl</span>, select <span class='op'>=</span> <span class='va'>y</span>, date_var <span class='op'>=</span> <span class='va'>date</span>, start <span class='op'>=</span> <span class='fl'>2016</span>, freq <span class='op'>=</span> <span class='fl'>365</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;          y
 #&gt; 2016(1)  1
 #&gt; 2016(2)  3
 #&gt; 2016(3)  6
@@ -329,9 +336,10 @@ using <code><a href='https://rdrr.io/pkg/zoo/man/zooreg.html'>zoo::zooreg()</a><
 #&gt; 2016(5) 15</div><div class='input'>
 
 <span class='co'>### NSE: Enables programming</span>
-<span class='no'>select</span>   <span class='kw'>&lt;-</span> <span class='st'>"y"</span>
-<span class='no'>date_var</span> <span class='kw'>&lt;-</span> <span class='st'>"date"</span>
-<span class='fu'>tk_zooreg_</span>(<span class='no'>data_tbl</span>, <span class='kw'>select</span> <span class='kw'>=</span> <span class='no'>select</span>, <span class='kw'>date_var</span> <span class='kw'>=</span> <span class='no'>date_var</span>, <span class='kw'>start</span> <span class='kw'>=</span> <span class='fl'>2016</span>, <span class='kw'>freq</span> <span class='kw'>=</span> <span class='fl'>365</span>)</div><div class='output co'>#&gt;          y
+<span class='va'>select</span>   <span class='op'>&lt;-</span> <span class='st'>"y"</span>
+<span class='va'>date_var</span> <span class='op'>&lt;-</span> <span class='st'>"date"</span>
+<span class='fu'>tk_zooreg_</span><span class='op'>(</span><span class='va'>data_tbl</span>, select <span class='op'>=</span> <span class='va'>select</span>, date_var <span class='op'>=</span> <span class='va'>date_var</span>, start <span class='op'>=</span> <span class='fl'>2016</span>, freq <span class='op'>=</span> <span class='fl'>365</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;          y
 #&gt; 2016(1)  1
 #&gt; 2016(2)  3
 #&gt; 2016(3)  6
@@ -353,7 +361,7 @@ using <code><a href='https://rdrr.io/pkg/zoo/man/zooreg.html'>zoo::zooreg()</a><
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

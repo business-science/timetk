@@ -93,7 +93,7 @@ Plots are available in interactive plotly (default) and static ggplot2 format." 
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">timetk</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.3.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.4.0.9000</span>
       </span>
     </div>
 
@@ -187,20 +187,20 @@ Plots are available in interactive plotly (default) and static ggplot2 format." 
 Plots are available in interactive <code>plotly</code> (default) and static <code>ggplot2</code> format.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>plot_seasonal_diagnostics</span>(
-  <span class='no'>.data</span>,
-  <span class='no'>.date_var</span>,
-  <span class='no'>.value</span>,
-  <span class='kw'>.facet_vars</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>.feature_set</span> <span class='kw'>=</span> <span class='st'>"auto"</span>,
-  <span class='kw'>.geom</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"boxplot"</span>, <span class='st'>"violin"</span>),
-  <span class='kw'>.geom_color</span> <span class='kw'>=</span> <span class='st'>"#2c3e50"</span>,
-  <span class='kw'>.geom_outlier_color</span> <span class='kw'>=</span> <span class='st'>"#2c3e50"</span>,
-  <span class='kw'>.title</span> <span class='kw'>=</span> <span class='st'>"Seasonal Diagnostics"</span>,
-  <span class='kw'>.x_lab</span> <span class='kw'>=</span> <span class='st'>""</span>,
-  <span class='kw'>.y_lab</span> <span class='kw'>=</span> <span class='st'>""</span>,
-  <span class='kw'>.interactive</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
-)</pre>
+    <pre class="usage"><span class='fu'>plot_seasonal_diagnostics</span><span class='op'>(</span>
+  <span class='va'>.data</span>,
+  <span class='va'>.date_var</span>,
+  <span class='va'>.value</span>,
+  .facet_vars <span class='op'>=</span> <span class='cn'>NULL</span>,
+  .feature_set <span class='op'>=</span> <span class='st'>"auto"</span>,
+  .geom <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"boxplot"</span>, <span class='st'>"violin"</span><span class='op'>)</span>,
+  .geom_color <span class='op'>=</span> <span class='st'>"#2c3e50"</span>,
+  .geom_outlier_color <span class='op'>=</span> <span class='st'>"#2c3e50"</span>,
+  .title <span class='op'>=</span> <span class='st'>"Seasonal Diagnostics"</span>,
+  .x_lab <span class='op'>=</span> <span class='st'>""</span>,
+  .y_lab <span class='op'>=</span> <span class='st'>""</span>,
+  .interactive <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -220,7 +220,7 @@ Plots are available in interactive <code>plotly</code> (default) and static <cod
     <tr>
       <th>.facet_vars</th>
       <td><p>One or more grouping columns that broken out into <code>ggplot2</code> facets.
-These can be selected using <code>tidyselect()</code> helpers (e.g <code>contains()</code>).</p></td>
+These can be selected using <code>tidyselect()</code> helpers (e.g <code><a href='https://tidyselect.r-lib.org/reference/starts_with.html'>contains()</a></code>).</p></td>
     </tr>
     <tr>
       <th>.feature_set</th>
@@ -292,12 +292,13 @@ they may be meaningless for some of the groups.</p>
 <p>The <code>.value</code> parameter respects transformations (e.g. <code>.value = log(sales)</code>).</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>timetk</span>)
+    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://dplyr.tidyverse.org'>dplyr</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/business-science/timetk'>timetk</a></span><span class='op'>)</span>
 
 <span class='co'># ---- MULTIPLE FREQUENCY ----</span>
 <span class='co'># Taylor 30-minute dataset from forecast package</span>
-<span class='no'>taylor_30_min</span></div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 4,032 x 2</span><span>
+<span class='va'>taylor_30_min</span>
+</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 4,032 x 2</span><span>
 #&gt;    date                value
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;dttm&gt;</span><span>              </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
 #&gt; </span><span style='color: #555555;'> 1</span><span> 2000-06-05 </span><span style='color: #555555;'>00:00:00</span><span> </span><span style='text-decoration: underline;'>22</span><span>262
@@ -312,14 +313,17 @@ they may be meaningless for some of the groups.</p>
 #&gt; </span><span style='color: #555555;'>10</span><span> 2000-06-05 </span><span style='color: #555555;'>04:30:00</span><span> </span><span style='text-decoration: underline;'>21</span><span>336
 #&gt; </span><span style='color: #555555;'># … with 4,022 more rows</span><span></div><div class='input'>
 <span class='co'># Visualize series</span>
-<span class='no'>taylor_30_min</span> <span class='kw'>%&gt;%</span>
-    <span class='fu'><a href='plot_time_series.html'>plot_time_series</a></span>(<span class='no'>date</span>, <span class='no'>value</span>, <span class='kw'>.interactive</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='plot_seasonal_diagnostics-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='va'>taylor_30_min</span> <span class='op'>%&gt;%</span>
+    <span class='fu'><a href='plot_time_series.html'>plot_time_series</a></span><span class='op'>(</span><span class='va'>date</span>, <span class='va'>value</span>, .interactive <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+</div><div class='img'><img src='plot_seasonal_diagnostics-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Visualize seasonality</span>
-<span class='no'>taylor_30_min</span> <span class='kw'>%&gt;%</span>
-    <span class='fu'>plot_seasonal_diagnostics</span>(<span class='no'>date</span>, <span class='no'>value</span>, <span class='kw'>.interactive</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='plot_seasonal_diagnostics-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='va'>taylor_30_min</span> <span class='op'>%&gt;%</span>
+    <span class='fu'>plot_seasonal_diagnostics</span><span class='op'>(</span><span class='va'>date</span>, <span class='va'>value</span>, .interactive <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+</div><div class='img'><img src='plot_seasonal_diagnostics-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># ---- GROUPED EXAMPLES ----</span>
 <span class='co'># m4 hourly dataset</span>
-<span class='no'>m4_hourly</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 3,060 x 3</span><span>
+<span class='va'>m4_hourly</span>
+</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 3,060 x 3</span><span>
 #&gt;    id    date                value
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dttm&gt;</span><span>              </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
 #&gt; </span><span style='color: #555555;'> 1</span><span> H10   2015-07-01 </span><span style='color: #555555;'>12:00:00</span><span>   513
@@ -334,13 +338,15 @@ they may be meaningless for some of the groups.</p>
 #&gt; </span><span style='color: #555555;'>10</span><span> H10   2015-07-01 </span><span style='color: #555555;'>21:00:00</span><span>   422
 #&gt; </span><span style='color: #555555;'># … with 3,050 more rows</span><span></div><div class='input'>
 <span class='co'># Visualize series</span>
-<span class='no'>m4_hourly</span> <span class='kw'>%&gt;%</span>
-    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>id</span>) <span class='kw'>%&gt;%</span>
-    <span class='fu'><a href='plot_time_series.html'>plot_time_series</a></span>(<span class='no'>date</span>, <span class='no'>value</span>, <span class='kw'>.facet_scales</span> <span class='kw'>=</span> <span class='st'>"free"</span>, <span class='kw'>.interactive</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='plot_seasonal_diagnostics-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='va'>m4_hourly</span> <span class='op'>%&gt;%</span>
+    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>id</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+    <span class='fu'><a href='plot_time_series.html'>plot_time_series</a></span><span class='op'>(</span><span class='va'>date</span>, <span class='va'>value</span>, .facet_scales <span class='op'>=</span> <span class='st'>"free"</span>, .interactive <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+</div><div class='img'><img src='plot_seasonal_diagnostics-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Visualize seasonality</span>
-<span class='no'>m4_hourly</span> <span class='kw'>%&gt;%</span>
-    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>id</span>) <span class='kw'>%&gt;%</span>
-    <span class='fu'>plot_seasonal_diagnostics</span>(<span class='no'>date</span>, <span class='no'>value</span>, <span class='kw'>.interactive</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='plot_seasonal_diagnostics-4.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='va'>m4_hourly</span> <span class='op'>%&gt;%</span>
+    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>id</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+    <span class='fu'>plot_seasonal_diagnostics</span><span class='op'>(</span><span class='va'>date</span>, <span class='va'>value</span>, .interactive <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+</div><div class='img'><img src='plot_seasonal_diagnostics-4.png' alt='' width='700' height='433' /></div><div class='input'>
 
 
 </div></span></pre>
@@ -359,7 +365,7 @@ they may be meaningless for some of the groups.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

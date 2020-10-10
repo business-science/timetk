@@ -94,7 +94,7 @@ train/test split." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">timetk</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.3.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.4.0.9000</span>
       </span>
     </div>
 
@@ -189,17 +189,17 @@ returns only a <strong>single split.</strong> This is useful when creating a sin
 train/test split.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>time_series_split</span>(
-  <span class='no'>data</span>,
-  <span class='kw'>date_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>initial</span> <span class='kw'>=</span> <span class='fl'>5</span>,
-  <span class='kw'>assess</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>skip</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>lag</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>cumulative</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>slice</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='no'>...</span>
-)</pre>
+    <pre class="usage"><span class='fu'>time_series_split</span><span class='op'>(</span>
+  <span class='va'>data</span>,
+  date_var <span class='op'>=</span> <span class='cn'>NULL</span>,
+  initial <span class='op'>=</span> <span class='fl'>5</span>,
+  assess <span class='op'>=</span> <span class='fl'>1</span>,
+  skip <span class='op'>=</span> <span class='fl'>1</span>,
+  lag <span class='op'>=</span> <span class='fl'>0</span>,
+  cumulative <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  slice <span class='op'>=</span> <span class='fl'>1</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -294,34 +294,37 @@ time series resample specifications.</p></li>
 </div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>tidyverse</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>timetk</span>)
+    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/business-science/timetk'>timetk</a></span><span class='op'>)</span>
 
 <span class='co'># DATA ----</span>
-<span class='no'>m750</span> <span class='kw'>&lt;-</span> <span class='no'>m4_monthly</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span>(<span class='no'>id</span> <span class='kw'>==</span> <span class='st'>"M750"</span>)
+<span class='va'>m750</span> <span class='op'>&lt;-</span> <span class='va'>m4_monthly</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>id</span> <span class='op'>==</span> <span class='st'>"M750"</span><span class='op'>)</span>
 
 <span class='co'># Get the most recent 3 years as testing, and previous 10 years as training</span>
-<span class='no'>m750</span> <span class='kw'>%&gt;%</span>
-    <span class='fu'>time_series_split</span>(<span class='kw'>initial</span> <span class='kw'>=</span> <span class='st'>"10 years"</span>, <span class='kw'>assess</span> <span class='kw'>=</span> <span class='st'>"3 years"</span>)</div><div class='output co'>#&gt; <span class='message'>Using date_var: date</span></div><div class='output co'>#&gt; &lt;Analysis/Assess/Total&gt;
+<span class='va'>m750</span> <span class='op'>%&gt;%</span>
+    <span class='fu'>time_series_split</span><span class='op'>(</span>initial <span class='op'>=</span> <span class='st'>"10 years"</span>, assess <span class='op'>=</span> <span class='st'>"3 years"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Using date_var: date</span></div><div class='output co'>#&gt; &lt;Analysis/Assess/Total&gt;
 #&gt; &lt;120/36/306&gt;</div><div class='input'>
 <span class='co'># Skip the most recent 3 years</span>
-<span class='no'>m750</span> <span class='kw'>%&gt;%</span>
-    <span class='fu'>time_series_split</span>(
-        <span class='kw'>initial</span> <span class='kw'>=</span> <span class='st'>"10 years"</span>,
-        <span class='kw'>assess</span>  <span class='kw'>=</span> <span class='st'>"3 years"</span>,
-        <span class='kw'>skip</span>    <span class='kw'>=</span> <span class='st'>"3 years"</span>,
-        <span class='kw'>slice</span>   <span class='kw'>=</span> <span class='fl'>2</span>          <span class='co'># &lt;- Returns 2nd slice, 3-years back</span>
-    )</div><div class='output co'>#&gt; <span class='message'>Using date_var: date</span></div><div class='output co'>#&gt; &lt;Analysis/Assess/Total&gt;
+<span class='va'>m750</span> <span class='op'>%&gt;%</span>
+    <span class='fu'>time_series_split</span><span class='op'>(</span>
+        initial <span class='op'>=</span> <span class='st'>"10 years"</span>,
+        assess  <span class='op'>=</span> <span class='st'>"3 years"</span>,
+        skip    <span class='op'>=</span> <span class='st'>"3 years"</span>,
+        slice   <span class='op'>=</span> <span class='fl'>2</span>          <span class='co'># &lt;- Returns 2nd slice, 3-years back</span>
+    <span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Using date_var: date</span></div><div class='output co'>#&gt; &lt;Analysis/Assess/Total&gt;
 #&gt; &lt;120/36/306&gt;</div><div class='input'>
 <span class='co'># Add 1 year lag for testing overlap</span>
-<span class='no'>m750</span> <span class='kw'>%&gt;%</span>
-    <span class='fu'>time_series_split</span>(
-        <span class='kw'>initial</span> <span class='kw'>=</span> <span class='st'>"10 years"</span>,
-        <span class='kw'>assess</span>  <span class='kw'>=</span> <span class='st'>"3 years"</span>,
-        <span class='kw'>skip</span>    <span class='kw'>=</span> <span class='st'>"3 years"</span>,
-        <span class='kw'>slice</span>   <span class='kw'>=</span> <span class='fl'>2</span>,
-        <span class='kw'>lag</span>     <span class='kw'>=</span> <span class='st'>"1 year"</span>   <span class='co'># &lt;- Overlaps training/testing by 1 year</span>
-    )</div><div class='output co'>#&gt; <span class='message'>Using date_var: date</span></div><div class='output co'>#&gt; &lt;Analysis/Assess/Total&gt;
+<span class='va'>m750</span> <span class='op'>%&gt;%</span>
+    <span class='fu'>time_series_split</span><span class='op'>(</span>
+        initial <span class='op'>=</span> <span class='st'>"10 years"</span>,
+        assess  <span class='op'>=</span> <span class='st'>"3 years"</span>,
+        skip    <span class='op'>=</span> <span class='st'>"3 years"</span>,
+        slice   <span class='op'>=</span> <span class='fl'>2</span>,
+        lag     <span class='op'>=</span> <span class='st'>"1 year"</span>   <span class='co'># &lt;- Overlaps training/testing by 1 year</span>
+    <span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Using date_var: date</span></div><div class='output co'>#&gt; &lt;Analysis/Assess/Total&gt;
 #&gt; &lt;120/48/306&gt;</div><div class='input'>
 
 </div></pre>
@@ -340,7 +343,7 @@ time series resample specifications.</p></li>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

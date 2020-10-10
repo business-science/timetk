@@ -93,7 +93,7 @@ Plots are available in interactive plotly (default) and static ggplot2 format." 
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">timetk</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.3.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.4.0.9000</span>
       </span>
     </div>
 
@@ -187,34 +187,34 @@ Plots are available in interactive plotly (default) and static ggplot2 format." 
 Plots are available in interactive <code>plotly</code> (default) and static <code>ggplot2</code> format.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>plot_anomaly_diagnostics</span>(
-  <span class='no'>.data</span>,
-  <span class='no'>.date_var</span>,
-  <span class='no'>.value</span>,
-  <span class='kw'>.facet_vars</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>.frequency</span> <span class='kw'>=</span> <span class='st'>"auto"</span>,
-  <span class='kw'>.trend</span> <span class='kw'>=</span> <span class='st'>"auto"</span>,
-  <span class='kw'>.alpha</span> <span class='kw'>=</span> <span class='fl'>0.05</span>,
-  <span class='kw'>.max_anomalies</span> <span class='kw'>=</span> <span class='fl'>0.2</span>,
-  <span class='kw'>.message</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>.facet_ncol</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>.facet_scales</span> <span class='kw'>=</span> <span class='st'>"free"</span>,
-  <span class='kw'>.line_color</span> <span class='kw'>=</span> <span class='st'>"#2c3e50"</span>,
-  <span class='kw'>.line_size</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
-  <span class='kw'>.line_type</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>.line_alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>.anom_color</span> <span class='kw'>=</span> <span class='st'>"#e31a1c"</span>,
-  <span class='kw'>.anom_alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>.anom_size</span> <span class='kw'>=</span> <span class='fl'>1.5</span>,
-  <span class='kw'>.ribbon_fill</span> <span class='kw'>=</span> <span class='st'>"grey20"</span>,
-  <span class='kw'>.ribbon_alpha</span> <span class='kw'>=</span> <span class='fl'>0.2</span>,
-  <span class='kw'>.legend_show</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>.title</span> <span class='kw'>=</span> <span class='st'>"Anomaly Diagnostics"</span>,
-  <span class='kw'>.x_lab</span> <span class='kw'>=</span> <span class='st'>""</span>,
-  <span class='kw'>.y_lab</span> <span class='kw'>=</span> <span class='st'>""</span>,
-  <span class='kw'>.color_lab</span> <span class='kw'>=</span> <span class='st'>"Anomaly"</span>,
-  <span class='kw'>.interactive</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
-)</pre>
+    <pre class="usage"><span class='fu'>plot_anomaly_diagnostics</span><span class='op'>(</span>
+  <span class='va'>.data</span>,
+  <span class='va'>.date_var</span>,
+  <span class='va'>.value</span>,
+  .facet_vars <span class='op'>=</span> <span class='cn'>NULL</span>,
+  .frequency <span class='op'>=</span> <span class='st'>"auto"</span>,
+  .trend <span class='op'>=</span> <span class='st'>"auto"</span>,
+  .alpha <span class='op'>=</span> <span class='fl'>0.05</span>,
+  .max_anomalies <span class='op'>=</span> <span class='fl'>0.2</span>,
+  .message <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  .facet_ncol <span class='op'>=</span> <span class='fl'>1</span>,
+  .facet_scales <span class='op'>=</span> <span class='st'>"free"</span>,
+  .line_color <span class='op'>=</span> <span class='st'>"#2c3e50"</span>,
+  .line_size <span class='op'>=</span> <span class='fl'>0.5</span>,
+  .line_type <span class='op'>=</span> <span class='fl'>1</span>,
+  .line_alpha <span class='op'>=</span> <span class='fl'>1</span>,
+  .anom_color <span class='op'>=</span> <span class='st'>"#e31a1c"</span>,
+  .anom_alpha <span class='op'>=</span> <span class='fl'>1</span>,
+  .anom_size <span class='op'>=</span> <span class='fl'>1.5</span>,
+  .ribbon_fill <span class='op'>=</span> <span class='st'>"grey20"</span>,
+  .ribbon_alpha <span class='op'>=</span> <span class='fl'>0.2</span>,
+  .legend_show <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  .title <span class='op'>=</span> <span class='st'>"Anomaly Diagnostics"</span>,
+  .x_lab <span class='op'>=</span> <span class='st'>""</span>,
+  .y_lab <span class='op'>=</span> <span class='st'>""</span>,
+  .color_lab <span class='op'>=</span> <span class='st'>"Anomaly"</span>,
+  .interactive <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -234,7 +234,7 @@ Plots are available in interactive <code>plotly</code> (default) and static <cod
     <tr>
       <th>.facet_vars</th>
       <td><p>One or more grouping columns that broken out into <code>ggplot2</code> facets.
-These can be selected using <code>tidyselect()</code> helpers (e.g <code>contains()</code>).</p></td>
+These can be selected using <code>tidyselect()</code> helpers (e.g <code><a href='https://tidyselect.r-lib.org/reference/starts_with.html'>contains()</a></code>).</p></td>
     </tr>
     <tr>
       <th>.frequency</th>
@@ -352,7 +352,7 @@ leaving the "remainder" for anomaly detection.</p>
 
 <p>The user may supply both <code>.frequency</code> and <code>.trend</code> as time-based durations (e.g. "6 weeks") or
 numeric values (e.g. 180) or "auto", which predetermines the frequency and/or trend based on
-the scale of the time series using the <code><a href='tk_time_scale_template.html'>tk_time_scale_template()</a></code>.</p>
+the scale of the time series using the <code><a href='set_tk_time_scale_template.html'>tk_time_scale_template()</a></code>.</p>
 <p><strong>Step 2: Anomaly Detection</strong></p>
 <p>Once "trend" and "season" (seasonality) is removed, anomaly detection is performed on the "remainder".
 Anomalies are identified, and boundaries (recomposed_l1 and recomposed_l2) are determined.</p>
@@ -364,7 +364,7 @@ The <em>IQR Factor = 0.15 / alpha</em> (hence 3X with alpha = 0.05):</p><ul>
 <li><p>To increase the IQR Factor controlling the limits, decrease the alpha,
 which makes it more difficult to be an outlier.</p></li>
 <li><p>Increase alpha to make it easier to be an outlier.</p></li>
-<li><p>The IQR outlier detection method is used in <code><a href='https://rdrr.io/pkg/forecast/man/tsoutliers.html'>forecast::tsoutliers()</a></code>.</p></li>
+<li><p>The IQR outlier detection method is used in <code><a href='https://pkg.robjhyndman.com/forecast/reference/tsoutliers.html'>forecast::tsoutliers()</a></code>.</p></li>
 <li><p>A similar outlier detection method is used by Twitter's <code>AnomalyDetection</code> package.</p></li>
 <li><p>Both Twitter and Forecast tsoutliers methods have been implemented in Business Science's <code>anomalize</code>
 package.</p></li>
@@ -390,16 +390,17 @@ A Novel Technique for Long-Term Anomaly Detection in the Cloud. Twitter Inc.</p>
 </div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>tidyverse</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>timetk</span>)
+    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/business-science/timetk'>timetk</a></span><span class='op'>)</span>
 
-<span class='no'>walmart_sales_weekly</span> <span class='kw'>%&gt;%</span>
-    <span class='fu'>group_by</span>(<span class='no'>id</span>) <span class='kw'>%&gt;%</span>
-    <span class='fu'>plot_anomaly_diagnostics</span>(<span class='no'>Date</span>, <span class='no'>Weekly_Sales</span>,
-                             <span class='kw'>.message</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-                             <span class='kw'>.facet_ncol</span> <span class='kw'>=</span> <span class='fl'>3</span>,
-                             <span class='kw'>.ribbon_alpha</span> <span class='kw'>=</span> <span class='fl'>0.25</span>,
-                             <span class='kw'>.interactive</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='plot_anomaly_diagnostics-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='va'>walmart_sales_weekly</span> <span class='op'>%&gt;%</span>
+    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>id</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+    <span class='fu'>plot_anomaly_diagnostics</span><span class='op'>(</span><span class='va'>Date</span>, <span class='va'>Weekly_Sales</span>,
+                             .message <span class='op'>=</span> <span class='cn'>FALSE</span>,
+                             .facet_ncol <span class='op'>=</span> <span class='fl'>3</span>,
+                             .ribbon_alpha <span class='op'>=</span> <span class='fl'>0.25</span>,
+                             .interactive <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+</div><div class='img'><img src='plot_anomaly_diagnostics-1.png' alt='' width='700' height='433' /></div><div class='input'>
 
 
 </div></pre>
@@ -418,7 +419,7 @@ A Novel Technique for Long-Term Anomaly Detection in the Cloud. Twitter Inc.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

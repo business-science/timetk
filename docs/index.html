@@ -52,7 +52,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">timetk</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.3.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.4.0.9000</span>
       </span>
     </div>
 
@@ -149,9 +149,11 @@
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p><em>Download the development version with latest features</em>:</p>
-<div class="sourceCode" id="cb1"><pre class="r"><span class="kw pkg">remotes</span><span class="kw ns">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span>(<span class="st">"business-science/timetk"</span>)</pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit">
+<span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"business-science/timetk"</span><span class="op">)</span></pre></div>
 <p><em>Or, download CRAN approved version</em>:</p>
-<div class="sourceCode" id="cb2"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"timetk"</span>)</pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"timetk"</span><span class="op">)</span></pre></div>
 </div>
 <div id="getting-started" class="section level2">
 <h2 class="hasAnchor">
@@ -400,23 +402,27 @@
 <h2 class="hasAnchor">
 <a href="#what-can-you-do-in-1-line-of-code" class="anchor"></a>What can you do in 1 line of code?</h2>
 <p>Investigate a time series…</p>
-<div class="sourceCode" id="cb3"><pre class="r"><span class="no">taylor_30_min</span> <span class="kw">%&gt;%</span>
-    <span class="fu"><a href="reference/plot_time_series.html">plot_time_series</a></span>(<span class="no">date</span>, <span class="no">value</span>, <span class="kw">.color_var</span> <span class="kw">=</span> <span class="fu">week</span>(<span class="no">date</span>),
-                     <span class="kw">.interactive</span> <span class="kw">=</span> <span class="fl">FALSE</span>, <span class="kw">.color_lab</span> <span class="kw">=</span> <span class="st">"Week"</span>)</pre></div>
+<div class="sourceCode" id="cb3"><pre class="downlit">
+<span class="va">taylor_30_min</span> <span class="op">%&gt;%</span>
+    <span class="fu"><a href="reference/plot_time_series.html">plot_time_series</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">value</span>, .color_var <span class="op">=</span> <span class="fu">week</span><span class="op">(</span><span class="va">date</span><span class="op">)</span>, 
+                     .interactive <span class="op">=</span> <span class="cn">FALSE</span>, .color_lab <span class="op">=</span> <span class="st">"Week"</span><span class="op">)</span></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-5-1.png"><!-- --></p>
 <p>Visualize anomalies…</p>
-<div class="sourceCode" id="cb4"><pre class="r"><span class="no">walmart_sales_weekly</span> <span class="kw">%&gt;%</span>
-    <span class="fu">group_by</span>(<span class="no">Store</span>, <span class="no">Dept</span>) <span class="kw">%&gt;%</span>
-    <span class="fu"><a href="reference/plot_anomaly_diagnostics.html">plot_anomaly_diagnostics</a></span>(<span class="no">Date</span>, <span class="no">Weekly_Sales</span>,
-                             <span class="kw">.facet_ncol</span> <span class="kw">=</span> <span class="fl">3</span>, <span class="kw">.interactive</span> <span class="kw">=</span> <span class="fl">FALSE</span>)</pre></div>
+<div class="sourceCode" id="cb4"><pre class="downlit">
+<span class="va">walmart_sales_weekly</span> <span class="op">%&gt;%</span>
+    <span class="fu">group_by</span><span class="op">(</span><span class="va">Store</span>, <span class="va">Dept</span><span class="op">)</span> <span class="op">%&gt;%</span>
+    <span class="fu"><a href="reference/plot_anomaly_diagnostics.html">plot_anomaly_diagnostics</a></span><span class="op">(</span><span class="va">Date</span>, <span class="va">Weekly_Sales</span>, 
+                             .facet_ncol <span class="op">=</span> <span class="fl">3</span>, .interactive <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-6-1.png"><!-- --></p>
 <p>Make a seasonality plot…</p>
-<div class="sourceCode" id="cb5"><pre class="r"><span class="no">taylor_30_min</span> <span class="kw">%&gt;%</span>
-    <span class="fu"><a href="reference/plot_seasonal_diagnostics.html">plot_seasonal_diagnostics</a></span>(<span class="no">date</span>, <span class="no">value</span>, <span class="kw">.interactive</span> <span class="kw">=</span> <span class="fl">FALSE</span>)</pre></div>
+<div class="sourceCode" id="cb5"><pre class="downlit">
+<span class="va">taylor_30_min</span> <span class="op">%&gt;%</span>
+    <span class="fu"><a href="reference/plot_seasonal_diagnostics.html">plot_seasonal_diagnostics</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">value</span>, .interactive <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-7-1.png"><!-- --></p>
 <p>Inspect autocorrelation, partial autocorrelation (and cross correlations too)…</p>
-<div class="sourceCode" id="cb6"><pre class="r"><span class="no">taylor_30_min</span> <span class="kw">%&gt;%</span>
-    <span class="fu"><a href="reference/plot_acf_diagnostics.html">plot_acf_diagnostics</a></span>(<span class="no">date</span>, <span class="no">value</span>, <span class="kw">.lags</span> <span class="kw">=</span> <span class="st">"1 week"</span>, <span class="kw">.interactive</span> <span class="kw">=</span> <span class="fl">FALSE</span>)</pre></div>
+<div class="sourceCode" id="cb6"><pre class="downlit">
+<span class="va">taylor_30_min</span> <span class="op">%&gt;%</span>
+    <span class="fu"><a href="reference/plot_acf_diagnostics.html">plot_acf_diagnostics</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">value</span>, .lags <span class="op">=</span> <span class="st">"1 week"</span>, .interactive <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-8-1.png"><!-- --></p>
 </div>
 <div id="acknowledgements" class="section level2">
@@ -545,7 +551,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

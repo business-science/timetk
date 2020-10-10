@@ -94,7 +94,7 @@ show the effect of feature engineering" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">timetk</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.3.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.4.0.9000</span>
       </span>
     </div>
 
@@ -189,13 +189,13 @@ linear regression fitted model over a time series, which can help
 show the effect of feature engineering</p>
     </div>
 
-    <pre class="usage"><span class='fu'>plot_time_series_regression</span>(
-  <span class='no'>.data</span>,
-  <span class='no'>.date_var</span>,
-  <span class='no'>.formula</span>,
-  <span class='kw'>.show_summary</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='no'>...</span>
-)</pre>
+    <pre class="usage"><span class='fu'>plot_time_series_regression</span><span class='op'>(</span>
+  <span class='va'>.data</span>,
+  <span class='va'>.date_var</span>,
+  <span class='va'>.formula</span>,
+  .show_summary <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -254,19 +254,20 @@ the effect of feature engineering on a time series.</p><ul>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>lubridate</span>)
+    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://dplyr.tidyverse.org'>dplyr</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://lubridate.tidyverse.org'>lubridate</a></span><span class='op'>)</span>
 
 <span class='co'># ---- SINGLE SERIES ----</span>
-<span class='no'>m4_monthly</span> <span class='kw'>%&gt;%</span>
-    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='no'>id</span> <span class='kw'>==</span> <span class='st'>"M750"</span>) <span class='kw'>%&gt;%</span>
-    <span class='fu'>plot_time_series_regression</span>(
-        <span class='kw'>.date_var</span>     <span class='kw'>=</span> <span class='no'>date</span>,
-        <span class='kw'>.formula</span>      <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span>(<span class='no'>value</span>) ~ <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span>(<span class='no'>date</span>) + <span class='fu'><a href='http://lubridate.tidyverse.org/reference/month.html'>month</a></span>(<span class='no'>date</span>, <span class='kw'>label</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>),
-        <span class='kw'>.show_summary</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-        <span class='kw'>.facet_ncol</span>   <span class='kw'>=</span> <span class='fl'>2</span>,
-        <span class='kw'>.interactive</span>  <span class='kw'>=</span> <span class='fl'>FALSE</span>
-    )</div><div class='output co'>#&gt; 
+<span class='va'>m4_monthly</span> <span class='op'>%&gt;%</span>
+    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>id</span> <span class='op'>==</span> <span class='st'>"M750"</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+    <span class='fu'>plot_time_series_regression</span><span class='op'>(</span>
+        .date_var     <span class='op'>=</span> <span class='va'>date</span>,
+        .formula      <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='va'>value</span><span class='op'>)</span> <span class='op'>~</span> <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='va'>date</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='http://lubridate.tidyverse.org/reference/month.html'>month</a></span><span class='op'>(</span><span class='va'>date</span>, label <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>,
+        .show_summary <span class='op'>=</span> <span class='cn'>TRUE</span>,
+        .facet_ncol   <span class='op'>=</span> <span class='fl'>2</span>,
+        .interactive  <span class='op'>=</span> <span class='cn'>FALSE</span>
+    <span class='op'>)</span>
+</div><div class='output co'>#&gt; 
 #&gt; Call:
 #&gt; stats::lm(formula = .formula, data = .data)
 #&gt; 
@@ -296,14 +297,15 @@ the effect of feature engineering on a time series.</p><ul>
 #&gt; </div><div class='img'><img src='plot_time_series_regression-1.png' alt='' width='700' height='433' /></div><div class='input'>
 
 <span class='co'># ---- GROUPED SERIES ----</span>
-<span class='no'>m4_monthly</span> <span class='kw'>%&gt;%</span>
-    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>id</span>) <span class='kw'>%&gt;%</span>
-    <span class='fu'>plot_time_series_regression</span>(
-        <span class='kw'>.date_var</span>    <span class='kw'>=</span> <span class='no'>date</span>,
-        <span class='kw'>.formula</span>     <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span>(<span class='no'>value</span>) ~ <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span>(<span class='no'>date</span>) + <span class='fu'><a href='http://lubridate.tidyverse.org/reference/month.html'>month</a></span>(<span class='no'>date</span>, <span class='kw'>label</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>),
-        <span class='kw'>.facet_ncol</span>  <span class='kw'>=</span> <span class='fl'>2</span>,
-        <span class='kw'>.interactive</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
-    )</div><div class='img'><img src='plot_time_series_regression-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='va'>m4_monthly</span> <span class='op'>%&gt;%</span>
+    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>id</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+    <span class='fu'>plot_time_series_regression</span><span class='op'>(</span>
+        .date_var    <span class='op'>=</span> <span class='va'>date</span>,
+        .formula     <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='va'>value</span><span class='op'>)</span> <span class='op'>~</span> <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='va'>date</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='http://lubridate.tidyverse.org/reference/month.html'>month</a></span><span class='op'>(</span><span class='va'>date</span>, label <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>,
+        .facet_ncol  <span class='op'>=</span> <span class='fl'>2</span>,
+        .interactive <span class='op'>=</span> <span class='cn'>FALSE</span>
+    <span class='op'>)</span>
+</div><div class='img'><img src='plot_time_series_regression-2.png' alt='' width='700' height='433' /></div><div class='input'>
 
 </div></pre>
   </div>
@@ -321,7 +323,7 @@ the effect of feature engineering on a time series.</p><ul>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

@@ -95,7 +95,7 @@ for the log_interval_vec() transformation function." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">timetk</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.3.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.4.0.9000</span>
       </span>
     </div>
 
@@ -191,22 +191,22 @@ transformation. This function provides a <code>recipes</code> interface
 for the <code><a href='log_interval_vec.html'>log_interval_vec()</a></code> transformation function.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>step_log_interval</span>(
-  <span class='no'>recipe</span>,
-  <span class='no'>...</span>,
-  <span class='kw'>limit_lower</span> <span class='kw'>=</span> <span class='st'>"auto"</span>,
-  <span class='kw'>limit_upper</span> <span class='kw'>=</span> <span class='st'>"auto"</span>,
-  <span class='kw'>offset</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>role</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>trained</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>limit_lower_trained</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>limit_upper_trained</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>skip</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>id</span> <span class='kw'>=</span> <span class='fu'>rand_id</span>(<span class='st'>"log_interval"</span>)
-)
+    <pre class="usage"><span class='fu'>step_log_interval</span><span class='op'>(</span>
+  <span class='va'>recipe</span>,
+  <span class='va'>...</span>,
+  limit_lower <span class='op'>=</span> <span class='st'>"auto"</span>,
+  limit_upper <span class='op'>=</span> <span class='st'>"auto"</span>,
+  offset <span class='op'>=</span> <span class='fl'>0</span>,
+  role <span class='op'>=</span> <span class='cn'>NA</span>,
+  trained <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  limit_lower_trained <span class='op'>=</span> <span class='cn'>NULL</span>,
+  limit_upper_trained <span class='op'>=</span> <span class='cn'>NULL</span>,
+  skip <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  id <span class='op'>=</span> <span class='fu'><a href='https://recipes.tidymodels.org/reference/rand_id.html'>rand_id</a></span><span class='op'>(</span><span class='st'>"log_interval"</span><span class='op'>)</span>
+<span class='op'>)</span>
 
 <span class='co'># S3 method for step_log_interval</span>
-<span class='fu'>tidy</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
+<span class='fu'><a href='https://rdrr.io/pkg/generics/man/tidy.html'>tidy</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -218,7 +218,7 @@ for the <code><a href='log_interval_vec.html'>log_interval_vec()</a></code> tran
     <tr>
       <th>...</th>
       <td><p>One or more selector functions to choose which
-variables are affected by the step. See <code>selections()</code>
+variables are affected by the step. See <code><a href='https://recipes.tidymodels.org/reference/selections.html'>selections()</a></code>
 for more details. For the <code>tidy</code> method, these are not
 currently used.</p></td>
     </tr>
@@ -249,17 +249,17 @@ created.</p></td>
     <tr>
       <th>limit_lower_trained</th>
       <td><p>A numeric vector of transformation values. This
-is <code>NULL</code> until computed by <code>prep()</code>.</p></td>
+is <code>NULL</code> until computed by <code><a href='https://recipes.tidymodels.org/reference/prep.html'>prep()</a></code>.</p></td>
     </tr>
     <tr>
       <th>limit_upper_trained</th>
       <td><p>A numeric vector of transformation values. This
-is <code>NULL</code> until computed by <code>prep()</code>.</p></td>
+is <code>NULL</code> until computed by <code><a href='https://recipes.tidymodels.org/reference/prep.html'>prep()</a></code>.</p></td>
     </tr>
     <tr>
       <th>skip</th>
       <td><p>A logical. Should the step be skipped when the recipe
-is baked by <code>bake.recipe()</code>? While all operations are baked when <code>prep.recipe()</code> is run,
+is baked by <code><a href='https://recipes.tidymodels.org/reference/bake.html'>bake.recipe()</a></code>? While all operations are baked when <code><a href='https://recipes.tidymodels.org/reference/prep.html'>prep.recipe()</a></code> is run,
 some operations may not be able to be conducted on new data (e.g. processing the outcome variable(s)).
 Care should be taken when using <code>skip = TRUE</code> as it may affect the computations for subsequent operations.</p></td>
     </tr>
@@ -312,24 +312,26 @@ using methods implemented in the Forecast R Package.</p>
 </div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>tidyverse</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>tidyquant</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>recipes</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>timetk</span>)
+    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/business-science/tidyquant'>tidyquant</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/tidymodels/recipes'>recipes</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/business-science/timetk'>timetk</a></span><span class='op'>)</span>
 
-<span class='no'>FANG_wide</span> <span class='kw'>&lt;-</span> <span class='no'>FANG</span> <span class='kw'>%&gt;%</span>
-    <span class='fu'>select</span>(<span class='no'>symbol</span>, <span class='no'>date</span>, <span class='no'>adjusted</span>) <span class='kw'>%&gt;%</span>
-    <span class='fu'>pivot_wider</span>(<span class='kw'>names_from</span> <span class='kw'>=</span> <span class='no'>symbol</span>, <span class='kw'>values_from</span> <span class='kw'>=</span> <span class='no'>adjusted</span>)
+<span class='va'>FANG_wide</span> <span class='op'>&lt;-</span> <span class='va'>FANG</span> <span class='op'>%&gt;%</span>
+    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>symbol</span>, <span class='va'>date</span>, <span class='va'>adjusted</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+    <span class='fu'><a href='https://tidyr.tidyverse.org/reference/pivot_wider.html'>pivot_wider</a></span><span class='op'>(</span>names_from <span class='op'>=</span> <span class='va'>symbol</span>, values_from <span class='op'>=</span> <span class='va'>adjusted</span><span class='op'>)</span>
 
-<span class='no'>recipe_log_interval</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://recipes.tidymodels.org/reference/recipe.html'>recipe</a></span>(~ <span class='no'>.</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>FANG_wide</span>) <span class='kw'>%&gt;%</span>
-    <span class='fu'>step_log_interval</span>(<span class='no'>FB</span>, <span class='no'>AMZN</span>, <span class='no'>NFLX</span>, <span class='no'>GOOG</span>, <span class='kw'>offset</span> <span class='kw'>=</span> <span class='fl'>1</span>) <span class='kw'>%&gt;%</span>
-    <span class='fu'><a href='https://recipes.tidymodels.org/reference/prep.html'>prep</a></span>()
+<span class='va'>recipe_log_interval</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://recipes.tidymodels.org/reference/recipe.html'>recipe</a></span><span class='op'>(</span><span class='op'>~</span> <span class='va'>.</span>, data <span class='op'>=</span> <span class='va'>FANG_wide</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+    <span class='fu'>step_log_interval</span><span class='op'>(</span><span class='va'>FB</span>, <span class='va'>AMZN</span>, <span class='va'>NFLX</span>, <span class='va'>GOOG</span>, offset <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+    <span class='fu'><a href='https://recipes.tidymodels.org/reference/prep.html'>prep</a></span><span class='op'>(</span><span class='op'>)</span>
 
-<span class='no'>recipe_log_interval</span> <span class='kw'>%&gt;%</span>
-    <span class='fu'><a href='https://recipes.tidymodels.org/reference/bake.html'>bake</a></span>(<span class='no'>FANG_wide</span>) <span class='kw'>%&gt;%</span>
-    <span class='fu'>pivot_longer</span>(-<span class='no'>date</span>) <span class='kw'>%&gt;%</span>
-    <span class='fu'><a href='plot_time_series.html'>plot_time_series</a></span>(<span class='no'>date</span>, <span class='no'>value</span>, <span class='no'>name</span>, <span class='kw'>.smooth</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>.interactive</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='step_log_interval-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='no'>recipe_log_interval</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://recipes.tidymodels.org/reference/reexports.html'>tidy</a></span>(<span class='fl'>1</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 4 x 5</span><span>
+<span class='va'>recipe_log_interval</span> <span class='op'>%&gt;%</span>
+    <span class='fu'><a href='https://recipes.tidymodels.org/reference/bake.html'>bake</a></span><span class='op'>(</span><span class='va'>FANG_wide</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+    <span class='fu'><a href='https://tidyr.tidyverse.org/reference/pivot_longer.html'>pivot_longer</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>date</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+    <span class='fu'><a href='plot_time_series.html'>plot_time_series</a></span><span class='op'>(</span><span class='va'>date</span>, <span class='va'>value</span>, <span class='va'>name</span>, .smooth <span class='op'>=</span> <span class='cn'>FALSE</span>, .interactive <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+</div><div class='img'><img src='step_log_interval-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='va'>recipe_log_interval</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/pkg/generics/man/tidy.html'>tidy</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 4 x 5</span><span>
 #&gt;   terms limit_lower limit_upper offset id                
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>       </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>       </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>             
 #&gt; </span><span style='color: #555555;'>1</span><span> FB              0        144.      1 log_interval_9QeuR
@@ -352,7 +354,7 @@ using methods implemented in the Forecast R Package.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

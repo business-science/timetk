@@ -93,7 +93,7 @@ consolidates 20+ lines of ggplot2 code, and scales well to many time series." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">timetk</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.3.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.4.0.9000</span>
       </span>
     </div>
 
@@ -187,38 +187,38 @@ consolidates 20+ lines of ggplot2 code, and scales well to many time series." />
 consolidates 20+ lines of <code>ggplot2</code> code, and scales well to many time series.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>plot_time_series</span>(
-  <span class='no'>.data</span>,
-  <span class='no'>.date_var</span>,
-  <span class='no'>.value</span>,
-  <span class='kw'>.color_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>.facet_vars</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>.facet_ncol</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>.facet_scales</span> <span class='kw'>=</span> <span class='st'>"free_y"</span>,
-  <span class='kw'>.facet_collapse</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>.facet_collapse_sep</span> <span class='kw'>=</span> <span class='st'>" "</span>,
-  <span class='kw'>.line_color</span> <span class='kw'>=</span> <span class='st'>"#2c3e50"</span>,
-  <span class='kw'>.line_size</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
-  <span class='kw'>.line_type</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>.line_alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>.y_intercept</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>.y_intercept_color</span> <span class='kw'>=</span> <span class='st'>"#2c3e50"</span>,
-  <span class='kw'>.smooth</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>.smooth_period</span> <span class='kw'>=</span> <span class='st'>"auto"</span>,
-  <span class='kw'>.smooth_message</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>.smooth_span</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>.smooth_degree</span> <span class='kw'>=</span> <span class='fl'>2</span>,
-  <span class='kw'>.smooth_color</span> <span class='kw'>=</span> <span class='st'>"#3366FF"</span>,
-  <span class='kw'>.smooth_size</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>.smooth_alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>.legend_show</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>.title</span> <span class='kw'>=</span> <span class='st'>"Time Series Plot"</span>,
-  <span class='kw'>.x_lab</span> <span class='kw'>=</span> <span class='st'>""</span>,
-  <span class='kw'>.y_lab</span> <span class='kw'>=</span> <span class='st'>""</span>,
-  <span class='kw'>.color_lab</span> <span class='kw'>=</span> <span class='st'>"Legend"</span>,
-  <span class='kw'>.interactive</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>.plotly_slider</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
-)</pre>
+    <pre class="usage"><span class='fu'>plot_time_series</span><span class='op'>(</span>
+  <span class='va'>.data</span>,
+  <span class='va'>.date_var</span>,
+  <span class='va'>.value</span>,
+  .color_var <span class='op'>=</span> <span class='cn'>NULL</span>,
+  .facet_vars <span class='op'>=</span> <span class='cn'>NULL</span>,
+  .facet_ncol <span class='op'>=</span> <span class='fl'>1</span>,
+  .facet_scales <span class='op'>=</span> <span class='st'>"free_y"</span>,
+  .facet_collapse <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  .facet_collapse_sep <span class='op'>=</span> <span class='st'>" "</span>,
+  .line_color <span class='op'>=</span> <span class='st'>"#2c3e50"</span>,
+  .line_size <span class='op'>=</span> <span class='fl'>0.5</span>,
+  .line_type <span class='op'>=</span> <span class='fl'>1</span>,
+  .line_alpha <span class='op'>=</span> <span class='fl'>1</span>,
+  .y_intercept <span class='op'>=</span> <span class='cn'>NULL</span>,
+  .y_intercept_color <span class='op'>=</span> <span class='st'>"#2c3e50"</span>,
+  .smooth <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  .smooth_period <span class='op'>=</span> <span class='st'>"auto"</span>,
+  .smooth_message <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  .smooth_span <span class='op'>=</span> <span class='cn'>NULL</span>,
+  .smooth_degree <span class='op'>=</span> <span class='fl'>2</span>,
+  .smooth_color <span class='op'>=</span> <span class='st'>"#3366FF"</span>,
+  .smooth_size <span class='op'>=</span> <span class='fl'>1</span>,
+  .smooth_alpha <span class='op'>=</span> <span class='fl'>1</span>,
+  .legend_show <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  .title <span class='op'>=</span> <span class='st'>"Time Series Plot"</span>,
+  .x_lab <span class='op'>=</span> <span class='st'>""</span>,
+  .y_lab <span class='op'>=</span> <span class='st'>""</span>,
+  .color_lab <span class='op'>=</span> <span class='st'>"Legend"</span>,
+  .interactive <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  .plotly_slider <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -243,7 +243,7 @@ line color</p></td>
     <tr>
       <th>.facet_vars</th>
       <td><p>One or more grouping columns that broken out into <code>ggplot2</code> facets.
-These can be selected using <code>tidyselect()</code> helpers (e.g <code>contains()</code>).</p></td>
+These can be selected using <code>tidyselect()</code> helpers (e.g <code><a href='https://tidyselect.r-lib.org/reference/starts_with.html'>contains()</a></code>).</p></td>
     </tr>
     <tr>
       <th>.facet_ncol</th>
@@ -372,7 +372,7 @@ Either 0, 1, 2 (0 = lest flexible, 2 = more flexible).</p></td>
 <p>By default, an interactive <code>plotly</code> visualization is returned.</p>
 <p><strong>Scalable with Facets &amp; Dplyr Groups</strong></p>
 <p><code>plot_time_series()</code> returns multiple time series plots using <code>ggplot2</code> facets:</p><ul>
-<li><p><code>group_by()</code> - If groups are detected, multiple facets are returned</p></li>
+<li><p><code><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by()</a></code> - If groups are detected, multiple facets are returned</p></li>
 <li><p><code>plot_time_series(.facet_vars)</code> - You can manually supply facets as well.</p></li>
 </ul>
 
@@ -395,41 +395,45 @@ or a numeric value (e.g. <code>smooth_period = 365</code>).</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>tidyverse</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>tidyquant</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>lubridate</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>timetk</span>)
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/business-science/tidyquant'>tidyquant</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://lubridate.tidyverse.org'>lubridate</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/business-science/timetk'>timetk</a></span><span class='op'>)</span>
 
 <span class='co'># Works with individual time series</span>
-<span class='no'>FANG</span> <span class='kw'>%&gt;%</span>
-    <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span>(<span class='no'>symbol</span> <span class='kw'>==</span> <span class='st'>"FB"</span>) <span class='kw'>%&gt;%</span>
-    <span class='fu'>plot_time_series</span>(<span class='no'>date</span>, <span class='no'>adjusted</span>, <span class='kw'>.interactive</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='plot_time_series-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='va'>FANG</span> <span class='op'>%&gt;%</span>
+    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>symbol</span> <span class='op'>==</span> <span class='st'>"FB"</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+    <span class='fu'>plot_time_series</span><span class='op'>(</span><span class='va'>date</span>, <span class='va'>adjusted</span>, .interactive <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+</div><div class='img'><img src='plot_time_series-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Works with groups</span>
-<span class='no'>FANG</span> <span class='kw'>%&gt;%</span>
-    <span class='fu'>group_by</span>(<span class='no'>symbol</span>) <span class='kw'>%&gt;%</span>
-    <span class='fu'>plot_time_series</span>(<span class='no'>date</span>, <span class='no'>adjusted</span>,
-                     <span class='kw'>.facet_ncol</span>  <span class='kw'>=</span> <span class='fl'>2</span>,     <span class='co'># 2-column layout</span>
-                     <span class='kw'>.interactive</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='plot_time_series-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='va'>FANG</span> <span class='op'>%&gt;%</span>
+    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>symbol</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+    <span class='fu'>plot_time_series</span><span class='op'>(</span><span class='va'>date</span>, <span class='va'>adjusted</span>,
+                     .facet_ncol  <span class='op'>=</span> <span class='fl'>2</span>,     <span class='co'># 2-column layout</span>
+                     .interactive <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+</div><div class='img'><img src='plot_time_series-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Can also group inside &amp; use .color_var</span>
-<span class='no'>FANG</span> <span class='kw'>%&gt;%</span>
-    <span class='fu'>mutate</span>(<span class='kw'>year</span> <span class='kw'>=</span> <span class='fu'><a href='http://lubridate.tidyverse.org/reference/year.html'>year</a></span>(<span class='no'>date</span>)) <span class='kw'>%&gt;%</span>
-    <span class='fu'>plot_time_series</span>(<span class='no'>date</span>, <span class='no'>adjusted</span>,
-                     <span class='kw'>.facet_vars</span>   <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>symbol</span>, <span class='no'>year</span>), <span class='co'># add groups/facets</span>
-                     <span class='kw'>.color_var</span>    <span class='kw'>=</span> <span class='no'>year</span>,            <span class='co'># color by year</span>
-                     <span class='kw'>.facet_ncol</span>   <span class='kw'>=</span> <span class='fl'>4</span>,
-                     <span class='kw'>.facet_scales</span> <span class='kw'>=</span> <span class='st'>"free"</span>,
-                     <span class='kw'>.interactive</span>  <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='plot_time_series-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='va'>FANG</span> <span class='op'>%&gt;%</span>
+    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>year <span class='op'>=</span> <span class='fu'><a href='http://lubridate.tidyverse.org/reference/year.html'>year</a></span><span class='op'>(</span><span class='va'>date</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+    <span class='fu'>plot_time_series</span><span class='op'>(</span><span class='va'>date</span>, <span class='va'>adjusted</span>,
+                     .facet_vars   <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>symbol</span>, <span class='va'>year</span><span class='op'>)</span>, <span class='co'># add groups/facets</span>
+                     .color_var    <span class='op'>=</span> <span class='va'>year</span>,            <span class='co'># color by year</span>
+                     .facet_ncol   <span class='op'>=</span> <span class='fl'>4</span>,
+                     .facet_scales <span class='op'>=</span> <span class='st'>"free"</span>,
+                     .interactive  <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+</div><div class='img'><img src='plot_time_series-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Can apply transformations to .value or .color_var</span>
 <span class='co'># - .value = log(adjusted)</span>
 <span class='co'># - .color_var = year(date)</span>
-<span class='no'>FANG</span> <span class='kw'>%&gt;%</span>
-    <span class='fu'>plot_time_series</span>(<span class='no'>date</span>, <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span>(<span class='no'>adjusted</span>),
-                     <span class='kw'>.color_var</span>    <span class='kw'>=</span> <span class='fu'><a href='http://lubridate.tidyverse.org/reference/year.html'>year</a></span>(<span class='no'>date</span>),
-                     <span class='kw'>.facet_vars</span>   <span class='kw'>=</span> <span class='fu'>contains</span>(<span class='st'>"symbol"</span>),
-                     <span class='kw'>.facet_ncol</span>   <span class='kw'>=</span> <span class='fl'>2</span>,
-                     <span class='kw'>.facet_scales</span> <span class='kw'>=</span> <span class='st'>"free"</span>,
-                     <span class='kw'>.y_lab</span>        <span class='kw'>=</span> <span class='st'>"Log Scale"</span>,
-                     <span class='kw'>.interactive</span>  <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='plot_time_series-4.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='va'>FANG</span> <span class='op'>%&gt;%</span>
+    <span class='fu'>plot_time_series</span><span class='op'>(</span><span class='va'>date</span>, <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='va'>adjusted</span><span class='op'>)</span>,
+                     .color_var    <span class='op'>=</span> <span class='fu'><a href='http://lubridate.tidyverse.org/reference/year.html'>year</a></span><span class='op'>(</span><span class='va'>date</span><span class='op'>)</span>,
+                     .facet_vars   <span class='op'>=</span> <span class='fu'><a href='https://tidyselect.r-lib.org/reference/starts_with.html'>contains</a></span><span class='op'>(</span><span class='st'>"symbol"</span><span class='op'>)</span>,
+                     .facet_ncol   <span class='op'>=</span> <span class='fl'>2</span>,
+                     .facet_scales <span class='op'>=</span> <span class='st'>"free"</span>,
+                     .y_lab        <span class='op'>=</span> <span class='st'>"Log Scale"</span>,
+                     .interactive  <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+</div><div class='img'><img src='plot_time_series-4.png' alt='' width='700' height='433' /></div><div class='input'>
 
 
 </div></pre>
@@ -448,7 +452,7 @@ or a numeric value (e.g. <code>smooth_period = 365</code>).</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

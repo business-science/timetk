@@ -94,7 +94,7 @@ for padding tibbles." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">timetk</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.3.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.4.0.9000</span>
       </span>
     </div>
 
@@ -189,15 +189,15 @@ granular period (e.g. quarter to month). Wraps the <code><a href='https://rdrr.i
 for padding tibbles.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>pad_by_time</span>(
-  <span class='no'>.data</span>,
-  <span class='no'>.date_var</span>,
-  <span class='kw'>.by</span> <span class='kw'>=</span> <span class='st'>"auto"</span>,
-  <span class='kw'>.pad_value</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>.fill_na_direction</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"none"</span>, <span class='st'>"down"</span>, <span class='st'>"up"</span>, <span class='st'>"downup"</span>, <span class='st'>"updown"</span>),
-  <span class='kw'>.start_date</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>.end_date</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
-)</pre>
+    <pre class="usage"><span class='fu'>pad_by_time</span><span class='op'>(</span>
+  <span class='va'>.data</span>,
+  <span class='va'>.date_var</span>,
+  .by <span class='op'>=</span> <span class='st'>"auto"</span>,
+  .pad_value <span class='op'>=</span> <span class='cn'>NA</span>,
+  .fill_na_direction <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"none"</span>, <span class='st'>"down"</span>, <span class='st'>"up"</span>, <span class='st'>"downup"</span>, <span class='st'>"updown"</span><span class='op'>)</span>,
+  .start_date <span class='op'>=</span> <span class='cn'>NULL</span>,
+  .end_date <span class='op'>=</span> <span class='cn'>NULL</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -276,17 +276,18 @@ This is possible by supplying a higher frequency to <code>pad_by_time()</code>.<
 </div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>tidyverse</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>tidyquant</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>timetk</span>)
+    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/business-science/tidyquant'>tidyquant</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/business-science/timetk'>timetk</a></span><span class='op'>)</span>
 
 <span class='co'># Create a quarterly series with 1 missing value</span>
-<span class='no'>missing_data_tbl</span> <span class='kw'>&lt;-</span> <span class='fu'>tibble</span>(
-    <span class='kw'>date</span> <span class='kw'>=</span> <span class='fu'><a href='tk_make_timeseries.html'>tk_make_timeseries</a></span>(<span class='st'>"2014-01-01"</span>, <span class='st'>"2015-01-01"</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"quarter"</span>),
-    <span class='kw'>value</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>5</span>
-) <span class='kw'>%&gt;%</span>
-    <span class='fu'>slice</span>(-<span class='fl'>4</span>) <span class='co'># Lose the 4th quarter on purpose</span>
-<span class='no'>missing_data_tbl</span></div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 4 x 2</span><span>
+<span class='va'>missing_data_tbl</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span>
+    date <span class='op'>=</span> <span class='fu'><a href='tk_make_timeseries.html'>tk_make_timeseries</a></span><span class='op'>(</span><span class='st'>"2014-01-01"</span>, <span class='st'>"2015-01-01"</span>, by <span class='op'>=</span> <span class='st'>"quarter"</span><span class='op'>)</span>,
+    value <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>
+<span class='op'>)</span> <span class='op'>%&gt;%</span>
+    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/slice.html'>slice</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>4</span><span class='op'>)</span> <span class='co'># Lose the 4th quarter on purpose</span>
+<span class='va'>missing_data_tbl</span>
+</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 4 x 2</span><span>
 #&gt;   date       value
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
 #&gt; </span><span style='color: #555555;'>1</span><span> 2014-01-01     1
@@ -295,7 +296,8 @@ This is possible by supplying a higher frequency to <code>pad_by_time()</code>.<
 #&gt; </span><span style='color: #555555;'>4</span><span> 2015-01-01     5</div><div class='input'>
 
 <span class='co'># Detects missing quarter, and pads the missing regularly spaced quarter with NA</span>
-<span class='no'>missing_data_tbl</span> <span class='kw'>%&gt;%</span> <span class='fu'>pad_by_time</span>(<span class='no'>date</span>, <span class='kw'>.by</span> <span class='kw'>=</span> <span class='st'>"quarter"</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 5 x 2</span><span>
+<span class='va'>missing_data_tbl</span> <span class='op'>%&gt;%</span> <span class='fu'>pad_by_time</span><span class='op'>(</span><span class='va'>date</span>, .by <span class='op'>=</span> <span class='st'>"quarter"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 5 x 2</span><span>
 #&gt;   date       value
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
 #&gt; </span><span style='color: #555555;'>1</span><span> 2014-01-01     1
@@ -304,7 +306,8 @@ This is possible by supplying a higher frequency to <code>pad_by_time()</code>.<
 #&gt; </span><span style='color: #555555;'>4</span><span> 2014-10-01    </span><span style='color: #BB0000;'>NA</span><span>
 #&gt; </span><span style='color: #555555;'>5</span><span> 2015-01-01     5</div><div class='input'>
 <span class='co'># Can specify a shorter period. This fills monthly.</span>
-<span class='no'>missing_data_tbl</span> <span class='kw'>%&gt;%</span> <span class='fu'>pad_by_time</span>(<span class='no'>date</span>, <span class='kw'>.by</span> <span class='kw'>=</span> <span class='st'>"month"</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 13 x 2</span><span>
+<span class='va'>missing_data_tbl</span> <span class='op'>%&gt;%</span> <span class='fu'>pad_by_time</span><span class='op'>(</span><span class='va'>date</span>, .by <span class='op'>=</span> <span class='st'>"month"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 13 x 2</span><span>
 #&gt;    date       value
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
 #&gt; </span><span style='color: #555555;'> 1</span><span> 2014-01-01     1
@@ -321,7 +324,8 @@ This is possible by supplying a higher frequency to <code>pad_by_time()</code>.<
 #&gt; </span><span style='color: #555555;'>12</span><span> 2014-12-01    </span><span style='color: #BB0000;'>NA</span><span>
 #&gt; </span><span style='color: #555555;'>13</span><span> 2015-01-01     5</div><div class='input'>
 <span class='co'># Can let pad_by_time() auto-detect date and period</span>
-<span class='no'>missing_data_tbl</span> <span class='kw'>%&gt;%</span> <span class='fu'>pad_by_time</span>()</div><div class='output co'>#&gt; <span class='message'>.date_var is missing. Using: date</span></div><div class='output co'>#&gt; <span class='message'>pad applied on the interval: quarter</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 5 x 2</span><span>
+<span class='va'>missing_data_tbl</span> <span class='op'>%&gt;%</span> <span class='fu'>pad_by_time</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>.date_var is missing. Using: date</span></div><div class='output co'>#&gt; <span class='message'>pad applied on the interval: quarter</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 5 x 2</span><span>
 #&gt;   date       value
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
 #&gt; </span><span style='color: #555555;'>1</span><span> 2014-01-01     1
@@ -330,7 +334,8 @@ This is possible by supplying a higher frequency to <code>pad_by_time()</code>.<
 #&gt; </span><span style='color: #555555;'>4</span><span> 2014-10-01    </span><span style='color: #BB0000;'>NA</span><span>
 #&gt; </span><span style='color: #555555;'>5</span><span> 2015-01-01     5</div><div class='input'>
 <span class='co'># Can specify a .pad_value</span>
-<span class='no'>missing_data_tbl</span> <span class='kw'>%&gt;%</span> <span class='fu'>pad_by_time</span>(<span class='no'>date</span>, <span class='kw'>.by</span> <span class='kw'>=</span> <span class='st'>"quarter"</span>, <span class='kw'>.pad_value</span> <span class='kw'>=</span> <span class='fl'>0</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 5 x 2</span><span>
+<span class='va'>missing_data_tbl</span> <span class='op'>%&gt;%</span> <span class='fu'>pad_by_time</span><span class='op'>(</span><span class='va'>date</span>, .by <span class='op'>=</span> <span class='st'>"quarter"</span>, .pad_value <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 5 x 2</span><span>
 #&gt;   date       value
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
 #&gt; </span><span style='color: #555555;'>1</span><span> 2014-01-01     1
@@ -339,9 +344,10 @@ This is possible by supplying a higher frequency to <code>pad_by_time()</code>.<
 #&gt; </span><span style='color: #555555;'>4</span><span> 2014-10-01     0
 #&gt; </span><span style='color: #555555;'>5</span><span> 2015-01-01     5</div><div class='input'>
 <span class='co'># Can then impute missing values</span>
-<span class='no'>missing_data_tbl</span> <span class='kw'>%&gt;%</span>
-    <span class='fu'>pad_by_time</span>(<span class='no'>date</span>, <span class='kw'>.by</span> <span class='kw'>=</span> <span class='st'>"quarter"</span>) <span class='kw'>%&gt;%</span>
-    <span class='fu'>mutate</span>(<span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'><a href='ts_impute_vec.html'>ts_impute_vec</a></span>(<span class='no'>value</span>, <span class='kw'>period</span> <span class='kw'>=</span> <span class='fl'>1</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 5 x 2</span><span>
+<span class='va'>missing_data_tbl</span> <span class='op'>%&gt;%</span>
+    <span class='fu'>pad_by_time</span><span class='op'>(</span><span class='va'>date</span>, .by <span class='op'>=</span> <span class='st'>"quarter"</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>value <span class='op'>=</span> <span class='fu'><a href='ts_impute_vec.html'>ts_impute_vec</a></span><span class='op'>(</span><span class='va'>value</span>, period <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 5 x 2</span><span>
 #&gt;   date       value
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
 #&gt; </span><span style='color: #555555;'>1</span><span> 2014-01-01     1
@@ -350,8 +356,9 @@ This is possible by supplying a higher frequency to <code>pad_by_time()</code>.<
 #&gt; </span><span style='color: #555555;'>4</span><span> 2014-10-01     4
 #&gt; </span><span style='color: #555555;'>5</span><span> 2015-01-01     5</div><div class='input'>
 <span class='co'># Can specify a custom .start_date and .end_date</span>
-<span class='no'>missing_data_tbl</span> <span class='kw'>%&gt;%</span>
-   <span class='fu'>pad_by_time</span>(<span class='no'>date</span>, <span class='kw'>.by</span> <span class='kw'>=</span> <span class='st'>"quarter"</span>, <span class='kw'>.start_date</span> <span class='kw'>=</span> <span class='st'>"2013"</span>, <span class='kw'>.end_date</span> <span class='kw'>=</span> <span class='st'>"2015-07-01"</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 11 x 2</span><span>
+<span class='va'>missing_data_tbl</span> <span class='op'>%&gt;%</span>
+   <span class='fu'>pad_by_time</span><span class='op'>(</span><span class='va'>date</span>, .by <span class='op'>=</span> <span class='st'>"quarter"</span>, .start_date <span class='op'>=</span> <span class='st'>"2013"</span>, .end_date <span class='op'>=</span> <span class='st'>"2015-07-01"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 11 x 2</span><span>
 #&gt;    date       value
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
 #&gt; </span><span style='color: #555555;'> 1</span><span> 2013-01-01    </span><span style='color: #BB0000;'>NA</span><span>
@@ -366,10 +373,11 @@ This is possible by supplying a higher frequency to <code>pad_by_time()</code>.<
 #&gt; </span><span style='color: #555555;'>10</span><span> 2015-04-01    </span><span style='color: #BB0000;'>NA</span><span>
 #&gt; </span><span style='color: #555555;'>11</span><span> 2015-07-01    </span><span style='color: #BB0000;'>NA</span><span></div><div class='input'>
 <span class='co'># Can specify a tidyr::fill() direction</span>
-<span class='no'>missing_data_tbl</span> <span class='kw'>%&gt;%</span>
-   <span class='fu'>pad_by_time</span>(<span class='no'>date</span>, <span class='kw'>.by</span> <span class='kw'>=</span> <span class='st'>"quarter"</span>,
-               <span class='kw'>.fill_na_direction</span> <span class='kw'>=</span> <span class='st'>"downup"</span>,
-               <span class='kw'>.start_date</span> <span class='kw'>=</span> <span class='st'>"2013"</span>, <span class='kw'>.end_date</span> <span class='kw'>=</span> <span class='st'>"2015-07-01"</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 11 x 2</span><span>
+<span class='va'>missing_data_tbl</span> <span class='op'>%&gt;%</span>
+   <span class='fu'>pad_by_time</span><span class='op'>(</span><span class='va'>date</span>, .by <span class='op'>=</span> <span class='st'>"quarter"</span>,
+               .fill_na_direction <span class='op'>=</span> <span class='st'>"downup"</span>,
+               .start_date <span class='op'>=</span> <span class='st'>"2013"</span>, .end_date <span class='op'>=</span> <span class='st'>"2015-07-01"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 11 x 2</span><span>
 #&gt;    date       value
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
 #&gt; </span><span style='color: #555555;'> 1</span><span> 2013-01-01     1
@@ -386,9 +394,10 @@ This is possible by supplying a higher frequency to <code>pad_by_time()</code>.<
 <span class='co'># --- GROUPS ----</span>
 
 <span class='co'># Apply standard NA padding to groups</span>
-<span class='no'>FANG</span> <span class='kw'>%&gt;%</span>
-    <span class='fu'>group_by</span>(<span class='no'>symbol</span>) <span class='kw'>%&gt;%</span>
-    <span class='fu'>pad_by_time</span>(<span class='kw'>.by</span> <span class='kw'>=</span> <span class='st'>"day"</span>)</div><div class='output co'>#&gt; <span class='message'>.date_var is missing. Using: date</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 5,836 x 8</span><span>
+<span class='va'>FANG</span> <span class='op'>%&gt;%</span>
+    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>symbol</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+    <span class='fu'>pad_by_time</span><span class='op'>(</span>.by <span class='op'>=</span> <span class='st'>"day"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>.date_var is missing. Using: date</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 5,836 x 8</span><span>
 #&gt; </span><span style='color: #555555;'># Groups:   symbol [4]</span><span>
 #&gt;    symbol date        open  high   low close    volume adjusted
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
@@ -404,9 +413,10 @@ This is possible by supplying a higher frequency to <code>pad_by_time()</code>.<
 #&gt; </span><span style='color: #555555;'>10</span><span> FB     2013-01-11  31.3  32.0  31.1  31.7  89</span><span style='text-decoration: underline;'>598</span><span>000     31.7
 #&gt; </span><span style='color: #555555;'># … with 5,826 more rows</span><span></div><div class='input'>
 <span class='co'># Apply filled padding to groups</span>
-<span class='no'>FANG</span> <span class='kw'>%&gt;%</span>
-    <span class='fu'>group_by</span>(<span class='no'>symbol</span>) <span class='kw'>%&gt;%</span>
-    <span class='fu'>pad_by_time</span>(<span class='kw'>.by</span> <span class='kw'>=</span> <span class='st'>"day"</span>, <span class='kw'>.fill_na_direction</span> <span class='kw'>=</span> <span class='st'>"down"</span>)</div><div class='output co'>#&gt; <span class='message'>.date_var is missing. Using: date</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 5,836 x 8</span><span>
+<span class='va'>FANG</span> <span class='op'>%&gt;%</span>
+    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>symbol</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+    <span class='fu'>pad_by_time</span><span class='op'>(</span>.by <span class='op'>=</span> <span class='st'>"day"</span>, .fill_na_direction <span class='op'>=</span> <span class='st'>"down"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>.date_var is missing. Using: date</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 5,836 x 8</span><span>
 #&gt; </span><span style='color: #555555;'># Groups:   symbol [4]</span><span>
 #&gt;    symbol date        open  high   low close    volume adjusted
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
@@ -437,7 +447,7 @@ This is possible by supplying a higher frequency to <code>pad_by_time()</code>.<
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
