@@ -1,3 +1,5 @@
+# TSCV ----
+
 #' Time Series Cross Validation
 #'
 #' Create `rsample` cross validation sets for time series.
@@ -60,6 +62,15 @@
 #' This controls the number of slices. If `slice_limit = 5`, only the most recent
 #' 5 slices will be returned.
 #'
+#' __Panel Data / Time Series Groups / Overlapping Timestamps__
+#'
+#' Overlapping timestamps occur when your data has more than one
+#' time series group. This is sometimes called _Panel Data_ or _Time Series Groups_.
+#'
+#' When timestamps are duplicated (as in the case of "Panel Data" or "Time Series Groups"),
+#' the resample calculation applies a sliding window of
+#' fixed length to the dataset. See the example using `walmart_sales_weekly`
+#' dataset below.
 #'
 #'
 #' @return An tibble with classes `time_series_cv`, `rset`, `tbl_df`, `tbl`,
@@ -82,7 +93,6 @@
 #' # DATA ----
 #' m750 <- m4_monthly %>% filter(id == "M750")
 #'
-#' m750 %>% plot_time_series(date, value)
 #'
 #' # RESAMPLE SPEC ----
 #' resample_spec <- time_series_cv(data = m750,
@@ -100,13 +110,38 @@
 #' resample_spec %>% tk_time_series_cv_plan()
 #'
 #' # Plot the date and value columns to see the CV Plan
-#' resample_spec %>% plot_time_series_cv_plan(date, value, .interactive = FALSE)
+#' resample_spec %>%
+#'     plot_time_series_cv_plan(date, value, .interactive = FALSE)
+#'
+#'
+#' # PANEL DATA / TIME SERIES GROUPS ----
+#' # - Time Series Groups are processed using an *ungrouped* data set
+#' # - The data has sliding windows applied starting with the beginning of the series
+#' # - The seven groups of weekly time series are
+#' #   processed together for <split [358/78]> dimensions
+#'
+#' walmart_tscv <- walmart_sales_weekly %>%
+#'     time_series_cv(
+#'         date_var    = Date,
+#'         initial     = "12 months",
+#'         assess      = "3 months",
+#'         skip        = "3 months",
+#'         slice_limit = 4
+#'     )
+#'
+#' walmart_tscv
+#'
+#' walmart_tscv %>%
+#'     plot_time_series_cv_plan(Date, Weekly_Sales, .interactive = FALSE)
 #'
 #' @export
 #' @importFrom dplyr n
 time_series_cv <- function(data, date_var = NULL, initial = 5, assess = 1,
                            skip = 1, lag = 0, cumulative = FALSE,
                            slice_limit = n(), ...) {
+
+    if (!inherits(data, "data.frame")) rlang::abort("'data' must be an object of class `data.frame`.")
+    if (inherits(data, "grouped_df")) message("Groups detected. Removing groups.")
 
     date_var_expr <- rlang::enquo(date_var)
 
@@ -118,13 +153,35 @@ time_series_cv <- function(data, date_var = NULL, initial = 5, assess = 1,
     }
 
     # Make sure arranged by date variable
+    original_date_vec <- data %>% dplyr::pull(!! date_var_expr)
     data <- data %>%
+        dplyr::ungroup() %>%
         dplyr::arrange(!! date_var_expr)
+    sorted_date_vec <- data %>% dplyr::pull(!! date_var_expr)
 
-    # CHECK - Duplicated Timestamps
-    # TODO
+    if (!identical(original_date_vec, sorted_date_vec)) message(stringr::str_glue("Data is not ordered by the 'date_var'. Resamples will be arranged by `{rlang::as_label(date_var_expr)}`."))
 
-    # TIME-BASED PHRASES ----
+    # 1.0 HANDLE DUPLICATED TIMESTAMPS ----
+    # - Index table finds unique timestamps in data, creating a lookup table matching
+    #   the row ID to the unique timestamp.
+    #   This is important in instances with duplicated time stamps
+    lookup_table <- data %>%
+        tibble::rowid_to_column(".rowid")
+
+    index_table <- lookup_table %>%
+        dplyr::select(.rowid, !! date_var_expr) %>%
+        dplyr::group_by(!! date_var_expr) %>%
+        dplyr::slice_min(.rowid) %>%
+        dplyr::ungroup() %>%
+        dplyr::mutate(idx = 1:dplyr::n())
+
+    timestamps_duplicated <- FALSE
+    if (nrow(data) > nrow(index_table)) {
+        message("Overlapping Timestamps Detected. Processing overlapping time series together using sliding windows.")
+        timestamps_duplicated <- TRUE
+    }
+
+    # 2.0 CONVERT TIME-BASED PHRASES ----
     character_args <- c(
         is.character(initial),
         is.character(assess),
@@ -136,29 +193,29 @@ time_series_cv <- function(data, date_var = NULL, initial = 5, assess = 1,
 
         # initial
         if (character_args[1]) {
-            initial <- period_chr_to_n(data, !! date_var_expr, period = initial)
+            initial <- period_chr_to_n(index_table, !! date_var_expr, period = initial)
         }
 
         # assess
         if (character_args[2]) {
-            assess <- period_chr_to_n(data, !! date_var_expr, period = assess)
+            assess <- period_chr_to_n(index_table, !! date_var_expr, period = assess)
         }
 
         # skip
         if (character_args[3]) {
-            skip <- period_chr_to_n(data, !! date_var_expr, period = skip)
+            skip <- period_chr_to_n(index_table, !! date_var_expr, period = skip)
         }
 
         # initial
         if (character_args[4]) {
-            lag <- period_chr_to_n(data, !! date_var_expr, period = lag)
+            lag <- period_chr_to_n(index_table, !! date_var_expr, period = lag)
         }
 
     }
 
 
-    # CROSS VALIDATION SETS ----
-    n <- nrow(data)
+    # 3.0 CHECK INPUTS ----
+    n <- nrow(index_table)
 
     if (n < initial + assess) {
         stop("There should be at least ",
@@ -179,10 +236,9 @@ time_series_cv <- function(data, date_var = NULL, initial = 5, assess = 1,
         stop("`lag` must be less than or equal to the number of training observations.", call. = FALSE)
     }
 
-    # IMPLEMENT REVERSED ROLLING ORIGIN ----
+    # 4.0 REVERSE ROLLING ORIGIN ----
 
     # Update assess to account for lag (added to backend of assess)
-    # stops <- n - seq(initial, (n - assess), by = skip + 1)
     stops <- n - seq(assess, (n - initial), by = skip)
 
     # Adjust starts for cumulative vs sliding period
@@ -202,17 +258,32 @@ time_series_cv <- function(data, date_var = NULL, initial = 5, assess = 1,
     starts <- starts_stops_tbl$starts
     stops  <- starts_stops_tbl$stops
 
-    # --- END REVERSE ----
+    # 5.0 MAP STARTS/STOPS TO ROW IDs ----
+    # - Should only be required when duplicated timestamps
+    get_row_ids <- function(idx) {
+        tibble::tibble(idx = idx) %>%
+            dplyr::left_join(index_table, by = "idx") %>%
+            dplyr::pull(.rowid)
+    }
 
-    in_ind <- mapply(seq, starts, stops, SIMPLIFY = FALSE)
-    out_ind <-
-        mapply(seq, stops + 1 - lag, stops + assess, SIMPLIFY = FALSE)
-    indices <- mapply(merge_lists, in_ind, out_ind, SIMPLIFY = FALSE)
+    starts_conv       <- get_row_ids(starts)
+    stops_conv        <- get_row_ids(stops)
+    stops_lag_conv    <- get_row_ids(stops + 1 - lag)
+    stops_assess_conv <- get_row_ids(stops + assess)
+
+    # 6.0 SELECT INDICIES -----
+    in_ind  <- mapply(seq, starts_conv, stops_conv, SIMPLIFY = FALSE)
+    out_ind <- mapply(seq, stops_lag_conv, stops_assess_conv, SIMPLIFY = FALSE)
+
+    # 7.0 MAKE SPLIT OBJECTS ----
+    indices    <- mapply(merge_lists, in_ind, out_ind, SIMPLIFY = FALSE)
     split_objs <- purrr::map(indices, .f = rsample::make_splits, data = data, class = "ts_cv_split")
-    split_objs <- list(splits = split_objs,
-                       id = names0(length(split_objs), "Slice"))
+    split_objs <- list(
+        splits = split_objs,
+        id     = recipes::names0(length(split_objs), prefix = "Slice")
+    )
 
-    # Create New Rset
+    # 8.0 Create New Rset ----
     ret <- rsample::new_rset(
         splits   = split_objs$splits,
         ids      = split_objs$id,
@@ -349,8 +420,9 @@ merge_lists <- function(a, b) {
 
 period_chr_to_n <- function(data, date_var, period) {
     idx <- data %>% dplyr::pull(!! rlang::enquo(date_var))
+    end <- idx[1] %+time% period
     row_count <- data %>%
-        filter_by_time(!! rlang::enquo(date_var), "start", idx[1] %+time% period) %>%
+        filter_by_time(.date_var = !! rlang::enquo(date_var), .start_date = "start", .end_date = end) %>%
         nrow()
 
     row_count - 1

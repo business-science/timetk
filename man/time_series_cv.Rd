@@ -99,6 +99,16 @@ set and resampling occurs over a fixed window.
 
 This controls the number of slices. If \code{slice_limit = 5}, only the most recent
 5 slices will be returned.
+
+\strong{Panel Data / Time Series Groups / Overlapping Timestamps}
+
+Overlapping timestamps occur when your data has more than one
+time series group. This is sometimes called \emph{Panel Data} or \emph{Time Series Groups}.
+
+When timestamps are duplicated (as in the case of "Panel Data" or "Time Series Groups"),
+the resample calculation applies a sliding window of
+fixed length to the dataset. See the example using \code{walmart_sales_weekly}
+dataset below.
 }
 \examples{
 library(tidyverse)
@@ -107,7 +117,6 @@ library(timetk)
 # DATA ----
 m750 <- m4_monthly \%>\% filter(id == "M750")
 
-m750 \%>\% plot_time_series(date, value)
 
 # RESAMPLE SPEC ----
 resample_spec <- time_series_cv(data = m750,
@@ -125,7 +134,29 @@ resample_spec
 resample_spec \%>\% tk_time_series_cv_plan()
 
 # Plot the date and value columns to see the CV Plan
-resample_spec \%>\% plot_time_series_cv_plan(date, value, .interactive = FALSE)
+resample_spec \%>\%
+    plot_time_series_cv_plan(date, value, .interactive = FALSE)
+
+
+# PANEL DATA / TIME SERIES GROUPS ----
+# - Time Series Groups are processed using an *ungrouped* data set
+# - The data has sliding windows applied starting with the beginning of the series
+# - The seven groups of weekly time series are
+#   processed together for <split [358/78]> dimensions
+
+walmart_tscv <- walmart_sales_weekly \%>\%
+    time_series_cv(
+        date_var    = Date,
+        initial     = "12 months",
+        assess      = "3 months",
+        skip        = "3 months",
+        slice_limit = 4
+    )
+
+walmart_tscv
+
+walmart_tscv \%>\%
+    plot_time_series_cv_plan(Date, Weekly_Sales, .interactive = FALSE)
 
 }
 \seealso{

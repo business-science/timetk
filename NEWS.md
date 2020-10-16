@@ -1,5 +1,11 @@
 # timetk (development version)
 
+__Improvements__
+
+- `time_series_cv()`: Now works with time series groups. 
+
+__Miscellaneous__
+
 - Tune startup messages (#63)
 
 # timetk 2.4.0
