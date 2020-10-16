@@ -37,12 +37,15 @@ maybe_register_s3_methods <- function() {
 
     # ----------------------------------------------------------------------------
 
-    req_pkgs_names <- grep("^required_pkgs\\.", names, value = TRUE)
-    req_pkgs_classes <- gsub("required_pkgs.", "", req_pkgs_names)
+    if (rlang::is_installed("tune") && utils::packageVersion("tune") >= "0.1.1.9000") {
 
-    for (i in seq_along(req_pkgs_names)) {
-        class <- req_pkgs_classes[[i]]
-        s3_register("tune::required_pkgs", class)
+        req_pkgs_names <- grep("^required_pkgs\\.", names, value = TRUE)
+        req_pkgs_classes <- gsub("required_pkgs.", "", req_pkgs_names)
+
+        for (i in seq_along(req_pkgs_names)) {
+            class <- req_pkgs_classes[[i]]
+            s3_register("tune::required_pkgs", class)
+        }
     }
 
     # ----------------------------------------------------------------------------
