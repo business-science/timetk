@@ -260,29 +260,29 @@ using <code><a href='https://rdrr.io/pkg/xts/man/xts.html'>xts::xts()</a></code>
 <span class='co'># xts: Character columns cause coercion issues; order.by must be passed a vector of dates</span>
 <span class='fu'>xts</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/xts/man/xts.html'>xts</a></span><span class='op'>(</span><span class='va'>data_tbl</span><span class='op'>[</span>,<span class='op'>-</span><span class='fl'>1</span><span class='op'>]</span>, order.by <span class='op'>=</span> <span class='va'>data_tbl</span><span class='op'>$</span><span class='va'>date</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;            x            y    z           
-#&gt; 2016-01-01 "chr values" " 1" " -2.675604"
-#&gt; 2016-01-02 "chr values" " 3" " -5.594445"
-#&gt; 2016-01-03 "chr values" " 6" " -8.756523"
-#&gt; 2016-01-04 "chr values" "10" "-12.161837"
-#&gt; 2016-01-05 "chr values" "15" "-15.810388"</div><div class='input'>
+#&gt; 2016-01-01 "chr values" " 1" " -8.494113"
+#&gt; 2016-01-02 "chr values" " 3" "-17.760418"
+#&gt; 2016-01-03 "chr values" " 6" "-27.798915"
+#&gt; 2016-01-04 "chr values" "10" "-38.609605"
+#&gt; 2016-01-05 "chr values" "15" "-50.192486"</div><div class='input'>
 <span class='co'># tk_xts: Non-numeric columns automatically dropped; No need to specify date column</span>
 <span class='fu'>tk_xts</span><span class='op'>(</span><span class='va'>data_tbl</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='warning'>Warning: Non-numeric columns being dropped: date, x</span></div><div class='output co'>#&gt; <span class='message'>Using column `date` for date_var.</span></div><div class='output co'>#&gt;             y          z
-#&gt; 2016-01-01  1  -2.675604
-#&gt; 2016-01-02  3  -5.594445
-#&gt; 2016-01-03  6  -8.756523
-#&gt; 2016-01-04 10 -12.161837
-#&gt; 2016-01-05 15 -15.810388</div><div class='input'>
+#&gt; 2016-01-01  1  -8.494113
+#&gt; 2016-01-02  3 -17.760418
+#&gt; 2016-01-03  6 -27.798915
+#&gt; 2016-01-04 10 -38.609605
+#&gt; 2016-01-05 15 -50.192486</div><div class='input'>
 <span class='co'># ts can be coerced back to xts</span>
 <span class='va'>data_tbl</span> <span class='op'>%&gt;%</span>
     <span class='fu'><a href='tk_ts.html'>tk_ts</a></span><span class='op'>(</span>start <span class='op'>=</span> <span class='fl'>2016</span>, freq <span class='op'>=</span> <span class='fl'>365</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
     <span class='fu'>tk_xts</span><span class='op'>(</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='warning'>Warning: Non-numeric columns being dropped: date, x</span></div><div class='output co'>#&gt;             y          z
-#&gt; 2016-01-01  1  -2.675604
-#&gt; 2016-01-02  3  -5.594445
-#&gt; 2016-01-03  6  -8.756523
-#&gt; 2016-01-04 10 -12.161837
-#&gt; 2016-01-05 15 -15.810388</div><div class='input'>
+#&gt; 2016-01-01  1  -8.494113
+#&gt; 2016-01-02  3 -17.760418
+#&gt; 2016-01-03  6 -27.798915
+#&gt; 2016-01-04 10 -38.609605
+#&gt; 2016-01-05 15 -50.192486</div><div class='input'>
 <span class='co'>### Using select and date_var</span>
 <span class='fu'>tk_xts</span><span class='op'>(</span><span class='va'>data_tbl</span>, select <span class='op'>=</span> <span class='va'>y</span>, date_var <span class='op'>=</span> <span class='va'>date</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;             y
