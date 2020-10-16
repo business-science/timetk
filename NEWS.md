@@ -1,5 +1,7 @@
 # timetk (development version)
 
+- Tune startup messages (#63)
+
 # timetk 2.4.0
 
 - `step_slidify_agument()` - A variant of step slidify that adds multiple rolling columns inside of a recipe. 

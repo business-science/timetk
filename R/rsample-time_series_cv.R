@@ -110,6 +110,20 @@ time_series_cv <- function(data, date_var = NULL, initial = 5, assess = 1,
 
     date_var_expr <- rlang::enquo(date_var)
 
+    # Check date_var
+    if (rlang::quo_is_null(date_var_expr)) {
+        date_var_text <- tk_get_timeseries_variables(data)[1]
+        message("Using date_var: ", date_var_text)
+        date_var_expr <- rlang::sym(date_var_text)
+    }
+
+    # Make sure arranged by date variable
+    data <- data %>%
+        dplyr::arrange(!! date_var_expr)
+
+    # CHECK - Duplicated Timestamps
+    # TODO
+
     # TIME-BASED PHRASES ----
     character_args <- c(
         is.character(initial),
@@ -119,13 +133,6 @@ time_series_cv <- function(data, date_var = NULL, initial = 5, assess = 1,
     )
 
     if (any(character_args)) {
-
-        # Check date_var
-        if (rlang::quo_is_null(date_var_expr)) {
-            date_var_text <- tk_get_timeseries_variables(data)[1]
-            message("Using date_var: ", date_var_text)
-            date_var_expr <- rlang::sym(date_var_text)
-        }
 
         # initial
         if (character_args[1]) {
@@ -201,26 +208,26 @@ time_series_cv <- function(data, date_var = NULL, initial = 5, assess = 1,
     out_ind <-
         mapply(seq, stops + 1 - lag, stops + assess, SIMPLIFY = FALSE)
     indices <- mapply(merge_lists, in_ind, out_ind, SIMPLIFY = FALSE)
-    split_objs <-
-        purrr::map(indices, make_splits, data = data, class = "ts_cv_split")
+    split_objs <- purrr::map(indices, .f = rsample::make_splits, data = data, class = "ts_cv_split")
     split_objs <- list(splits = split_objs,
                        id = names0(length(split_objs), "Slice"))
 
-    roll_att <- list(
-        initial     = initial,
-        assess      = assess,
-        cumulative  = cumulative,
-        skip        = skip,
-        lag         = lag,
-        slice_limit = slice_limit
-    )
-
-    new_rset(
+    # Create New Rset
+    ret <- rsample::new_rset(
         splits   = split_objs$splits,
         ids      = split_objs$id,
-        attrib   = roll_att,
+        attrib   = list(
+            initial     = initial,
+            assess      = assess,
+            cumulative  = cumulative,
+            skip        = skip,
+            lag         = lag,
+            slice_limit = slice_limit
+        ),
         subclass = c("time_series_cv", "rset")
     )
+
+    return(ret)
 }
 
 #' @export
@@ -231,111 +238,113 @@ print.time_series_cv <- function(x, ...) {
     print(x, ...)
 }
 
-merge_lists <- function(a, b) list(analysis = a, assessment = b)
-
-make_splits <- function(ind, data, class = NULL) {
-    res <- rsplit(data, ind$analysis,  ind$assessment)
-    if (!is.null(class))
-        res <- add_class(res, class)
-    res
+merge_lists <- function(a, b) {
+    list(analysis = a, assessment = b)
 }
 
-new_rset <-  function(splits, ids, attrib = NULL,
-                      subclass = character()) {
-    stopifnot(is.list(splits))
-    if (!tibble::is_tibble(ids)) {
-        ids <- tibble::tibble(id = ids)
-    } else {
-        if (!all(grepl("^id", names(ids))))
-            stop("The `ids` tibble column names should start with 'id'",
-                 call. = FALSE)
-    }
-    either_type <- function(x) {
-        is.character(x) | is.factor(x)
-    }
+# make_splits <- function(ind, data, class = NULL) {
+#     res <- rsplit(data, ind$analysis,  ind$assessment)
+#     if (!is.null(class))
+#         res <- add_class(res, class)
+#     res
+# }
 
-    ch_check <- vapply(ids, either_type, c(logical = TRUE))
-    if(!all(ch_check)) {
-        stop("All ID columns should be character or factor ",
-             "vectors.", call. = FALSE)
-    }
+# new_rset <-  function(splits, ids, attrib = NULL,
+#                       subclass = character()) {
+#     stopifnot(is.list(splits))
+#     if (!tibble::is_tibble(ids)) {
+#         ids <- tibble::tibble(id = ids)
+#     } else {
+#         if (!all(grepl("^id", names(ids))))
+#             stop("The `ids` tibble column names should start with 'id'",
+#                  call. = FALSE)
+#     }
+#     either_type <- function(x) {
+#         is.character(x) | is.factor(x)
+#     }
+#
+#     ch_check <- vapply(ids, either_type, c(logical = TRUE))
+#     if(!all(ch_check)) {
+#         stop("All ID columns should be character or factor ",
+#              "vectors.", call. = FALSE)
+#     }
+#
+#     if (!tibble::is_tibble(splits)) {
+#         splits <- tibble::tibble(splits = splits)
+#     } else {
+#         if(ncol(splits) > 1 | names(splits)[1] != "splits")
+#             stop("The `splits` tibble should have a single column ",
+#                  "named `splits`.", call. = FALSE)
+#     }
+#
+#     if (nrow(ids) != nrow(splits)) {
+#         stop("Split and ID vectors have different lengths.",
+#              call. = FALSE)
+#     }
+#
+#
+#     # Create another element to the splits that is a tibble containing
+#     # an identifer for each id column so that, in isolation, the resample
+#     # id can be known just based on the `rsplit` object. This can then be
+#     # accessed using the `labels` methof for `rsplits`
+#
+#     splits$splits <- purrr::map2(splits$splits, split(ids, 1:nrow(ids)), add_id)
+#
+#     res <- dplyr::bind_cols(splits, ids)
+#
+#     if (!is.null(attrib)) {
+#         if (any(names(attrib) == ""))
+#             stop("`attrib` should be a fully named list.",
+#                  call. = FALSE)
+#         for (i in names(attrib))
+#             attr(res, i) <- attrib[[i]]
+#     }
+#
+#     if (length(subclass) > 0) {
+#         res <- add_class(res, cls = subclass, at_end = FALSE)
+#     }
+#
+#     res
+# }
 
-    if (!tibble::is_tibble(splits)) {
-        splits <- tibble::tibble(splits = splits)
-    } else {
-        if(ncol(splits) > 1 | names(splits)[1] != "splits")
-            stop("The `splits` tibble should have a single column ",
-                 "named `splits`.", call. = FALSE)
-    }
-
-    if (nrow(ids) != nrow(splits)) {
-        stop("Split and ID vectors have different lengths.",
-             call. = FALSE)
-    }
-
-
-    # Create another element to the splits that is a tibble containing
-    # an identifer for each id column so that, in isolation, the resample
-    # id can be known just based on the `rsplit` object. This can then be
-    # accessed using the `labels` methof for `rsplits`
-
-    splits$splits <- purrr::map2(splits$splits, split(ids, 1:nrow(ids)), add_id)
-
-    res <- dplyr::bind_cols(splits, ids)
-
-    if (!is.null(attrib)) {
-        if (any(names(attrib) == ""))
-            stop("`attrib` should be a fully named list.",
-                 call. = FALSE)
-        for (i in names(attrib))
-            attr(res, i) <- attrib[[i]]
-    }
-
-    if (length(subclass) > 0) {
-        res <- add_class(res, cls = subclass, at_end = FALSE)
-    }
-
-    res
-}
-
-rsplit <- function(data, in_id, out_id) {
-    if (!is.data.frame(data) & !is.matrix(data))
-        stop("`data` must be a data frame.", call. = FALSE)
-
-    if (!is.integer(in_id) | any(in_id < 1))
-        stop("`in_id` must be a positive integer vector.", call. = FALSE)
-
-    if(!all(is.na(out_id))) {
-        if (!is.integer(out_id) | any(out_id < 1))
-            stop("`out_id` must be a positive integer vector.", call. = FALSE)
-    }
-
-    if (length(in_id) == 0)
-        stop("At least one row should be selected for the analysis set.",
-             call. = FALSE)
-
-    structure(
-        list(
-            data = data,
-            in_id = in_id,
-            out_id = out_id
-        ),
-        class = "rsplit"
-    )
-}
-
-add_class <- function(x, cls, at_end = TRUE) {
-    class(x) <- if (at_end)
-        c(class(x), cls)
-    else
-        c(cls, class(x))
-    x
-}
-
-add_id <- function(split, id) {
-    split$id <- id
-    split
-}
+# rsplit <- function(data, in_id, out_id) {
+#     if (!is.data.frame(data) & !is.matrix(data))
+#         stop("`data` must be a data frame.", call. = FALSE)
+#
+#     if (!is.integer(in_id) | any(in_id < 1))
+#         stop("`in_id` must be a positive integer vector.", call. = FALSE)
+#
+#     if(!all(is.na(out_id))) {
+#         if (!is.integer(out_id) | any(out_id < 1))
+#             stop("`out_id` must be a positive integer vector.", call. = FALSE)
+#     }
+#
+#     if (length(in_id) == 0)
+#         stop("At least one row should be selected for the analysis set.",
+#              call. = FALSE)
+#
+#     structure(
+#         list(
+#             data = data,
+#             in_id = in_id,
+#             out_id = out_id
+#         ),
+#         class = "rsplit"
+#     )
+# }
+#
+# add_class <- function(x, cls, at_end = TRUE) {
+#     class(x) <- if (at_end)
+#         c(class(x), cls)
+#     else
+#         c(cls, class(x))
+#     x
+# }
+#
+# add_id <- function(split, id) {
+#     split$id <- id
+#     split
+# }
 
 
 period_chr_to_n <- function(data, date_var, period) {

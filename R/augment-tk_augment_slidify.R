@@ -99,7 +99,7 @@ tk_augment_slidify.data.frame <- function(.data,
                     .f       = .f,
                     ...,
                     .align   = .align[1],
-                    .partial = .partial
+                    .partial = .partial[1]
                 )
         })
 
@@ -153,7 +153,7 @@ tk_augment_slidify.grouped_df <- function(.data,
                 .f         = .f,
                 ...,
                 .align     = .align[1],
-                .partial   = .partial,
+                .partial   = .partial[1],
                 .names     = .names
             )
         )) %>%
