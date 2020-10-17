@@ -15,6 +15,8 @@
 #'  values to skip.
 #' @param .insert_values A vector of same class as `idx` of timeseries
 #'  values to insert.
+#' @param .bind_data Whether or not to perform a row-wise bind of the `.data` and
+#'  the future data. Default: `FALSE`
 #'
 #'
 #' @details
@@ -58,7 +60,26 @@
 #' - The `.insert_values` argument is useful for adding values back that the algorithm may have
 #' excluded.
 #'
+#' __Binding with Data__
 #'
+#' Rowwise binding with the original is so common that
+#' I've added an argument `.bind_data` to perform a row-wise
+#' bind of the future data and the incoming data.
+#'
+#' This _replaces_ the need to do:
+#'
+#' ```
+#' df %>%
+#'    future_frame(.length_out = "6 months") %>%
+#'    bind_rows(df, .)
+#' ```
+#'
+#' Now you can just do:
+#'
+#' ```
+#' df %>%
+#'     future_frame(.length_out = "6 months", .bind_data = TRUE)
+#' ```
 #'
 #' @return A tibble that has been extended with future date, date-time timestamps.
 #'
@@ -66,7 +87,7 @@
 #' - Making Future Time Series: [tk_make_future_timeseries()] (Underlying function)
 #'
 #' @examples
-#' library(dplyr)
+#' library(tidyverse)
 #' library(tidyquant)
 #' library(timetk)
 #'
@@ -84,6 +105,10 @@
 #'     group_by(id) %>%
 #'     future_frame(date, .length_out = 100)
 #'
+#' # Bind with Original Data
+#' m4_daily %>%
+#'     group_by(id) %>%
+#'     future_frame(date, .length_out = 100, .bind_data = TRUE)
 #'
 #' # Remove Non-Working Days (Weekends & Holidays)
 #' holidays <- tk_make_holiday_sequence(
@@ -98,7 +123,6 @@
 #'                  .skip_values      = holidays)
 #'
 #'
-#'
 #' @name future_frame
 NULL
 
@@ -106,7 +130,8 @@ NULL
 #' @rdname future_frame
 future_frame <- function(.data, .date_var, .length_out,
                          .inspect_weekdays = FALSE, .inspect_months = FALSE,
-                         .skip_values = NULL, .insert_values = NULL) {
+                         .skip_values = NULL, .insert_values = NULL,
+                         .bind_data = FALSE) {
 
     # Checks
     if (rlang::is_missing(.data)) rlang::abort("`.data` is missing.")
@@ -123,7 +148,8 @@ future_frame <- function(.data, .date_var, .length_out,
 #' @export
 future_frame.data.frame <- function(.data, .date_var, .length_out,
                                     .inspect_weekdays = FALSE, .inspect_months = FALSE,
-                                    .skip_values = NULL, .insert_values = NULL) {
+                                    .skip_values = NULL, .insert_values = NULL,
+                                    .bind_data = FALSE) {
 
     future_framer(.data             = .data,
                   .date_var         = !! enquo(.date_var),
@@ -131,7 +157,9 @@ future_frame.data.frame <- function(.data, .date_var, .length_out,
                   .inspect_weekdays = .inspect_weekdays,
                   .inspect_months   = .inspect_months,
                   .skip_values      = .skip_values,
-                  .insert_values    = .insert_values)
+                  .insert_values    = .insert_values,
+                  .bind_data        = .bind_data
+                  )
 
 
 
@@ -140,7 +168,8 @@ future_frame.data.frame <- function(.data, .date_var, .length_out,
 #' @export
 future_frame.grouped_df <- function(.data, .date_var, .length_out,
                                     .inspect_weekdays = FALSE, .inspect_months = FALSE,
-                                    .skip_values = NULL, .insert_values = NULL) {
+                                    .skip_values = NULL, .insert_values = NULL,
+                                    .bind_data = FALSE) {
 
     # Tidy Eval Setup
     group_names <- dplyr::group_vars(.data)
@@ -156,7 +185,8 @@ future_frame.grouped_df <- function(.data, .date_var, .length_out,
                 .inspect_weekdays = .inspect_weekdays,
                 .inspect_months   = .inspect_months,
                 .skip_values      = .skip_values,
-                .insert_values    = .insert_values
+                .insert_values    = .insert_values,
+                .bind_data        = .bind_data
             )
         )) %>%
         dplyr::select(-data) %>%
@@ -169,7 +199,8 @@ future_frame.grouped_df <- function(.data, .date_var, .length_out,
 #' @export
 future_frame.default <- function(.data, .date_var, .length_out,
                                  .inspect_weekdays = FALSE, .inspect_months = FALSE,
-                                 .skip_values = NULL, .insert_values = NULL) {
+                                 .skip_values = NULL, .insert_values = NULL,
+                                 .bind_data = FALSE) {
     rlang::abort("Object is not of class `data.frame`.")
 }
 
@@ -177,7 +208,8 @@ future_frame.default <- function(.data, .date_var, .length_out,
 
 future_framer <- function(.data, .date_var, .length_out,
                           .inspect_weekdays = FALSE, .inspect_months = FALSE,
-                          .skip_values = NULL, .insert_values = NULL) {
+                          .skip_values = NULL, .insert_values = NULL,
+                          .bind_data = FALSE) {
 
     date_var_expr <- rlang::enquo(.date_var)
 
@@ -201,6 +233,11 @@ future_framer <- function(.data, .date_var, .length_out,
     ret <- tibble::tibble(
         !! idx_name := idx_future
     )
+
+    if (.bind_data) {
+        ret <- .data %>%
+            dplyr::bind_rows(ret)
+    }
 
     return(ret)
 

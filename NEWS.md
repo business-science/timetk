@@ -2,7 +2,9 @@
 
 __Improvements__
 
-- `time_series_cv()`: Now works with time series groups. 
+- `time_series_cv()`: Now works with time series groups. This is great for working with panel data. 
+- `future_frame()`: Gets a new argument called `.bind_data`. When set to `TRUE`, it performs a data
+  binding operation with the incoming data and the future frame. 
 
 __Miscellaneous__
 

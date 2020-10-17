@@ -11,7 +11,8 @@ future_frame(
   .inspect_weekdays = FALSE,
   .inspect_months = FALSE,
   .skip_values = NULL,
-  .insert_values = NULL
+  .insert_values = NULL,
+  .bind_data = FALSE
 )
 }
 \arguments{
@@ -36,6 +37,9 @@ values to skip.}
 
 \item{.insert_values}{A vector of same class as \code{idx} of timeseries
 values to insert.}
+
+\item{.bind_data}{Whether or not to perform a row-wise bind of the \code{.data} and
+the future data. Default: \code{FALSE}}
 }
 \value{
 A tibble that has been extended with future date, date-time timestamps.
@@ -88,9 +92,24 @@ be excluded from the future time series.
 \item The \code{.insert_values} argument is useful for adding values back that the algorithm may have
 excluded.
 }
+
+\strong{Binding with Data}
+
+Rowwise binding with the original is so common that
+I've added an argument \code{.bind_data} to perform a row-wise
+bind of the future data and the incoming data.
+
+This \emph{replaces} the need to do:\preformatted{df \%>\%
+   future_frame(.length_out = "6 months") \%>\%
+   bind_rows(df, .)
+}
+
+Now you can just do:\preformatted{df \%>\%
+    future_frame(.length_out = "6 months", .bind_data = TRUE)
+}
 }
 \examples{
-library(dplyr)
+library(tidyverse)
 library(tidyquant)
 library(timetk)
 
@@ -108,6 +127,10 @@ m4_daily \%>\%
     group_by(id) \%>\%
     future_frame(date, .length_out = 100)
 
+# Bind with Original Data
+m4_daily \%>\%
+    group_by(id) \%>\%
+    future_frame(date, .length_out = 100, .bind_data = TRUE)
 
 # Remove Non-Working Days (Weekends & Holidays)
 holidays <- tk_make_holiday_sequence(
@@ -120,7 +143,6 @@ FANG \%>\%
     future_frame(.length_out       = "1 year",
                  .inspect_weekdays = TRUE,
                  .skip_values      = holidays)
-
 
 
 }

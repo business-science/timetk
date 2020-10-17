@@ -192,7 +192,8 @@
   .inspect_weekdays <span class='op'>=</span> <span class='cn'>FALSE</span>,
   .inspect_months <span class='op'>=</span> <span class='cn'>FALSE</span>,
   .skip_values <span class='op'>=</span> <span class='cn'>NULL</span>,
-  .insert_values <span class='op'>=</span> <span class='cn'>NULL</span>
+  .insert_values <span class='op'>=</span> <span class='cn'>NULL</span>,
+  .bind_data <span class='op'>=</span> <span class='cn'>FALSE</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -233,6 +234,11 @@ values to skip.</p></td>
       <th>.insert_values</th>
       <td><p>A vector of same class as <code>idx</code> of timeseries
 values to insert.</p></td>
+    </tr>
+    <tr>
+      <th>.bind_data</th>
+      <td><p>Whether or not to perform a row-wise bind of the <code>.data</code> and
+the future data. Default: <code>FALSE</code></p></td>
     </tr>
     </table>
 
@@ -277,6 +283,19 @@ be excluded from the future time series.</p></li>
 excluded.</p></li>
 </ul>
 
+<p><strong>Binding with Data</strong></p>
+<p>Rowwise binding with the original is so common that
+I've added an argument <code>.bind_data</code> to perform a row-wise
+bind of the future data and the incoming data.</p>
+<p>This <em>replaces</em> the need to do:</p><pre><span class='va'>df</span> <span class='op'>%&gt;%</span>
+   <span class='fu'>future_frame</span><span class='op'>(</span>.length_out <span class='op'>=</span> <span class='st'>"6 months"</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+   <span class='fu'>bind_rows</span><span class='op'>(</span><span class='va'>df</span>, <span class='va'>.</span><span class='op'>)</span>
+</pre>
+
+<p>Now you can just do:</p><pre><span class='va'>df</span> <span class='op'>%&gt;%</span>
+    <span class='fu'>future_frame</span><span class='op'>(</span>.length_out <span class='op'>=</span> <span class='st'>"6 months"</span>, .bind_data <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</pre>
+
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'>
@@ -286,7 +305,7 @@ excluded.</p></li>
 </div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://dplyr.tidyverse.org'>dplyr</a></span><span class='op'>)</span>
+    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/business-science/tidyquant'>tidyquant</a></span><span class='op'>)</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/business-science/timetk'>timetk</a></span><span class='op'>)</span>
 
@@ -309,7 +328,7 @@ excluded.</p></li>
 #&gt; </span><span style='color: #555555;'># … with 326 more rows</span><span></div><div class='input'>
 <span class='co'># Daily Data (Grouped)</span>
 <span class='va'>m4_daily</span> <span class='op'>%&gt;%</span>
-    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>id</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+    <span class='fu'>group_by</span><span class='op'>(</span><span class='va'>id</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
     <span class='fu'>future_frame</span><span class='op'>(</span><span class='va'>date</span>, .length_out <span class='op'>=</span> <span class='st'>"6 weeks"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 168 x 2</span><span>
 #&gt; </span><span style='color: #555555;'># Groups:   id [4]</span><span>
@@ -328,7 +347,7 @@ excluded.</p></li>
 #&gt; </span><span style='color: #555555;'># … with 158 more rows</span><span></div><div class='input'>
 <span class='co'># Specify how many observations to project into the future</span>
 <span class='va'>m4_daily</span> <span class='op'>%&gt;%</span>
-    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>id</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+    <span class='fu'>group_by</span><span class='op'>(</span><span class='va'>id</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
     <span class='fu'>future_frame</span><span class='op'>(</span><span class='va'>date</span>, .length_out <span class='op'>=</span> <span class='fl'>100</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 400 x 2</span><span>
 #&gt; </span><span style='color: #555555;'># Groups:   id [4]</span><span>
@@ -345,7 +364,25 @@ excluded.</p></li>
 #&gt; </span><span style='color: #555555;'> 9</span><span> D10   2016-05-15
 #&gt; </span><span style='color: #555555;'>10</span><span> D10   2016-05-16
 #&gt; </span><span style='color: #555555;'># … with 390 more rows</span><span></div><div class='input'>
-
+<span class='co'># Bind with Original Data</span>
+<span class='va'>m4_daily</span> <span class='op'>%&gt;%</span>
+    <span class='fu'>group_by</span><span class='op'>(</span><span class='va'>id</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+    <span class='fu'>future_frame</span><span class='op'>(</span><span class='va'>date</span>, .length_out <span class='op'>=</span> <span class='fl'>100</span>, .bind_data <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 10,143 x 3</span><span>
+#&gt; </span><span style='color: #555555;'># Groups:   id [4]</span><span>
+#&gt;    id    date       value
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> D10   2014-07-03 </span><span style='text-decoration: underline;'>2</span><span>076.
+#&gt; </span><span style='color: #555555;'> 2</span><span> D10   2014-07-04 </span><span style='text-decoration: underline;'>2</span><span>073.
+#&gt; </span><span style='color: #555555;'> 3</span><span> D10   2014-07-05 </span><span style='text-decoration: underline;'>2</span><span>049.
+#&gt; </span><span style='color: #555555;'> 4</span><span> D10   2014-07-06 </span><span style='text-decoration: underline;'>2</span><span>049.
+#&gt; </span><span style='color: #555555;'> 5</span><span> D10   2014-07-07 </span><span style='text-decoration: underline;'>2</span><span>006.
+#&gt; </span><span style='color: #555555;'> 6</span><span> D10   2014-07-08 </span><span style='text-decoration: underline;'>2</span><span>018.
+#&gt; </span><span style='color: #555555;'> 7</span><span> D10   2014-07-09 </span><span style='text-decoration: underline;'>2</span><span>019.
+#&gt; </span><span style='color: #555555;'> 8</span><span> D10   2014-07-10 </span><span style='text-decoration: underline;'>2</span><span>007.
+#&gt; </span><span style='color: #555555;'> 9</span><span> D10   2014-07-11 </span><span style='text-decoration: underline;'>2</span><span>010 
+#&gt; </span><span style='color: #555555;'>10</span><span> D10   2014-07-12 </span><span style='text-decoration: underline;'>2</span><span>002.
+#&gt; </span><span style='color: #555555;'># … with 10,133 more rows</span><span></div><div class='input'>
 <span class='co'># Remove Non-Working Days (Weekends &amp; Holidays)</span>
 <span class='va'>holidays</span> <span class='op'>&lt;-</span> <span class='fu'><a href='tk_make_holiday_sequence.html'>tk_make_holiday_sequence</a></span><span class='op'>(</span>
     start_date <span class='op'>=</span> <span class='st'>"2017-01-01"</span>,
@@ -353,7 +390,7 @@ excluded.</p></li>
     calendar   <span class='op'>=</span> <span class='st'>"NYSE"</span><span class='op'>)</span>
 
 <span class='va'>FANG</span> <span class='op'>%&gt;%</span>
-    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>symbol</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+    <span class='fu'>group_by</span><span class='op'>(</span><span class='va'>symbol</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
     <span class='fu'>future_frame</span><span class='op'>(</span>.length_out       <span class='op'>=</span> <span class='st'>"1 year"</span>,
                  .inspect_weekdays <span class='op'>=</span> <span class='cn'>TRUE</span>,
                  .skip_values      <span class='op'>=</span> <span class='va'>holidays</span><span class='op'>)</span>
@@ -372,7 +409,6 @@ excluded.</p></li>
 #&gt; </span><span style='color: #555555;'> 9</span><span> FB     2017-01-13
 #&gt; </span><span style='color: #555555;'>10</span><span> FB     2017-01-17
 #&gt; </span><span style='color: #555555;'># … with 994 more rows</span><span></div><div class='input'>
-
 
 </div></span></pre>
   </div>
