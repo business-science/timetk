@@ -1,4 +1,4 @@
-# tidyquant funtions copied to remove dependency on tidyquant
+# tidyquant functions copied to remove dependency on tidyquant
 
 #' @importFrom ggplot2 %+replace%
 
