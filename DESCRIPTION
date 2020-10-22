@@ -1,7 +1,7 @@
 Package: timetk
 Type: Package
 Title: A Tool Kit for Working with Time Series in R
-Version: 2.4.0.9000
+Version: 2.5.0
 Authors@R: c(
     person("Matt", "Dancho", email = "mdancho@business-science.io", role = c("aut", "cre")),
     person("Davis", "Vaughan", email = "dvaughan@business-science.io", role = c("aut"))
