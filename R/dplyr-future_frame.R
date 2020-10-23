@@ -151,6 +151,18 @@ future_frame.data.frame <- function(.data, .date_var, .length_out,
                                     .skip_values = NULL, .insert_values = NULL,
                                     .bind_data = FALSE) {
 
+    # Check for overlapping dates
+    date_var_expr <- rlang::enquo(.date_var)
+
+    if (rlang::quo_is_missing(date_var_expr)) {
+        date_var_expr <- rlang::sym(tk_get_timeseries_variables(.data)[1])
+    }
+    idx <- .data %>% dplyr::pull(!! date_var_expr)
+
+    if (length(idx) != length(unique(idx)) ) {
+        rlang::abort("Overlapping dates detected indicating time series groups. Try using `dplyr::group_by()` to first group the time series.")
+    }
+
     future_framer(.data             = .data,
                   .date_var         = !! enquo(.date_var),
                   .length_out       = .length_out,
@@ -218,7 +230,8 @@ future_framer <- function(.data, .date_var, .length_out,
         date_var_expr <- rlang::sym(tk_get_timeseries_variables(.data)[1])
     }
 
-    idx      <- .data %>% dplyr::pull(!! date_var_expr)
+    idx      <- .data %>%
+        dplyr::pull(!! date_var_expr)
     idx_name <- rlang::quo_name(date_var_expr)
 
     idx_future <- tk_make_future_timeseries(

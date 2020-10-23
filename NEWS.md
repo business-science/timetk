@@ -1,3 +1,9 @@
+# timetk (Development Version)
+
+__Fixes__
+
+- `future_frame()` and `tk_make_future_timeseries()`: Now sort the incoming index to ensure dates returned go into the future. 
+
 # timetk 2.5.0
 
 __Improvements__

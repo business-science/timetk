@@ -144,6 +144,9 @@ tk_make_future_timeseries.POSIXt <- function(idx, length_out, inspect_weekdays =
                                              inspect_months = FALSE, skip_values = NULL, insert_values = NULL,
                                              n_future = NULL) {
 
+    # Sort idx
+    idx <- sort(idx)
+
     # Remove once `n_future` is fully deprecated
     if (!is.null(n_future)) {
         if (missing(length_out)) length_out <- n_future
@@ -195,6 +198,8 @@ tk_make_future_timeseries.POSIXt <- function(idx, length_out, inspect_weekdays =
 tk_make_future_timeseries.Date <- function(idx, length_out, inspect_weekdays = FALSE,
                                            inspect_months = FALSE, skip_values = NULL, insert_values = NULL,
                                            n_future = NULL) {
+    # Sort idx
+    idx <- sort(idx)
 
     # Remove once `n_future` is fully deprecated
     if (!is.null(n_future)) {
@@ -353,6 +358,8 @@ tk_make_future_timeseries.Date <- function(idx, length_out, inspect_weekdays = F
 tk_make_future_timeseries.yearmon <- function(idx, length_out, inspect_weekdays = FALSE,
                                               inspect_months = FALSE, skip_values = NULL, insert_values = NULL,
                                               n_future = NULL) {
+    # Sort idx
+    idx <- sort(idx)
 
     # Remove once `n_future` is fully deprecated
     if (!is.null(n_future)) {
@@ -381,6 +388,9 @@ tk_make_future_timeseries.yearqtr <- function(idx, length_out, inspect_weekdays 
                                               inspect_months = FALSE, skip_values = NULL, insert_values = NULL,
                                               n_future = NULL) {
 
+    # Sort idx
+    idx <- sort(idx)
+
     # Remove once `n_future` is fully deprecated
     if (!is.null(n_future)) {
         if (missing(length_out)) length_out <- n_future
@@ -406,6 +416,8 @@ tk_make_future_timeseries.yearqtr <- function(idx, length_out, inspect_weekdays 
 tk_make_future_timeseries.numeric <- function(idx, length_out, inspect_weekdays = FALSE,
                                               inspect_months = FALSE, skip_values = NULL, insert_values = NULL,
                                               n_future = NULL) {
+    # Sort idx
+    idx <- sort(idx)
 
     # Remove once `n_future` is fully deprecated
     if (!is.null(n_future)) {
