@@ -2,6 +2,7 @@
 
 __Fixes__
 
+- `time_series_cv()`: Fix bug with Panel Data. Train/Test Splits only returning 1st observation in final time stamp. Should return all observations. 
 - `future_frame()` and `tk_make_future_timeseries()`: Now sort the incoming index to ensure dates returned go into the future. 
 
 # timetk 2.5.0

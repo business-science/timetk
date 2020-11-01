@@ -168,15 +168,26 @@ time_series_cv <- function(data, date_var = NULL, initial = 5, assess = 1,
     lookup_table <- data %>%
         tibble::rowid_to_column(".rowid")
 
-    index_table <- lookup_table %>%
+    # print(lookup_table %>% tail(12))
+
+    index_table_min <- lookup_table %>%
         dplyr::select(.rowid, !! date_var_expr) %>%
         dplyr::group_by(!! date_var_expr) %>%
         dplyr::slice_min(.rowid) %>%
         dplyr::ungroup() %>%
         dplyr::mutate(idx = 1:dplyr::n())
 
+    index_table_max <- lookup_table %>%
+        dplyr::select(.rowid, !! date_var_expr) %>%
+        dplyr::group_by(!! date_var_expr) %>%
+        dplyr::slice_max(.rowid) %>%
+        dplyr::ungroup() %>%
+        dplyr::mutate(idx = 1:dplyr::n())
+
+    # print(index_table %>% tail(12))
+
     timestamps_duplicated <- FALSE
-    if (nrow(data) > nrow(index_table)) {
+    if (nrow(data) > nrow(index_table_min)) {
         message("Overlapping Timestamps Detected. Processing overlapping time series together using sliding windows.")
         timestamps_duplicated <- TRUE
     }
@@ -193,29 +204,29 @@ time_series_cv <- function(data, date_var = NULL, initial = 5, assess = 1,
 
         # initial
         if (character_args[1]) {
-            initial <- period_chr_to_n(index_table, !! date_var_expr, period = initial)
+            initial <- period_chr_to_n(index_table_min, !! date_var_expr, period = initial)
         }
 
         # assess
         if (character_args[2]) {
-            assess <- period_chr_to_n(index_table, !! date_var_expr, period = assess)
+            assess <- period_chr_to_n(index_table_min, !! date_var_expr, period = assess)
         }
 
         # skip
         if (character_args[3]) {
-            skip <- period_chr_to_n(index_table, !! date_var_expr, period = skip)
+            skip <- period_chr_to_n(index_table_min, !! date_var_expr, period = skip)
         }
 
         # initial
         if (character_args[4]) {
-            lag <- period_chr_to_n(index_table, !! date_var_expr, period = lag)
+            lag <- period_chr_to_n(index_table_min, !! date_var_expr, period = lag)
         }
 
     }
 
 
     # 3.0 CHECK INPUTS ----
-    n <- nrow(index_table)
+    n <- nrow(index_table_min)
 
     if (n < initial + assess) {
         stop("There should be at least ",
@@ -260,20 +271,32 @@ time_series_cv <- function(data, date_var = NULL, initial = 5, assess = 1,
 
     # 5.0 MAP STARTS/STOPS TO ROW IDs ----
     # - Should only be required when duplicated timestamps
-    get_row_ids <- function(idx) {
+    get_row_ids <- function(idx, type = "min") {
+
+        if (type == "min") {
+            index_table <- index_table_min
+        } else {
+            index_table <- index_table_max
+        }
+
         tibble::tibble(idx = idx) %>%
             dplyr::left_join(index_table, by = "idx") %>%
             dplyr::pull(.rowid)
     }
 
-    starts_conv       <- get_row_ids(starts)
-    stops_conv        <- get_row_ids(stops)
-    stops_lag_conv    <- get_row_ids(stops + 1 - lag)
-    stops_assess_conv <- get_row_ids(stops + assess)
+    starts_conv       <- get_row_ids(starts, type = "min")
+    stops_conv        <- get_row_ids(stops, type = "max")
+    stops_lag_conv    <- get_row_ids(stops + 1 - lag, type = "min")
+    stops_assess_conv <- get_row_ids(stops + assess, type = "max")
 
     # 6.0 SELECT INDICIES -----
     in_ind  <- mapply(seq, starts_conv, stops_conv, SIMPLIFY = FALSE)
     out_ind <- mapply(seq, stops_lag_conv, stops_assess_conv, SIMPLIFY = FALSE)
+
+    # message("in_ind")
+    # print(in_ind)
+    # message("out_ind")
+    # print(out_ind)
 
     # 7.0 MAKE SPLIT OBJECTS ----
     indices    <- mapply(merge_lists, in_ind, out_ind, SIMPLIFY = FALSE)

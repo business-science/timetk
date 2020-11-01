@@ -135,3 +135,49 @@ test_that("Inspect Results: time_series_cv()", {
 
 
 })
+
+
+walmart_tscv <- walmart_sales_weekly %>%
+    time_series_cv(
+        date_var    = Date,
+        initial     = "12 months",
+        assess      = 2,
+        skip        = "3 months",
+        slice_limit = 4
+    )
+
+walmart_tscv %>% tk_time_series_cv_plan() %>% plot_time_series_cv_plan(Date, Weekly_Sales)
+
+resamples_unnested <- walmart_tscv %>%  tk_time_series_cv_plan()
+
+resample_groups <- resamples_unnested %>%
+    select(.id, .key, Date) %>%
+    group_by(.id, .key)
+
+resample_count <- resample_groups %>%
+    group_by(.id, .key) %>%
+    count()
+
+test_that("Inspect Results: time_series_cv()", {
+
+
+    # Training: All should be 364 (52 * 7 Groups)
+    expect_true({
+        all({
+            resample_count %>%
+                filter(.key == "training") %>%
+                pull(n) == 52*7
+        })
+    })
+
+    # Testing: All should be 14 (2 * 7 Groups)
+    expect_true({
+        all({
+            resample_count %>%
+                filter(.key == "testing") %>%
+                pull(n) == 2*7
+        })
+    })
+
+
+})
