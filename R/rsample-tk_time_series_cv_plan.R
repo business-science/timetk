@@ -60,6 +60,11 @@ tk_time_series_cv_plan.rset <- function(.data) {
 }
 
 #' @export
+tk_time_series_cv_plan.data.frame <- function(.data) {
+    time_series_cv_plan(.data)
+}
+
+#' @export
 tk_time_series_cv_plan.rsplit <- function(.data) {
 
     tib_2 <- tibble::tibble(
@@ -79,7 +84,7 @@ tk_time_series_cv_plan.rsplit <- function(.data) {
 
 #' @export
 tk_time_series_cv_plan.default <- function(.data) {
-    rlang::abort("tk_time_series_cv_plan: No method for class, ", class(.data)[1])
+    rlang::abort(stringr::str_c("tk_time_series_cv_plan: No method for class, ", class(.data)[1]))
 }
 
 time_series_cv_plan <- function(.data) {
