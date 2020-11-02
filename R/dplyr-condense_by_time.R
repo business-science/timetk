@@ -1,4 +1,4 @@
-#' Condense the Period (e.g. Daily to Monthly)
+#' Condense the Period By Time (e.g. Daily to Monthly)
 #'
 #' @description
 #' Convert a `data.frame` object from daily to monthly,
@@ -31,7 +31,8 @@
 #'   - `"2 months"`
 #'   - `"30 seconds"`
 #'
-#' @param .type One of "first" or "last".
+#' @param .side One of "start" or "end". Determines if the 1st observation in the period should be returned
+#'  or the last.
 #'
 #'
 #' @return
@@ -66,7 +67,7 @@
 #'
 #'
 #' @export
-condense_by_time <- function(.data, .date_var, .by = "day", .type = c("first", "last")) {
+condense_by_time <- function(.data, .date_var, .by = "day", .side = c("start", "end")) {
 
     if (rlang::quo_is_missing(rlang::enquo(.date_var))) {
         message(".date_var is missing. Using: ", tk_get_timeseries_variables(.data)[1])
@@ -76,13 +77,14 @@ condense_by_time <- function(.data, .date_var, .by = "day", .type = c("first", "
 }
 
 #' @export
-condense_by_time.default <- function(.data, .date_var, .by = "day", .type = c("first", "last")) {
+condense_by_time.default <- function(.data, .date_var, .by = "day", .side = c("start", "end")) {
     stop("Object is not of class `data.frame`.", call. = FALSE)
 }
 
 #' @export
-condense_by_time.data.frame <- function(.data, .date_var, .by = "day", .type = c("first", "last")) {
+condense_by_time.data.frame <- function(.data, .date_var, .by = "day", .side = c("start", "end")) {
 
+    data_groups_expr   <- rlang::syms(dplyr::group_vars(.data))
     date_var_expr      <- rlang::enquo(.date_var)
 
     # Check date_var
@@ -91,21 +93,34 @@ condense_by_time.data.frame <- function(.data, .date_var, .by = "day", .type = c
         date_var_expr <- rlang::sym(date_var_text)
     }
 
-    # Choose first/last function
-    fun_type <- tolower(.type[[1]])
-    if (fun_type == "last") {
-        .f <- dplyr::last
-    } else {
-        .f <- dplyr::first
+
+    fun_type <- tolower(.side[[1]])
+
+    # Switch alternative expressions
+    if (fun_type == "first" || fun_type == "left") {
+        message("condense_by_time: Using .side = 'start'.")
+        fun_type <- "start"
+    }
+    if (fun_type == "last" || fun_type == "right") {
+        message("condense_by_time: Using .side = 'end'.")
+        fun_type <- "end"
     }
 
-    # Time-based summarization logic
+    # Choose min(start) or max(end) function
+    if (fun_type == "end") {
+        .f <- max
+    } else {
+        .f <- min
+    }
+
+    # Time-based filtering logic
     ret_tbl <- .data %>%
-        summarise_by_time(
-            .date_var = !! date_var_expr,
-            .by       = .by,
-            dplyr::across(.fns = .f)
-        )
+        dplyr::mutate(..date_agg = lubridate::floor_date(!! date_var_expr, unit = .by)) %>%
+        dplyr::group_by(!!! data_groups_expr, ..date_agg) %>%
+        dplyr::filter(!! date_var_expr == .f(!! date_var_expr)) %>%
+        dplyr::ungroup() %>%
+        dplyr::select(-..date_agg) %>%
+        dplyr::group_by(!!! data_groups_expr)
 
     return(ret_tbl)
 
