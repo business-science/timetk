@@ -1,5 +1,9 @@
 # timetk (Development Version)
 
+__New Functions__
+
+- `condense_by_time()`: Converts a periodicity from a higher (e.g. daily) to lower (e.g. monthly) frequency. Similar to `xts::to.period()` and `tibbletime::as_period()`.
+
 __Fixes__
 
 - `time_series_cv()`: Fix bug with Panel Data. Train/Test Splits only returning 1st observation in final time stamp. Should return all observations. 
