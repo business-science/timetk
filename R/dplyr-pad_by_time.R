@@ -42,12 +42,13 @@
 #' Imputation:
 #' - [ts_impute_vec()] - Impute missing values for time series.
 #'
-#' Additional Time-Based `dplyr`-style functions:
+#' Time-Based dplyr functions:
 #'
 #' - [summarise_by_time()] - Easily summarise using a date column.
 #' - [filter_by_time()] - Quickly filter using date ranges.
 #' - [between_time()] - Range detection for date or date-time sequences.
 #' - [pad_by_time()] - Insert time series rows with regularly spaced timestamps
+#' - [condense_by_time()] - Convert to a different periodicity
 #' - [slidify()] - Turn any function into a sliding (rolling) function
 #'
 #' @references

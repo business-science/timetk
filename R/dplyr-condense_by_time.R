@@ -1,7 +1,7 @@
 #' Condense the Period (e.g. Daily to Monthly)
 #'
 #' @description
-#' Convert a `tbl` object from daily to monthly,
+#' Convert a `data.frame` object from daily to monthly,
 #' from minute data to hourly, and more. This allows the user to easily
 #' aggregate data to a less granular level by taking the value from either
 #' the beginning or end of the period.

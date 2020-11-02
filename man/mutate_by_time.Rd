@@ -89,10 +89,10 @@ m4_daily_first_by_month_tbl \%>\%
 Time-Based dplyr functions:
 \itemize{
 \item \code{\link[=summarise_by_time]{summarise_by_time()}} - Easily summarise using a date column.
-\item \code{\link[=mutate_by_time]{mutate_by_time()}} - Easily mutate using a date column.
 \item \code{\link[=filter_by_time]{filter_by_time()}} - Quickly filter using date ranges.
 \item \code{\link[=between_time]{between_time()}} - Range detection for date or date-time sequences.
 \item \code{\link[=pad_by_time]{pad_by_time()}} - Insert time series rows with regularly spaced timestamps
+\item \code{\link[=condense_by_time]{condense_by_time()}} - Convert to a different periodicity
 \item \code{\link[=slidify]{slidify()}} - Turn any function into a sliding (rolling) function
 }
 }
