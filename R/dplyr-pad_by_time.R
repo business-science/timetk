@@ -48,7 +48,7 @@
 #' - [filter_by_time()] - Quickly filter using date ranges.
 #' - [between_time()] - Range detection for date or date-time sequences.
 #' - [pad_by_time()] - Insert time series rows with regularly spaced timestamps
-#' - [condense_by_time()] - Convert to a different periodicity
+#' - [condense_period()] - Convert to a different periodicity
 #' - [slidify()] - Turn any function into a sliding (rolling) function
 #'
 #' @references
@@ -118,7 +118,17 @@ pad_by_time <- function(.data, .date_var, .by = "auto",
     }
 
     if (rlang::quo_is_missing(rlang::enquo(.date_var))) {
-        message(".date_var is missing. Using: ", tk_get_timeseries_variables(.data)[1])
+        date_var_text <- tk_get_timeseries_variables(.data)[1]
+        message(paste0(".date_var is missing. Using: ", date_var_text))
+        date_var_expr <- rlang::sym(date_var_text)
+    } else {
+        date_var_expr <- rlang::enquo(.date_var)
+    }
+
+    # Check index exists
+    date_var_text <- rlang::quo_name(date_var_expr)
+    if (!date_var_text %in% names(.data)) {
+        rlang::abort(stringr::str_glue("Attempting to use .date_var = {date_var_text}. Column does not exist in .data. Please specify a date or date-time column."))
     }
 
     UseMethod("pad_by_time", .data)

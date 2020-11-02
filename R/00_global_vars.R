@@ -8,4 +8,4 @@ globalVariables(c("index", "index.num", "y", "yhat", "week", "mday", "diff.media
                   "sorting", "anomaly", "recomposed_l1", "recomposed_l2", "remainder_l1", "remainder_l2",
                   ".metric", ".metrics", ".rank_metric", ".rank_std_err", "failure_rate", "std_err",
                   ".rank_failure_rate", ".txt", "training", "testing", "fitted", "model", "..val", "..nm",
-                  ".white_noise_lower", ".white_noise_upper", ".date_var_collapsed", ".rowid"))
+                  ".white_noise_lower", ".white_noise_upper", ".date_var_collapsed", ".rowid", "..date_agg"))

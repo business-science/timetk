@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Mutate (for Time Series Data) — mutate_by_time • timetk</title>
+<title>Condense the Period By Time (e.g. Daily to Monthly) — condense_by_time • timetk</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -48,10 +48,11 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Mutate (for Time Series Data) — mutate_by_time" />
-<meta property="og:description" content="mutate_by_time() is a time-based variant of the popular dplyr::mutate() function
-that uses .date_var to specify a date or date-time column and .by to group the
-calculation by groups like &quot;5 seconds&quot;, &quot;week&quot;, or &quot;3 months&quot;." />
+<meta property="og:title" content="Condense the Period By Time (e.g. Daily to Monthly) — condense_by_time" />
+<meta property="og:description" content="Convert a data.frame object from daily to monthly,
+from minute data to hourly, and more. This allows the user to easily
+aggregate data to a less granular level by taking the value from either
+the beginning or end of the period." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -178,24 +179,19 @@ calculation by groups like &quot;5 seconds&quot;, &quot;week&quot;, or &quot;3 m
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Mutate (for Time Series Data)</h1>
-    <small class="dont-index">Source: <a href='https://github.com/business-science/timetk/blob/master/R/dplyr-mutate_by_time.R'><code>R/dplyr-mutate_by_time.R</code></a></small>
-    <div class="hidden name"><code>mutate_by_time.Rd</code></div>
+    <h1>Condense the Period By Time (e.g. Daily to Monthly)</h1>
+    <small class="dont-index">Source: <a href='https://github.com/business-science/timetk/blob/master/R/dplyr-condense_by_time.R'><code>R/dplyr-condense_by_time.R</code></a></small>
+    <div class="hidden name"><code>condense_by_time.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><code>mutate_by_time()</code> is a time-based variant of the popular <code><a href='https://dplyr.tidyverse.org/reference/mutate.html'>dplyr::mutate()</a></code> function
-that uses <code>.date_var</code> to specify a date or date-time column and <code>.by</code> to group the
-calculation by groups like "5 seconds", "week", or "3 months".</p>
+    <p>Convert a <code>data.frame</code> object from daily to monthly,
+from minute data to hourly, and more. This allows the user to easily
+aggregate data to a less granular level by taking the value from either
+the beginning or end of the period.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>mutate_by_time</span><span class='op'>(</span>
-  <span class='va'>.data</span>,
-  <span class='va'>.date_var</span>,
-  .by <span class='op'>=</span> <span class='st'>"day"</span>,
-  <span class='va'>...</span>,
-  .type <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"floor"</span>, <span class='st'>"ceiling"</span>, <span class='st'>"round"</span><span class='op'>)</span>
-<span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>condense_by_time</span><span class='op'>(</span><span class='va'>.data</span>, <span class='va'>.date_var</span>, .by <span class='op'>=</span> <span class='st'>"day"</span>, .side <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"start"</span>, <span class='st'>"end"</span><span class='op'>)</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -211,7 +207,7 @@ If missing, attempts to auto-detect date column.</p></td>
     </tr>
     <tr>
       <th>.by</th>
-      <td><p>A time unit to summarise by.
+      <td><p>A time unit to aggregate by.
 Time units are collapsed using <code><a href='http://lubridate.tidyverse.org/reference/round_date.html'>lubridate::floor_date()</a></code> or <code><a href='http://lubridate.tidyverse.org/reference/round_date.html'>lubridate::ceiling_date()</a></code>.</p>
 <p>The value can be:</p><ul>
 <li><p><code>second</code></p></li>
@@ -227,23 +223,16 @@ Time units are collapsed using <code><a href='http://lubridate.tidyverse.org/ref
 <li><p><code>year</code></p></li>
 </ul>
 
-<p>Arbitrary unique English abbreviations as in the <code><a href='http://lubridate.tidyverse.org/reference/period.html'>lubridate::period()</a></code> constructor are allowed.</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>Name-value pairs.
-The name gives the name of the column in the output.</p>
-<p>The value can be:</p><ul>
-<li><p>A vector of length 1, which will be recycled to the correct length.</p></li>
-<li><p>A vector the same length as the current group (or the whole data frame
-if ungrouped).</p></li>
-<li><p><code>NULL</code>, to remove the column.</p></li>
-<li><p>A data frame or tibble, to create multiple columns in the output.</p></li>
+<p>Arbitrary unique English abbreviations as in the <code><a href='http://lubridate.tidyverse.org/reference/period.html'>lubridate::period()</a></code> constructor are allowed:</p><ul>
+<li><p><code>"1 year"</code></p></li>
+<li><p><code>"2 months"</code></p></li>
+<li><p><code>"30 seconds"</code></p></li>
 </ul></td>
     </tr>
     <tr>
-      <th>.type</th>
-      <td><p>One of "floor", "ceiling", or "round. Defaults to "floor". See <code><a href='http://lubridate.tidyverse.org/reference/round_date.html'>lubridate::round_date</a></code>.</p></td>
+      <th>.side</th>
+      <td><p>One of "start" or "end". Determines if the 1st observation in the period should be returned
+or the last.</p></td>
     </tr>
     </table>
 
@@ -257,7 +246,7 @@ if ungrouped).</p></li>
 <li><p><code><a href='filter_by_time.html'>filter_by_time()</a></code> - Quickly filter using date ranges.</p></li>
 <li><p><code><a href='between_time.html'>between_time()</a></code> - Range detection for date or date-time sequences.</p></li>
 <li><p><code><a href='pad_by_time.html'>pad_by_time()</a></code> - Insert time series rows with regularly spaced timestamps</p></li>
-<li><p><code><a href='condense_period.html'>condense_period()</a></code> - Convert to a different periodicity</p></li>
+<li><p><code>condense_by_time()</code> - Convert to a different periodicity</p></li>
 <li><p><code><a href='slidify.html'>slidify()</a></code> - Turn any function into a sliding (rolling) function</p></li>
 </ul>
 </div>
@@ -266,40 +255,47 @@ if ungrouped).</p></li>
     <pre class="examples"><div class='input'><span class='co'># Libraries</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/business-science/timetk'>timetk</a></span><span class='op'>)</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://dplyr.tidyverse.org'>dplyr</a></span><span class='op'>)</span>
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyr.tidyverse.org'>tidyr</a></span><span class='op'>)</span>
 
 <span class='co'># First value in each month</span>
-<span class='va'>m4_daily_first_by_month_tbl</span> <span class='op'>&lt;-</span> <span class='va'>m4_daily</span> <span class='op'>%&gt;%</span>
+<span class='va'>m4_daily</span> <span class='op'>%&gt;%</span>
     <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>id</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-    <span class='fu'>mutate_by_time</span><span class='op'>(</span>
-        .date_var <span class='op'>=</span> <span class='va'>date</span>,
-        .by       <span class='op'>=</span> <span class='st'>"month"</span>, <span class='co'># Setup for monthly aggregation</span>
-        <span class='co'># mutate recycles a single value</span>
-        first_value_by_month  <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/nth.html'>first</a></span><span class='op'>(</span><span class='va'>value</span><span class='op'>)</span>
-    <span class='op'>)</span>
-<span class='va'>m4_daily_first_by_month_tbl</span>
-</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 9,743 x 4</span><span>
+    <span class='fu'>condense_by_time</span><span class='op'>(</span>.by <span class='op'>=</span> <span class='st'>"1 month"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>.date_var is missing. Using: date</span></div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 323 x 3</span><span>
 #&gt; </span><span style='color: #555555;'># Groups:   id [4]</span><span>
-#&gt;    id    date       value first_value_by_month
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>                </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> D10   2014-07-03 </span><span style='text-decoration: underline;'>2</span><span>076.                </span><span style='text-decoration: underline;'>2</span><span>076.
-#&gt; </span><span style='color: #555555;'> 2</span><span> D10   2014-07-04 </span><span style='text-decoration: underline;'>2</span><span>073.                </span><span style='text-decoration: underline;'>2</span><span>076.
-#&gt; </span><span style='color: #555555;'> 3</span><span> D10   2014-07-05 </span><span style='text-decoration: underline;'>2</span><span>049.                </span><span style='text-decoration: underline;'>2</span><span>076.
-#&gt; </span><span style='color: #555555;'> 4</span><span> D10   2014-07-06 </span><span style='text-decoration: underline;'>2</span><span>049.                </span><span style='text-decoration: underline;'>2</span><span>076.
-#&gt; </span><span style='color: #555555;'> 5</span><span> D10   2014-07-07 </span><span style='text-decoration: underline;'>2</span><span>006.                </span><span style='text-decoration: underline;'>2</span><span>076.
-#&gt; </span><span style='color: #555555;'> 6</span><span> D10   2014-07-08 </span><span style='text-decoration: underline;'>2</span><span>018.                </span><span style='text-decoration: underline;'>2</span><span>076.
-#&gt; </span><span style='color: #555555;'> 7</span><span> D10   2014-07-09 </span><span style='text-decoration: underline;'>2</span><span>019.                </span><span style='text-decoration: underline;'>2</span><span>076.
-#&gt; </span><span style='color: #555555;'> 8</span><span> D10   2014-07-10 </span><span style='text-decoration: underline;'>2</span><span>007.                </span><span style='text-decoration: underline;'>2</span><span>076.
-#&gt; </span><span style='color: #555555;'> 9</span><span> D10   2014-07-11 </span><span style='text-decoration: underline;'>2</span><span>010                 </span><span style='text-decoration: underline;'>2</span><span>076.
-#&gt; </span><span style='color: #555555;'>10</span><span> D10   2014-07-12 </span><span style='text-decoration: underline;'>2</span><span>002.                </span><span style='text-decoration: underline;'>2</span><span>076.
-#&gt; </span><span style='color: #555555;'># … with 9,733 more rows</span><span></div><div class='input'>
-<span class='co'># Visualize Time Series vs 1st Value Each Month</span>
-<span class='va'>m4_daily_first_by_month_tbl</span> <span class='op'>%&gt;%</span>
-    <span class='fu'><a href='https://tidyr.tidyverse.org/reference/pivot_longer.html'>pivot_longer</a></span><span class='op'>(</span><span class='va'>value</span><span class='op'>:</span><span class='va'>first_value_by_month</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-    <span class='fu'><a href='plot_time_series.html'>plot_time_series</a></span><span class='op'>(</span><span class='va'>date</span>, <span class='va'>value</span>, <span class='va'>name</span>,
-                     .facet_scale <span class='op'>=</span> <span class='st'>"free"</span>, .facet_ncol <span class='op'>=</span> <span class='fl'>2</span>,
-                     .smooth <span class='op'>=</span> <span class='cn'>FALSE</span>, .interactive <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='img'><img src='mutate_by_time-1.png' alt='' width='700' height='433' /></div><div class='input'>
+#&gt;    id    date       value
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> D10   2014-07-03 </span><span style='text-decoration: underline;'>2</span><span>076.
+#&gt; </span><span style='color: #555555;'> 2</span><span> D10   2014-08-01 </span><span style='text-decoration: underline;'>1</span><span>923.
+#&gt; </span><span style='color: #555555;'> 3</span><span> D10   2014-09-01 </span><span style='text-decoration: underline;'>1</span><span>908.
+#&gt; </span><span style='color: #555555;'> 4</span><span> D10   2014-10-01 </span><span style='text-decoration: underline;'>2</span><span>049.
+#&gt; </span><span style='color: #555555;'> 5</span><span> D10   2014-11-01 </span><span style='text-decoration: underline;'>2</span><span>133.
+#&gt; </span><span style='color: #555555;'> 6</span><span> D10   2014-12-01 </span><span style='text-decoration: underline;'>2</span><span>244.
+#&gt; </span><span style='color: #555555;'> 7</span><span> D10   2015-01-01 </span><span style='text-decoration: underline;'>2</span><span>351 
+#&gt; </span><span style='color: #555555;'> 8</span><span> D10   2015-02-01 </span><span style='text-decoration: underline;'>2</span><span>286.
+#&gt; </span><span style='color: #555555;'> 9</span><span> D10   2015-03-01 </span><span style='text-decoration: underline;'>2</span><span>291.
+#&gt; </span><span style='color: #555555;'>10</span><span> D10   2015-04-01 </span><span style='text-decoration: underline;'>2</span><span>396.
+#&gt; </span><span style='color: #555555;'># … with 313 more rows</span><span></div><div class='input'>
+<span class='co'># Last value in each month</span>
+<span class='va'>m4_daily</span> <span class='op'>%&gt;%</span>
+    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>id</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+    <span class='fu'>condense_by_time</span><span class='op'>(</span>.by <span class='op'>=</span> <span class='st'>"1 month"</span>, .side <span class='op'>=</span> <span class='st'>"end"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>.date_var is missing. Using: date</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 323 x 3</span><span>
+#&gt; </span><span style='color: #555555;'># Groups:   id [4]</span><span>
+#&gt;    id    date       value
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> D10   2014-07-31 </span><span style='text-decoration: underline;'>1</span><span>917.
+#&gt; </span><span style='color: #555555;'> 2</span><span> D10   2014-08-31 </span><span style='text-decoration: underline;'>1</span><span>921.
+#&gt; </span><span style='color: #555555;'> 3</span><span> D10   2014-09-30 </span><span style='text-decoration: underline;'>2</span><span>024.
+#&gt; </span><span style='color: #555555;'> 4</span><span> D10   2014-10-31 </span><span style='text-decoration: underline;'>2</span><span>130 
+#&gt; </span><span style='color: #555555;'> 5</span><span> D10   2014-11-30 </span><span style='text-decoration: underline;'>2</span><span>217.
+#&gt; </span><span style='color: #555555;'> 6</span><span> D10   2014-12-31 </span><span style='text-decoration: underline;'>2</span><span>328.
+#&gt; </span><span style='color: #555555;'> 7</span><span> D10   2015-01-31 </span><span style='text-decoration: underline;'>2</span><span>210.
+#&gt; </span><span style='color: #555555;'> 8</span><span> D10   2015-02-28 </span><span style='text-decoration: underline;'>2</span><span>293.
+#&gt; </span><span style='color: #555555;'> 9</span><span> D10   2015-03-31 </span><span style='text-decoration: underline;'>2</span><span>392.
+#&gt; </span><span style='color: #555555;'>10</span><span> D10   2015-04-30 </span><span style='text-decoration: underline;'>2</span><span>368.
+#&gt; </span><span style='color: #555555;'># … with 313 more rows</span><span></div><div class='input'>
+
+
 </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
