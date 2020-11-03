@@ -50,11 +50,11 @@
 
 <meta property="og:title" content="Apply filtering expressions inside periods (windows) — filter_period" />
 <meta property="og:description" content="Applies a dplyr filtering expression inside a time-based period (window).
-This allows for filtering expressions like:
+See filter_by_time() for filtering continuous ranges defined by start/end dates.
+This filter_period() allows for filtering expressions like:
 Filtering to the maximum value each month.
 Filtering the first date each month.
 Filtering all rows with value greater than a monthly average
-See filter_by_time() for filtering continuous ranges defined by start/end dates.
 
 " />
 <meta property="og:image" content="/logo.png" />
@@ -189,12 +189,12 @@ See filter_by_time() for filtering continuous ranges defined by start/end dates.
     </div>
 
     <div class="ref-description">
-    <p>Applies a dplyr filtering expression inside a time-based period (window).
-This allows for filtering expressions like:</p><ul>
+    <p>Applies a dplyr <em><strong>filtering expression inside a time-based period (window).</strong></em>
+See <code><a href='filter_by_time.html'>filter_by_time()</a></code> for filtering continuous ranges defined by start/end dates.
+This <code>filter_period()</code> allows for filtering expressions like:</p><ul>
 <li><p>Filtering to the maximum value each month.</p></li>
 <li><p>Filtering the first date each month.</p></li>
-<li><p>Filtering all rows with value greater than a monthly average
-See <code><a href='filter_by_time.html'>filter_by_time()</a></code> for filtering continuous ranges defined by start/end dates.</p></li>
+<li><p>Filtering all rows with value greater than a monthly average</p></li>
 </ul>
 
     </div>

@@ -1,12 +1,13 @@
 #' Apply filtering expressions inside periods (windows)
 #'
 #' @description
-#' Applies a dplyr filtering expression inside a time-based period (window).
-#' This allows for filtering expressions like:
+#' Applies a dplyr ___filtering expression inside a time-based period (window).___
+#' See [filter_by_time()] for filtering continuous ranges defined by start/end dates.
+#' `filter_period()` enables filtering expressions like:
 #' - Filtering to the maximum value each month.
 #' - Filtering the first date each month.
 #' - Filtering all rows with value greater than a monthly average
-#' See [filter_by_time()] for filtering continuous ranges defined by start/end dates.
+#'
 #'
 #'
 #' @param .data A `tbl` object or `data.frame`

@@ -45,13 +45,13 @@ Arbitrary unique English abbreviations as in the \code{lubridate::period()} cons
 A \code{tibble} or \code{data.frame}
 }
 \description{
-Applies a dplyr filtering expression inside a time-based period (window).
-This allows for filtering expressions like:
+Applies a dplyr \emph{\strong{filtering expression inside a time-based period (window).}}
+See \code{\link[=filter_by_time]{filter_by_time()}} for filtering continuous ranges defined by start/end dates.
+\code{filter_period()} enables filtering expressions like:
 \itemize{
 \item Filtering to the maximum value each month.
 \item Filtering the first date each month.
 \item Filtering all rows with value greater than a monthly average
-See \code{\link[=filter_by_time]{filter_by_time()}} for filtering continuous ranges defined by start/end dates.
 }
 }
 \examples{
