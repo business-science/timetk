@@ -2,7 +2,8 @@
 
 __New Functions__
 
-- `filter_in_period()`: Applies filtering expressions within time-based windows. 
+- `filter_period()`: Applies filtering expressions within time-based periods (windows). 
+- `slice_period()`: Applies slices within time-based periods (windows).
 - `condense_period()`: Converts a periodicity from a higher (e.g. daily) to lower (e.g. monthly) frequency. Similar to `xts::to.period()` and `tibbletime::as_period()`.
 
 __Fixes__
@@ -24,11 +25,11 @@ __Miscellaneous__
 
 # timetk 2.4.0
 
-- `step_slidify_agument()` - A variant of step slidify that adds multiple rolling columns inside of a recipe. 
+- `step_slidify_augment()` - A variant of step slidify that adds multiple rolling columns inside of a recipe. 
 
 __Bug Fixes__
 
-- Add warning when `%+time` and `%-time%` return missing values
+- Add warning when `%+time%` and `%-time%` return missing values
 - Fix issues with `tk_make_timeseries()` and `tk_make_future_timeseries()` providing odd results for regular time series. [GitHub Issue 60](https://github.com/business-science/timetk/issues/60)
 
 # timetk 2.3.0

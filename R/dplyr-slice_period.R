@@ -1,17 +1,13 @@
-#' Filter within a period (e.g. Filter to the Max Value Each Month)
+#' Apply slice inside periods (windows)
 #'
 #' @description
-#' Applies a dplyr filtering expression inside a time-based period (window).
-#' This allows for filtering expressions like:
-#' - Filtering to the maximum value each month.
-#' - Filtering the first date each month.
-#' - Filtering all rows with value greater than a monthly average
+#' Applies a dplyr slice inside a time-based period (window).
 #'
-#'
+#' @inheritParams dplyr::slice
 #' @param .data A `tbl` object or `data.frame`
 #' @param .date_var A column containing date or date-time values.
 #'  If missing, attempts to auto-detect date column.
-#' @param .by A period to filter within.
+#' @param .by A period to slice within.
 #'   Time units are grouped using `lubridate::floor_date()` or `lubridate::ceiling_date()`.
 #'
 #'   The value can be:
@@ -32,10 +28,6 @@
 #'   - `"2 months"`
 #'   - `"30 seconds"`
 #'
-#' @param ... Filtering expression. Expressions that return a logical value, and are defined in
-#' terms of the variables in .data. If multiple expressions are included, they are combined with
-#' the & operator. Only rows for which all conditions evaluate to TRUE are kept.
-#'
 #'
 #' @return
 #' A `tibble` or `data.frame`
@@ -46,11 +38,12 @@
 #'
 #' - [summarise_by_time()] - Easily summarise using a date column.
 #' - [mutate_by_time()] - Simplifies applying mutations by time windows.
-#' - [filter_by_time()] - Quickly filter using date ranges.
-#' - [filter_in_period()] - Apply filtering expressions inside periods (windows)
-#' - [between_time()] - Range detection for date or date-time sequences.
 #' - [pad_by_time()] - Insert time series rows with regularly spaced timestamps
+#' - [filter_by_time()] - Quickly filter using date ranges.
+#' - [filter_period()] - Apply filtering expressions inside periods (windows)
+#' - [slice_period()] - Apply slice inside periods (windows)
 #' - [condense_period()] - Convert to a different periodicity
+#' - [between_time()] - Range detection for date or date-time sequences.
 #' - [slidify()] - Turn any function into a sliding (rolling) function
 #'
 #' @examples
@@ -58,38 +51,33 @@
 #' library(timetk)
 #' library(dplyr)
 #'
-#' # Max value in each month
+#' # First 5 observations in each month
 #' m4_daily %>%
 #'     group_by(id) %>%
-#'     filter_in_period(.by = "1 month", value == max(value))
+#'     slice_period(1:5, .by = "1 month")
 #'
-#' # First date each month
+#' # Last observation in each month
 #' m4_daily %>%
 #'     group_by(id) %>%
-#'     filter_in_period(.by = "1 month", date == first(date))
-#'
-#' # All observations that are greater than a monthly average
-#' m4_daily %>%
-#'     group_by(id) %>%
-#'     filter_in_period(.by = "1 month", value > mean(value))
+#'     slice_period(n(), .by = "1 month")
 #'
 #' @export
-filter_in_period <- function(.data, ..., .date_var, .by = "day") {
+slice_period <- function(.data, ..., .date_var, .by = "day") {
 
     if (rlang::quo_is_missing(rlang::enquo(.date_var))) {
         message(".date_var is missing. Using: ", tk_get_timeseries_variables(.data)[1])
     }
 
-    UseMethod("filter_in_period")
+    UseMethod("slice_period")
 }
 
 #' @export
-filter_in_period.default <- function(.data, ..., .date_var, .by = "day") {
+slice_period.default <- function(.data, ..., .date_var, .by = "day") {
     stop("Object is not of class `data.frame`.", call. = FALSE)
 }
 
 #' @export
-filter_in_period.data.frame <- function(.data, ..., .date_var, .by = "day") {
+slice_period.data.frame <- function(.data, ..., .date_var, .by = "day") {
 
     data_groups_expr   <- rlang::syms(dplyr::group_vars(.data))
     date_var_expr      <- rlang::enquo(.date_var)
@@ -110,7 +98,7 @@ filter_in_period.data.frame <- function(.data, ..., .date_var, .by = "day") {
     ret_tbl <- .data %>%
         dplyr::mutate(..date_agg = lubridate::floor_date(!! date_var_expr, unit = .by)) %>%
         dplyr::group_by(!!! data_groups_expr, ..date_agg) %>%
-        dplyr::filter(...) %>%
+        dplyr::slice(...) %>%
         dplyr::ungroup() %>%
         dplyr::select(-..date_agg) %>%
         dplyr::group_by(!!! data_groups_expr)

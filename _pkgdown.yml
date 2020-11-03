@@ -66,8 +66,10 @@ reference:
     contents:
     - contains("summarise")
     - contains("mutate")
-    - contains("filter")
     - "pad_by_time"
+    - "filter_by_time"
+    - "filter_period"
+    - "slice_period"
     - "condense_period"
     - "future_frame"
   - subtitle: Function Operations

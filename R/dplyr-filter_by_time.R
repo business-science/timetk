@@ -49,11 +49,12 @@
 #'
 #' - [summarise_by_time()] - Easily summarise using a date column.
 #' - [mutate_by_time()] - Simplifies applying mutations by time windows.
-#' - [filter_by_time()] - Quickly filter using date ranges.
-#' - [filter_in_period()] - Apply filtering expressions inside periods (windows)
-#' - [between_time()] - Range detection for date or date-time sequences.
 #' - [pad_by_time()] - Insert time series rows with regularly spaced timestamps
+#' - [filter_by_time()] - Quickly filter using date ranges.
+#' - [filter_period()] - Apply filtering expressions inside periods (windows)
+#' - [slice_period()] - Apply slice inside periods (windows)
 #' - [condense_period()] - Convert to a different periodicity
+#' - [between_time()] - Range detection for date or date-time sequences.
 #' - [slidify()] - Turn any function into a sliding (rolling) function
 #'
 #' @references

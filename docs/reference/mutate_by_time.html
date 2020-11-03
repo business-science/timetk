@@ -255,11 +255,12 @@ if ungrouped).</p></li>
     <div class='dont-index'><p>Time-Based dplyr functions:</p><ul>
 <li><p><code><a href='summarise_by_time.html'>summarise_by_time()</a></code> - Easily summarise using a date column.</p></li>
 <li><p><code>mutate_by_time()</code> - Simplifies applying mutations by time windows.</p></li>
-<li><p><code><a href='filter_by_time.html'>filter_by_time()</a></code> - Quickly filter using date ranges.</p></li>
-<li><p><code><a href='filter_in_period.html'>filter_in_period()</a></code> - Apply filtering expressions inside periods (windows)</p></li>
-<li><p><code><a href='between_time.html'>between_time()</a></code> - Range detection for date or date-time sequences.</p></li>
 <li><p><code><a href='pad_by_time.html'>pad_by_time()</a></code> - Insert time series rows with regularly spaced timestamps</p></li>
+<li><p><code><a href='filter_by_time.html'>filter_by_time()</a></code> - Quickly filter using date ranges.</p></li>
+<li><p><code><a href='filter_period.html'>filter_period()</a></code> - Apply filtering expressions inside periods (windows)</p></li>
+<li><p><code><a href='slice_period.html'>slice_period()</a></code> - Apply slice inside periods (windows)</p></li>
 <li><p><code><a href='condense_period.html'>condense_period()</a></code> - Convert to a different periodicity</p></li>
+<li><p><code><a href='between_time.html'>between_time()</a></code> - Range detection for date or date-time sequences.</p></li>
 <li><p><code><a href='slidify.html'>slidify()</a></code> - Turn any function into a sliding (rolling) function</p></li>
 </ul>
 </div>
@@ -279,16 +280,30 @@ if ungrouped).</p></li>
         <span class='co'># mutate recycles a single value</span>
         first_value_by_month  <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/nth.html'>first</a></span><span class='op'>(</span><span class='va'>value</span><span class='op'>)</span>
     <span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='error'>Error in mutate_by_time(., .date_var = date, .by = "month", first_value_by_month = first(value)): could not find function "mutate_by_time"</span></div><div class='input'><span class='va'>m4_daily_first_by_month_tbl</span>
-</div><div class='output co'>#&gt; <span class='error'>Error in eval(expr, envir, enclos): object 'm4_daily_first_by_month_tbl' not found</span></div><div class='input'>
+<span class='va'>m4_daily_first_by_month_tbl</span>
+</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 9,743 x 4</span><span>
+#&gt; </span><span style='color: #555555;'># Groups:   id [4]</span><span>
+#&gt;    id    date       value first_value_by_month
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>                </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> D10   2014-07-03 </span><span style='text-decoration: underline;'>2</span><span>076.                </span><span style='text-decoration: underline;'>2</span><span>076.
+#&gt; </span><span style='color: #555555;'> 2</span><span> D10   2014-07-04 </span><span style='text-decoration: underline;'>2</span><span>073.                </span><span style='text-decoration: underline;'>2</span><span>076.
+#&gt; </span><span style='color: #555555;'> 3</span><span> D10   2014-07-05 </span><span style='text-decoration: underline;'>2</span><span>049.                </span><span style='text-decoration: underline;'>2</span><span>076.
+#&gt; </span><span style='color: #555555;'> 4</span><span> D10   2014-07-06 </span><span style='text-decoration: underline;'>2</span><span>049.                </span><span style='text-decoration: underline;'>2</span><span>076.
+#&gt; </span><span style='color: #555555;'> 5</span><span> D10   2014-07-07 </span><span style='text-decoration: underline;'>2</span><span>006.                </span><span style='text-decoration: underline;'>2</span><span>076.
+#&gt; </span><span style='color: #555555;'> 6</span><span> D10   2014-07-08 </span><span style='text-decoration: underline;'>2</span><span>018.                </span><span style='text-decoration: underline;'>2</span><span>076.
+#&gt; </span><span style='color: #555555;'> 7</span><span> D10   2014-07-09 </span><span style='text-decoration: underline;'>2</span><span>019.                </span><span style='text-decoration: underline;'>2</span><span>076.
+#&gt; </span><span style='color: #555555;'> 8</span><span> D10   2014-07-10 </span><span style='text-decoration: underline;'>2</span><span>007.                </span><span style='text-decoration: underline;'>2</span><span>076.
+#&gt; </span><span style='color: #555555;'> 9</span><span> D10   2014-07-11 </span><span style='text-decoration: underline;'>2</span><span>010                 </span><span style='text-decoration: underline;'>2</span><span>076.
+#&gt; </span><span style='color: #555555;'>10</span><span> D10   2014-07-12 </span><span style='text-decoration: underline;'>2</span><span>002.                </span><span style='text-decoration: underline;'>2</span><span>076.
+#&gt; </span><span style='color: #555555;'># … with 9,733 more rows</span><span></div><div class='input'>
 <span class='co'># Visualize Time Series vs 1st Value Each Month</span>
 <span class='va'>m4_daily_first_by_month_tbl</span> <span class='op'>%&gt;%</span>
     <span class='fu'><a href='https://tidyr.tidyverse.org/reference/pivot_longer.html'>pivot_longer</a></span><span class='op'>(</span><span class='va'>value</span><span class='op'>:</span><span class='va'>first_value_by_month</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
     <span class='fu'><a href='plot_time_series.html'>plot_time_series</a></span><span class='op'>(</span><span class='va'>date</span>, <span class='va'>value</span>, <span class='va'>name</span>,
                      .facet_scale <span class='op'>=</span> <span class='st'>"free"</span>, .facet_ncol <span class='op'>=</span> <span class='fl'>2</span>,
                      .smooth <span class='op'>=</span> <span class='cn'>FALSE</span>, .interactive <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='error'>Error in eval(lhs, parent, parent): object 'm4_daily_first_by_month_tbl' not found</span></div><div class='input'>
-</div></pre>
+</div><div class='img'><img src='mutate_by_time-1.png' alt='' width='700' height='433' /></div><div class='input'>
+</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
