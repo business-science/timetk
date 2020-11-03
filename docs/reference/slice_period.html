@@ -185,7 +185,7 @@
     <p>Applies a dplyr slice inside a time-based period (window).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>slice_period</span><span class='op'>(</span><span class='va'>.data</span>, <span class='va'>...</span>, <span class='va'>.date_var</span>, .by <span class='op'>=</span> <span class='st'>"day"</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>slice_period</span><span class='op'>(</span><span class='va'>.data</span>, <span class='va'>...</span>, <span class='va'>.date_var</span>, .period <span class='op'>=</span> <span class='st'>"1 day"</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -209,7 +209,7 @@ Indices beyond the number of rows in the input are silently ignored.</p>
 If missing, attempts to auto-detect date column.</p></td>
     </tr>
     <tr>
-      <th>.by</th>
+      <th>.period</th>
       <td><p>A period to slice within.
 Time units are grouped using <code><a href='http://lubridate.tidyverse.org/reference/round_date.html'>lubridate::floor_date()</a></code> or <code><a href='http://lubridate.tidyverse.org/reference/round_date.html'>lubridate::ceiling_date()</a></code>.</p>
 <p>The value can be:</p><ul>
@@ -260,7 +260,7 @@ Time units are grouped using <code><a href='http://lubridate.tidyverse.org/refer
 <span class='co'># First 5 observations in each month</span>
 <span class='va'>m4_daily</span> <span class='op'>%&gt;%</span>
     <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>id</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-    <span class='fu'>slice_period</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>, .by <span class='op'>=</span> <span class='st'>"1 month"</span><span class='op'>)</span>
+    <span class='fu'>slice_period</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>, .period <span class='op'>=</span> <span class='st'>"1 month"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'>.date_var is missing. Using: date</span></div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 1,612 x 3</span><span>
 #&gt; </span><span style='color: #555555;'># Groups:   id [4]</span><span>
 #&gt;    id    date       value
@@ -279,7 +279,7 @@ Time units are grouped using <code><a href='http://lubridate.tidyverse.org/refer
 <span class='co'># Last observation in each month</span>
 <span class='va'>m4_daily</span> <span class='op'>%&gt;%</span>
     <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>id</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-    <span class='fu'>slice_period</span><span class='op'>(</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/context.html'>n</a></span><span class='op'>(</span><span class='op'>)</span>, .by <span class='op'>=</span> <span class='st'>"1 month"</span><span class='op'>)</span>
+    <span class='fu'>slice_period</span><span class='op'>(</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/context.html'>n</a></span><span class='op'>(</span><span class='op'>)</span>, .period <span class='op'>=</span> <span class='st'>"1 month"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'>.date_var is missing. Using: date</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 323 x 3</span><span>
 #&gt; </span><span style='color: #555555;'># Groups:   id [4]</span><span>
 #&gt;    id    date       value

@@ -4,7 +4,7 @@
 \alias{slice_period}
 \title{Apply slice inside periods (windows)}
 \usage{
-slice_period(.data, ..., .date_var, .by = "day")
+slice_period(.data, ..., .date_var, .period = "1 day")
 }
 \arguments{
 \item{.data}{A \code{tbl} object or \code{data.frame}}
@@ -21,7 +21,7 @@ For \code{slice_helpers()}, these arguments are passed on to methods.}
 \item{.date_var}{A column containing date or date-time values.
 If missing, attempts to auto-detect date column.}
 
-\item{.by}{A period to slice within.
+\item{.period}{A period to slice within.
 Time units are grouped using \code{lubridate::floor_date()} or \code{lubridate::ceiling_date()}.
 
 The value can be:
@@ -60,12 +60,12 @@ library(dplyr)
 # First 5 observations in each month
 m4_daily \%>\%
     group_by(id) \%>\%
-    slice_period(1:5, .by = "1 month")
+    slice_period(1:5, .period = "1 month")
 
 # Last observation in each month
 m4_daily \%>\%
     group_by(id) \%>\%
-    slice_period(n(), .by = "1 month")
+    slice_period(n(), .period = "1 month")
 
 }
 \seealso{

@@ -6,12 +6,13 @@
 #' - Filtering to the maximum value each month.
 #' - Filtering the first date each month.
 #' - Filtering all rows with value greater than a monthly average
+#' See [filter_by_time()] for filtering continuous ranges defined by start/end dates.
 #'
 #'
 #' @param .data A `tbl` object or `data.frame`
 #' @param .date_var A column containing date or date-time values.
 #'  If missing, attempts to auto-detect date column.
-#' @param .by A period to filter within.
+#' @param .period A period to filter within.
 #'   Time units are grouped using `lubridate::floor_date()` or `lubridate::ceiling_date()`.
 #'
 #'   The value can be:
@@ -62,20 +63,20 @@
 #' # Max value in each month
 #' m4_daily %>%
 #'     group_by(id) %>%
-#'     filter_period(.by = "1 month", value == max(value))
+#'     filter_period(.period = "1 month", value == max(value))
 #'
 #' # First date each month
 #' m4_daily %>%
 #'     group_by(id) %>%
-#'     filter_period(.by = "1 month", date == first(date))
+#'     filter_period(.period = "1 month", date == first(date))
 #'
 #' # All observations that are greater than a monthly average
 #' m4_daily %>%
 #'     group_by(id) %>%
-#'     filter_period(.by = "1 month", value > mean(value))
+#'     filter_period(.period = "1 month", value > mean(value))
 #'
 #' @export
-filter_period <- function(.data, ..., .date_var, .by = "day") {
+filter_period <- function(.data, ..., .date_var, .period = "1 day") {
 
     if (rlang::quo_is_missing(rlang::enquo(.date_var))) {
         message(".date_var is missing. Using: ", tk_get_timeseries_variables(.data)[1])
@@ -85,12 +86,12 @@ filter_period <- function(.data, ..., .date_var, .by = "day") {
 }
 
 #' @export
-filter_period.default <- function(.data, ..., .date_var, .by = "day") {
+filter_period.default <- function(.data, ..., .date_var, .period = "1 day") {
     stop("Object is not of class `data.frame`.", call. = FALSE)
 }
 
 #' @export
-filter_period.data.frame <- function(.data, ..., .date_var, .by = "day") {
+filter_period.data.frame <- function(.data, ..., .date_var, .period = "1 day") {
 
     data_groups_expr   <- rlang::syms(dplyr::group_vars(.data))
     date_var_expr      <- rlang::enquo(.date_var)
@@ -109,7 +110,7 @@ filter_period.data.frame <- function(.data, ..., .date_var, .by = "day") {
 
     # Time-based filtering logic
     ret_tbl <- .data %>%
-        dplyr::mutate(..date_agg = lubridate::floor_date(!! date_var_expr, unit = .by)) %>%
+        dplyr::mutate(..date_agg = lubridate::floor_date(!! date_var_expr, unit = .period)) %>%
         dplyr::group_by(!!! data_groups_expr, ..date_agg) %>%
         dplyr::filter(...) %>%
         dplyr::ungroup() %>%

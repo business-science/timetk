@@ -54,6 +54,7 @@ This allows for filtering expressions like:
 Filtering to the maximum value each month.
 Filtering the first date each month.
 Filtering all rows with value greater than a monthly average
+See filter_by_time() for filtering continuous ranges defined by start/end dates.
 
 " />
 <meta property="og:image" content="/logo.png" />
@@ -192,12 +193,13 @@ Filtering all rows with value greater than a monthly average
 This allows for filtering expressions like:</p><ul>
 <li><p>Filtering to the maximum value each month.</p></li>
 <li><p>Filtering the first date each month.</p></li>
-<li><p>Filtering all rows with value greater than a monthly average</p></li>
+<li><p>Filtering all rows with value greater than a monthly average
+See <code><a href='filter_by_time.html'>filter_by_time()</a></code> for filtering continuous ranges defined by start/end dates.</p></li>
 </ul>
 
     </div>
 
-    <pre class="usage"><span class='fu'>filter_period</span><span class='op'>(</span><span class='va'>.data</span>, <span class='va'>...</span>, <span class='va'>.date_var</span>, .by <span class='op'>=</span> <span class='st'>"day"</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>filter_period</span><span class='op'>(</span><span class='va'>.data</span>, <span class='va'>...</span>, <span class='va'>.date_var</span>, .period <span class='op'>=</span> <span class='st'>"1 day"</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -218,7 +220,7 @@ the &amp; operator. Only rows for which all conditions evaluate to TRUE are kept
 If missing, attempts to auto-detect date column.</p></td>
     </tr>
     <tr>
-      <th>.by</th>
+      <th>.period</th>
       <td><p>A period to filter within.
 Time units are grouped using <code><a href='http://lubridate.tidyverse.org/reference/round_date.html'>lubridate::floor_date()</a></code> or <code><a href='http://lubridate.tidyverse.org/reference/round_date.html'>lubridate::ceiling_date()</a></code>.</p>
 <p>The value can be:</p><ul>
@@ -269,7 +271,7 @@ Time units are grouped using <code><a href='http://lubridate.tidyverse.org/refer
 <span class='co'># Max value in each month</span>
 <span class='va'>m4_daily</span> <span class='op'>%&gt;%</span>
     <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>id</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-    <span class='fu'>filter_period</span><span class='op'>(</span>.by <span class='op'>=</span> <span class='st'>"1 month"</span>, <span class='va'>value</span> <span class='op'>==</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span><span class='op'>(</span><span class='va'>value</span><span class='op'>)</span><span class='op'>)</span>
+    <span class='fu'>filter_period</span><span class='op'>(</span>.period <span class='op'>=</span> <span class='st'>"1 month"</span>, <span class='va'>value</span> <span class='op'>==</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span><span class='op'>(</span><span class='va'>value</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'>.date_var is missing. Using: date</span></div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 350 x 3</span><span>
 #&gt; </span><span style='color: #555555;'># Groups:   id [4]</span><span>
 #&gt;    id    date       value
@@ -288,7 +290,7 @@ Time units are grouped using <code><a href='http://lubridate.tidyverse.org/refer
 <span class='co'># First date each month</span>
 <span class='va'>m4_daily</span> <span class='op'>%&gt;%</span>
     <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>id</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-    <span class='fu'>filter_period</span><span class='op'>(</span>.by <span class='op'>=</span> <span class='st'>"1 month"</span>, <span class='va'>date</span> <span class='op'>==</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/nth.html'>first</a></span><span class='op'>(</span><span class='va'>date</span><span class='op'>)</span><span class='op'>)</span>
+    <span class='fu'>filter_period</span><span class='op'>(</span>.period <span class='op'>=</span> <span class='st'>"1 month"</span>, <span class='va'>date</span> <span class='op'>==</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/nth.html'>first</a></span><span class='op'>(</span><span class='va'>date</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'>.date_var is missing. Using: date</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 323 x 3</span><span>
 #&gt; </span><span style='color: #555555;'># Groups:   id [4]</span><span>
 #&gt;    id    date       value
@@ -307,7 +309,7 @@ Time units are grouped using <code><a href='http://lubridate.tidyverse.org/refer
 <span class='co'># All observations that are greater than a monthly average</span>
 <span class='va'>m4_daily</span> <span class='op'>%&gt;%</span>
     <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>id</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-    <span class='fu'>filter_period</span><span class='op'>(</span>.by <span class='op'>=</span> <span class='st'>"1 month"</span>, <span class='va'>value</span> <span class='op'>&gt;</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>value</span><span class='op'>)</span><span class='op'>)</span>
+    <span class='fu'>filter_period</span><span class='op'>(</span>.period <span class='op'>=</span> <span class='st'>"1 month"</span>, <span class='va'>value</span> <span class='op'>&gt;</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>value</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'>.date_var is missing. Using: date</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 4,880 x 3</span><span>
 #&gt; </span><span style='color: #555555;'># Groups:   id [4]</span><span>
 #&gt;    id    date       value

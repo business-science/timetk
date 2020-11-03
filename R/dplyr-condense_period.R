@@ -10,7 +10,7 @@
 #' @param .data A `tbl` object or `data.frame`
 #' @param .date_var A column containing date or date-time values.
 #'  If missing, attempts to auto-detect date column.
-#' @param .by A period to condense the time series to.
+#' @param .period A period to condense the time series to.
 #'   Time units are condensed using `lubridate::floor_date()` or `lubridate::ceiling_date()`.
 #'
 #'   The value can be:
@@ -60,17 +60,17 @@
 #' # First value in each month
 #' m4_daily %>%
 #'     group_by(id) %>%
-#'     condense_period(.by = "1 month")
+#'     condense_period(.period = "1 month")
 #'
 #' # Last value in each month
 #' m4_daily %>%
 #'     group_by(id) %>%
-#'     condense_period(.by = "1 month", .side = "end")
+#'     condense_period(.period = "1 month", .side = "end")
 #'
 #'
 #'
 #' @export
-condense_period <- function(.data, .date_var, .by = "day", .side = c("start", "end")) {
+condense_period <- function(.data, .date_var, .period = "1 day", .side = c("start", "end")) {
 
     if (rlang::quo_is_missing(rlang::enquo(.date_var))) {
         message(".date_var is missing. Using: ", tk_get_timeseries_variables(.data)[1])
@@ -80,12 +80,12 @@ condense_period <- function(.data, .date_var, .by = "day", .side = c("start", "e
 }
 
 #' @export
-condense_period.default <- function(.data, .date_var, .by = "day", .side = c("start", "end")) {
+condense_period.default <- function(.data, .date_var, .period = "1 day", .side = c("start", "end")) {
     stop("Object is not of class `data.frame`.", call. = FALSE)
 }
 
 #' @export
-condense_period.data.frame <- function(.data, .date_var, .by = "day", .side = c("start", "end")) {
+condense_period.data.frame <- function(.data, .date_var, .period = "1 day", .side = c("start", "end")) {
 
     data_groups_expr   <- rlang::syms(dplyr::group_vars(.data))
     date_var_expr      <- rlang::enquo(.date_var)
@@ -126,7 +126,7 @@ condense_period.data.frame <- function(.data, .date_var, .by = "day", .side = c(
     ret_tbl <- .data %>%
         filter_period(
             .date_var = !! date_var_expr,
-            .by       = .by,
+            .period   = .period,
             # Filter max/min date
             !! date_var_expr == .f(!! date_var_expr)
         )

@@ -4,7 +4,7 @@
 \alias{condense_period}
 \title{Convert the Period to a Lower Periodicity (e.g. Go from Daily to Monthly)}
 \usage{
-condense_period(.data, .date_var, .by = "day", .side = c("start", "end"))
+condense_period(.data, .date_var, .period = "1 day", .side = c("start", "end"))
 }
 \arguments{
 \item{.data}{A \code{tbl} object or \code{data.frame}}
@@ -12,7 +12,7 @@ condense_period(.data, .date_var, .by = "day", .side = c("start", "end"))
 \item{.date_var}{A column containing date or date-time values.
 If missing, attempts to auto-detect date column.}
 
-\item{.by}{A period to condense the time series to.
+\item{.period}{A period to condense the time series to.
 Time units are condensed using \code{lubridate::floor_date()} or \code{lubridate::ceiling_date()}.
 
 The value can be:
@@ -57,12 +57,12 @@ library(dplyr)
 # First value in each month
 m4_daily \%>\%
     group_by(id) \%>\%
-    condense_period(.by = "1 month")
+    condense_period(.period = "1 month")
 
 # Last value in each month
 m4_daily \%>\%
     group_by(id) \%>\%
-    condense_period(.by = "1 month", .side = "end")
+    condense_period(.period = "1 month", .side = "end")
 
 
 

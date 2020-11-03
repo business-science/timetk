@@ -1,7 +1,7 @@
 #' Filter (for Time-Series Data)
 #'
-#' The easiest way to filter time-based tibbles using shorthand timeseries notation.
-#' See [between_time()] for the date and date-time vector implementation.
+#' The easiest way to filter time-based ___start/end ranges___ using shorthand timeseries notation.
+#' See [filter_period()] for applying filter expression by period (windows).
 #'
 #' @param .data A tibble with a time-based column.
 #' @param .date_var A column containing date or date-time values to filter.

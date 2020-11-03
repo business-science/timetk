@@ -4,7 +4,7 @@
 \alias{filter_period}
 \title{Apply filtering expressions inside periods (windows)}
 \usage{
-filter_period(.data, ..., .date_var, .by = "day")
+filter_period(.data, ..., .date_var, .period = "1 day")
 }
 \arguments{
 \item{.data}{A \code{tbl} object or \code{data.frame}}
@@ -16,7 +16,7 @@ the & operator. Only rows for which all conditions evaluate to TRUE are kept.}
 \item{.date_var}{A column containing date or date-time values.
 If missing, attempts to auto-detect date column.}
 
-\item{.by}{A period to filter within.
+\item{.period}{A period to filter within.
 Time units are grouped using \code{lubridate::floor_date()} or \code{lubridate::ceiling_date()}.
 
 The value can be:
@@ -51,6 +51,7 @@ This allows for filtering expressions like:
 \item Filtering to the maximum value each month.
 \item Filtering the first date each month.
 \item Filtering all rows with value greater than a monthly average
+See \code{\link[=filter_by_time]{filter_by_time()}} for filtering continuous ranges defined by start/end dates.
 }
 }
 \examples{
@@ -61,17 +62,17 @@ library(dplyr)
 # Max value in each month
 m4_daily \%>\%
     group_by(id) \%>\%
-    filter_period(.by = "1 month", value == max(value))
+    filter_period(.period = "1 month", value == max(value))
 
 # First date each month
 m4_daily \%>\%
     group_by(id) \%>\%
-    filter_period(.by = "1 month", date == first(date))
+    filter_period(.period = "1 month", date == first(date))
 
 # All observations that are greater than a monthly average
 m4_daily \%>\%
     group_by(id) \%>\%
-    filter_period(.by = "1 month", value > mean(value))
+    filter_period(.period = "1 month", value > mean(value))
 
 }
 \seealso{

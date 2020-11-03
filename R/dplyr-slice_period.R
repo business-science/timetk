@@ -7,7 +7,7 @@
 #' @param .data A `tbl` object or `data.frame`
 #' @param .date_var A column containing date or date-time values.
 #'  If missing, attempts to auto-detect date column.
-#' @param .by A period to slice within.
+#' @param .period A period to slice within.
 #'   Time units are grouped using `lubridate::floor_date()` or `lubridate::ceiling_date()`.
 #'
 #'   The value can be:
@@ -54,15 +54,15 @@
 #' # First 5 observations in each month
 #' m4_daily %>%
 #'     group_by(id) %>%
-#'     slice_period(1:5, .by = "1 month")
+#'     slice_period(1:5, .period = "1 month")
 #'
 #' # Last observation in each month
 #' m4_daily %>%
 #'     group_by(id) %>%
-#'     slice_period(n(), .by = "1 month")
+#'     slice_period(n(), .period = "1 month")
 #'
 #' @export
-slice_period <- function(.data, ..., .date_var, .by = "day") {
+slice_period <- function(.data, ..., .date_var, .period = "1 day") {
 
     if (rlang::quo_is_missing(rlang::enquo(.date_var))) {
         message(".date_var is missing. Using: ", tk_get_timeseries_variables(.data)[1])
@@ -72,12 +72,12 @@ slice_period <- function(.data, ..., .date_var, .by = "day") {
 }
 
 #' @export
-slice_period.default <- function(.data, ..., .date_var, .by = "day") {
+slice_period.default <- function(.data, ..., .date_var, .period = "1 day") {
     stop("Object is not of class `data.frame`.", call. = FALSE)
 }
 
 #' @export
-slice_period.data.frame <- function(.data, ..., .date_var, .by = "day") {
+slice_period.data.frame <- function(.data, ..., .date_var, .period = "1 day") {
 
     data_groups_expr   <- rlang::syms(dplyr::group_vars(.data))
     date_var_expr      <- rlang::enquo(.date_var)
@@ -96,7 +96,7 @@ slice_period.data.frame <- function(.data, ..., .date_var, .by = "day") {
 
     # Time-based filtering logic
     ret_tbl <- .data %>%
-        dplyr::mutate(..date_agg = lubridate::floor_date(!! date_var_expr, unit = .by)) %>%
+        dplyr::mutate(..date_agg = lubridate::floor_date(!! date_var_expr, unit = .period)) %>%
         dplyr::group_by(!!! data_groups_expr, ..date_agg) %>%
         dplyr::slice(...) %>%
         dplyr::ungroup() %>%

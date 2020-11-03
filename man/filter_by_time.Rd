@@ -17,8 +17,8 @@ If missing, attempts to auto-detect date column.}
 \item{.end_date}{The ending date for the filter sequence}
 }
 \description{
-The easiest way to filter time-based tibbles using shorthand timeseries notation.
-See \code{\link[=between_time]{between_time()}} for the date and date-time vector implementation.
+The easiest way to filter time-based \emph{\strong{start/end ranges}} using shorthand timeseries notation.
+See \code{\link[=filter_period]{filter_period()}} for applying filter expression by period (windows).
 }
 \details{
 \strong{Pure Time Series Filtering Flexibilty}
