@@ -11,7 +11,7 @@
 #' @param .data A `tbl` object or `data.frame`
 #' @param .date_var A column containing date or date-time values.
 #'  If missing, attempts to auto-detect date column.
-#' @param .period A period to filter within.
+#' @param .by A period to filter within.
 #'   Time units are grouped using `lubridate::floor_date()` or `lubridate::ceiling_date()`.
 #'
 #'   The value can be:
@@ -45,6 +45,7 @@
 #' Time-Based dplyr functions:
 #'
 #' - [summarise_by_time()] - Easily summarise using a date column.
+#' - [mutate_by_time()] - Simplifies applying mutations by time windows.
 #' - [filter_by_time()] - Quickly filter using date ranges.
 #' - [filter_in_period()] - Apply filtering expressions inside periods (windows)
 #' - [between_time()] - Range detection for date or date-time sequences.
@@ -60,20 +61,20 @@
 #' # Max value in each month
 #' m4_daily %>%
 #'     group_by(id) %>%
-#'     filter_in_period(.period = "1 month", value == max(value))
+#'     filter_in_period(.by = "1 month", value == max(value))
 #'
 #' # First date each month
 #' m4_daily %>%
 #'     group_by(id) %>%
-#'     filter_in_period(.period = "1 month", date == first(date))
+#'     filter_in_period(.by = "1 month", date == first(date))
 #'
 #' # All observations that are greater than a monthly average
 #' m4_daily %>%
 #'     group_by(id) %>%
-#'     filter_in_period(.period = "1 month", value > mean(value))
+#'     filter_in_period(.by = "1 month", value > mean(value))
 #'
 #' @export
-filter_in_period <- function(.data, ..., .date_var, .period = "day") {
+filter_in_period <- function(.data, ..., .date_var, .by = "day") {
 
     if (rlang::quo_is_missing(rlang::enquo(.date_var))) {
         message(".date_var is missing. Using: ", tk_get_timeseries_variables(.data)[1])
@@ -83,12 +84,12 @@ filter_in_period <- function(.data, ..., .date_var, .period = "day") {
 }
 
 #' @export
-filter_in_period.default <- function(.data, ..., .date_var, .period = "day") {
+filter_in_period.default <- function(.data, ..., .date_var, .by = "day") {
     stop("Object is not of class `data.frame`.", call. = FALSE)
 }
 
 #' @export
-filter_in_period.data.frame <- function(.data, ..., .date_var, .period = "day") {
+filter_in_period.data.frame <- function(.data, ..., .date_var, .by = "day") {
 
     data_groups_expr   <- rlang::syms(dplyr::group_vars(.data))
     date_var_expr      <- rlang::enquo(.date_var)
@@ -107,7 +108,7 @@ filter_in_period.data.frame <- function(.data, ..., .date_var, .period = "day") 
 
     # Time-based filtering logic
     ret_tbl <- .data %>%
-        dplyr::mutate(..date_agg = lubridate::floor_date(!! date_var_expr, unit = .period)) %>%
+        dplyr::mutate(..date_agg = lubridate::floor_date(!! date_var_expr, unit = .by)) %>%
         dplyr::group_by(!!! data_groups_expr, ..date_agg) %>%
         dplyr::filter(...) %>%
         dplyr::ungroup() %>%

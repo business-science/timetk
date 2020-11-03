@@ -268,7 +268,9 @@ This is possible by supplying a higher frequency to <code>pad_by_time()</code>.<
 
 <p>Time-Based dplyr functions:</p><ul>
 <li><p><code><a href='summarise_by_time.html'>summarise_by_time()</a></code> - Easily summarise using a date column.</p></li>
+<li><p><code><a href='mutate_by_time.html'>mutate_by_time()</a></code> - Simplifies applying mutations by time windows.</p></li>
 <li><p><code><a href='filter_by_time.html'>filter_by_time()</a></code> - Quickly filter using date ranges.</p></li>
+<li><p><code><a href='filter_in_period.html'>filter_in_period()</a></code> - Apply filtering expressions inside periods (windows)</p></li>
 <li><p><code><a href='between_time.html'>between_time()</a></code> - Range detection for date or date-time sequences.</p></li>
 <li><p><code>pad_by_time()</code> - Insert time series rows with regularly spaced timestamps</p></li>
 <li><p><code><a href='condense_period.html'>condense_period()</a></code> - Convert to a different periodicity</p></li>
@@ -287,152 +289,49 @@ This is possible by supplying a higher frequency to <code>pad_by_time()</code>.<
     value <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>
 <span class='op'>)</span> <span class='op'>%&gt;%</span>
     <span class='fu'><a href='https://dplyr.tidyverse.org/reference/slice.html'>slice</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>4</span><span class='op'>)</span> <span class='co'># Lose the 4th quarter on purpose</span>
-<span class='va'>missing_data_tbl</span>
-</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 4 x 2</span><span>
-#&gt;   date       value
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span> 2014-01-01     1
-#&gt; </span><span style='color: #555555;'>2</span><span> 2014-04-01     2
-#&gt; </span><span style='color: #555555;'>3</span><span> 2014-07-01     3
-#&gt; </span><span style='color: #555555;'>4</span><span> 2015-01-01     5</div><div class='input'>
+</div><div class='output co'>#&gt; <span class='error'>Error in tk_make_timeseries("2014-01-01", "2015-01-01", by = "quarter"): could not find function "tk_make_timeseries"</span></div><div class='input'><span class='va'>missing_data_tbl</span>
+</div><div class='output co'>#&gt; <span class='error'>Error in eval(expr, envir, enclos): object 'missing_data_tbl' not found</span></div><div class='input'>
 
 <span class='co'># Detects missing quarter, and pads the missing regularly spaced quarter with NA</span>
 <span class='va'>missing_data_tbl</span> <span class='op'>%&gt;%</span> <span class='fu'>pad_by_time</span><span class='op'>(</span><span class='va'>date</span>, .by <span class='op'>=</span> <span class='st'>"quarter"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 5 x 2</span><span>
-#&gt;   date       value
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span> 2014-01-01     1
-#&gt; </span><span style='color: #555555;'>2</span><span> 2014-04-01     2
-#&gt; </span><span style='color: #555555;'>3</span><span> 2014-07-01     3
-#&gt; </span><span style='color: #555555;'>4</span><span> 2014-10-01    </span><span style='color: #BB0000;'>NA</span><span>
-#&gt; </span><span style='color: #555555;'>5</span><span> 2015-01-01     5</div><div class='input'>
+</div><div class='output co'>#&gt; <span class='error'>Error in eval(lhs, parent, parent): object 'missing_data_tbl' not found</span></div><div class='input'>
 <span class='co'># Can specify a shorter period. This fills monthly.</span>
 <span class='va'>missing_data_tbl</span> <span class='op'>%&gt;%</span> <span class='fu'>pad_by_time</span><span class='op'>(</span><span class='va'>date</span>, .by <span class='op'>=</span> <span class='st'>"month"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 13 x 2</span><span>
-#&gt;    date       value
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> 2014-01-01     1
-#&gt; </span><span style='color: #555555;'> 2</span><span> 2014-02-01    </span><span style='color: #BB0000;'>NA</span><span>
-#&gt; </span><span style='color: #555555;'> 3</span><span> 2014-03-01    </span><span style='color: #BB0000;'>NA</span><span>
-#&gt; </span><span style='color: #555555;'> 4</span><span> 2014-04-01     2
-#&gt; </span><span style='color: #555555;'> 5</span><span> 2014-05-01    </span><span style='color: #BB0000;'>NA</span><span>
-#&gt; </span><span style='color: #555555;'> 6</span><span> 2014-06-01    </span><span style='color: #BB0000;'>NA</span><span>
-#&gt; </span><span style='color: #555555;'> 7</span><span> 2014-07-01     3
-#&gt; </span><span style='color: #555555;'> 8</span><span> 2014-08-01    </span><span style='color: #BB0000;'>NA</span><span>
-#&gt; </span><span style='color: #555555;'> 9</span><span> 2014-09-01    </span><span style='color: #BB0000;'>NA</span><span>
-#&gt; </span><span style='color: #555555;'>10</span><span> 2014-10-01    </span><span style='color: #BB0000;'>NA</span><span>
-#&gt; </span><span style='color: #555555;'>11</span><span> 2014-11-01    </span><span style='color: #BB0000;'>NA</span><span>
-#&gt; </span><span style='color: #555555;'>12</span><span> 2014-12-01    </span><span style='color: #BB0000;'>NA</span><span>
-#&gt; </span><span style='color: #555555;'>13</span><span> 2015-01-01     5</div><div class='input'>
+</div><div class='output co'>#&gt; <span class='error'>Error in eval(lhs, parent, parent): object 'missing_data_tbl' not found</span></div><div class='input'>
 <span class='co'># Can let pad_by_time() auto-detect date and period</span>
 <span class='va'>missing_data_tbl</span> <span class='op'>%&gt;%</span> <span class='fu'>pad_by_time</span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>.date_var is missing. Using: date</span></div><div class='output co'>#&gt; <span class='message'>pad applied on the interval: quarter</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 5 x 2</span><span>
-#&gt;   date       value
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span> 2014-01-01     1
-#&gt; </span><span style='color: #555555;'>2</span><span> 2014-04-01     2
-#&gt; </span><span style='color: #555555;'>3</span><span> 2014-07-01     3
-#&gt; </span><span style='color: #555555;'>4</span><span> 2014-10-01    </span><span style='color: #BB0000;'>NA</span><span>
-#&gt; </span><span style='color: #555555;'>5</span><span> 2015-01-01     5</div><div class='input'>
+</div><div class='output co'>#&gt; <span class='error'>Error in eval(lhs, parent, parent): object 'missing_data_tbl' not found</span></div><div class='input'>
 <span class='co'># Can specify a .pad_value</span>
 <span class='va'>missing_data_tbl</span> <span class='op'>%&gt;%</span> <span class='fu'>pad_by_time</span><span class='op'>(</span><span class='va'>date</span>, .by <span class='op'>=</span> <span class='st'>"quarter"</span>, .pad_value <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 5 x 2</span><span>
-#&gt;   date       value
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span> 2014-01-01     1
-#&gt; </span><span style='color: #555555;'>2</span><span> 2014-04-01     2
-#&gt; </span><span style='color: #555555;'>3</span><span> 2014-07-01     3
-#&gt; </span><span style='color: #555555;'>4</span><span> 2014-10-01     0
-#&gt; </span><span style='color: #555555;'>5</span><span> 2015-01-01     5</div><div class='input'>
+</div><div class='output co'>#&gt; <span class='error'>Error in eval(lhs, parent, parent): object 'missing_data_tbl' not found</span></div><div class='input'>
 <span class='co'># Can then impute missing values</span>
 <span class='va'>missing_data_tbl</span> <span class='op'>%&gt;%</span>
     <span class='fu'>pad_by_time</span><span class='op'>(</span><span class='va'>date</span>, .by <span class='op'>=</span> <span class='st'>"quarter"</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
     <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>value <span class='op'>=</span> <span class='fu'><a href='ts_impute_vec.html'>ts_impute_vec</a></span><span class='op'>(</span><span class='va'>value</span>, period <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 5 x 2</span><span>
-#&gt;   date       value
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span> 2014-01-01     1
-#&gt; </span><span style='color: #555555;'>2</span><span> 2014-04-01     2
-#&gt; </span><span style='color: #555555;'>3</span><span> 2014-07-01     3
-#&gt; </span><span style='color: #555555;'>4</span><span> 2014-10-01     4
-#&gt; </span><span style='color: #555555;'>5</span><span> 2015-01-01     5</div><div class='input'>
+</div><div class='output co'>#&gt; <span class='error'>Error in eval(lhs, parent, parent): object 'missing_data_tbl' not found</span></div><div class='input'>
 <span class='co'># Can specify a custom .start_date and .end_date</span>
 <span class='va'>missing_data_tbl</span> <span class='op'>%&gt;%</span>
    <span class='fu'>pad_by_time</span><span class='op'>(</span><span class='va'>date</span>, .by <span class='op'>=</span> <span class='st'>"quarter"</span>, .start_date <span class='op'>=</span> <span class='st'>"2013"</span>, .end_date <span class='op'>=</span> <span class='st'>"2015-07-01"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 11 x 2</span><span>
-#&gt;    date       value
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> 2013-01-01    </span><span style='color: #BB0000;'>NA</span><span>
-#&gt; </span><span style='color: #555555;'> 2</span><span> 2013-04-01    </span><span style='color: #BB0000;'>NA</span><span>
-#&gt; </span><span style='color: #555555;'> 3</span><span> 2013-07-01    </span><span style='color: #BB0000;'>NA</span><span>
-#&gt; </span><span style='color: #555555;'> 4</span><span> 2013-10-01    </span><span style='color: #BB0000;'>NA</span><span>
-#&gt; </span><span style='color: #555555;'> 5</span><span> 2014-01-01     1
-#&gt; </span><span style='color: #555555;'> 6</span><span> 2014-04-01     2
-#&gt; </span><span style='color: #555555;'> 7</span><span> 2014-07-01     3
-#&gt; </span><span style='color: #555555;'> 8</span><span> 2014-10-01    </span><span style='color: #BB0000;'>NA</span><span>
-#&gt; </span><span style='color: #555555;'> 9</span><span> 2015-01-01     5
-#&gt; </span><span style='color: #555555;'>10</span><span> 2015-04-01    </span><span style='color: #BB0000;'>NA</span><span>
-#&gt; </span><span style='color: #555555;'>11</span><span> 2015-07-01    </span><span style='color: #BB0000;'>NA</span><span></div><div class='input'>
+</div><div class='output co'>#&gt; <span class='error'>Error in eval(lhs, parent, parent): object 'missing_data_tbl' not found</span></div><div class='input'>
 <span class='co'># Can specify a tidyr::fill() direction</span>
 <span class='va'>missing_data_tbl</span> <span class='op'>%&gt;%</span>
    <span class='fu'>pad_by_time</span><span class='op'>(</span><span class='va'>date</span>, .by <span class='op'>=</span> <span class='st'>"quarter"</span>,
                .fill_na_direction <span class='op'>=</span> <span class='st'>"downup"</span>,
                .start_date <span class='op'>=</span> <span class='st'>"2013"</span>, .end_date <span class='op'>=</span> <span class='st'>"2015-07-01"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 11 x 2</span><span>
-#&gt;    date       value
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> 2013-01-01     1
-#&gt; </span><span style='color: #555555;'> 2</span><span> 2013-04-01     1
-#&gt; </span><span style='color: #555555;'> 3</span><span> 2013-07-01     1
-#&gt; </span><span style='color: #555555;'> 4</span><span> 2013-10-01     1
-#&gt; </span><span style='color: #555555;'> 5</span><span> 2014-01-01     1
-#&gt; </span><span style='color: #555555;'> 6</span><span> 2014-04-01     2
-#&gt; </span><span style='color: #555555;'> 7</span><span> 2014-07-01     3
-#&gt; </span><span style='color: #555555;'> 8</span><span> 2014-10-01     3
-#&gt; </span><span style='color: #555555;'> 9</span><span> 2015-01-01     5
-#&gt; </span><span style='color: #555555;'>10</span><span> 2015-04-01     5
-#&gt; </span><span style='color: #555555;'>11</span><span> 2015-07-01     5</div><div class='input'>
+</div><div class='output co'>#&gt; <span class='error'>Error in eval(lhs, parent, parent): object 'missing_data_tbl' not found</span></div><div class='input'>
 <span class='co'># --- GROUPS ----</span>
 
 <span class='co'># Apply standard NA padding to groups</span>
 <span class='va'>FANG</span> <span class='op'>%&gt;%</span>
     <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>symbol</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
     <span class='fu'>pad_by_time</span><span class='op'>(</span>.by <span class='op'>=</span> <span class='st'>"day"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>.date_var is missing. Using: date</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 5,836 x 8</span><span>
-#&gt; </span><span style='color: #555555;'># Groups:   symbol [4]</span><span>
-#&gt;    symbol date        open  high   low close    volume adjusted
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> FB     2013-01-02  27.4  28.2  27.4  28    69</span><span style='text-decoration: underline;'>846</span><span>400     28  
-#&gt; </span><span style='color: #555555;'> 2</span><span> FB     2013-01-03  27.9  28.5  27.6  27.8  63</span><span style='text-decoration: underline;'>140</span><span>600     27.8
-#&gt; </span><span style='color: #555555;'> 3</span><span> FB     2013-01-04  28.0  28.9  27.8  28.8  72</span><span style='text-decoration: underline;'>715</span><span>400     28.8
-#&gt; </span><span style='color: #555555;'> 4</span><span> FB     2013-01-05  </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>          </span><span style='color: #BB0000;'>NA</span><span>     </span><span style='color: #BB0000;'>NA</span><span>  
-#&gt; </span><span style='color: #555555;'> 5</span><span> FB     2013-01-06  </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>          </span><span style='color: #BB0000;'>NA</span><span>     </span><span style='color: #BB0000;'>NA</span><span>  
-#&gt; </span><span style='color: #555555;'> 6</span><span> FB     2013-01-07  28.7  29.8  28.6  29.4  83</span><span style='text-decoration: underline;'>781</span><span>800     29.4
-#&gt; </span><span style='color: #555555;'> 7</span><span> FB     2013-01-08  29.5  29.6  28.9  29.1  45</span><span style='text-decoration: underline;'>871</span><span>300     29.1
-#&gt; </span><span style='color: #555555;'> 8</span><span> FB     2013-01-09  29.7  30.6  29.5  30.6 104</span><span style='text-decoration: underline;'>787</span><span>700     30.6
-#&gt; </span><span style='color: #555555;'> 9</span><span> FB     2013-01-10  30.6  31.5  30.3  31.3  95</span><span style='text-decoration: underline;'>316</span><span>400     31.3
-#&gt; </span><span style='color: #555555;'>10</span><span> FB     2013-01-11  31.3  32.0  31.1  31.7  89</span><span style='text-decoration: underline;'>598</span><span>000     31.7
-#&gt; </span><span style='color: #555555;'># … with 5,826 more rows</span><span></div><div class='input'>
+</div><div class='output co'>#&gt; <span class='error'>Error in pad_by_time(., .by = "day"): could not find function "pad_by_time"</span></div><div class='input'>
 <span class='co'># Apply filled padding to groups</span>
 <span class='va'>FANG</span> <span class='op'>%&gt;%</span>
     <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>symbol</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
     <span class='fu'>pad_by_time</span><span class='op'>(</span>.by <span class='op'>=</span> <span class='st'>"day"</span>, .fill_na_direction <span class='op'>=</span> <span class='st'>"down"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>.date_var is missing. Using: date</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 5,836 x 8</span><span>
-#&gt; </span><span style='color: #555555;'># Groups:   symbol [4]</span><span>
-#&gt;    symbol date        open  high   low close    volume adjusted
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> FB     2013-01-02  27.4  28.2  27.4  28    69</span><span style='text-decoration: underline;'>846</span><span>400     28  
-#&gt; </span><span style='color: #555555;'> 2</span><span> FB     2013-01-03  27.9  28.5  27.6  27.8  63</span><span style='text-decoration: underline;'>140</span><span>600     27.8
-#&gt; </span><span style='color: #555555;'> 3</span><span> FB     2013-01-04  28.0  28.9  27.8  28.8  72</span><span style='text-decoration: underline;'>715</span><span>400     28.8
-#&gt; </span><span style='color: #555555;'> 4</span><span> FB     2013-01-05  28.0  28.9  27.8  28.8  72</span><span style='text-decoration: underline;'>715</span><span>400     28.8
-#&gt; </span><span style='color: #555555;'> 5</span><span> FB     2013-01-06  28.0  28.9  27.8  28.8  72</span><span style='text-decoration: underline;'>715</span><span>400     28.8
-#&gt; </span><span style='color: #555555;'> 6</span><span> FB     2013-01-07  28.7  29.8  28.6  29.4  83</span><span style='text-decoration: underline;'>781</span><span>800     29.4
-#&gt; </span><span style='color: #555555;'> 7</span><span> FB     2013-01-08  29.5  29.6  28.9  29.1  45</span><span style='text-decoration: underline;'>871</span><span>300     29.1
-#&gt; </span><span style='color: #555555;'> 8</span><span> FB     2013-01-09  29.7  30.6  29.5  30.6 104</span><span style='text-decoration: underline;'>787</span><span>700     30.6
-#&gt; </span><span style='color: #555555;'> 9</span><span> FB     2013-01-10  30.6  31.5  30.3  31.3  95</span><span style='text-decoration: underline;'>316</span><span>400     31.3
-#&gt; </span><span style='color: #555555;'>10</span><span> FB     2013-01-11  31.3  32.0  31.1  31.7  89</span><span style='text-decoration: underline;'>598</span><span>000     31.7
-#&gt; </span><span style='color: #555555;'># … with 5,826 more rows</span><span></div><div class='input'>
-</div></span></pre>
+</div><div class='output co'>#&gt; <span class='error'>Error in pad_by_time(., .by = "day", .fill_na_direction = "down"): could not find function "pad_by_time"</span></div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

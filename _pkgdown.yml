@@ -66,7 +66,7 @@ reference:
     contents:
     - contains("summarise")
     - contains("mutate")
-    - "filter_by_time"
+    - contains("filter")
     - "pad_by_time"
     - "condense_period"
     - "future_frame"

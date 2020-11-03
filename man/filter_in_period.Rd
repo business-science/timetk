@@ -4,7 +4,7 @@
 \alias{filter_in_period}
 \title{Filter within a period (e.g. Filter to the Max Value Each Month)}
 \usage{
-filter_in_period(.data, ..., .date_var, .period = "day")
+filter_in_period(.data, ..., .date_var, .by = "day")
 }
 \arguments{
 \item{.data}{A \code{tbl} object or \code{data.frame}}
@@ -16,7 +16,7 @@ the & operator. Only rows for which all conditions evaluate to TRUE are kept.}
 \item{.date_var}{A column containing date or date-time values.
 If missing, attempts to auto-detect date column.}
 
-\item{.period}{A period to filter within.
+\item{.by}{A period to filter within.
 Time units are grouped using \code{lubridate::floor_date()} or \code{lubridate::ceiling_date()}.
 
 The value can be:
@@ -61,23 +61,24 @@ library(dplyr)
 # Max value in each month
 m4_daily \%>\%
     group_by(id) \%>\%
-    filter_in_period(.period = "1 month", value == max(value))
+    filter_in_period(.by = "1 month", value == max(value))
 
 # First date each month
 m4_daily \%>\%
     group_by(id) \%>\%
-    filter_in_period(.period = "1 month", date == first(date))
+    filter_in_period(.by = "1 month", date == first(date))
 
 # All observations that are greater than a monthly average
 m4_daily \%>\%
     group_by(id) \%>\%
-    filter_in_period(.period = "1 month", value > mean(value))
+    filter_in_period(.by = "1 month", value > mean(value))
 
 }
 \seealso{
 Time-Based dplyr functions:
 \itemize{
 \item \code{\link[=summarise_by_time]{summarise_by_time()}} - Easily summarise using a date column.
+\item \code{\link[=mutate_by_time]{mutate_by_time()}} - Simplifies applying mutations by time windows.
 \item \code{\link[=filter_by_time]{filter_by_time()}} - Quickly filter using date ranges.
 \item \code{\link[=filter_in_period]{filter_in_period()}} - Apply filtering expressions inside periods (windows)
 \item \code{\link[=between_time]{between_time()}} - Range detection for date or date-time sequences.

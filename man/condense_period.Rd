@@ -4,7 +4,7 @@
 \alias{condense_period}
 \title{Convert the Period to a Lower Periodicity (e.g. Go from Daily to Monthly)}
 \usage{
-condense_period(.data, .date_var, .period = "day", .side = c("start", "end"))
+condense_period(.data, .date_var, .by = "day", .side = c("start", "end"))
 }
 \arguments{
 \item{.data}{A \code{tbl} object or \code{data.frame}}
@@ -12,7 +12,7 @@ condense_period(.data, .date_var, .period = "day", .side = c("start", "end"))
 \item{.date_var}{A column containing date or date-time values.
 If missing, attempts to auto-detect date column.}
 
-\item{.period}{A period to condense the time series to.
+\item{.by}{A period to condense the time series to.
 Time units are condensed using \code{lubridate::floor_date()} or \code{lubridate::ceiling_date()}.
 
 The value can be:
@@ -57,12 +57,12 @@ library(dplyr)
 # First value in each month
 m4_daily \%>\%
     group_by(id) \%>\%
-    condense_period(.period = "1 month")
+    condense_period(.by = "1 month")
 
 # Last value in each month
 m4_daily \%>\%
     group_by(id) \%>\%
-    condense_period(.period = "1 month", .side = "end")
+    condense_period(.by = "1 month", .side = "end")
 
 
 
@@ -71,7 +71,9 @@ m4_daily \%>\%
 Time-Based dplyr functions:
 \itemize{
 \item \code{\link[=summarise_by_time]{summarise_by_time()}} - Easily summarise using a date column.
+\item \code{\link[=mutate_by_time]{mutate_by_time()}} - Simplifies applying mutations by time windows.
 \item \code{\link[=filter_by_time]{filter_by_time()}} - Quickly filter using date ranges.
+\item \code{\link[=filter_in_period]{filter_in_period()}} - Apply filtering expressions inside periods (windows)
 \item \code{\link[=between_time]{between_time()}} - Range detection for date or date-time sequences.
 \item \code{\link[=pad_by_time]{pad_by_time()}} - Insert time series rows with regularly spaced timestamps
 \item \code{\link[=condense_period]{condense_period()}} - Convert to a different periodicity

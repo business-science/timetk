@@ -10,7 +10,7 @@
 #' @param .data A `tbl` object or `data.frame`
 #' @param .date_var A column containing date or date-time values.
 #'  If missing, attempts to auto-detect date column.
-#' @param .period A period to condense the time series to.
+#' @param .by A period to condense the time series to.
 #'   Time units are condensed using `lubridate::floor_date()` or `lubridate::ceiling_date()`.
 #'
 #'   The value can be:
@@ -43,7 +43,9 @@
 #' Time-Based dplyr functions:
 #'
 #' - [summarise_by_time()] - Easily summarise using a date column.
+#' - [mutate_by_time()] - Simplifies applying mutations by time windows.
 #' - [filter_by_time()] - Quickly filter using date ranges.
+#' - [filter_in_period()] - Apply filtering expressions inside periods (windows)
 #' - [between_time()] - Range detection for date or date-time sequences.
 #' - [pad_by_time()] - Insert time series rows with regularly spaced timestamps
 #' - [condense_period()] - Convert to a different periodicity
@@ -57,17 +59,17 @@
 #' # First value in each month
 #' m4_daily %>%
 #'     group_by(id) %>%
-#'     condense_period(.period = "1 month")
+#'     condense_period(.by = "1 month")
 #'
 #' # Last value in each month
 #' m4_daily %>%
 #'     group_by(id) %>%
-#'     condense_period(.period = "1 month", .side = "end")
+#'     condense_period(.by = "1 month", .side = "end")
 #'
 #'
 #'
 #' @export
-condense_period <- function(.data, .date_var, .period = "day", .side = c("start", "end")) {
+condense_period <- function(.data, .date_var, .by = "day", .side = c("start", "end")) {
 
     if (rlang::quo_is_missing(rlang::enquo(.date_var))) {
         message(".date_var is missing. Using: ", tk_get_timeseries_variables(.data)[1])
@@ -77,12 +79,12 @@ condense_period <- function(.data, .date_var, .period = "day", .side = c("start"
 }
 
 #' @export
-condense_period.default <- function(.data, .date_var, .period = "day", .side = c("start", "end")) {
+condense_period.default <- function(.data, .date_var, .by = "day", .side = c("start", "end")) {
     stop("Object is not of class `data.frame`.", call. = FALSE)
 }
 
 #' @export
-condense_period.data.frame <- function(.data, .date_var, .period = "day", .side = c("start", "end")) {
+condense_period.data.frame <- function(.data, .date_var, .by = "day", .side = c("start", "end")) {
 
     data_groups_expr   <- rlang::syms(dplyr::group_vars(.data))
     date_var_expr      <- rlang::enquo(.date_var)
@@ -123,7 +125,7 @@ condense_period.data.frame <- function(.data, .date_var, .period = "day", .side 
     ret_tbl <- .data %>%
         filter_in_period(
             .date_var = !! date_var_expr,
-            .period   = .period,
+            .by       = .by,
             # Filter max/min date
             !! date_var_expr == .f(!! date_var_expr)
         )

@@ -50,7 +50,9 @@
 #' Time-Based dplyr functions:
 #'
 #' - [summarise_by_time()] - Easily summarise using a date column.
+#' - [mutate_by_time()] - Simplifies applying mutations by time windows.
 #' - [filter_by_time()] - Quickly filter using date ranges.
+#' - [filter_in_period()] - Apply filtering expressions inside periods (windows)
 #' - [between_time()] - Range detection for date or date-time sequences.
 #' - [pad_by_time()] - Insert time series rows with regularly spaced timestamps
 #' - [condense_period()] - Convert to a different periodicity

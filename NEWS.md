@@ -2,7 +2,8 @@
 
 __New Functions__
 
-- `condense_by_time()`: Converts a periodicity from a higher (e.g. daily) to lower (e.g. monthly) frequency. Similar to `xts::to.period()` and `tibbletime::as_period()`.
+- `filter_in_period()`: Applies filtering expressions within time-based windows. 
+- `condense_period()`: Converts a periodicity from a higher (e.g. daily) to lower (e.g. monthly) frequency. Similar to `xts::to.period()` and `tibbletime::as_period()`.
 
 __Fixes__
 

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Convert the Period to a Lower Periodicity (e.g. Go from Daily to Monthly) — condense_period • timetk</title>
+<title>Filter within a period (e.g. Filter to the Max Value Each Month) — filter_in_period • timetk</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -48,11 +48,14 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Convert the Period to a Lower Periodicity (e.g. Go from Daily to Monthly) — condense_period" />
-<meta property="og:description" content="Convert a data.frame object from daily to monthly,
-from minute data to hourly, and more. This allows the user to easily
-aggregate data to a less granular level by taking the value from either
-the beginning or end of the period." />
+<meta property="og:title" content="Filter within a period (e.g. Filter to the Max Value Each Month) — filter_in_period" />
+<meta property="og:description" content="Applies a dplyr filtering expression inside a time-based period (window).
+This allows for filtering expressions like:
+Filtering to the maximum value each month.
+Filtering the first date each month.
+Filtering all rows with value greater than a monthly average
+
+" />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -179,19 +182,22 @@ the beginning or end of the period." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Convert the Period to a Lower Periodicity (e.g. Go from Daily to Monthly)</h1>
-    <small class="dont-index">Source: <a href='https://github.com/business-science/timetk/blob/master/R/dplyr-condense_period.R'><code>R/dplyr-condense_period.R</code></a></small>
-    <div class="hidden name"><code>condense_period.Rd</code></div>
+    <h1>Filter within a period (e.g. Filter to the Max Value Each Month)</h1>
+    <small class="dont-index">Source: <a href='https://github.com/business-science/timetk/blob/master/R/dplyr-filter_in_period.R'><code>R/dplyr-filter_in_period.R</code></a></small>
+    <div class="hidden name"><code>filter_in_period.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Convert a <code>data.frame</code> object from daily to monthly,
-from minute data to hourly, and more. This allows the user to easily
-aggregate data to a less granular level by taking the value from either
-the beginning or end of the period.</p>
+    <p>Applies a dplyr filtering expression inside a time-based period (window).
+This allows for filtering expressions like:</p><ul>
+<li><p>Filtering to the maximum value each month.</p></li>
+<li><p>Filtering the first date each month.</p></li>
+<li><p>Filtering all rows with value greater than a monthly average</p></li>
+</ul>
+
     </div>
 
-    <pre class="usage"><span class='fu'>condense_period</span><span class='op'>(</span><span class='va'>.data</span>, <span class='va'>.date_var</span>, .by <span class='op'>=</span> <span class='st'>"day"</span>, .side <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"start"</span>, <span class='st'>"end"</span><span class='op'>)</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>filter_in_period</span><span class='op'>(</span><span class='va'>.data</span>, <span class='va'>...</span>, <span class='va'>.date_var</span>, .by <span class='op'>=</span> <span class='st'>"day"</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -201,14 +207,20 @@ the beginning or end of the period.</p>
       <td><p>A <code>tbl</code> object or <code>data.frame</code></p></td>
     </tr>
     <tr>
+      <th>...</th>
+      <td><p>Filtering expression. Expressions that return a logical value, and are defined in
+terms of the variables in .data. If multiple expressions are included, they are combined with
+the &amp; operator. Only rows for which all conditions evaluate to TRUE are kept.</p></td>
+    </tr>
+    <tr>
       <th>.date_var</th>
       <td><p>A column containing date or date-time values.
 If missing, attempts to auto-detect date column.</p></td>
     </tr>
     <tr>
       <th>.by</th>
-      <td><p>A period to condense the time series to.
-Time units are condensed using <code><a href='http://lubridate.tidyverse.org/reference/round_date.html'>lubridate::floor_date()</a></code> or <code><a href='http://lubridate.tidyverse.org/reference/round_date.html'>lubridate::ceiling_date()</a></code>.</p>
+      <td><p>A period to filter within.
+Time units are grouped using <code><a href='http://lubridate.tidyverse.org/reference/round_date.html'>lubridate::floor_date()</a></code> or <code><a href='http://lubridate.tidyverse.org/reference/round_date.html'>lubridate::ceiling_date()</a></code>.</p>
 <p>The value can be:</p><ul>
 <li><p><code>second</code></p></li>
 <li><p><code>minute</code></p></li>
@@ -229,11 +241,6 @@ Time units are condensed using <code><a href='http://lubridate.tidyverse.org/ref
 <li><p><code>"30 seconds"</code></p></li>
 </ul></td>
     </tr>
-    <tr>
-      <th>.side</th>
-      <td><p>One of "start" or "end". Determines if the first observation in the period should be returned
-or the last.</p></td>
-    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -245,10 +252,10 @@ or the last.</p></td>
 <li><p><code><a href='summarise_by_time.html'>summarise_by_time()</a></code> - Easily summarise using a date column.</p></li>
 <li><p><code><a href='mutate_by_time.html'>mutate_by_time()</a></code> - Simplifies applying mutations by time windows.</p></li>
 <li><p><code><a href='filter_by_time.html'>filter_by_time()</a></code> - Quickly filter using date ranges.</p></li>
-<li><p><code><a href='filter_in_period.html'>filter_in_period()</a></code> - Apply filtering expressions inside periods (windows)</p></li>
+<li><p><code>filter_in_period()</code> - Apply filtering expressions inside periods (windows)</p></li>
 <li><p><code><a href='between_time.html'>between_time()</a></code> - Range detection for date or date-time sequences.</p></li>
 <li><p><code><a href='pad_by_time.html'>pad_by_time()</a></code> - Insert time series rows with regularly spaced timestamps</p></li>
-<li><p><code>condense_period()</code> - Convert to a different periodicity</p></li>
+<li><p><code><a href='condense_period.html'>condense_period()</a></code> - Convert to a different periodicity</p></li>
 <li><p><code><a href='slidify.html'>slidify()</a></code> - Turn any function into a sliding (rolling) function</p></li>
 </ul>
 </div>
@@ -258,11 +265,30 @@ or the last.</p></td>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/business-science/timetk'>timetk</a></span><span class='op'>)</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://dplyr.tidyverse.org'>dplyr</a></span><span class='op'>)</span>
 
-<span class='co'># First value in each month</span>
+<span class='co'># Max value in each month</span>
 <span class='va'>m4_daily</span> <span class='op'>%&gt;%</span>
     <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>id</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-    <span class='fu'>condense_period</span><span class='op'>(</span>.by <span class='op'>=</span> <span class='st'>"1 month"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>.date_var is missing. Using: date</span></div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 323 x 3</span><span>
+    <span class='fu'>filter_in_period</span><span class='op'>(</span>.by <span class='op'>=</span> <span class='st'>"1 month"</span>, <span class='va'>value</span> <span class='op'>==</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span><span class='op'>(</span><span class='va'>value</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>.date_var is missing. Using: date</span></div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 350 x 3</span><span>
+#&gt; </span><span style='color: #555555;'># Groups:   id [4]</span><span>
+#&gt;    id    date       value
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> D10   2014-07-03 </span><span style='text-decoration: underline;'>2</span><span>076.
+#&gt; </span><span style='color: #555555;'> 2</span><span> D10   2014-08-08 </span><span style='text-decoration: underline;'>2</span><span>028.
+#&gt; </span><span style='color: #555555;'> 3</span><span> D10   2014-09-30 </span><span style='text-decoration: underline;'>2</span><span>024.
+#&gt; </span><span style='color: #555555;'> 4</span><span> D10   2014-10-12 </span><span style='text-decoration: underline;'>2</span><span>155.
+#&gt; </span><span style='color: #555555;'> 5</span><span> D10   2014-11-13 </span><span style='text-decoration: underline;'>2</span><span>245.
+#&gt; </span><span style='color: #555555;'> 6</span><span> D10   2014-12-30 </span><span style='text-decoration: underline;'>2</span><span>345.
+#&gt; </span><span style='color: #555555;'> 7</span><span> D10   2015-01-09 </span><span style='text-decoration: underline;'>2</span><span>369.
+#&gt; </span><span style='color: #555555;'> 8</span><span> D10   2015-02-09 </span><span style='text-decoration: underline;'>2</span><span>341.
+#&gt; </span><span style='color: #555555;'> 9</span><span> D10   2015-03-31 </span><span style='text-decoration: underline;'>2</span><span>392.
+#&gt; </span><span style='color: #555555;'>10</span><span> D10   2015-04-13 </span><span style='text-decoration: underline;'>2</span><span>500.
+#&gt; </span><span style='color: #555555;'># … with 340 more rows</span><span></div><div class='input'>
+<span class='co'># First date each month</span>
+<span class='va'>m4_daily</span> <span class='op'>%&gt;%</span>
+    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>id</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+    <span class='fu'>filter_in_period</span><span class='op'>(</span>.by <span class='op'>=</span> <span class='st'>"1 month"</span>, <span class='va'>date</span> <span class='op'>==</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/nth.html'>first</a></span><span class='op'>(</span><span class='va'>date</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>.date_var is missing. Using: date</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 323 x 3</span><span>
 #&gt; </span><span style='color: #555555;'># Groups:   id [4]</span><span>
 #&gt;    id    date       value
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
@@ -277,27 +303,25 @@ or the last.</p></td>
 #&gt; </span><span style='color: #555555;'> 9</span><span> D10   2015-03-01 </span><span style='text-decoration: underline;'>2</span><span>291.
 #&gt; </span><span style='color: #555555;'>10</span><span> D10   2015-04-01 </span><span style='text-decoration: underline;'>2</span><span>396.
 #&gt; </span><span style='color: #555555;'># … with 313 more rows</span><span></div><div class='input'>
-<span class='co'># Last value in each month</span>
+<span class='co'># All observations that are greater than a monthly average</span>
 <span class='va'>m4_daily</span> <span class='op'>%&gt;%</span>
     <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>id</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-    <span class='fu'>condense_period</span><span class='op'>(</span>.by <span class='op'>=</span> <span class='st'>"1 month"</span>, .side <span class='op'>=</span> <span class='st'>"end"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>.date_var is missing. Using: date</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 323 x 3</span><span>
+    <span class='fu'>filter_in_period</span><span class='op'>(</span>.by <span class='op'>=</span> <span class='st'>"1 month"</span>, <span class='va'>value</span> <span class='op'>&gt;</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>value</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>.date_var is missing. Using: date</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 4,880 x 3</span><span>
 #&gt; </span><span style='color: #555555;'># Groups:   id [4]</span><span>
 #&gt;    id    date       value
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> D10   2014-07-31 </span><span style='text-decoration: underline;'>1</span><span>917.
-#&gt; </span><span style='color: #555555;'> 2</span><span> D10   2014-08-31 </span><span style='text-decoration: underline;'>1</span><span>921.
-#&gt; </span><span style='color: #555555;'> 3</span><span> D10   2014-09-30 </span><span style='text-decoration: underline;'>2</span><span>024.
-#&gt; </span><span style='color: #555555;'> 4</span><span> D10   2014-10-31 </span><span style='text-decoration: underline;'>2</span><span>130 
-#&gt; </span><span style='color: #555555;'> 5</span><span> D10   2014-11-30 </span><span style='text-decoration: underline;'>2</span><span>217.
-#&gt; </span><span style='color: #555555;'> 6</span><span> D10   2014-12-31 </span><span style='text-decoration: underline;'>2</span><span>328.
-#&gt; </span><span style='color: #555555;'> 7</span><span> D10   2015-01-31 </span><span style='text-decoration: underline;'>2</span><span>210.
-#&gt; </span><span style='color: #555555;'> 8</span><span> D10   2015-02-28 </span><span style='text-decoration: underline;'>2</span><span>293.
-#&gt; </span><span style='color: #555555;'> 9</span><span> D10   2015-03-31 </span><span style='text-decoration: underline;'>2</span><span>392.
-#&gt; </span><span style='color: #555555;'>10</span><span> D10   2015-04-30 </span><span style='text-decoration: underline;'>2</span><span>368.
-#&gt; </span><span style='color: #555555;'># … with 313 more rows</span><span></div><div class='input'>
-
-
+#&gt; </span><span style='color: #555555;'> 1</span><span> D10   2014-07-03 </span><span style='text-decoration: underline;'>2</span><span>076.
+#&gt; </span><span style='color: #555555;'> 2</span><span> D10   2014-07-04 </span><span style='text-decoration: underline;'>2</span><span>073.
+#&gt; </span><span style='color: #555555;'> 3</span><span> D10   2014-07-05 </span><span style='text-decoration: underline;'>2</span><span>049.
+#&gt; </span><span style='color: #555555;'> 4</span><span> D10   2014-07-06 </span><span style='text-decoration: underline;'>2</span><span>049.
+#&gt; </span><span style='color: #555555;'> 5</span><span> D10   2014-07-07 </span><span style='text-decoration: underline;'>2</span><span>006.
+#&gt; </span><span style='color: #555555;'> 6</span><span> D10   2014-07-08 </span><span style='text-decoration: underline;'>2</span><span>018.
+#&gt; </span><span style='color: #555555;'> 7</span><span> D10   2014-07-09 </span><span style='text-decoration: underline;'>2</span><span>019.
+#&gt; </span><span style='color: #555555;'> 8</span><span> D10   2014-07-10 </span><span style='text-decoration: underline;'>2</span><span>007.
+#&gt; </span><span style='color: #555555;'> 9</span><span> D10   2014-07-11 </span><span style='text-decoration: underline;'>2</span><span>010 
+#&gt; </span><span style='color: #555555;'>10</span><span> D10   2014-07-12 </span><span style='text-decoration: underline;'>2</span><span>002.
+#&gt; </span><span style='color: #555555;'># … with 4,870 more rows</span><span></div><div class='input'>
 </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

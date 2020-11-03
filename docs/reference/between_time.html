@@ -256,7 +256,9 @@ index is a POSIXct):</p><ul>
 
     <div class='dont-index'><p>Time-Based dplyr functions:</p><ul>
 <li><p><code><a href='summarise_by_time.html'>summarise_by_time()</a></code> - Easily summarise using a date column.</p></li>
+<li><p><code><a href='mutate_by_time.html'>mutate_by_time()</a></code> - Simplifies applying mutations by time windows.</p></li>
 <li><p><code><a href='filter_by_time.html'>filter_by_time()</a></code> - Quickly filter using date ranges.</p></li>
+<li><p><code><a href='filter_in_period.html'>filter_in_period()</a></code> - Apply filtering expressions inside periods (windows)</p></li>
 <li><p><code>between_time()</code> - Range detection for date or date-time sequences.</p></li>
 <li><p><code><a href='pad_by_time.html'>pad_by_time()</a></code> - Insert time series rows with regularly spaced timestamps</p></li>
 <li><p><code><a href='condense_period.html'>condense_period()</a></code> - Convert to a different periodicity</p></li>
@@ -267,118 +269,33 @@ index is a POSIXct):</p><ul>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/business-science/tidyquant'>tidyquant</a></span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>Loading required package: lubridate</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Attaching package: ‘lubridate’</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:base’:</span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'>    date, intersect, setdiff, union</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: PerformanceAnalytics</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: xts</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: zoo</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Attaching package: ‘zoo’</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:base’:</span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'>    as.Date, as.Date.numeric</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Attaching package: ‘xts’</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:dplyr’:</span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'>    first, last</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Attaching package: ‘PerformanceAnalytics’</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:graphics’:</span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'>    legend</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: quantmod</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: TTR</span></div><div class='output co'>#&gt; <span class='message'>Version 0.4-0 included new data defaults. See ?getSymbols.</span></div><div class='output co'>#&gt; <span class='message'><span style='color: #87D7FF;'>══</span><span> </span><span style='color: #87D7FF;'>Need to Learn tidyquant?</span><span> </span><span style='color: #87D7FF;'>════════════════════════════════════════════════════</span><span style='color: #00D7AF;'></span>
-#&gt; <span class='message'>Business Science offers a 1-hour course - Learning Lab #9: Performance Analysis &amp; Portfolio Optimization with tidyquant!</span>
-#&gt; <span class='message'>&lt;/&gt; Learn more at: https://university.business-science.io/p/learning-labs-pro &lt;/&gt;</span><span></span></div><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/business-science/timetk'>timetk</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/business-science/timetk'>timetk</a></span><span class='op'>)</span>
 
 <span class='va'>index_daily</span> <span class='op'>&lt;-</span> <span class='fu'><a href='tk_make_timeseries.html'>tk_make_timeseries</a></span><span class='op'>(</span><span class='st'>"2016-01-01"</span>, <span class='st'>"2017-01-01"</span>, by <span class='op'>=</span> <span class='st'>"day"</span><span class='op'>)</span>
-<span class='va'>index_min</span>   <span class='op'>&lt;-</span> <span class='fu'><a href='tk_make_timeseries.html'>tk_make_timeseries</a></span><span class='op'>(</span><span class='st'>"2016-01-01"</span>, <span class='st'>"2017-01-01"</span>, by <span class='op'>=</span> <span class='st'>"min"</span><span class='op'>)</span>
-
+</div><div class='output co'>#&gt; <span class='error'>Error in tk_make_timeseries("2016-01-01", "2017-01-01", by = "day"): could not find function "tk_make_timeseries"</span></div><div class='input'><span class='va'>index_min</span>   <span class='op'>&lt;-</span> <span class='fu'><a href='tk_make_timeseries.html'>tk_make_timeseries</a></span><span class='op'>(</span><span class='st'>"2016-01-01"</span>, <span class='st'>"2017-01-01"</span>, by <span class='op'>=</span> <span class='st'>"min"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='error'>Error in tk_make_timeseries("2016-01-01", "2017-01-01", by = "min"): could not find function "tk_make_timeseries"</span></div><div class='input'>
 <span class='co'># How it works</span>
 <span class='co'># - Returns TRUE/FALSE length of index</span>
 <span class='co'># - Use sum() to tally the number of TRUE values</span>
 <span class='va'>index_daily</span> <span class='op'>%&gt;%</span> <span class='fu'>between_time</span><span class='op'>(</span><span class='st'>"start"</span>, <span class='st'>"2016-01"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 31</div><div class='input'>
+</div><div class='output co'>#&gt; <span class='error'>Error in eval(lhs, parent, parent): object 'index_daily' not found</span></div><div class='input'>
 <span class='co'># ---- INDEX SLICING ----</span>
 
 <span class='co'># Daily Series: Month of January 2016</span>
 <span class='va'>index_daily</span><span class='op'>[</span><span class='va'>index_daily</span> <span class='op'>%&gt;%</span> <span class='fu'>between_time</span><span class='op'>(</span><span class='st'>"start"</span>, <span class='st'>"2016-01"</span><span class='op'>)</span><span class='op'>]</span>
-</div><div class='output co'>#&gt;  [1] "2016-01-01" "2016-01-02" "2016-01-03" "2016-01-04" "2016-01-05"
-#&gt;  [6] "2016-01-06" "2016-01-07" "2016-01-08" "2016-01-09" "2016-01-10"
-#&gt; [11] "2016-01-11" "2016-01-12" "2016-01-13" "2016-01-14" "2016-01-15"
-#&gt; [16] "2016-01-16" "2016-01-17" "2016-01-18" "2016-01-19" "2016-01-20"
-#&gt; [21] "2016-01-21" "2016-01-22" "2016-01-23" "2016-01-24" "2016-01-25"
-#&gt; [26] "2016-01-26" "2016-01-27" "2016-01-28" "2016-01-29" "2016-01-30"
-#&gt; [31] "2016-01-31"</div><div class='input'>
+</div><div class='output co'>#&gt; <span class='error'>Error in eval(expr, envir, enclos): object 'index_daily' not found</span></div><div class='input'>
 <span class='co'># Daily Series: March 1st - June 15th, 2016</span>
 <span class='va'>index_daily</span><span class='op'>[</span><span class='va'>index_daily</span> <span class='op'>%&gt;%</span> <span class='fu'>between_time</span><span class='op'>(</span><span class='st'>"2016-03"</span>, <span class='st'>"2016-06-15"</span><span class='op'>)</span><span class='op'>]</span>
-</div><div class='output co'>#&gt;   [1] "2016-03-01" "2016-03-02" "2016-03-03" "2016-03-04" "2016-03-05"
-#&gt;   [6] "2016-03-06" "2016-03-07" "2016-03-08" "2016-03-09" "2016-03-10"
-#&gt;  [11] "2016-03-11" "2016-03-12" "2016-03-13" "2016-03-14" "2016-03-15"
-#&gt;  [16] "2016-03-16" "2016-03-17" "2016-03-18" "2016-03-19" "2016-03-20"
-#&gt;  [21] "2016-03-21" "2016-03-22" "2016-03-23" "2016-03-24" "2016-03-25"
-#&gt;  [26] "2016-03-26" "2016-03-27" "2016-03-28" "2016-03-29" "2016-03-30"
-#&gt;  [31] "2016-03-31" "2016-04-01" "2016-04-02" "2016-04-03" "2016-04-04"
-#&gt;  [36] "2016-04-05" "2016-04-06" "2016-04-07" "2016-04-08" "2016-04-09"
-#&gt;  [41] "2016-04-10" "2016-04-11" "2016-04-12" "2016-04-13" "2016-04-14"
-#&gt;  [46] "2016-04-15" "2016-04-16" "2016-04-17" "2016-04-18" "2016-04-19"
-#&gt;  [51] "2016-04-20" "2016-04-21" "2016-04-22" "2016-04-23" "2016-04-24"
-#&gt;  [56] "2016-04-25" "2016-04-26" "2016-04-27" "2016-04-28" "2016-04-29"
-#&gt;  [61] "2016-04-30" "2016-05-01" "2016-05-02" "2016-05-03" "2016-05-04"
-#&gt;  [66] "2016-05-05" "2016-05-06" "2016-05-07" "2016-05-08" "2016-05-09"
-#&gt;  [71] "2016-05-10" "2016-05-11" "2016-05-12" "2016-05-13" "2016-05-14"
-#&gt;  [76] "2016-05-15" "2016-05-16" "2016-05-17" "2016-05-18" "2016-05-19"
-#&gt;  [81] "2016-05-20" "2016-05-21" "2016-05-22" "2016-05-23" "2016-05-24"
-#&gt;  [86] "2016-05-25" "2016-05-26" "2016-05-27" "2016-05-28" "2016-05-29"
-#&gt;  [91] "2016-05-30" "2016-05-31" "2016-06-01" "2016-06-02" "2016-06-03"
-#&gt;  [96] "2016-06-04" "2016-06-05" "2016-06-06" "2016-06-07" "2016-06-08"
-#&gt; [101] "2016-06-09" "2016-06-10" "2016-06-11" "2016-06-12" "2016-06-13"
-#&gt; [106] "2016-06-14" "2016-06-15"</div><div class='input'>
+</div><div class='output co'>#&gt; <span class='error'>Error in eval(expr, envir, enclos): object 'index_daily' not found</span></div><div class='input'>
 <span class='co'># Minute Series:</span>
 <span class='va'>index_min</span><span class='op'>[</span><span class='va'>index_min</span> <span class='op'>%&gt;%</span> <span class='fu'>between_time</span><span class='op'>(</span><span class='st'>"2016-02-01 12:00"</span>, <span class='st'>"2016-02-01 13:00"</span><span class='op'>)</span><span class='op'>]</span>
-</div><div class='output co'>#&gt;  [1] "2016-02-01 12:00:00 UTC" "2016-02-01 12:01:00 UTC"
-#&gt;  [3] "2016-02-01 12:02:00 UTC" "2016-02-01 12:03:00 UTC"
-#&gt;  [5] "2016-02-01 12:04:00 UTC" "2016-02-01 12:05:00 UTC"
-#&gt;  [7] "2016-02-01 12:06:00 UTC" "2016-02-01 12:07:00 UTC"
-#&gt;  [9] "2016-02-01 12:08:00 UTC" "2016-02-01 12:09:00 UTC"
-#&gt; [11] "2016-02-01 12:10:00 UTC" "2016-02-01 12:11:00 UTC"
-#&gt; [13] "2016-02-01 12:12:00 UTC" "2016-02-01 12:13:00 UTC"
-#&gt; [15] "2016-02-01 12:14:00 UTC" "2016-02-01 12:15:00 UTC"
-#&gt; [17] "2016-02-01 12:16:00 UTC" "2016-02-01 12:17:00 UTC"
-#&gt; [19] "2016-02-01 12:18:00 UTC" "2016-02-01 12:19:00 UTC"
-#&gt; [21] "2016-02-01 12:20:00 UTC" "2016-02-01 12:21:00 UTC"
-#&gt; [23] "2016-02-01 12:22:00 UTC" "2016-02-01 12:23:00 UTC"
-#&gt; [25] "2016-02-01 12:24:00 UTC" "2016-02-01 12:25:00 UTC"
-#&gt; [27] "2016-02-01 12:26:00 UTC" "2016-02-01 12:27:00 UTC"
-#&gt; [29] "2016-02-01 12:28:00 UTC" "2016-02-01 12:29:00 UTC"
-#&gt; [31] "2016-02-01 12:30:00 UTC" "2016-02-01 12:31:00 UTC"
-#&gt; [33] "2016-02-01 12:32:00 UTC" "2016-02-01 12:33:00 UTC"
-#&gt; [35] "2016-02-01 12:34:00 UTC" "2016-02-01 12:35:00 UTC"
-#&gt; [37] "2016-02-01 12:36:00 UTC" "2016-02-01 12:37:00 UTC"
-#&gt; [39] "2016-02-01 12:38:00 UTC" "2016-02-01 12:39:00 UTC"
-#&gt; [41] "2016-02-01 12:40:00 UTC" "2016-02-01 12:41:00 UTC"
-#&gt; [43] "2016-02-01 12:42:00 UTC" "2016-02-01 12:43:00 UTC"
-#&gt; [45] "2016-02-01 12:44:00 UTC" "2016-02-01 12:45:00 UTC"
-#&gt; [47] "2016-02-01 12:46:00 UTC" "2016-02-01 12:47:00 UTC"
-#&gt; [49] "2016-02-01 12:48:00 UTC" "2016-02-01 12:49:00 UTC"
-#&gt; [51] "2016-02-01 12:50:00 UTC" "2016-02-01 12:51:00 UTC"
-#&gt; [53] "2016-02-01 12:52:00 UTC" "2016-02-01 12:53:00 UTC"
-#&gt; [55] "2016-02-01 12:54:00 UTC" "2016-02-01 12:55:00 UTC"
-#&gt; [57] "2016-02-01 12:56:00 UTC" "2016-02-01 12:57:00 UTC"
-#&gt; [59] "2016-02-01 12:58:00 UTC" "2016-02-01 12:59:00 UTC"
-#&gt; [61] "2016-02-01 13:00:00 UTC"</div><div class='input'>
+</div><div class='output co'>#&gt; <span class='error'>Error in eval(expr, envir, enclos): object 'index_min' not found</span></div><div class='input'>
 <span class='co'># ---- FILTERING WITH DPLYR ----</span>
 <span class='va'>FANG</span> <span class='op'>%&gt;%</span>
     <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>symbol</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
     <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>date</span> <span class='op'>%&gt;%</span> <span class='fu'>between_time</span><span class='op'>(</span><span class='st'>"2016-01"</span>, <span class='st'>"2016-01"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 76 x 8</span><span>
-#&gt; </span><span style='color: #555555;'># Groups:   symbol [4]</span><span>
-#&gt;    symbol date        open  high   low close   volume adjusted
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> FB     2016-01-04 102.  102.   99.8 102.  37</span><span style='text-decoration: underline;'>912</span><span>400    102. 
-#&gt; </span><span style='color: #555555;'> 2</span><span> FB     2016-01-05 103.  104.  102.  103.  23</span><span style='text-decoration: underline;'>258</span><span>200    103. 
-#&gt; </span><span style='color: #555555;'> 3</span><span> FB     2016-01-06 101.  104.  101.  103.  25</span><span style='text-decoration: underline;'>096</span><span>200    103. 
-#&gt; </span><span style='color: #555555;'> 4</span><span> FB     2016-01-07 100.  101.   97.3  97.9 45</span><span style='text-decoration: underline;'>172</span><span>900     97.9
-#&gt; </span><span style='color: #555555;'> 5</span><span> FB     2016-01-08  99.9 100.   97.0  97.3 35</span><span style='text-decoration: underline;'>402</span><span>300     97.3
-#&gt; </span><span style='color: #555555;'> 6</span><span> FB     2016-01-11  97.9  98.6  95.4  97.5 29</span><span style='text-decoration: underline;'>932</span><span>400     97.5
-#&gt; </span><span style='color: #555555;'> 7</span><span> FB     2016-01-12  99   100.   97.6  99.4 28</span><span style='text-decoration: underline;'>395</span><span>400     99.4
-#&gt; </span><span style='color: #555555;'> 8</span><span> FB     2016-01-13 101.  101.   95.2  95.4 33</span><span style='text-decoration: underline;'>410</span><span>600     95.4
-#&gt; </span><span style='color: #555555;'> 9</span><span> FB     2016-01-14  95.8  98.9  92.4  98.4 48</span><span style='text-decoration: underline;'>658</span><span>600     98.4
-#&gt; </span><span style='color: #555555;'>10</span><span> FB     2016-01-15  94.0  96.4  93.5  95.0 45</span><span style='text-decoration: underline;'>935</span><span>600     95.0
-#&gt; </span><span style='color: #555555;'># … with 66 more rows</span><span></div><div class='input'>
-</div></span></pre>
+</div><div class='output co'>#&gt; <span class='error'>Error in get(nm, envir = fn, mode = "function"): object 'between_time' of mode 'function' was not found</span></div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

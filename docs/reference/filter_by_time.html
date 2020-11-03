@@ -253,11 +253,14 @@ index is a POSIXct):</p><ul>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other Time-Based dplyr functions:</p><ul>
+    <div class='dont-index'><p>Time-Based dplyr functions:</p><ul>
 <li><p><code><a href='summarise_by_time.html'>summarise_by_time()</a></code> - Easily summarise using a date column.</p></li>
+<li><p><code><a href='mutate_by_time.html'>mutate_by_time()</a></code> - Simplifies applying mutations by time windows.</p></li>
 <li><p><code>filter_by_time()</code> - Quickly filter using date ranges.</p></li>
+<li><p><code><a href='filter_in_period.html'>filter_in_period()</a></code> - Apply filtering expressions inside periods (windows)</p></li>
 <li><p><code><a href='between_time.html'>between_time()</a></code> - Range detection for date or date-time sequences.</p></li>
 <li><p><code><a href='pad_by_time.html'>pad_by_time()</a></code> - Insert time series rows with regularly spaced timestamps</p></li>
+<li><p><code><a href='condense_period.html'>condense_period()</a></code> - Convert to a different periodicity</p></li>
 <li><p><code><a href='slidify.html'>slidify()</a></code> - Turn any function into a sliding (rolling) function</p></li>
 </ul>
 </div>
@@ -272,7 +275,7 @@ index is a POSIXct):</p><ul>
     <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>symbol</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
     <span class='fu'>filter_by_time</span><span class='op'>(</span>.start_date <span class='op'>=</span> <span class='st'>"start"</span>, .end_date <span class='op'>=</span> <span class='st'>"2013-02"</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
     <span class='fu'><a href='plot_time_series.html'>plot_time_series</a></span><span class='op'>(</span><span class='va'>date</span>, <span class='va'>adjusted</span>, .facet_ncol <span class='op'>=</span> <span class='fl'>2</span>, .interactive <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>.date_var is missing. Using: date</span></div><div class='img'><img src='filter_by_time-1.png' alt='' width='700' height='433' /></div><div class='input'>
+</div><div class='output co'>#&gt; <span class='error'>Error in filter_by_time(., .start_date = "start", .end_date = "2013-02"): could not find function "filter_by_time"</span></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
