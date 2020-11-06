@@ -97,8 +97,8 @@ tk_get_timeseries_signature.default <- function(idx) {
 get_timeseries_signature_date <- function(idx) {
     ret <- tibble::tibble(index = idx) %>%
         dplyr::mutate(
-            index.num = as.numeric(as.POSIXct(index)) %>% as.integer(),
-            diff      = c(NA, diff(index.num)) %>% as.integer(),
+            index.num = as.numeric(as.POSIXct(index)) %>% as.double(),
+            diff      = c(NA, diff(index.num)) %>% as.double(),
             year      = lubridate::year(index) %>% as.integer(),
             year.iso  = lubridate::isoyear(index) %>% as.integer(),
             half      = lubridate::semester(index) %>% as.integer(),
