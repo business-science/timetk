@@ -116,8 +116,8 @@ tk_augment_slidify.data.frame <- function(.data,
     ret_2 <- ret_2 %>%
         purrr::set_names(newname)
 
-
-    ret <- dplyr::bind_cols(ret_1, ret_2)
+    # Perform Overwrite
+    ret <- bind_cols_overwrite(ret_1, ret_2)
 
     return(ret)
 

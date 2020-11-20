@@ -126,14 +126,15 @@
 
       
 
-      </header><script src="TK00_Time_Series_Coercion_files/header-attrs-2.4/header-attrs.js"></script><script src="TK00_Time_Series_Coercion_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><script src="TK00_Time_Series_Coercion_files/header-attrs-2.5/header-attrs.js"></script><script src="TK00_Time_Series_Coercion_files/accessible-code-block-0.0.1/empty-anchor.js"></script><link href="TK00_Time_Series_Coercion_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
+<script src="TK00_Time_Series_Coercion_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Time Series Conversion</h1>
             <h3 class="subtitle">Between ts, xts, zoo, and tbl</h3>
                         <h4 class="author">Matt Dancho</h4>
             
-            <h4 class="date">2020-11-03</h4>
+            <h4 class="date">2020-11-20</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/business-science/timetk/blob/master/vignettes/TK00_Time_Series_Coercion.Rmd"><code>vignettes/TK00_Time_Series_Coercion.Rmd</code></a></small>
       <div class="hidden name"><code>TK00_Time_Series_Coercion.Rmd</code></div>
@@ -156,17 +157,17 @@
 <h1 class="hasAnchor">
 <a href="#prerequisites" class="anchor"></a>Prerequisites</h1>
 <p>Before we get started, load the following packages.</p>
-<div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/business-science/timetk">timetk</a></span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/business-science/timetk">timetk</a></span><span class="op">)</span></code></pre></div>
 </div>
 <div id="data" class="section level1">
 <h1 class="hasAnchor">
 <a href="#data" class="anchor"></a>Data</h1>
 <p>We’ll use the “Q10” dataset - The first ID from a sample a quarterly datasets (see <code>m4_quarterly</code>) from the <a href="https://mofc.unic.ac.cy/m4/">M4 Competition</a>. The return structure is a <code>tibble</code>, which is not conducive to many of the popular time series analysis packages including <code>quantmod</code>, <code>TTR</code>, <code>forecast</code> and many others.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="va">q10_quarterly</span> <span class="op">&lt;-</span> <span class="va">m4_quarterly</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">id</span> <span class="op">==</span> <span class="st">"Q10"</span><span class="op">)</span>
-<span class="va">q10_quarterly</span></pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">q10_quarterly</span> <span class="op">&lt;-</span> <span class="va">m4_quarterly</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">id</span> <span class="op">==</span> <span class="st">"Q10"</span><span class="op">)</span>
+<span class="va">q10_quarterly</span></code></pre></div>
 <pre><code>## # A tibble: 59 x 3
 ##    id    date       value
 ##    &lt;fct&gt; &lt;date&gt;     &lt;dbl&gt;
@@ -190,10 +191,10 @@
 <h2 class="hasAnchor">
 <a href="#problems" class="anchor"></a>Problems</h2>
 <p>First, only numeric columns get coerced. If the user forgets to add the <code>[,"pct"]</code> to drop the “date” column, <code><a href="https://rdrr.io/r/stats/ts.html">ts()</a></code> returns dates in numeric format which is not what the user wants.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit">
-<span class="co"># date column gets coerced to numeric</span>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># date column gets coerced to numeric</span>
 <span class="fu"><a href="https://rdrr.io/r/stats/ts.html">ts</a></span><span class="op">(</span><span class="va">q10_quarterly</span>, start <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2000</span>, <span class="fl">1</span><span class="op">)</span>, freq <span class="op">=</span> <span class="fl">4</span><span class="op">)</span> <span class="op">%&gt;%</span>
-    <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></pre></div>
+    <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>##      id  date  value
 ## [1,]  1 10957 2329.0
 ## [2,]  1 11048 2349.9
@@ -202,9 +203,9 @@
 ## [5,]  1 11323 2382.6
 ## [6,]  1 11413 2405.0</code></pre>
 <p>The correct method is to call the specific column desired. However, this presents a new issue. The date index is lost, and a different “regularized” index is built using the <code>start</code> and <code>frequency</code> attributes.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit">
-<span class="va">q10_quarterly_ts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/ts.html">ts</a></span><span class="op">(</span><span class="va">q10_quarterly</span><span class="op">$</span><span class="va">value</span>, start <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2000</span>, <span class="fl">1</span><span class="op">)</span>, freq  <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
-<span class="va">q10_quarterly_ts</span></pre></div>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">q10_quarterly_ts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/ts.html">ts</a></span><span class="op">(</span><span class="va">q10_quarterly</span><span class="op">$</span><span class="va">value</span>, start <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2000</span>, <span class="fl">1</span><span class="op">)</span>, freq  <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
+<span class="va">q10_quarterly_ts</span></code></pre></div>
 <pre><code>##        Qtr1   Qtr2   Qtr3   Qtr4
 ## 2000 2329.0 2349.9 2332.9 2381.5
 ## 2001 2382.6 2405.0 2411.0 2428.5
@@ -222,14 +223,14 @@
 ## 2013 2497.1 2520.4 2516.9 2505.5
 ## 2014 2513.9 2549.9 2555.3</code></pre>
 <p>We can see from the structure (using the <code><a href="https://rdrr.io/r/utils/str.html">str()</a></code> function) that the regularized time series is present, but there is no date index retained.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit">
-<span class="co"># No date index attribute</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">q10_quarterly_ts</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># No date index attribute</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">q10_quarterly_ts</span><span class="op">)</span></code></pre></div>
 <pre><code>##  Time-Series [1:59] from 2000 to 2014: 2329 2350 2333 2382 2383 ...</code></pre>
 <p>We can get the index using the <code>index()</code> function from the <code>zoo</code> package. The index retained is a regular sequence of numeric values. In many cases, the regularized values cannot be coerced back to the original time-base because the date and date time data contains significantly more information (i.e. year-month-day, hour-minute-second, and timezone attributes) and the data may not be on a regularized interval (frequency).</p>
-<div class="sourceCode" id="cb10"><pre class="downlit">
-<span class="co"># Regularized numeric sequence</span>
-<span class="fu">zoo</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/zoo/man/index.html">index</a></span><span class="op">(</span><span class="va">q10_quarterly_ts</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Regularized numeric sequence</span>
+<span class="fu">zoo</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/zoo/man/index.html">index</a></span><span class="op">(</span><span class="va">q10_quarterly_ts</span><span class="op">)</span></code></pre></div>
 <pre><code>##  [1] 2000.00 2000.25 2000.50 2000.75 2001.00 2001.25 2001.50 2001.75 2002.00
 ## [10] 2002.25 2002.50 2002.75 2003.00 2003.25 2003.50 2003.75 2004.00 2004.25
 ## [19] 2004.50 2004.75 2005.00 2005.25 2005.50 2005.75 2006.00 2006.25 2006.50
@@ -243,12 +244,12 @@
 <a href="#solution" class="anchor"></a>Solution</h2>
 <p>The <code>timetk</code> package contains a new function, <code><a href="../reference/tk_ts.html">tk_ts()</a></code>, that enables maintaining the original date index as an attribute. When we repeat the <code>tbl</code> to <code>ts</code> conversion process using the new function, <code><a href="../reference/tk_ts.html">tk_ts()</a></code>, we can see a few differences.</p>
 <p>First, only numeric columns get coerced, which prevents unintended consequences due to R conversion rules (e.g. dates getting unintentionally converted or characters causing the homogeneous data structure converting all numeric values to character). If a column is dropped, the user gets a warning.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit">
-<span class="co"># date automatically dropped and user is warned</span>
-<span class="va">q10_quarterly_ts_timetk</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tk_ts.html">tk_ts</a></span><span class="op">(</span><span class="va">q10_quarterly</span>, start <span class="op">=</span> <span class="fl">2000</span>, freq  <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># date automatically dropped and user is warned</span>
+<span class="va">q10_quarterly_ts_timetk</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tk_ts.html">tk_ts</a></span><span class="op">(</span><span class="va">q10_quarterly</span>, start <span class="op">=</span> <span class="fl">2000</span>, freq  <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></code></pre></div>
 <pre><code>## Warning: Non-numeric columns being dropped: id, date</code></pre>
-<div class="sourceCode" id="cb14"><pre class="downlit">
-<span class="va">q10_quarterly_ts_timetk</span></pre></div>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">q10_quarterly_ts_timetk</span></code></pre></div>
 <pre><code>##        Qtr1   Qtr2   Qtr3   Qtr4
 ## 2000 2329.0 2349.9 2332.9 2381.5
 ## 2001 2382.6 2405.0 2411.0 2428.5
@@ -266,9 +267,9 @@
 ## 2013 2497.1 2520.4 2516.9 2505.5
 ## 2014 2513.9 2549.9 2555.3</code></pre>
 <p>Second, the data returned has a few additional attributes. The most important of which is a numeric attribute, “index”, which contains the original date information as a number. The <code><a href="https://rdrr.io/r/stats/ts.html">ts()</a></code> function will not preserve this index while <code><a href="../reference/tk_ts.html">tk_ts()</a></code> will preserve the index in numeric form along with the time zone and class.</p>
-<div class="sourceCode" id="cb16"><pre class="downlit">
-<span class="co"># More attributes including time index, time class, time zone</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">q10_quarterly_ts_timetk</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># More attributes including time index, time class, time zone</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">q10_quarterly_ts_timetk</span><span class="op">)</span></code></pre></div>
 <pre><code>##  Time-Series [1:59, 1] from 2000 to 2014: 2329 2350 2333 2382 2383 ...
 ##  - attr(*, "dimnames")=List of 2
 ##   ..$ : NULL
@@ -281,21 +282,21 @@
 <h2 class="hasAnchor">
 <a href="#advantages-of-conversion-with-tk_tbl" class="anchor"></a>Advantages of conversion with tk_tbl()</h2>
 <p>Since we used the <code><a href="../reference/tk_ts.html">tk_ts()</a></code> during conversion, we can extract the original index in date format using <code><a href="../reference/tk_index.html">tk_index(timetk_idx = TRUE)</a></code> (the default is <code>timetk_idx = FALSE</code> which returns the default regularized index).</p>
-<div class="sourceCode" id="cb18"><pre class="downlit">
-<span class="co"># Can now retrieve the original date index</span>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Can now retrieve the original date index</span>
 <span class="va">timetk_index</span> <span class="op">&lt;-</span> <span class="va">q10_quarterly_ts_timetk</span> <span class="op">%&gt;%</span>
     <span class="fu"><a href="../reference/tk_index.html">tk_index</a></span><span class="op">(</span>timetk_idx <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">timetk_index</span><span class="op">)</span></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">timetk_index</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] "2000-01-01" "2000-04-01" "2000-07-01" "2000-10-01" "2001-01-01"
 ## [6] "2001-04-01"</code></pre>
-<div class="sourceCode" id="cb20"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">timetk_index</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">timetk_index</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] "Date"</code></pre>
 <p>Next, the <code><a href="../reference/tk_tbl.html">tk_tbl()</a></code> function has an argument <code>timetk_idx</code> also which can be used to select which index to return. First, we show conversion using the default index. Notice that the index returned is “regularized” meaning its actually a numeric index rather than a time-based index.</p>
-<div class="sourceCode" id="cb22"><pre class="downlit">
-<span class="co"># Conversion back to tibble using the default index (regularized)</span>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Conversion back to tibble using the default index (regularized)</span>
 <span class="va">q10_quarterly_ts_timetk</span> <span class="op">%&gt;%</span>
-    <span class="fu"><a href="../reference/tk_tbl.html">tk_tbl</a></span><span class="op">(</span>index_rename <span class="op">=</span> <span class="st">"date"</span>, timetk_idx <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></pre></div>
+    <span class="fu"><a href="../reference/tk_tbl.html">tk_tbl</a></span><span class="op">(</span>index_rename <span class="op">=</span> <span class="st">"date"</span>, timetk_idx <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
 <pre><code>## # A tibble: 59 x 2
 ##    index     value
 ##    &lt;yearqtr&gt; &lt;dbl&gt;
@@ -311,12 +312,12 @@
 ## 10 2002 Q2   2418.
 ## # … with 49 more rows</code></pre>
 <p>We can now get the original date index using the <code><a href="../reference/tk_tbl.html">tk_tbl()</a></code> argument <code>timetk_idx = TRUE</code>.</p>
-<div class="sourceCode" id="cb24"><pre class="downlit">
-<span class="co"># Conversion back to tibble now using the timetk index (date / date-time)</span>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Conversion back to tibble now using the timetk index (date / date-time)</span>
 <span class="va">q10_quarterly_timetk</span> <span class="op">&lt;-</span> <span class="va">q10_quarterly_ts_timetk</span> <span class="op">%&gt;%</span>
     <span class="fu"><a href="../reference/tk_tbl.html">tk_tbl</a></span><span class="op">(</span>timetk_idx <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">%&gt;%</span>
     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span>date <span class="op">=</span> <span class="va">index</span><span class="op">)</span>
-<span class="va">q10_quarterly_timetk</span></pre></div>
+<span class="va">q10_quarterly_timetk</span></code></pre></div>
 <pre><code>## # A tibble: 59 x 2
 ##    date       value
 ##    &lt;date&gt;     &lt;dbl&gt;
@@ -332,9 +333,9 @@
 ## 10 2002-04-01 2418.
 ## # … with 49 more rows</code></pre>
 <p>We can see that in this case (and in most cases) you can get the same data frame you began with.</p>
-<div class="sourceCode" id="cb26"><pre class="downlit">
-<span class="co"># Comparing the coerced tibble with the original tibble</span>
-<span class="fu"><a href="https://rdrr.io/r/base/identical.html">identical</a></span><span class="op">(</span><span class="va">q10_quarterly_timetk</span>, <span class="va">q10_quarterly</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">id</span><span class="op">)</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Comparing the coerced tibble with the original tibble</span>
+<span class="fu"><a href="https://rdrr.io/r/base/identical.html">identical</a></span><span class="op">(</span><span class="va">q10_quarterly_timetk</span>, <span class="va">q10_quarterly</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">id</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 </div>
 </div>
@@ -346,9 +347,9 @@
 <h2 class="hasAnchor">
 <a href="#from-tbl" class="anchor"></a>From tbl</h2>
 <p>The starting point is the <code>q10_quarterly</code>. We will coerce this into <code>xts</code>, <code>zoo</code>, <code>zooreg</code> and <code>ts</code> classes.</p>
-<div class="sourceCode" id="cb28"><pre class="downlit">
-<span class="co"># Start:</span>
-<span class="va">q10_quarterly</span></pre></div>
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Start:</span>
+<span class="va">q10_quarterly</span></code></pre></div>
 <pre><code>## # A tibble: 59 x 3
 ##    id    date       value
 ##    &lt;fct&gt; &lt;date&gt;     &lt;dbl&gt;
@@ -367,13 +368,13 @@
 <h3 class="hasAnchor">
 <a href="#to-xts" class="anchor"></a>to xts</h3>
 <p>Use <code><a href="../reference/tk_xts.html">tk_xts()</a></code>. By default “date” is used as the date index and the “date” column is dropped from the output. Only numeric columns are coerced to avoid unintentional conversion issues.</p>
-<div class="sourceCode" id="cb30"><pre class="downlit">
-<span class="co"># End</span>
-<span class="va">q10_quarterly_xts</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tk_xts.html">tk_xts</a></span><span class="op">(</span><span class="va">q10_quarterly</span><span class="op">)</span> </pre></div>
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># End</span>
+<span class="va">q10_quarterly_xts</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tk_xts.html">tk_xts</a></span><span class="op">(</span><span class="va">q10_quarterly</span><span class="op">)</span> </code></pre></div>
 <pre><code>## Warning: Non-numeric columns being dropped: id, date</code></pre>
 <pre><code>## Using column `date` for date_var.</code></pre>
-<div class="sourceCode" id="cb33"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">q10_quarterly_xts</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">q10_quarterly_xts</span><span class="op">)</span></code></pre></div>
 <pre><code>##             value
 ## 2000-01-01 2329.0
 ## 2000-04-01 2349.9
@@ -382,10 +383,10 @@
 ## 2001-01-01 2382.6
 ## 2001-04-01 2405.0</code></pre>
 <p>Use the <code>select</code> argument to specify which columns to drop. Use the <code>date_var</code> argument to specify which column to use as the date index. Notice the message and warning are no longer present.</p>
-<div class="sourceCode" id="cb35"><pre class="downlit">
-<span class="co"># End - Using `select` and `date_var` args</span>
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># End - Using `select` and `date_var` args</span>
 <span class="fu"><a href="../reference/tk_xts.html">tk_xts</a></span><span class="op">(</span><span class="va">q10_quarterly</span>, select <span class="op">=</span> <span class="op">-</span><span class="op">(</span><span class="va">id</span><span class="op">:</span><span class="va">date</span><span class="op">)</span>, date_var <span class="op">=</span> <span class="va">date</span><span class="op">)</span> <span class="op">%&gt;%</span>
-    <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></pre></div>
+    <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>## Warning: `select_()` is deprecated as of dplyr 0.7.0.
 ## Please use `select()` instead.
 ## This warning is displayed once every 8 hours.
@@ -398,10 +399,10 @@
 ## 2001-01-01 2382.6
 ## 2001-04-01 2405.0</code></pre>
 <p>Also, as an alternative, we can set <code>silent = TRUE</code> to bypass the warnings since the default dropping of the “date” column is what is desired. Notice no warnings or messages.</p>
-<div class="sourceCode" id="cb38"><pre class="downlit">
-<span class="co"># End - Using `silent` to silence warnings</span>
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># End - Using `silent` to silence warnings</span>
 <span class="fu"><a href="../reference/tk_xts.html">tk_xts</a></span><span class="op">(</span><span class="va">q10_quarterly</span>, silent <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">%&gt;%</span>
-    <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></pre></div>
+    <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>##             value
 ## 2000-01-01 2329.0
 ## 2000-04-01 2349.9
@@ -414,10 +415,10 @@
 <h3 class="hasAnchor">
 <a href="#to-zoo" class="anchor"></a>to zoo</h3>
 <p>Use <code><a href="../reference/tk_zoo.html">tk_zoo()</a></code>. Same as when coercing to xts, the non-numeric “date” column is automatically dropped and the index is automatically selected as the date column.</p>
-<div class="sourceCode" id="cb40"><pre class="downlit">
-<span class="co"># End</span>
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># End</span>
 <span class="va">q10_quarterly_zoo</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tk_zoo.html">tk_zoo</a></span><span class="op">(</span><span class="va">q10_quarterly</span>, silent <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> 
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">q10_quarterly_zoo</span><span class="op">)</span></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">q10_quarterly_zoo</span><span class="op">)</span></code></pre></div>
 <pre><code>##             value
 ## 2000-01-01 2329.0
 ## 2000-04-01 2349.9
@@ -430,10 +431,10 @@
 <h3 class="hasAnchor">
 <a href="#to-zooreg" class="anchor"></a>to zooreg</h3>
 <p>Use <code><a href="../reference/tk_zooreg.html">tk_zooreg()</a></code>. Same as when coercing to xts, the non-numeric “date” column is automatically dropped. The regularized index is built from the function arguments <code>start</code> and <code>freq</code>.</p>
-<div class="sourceCode" id="cb42"><pre class="downlit">
-<span class="co"># End</span>
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># End</span>
 <span class="va">q10_quarterly_zooreg</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tk_zooreg.html">tk_zooreg</a></span><span class="op">(</span><span class="va">q10_quarterly</span>, start <span class="op">=</span> <span class="fl">2000</span>, freq <span class="op">=</span> <span class="fl">4</span>, silent <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> 
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">q10_quarterly_zooreg</span><span class="op">)</span></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">q10_quarterly_zooreg</span><span class="op">)</span></code></pre></div>
 <pre><code>##          value
 ## 2000 Q1 2329.0
 ## 2000 Q2 2349.9
@@ -442,20 +443,20 @@
 ## 2001 Q1 2382.6
 ## 2001 Q2 2405.0</code></pre>
 <p>The original time-based index is retained and can be accessed using <code><a href="../reference/tk_index.html">tk_index(timetk_idx = TRUE)</a></code>.</p>
-<div class="sourceCode" id="cb44"><pre class="downlit">
-<span class="co"># Retrieve original time-based index</span>
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Retrieve original time-based index</span>
 <span class="fu"><a href="../reference/tk_index.html">tk_index</a></span><span class="op">(</span><span class="va">q10_quarterly_zooreg</span>, timetk_idx <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">%&gt;%</span>
-    <span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="op">)</span></pre></div>
+    <span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>##  Date[1:59], format: "2000-01-01" "2000-04-01" "2000-07-01" "2000-10-01" "2001-01-01" ...</code></pre>
 </div>
 <div id="to-ts" class="section level3">
 <h3 class="hasAnchor">
 <a href="#to-ts" class="anchor"></a>to ts</h3>
 <p>Use <code><a href="../reference/tk_ts.html">tk_ts()</a></code>. The non-numeric “date” column is automatically dropped. The regularized index is built from the function arguments.</p>
-<div class="sourceCode" id="cb46"><pre class="downlit">
-<span class="co"># End</span>
+<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># End</span>
 <span class="va">q10_quarterly_ts</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tk_ts.html">tk_ts</a></span><span class="op">(</span><span class="va">q10_quarterly</span>, start <span class="op">=</span> <span class="fl">2000</span>, freq <span class="op">=</span> <span class="fl">4</span>, silent <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> 
-<span class="va">q10_quarterly_ts</span></pre></div>
+<span class="va">q10_quarterly_ts</span></code></pre></div>
 <pre><code>##        Qtr1   Qtr2   Qtr3   Qtr4
 ## 2000 2329.0 2349.9 2332.9 2381.5
 ## 2001 2382.6 2405.0 2411.0 2428.5
@@ -473,10 +474,10 @@
 ## 2013 2497.1 2520.4 2516.9 2505.5
 ## 2014 2513.9 2549.9 2555.3</code></pre>
 <p>The original time-based index is retained and can be accessed using <code><a href="../reference/tk_index.html">tk_index(timetk_idx = TRUE)</a></code>.</p>
-<div class="sourceCode" id="cb48"><pre class="downlit">
-<span class="co"># Retrieve original time-based index</span>
+<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Retrieve original time-based index</span>
 <span class="fu"><a href="../reference/tk_index.html">tk_index</a></span><span class="op">(</span><span class="va">q10_quarterly_ts</span>, timetk_idx <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">%&gt;%</span>
-    <span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="op">)</span></pre></div>
+    <span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>##  Date[1:59], format: "2000-01-01" "2000-04-01" "2000-07-01" "2000-10-01" "2001-01-01" ...</code></pre>
 </div>
 </div>
@@ -487,9 +488,9 @@
 <div id="from-xts" class="section level3">
 <h3 class="hasAnchor">
 <a href="#from-xts" class="anchor"></a>From xts</h3>
-<div class="sourceCode" id="cb50"><pre class="downlit">
-<span class="co"># Start</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">q10_quarterly_xts</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Start</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">q10_quarterly_xts</span><span class="op">)</span></code></pre></div>
 <pre><code>##             value
 ## 2000-01-01 2329.0
 ## 2000-04-01 2349.9
@@ -498,9 +499,9 @@
 ## 2001-01-01 2382.6
 ## 2001-04-01 2405.0</code></pre>
 <p>Notice no loss of data going back to <code>tbl</code>.</p>
-<div class="sourceCode" id="cb52"><pre class="downlit">
-<span class="co"># End</span>
-<span class="fu"><a href="../reference/tk_tbl.html">tk_tbl</a></span><span class="op">(</span><span class="va">q10_quarterly_xts</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># End</span>
+<span class="fu"><a href="../reference/tk_tbl.html">tk_tbl</a></span><span class="op">(</span><span class="va">q10_quarterly_xts</span><span class="op">)</span></code></pre></div>
 <pre><code>## # A tibble: 59 x 2
 ##    index      value
 ##    &lt;date&gt;     &lt;dbl&gt;
@@ -519,9 +520,9 @@
 <div id="from-zoo" class="section level3">
 <h3 class="hasAnchor">
 <a href="#from-zoo" class="anchor"></a>From zoo</h3>
-<div class="sourceCode" id="cb54"><pre class="downlit">
-<span class="co"># Start</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">q10_quarterly_zoo</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Start</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">q10_quarterly_zoo</span><span class="op">)</span></code></pre></div>
 <pre><code>##             value
 ## 2000-01-01 2329.0
 ## 2000-04-01 2349.9
@@ -530,9 +531,9 @@
 ## 2001-01-01 2382.6
 ## 2001-04-01 2405.0</code></pre>
 <p>Notice no loss of data going back to <code>tbl</code>.</p>
-<div class="sourceCode" id="cb56"><pre class="downlit">
-<span class="co"># End</span>
-<span class="fu"><a href="../reference/tk_tbl.html">tk_tbl</a></span><span class="op">(</span><span class="va">q10_quarterly_zoo</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># End</span>
+<span class="fu"><a href="../reference/tk_tbl.html">tk_tbl</a></span><span class="op">(</span><span class="va">q10_quarterly_zoo</span><span class="op">)</span></code></pre></div>
 <pre><code>## # A tibble: 59 x 2
 ##    index      value
 ##    &lt;date&gt;     &lt;dbl&gt;
@@ -551,9 +552,9 @@
 <div id="from-zooreg" class="section level3">
 <h3 class="hasAnchor">
 <a href="#from-zooreg" class="anchor"></a>From zooreg</h3>
-<div class="sourceCode" id="cb58"><pre class="downlit">
-<span class="co"># Start</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">q10_quarterly_zooreg</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Start</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">q10_quarterly_zooreg</span><span class="op">)</span></code></pre></div>
 <pre><code>##          value
 ## 2000 Q1 2329.0
 ## 2000 Q2 2349.9
@@ -562,9 +563,9 @@
 ## 2001 Q1 2382.6
 ## 2001 Q2 2405.0</code></pre>
 <p>Notice that the index is a regularized numeric sequence by default.</p>
-<div class="sourceCode" id="cb60"><pre class="downlit">
-<span class="co"># End - with default regularized index</span>
-<span class="fu"><a href="../reference/tk_tbl.html">tk_tbl</a></span><span class="op">(</span><span class="va">q10_quarterly_zooreg</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb60"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># End - with default regularized index</span>
+<span class="fu"><a href="../reference/tk_tbl.html">tk_tbl</a></span><span class="op">(</span><span class="va">q10_quarterly_zooreg</span><span class="op">)</span></code></pre></div>
 <pre><code>## # A tibble: 59 x 2
 ##    index     value
 ##    &lt;yearqtr&gt; &lt;dbl&gt;
@@ -580,9 +581,9 @@
 ## 10 2002 Q2   2418.
 ## # … with 49 more rows</code></pre>
 <p>With <code>timetk_idx = TRUE</code> the index is the original date sequence. The result is the original <code>tbl</code> that we started with!</p>
-<div class="sourceCode" id="cb62"><pre class="downlit">
-<span class="co"># End - with timetk index that is the same as original time-based index</span>
-<span class="fu"><a href="../reference/tk_tbl.html">tk_tbl</a></span><span class="op">(</span><span class="va">q10_quarterly_zooreg</span>, timetk_idx <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb62"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># End - with timetk index that is the same as original time-based index</span>
+<span class="fu"><a href="../reference/tk_tbl.html">tk_tbl</a></span><span class="op">(</span><span class="va">q10_quarterly_zooreg</span>, timetk_idx <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <pre><code>## # A tibble: 59 x 2
 ##    index      value
 ##    &lt;date&gt;     &lt;dbl&gt;
@@ -601,9 +602,9 @@
 <div id="from-ts" class="section level3">
 <h3 class="hasAnchor">
 <a href="#from-ts" class="anchor"></a>From ts</h3>
-<div class="sourceCode" id="cb64"><pre class="downlit">
-<span class="co"># Start</span>
-<span class="va">q10_quarterly_ts</span></pre></div>
+<div class="sourceCode" id="cb64"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Start</span>
+<span class="va">q10_quarterly_ts</span></code></pre></div>
 <pre><code>##        Qtr1   Qtr2   Qtr3   Qtr4
 ## 2000 2329.0 2349.9 2332.9 2381.5
 ## 2001 2382.6 2405.0 2411.0 2428.5
@@ -621,9 +622,9 @@
 ## 2013 2497.1 2520.4 2516.9 2505.5
 ## 2014 2513.9 2549.9 2555.3</code></pre>
 <p>Notice that the index is a regularized numeric sequence by default.</p>
-<div class="sourceCode" id="cb66"><pre class="downlit">
-<span class="co"># End - with default regularized index</span>
-<span class="fu"><a href="../reference/tk_tbl.html">tk_tbl</a></span><span class="op">(</span><span class="va">q10_quarterly_ts</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb66"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># End - with default regularized index</span>
+<span class="fu"><a href="../reference/tk_tbl.html">tk_tbl</a></span><span class="op">(</span><span class="va">q10_quarterly_ts</span><span class="op">)</span></code></pre></div>
 <pre><code>## # A tibble: 59 x 2
 ##    index     value
 ##    &lt;yearqtr&gt; &lt;dbl&gt;
@@ -639,9 +640,9 @@
 ## 10 2002 Q2   2418.
 ## # … with 49 more rows</code></pre>
 <p>With <code>timetk_idx = TRUE</code> the index is the original date sequence. The result is the original <code>tbl</code> that we started with!</p>
-<div class="sourceCode" id="cb68"><pre class="downlit">
-<span class="co"># End - with timetk index </span>
-<span class="fu"><a href="../reference/tk_tbl.html">tk_tbl</a></span><span class="op">(</span><span class="va">q10_quarterly_ts</span>, timetk_idx <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb68"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># End - with timetk index </span>
+<span class="fu"><a href="../reference/tk_tbl.html">tk_tbl</a></span><span class="op">(</span><span class="va">q10_quarterly_ts</span>, timetk_idx <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <pre><code>## # A tibble: 59 x 2
 ##    index      value
 ##    &lt;date&gt;     &lt;dbl&gt;
@@ -667,13 +668,13 @@
 <h2 class="hasAnchor">
 <a href="#tk_ts" class="anchor"></a>tk_ts()</h2>
 <p>The <code><a href="../reference/tk_ts.html">tk_ts()</a></code> function returns an object with the “timetk index” attribute.</p>
-<div class="sourceCode" id="cb70"><pre class="downlit">
-<span class="co"># Data coerced with tk_ts() has timetk index</span>
-<span class="fu"><a href="../reference/tk_index.html">has_timetk_idx</a></span><span class="op">(</span><span class="va">q10_quarterly_ts</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb70"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Data coerced with tk_ts() has timetk index</span>
+<span class="fu"><a href="../reference/tk_index.html">has_timetk_idx</a></span><span class="op">(</span><span class="va">q10_quarterly_ts</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 <p>If we toggle <code>timetk_idx = TRUE</code> when retrieving the index with <code><a href="../reference/tk_index.html">tk_index()</a></code>, we get the index of dates rather than the regularized time series.</p>
-<div class="sourceCode" id="cb72"><pre class="downlit">
-<span class="fu"><a href="../reference/tk_index.html">tk_index</a></span><span class="op">(</span><span class="va">q10_quarterly_ts</span>, timetk_idx <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb72"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/tk_index.html">tk_index</a></span><span class="op">(</span><span class="va">q10_quarterly_ts</span>, timetk_idx <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <pre><code>##  [1] "2000-01-01" "2000-04-01" "2000-07-01" "2000-10-01" "2001-01-01"
 ##  [6] "2001-04-01" "2001-07-01" "2001-10-01" "2002-01-01" "2002-04-01"
 ## [11] "2002-07-01" "2002-10-01" "2003-01-01" "2003-04-01" "2003-07-01"
@@ -687,8 +688,8 @@
 ## [51] "2012-07-01" "2012-10-01" "2013-01-01" "2013-04-01" "2013-07-01"
 ## [56] "2013-10-01" "2014-01-01" "2014-04-01" "2014-07-01"</code></pre>
 <p>If we toggle <code>timetk_idx = TRUE</code> during conversion to <code>tbl</code> using <code><a href="../reference/tk_tbl.html">tk_tbl()</a></code>, we get the index of dates rather than the regularized index in the returned <code>tbl</code>.</p>
-<div class="sourceCode" id="cb74"><pre class="downlit">
-<span class="fu"><a href="../reference/tk_tbl.html">tk_tbl</a></span><span class="op">(</span><span class="va">q10_quarterly_ts</span>, timetk_idx <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb74"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/tk_tbl.html">tk_tbl</a></span><span class="op">(</span><span class="va">q10_quarterly_ts</span>, timetk_idx <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <pre><code>## # A tibble: 59 x 2
 ##    index      value
 ##    &lt;date&gt;     &lt;dbl&gt;
@@ -708,12 +709,12 @@
 <h2 class="hasAnchor">
 <a href="#testing-other-data-types" class="anchor"></a>Testing other data types</h2>
 <p>The <code>timetk_idx</code> argument will only have an effect on objects that use regularized time series. Therefore, <code><a href="../reference/tk_index.html">has_timetk_idx()</a></code> returns <code>FALSE</code> for other object types (e.g. <code>tbl</code>, <code>xts</code>, <code>zoo</code>) since toggling the argument has no effect on these classes.</p>
-<div class="sourceCode" id="cb76"><pre class="downlit">
-<span class="fu"><a href="../reference/tk_index.html">has_timetk_idx</a></span><span class="op">(</span><span class="va">q10_quarterly_xts</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb76"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/tk_index.html">has_timetk_idx</a></span><span class="op">(</span><span class="va">q10_quarterly_xts</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
 <p>Toggling the <code>timetk_idx</code> argument has no effect on the output. Output with <code>timetk_idx = TRUE</code> is the same as with <code>timetk_idx = FALSE</code>.</p>
-<div class="sourceCode" id="cb78"><pre class="downlit">
-<span class="fu"><a href="../reference/tk_index.html">tk_index</a></span><span class="op">(</span><span class="va">q10_quarterly_xts</span>, timetk_idx <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb78"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/tk_index.html">tk_index</a></span><span class="op">(</span><span class="va">q10_quarterly_xts</span>, timetk_idx <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <pre><code>##  [1] "2000-01-01" "2000-04-01" "2000-07-01" "2000-10-01" "2001-01-01"
 ##  [6] "2001-04-01" "2001-07-01" "2001-10-01" "2002-01-01" "2002-04-01"
 ## [11] "2002-07-01" "2002-10-01" "2003-01-01" "2003-04-01" "2003-07-01"
@@ -732,10 +733,10 @@
 <h1 class="hasAnchor">
 <a href="#working-with-zooyearmon-and-zooyearqtr-index" class="anchor"></a>Working with zoo::yearmon and zoo::yearqtr index</h1>
 <p>The <code>zoo</code> package has the <code>yearmon</code> and <code>yearqtr</code> classes for working with regularized monthly and quarterly data, respectively. The “timetk index” tracks the format during conversion. Here’s and example with <code>yearqtr</code>.</p>
-<div class="sourceCode" id="cb80"><pre class="downlit">
-<span class="va">yearqtr_tbl</span> <span class="op">&lt;-</span> <span class="va">q10_quarterly</span> <span class="op">%&gt;%</span>
+<div class="sourceCode" id="cb80"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">yearqtr_tbl</span> <span class="op">&lt;-</span> <span class="va">q10_quarterly</span> <span class="op">%&gt;%</span>
     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>date <span class="op">=</span> <span class="fu">zoo</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/zoo/man/yearqtr.html">as.yearqtr</a></span><span class="op">(</span><span class="va">date</span><span class="op">)</span><span class="op">)</span>
-<span class="va">yearqtr_tbl</span></pre></div>
+<span class="va">yearqtr_tbl</span></code></pre></div>
 <pre><code>## # A tibble: 59 x 3
 ##    id    date      value
 ##    &lt;fct&gt; &lt;yearqtr&gt; &lt;dbl&gt;
@@ -751,12 +752,12 @@
 ## 10 Q10   2002 Q2   2418.
 ## # … with 49 more rows</code></pre>
 <p>We can coerce to <code>xts</code> and the <code>yearqtr</code> class is intact.</p>
-<div class="sourceCode" id="cb82"><pre class="downlit">
-<span class="va">yearqtr_xts</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tk_xts.html">tk_xts</a></span><span class="op">(</span><span class="va">yearqtr_tbl</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb82"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">yearqtr_xts</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tk_xts.html">tk_xts</a></span><span class="op">(</span><span class="va">yearqtr_tbl</span><span class="op">)</span></code></pre></div>
 <pre><code>## Warning: Non-numeric columns being dropped: id, date</code></pre>
 <pre><code>## Using column `date` for date_var.</code></pre>
-<div class="sourceCode" id="cb85"><pre class="downlit">
-<span class="va">yearqtr_xts</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb85"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">yearqtr_xts</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>##          value
 ## 2000 Q1 2329.0
 ## 2000 Q2 2349.9
@@ -765,9 +766,9 @@
 ## 2001 Q1 2382.6
 ## 2001 Q2 2405.0</code></pre>
 <p>We can coerce to <code>ts</code> and, although the “timetk index” is hidden, the <code>yearqtr</code> class is intact.</p>
-<div class="sourceCode" id="cb87"><pre class="downlit">
-<span class="va">yearqtr_ts</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tk_ts.html">tk_ts</a></span><span class="op">(</span><span class="va">yearqtr_xts</span>, start <span class="op">=</span> <span class="fl">1997</span>, freq <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
-<span class="va">yearqtr_ts</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb87"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">yearqtr_ts</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tk_ts.html">tk_ts</a></span><span class="op">(</span><span class="va">yearqtr_xts</span>, start <span class="op">=</span> <span class="fl">1997</span>, freq <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
+<span class="va">yearqtr_ts</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>##       value
 ## [1,] 2329.0
 ## [2,] 2349.9
@@ -776,8 +777,8 @@
 ## [5,] 2382.6
 ## [6,] 2405.0</code></pre>
 <p>Coercing from <code>ts</code> to <code>tbl</code> using <code>timetk_idx = TRUE</code> shows that the original index was maintained through each of the conversion steps.</p>
-<div class="sourceCode" id="cb89"><pre class="downlit">
-<span class="va">yearqtr_ts</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/tk_tbl.html">tk_tbl</a></span><span class="op">(</span>timetk_idx <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb89"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">yearqtr_ts</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/tk_tbl.html">tk_tbl</a></span><span class="op">(</span>timetk_idx <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <pre><code>## # A tibble: 59 x 2
 ##    index     value
 ##    &lt;yearqtr&gt; &lt;dbl&gt;

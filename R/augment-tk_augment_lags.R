@@ -13,6 +13,13 @@
 #'
 #' @details
 #'
+#' __Lags vs Leads__
+#'
+#' A _negative lag_ is considered a lead. The `tk_augment_leads()` function is
+#' identical to `tk_augment_lags()` with the exception that the
+#' automatic naming convetion (`.names = 'auto'`) will convert column names with negative lags to
+#' leads.
+#'
 #' __Benefits__
 #'
 #' This is a scalable function that is:
@@ -43,6 +50,10 @@
 #' m4_monthly %>%
 #'     group_by(id) %>%
 #'     tk_augment_lags(value, .lags = 1:20)
+#'
+#' m4_monthly %>%
+#'     group_by(id) %>%
+#'     tk_augment_leads(value, .lags = 1:-20)
 #'
 #' @name tk_augment_lags
 NULL
@@ -93,7 +104,8 @@ tk_augment_lags.data.frame <- function(.data,
     ret_2 <- ret_2 %>%
         purrr::set_names(newname)
 
-    ret <- dplyr::bind_cols(ret_1, ret_2)
+    # Perform Overwrite
+    ret <- bind_cols_overwrite(ret_1, ret_2)
 
     return(ret)
 
@@ -132,4 +144,95 @@ tk_augment_lags.default <- function(.data,
                                     .lags = 1,
                                     .names = "auto") {
     stop(paste0("`tk_augment_lags` has no method for class ", class(data)[[1]]))
+}
+
+
+
+#' @export
+#' @rdname tk_augment_lags
+tk_augment_leads <- function(.data,
+                             .value,
+                             .lags = -1,
+                             .names = "auto") {
+
+    # Checks
+    column_expr <- enquo(.value)
+
+    if (rlang::quo_is_missing(column_expr)) stop(call. = FALSE, "tk_augment_leads(.value) is missing.")
+    if (rlang::is_missing(.lags)) stop(call. = FALSE, "tk_augment_leads(.lags) is missing.")
+
+    UseMethod("tk_augment_leads", .data)
+}
+
+#' @export
+tk_augment_leads.data.frame <- function(.data,
+                                        .value,
+                                        .lags = -1,
+                                        .names = "auto") {
+
+    column_expr <- enquo(.value)
+
+    ret_1 <- .data
+
+    ret_2 <- .lags %>%
+        purrr::map_dfc(.f = function(lag) {
+            .data %>%
+                dplyr::pull(!! column_expr) %>%
+                lag_vec(lag = lag)
+        })
+
+    # Adjust Names
+    if (any(.names == "auto")) {
+        grid <- expand.grid(
+            col      = rlang::quo_name(column_expr),
+            lag_val  = .lags,
+            stringsAsFactors = FALSE)
+        newname <- paste0(grid$col, "_lag", grid$lag_val) %>%
+            stringr::str_replace_all("lag-","lead")
+    } else {
+        newname <- .names
+    }
+    ret_2 <- ret_2 %>%
+        purrr::set_names(newname)
+
+    # Perform Overwrite
+    ret <- bind_cols_overwrite(ret_1, ret_2)
+
+    return(ret)
+
+}
+
+#' @export
+tk_augment_leads.grouped_df <- function(.data,
+                                        .value,
+                                        .lags = -1,
+                                        .names = "auto") {
+
+    # Tidy Eval Setup
+    column_expr <- enquo(.value)
+    group_names <- dplyr::group_vars(.data)
+
+    .data %>%
+        tidyr::nest() %>%
+        dplyr::mutate(nested.col = purrr::map(
+            .x         = data,
+            .f         = function(df) tk_augment_leads(
+                .data       = df,
+                .value      = !! enquo(.value),
+                .lags       = .lags,
+                .names      = .names
+            )
+        )) %>%
+        dplyr::select(-data) %>%
+        tidyr::unnest(cols = nested.col) %>%
+        dplyr::group_by_at(.vars = group_names)
+}
+
+
+#' @export
+tk_augment_leads.default <- function(.data,
+                                     .value,
+                                     .lags = 1,
+                                     .names = "auto") {
+    stop(paste0("`tk_augment_leads` has no method for class ", class(data)[[1]]))
 }

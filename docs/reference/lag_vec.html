@@ -185,7 +185,9 @@
     <p><code>lag_vec()</code> applies a Lag Transformation.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>lag_vec</span><span class='op'>(</span><span class='va'>x</span>, lag <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>lag_vec</span><span class='op'>(</span><span class='va'>x</span>, lag <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
+
+<span class='fu'>lead_vec</span><span class='op'>(</span><span class='va'>x</span>, lag <span class='op'>=</span> <span class='op'>-</span><span class='fl'>1</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -212,7 +214,8 @@ The function allows both lags and leads (negative lags).</p>
 <p><strong>Lag Calculation</strong></p>
 <p>A lag is an offset of <code>lag</code> periods. <code>NA</code> values are returned for the number of <code>lag</code> periods.</p>
 <p><strong>Lead Calculation</strong></p>
-<p>A negative lag is considered a lead.</p>
+<p>A <em>negative lag</em> is considered a lead. The only difference between <code>lead_vec()</code> and <code>lag_vec()</code> is
+that the <code>lead_vec()</code> function contains a starting negative value.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Modeling and Advanced Lagging:</p><ul>

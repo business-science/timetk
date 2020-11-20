@@ -21,7 +21,8 @@
 #'
 #' __Lead Calculation__
 #'
-#' A negative lag is considered a lead.
+#' A _negative lag_ is considered a lead. The only difference between `lead_vec()` and `lag_vec()` is
+#' that the `lead_vec()` function contains a starting negative value.
 #'
 #' @seealso
 #'
@@ -77,5 +78,11 @@ lag_vec <- function(x, lag = 1) {
     }
 
     return(ret_vec)
+}
+
+#' @export
+#' @rdname lag_vec
+lead_vec <- function(x, lag = -1) {
+    lag_vec(x, lag)
 }
 

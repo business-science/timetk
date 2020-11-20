@@ -126,14 +126,15 @@
 
       
 
-      </header><script src="TK01_Working_With_Time_Series_Index_files/header-attrs-2.4/header-attrs.js"></script><script src="TK01_Working_With_Time_Series_Index_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><script src="TK01_Working_With_Time_Series_Index_files/header-attrs-2.5/header-attrs.js"></script><script src="TK01_Working_With_Time_Series_Index_files/accessible-code-block-0.0.1/empty-anchor.js"></script><link href="TK01_Working_With_Time_Series_Index_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
+<script src="TK01_Working_With_Time_Series_Index_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>What is the Time Series Signature?</h1>
             <h3 class="subtitle">And the timestamp index, and the time series summary?</h3>
                         <h4 class="author">Matt Dancho</h4>
             
-            <h4 class="date">2020-11-03</h4>
+            <h4 class="date">2020-11-20</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/business-science/timetk/blob/master/vignettes/TK01_Working_With_Time_Series_Index.Rmd"><code>vignettes/TK01_Working_With_Time_Series_Index.Rmd</code></a></small>
       <div class="hidden name"><code>TK01_Working_With_Time_Series_Index.Rmd</code></div>
@@ -158,20 +159,20 @@
 <h1 class="hasAnchor">
 <a href="#prerequisites" class="anchor"></a>Prerequisites</h1>
 <p>Before we get started, load the following packages.</p>
-<div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/business-science/tidyquant">tidyquant</a></span><span class="op">)</span> <span class="co"># Used for FANG dataset</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/business-science/timetk">timetk</a></span><span class="op">)</span></pre></div>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/business-science/timetk">timetk</a></span><span class="op">)</span></code></pre></div>
 </div>
 <div id="data" class="section level1">
 <h1 class="hasAnchor">
 <a href="#data" class="anchor"></a>Data</h1>
 <p>We’ll use the Facebook stock prices from the <code>FANG</code> data set from <code>tidyquant</code>. These are the historical stock prices (open, high, low, close, volume, and adjusted) for the “FB” stock from 2013 through 2016.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"FANG"</span><span class="op">)</span>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"FANG"</span><span class="op">)</span>
 
 <span class="va">FB_tbl</span> <span class="op">&lt;-</span> <span class="va">FANG</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">symbol</span> <span class="op">==</span> <span class="st">"FB"</span><span class="op">)</span>
-<span class="va">FB_tbl</span></pre></div>
+<span class="va">FB_tbl</span></code></pre></div>
 <pre><code>## # A tibble: 1,008 x 8
 ##    symbol date        open  high   low close    volume adjusted
 ##    &lt;chr&gt;  &lt;date&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
@@ -187,9 +188,9 @@
 ## 10 FB     2013-01-15  30.6  31.7  29.9  30.1 173242600     30.1
 ## # … with 998 more rows</code></pre>
 <p>To simplify the tutorial, we will select only the “date” and “volume” columns. For the <code>FB_vol_date</code> data frame, we can see from the “date” column that the observations are <em>daily</em> beginning on the second day of 2013.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit">
-<span class="va">FB_vol_date</span> <span class="op">&lt;-</span> <span class="va">FB_tbl</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">volume</span><span class="op">)</span>
-<span class="va">FB_vol_date</span></pre></div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">FB_vol_date</span> <span class="op">&lt;-</span> <span class="va">FB_tbl</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">volume</span><span class="op">)</span>
+<span class="va">FB_vol_date</span></code></pre></div>
 <pre><code>## # A tibble: 1,008 x 2
 ##    date          volume
 ##    &lt;date&gt;         &lt;dbl&gt;
@@ -218,10 +219,10 @@
 <li>yearqtr: Must inherit <code>yearqtr</code> from the <code>zoo</code> package</li>
 </ul>
 <p>Extract the index using <code><a href="../reference/tk_index.html">tk_index()</a></code>. The structure is shown to see the output format, which is a vector of dates.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit">
-<span class="co"># idx_date</span>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># idx_date</span>
 <span class="va">idx_date</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tk_index.html">tk_index</a></span><span class="op">(</span><span class="va">FB_vol_date</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">idx_date</span><span class="op">)</span></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">idx_date</span><span class="op">)</span></code></pre></div>
 <pre><code>##  Date[1:1008], format: "2013-01-02" "2013-01-03" "2013-01-04" "2013-01-07" "2013-01-08" ...</code></pre>
 </div>
 <div id="time-series-signature" class="section level1">
@@ -292,12 +293,12 @@
 <li>
 <strong>mday7</strong>: The integer division of day of the month by seven, which returns the first, second, third, … instance the day has appeared in the month. Values begin at 1. For example, the first Saturday in the month has mday7 = 1. The second has mday7 = 2.</li>
 </ul>
-<div class="sourceCode" id="cb8"><pre class="downlit">
-<span class="co"># idx_date signature</span>
-<span class="fu"><a href="../reference/tk_get_timeseries.html">tk_get_timeseries_signature</a></span><span class="op">(</span><span class="va">idx_date</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># idx_date signature</span>
+<span class="fu"><a href="../reference/tk_get_timeseries.html">tk_get_timeseries_signature</a></span><span class="op">(</span><span class="va">idx_date</span><span class="op">)</span></code></pre></div>
 <pre><code>## # A tibble: 1,008 x 29
 ##    index      index.num   diff  year year.iso  half quarter month month.xts
-##    &lt;date&gt;         &lt;int&gt;  &lt;int&gt; &lt;int&gt;    &lt;int&gt; &lt;int&gt;   &lt;int&gt; &lt;int&gt;     &lt;int&gt;
+##    &lt;date&gt;         &lt;dbl&gt;  &lt;dbl&gt; &lt;int&gt;    &lt;int&gt; &lt;int&gt;   &lt;int&gt; &lt;int&gt;     &lt;int&gt;
 ##  1 2013-01-02    1.36e9     NA  2013     2013     1       1     1         0
 ##  2 2013-01-03    1.36e9  86400  2013     2013     1       1     1         0
 ##  3 2013-01-04    1.36e9  86400  2013     2013     1       1     1         0
@@ -318,13 +319,13 @@
 <h2 class="hasAnchor">
 <a href="#augment-functions-adding-many-features-to-a-data-frame" class="anchor"></a>Augment Functions (Adding Many Features to a Data Frame)</h2>
 <p>It’s usually important to keep the index signature with the values (e.g. volume in our example). We can use an expedited approach with <code><a href="../reference/tk_augment_timeseries.html">tk_augment_timeseries_signature()</a></code>, which adds the signature to the end of the time series object.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit">
-<span class="co"># Augmenting a data frame</span>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Augmenting a data frame</span>
 <span class="va">FB_vol_date_signature</span> <span class="op">&lt;-</span> <span class="va">FB_vol_date</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/tk_augment_timeseries.html">tk_augment_timeseries_signature</a></span><span class="op">(</span>.date_var <span class="op">=</span> <span class="va">date</span><span class="op">)</span>
-<span class="va">FB_vol_date_signature</span></pre></div>
+<span class="va">FB_vol_date_signature</span></code></pre></div>
 <pre><code>## # A tibble: 1,008 x 30
 ##    date       volume index.num   diff  year year.iso  half quarter month
-##    &lt;date&gt;      &lt;dbl&gt;     &lt;int&gt;  &lt;int&gt; &lt;int&gt;    &lt;int&gt; &lt;int&gt;   &lt;int&gt; &lt;int&gt;
+##    &lt;date&gt;      &lt;dbl&gt;     &lt;dbl&gt;  &lt;dbl&gt; &lt;int&gt;    &lt;int&gt; &lt;int&gt;   &lt;int&gt; &lt;int&gt;
 ##  1 2013-01-02 6.98e7    1.36e9     NA  2013     2013     1       1     1
 ##  2 2013-01-03 6.31e7    1.36e9  86400  2013     2013     1       1     1
 ##  3 2013-01-04 7.27e7    1.36e9  86400  2013     2013     1       1     1
@@ -341,10 +342,10 @@
 ## #   mday &lt;int&gt;, qday &lt;int&gt;, yday &lt;int&gt;, mweek &lt;int&gt;, week &lt;int&gt;,
 ## #   week.iso &lt;int&gt;, week2 &lt;int&gt;, week3 &lt;int&gt;, week4 &lt;int&gt;, mday7 &lt;int&gt;</code></pre>
 <p>Modeling is now much easier. As an example, we can use linear regression model using the <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> function with the month and year as a predictor of volume.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit">
-<span class="co"># Example Benefit 2: Modeling is easier</span>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Example Benefit 2: Modeling is easier</span>
 <span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">volume</span> <span class="op">~</span> <span class="va">year</span> <span class="op">+</span> <span class="va">month.lbl</span>, data <span class="op">=</span> <span class="va">FB_vol_date_signature</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = volume ~ year + month.lbl, data = FB_vol_date_signature)
@@ -396,9 +397,9 @@
 <li>
 <strong>tzone</strong>: The timezone of the index.</li>
 </ul>
-<div class="sourceCode" id="cb14"><pre class="downlit">
-<span class="co"># idx_date: First six columns, general summary</span>
-<span class="fu"><a href="../reference/tk_get_timeseries.html">tk_get_timeseries_summary</a></span><span class="op">(</span><span class="va">idx_date</span><span class="op">)</span><span class="op">[</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">6</span><span class="op">]</span></pre></div>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># idx_date: First six columns, general summary</span>
+<span class="fu"><a href="../reference/tk_get_timeseries.html">tk_get_timeseries_summary</a></span><span class="op">(</span><span class="va">idx_date</span><span class="op">)</span><span class="op">[</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">6</span><span class="op">]</span></code></pre></div>
 <pre><code>## # A tibble: 1 x 6
 ##   n.obs start      end        units scale tzone
 ##   &lt;int&gt; &lt;date&gt;     &lt;date&gt;     &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;
@@ -419,9 +420,9 @@
 <li>
 <strong>diff.maximum</strong>: The maximum difference between index values.</li>
 </ul>
-<div class="sourceCode" id="cb16"><pre class="downlit">
-<span class="co"># idx_date: Last six columns, difference summary</span>
-<span class="fu"><a href="../reference/tk_get_timeseries.html">tk_get_timeseries_summary</a></span><span class="op">(</span><span class="va">idx_date</span><span class="op">)</span><span class="op">[</span>,<span class="fl">7</span><span class="op">:</span><span class="fl">12</span><span class="op">]</span></pre></div>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># idx_date: Last six columns, difference summary</span>
+<span class="fu"><a href="../reference/tk_get_timeseries.html">tk_get_timeseries_summary</a></span><span class="op">(</span><span class="va">idx_date</span><span class="op">)</span><span class="op">[</span>,<span class="fl">7</span><span class="op">:</span><span class="fl">12</span><span class="op">]</span></code></pre></div>
 <pre><code>## # A tibble: 1 x 6
 ##   diff.minimum diff.q1 diff.median diff.mean diff.q3 diff.maximum
 ##          &lt;dbl&gt;   &lt;dbl&gt;       &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;        &lt;dbl&gt;

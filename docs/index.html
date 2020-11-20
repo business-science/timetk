@@ -149,11 +149,11 @@
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p><em>Download the development version with latest features</em>:</p>
-<div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"business-science/timetk"</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"business-science/timetk"</span><span class="op">)</span></code></pre></div>
 <p><em>Or, download CRAN approved version</em>:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"timetk"</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"timetk"</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="getting-started" class="section level2">
 <h2 class="hasAnchor">
@@ -402,27 +402,27 @@
 <h2 class="hasAnchor">
 <a href="#what-can-you-do-in-1-line-of-code" class="anchor"></a>What can you do in 1 line of code?</h2>
 <p>Investigate a time series…</p>
-<div class="sourceCode" id="cb3"><pre class="downlit">
-<span class="va">taylor_30_min</span> <span class="op">%&gt;%</span>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">taylor_30_min</span> <span class="op">%&gt;%</span>
     <span class="fu"><a href="reference/plot_time_series.html">plot_time_series</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">value</span>, .color_var <span class="op">=</span> <span class="fu">week</span><span class="op">(</span><span class="va">date</span><span class="op">)</span>, 
-                     .interactive <span class="op">=</span> <span class="cn">FALSE</span>, .color_lab <span class="op">=</span> <span class="st">"Week"</span><span class="op">)</span></pre></div>
+                     .interactive <span class="op">=</span> <span class="cn">FALSE</span>, .color_lab <span class="op">=</span> <span class="st">"Week"</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-5-1.png"><!-- --></p>
 <p>Visualize anomalies…</p>
-<div class="sourceCode" id="cb4"><pre class="downlit">
-<span class="va">walmart_sales_weekly</span> <span class="op">%&gt;%</span>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">walmart_sales_weekly</span> <span class="op">%&gt;%</span>
     <span class="fu">group_by</span><span class="op">(</span><span class="va">Store</span>, <span class="va">Dept</span><span class="op">)</span> <span class="op">%&gt;%</span>
     <span class="fu"><a href="reference/plot_anomaly_diagnostics.html">plot_anomaly_diagnostics</a></span><span class="op">(</span><span class="va">Date</span>, <span class="va">Weekly_Sales</span>, 
-                             .facet_ncol <span class="op">=</span> <span class="fl">3</span>, .interactive <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></pre></div>
+                             .facet_ncol <span class="op">=</span> <span class="fl">3</span>, .interactive <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-6-1.png"><!-- --></p>
 <p>Make a seasonality plot…</p>
-<div class="sourceCode" id="cb5"><pre class="downlit">
-<span class="va">taylor_30_min</span> <span class="op">%&gt;%</span>
-    <span class="fu"><a href="reference/plot_seasonal_diagnostics.html">plot_seasonal_diagnostics</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">value</span>, .interactive <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">taylor_30_min</span> <span class="op">%&gt;%</span>
+    <span class="fu"><a href="reference/plot_seasonal_diagnostics.html">plot_seasonal_diagnostics</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">value</span>, .interactive <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-7-1.png"><!-- --></p>
 <p>Inspect autocorrelation, partial autocorrelation (and cross correlations too)…</p>
-<div class="sourceCode" id="cb6"><pre class="downlit">
-<span class="va">taylor_30_min</span> <span class="op">%&gt;%</span>
-    <span class="fu"><a href="reference/plot_acf_diagnostics.html">plot_acf_diagnostics</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">value</span>, .lags <span class="op">=</span> <span class="st">"1 week"</span>, .interactive <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">taylor_30_min</span> <span class="op">%&gt;%</span>
+    <span class="fu"><a href="reference/plot_acf_diagnostics.html">plot_acf_diagnostics</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">value</span>, .lags <span class="op">=</span> <span class="st">"1 week"</span>, .interactive <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-8-1.png"><!-- --></p>
 </div>
 <div id="acknowledgements" class="section level2">

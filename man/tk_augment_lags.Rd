@@ -2,9 +2,12 @@
 % Please edit documentation in R/augment-tk_augment_lags.R
 \name{tk_augment_lags}
 \alias{tk_augment_lags}
+\alias{tk_augment_leads}
 \title{Add many lags to the data}
 \usage{
 tk_augment_lags(.data, .value, .lags = 1, .names = "auto")
+
+tk_augment_leads(.data, .value, .lags = -1, .names = "auto")
 }
 \arguments{
 \item{.data}{A tibble.}
@@ -23,6 +26,13 @@ A handy function for adding multiple lagged columns to a data frame.
 Works with \code{dplyr} groups too.
 }
 \details{
+\strong{Lags vs Leads}
+
+A \emph{negative lag} is considered a lead. The \code{tk_augment_leads()} function is
+identical to \code{tk_augment_lags()} with the exception that the
+automatic naming convetion (\code{.names = 'auto'}) will convert column names with negative lags to
+leads.
+
 \strong{Benefits}
 
 This is a scalable function that is:
@@ -39,6 +49,10 @@ library(timetk)
 m4_monthly \%>\%
     group_by(id) \%>\%
     tk_augment_lags(value, .lags = 1:20)
+
+m4_monthly \%>\%
+    group_by(id) \%>\%
+    tk_augment_leads(value, .lags = 1:-20)
 
 }
 \seealso{

@@ -2,9 +2,12 @@
 % Please edit documentation in R/vec-lag.R
 \name{lag_vec}
 \alias{lag_vec}
+\alias{lead_vec}
 \title{Lag Transformation}
 \usage{
 lag_vec(x, lag = 1)
+
+lead_vec(x, lag = -1)
 }
 \arguments{
 \item{x}{A numeric vector to be lagged.}
@@ -30,7 +33,8 @@ A lag is an offset of \code{lag} periods. \code{NA} values are returned for the 
 
 \strong{Lead Calculation}
 
-A negative lag is considered a lead.
+A \emph{negative lag} is considered a lead. The only difference between \code{lead_vec()} and \code{lag_vec()} is
+that the \code{lead_vec()} function contains a starting negative value.
 }
 \examples{
 library(dplyr)
