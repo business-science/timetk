@@ -8,12 +8,8 @@ Authors@R: c(
   )
 Description: 
     Easy visualization, wrangling, and feature engineering of time series data for 
-    forecasting and machine learning prediction. 
-    Methods discussed herein are commonplace in machine learning, and have been cited 
-    in various literature. Refer to "Calendar Effects" in papers such as 
-    Taieb, Souhaib Ben. "Machine learning strategies for multi-step-ahead time series 
-    forecasting." Universit Libre de Bruxelles, Belgium (2014): 75-86. 
-    <http://souhaib-bentaieb.com/pdf/2014_phd.pdf>.
+    forecasting and machine learning prediction. Consolidates and extends time series functionality 
+    from packages including 'dplyr', 'stats', 'xts', 'forecast', 'slider', 'padr', 'recipes', and 'rsample'.
 URL: https://github.com/business-science/timetk
 BugReports: https://github.com/business-science/timetk/issues
 License: GPL (>= 3)
