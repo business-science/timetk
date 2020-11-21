@@ -1,5 +1,13 @@
 # timetk (development version)
 
+__Fixes__
+
+Reduce "New names" messages. 
+```
+#> New names: 
+#> * NA -> ...1 
+```
+
 # timetk 2.6.0
 
 __New Functions__

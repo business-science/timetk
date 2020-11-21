@@ -85,7 +85,7 @@ tk_augment_lags.data.frame <- function(.data,
     ret_1 <- .data
 
     ret_2 <- .lags %>%
-        purrr::map_dfc(.f = function(lag) {
+        purrr::map(.f = function(lag) {
             .data %>%
                 dplyr::pull(!! column_expr) %>%
                 lag_vec(lag = lag)
@@ -102,7 +102,8 @@ tk_augment_lags.data.frame <- function(.data,
         newname <- .names
     }
     ret_2 <- ret_2 %>%
-        purrr::set_names(newname)
+        purrr::set_names(newname) %>%
+        dplyr::bind_cols()
 
     # Perform Overwrite
     ret <- bind_cols_overwrite(ret_1, ret_2)
@@ -175,7 +176,7 @@ tk_augment_leads.data.frame <- function(.data,
     ret_1 <- .data
 
     ret_2 <- .lags %>%
-        purrr::map_dfc(.f = function(lag) {
+        purrr::map(.f = function(lag) {
             .data %>%
                 dplyr::pull(!! column_expr) %>%
                 lag_vec(lag = lag)
@@ -193,7 +194,8 @@ tk_augment_leads.data.frame <- function(.data,
         newname <- .names
     }
     ret_2 <- ret_2 %>%
-        purrr::set_names(newname)
+        purrr::set_names(newname) %>%
+        dplyr::bind_cols()
 
     # Perform Overwrite
     ret <- bind_cols_overwrite(ret_1, ret_2)

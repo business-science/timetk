@@ -91,7 +91,7 @@ tk_augment_slidify.data.frame <- function(.data,
     ret_1 <- .data
 
     ret_2 <- .period %>%
-        purrr::map_dfc(.f = function(period) {
+        purrr::map(.f = function(period) {
             .data %>%
                 dplyr::pull(!! column_expr) %>%
                 slidify_vec(
@@ -114,7 +114,8 @@ tk_augment_slidify.data.frame <- function(.data,
         newname <- .names
     }
     ret_2 <- ret_2 %>%
-        purrr::set_names(newname)
+        purrr::set_names(newname) %>%
+        dplyr::bind_cols()
 
     # Perform Overwrite
     ret <- bind_cols_overwrite(ret_1, ret_2)
