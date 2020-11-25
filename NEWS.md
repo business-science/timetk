@@ -1,5 +1,9 @@
 # timetk (development version)
 
+__Improvements__
+
+- `tk_augment_slidify()`: Now works with multiple columns (passed via `.value`) and `tidyselect` (e.g. `contains()`).
+
 __Fixes__
 
 Reduce "New names" messages. 

@@ -20,29 +20,29 @@
 \alias{required_pkgs.step_ts_pad}
 \title{S3 methods for tracking which additional packages are needed for steps.}
 \usage{
-required_pkgs.step_box_cox(x, ...)
+\method{required_pkgs}{step_box_cox}(x, ...)
 
-required_pkgs.step_diff(x, ...)
+\method{required_pkgs}{step_diff}(x, ...)
 
-required_pkgs.step_fourier(x, ...)
+\method{required_pkgs}{step_fourier}(x, ...)
 
-required_pkgs.step_holiday_signature(x, ...)
+\method{required_pkgs}{step_holiday_signature}(x, ...)
 
-required_pkgs.step_log_interval(x, ...)
+\method{required_pkgs}{step_log_interval}(x, ...)
 
-required_pkgs.step_slidify(x, ...)
+\method{required_pkgs}{step_slidify}(x, ...)
 
-required_pkgs.step_slidify_augment(x, ...)
+\method{required_pkgs}{step_slidify_augment}(x, ...)
 
-required_pkgs.step_smooth(x, ...)
+\method{required_pkgs}{step_smooth}(x, ...)
 
-required_pkgs.step_timeseries_signature(x, ...)
+\method{required_pkgs}{step_timeseries_signature}(x, ...)
 
-required_pkgs.step_ts_clean(x, ...)
+\method{required_pkgs}{step_ts_clean}(x, ...)
 
-required_pkgs.step_ts_impute(x, ...)
+\method{required_pkgs}{step_ts_impute}(x, ...)
 
-required_pkgs.step_ts_pad(x, ...)
+\method{required_pkgs}{step_ts_pad}(x, ...)
 }
 \arguments{
 \item{x}{A recipe step}

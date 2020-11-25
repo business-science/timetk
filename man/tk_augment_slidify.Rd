@@ -51,17 +51,31 @@ library(tidyverse)
 library(tidyquant)
 library(timetk)
 
+# Single Column | Multiple Rolling Windows
 FANG \%>\%
     select(symbol, date, adjusted) \%>\%
     group_by(symbol) \%>\%
     tk_augment_slidify(
-        .value  = adjusted,
+        .value   = contains("adjust"),
         # Multiple rolling windows
         .period  = c(10, 30, 60, 90),
         .f       = AVERAGE,
         .partial = TRUE,
         .names   = str_c("MA_", c(10, 30, 60, 90))
-    )
+    ) \%>\%
+    ungroup()
+
+# Multiple Columns | Multiple Rolling Windows
+FANG \%>\%
+    select(symbol, date, adjusted, volume) \%>\%
+    group_by(symbol) \%>\%
+    tk_augment_slidify(
+        .value  = c(adjusted, volume),
+        .period  = c(10, 30, 60, 90),
+        .f       = AVERAGE,
+        .partial = TRUE
+    ) \%>\%
+    ungroup()
 
 }
 \seealso{
