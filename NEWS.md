@@ -2,7 +2,7 @@
 
 __Improvements__
 
-- `tk_augment_slidify()`: Now works with multiple columns (passed via `.value`) and `tidyselect` (e.g. `contains()`).
+- `tk_augment_slidify()`, `tk_augment_lags()`, `tk_augment_leads()`, `tk_augment_differences()`: Now works with multiple columns (passed via `.value`) and `tidyselect` (e.g. `contains()`).
 
 __Fixes__
 

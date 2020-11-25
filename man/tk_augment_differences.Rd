@@ -16,7 +16,8 @@ tk_augment_differences(
 \arguments{
 \item{.data}{A tibble.}
 
-\item{.value}{A column to have a difference transformation applied}
+\item{.value}{One or more column(s) to have a transformation applied. Usage
+of \code{tidyselect} functions (e.g. \code{contains()}) can be used to select multiple columns.}
 
 \item{.lags}{One or more lags for the difference(s)}
 

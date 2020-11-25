@@ -4,7 +4,8 @@
 #' Works with `dplyr` groups too.
 #'
 #' @param .data A tibble.
-#' @param .value A column to have a difference transformation applied
+#' @param .value One or more column(s) to have a transformation applied. Usage
+#'  of `tidyselect` functions (e.g. `contains()`) can be used to select multiple columns.
 #' @param .lags One or more lags for the difference(s)
 #' @param .names A vector of names for the new columns. Must be of same length as `.lags`.
 #'
@@ -47,10 +48,12 @@
 #' library(tidyverse)
 #' library(timetk)
 #'
+#' # Lags
 #' m4_monthly %>%
 #'     group_by(id) %>%
-#'     tk_augment_lags(value, .lags = 1:20)
+#'     tk_augment_lags(contains("value"), .lags = 1:20)
 #'
+#' # Leads
 #' m4_monthly %>%
 #'     group_by(id) %>%
 #'     tk_augment_leads(value, .lags = 1:-20)
@@ -80,33 +83,35 @@ tk_augment_lags.data.frame <- function(.data,
                                        .lags = 1,
                                        .names = "auto") {
 
-    column_expr <- enquo(.value)
+    # column_expr <- enquo(.value)
+    col_nms   <- names(tidyselect::eval_select(rlang::enquo(.value), .data))
 
-    ret_1 <- .data
+    make_call <- function(col, lag_val) {
+        rlang::call2(
+            "lag_vec",
+            x          = rlang::sym(col),
+            lag        = lag_val,
+            .ns        = "timetk"
+        )
+    }
 
-    ret_2 <- .lags %>%
-        purrr::map(.f = function(lag) {
-            .data %>%
-                dplyr::pull(!! column_expr) %>%
-                lag_vec(lag = lag)
-        })
+    grid <- expand.grid(
+        col      = col_nms,
+        lag_val  = .lags,
+        stringsAsFactors = FALSE
+    )
 
-    # Adjust Names
+    calls   <- purrr::pmap(.l = list(grid$col, grid$lag_val), make_call)
+
     if (any(.names == "auto")) {
-        grid <- expand.grid(
-            col      = rlang::quo_name(column_expr),
-            lag_val  = .lags,
-            stringsAsFactors = FALSE)
         newname <- paste0(grid$col, "_lag", grid$lag_val)
     } else {
-        newname <- .names
+        newname <- as.list(.names)
     }
-    ret_2 <- ret_2 %>%
-        purrr::set_names(newname) %>%
-        dplyr::bind_cols()
 
-    # Perform Overwrite
-    ret <- bind_cols_overwrite(ret_1, ret_2)
+    calls   <- purrr::set_names(calls, newname)
+
+    ret <- tibble::as_tibble(dplyr::mutate(.data, !!!calls))
 
     return(ret)
 
@@ -171,34 +176,36 @@ tk_augment_leads.data.frame <- function(.data,
                                         .lags = -1,
                                         .names = "auto") {
 
-    column_expr <- enquo(.value)
+    # column_expr <- enquo(.value)
+    col_nms   <- names(tidyselect::eval_select(rlang::enquo(.value), .data))
 
-    ret_1 <- .data
+    make_call <- function(col, lag_val) {
+        rlang::call2(
+            "lag_vec",
+            x          = rlang::sym(col),
+            lag        = lag_val,
+            .ns        = "timetk"
+        )
+    }
 
-    ret_2 <- .lags %>%
-        purrr::map(.f = function(lag) {
-            .data %>%
-                dplyr::pull(!! column_expr) %>%
-                lag_vec(lag = lag)
-        })
+    grid <- expand.grid(
+        col      = col_nms,
+        lag_val  = .lags,
+        stringsAsFactors = FALSE
+    )
 
-    # Adjust Names
+    calls   <- purrr::pmap(.l = list(grid$col, grid$lag_val), make_call)
+
     if (any(.names == "auto")) {
-        grid <- expand.grid(
-            col      = rlang::quo_name(column_expr),
-            lag_val  = .lags,
-            stringsAsFactors = FALSE)
         newname <- paste0(grid$col, "_lag", grid$lag_val) %>%
             stringr::str_replace_all("lag-","lead")
     } else {
-        newname <- .names
+        newname <- as.list(.names)
     }
-    ret_2 <- ret_2 %>%
-        purrr::set_names(newname) %>%
-        dplyr::bind_cols()
 
-    # Perform Overwrite
-    ret <- bind_cols_overwrite(ret_1, ret_2)
+    calls   <- purrr::set_names(calls, newname)
+
+    ret <- tibble::as_tibble(dplyr::mutate(.data, !!!calls))
 
     return(ret)
 

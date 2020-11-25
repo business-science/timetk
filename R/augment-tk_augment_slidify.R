@@ -4,7 +4,8 @@
 #' Works with `dplyr` groups too.
 #'
 #' @param .data A tibble.
-#' @param .value A numeric column to have a rolling window transformation applied
+#' @param .value One or more column(s) to have a transformation applied. Usage
+#'  of `tidyselect` functions (e.g. `contains()`) can be used to select multiple columns.
 #' @param .period One or more periods for the rolling window(s)
 #' @param .f A summary `[function / formula]`,
 #' @param ... Optional arguments for the summary function

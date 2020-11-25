@@ -12,7 +12,8 @@ tk_augment_leads(.data, .value, .lags = -1, .names = "auto")
 \arguments{
 \item{.data}{A tibble.}
 
-\item{.value}{A column to have a difference transformation applied}
+\item{.value}{One or more column(s) to have a transformation applied. Usage
+of \code{tidyselect} functions (e.g. \code{contains()}) can be used to select multiple columns.}
 
 \item{.lags}{One or more lags for the difference(s)}
 
@@ -46,10 +47,12 @@ the \code{.lags} argument (e.g. \code{.lags = 1:20})
 library(tidyverse)
 library(timetk)
 
+# Lags
 m4_monthly \%>\%
     group_by(id) \%>\%
-    tk_augment_lags(value, .lags = 1:20)
+    tk_augment_lags(contains("value"), .lags = 1:20)
 
+# Leads
 m4_monthly \%>\%
     group_by(id) \%>\%
     tk_augment_leads(value, .lags = 1:-20)

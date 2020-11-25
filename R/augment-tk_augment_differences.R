@@ -4,7 +4,8 @@
 #' Works with `dplyr` groups too.
 #'
 #' @param .data A tibble.
-#' @param .value A column to have a difference transformation applied
+#' @param .value One or more column(s) to have a transformation applied. Usage
+#'  of `tidyselect` functions (e.g. `contains()`) can be used to select multiple columns.
 #' @param .lags One or more lags for the difference(s)
 #' @param .differences The number of differences to apply.
 #' @param .log If TRUE, applies log-differences.
@@ -81,7 +82,8 @@ tk_augment_differences.data.frame <- function(.data,
                                              .log = FALSE,
                                              .names = "auto") {
 
-    column_expr <- enquo(.value)
+    # column_expr <- enquo(.value)
+    col_nms   <- names(tidyselect::eval_select(rlang::enquo(.value), .data))
 
     make_call <- function(col, lag_val, diff_val) {
         rlang::call2(
@@ -96,10 +98,11 @@ tk_augment_differences.data.frame <- function(.data,
     }
 
     grid <- expand.grid(
-        col      = rlang::quo_name(column_expr),
+        col      = col_nms,
         lag_val  = .lags,
         diff_val = .differences,
-        stringsAsFactors = FALSE)
+        stringsAsFactors = FALSE
+    )
 
     calls   <- purrr::pmap(.l = list(grid$col, grid$lag_val, grid$diff_val), make_call)
 
@@ -128,11 +131,6 @@ tk_augment_differences.grouped_df <- function(.data,
     # Tidy Eval Setup
     column_expr <- enquo(.value)
     group_names <- dplyr::group_vars(.data)
-
-    # # Checks
-    # if (rlang::quo_is_missing(column_expr)) stop(call. = FALSE, "tk_augment_differences(.value) is missing.")
-    # if (rlang::is_missing(.lags)) stop(call. = FALSE, "tk_augment_differences(.lags) is missing.")
-    # if (rlang::is_missing(.differences)) stop(call. = FALSE, "tk_augment_differences(.differences) is missing.")
 
     .data %>%
         tidyr::nest() %>%

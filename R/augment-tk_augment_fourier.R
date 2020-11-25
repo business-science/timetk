@@ -138,11 +138,6 @@ tk_augment_fourier.grouped_df <- function(.data,
     column_expr <- enquo(.date_var)
     group_names <- dplyr::group_vars(.data)
 
-    # # Checks
-    # if (rlang::quo_is_missing(column_expr)) stop(call. = FALSE, "tk_augment_fourier(.date_var) is missing.")
-    # if (rlang::is_missing(.periods)) stop(call. = FALSE, "tk_augment_fourier(.periods) is missing.")
-    # if (rlang::is_missing(.K)) stop(call. = FALSE, "tk_augment_fourier(.K) is missing.")
-
     .data %>%
         tidyr::nest() %>%
         dplyr::mutate(nested.col = purrr::map(

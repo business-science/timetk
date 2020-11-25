@@ -18,7 +18,8 @@ tk_augment_slidify(
 \arguments{
 \item{.data}{A tibble.}
 
-\item{.value}{A numeric column to have a rolling window transformation applied}
+\item{.value}{One or more column(s) to have a transformation applied. Usage
+of \code{tidyselect} functions (e.g. \code{contains()}) can be used to select multiple columns.}
 
 \item{.period}{One or more periods for the rolling window(s)}
 
