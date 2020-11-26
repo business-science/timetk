@@ -79,15 +79,6 @@ reference:
     contents:
     - "between_time"
     - "add_time"
-  - title: Vectorized Transformations
-    desc: __Use with `mutate` to apply vectorized transformations to time series data__
-    contents:
-    - contains("box_cox_vec")
-    - contains("diff_vec")
-    - contains("lag_vec")
-    - "standardize_vec"
-    - "normalize_vec"
-    - contains("_vec")
   - title: Augment Operations (Quickly Add Many Features)
     desc: __Add multiple columns to the original data. Respects `dplyr` groups.__
     contents:
@@ -97,6 +88,15 @@ reference:
     - "tk_augment_differences"
     - "tk_augment_lags"
     - starts_with("tk_augment")
+  - title: Vectorized Transformations
+    desc: __Use with `mutate` to apply vectorized transformations to time series data__
+    contents:
+    - contains("box_cox_vec")
+    - contains("diff_vec")
+    - contains("lag_vec")
+    - "standardize_vec"
+    - "normalize_vec"
+    - contains("_vec")
   - title: Feature Engineering Operations (Recipe Steps)
     desc: __Preprocessing & feature engineering operations for use with `recipes` and the `tidymodels` ecosystem__
   - subtitle: Engineered Features
