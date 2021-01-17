@@ -91,7 +91,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">timetk</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.1</span>
       </span>
     </div>
 
@@ -99,7 +99,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home"></span>
+    <span class="fas fa-home"></span>
      
   </a>
 </li>
@@ -158,7 +158,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/business-science/timetk">
-    <span class="fa fa-github"></span>
+    <span class="fas fa-github"></span>
      
   </a>
 </li>
@@ -179,14 +179,25 @@
       <small>Source: <a href='https://github.com/business-science/timetk/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="timetk-development-version" class="section level1">
-<h1 class="page-header" data-toc-text="development version">
-<a href="#timetk-development-version" class="anchor"></a>timetk (development version)<small> Unreleased </small>
+    <div id="timetk-261" class="section level1">
+<h1 class="page-header" data-toc-text="2.6.1">
+<a href="#timetk-261" class="anchor"></a>timetk 2.6.1<small> Unreleased </small>
 </h1>
+<p><strong>Improvements</strong></p>
+<ul>
+<li>
+<code><a href="../reference/tk_augment_slidify.html">tk_augment_slidify()</a></code>, <code><a href="../reference/tk_augment_lags.html">tk_augment_lags()</a></code>, <code><a href="../reference/tk_augment_lags.html">tk_augment_leads()</a></code>, <code><a href="../reference/tk_augment_differences.html">tk_augment_differences()</a></code>: Now works with multiple columns (passed via <code>.value</code>) and <code>tidyselect</code> (e.g. <code><a href="https://tidyselect.r-lib.org/reference/starts_with.html">contains()</a></code>).</li>
+</ul>
 <p><strong>Fixes</strong></p>
-<p>Reduce “New names” messages.</p>
+<ul>
+<li>Reduce “New names” messages.</li>
+</ul>
 <pre><code>#&gt; New names: 
 #&gt; * NA -&gt; ...1 </code></pre>
+<ul>
+<li>Remove dependency on <code>lazyeval</code>. <a href='https://github.com/business-science/timetk/issues/24'>#24</a></li>
+<li>Fix deprecated functions: <code><a href="https://dplyr.tidyverse.org/reference/se-deprecated.html">select_()</a></code> used with <code><a href="../reference/tk_xts.html">tk_xts_()</a></code>. <a href='https://github.com/business-science/timetk/issues/52'>#52</a></li>
+</ul>
 </div>
     <div id="timetk-260" class="section level1">
 <h1 class="page-header" data-toc-text="2.6.0">
