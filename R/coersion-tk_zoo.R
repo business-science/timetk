@@ -75,8 +75,8 @@
 #' @export
 tk_zoo <- function(data, select = NULL, date_var = NULL, silent = FALSE, ...) {
 
-    select   <- lazyeval::expr_text(select)
-    date_var <- lazyeval::expr_text(date_var)
+    select   <- rlang::quo_name(rlang::enquo(select))
+    date_var <- rlang::quo_name(rlang::enquo(date_var))
 
     # Coerce to xts then to zoo
     ret <- tk_xts_(data = data, select = select, date_var = date_var, silent = silent, ...)

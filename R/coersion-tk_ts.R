@@ -97,7 +97,7 @@ tk_ts <- function(data, select = NULL, start = 1, end = numeric(), frequency = 1
         stop("'start' cannot be after 'end'")
 
     # Format for NSE
-    select   <- lazyeval::expr_text(select)
+    select   <- rlang::quo_name(rlang::enquo(select))
 
     # Method dispatch
     ret <- tk_ts_dispatch_(data = data, select = select, start = start, end = end,

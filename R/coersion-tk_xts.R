@@ -71,8 +71,8 @@
 #' @name tk_xts
 #' @export
 tk_xts <- function(data, select = NULL, date_var = NULL, silent = FALSE, ...) {
-    select   <- lazyeval::expr_text(select)
-    date_var <- lazyeval::expr_text(date_var)
+    select   <- rlang::quo_name(rlang::enquo(select))
+    date_var <- rlang::quo_name(rlang::enquo(date_var))
 
     ret <- tk_xts_(data = data, select = select, date_var = date_var, silent = silent, ...)
     return(ret)
@@ -90,7 +90,10 @@ tk_xts_.data.frame <- function(data, select = NULL, date_var = NULL, silent = FA
 
     # Implement select
     if (!(select == "NULL" || is.null(select))) {
-        ret <- dplyr::select_(data, select)
+        # ret <- dplyr::select_(data, select)
+        col_nms   <- names(tidyselect::eval_select(rlang::parse_expr(select), data))
+        col_exprs <- rlang::syms(col_nms)
+        ret       <- dplyr::select(data, !!! col_exprs)
     } else {
         ret <- data
     }

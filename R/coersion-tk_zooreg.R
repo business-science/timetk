@@ -99,8 +99,8 @@ tk_zooreg <- function(data, select = NULL, date_var = NULL, start = 1, end = num
         stop("'start' cannot be after 'end'")
 
     # Format for NSE
-    select   <- lazyeval::expr_text(select)
-    date_var <- lazyeval::expr_text(date_var)
+    select   <- rlang::quo_name(rlang::enquo(select))
+    date_var <- rlang::quo_name(rlang::enquo(date_var))
 
     # Method dispatch
     ret <- tk_zooreg_dispatch_(data      = data,
