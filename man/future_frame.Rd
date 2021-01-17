@@ -132,17 +132,22 @@ m4_daily \%>\%
     group_by(id) \%>\%
     future_frame(date, .length_out = 100, .bind_data = TRUE)
 
-# Remove Non-Working Days (Weekends & Holidays)
 holidays <- tk_make_holiday_sequence(
     start_date = "2017-01-01",
     end_date   = "2017-12-31",
     calendar   = "NYSE")
 
+weekends <- tk_make_weekend_sequence(
+    start_date = "2017-01-01",
+    end_date   = "2017-12-31"
+)
+
 FANG \%>\%
     group_by(symbol) \%>\%
-    future_frame(.length_out       = "1 year",
-                 .inspect_weekdays = TRUE,
-                 .skip_values      = holidays)
+    future_frame(
+        .length_out       = "1 year",
+        .skip_values      = c(holidays, weekends)
+    )
 
 
 }
