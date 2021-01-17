@@ -1,4 +1,4 @@
-# timetk (development version)
+# timetk 2.6.1
 
 __Improvements__
 
