@@ -47,7 +47,7 @@ library(lubridate)
 library(timetk)
 
 # Setup for the plotly charts (# FALSE returns ggplots)
-interactive <- TRUE
+interactive <- FALSE
 ```
 
 # Plotting Single Time Series
