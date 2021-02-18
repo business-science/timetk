@@ -66,11 +66,15 @@ lag_vec <- function(x, lag = 1) {
     if (!is.numeric(x)) rlang::abort("Non-numeric data detected. 'x' must be numeric.")
     if (length(lag) > 1) stop(call. = FALSE, "lag_vec(length(lag) > 1): Multiple lags detected. Use tk_augment_lags().")
 
-    ret_vec <- xts::lag.xts(
-        x           = x,
-        k           = lag,
-        na.pad      = TRUE
-    )
+    if(length(x) < lag) {
+        ret_vec <- NULL
+    } else {
+        ret_vec <- xts::lag.xts(
+            x           = x,
+            k           = lag,
+            na.pad      = TRUE
+        )
+    }
 
     pad_len <- length(x) - length(ret_vec)
     if (pad_len > 0) {
