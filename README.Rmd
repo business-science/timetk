@@ -26,9 +26,8 @@ devtools::load_all()
 [![R-CMD-check](https://github.com/business-science/timetk/workflows/R-CMD-check/badge.svg)](https://github.com/business-science/timetk/actions)
 [![codecov](https://codecov.io/gh/business-science/timetk/branch/master/graph/badge.svg)](https://codecov.io/gh/business-science/timetk)
 
-## Mission
+> A `tidyverse` toolkit to visualize, wrangle, and transform time series data 
 
-To make it easy to ___visualize, wrangle, and feature engineer time series data___ for forecasting and machine learning prediction. 
 
 ## Installation
 
@@ -135,6 +134,54 @@ taylor_30_min %>%
 
 
 
+## Summary
+
+Timetk is an amazing package that is part of the `modeltime` ecosystem for time series analysis and forecasting. The forecasting system is extensive, and it can take a long time to learn: 
+
+- Many algorithms
+- Ensembling and Resampling
+- Machine Learning
+- Deep Learning
+- Scalable Modeling: 10,000+ time series
+
+Your probably thinking how am I ever going to learn time series forecasting. Here's the solution that will save you years of struggling. 
+
+## Take the High-Performance Forecasting Course
+
+> Become the forecasting expert for your organization
+
+<a href="https://university.business-science.io/p/ds4b-203-r-high-performance-time-series-forecasting/" target="_blank"><img src="https://www.filepicker.io/api/file/bKyqVAi5Qi64sS05QYLk" alt="High-Performance Time Series Forecasting Course" width="100%" style="box-shadow: 0 0 5px 2px rgba(0, 0, 0, .5);"/></a>
+
+[_High-Performance Time Series Course_](https://university.business-science.io/p/ds4b-203-r-high-performance-time-series-forecasting/)
+
+### Time Series is Changing
+
+Time series is changing. __Businesses now need 10,000+ time series forecasts every day.__ This is what I call a _High-Performance Time Series Forecasting System (HPTSF)_ - Accurate, Robust, and Scalable Forecasting. 
+
+ __High-Performance Forecasting Systems will save companies by improving accuracy and scalability.__ Imagine what will happen to your career if you can provide your organization a "High-Performance Time Series Forecasting System" (HPTSF System).
+
+### How to Learn High-Performance Time Series Forecasting
+
+I teach how to build a HPTFS System in my [__High-Performance Time Series Forecasting Course__](https://university.business-science.io/p/ds4b-203-r-high-performance-time-series-forecasting). You will learn:
+
+- __Time Series Machine Learning__ (cutting-edge) with `Modeltime` - 30+ Models (Prophet, ARIMA, XGBoost, Random Forest, & many more)
+- __Deep Learning__ with `GluonTS` (Competition Winners)
+- __Time Series Preprocessing__, Noise Reduction, & Anomaly Detection
+- __Feature engineering__ using lagged variables & external regressors
+- __Hyperparameter Tuning__
+- __Time series cross-validation__
+- __Ensembling__ Multiple Machine Learning & Univariate Modeling Techniques (Competition Winner)
+- __Scalable Forecasting__ - Forecast 1000+ time series in parallel
+- and more.
+
+<p class="text-center" style="font-size:24px;">
+Become the Time Series Expert for your organization.
+</p>
+<br>
+<p class="text-center" style="font-size:30px;">
+<a href="https://university.business-science.io/p/ds4b-203-r-high-performance-time-series-forecasting">Take the High-Performance Time Series Forecasting Course</a>
+</p>
+
 ## Acknowledgements
 
 The `timetk` package wouldn't be possible without other amazing time series packages. 
@@ -160,30 +207,3 @@ The `timetk` package wouldn't be possible without other amazing time series pack
     - The `pad_by_time()` function is a wrapper for `padr::pad()`.
     - See the `step_ts_pad()` to apply padding as a preprocessing recipe!
 * [TSstudio](https://github.com/RamiKrispin/TSstudio): This is the best interactive time series visualization tool out there. It leverages the `ts` system, which is the same system the `forecast` R package uses. A ton of inspiration for visuals came from using `TSstudio`. 
-
-
-## Learning More
-
-<a href="https://www.youtube.com/embed/elQb4VzRINg" target="_blank"><img src="http://img.youtube.com/vi/elQb4VzRINg/0.jpg" alt="Anomalize" width="100%" height="450"/></a>
-
-[_My Talk on High-Performance Time Series Forecasting_](https://youtu.be/elQb4VzRINg)
-
-Time series is changing. __Businesses now need 10,000+ time series forecasts every day.__ This is what I call a _High-Performance Time Series Forecasting System (HPTSF)_ - Accurate, Robust, and Scalable Forecasting. 
-
- __High-Performance Forecasting Systems will save companies MILLIONS of dollars.__ Imagine what will happen to your career if you can provide your organization a "High-Performance Time Series Forecasting System" (HPTSF System).
-
-I teach how to build a HPTFS System in my __High-Performance Time Series Forecasting Course__. If interested in learning Scalable High-Performance Forecasting Strategies then [take my course](https://university.business-science.io/p/ds4b-203-r-high-performance-time-series-forecasting). You will learn:
-
-- Time Series Machine Learning (cutting-edge) with `Modeltime` - 30+ Models (Prophet, ARIMA, XGBoost, Random Forest, & many more)
-- NEW - Deep Learning with `GluonTS` (Competition Winners)
-- Time Series Preprocessing, Noise Reduction, & Anomaly Detection
-- Feature engineering using lagged variables & external regressors
-- Hyperparameter Tuning
-- Time series cross-validation
-- Ensembling Multiple Machine Learning & Univariate Modeling Techniques (Competition Winner)
-- Scalable Forecasting - Forecast 1000+ time series in parallel
-- and more.
-
-<p class="text-center" style="font-size:30px;">
-<a href="https://university.business-science.io/p/ds4b-203-r-high-performance-time-series-forecasting">Unlock the High-Performance Time Series Forecasting Course</a>
-</p>
