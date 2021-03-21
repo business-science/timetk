@@ -5,12 +5,11 @@
 
 <img src="man/figures/logo.png" width="147" height="170" align="right" />
 
-[![Travis build
-status](https://travis-ci.org/business-science/timetk.svg?branch=master)](https://travis-ci.org/business-science/timetk)
-[![codecov](https://codecov.io/gh/business-science/timetk/branch/master/graph/badge.svg)](https://codecov.io/gh/business-science/timetk)
 [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/timetk)](https://cran.r-project.org/package=timetk)
 ![](http://cranlogs.r-pkg.org/badges/timetk?color=brightgreen)
 ![](http://cranlogs.r-pkg.org/badges/grand-total/timetk?color=brightgreen)
+[![R-CMD-check](https://github.com/business-science/timetk/workflows/R-CMD-check/badge.svg)](https://github.com/business-science/timetk/actions)
+[![codecov](https://codecov.io/gh/business-science/timetk/branch/master/graph/badge.svg)](https://codecov.io/gh/business-science/timetk)
 
 ## Mission
 
@@ -33,13 +32,13 @@ install.packages("timetk")
 
 ## Getting Started
 
-  - [Full Time Series Machine Learning and Feature Engineering
+-   [Full Time Series Machine Learning and Feature Engineering
     Tutorial:](https://www.business-science.io/time-series/2020/03/18/time-series-machine-learning.html)
     Showcases the (NEW) `step_timeseries_signature()` for building
     ***200+ time series features*** using `parsnip`, `recipes`, and
     `workflows`.
 
-  - [Visit the timetk website
+-   [Visit the timetk website
     documentation](https://business-science.github.io/timetk/) for
     tutorials and a [complete list of function
     references](https://business-science.github.io/timetk/reference/index.html).
@@ -54,7 +53,7 @@ data frames or tibbles).
 <div class="comparison">
 
 | Task                                                                                                                                      | [timetk](https://business-science.github.io/timetk/) | [tsibble](https://tsibble.tidyverts.org/index.html) | [feasts](https://feasts.tidyverts.org/index.html) | [tibbletime](https://business-science.github.io/tibbletime/) |
-| ----------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------- | --------------------------------------------------- | ------------------------------------------------- | ------------------------------------------------------------ |
+|-------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------|-----------------------------------------------------|---------------------------------------------------|--------------------------------------------------------------|
 | **Structure**                                                                                                                             |                                                      |                                                     |                                                   |                                                              |
 | Data Structure                                                                                                                            | tibble (tbl)                                         | tsibble (tbl\_ts)                                   | tsibble (tbl\_ts)                                 | tibbletime (tbl\_time)                                       |
 | [**Visualization**](https://business-science.github.io/timetk/articles/TK04_Plotting_Time_Series.html)                                    |                                                      |                                                     |                                                   |                                                              |
@@ -135,53 +134,53 @@ taylor_30_min %>%
 The `timetk` package wouldn’t be possible without other amazing time
 series packages.
 
-  - [stats](https://rdrr.io/r/stats/stats-package.html) - Basically
+-   [stats](https://rdrr.io/r/stats/stats-package.html) - Basically
     every `timetk` function that uses a period (frequency) argument owes
     it to `ts()`.
-      - `plot_acf_diagnostics()`: Leverages `stats::acf()`,
+    -   `plot_acf_diagnostics()`: Leverages `stats::acf()`,
         `stats::pacf()` & `stats::ccf()`
-      - `plot_stl_diagnostics()`: Leverages `stats::stl()`
-  - [lubridate](https://lubridate.tidyverse.org/): `timetk` makes heavy
+    -   `plot_stl_diagnostics()`: Leverages `stats::stl()`
+-   [lubridate](https://lubridate.tidyverse.org/): `timetk` makes heavy
     use of `floor_date()`, `ceiling_date()`, and `duration()` for
     “time-based phrases”.
-      - Add and Subtract Time (`%+time%` & `%-time%`): `"2012-01-01"
-        %+time% "1 month 4 days"` uses `lubridate` to intelligently
-        offset the day
-  - [xts](https://github.com/joshuaulrich/xts): Used to calculate
+    -   Add and Subtract Time (`%+time%` & `%-time%`):
+        `"2012-01-01" %+time% "1 month 4 days"` uses `lubridate` to
+        intelligently offset the day
+-   [xts](https://github.com/joshuaulrich/xts): Used to calculate
     periodicity and fast lag automation.
-  - [forecast (retired)](https://pkg.robjhyndman.com/forecast/):
+-   [forecast (retired)](https://pkg.robjhyndman.com/forecast/):
     Possibly my favorite R package of all time. It’s based on `ts`, and
     it’s predecessor is the `tidyverts` (`fable`, `tsibble`, `feasts`,
     and `fabletools`).
-      - The `ts_impute_vec()` function for low-level vectorized
+    -   The `ts_impute_vec()` function for low-level vectorized
         imputation using STL + Linear Interpolation uses `na.interp()`
         under the hood.
-      - The `ts_clean_vec()` function for low-level vectorized
+    -   The `ts_clean_vec()` function for low-level vectorized
         imputation using STL + Linear Interpolation uses `tsclean()`
         under the hood.
-      - Box Cox transformation `auto_lambda()` uses `BoxCox.Lambda()`.  
-  - [tibbletime
+    -   Box Cox transformation `auto_lambda()` uses `BoxCox.Lambda()`.  
+-   [tibbletime
     (retired)](https://business-science.github.io/tibbletime/): While
     `timetk` does not import `tibbletime`, it uses much of the
     innovative functionality to interpret time-based phrases:
-      - `tk_make_timeseries()` - Extends `seq.Date()` and `seq.POSIXt()`
+    -   `tk_make_timeseries()` - Extends `seq.Date()` and `seq.POSIXt()`
         using a simple phase like “2012-02” to populate the entire time
         series from start to finish in February 2012.
-      - `filter_by_time()`, `between_time()` - Uses innovative endpoint
+    -   `filter_by_time()`, `between_time()` - Uses innovative endpoint
         detection from phrases like “2012”
-      - `slidify()` is basically `rollify()` using `slider` (see below).
-  - [slider](https://davisvaughan.github.io/slider/): A powerful R
+    -   `slidify()` is basically `rollify()` using `slider` (see below).
+-   [slider](https://davisvaughan.github.io/slider/): A powerful R
     package that provides a `purrr`-syntax for complex rolling (sliding)
     calculations.
-      - `slidify()` uses `slider::pslide` under the hood.
-      - `slidify_vec()` uses `slider::slide_vec()` for simple vectorized
+    -   `slidify()` uses `slider::pslide` under the hood.
+    -   `slidify_vec()` uses `slider::slide_vec()` for simple vectorized
         rolls (slides).
-  - [padr](https://edwinth.github.io/padr/): Used for padding time
+-   [padr](https://edwinth.github.io/padr/): Used for padding time
     series from low frequency to high frequency and filling in gaps.
-      - The `pad_by_time()` function is a wrapper for `padr::pad()`.
-      - See the `step_ts_pad()` to apply padding as a preprocessing
-        recipe\!
-  - [TSstudio](https://github.com/RamiKrispin/TSstudio): This is the
+    -   The `pad_by_time()` function is a wrapper for `padr::pad()`.
+    -   See the `step_ts_pad()` to apply padding as a preprocessing
+        recipe!
+-   [TSstudio](https://github.com/RamiKrispin/TSstudio): This is the
     best interactive time series visualization tool out there. It
     leverages the `ts` system, which is the same system the `forecast` R
     package uses. A ton of inspiration for visuals came from using
@@ -210,21 +209,19 @@ High-Performance Forecasting Strategies then [take my
 course](https://university.business-science.io/p/ds4b-203-r-high-performance-time-series-forecasting).
 You will learn:
 
-  - Time Series Machine Learning (cutting-edge) with `Modeltime` - 30+
+-   Time Series Machine Learning (cutting-edge) with `Modeltime` - 30+
     Models (Prophet, ARIMA, XGBoost, Random Forest, & many more)
-  - NEW - Deep Learning with `GluonTS` (Competition Winners)
-  - Time Series Preprocessing, Noise Reduction, & Anomaly Detection
-  - Feature engineering using lagged variables & external regressors
-  - Hyperparameter Tuning
-  - Time series cross-validation
-  - Ensembling Multiple Machine Learning & Univariate Modeling
+-   NEW - Deep Learning with `GluonTS` (Competition Winners)
+-   Time Series Preprocessing, Noise Reduction, & Anomaly Detection
+-   Feature engineering using lagged variables & external regressors
+-   Hyperparameter Tuning
+-   Time series cross-validation
+-   Ensembling Multiple Machine Learning & Univariate Modeling
     Techniques (Competition Winner)
-  - Scalable Forecasting - Forecast 1000+ time series in parallel
-  - and more.
+-   Scalable Forecasting - Forecast 1000+ time series in parallel
+-   and more.
 
 <p class="text-center" style="font-size:30px;">
-
 <a href="https://university.business-science.io/p/ds4b-203-r-high-performance-time-series-forecasting">Unlock
 the High-Performance Time Series Forecasting Course</a>
-
 </p>

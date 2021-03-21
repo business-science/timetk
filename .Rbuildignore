@@ -15,3 +15,5 @@ img
 ^CRAN-RELEASE$
 ^doc$
 ^Meta$
+^codecov\.yml$
+^\.github$

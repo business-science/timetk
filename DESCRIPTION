@@ -50,7 +50,7 @@ Suggests:
     workflows,
     parsnip,
     tune,
-    yardstick, 
+    yardstick,
     tidyverse,
     knitr,
     rmarkdown,
@@ -61,7 +61,8 @@ Suggests:
     fracdiff,
     timeSeries,
     tseries,
-    roxygen2
+    roxygen2,
+    covr
 RoxygenNote: 7.1.1
 Roxygen: list(markdown = TRUE)
 VignetteBuilder: knitr
