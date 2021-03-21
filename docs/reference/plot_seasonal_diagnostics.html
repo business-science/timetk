@@ -156,6 +156,38 @@ Plots are available in interactive plotly (default) and static ggplot2 format." 
 <li>
   <a href="../news/index.html">News</a>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Ecosystem
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Workflow</li>
+    <li>
+      <a href="https://business-science.github.io/modeltime/">Modeltime (Machine Learning)</a>
+    </li>
+    <li>
+      <a href="https://business-science.github.io/timetk/">TimeTK (Data Transformation &amp; Visualization)</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Improve</li>
+    <li>
+      <a href="https://business-science.github.io/modeltime.ensemble/">Modeltime Ensemble (Blending Forecasts)</a>
+    </li>
+    <li>
+      <a href="https://business-science.github.io/modeltime.resample/">Modeltime Resample (Backtesting)</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">More Power</li>
+    <li>
+      <a href="https://business-science.github.io/modeltime.h2o/">Modeltime H2O (AutoML)</a>
+    </li>
+    <li>
+      <a href="https://business-science.github.io/modeltime.gluonts/">Modeltime GluonTS (Deep Learning)</a>
+    </li>
+  </ul>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
@@ -298,20 +330,20 @@ they may be meaningless for some of the groups.</p>
 <span class='co'># ---- MULTIPLE FREQUENCY ----</span>
 <span class='co'># Taylor 30-minute dataset from forecast package</span>
 <span class='va'>taylor_30_min</span>
-</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 4,032 x 2</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 4,032 x 2</span><span>
 #&gt;    date                value
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;dttm&gt;</span><span>              </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> 2000-06-05 </span><span style='color: #555555;'>00:00:00</span><span> </span><span style='text-decoration: underline;'>22</span><span>262
-#&gt; </span><span style='color: #555555;'> 2</span><span> 2000-06-05 </span><span style='color: #555555;'>00:30:00</span><span> </span><span style='text-decoration: underline;'>21</span><span>756
-#&gt; </span><span style='color: #555555;'> 3</span><span> 2000-06-05 </span><span style='color: #555555;'>01:00:00</span><span> </span><span style='text-decoration: underline;'>22</span><span>247
-#&gt; </span><span style='color: #555555;'> 4</span><span> 2000-06-05 </span><span style='color: #555555;'>01:30:00</span><span> </span><span style='text-decoration: underline;'>22</span><span>759
-#&gt; </span><span style='color: #555555;'> 5</span><span> 2000-06-05 </span><span style='color: #555555;'>02:00:00</span><span> </span><span style='text-decoration: underline;'>22</span><span>549
-#&gt; </span><span style='color: #555555;'> 6</span><span> 2000-06-05 </span><span style='color: #555555;'>02:30:00</span><span> </span><span style='text-decoration: underline;'>22</span><span>313
-#&gt; </span><span style='color: #555555;'> 7</span><span> 2000-06-05 </span><span style='color: #555555;'>03:00:00</span><span> </span><span style='text-decoration: underline;'>22</span><span>128
-#&gt; </span><span style='color: #555555;'> 8</span><span> 2000-06-05 </span><span style='color: #555555;'>03:30:00</span><span> </span><span style='text-decoration: underline;'>21</span><span>860
-#&gt; </span><span style='color: #555555;'> 9</span><span> 2000-06-05 </span><span style='color: #555555;'>04:00:00</span><span> </span><span style='text-decoration: underline;'>21</span><span>751
-#&gt; </span><span style='color: #555555;'>10</span><span> 2000-06-05 </span><span style='color: #555555;'>04:30:00</span><span> </span><span style='text-decoration: underline;'>21</span><span>336
-#&gt; </span><span style='color: #555555;'># … with 4,022 more rows</span><span></div><div class='input'>
+#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;dttm&gt;</span><span>              </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> 2000-06-05 </span><span style='color: #949494;'>00:00:00</span><span> </span><span style='text-decoration: underline;'>22</span><span>262
+#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> 2000-06-05 </span><span style='color: #949494;'>00:30:00</span><span> </span><span style='text-decoration: underline;'>21</span><span>756
+#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> 2000-06-05 </span><span style='color: #949494;'>01:00:00</span><span> </span><span style='text-decoration: underline;'>22</span><span>247
+#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> 2000-06-05 </span><span style='color: #949494;'>01:30:00</span><span> </span><span style='text-decoration: underline;'>22</span><span>759
+#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> 2000-06-05 </span><span style='color: #949494;'>02:00:00</span><span> </span><span style='text-decoration: underline;'>22</span><span>549
+#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> 2000-06-05 </span><span style='color: #949494;'>02:30:00</span><span> </span><span style='text-decoration: underline;'>22</span><span>313
+#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> 2000-06-05 </span><span style='color: #949494;'>03:00:00</span><span> </span><span style='text-decoration: underline;'>22</span><span>128
+#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> 2000-06-05 </span><span style='color: #949494;'>03:30:00</span><span> </span><span style='text-decoration: underline;'>21</span><span>860
+#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> 2000-06-05 </span><span style='color: #949494;'>04:00:00</span><span> </span><span style='text-decoration: underline;'>21</span><span>751
+#&gt; </span><span style='color: #BCBCBC;'>10</span><span> 2000-06-05 </span><span style='color: #949494;'>04:30:00</span><span> </span><span style='text-decoration: underline;'>21</span><span>336
+#&gt; </span><span style='color: #949494;'># … with 4,022 more rows</span><span></div><div class='input'>
 <span class='co'># Visualize series</span>
 <span class='va'>taylor_30_min</span> <span class='op'>%&gt;%</span>
     <span class='fu'><a href='plot_time_series.html'>plot_time_series</a></span><span class='op'>(</span><span class='va'>date</span>, <span class='va'>value</span>, .interactive <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
@@ -323,20 +355,20 @@ they may be meaningless for some of the groups.</p>
 <span class='co'># ---- GROUPED EXAMPLES ----</span>
 <span class='co'># m4 hourly dataset</span>
 <span class='va'>m4_hourly</span>
-</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 3,060 x 3</span><span>
+</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 3,060 x 3</span><span>
 #&gt;    id    date                value
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dttm&gt;</span><span>              </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> H10   2015-07-01 </span><span style='color: #555555;'>12:00:00</span><span>   513
-#&gt; </span><span style='color: #555555;'> 2</span><span> H10   2015-07-01 </span><span style='color: #555555;'>13:00:00</span><span>   512
-#&gt; </span><span style='color: #555555;'> 3</span><span> H10   2015-07-01 </span><span style='color: #555555;'>14:00:00</span><span>   506
-#&gt; </span><span style='color: #555555;'> 4</span><span> H10   2015-07-01 </span><span style='color: #555555;'>15:00:00</span><span>   500
-#&gt; </span><span style='color: #555555;'> 5</span><span> H10   2015-07-01 </span><span style='color: #555555;'>16:00:00</span><span>   490
-#&gt; </span><span style='color: #555555;'> 6</span><span> H10   2015-07-01 </span><span style='color: #555555;'>17:00:00</span><span>   484
-#&gt; </span><span style='color: #555555;'> 7</span><span> H10   2015-07-01 </span><span style='color: #555555;'>18:00:00</span><span>   467
-#&gt; </span><span style='color: #555555;'> 8</span><span> H10   2015-07-01 </span><span style='color: #555555;'>19:00:00</span><span>   446
-#&gt; </span><span style='color: #555555;'> 9</span><span> H10   2015-07-01 </span><span style='color: #555555;'>20:00:00</span><span>   434
-#&gt; </span><span style='color: #555555;'>10</span><span> H10   2015-07-01 </span><span style='color: #555555;'>21:00:00</span><span>   422
-#&gt; </span><span style='color: #555555;'># … with 3,050 more rows</span><span></div><div class='input'>
+#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dttm&gt;</span><span>              </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> H10   2015-07-01 </span><span style='color: #949494;'>12:00:00</span><span>   513
+#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> H10   2015-07-01 </span><span style='color: #949494;'>13:00:00</span><span>   512
+#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> H10   2015-07-01 </span><span style='color: #949494;'>14:00:00</span><span>   506
+#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> H10   2015-07-01 </span><span style='color: #949494;'>15:00:00</span><span>   500
+#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> H10   2015-07-01 </span><span style='color: #949494;'>16:00:00</span><span>   490
+#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> H10   2015-07-01 </span><span style='color: #949494;'>17:00:00</span><span>   484
+#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> H10   2015-07-01 </span><span style='color: #949494;'>18:00:00</span><span>   467
+#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> H10   2015-07-01 </span><span style='color: #949494;'>19:00:00</span><span>   446
+#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> H10   2015-07-01 </span><span style='color: #949494;'>20:00:00</span><span>   434
+#&gt; </span><span style='color: #BCBCBC;'>10</span><span> H10   2015-07-01 </span><span style='color: #949494;'>21:00:00</span><span>   422
+#&gt; </span><span style='color: #949494;'># … with 3,050 more rows</span><span></div><div class='input'>
 <span class='co'># Visualize series</span>
 <span class='va'>m4_hourly</span> <span class='op'>%&gt;%</span>
     <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>id</span><span class='op'>)</span> <span class='op'>%&gt;%</span>

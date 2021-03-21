@@ -155,6 +155,38 @@
 <li>
   <a href="../news/index.html">News</a>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Ecosystem
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Workflow</li>
+    <li>
+      <a href="https://business-science.github.io/modeltime/">Modeltime (Machine Learning)</a>
+    </li>
+    <li>
+      <a href="https://business-science.github.io/timetk/">TimeTK (Data Transformation &amp; Visualization)</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Improve</li>
+    <li>
+      <a href="https://business-science.github.io/modeltime.ensemble/">Modeltime Ensemble (Blending Forecasts)</a>
+    </li>
+    <li>
+      <a href="https://business-science.github.io/modeltime.resample/">Modeltime Resample (Backtesting)</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">More Power</li>
+    <li>
+      <a href="https://business-science.github.io/modeltime.h2o/">Modeltime H2O (AutoML)</a>
+    </li>
+    <li>
+      <a href="https://business-science.github.io/modeltime.gluonts/">Modeltime GluonTS (Deep Learning)</a>
+    </li>
+  </ul>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
@@ -196,10 +228,10 @@ the timeseries frequencies in seconds for the primary time scales including
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>tk_get_timeseries_unit_frequency</span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 1 x 8</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 1 x 8</span><span>
 #&gt;     sec   min  hour   day   week   month quarter     year
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span>     0    60  </span><span style='text-decoration: underline;'>3</span><span>600 </span><span style='text-decoration: underline;'>86</span><span>400 </span><span style='text-decoration: underline;'>604</span><span>800 2</span><span style='text-decoration: underline;'>678</span><span>400 7</span><span style='text-decoration: underline;'>948</span><span>800 31</span><span style='text-decoration: underline;'>795</span><span>200</div><div class='input'>
+#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>    </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span>     0    60  </span><span style='text-decoration: underline;'>3</span><span>600 </span><span style='text-decoration: underline;'>86</span><span>400 </span><span style='text-decoration: underline;'>604</span><span>800 2</span><span style='text-decoration: underline;'>678</span><span>400 7</span><span style='text-decoration: underline;'>948</span><span>800 31</span><span style='text-decoration: underline;'>795</span><span>200</div><div class='input'>
 
 </div></span></pre>
   </div>

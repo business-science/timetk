@@ -158,6 +158,38 @@ This dataset includes a sample of 4 hourly time series from the competition." />
 <li>
   <a href="../news/index.html">News</a>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Ecosystem
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Workflow</li>
+    <li>
+      <a href="https://business-science.github.io/modeltime/">Modeltime (Machine Learning)</a>
+    </li>
+    <li>
+      <a href="https://business-science.github.io/timetk/">TimeTK (Data Transformation &amp; Visualization)</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Improve</li>
+    <li>
+      <a href="https://business-science.github.io/modeltime.ensemble/">Modeltime Ensemble (Blending Forecasts)</a>
+    </li>
+    <li>
+      <a href="https://business-science.github.io/modeltime.resample/">Modeltime Resample (Backtesting)</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">More Power</li>
+    <li>
+      <a href="https://business-science.github.io/modeltime.h2o/">Modeltime H2O (AutoML)</a>
+    </li>
+    <li>
+      <a href="https://business-science.github.io/modeltime.gluonts/">Modeltime GluonTS (Deep Learning)</a>
+    </li>
+  </ul>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
@@ -215,20 +247,20 @@ This dataset includes <strong>a sample of 4 hourly time series from the competit
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='va'>m4_hourly</span>
-</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 3,060 x 3</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 3,060 x 3</span><span>
 #&gt;    id    date                value
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dttm&gt;</span><span>              </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> H10   2015-07-01 </span><span style='color: #555555;'>12:00:00</span><span>   513
-#&gt; </span><span style='color: #555555;'> 2</span><span> H10   2015-07-01 </span><span style='color: #555555;'>13:00:00</span><span>   512
-#&gt; </span><span style='color: #555555;'> 3</span><span> H10   2015-07-01 </span><span style='color: #555555;'>14:00:00</span><span>   506
-#&gt; </span><span style='color: #555555;'> 4</span><span> H10   2015-07-01 </span><span style='color: #555555;'>15:00:00</span><span>   500
-#&gt; </span><span style='color: #555555;'> 5</span><span> H10   2015-07-01 </span><span style='color: #555555;'>16:00:00</span><span>   490
-#&gt; </span><span style='color: #555555;'> 6</span><span> H10   2015-07-01 </span><span style='color: #555555;'>17:00:00</span><span>   484
-#&gt; </span><span style='color: #555555;'> 7</span><span> H10   2015-07-01 </span><span style='color: #555555;'>18:00:00</span><span>   467
-#&gt; </span><span style='color: #555555;'> 8</span><span> H10   2015-07-01 </span><span style='color: #555555;'>19:00:00</span><span>   446
-#&gt; </span><span style='color: #555555;'> 9</span><span> H10   2015-07-01 </span><span style='color: #555555;'>20:00:00</span><span>   434
-#&gt; </span><span style='color: #555555;'>10</span><span> H10   2015-07-01 </span><span style='color: #555555;'>21:00:00</span><span>   422
-#&gt; </span><span style='color: #555555;'># … with 3,050 more rows</span><span></div><div class='input'>
+#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dttm&gt;</span><span>              </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> H10   2015-07-01 </span><span style='color: #949494;'>12:00:00</span><span>   513
+#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> H10   2015-07-01 </span><span style='color: #949494;'>13:00:00</span><span>   512
+#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> H10   2015-07-01 </span><span style='color: #949494;'>14:00:00</span><span>   506
+#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> H10   2015-07-01 </span><span style='color: #949494;'>15:00:00</span><span>   500
+#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> H10   2015-07-01 </span><span style='color: #949494;'>16:00:00</span><span>   490
+#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> H10   2015-07-01 </span><span style='color: #949494;'>17:00:00</span><span>   484
+#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> H10   2015-07-01 </span><span style='color: #949494;'>18:00:00</span><span>   467
+#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> H10   2015-07-01 </span><span style='color: #949494;'>19:00:00</span><span>   446
+#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> H10   2015-07-01 </span><span style='color: #949494;'>20:00:00</span><span>   434
+#&gt; </span><span style='color: #BCBCBC;'>10</span><span> H10   2015-07-01 </span><span style='color: #949494;'>21:00:00</span><span>   422
+#&gt; </span><span style='color: #949494;'># … with 3,050 more rows</span><span></div><div class='input'>
 </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

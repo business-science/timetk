@@ -160,6 +160,38 @@ negative data used in the Forecast R Package." />
 <li>
   <a href="../news/index.html">News</a>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Ecosystem
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Workflow</li>
+    <li>
+      <a href="https://business-science.github.io/modeltime/">Modeltime (Machine Learning)</a>
+    </li>
+    <li>
+      <a href="https://business-science.github.io/timetk/">TimeTK (Data Transformation &amp; Visualization)</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Improve</li>
+    <li>
+      <a href="https://business-science.github.io/modeltime.ensemble/">Modeltime Ensemble (Blending Forecasts)</a>
+    </li>
+    <li>
+      <a href="https://business-science.github.io/modeltime.resample/">Modeltime Resample (Backtesting)</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">More Power</li>
+    <li>
+      <a href="https://business-science.github.io/modeltime.h2o/">Modeltime H2O (AutoML)</a>
+    </li>
+    <li>
+      <a href="https://business-science.github.io/modeltime.gluonts/">Modeltime GluonTS (Deep Learning)</a>
+    </li>
+  </ul>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
@@ -339,28 +371,28 @@ with seasonal dummy variables is used.</p></li>
     <span class='fu'><a href='https://recipes.tidymodels.org/reference/prep.html'>prep</a></span><span class='op'>(</span><span class='op'>)</span>
 
 <span class='va'>recipe_box_cox</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://recipes.tidymodels.org/reference/bake.html'>bake</a></span><span class='op'>(</span><span class='va'>FANG_wide</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 1,008 x 5</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 1,008 x 5</span><span>
 #&gt;    date          FB  AMZN  NFLX  GOOG
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> 2013-01-02  12.5  8.28  4.92  5.26
-#&gt; </span><span style='color: #555555;'> 2</span><span> 2013-01-03  12.4  8.28  5.08  5.27
-#&gt; </span><span style='color: #555555;'> 3</span><span> 2013-01-04  12.7  8.29  5.06  5.28
-#&gt; </span><span style='color: #555555;'> 4</span><span> 2013-01-07  12.9  8.37  5.17  5.28
-#&gt; </span><span style='color: #555555;'> 5</span><span> 2013-01-08  12.8  8.35  5.10  5.28
-#&gt; </span><span style='color: #555555;'> 6</span><span> 2013-01-09  13.3  8.35  5.06  5.28
-#&gt; </span><span style='color: #555555;'> 7</span><span> 2013-01-10  13.5  8.34  5.13  5.28
-#&gt; </span><span style='color: #555555;'> 8</span><span> 2013-01-11  13.7  8.36  5.24  5.28
-#&gt; </span><span style='color: #555555;'> 9</span><span> 2013-01-14  13.4  8.40  5.32  5.26
-#&gt; </span><span style='color: #555555;'>10</span><span> 2013-01-15  13.1  8.39  5.26  5.27
-#&gt; </span><span style='color: #555555;'># … with 998 more rows</span><span></div><div class='input'>
+#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> 2013-01-02  12.5  8.28  4.92  5.26
+#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> 2013-01-03  12.4  8.28  5.08  5.27
+#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> 2013-01-04  12.7  8.29  5.06  5.28
+#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> 2013-01-07  12.9  8.37  5.17  5.28
+#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> 2013-01-08  12.8  8.35  5.10  5.28
+#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> 2013-01-09  13.3  8.35  5.06  5.28
+#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> 2013-01-10  13.5  8.34  5.13  5.28
+#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> 2013-01-11  13.7  8.36  5.24  5.28
+#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> 2013-01-14  13.4  8.40  5.32  5.26
+#&gt; </span><span style='color: #BCBCBC;'>10</span><span> 2013-01-15  13.1  8.39  5.26  5.27
+#&gt; </span><span style='color: #949494;'># … with 998 more rows</span><span></div><div class='input'>
 <span class='va'>recipe_box_cox</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 4 x 3</span><span>
+</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 4 x 3</span><span>
 #&gt;   terms  lambda id           
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>        
-#&gt; </span><span style='color: #555555;'>1</span><span> FB     0.671  box_cox_SwlKL
-#&gt; </span><span style='color: #555555;'>2</span><span> AMZN   0.135  box_cox_SwlKL
-#&gt; </span><span style='color: #555555;'>3</span><span> NFLX   0.458  box_cox_SwlKL
-#&gt; </span><span style='color: #555555;'>4</span><span> GOOG  -</span><span style='color: #BB0000;'>0.038</span><span style='color: #BB0000;text-decoration: underline;'>8</span><span> box_cox_SwlKL</div><div class='input'>
+#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>        
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span> FB     0.671  box_cox_SwlKL
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span> AMZN   0.135  box_cox_SwlKL
+#&gt; </span><span style='color: #BCBCBC;'>3</span><span> NFLX   0.458  box_cox_SwlKL
+#&gt; </span><span style='color: #BCBCBC;'>4</span><span> GOOG  -</span><span style='color: #BB0000;'>0.038</span><span style='color: #BB0000;text-decoration: underline;'>8</span><span> box_cox_SwlKL</div><div class='input'>
 </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

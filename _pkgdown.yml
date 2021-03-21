@@ -42,6 +42,25 @@ navbar:
       href: reference/index.html
     - text: "News"
       href: news/index.html
+    - text: "Ecosystem"
+      menu:
+        - text: 'Workflow'
+        - text: 'Modeltime (Machine Learning)'
+          href: https://business-science.github.io/modeltime/
+        - text: 'TimeTK (Data Transformation & Visualization)'
+          href: https://business-science.github.io/timetk/
+        - text: "---"
+        - text: 'Improve'
+        - text: 'Modeltime Ensemble (Blending Forecasts)'
+          href: https://business-science.github.io/modeltime.ensemble/
+        - text: 'Modeltime Resample (Backtesting)'
+          href: https://business-science.github.io/modeltime.resample/
+        - text: "---"
+        - text: 'More Power'
+        - text: 'Modeltime H2O (AutoML)'
+          href: https://business-science.github.io/modeltime.h2o/
+        - text: 'Modeltime GluonTS (Deep Learning)'
+          href: https://business-science.github.io/modeltime.gluonts/
 
   right:
     - icon: fa-github

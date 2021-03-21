@@ -161,6 +161,38 @@ This dataset includes a Sample of 7 departments from the Store ID 1 (7 total tim
 <li>
   <a href="../news/index.html">News</a>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Ecosystem
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Workflow</li>
+    <li>
+      <a href="https://business-science.github.io/modeltime/">Modeltime (Machine Learning)</a>
+    </li>
+    <li>
+      <a href="https://business-science.github.io/timetk/">TimeTK (Data Transformation &amp; Visualization)</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Improve</li>
+    <li>
+      <a href="https://business-science.github.io/modeltime.ensemble/">Modeltime Ensemble (Blending Forecasts)</a>
+    </li>
+    <li>
+      <a href="https://business-science.github.io/modeltime.resample/">Modeltime Resample (Backtesting)</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">More Power</li>
+    <li>
+      <a href="https://business-science.github.io/modeltime.h2o/">Modeltime H2O (AutoML)</a>
+    </li>
+    <li>
+      <a href="https://business-science.github.io/modeltime.gluonts/">Modeltime GluonTS (Deep Learning)</a>
+    </li>
+  </ul>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
@@ -243,22 +275,22 @@ Store Sales Forecasting competition.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='va'>walmart_sales_weekly</span>
-</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 1,001 x 17</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 1,001 x 17</span><span>
 #&gt;    id    Store  Dept Date       Weekly_Sales IsHoliday Type    Size Temperature
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>            </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>       </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> 1_1       1     1 2010-02-05       </span><span style='text-decoration: underline;'>24</span><span>924. FALSE     A     </span><span style='text-decoration: underline;'>151</span><span>315        42.3
-#&gt; </span><span style='color: #555555;'> 2</span><span> 1_1       1     1 2010-02-12       </span><span style='text-decoration: underline;'>46</span><span>039. TRUE      A     </span><span style='text-decoration: underline;'>151</span><span>315        38.5
-#&gt; </span><span style='color: #555555;'> 3</span><span> 1_1       1     1 2010-02-19       </span><span style='text-decoration: underline;'>41</span><span>596. FALSE     A     </span><span style='text-decoration: underline;'>151</span><span>315        39.9
-#&gt; </span><span style='color: #555555;'> 4</span><span> 1_1       1     1 2010-02-26       </span><span style='text-decoration: underline;'>19</span><span>404. FALSE     A     </span><span style='text-decoration: underline;'>151</span><span>315        46.6
-#&gt; </span><span style='color: #555555;'> 5</span><span> 1_1       1     1 2010-03-05       </span><span style='text-decoration: underline;'>21</span><span>828. FALSE     A     </span><span style='text-decoration: underline;'>151</span><span>315        46.5
-#&gt; </span><span style='color: #555555;'> 6</span><span> 1_1       1     1 2010-03-12       </span><span style='text-decoration: underline;'>21</span><span>043. FALSE     A     </span><span style='text-decoration: underline;'>151</span><span>315        57.8
-#&gt; </span><span style='color: #555555;'> 7</span><span> 1_1       1     1 2010-03-19       </span><span style='text-decoration: underline;'>22</span><span>137. FALSE     A     </span><span style='text-decoration: underline;'>151</span><span>315        54.6
-#&gt; </span><span style='color: #555555;'> 8</span><span> 1_1       1     1 2010-03-26       </span><span style='text-decoration: underline;'>26</span><span>229. FALSE     A     </span><span style='text-decoration: underline;'>151</span><span>315        51.4
-#&gt; </span><span style='color: #555555;'> 9</span><span> 1_1       1     1 2010-04-02       </span><span style='text-decoration: underline;'>57</span><span>258. FALSE     A     </span><span style='text-decoration: underline;'>151</span><span>315        62.3
-#&gt; </span><span style='color: #555555;'>10</span><span> 1_1       1     1 2010-04-09       </span><span style='text-decoration: underline;'>42</span><span>961. FALSE     A     </span><span style='text-decoration: underline;'>151</span><span>315        65.9
-#&gt; </span><span style='color: #555555;'># … with 991 more rows, and 8 more variables: Fuel_Price </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   MarkDown1 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, MarkDown2 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, MarkDown3 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, MarkDown4 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   MarkDown5 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, CPI </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, Unemployment </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span></div><div class='input'>
+#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;date&gt;</span><span>            </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>       </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> 1_1       1     1 2010-02-05       </span><span style='text-decoration: underline;'>24</span><span>924. FALSE     A     </span><span style='text-decoration: underline;'>151</span><span>315        42.3
+#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> 1_1       1     1 2010-02-12       </span><span style='text-decoration: underline;'>46</span><span>039. TRUE      A     </span><span style='text-decoration: underline;'>151</span><span>315        38.5
+#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> 1_1       1     1 2010-02-19       </span><span style='text-decoration: underline;'>41</span><span>596. FALSE     A     </span><span style='text-decoration: underline;'>151</span><span>315        39.9
+#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> 1_1       1     1 2010-02-26       </span><span style='text-decoration: underline;'>19</span><span>404. FALSE     A     </span><span style='text-decoration: underline;'>151</span><span>315        46.6
+#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> 1_1       1     1 2010-03-05       </span><span style='text-decoration: underline;'>21</span><span>828. FALSE     A     </span><span style='text-decoration: underline;'>151</span><span>315        46.5
+#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> 1_1       1     1 2010-03-12       </span><span style='text-decoration: underline;'>21</span><span>043. FALSE     A     </span><span style='text-decoration: underline;'>151</span><span>315        57.8
+#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> 1_1       1     1 2010-03-19       </span><span style='text-decoration: underline;'>22</span><span>137. FALSE     A     </span><span style='text-decoration: underline;'>151</span><span>315        54.6
+#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> 1_1       1     1 2010-03-26       </span><span style='text-decoration: underline;'>26</span><span>229. FALSE     A     </span><span style='text-decoration: underline;'>151</span><span>315        51.4
+#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> 1_1       1     1 2010-04-02       </span><span style='text-decoration: underline;'>57</span><span>258. FALSE     A     </span><span style='text-decoration: underline;'>151</span><span>315        62.3
+#&gt; </span><span style='color: #BCBCBC;'>10</span><span> 1_1       1     1 2010-04-09       </span><span style='text-decoration: underline;'>42</span><span>961. FALSE     A     </span><span style='text-decoration: underline;'>151</span><span>315        65.9
+#&gt; </span><span style='color: #949494;'># … with 991 more rows, and 8 more variables: Fuel_Price &lt;dbl&gt;,</span><span>
+#&gt; </span><span style='color: #949494;'>#   MarkDown1 &lt;dbl&gt;, MarkDown2 &lt;dbl&gt;, MarkDown3 &lt;dbl&gt;, MarkDown4 &lt;dbl&gt;,</span><span>
+#&gt; </span><span style='color: #949494;'>#   MarkDown5 &lt;dbl&gt;, CPI &lt;dbl&gt;, Unemployment &lt;dbl&gt;</span><span></div><div class='input'>
 </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

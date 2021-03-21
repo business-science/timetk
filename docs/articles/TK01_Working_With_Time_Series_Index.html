@@ -108,6 +108,38 @@
 <li>
   <a href="../news/index.html">News</a>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Ecosystem
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+<li class="dropdown-header">Workflow</li>
+    <li>
+      <a href="https://business-science.github.io/modeltime/">Modeltime (Machine Learning)</a>
+    </li>
+    <li>
+      <a href="https://business-science.github.io/timetk/">TimeTK (Data Transformation &amp; Visualization)</a>
+    </li>
+    <li class="divider">
+    <li class="dropdown-header">Improve</li>
+    <li>
+      <a href="https://business-science.github.io/modeltime.ensemble/">Modeltime Ensemble (Blending Forecasts)</a>
+    </li>
+    <li>
+      <a href="https://business-science.github.io/modeltime.resample/">Modeltime Resample (Backtesting)</a>
+    </li>
+    <li class="divider">
+    <li class="dropdown-header">More Power</li>
+    <li>
+      <a href="https://business-science.github.io/modeltime.h2o/">Modeltime H2O (AutoML)</a>
+    </li>
+    <li>
+      <a href="https://business-science.github.io/modeltime.gluonts/">Modeltime GluonTS (Deep Learning)</a>
+    </li>
+  </ul>
+</li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
@@ -126,14 +158,14 @@
 
       
 
-      </header><script src="TK01_Working_With_Time_Series_Index_files/header-attrs-2.6/header-attrs.js"></script><div class="row">
+      </header><script src="TK01_Working_With_Time_Series_Index_files/header-attrs-2.7/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>What is the Time Series Signature?</h1>
             <h3 class="subtitle">And the timestamp index, and the time series summary?</h3>
                         <h4 class="author">Matt Dancho</h4>
             
-            <h4 class="date">2021-01-16</h4>
+            <h4 class="date">2021-03-21</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/business-science/timetk/blob/master/vignettes/TK01_Working_With_Time_Series_Index.Rmd"><code>vignettes/TK01_Working_With_Time_Series_Index.Rmd</code></a></small>
       <div class="hidden name"><code>TK01_Working_With_Time_Series_Index.Rmd</code></div>
@@ -296,18 +328,18 @@
 <code class="sourceCode R"><span class="co"># idx_date signature</span>
 <span class="fu"><a href="../reference/tk_get_timeseries.html">tk_get_timeseries_signature</a></span><span class="op">(</span><span class="va">idx_date</span><span class="op">)</span></code></pre></div>
 <pre><code>## # A tibble: 1,008 x 29
-##    index      index.num   diff  year year.iso  half quarter month month.xts
-##    &lt;date&gt;         &lt;dbl&gt;  &lt;dbl&gt; &lt;int&gt;    &lt;int&gt; &lt;int&gt;   &lt;int&gt; &lt;int&gt;     &lt;int&gt;
-##  1 2013-01-02    1.36e9     NA  2013     2013     1       1     1         0
-##  2 2013-01-03    1.36e9  86400  2013     2013     1       1     1         0
-##  3 2013-01-04    1.36e9  86400  2013     2013     1       1     1         0
-##  4 2013-01-07    1.36e9 259200  2013     2013     1       1     1         0
-##  5 2013-01-08    1.36e9  86400  2013     2013     1       1     1         0
-##  6 2013-01-09    1.36e9  86400  2013     2013     1       1     1         0
-##  7 2013-01-10    1.36e9  86400  2013     2013     1       1     1         0
-##  8 2013-01-11    1.36e9  86400  2013     2013     1       1     1         0
-##  9 2013-01-14    1.36e9 259200  2013     2013     1       1     1         0
-## 10 2013-01-15    1.36e9  86400  2013     2013     1       1     1         0
+##    index       index.num   diff  year year.iso  half quarter month month.xts
+##    &lt;date&gt;          &lt;dbl&gt;  &lt;dbl&gt; &lt;int&gt;    &lt;int&gt; &lt;int&gt;   &lt;int&gt; &lt;int&gt;     &lt;int&gt;
+##  1 2013-01-02 1357084800     NA  2013     2013     1       1     1         0
+##  2 2013-01-03 1357171200  86400  2013     2013     1       1     1         0
+##  3 2013-01-04 1357257600  86400  2013     2013     1       1     1         0
+##  4 2013-01-07 1357516800 259200  2013     2013     1       1     1         0
+##  5 2013-01-08 1357603200  86400  2013     2013     1       1     1         0
+##  6 2013-01-09 1357689600  86400  2013     2013     1       1     1         0
+##  7 2013-01-10 1357776000  86400  2013     2013     1       1     1         0
+##  8 2013-01-11 1357862400  86400  2013     2013     1       1     1         0
+##  9 2013-01-14 1358121600 259200  2013     2013     1       1     1         0
+## 10 2013-01-15 1358208000  86400  2013     2013     1       1     1         0
 ## # … with 998 more rows, and 20 more variables: month.lbl &lt;ord&gt;, day &lt;int&gt;,
 ## #   hour &lt;int&gt;, minute &lt;int&gt;, second &lt;int&gt;, hour12 &lt;int&gt;, am.pm &lt;int&gt;,
 ## #   wday &lt;int&gt;, wday.xts &lt;int&gt;, wday.lbl &lt;ord&gt;, mday &lt;int&gt;, qday &lt;int&gt;,
@@ -323,18 +355,18 @@
 <span class="va">FB_vol_date_signature</span> <span class="op">&lt;-</span> <span class="va">FB_vol_date</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/tk_augment_timeseries.html">tk_augment_timeseries_signature</a></span><span class="op">(</span>.date_var <span class="op">=</span> <span class="va">date</span><span class="op">)</span>
 <span class="va">FB_vol_date_signature</span></code></pre></div>
 <pre><code>## # A tibble: 1,008 x 30
-##    date       volume index.num   diff  year year.iso  half quarter month
-##    &lt;date&gt;      &lt;dbl&gt;     &lt;dbl&gt;  &lt;dbl&gt; &lt;int&gt;    &lt;int&gt; &lt;int&gt;   &lt;int&gt; &lt;int&gt;
-##  1 2013-01-02 6.98e7    1.36e9     NA  2013     2013     1       1     1
-##  2 2013-01-03 6.31e7    1.36e9  86400  2013     2013     1       1     1
-##  3 2013-01-04 7.27e7    1.36e9  86400  2013     2013     1       1     1
-##  4 2013-01-07 8.38e7    1.36e9 259200  2013     2013     1       1     1
-##  5 2013-01-08 4.59e7    1.36e9  86400  2013     2013     1       1     1
-##  6 2013-01-09 1.05e8    1.36e9  86400  2013     2013     1       1     1
-##  7 2013-01-10 9.53e7    1.36e9  86400  2013     2013     1       1     1
-##  8 2013-01-11 8.96e7    1.36e9  86400  2013     2013     1       1     1
-##  9 2013-01-14 9.89e7    1.36e9 259200  2013     2013     1       1     1
-## 10 2013-01-15 1.73e8    1.36e9  86400  2013     2013     1       1     1
+##    date          volume  index.num   diff  year year.iso  half quarter month
+##    &lt;date&gt;         &lt;dbl&gt;      &lt;dbl&gt;  &lt;dbl&gt; &lt;int&gt;    &lt;int&gt; &lt;int&gt;   &lt;int&gt; &lt;int&gt;
+##  1 2013-01-02  69846400 1357084800     NA  2013     2013     1       1     1
+##  2 2013-01-03  63140600 1357171200  86400  2013     2013     1       1     1
+##  3 2013-01-04  72715400 1357257600  86400  2013     2013     1       1     1
+##  4 2013-01-07  83781800 1357516800 259200  2013     2013     1       1     1
+##  5 2013-01-08  45871300 1357603200  86400  2013     2013     1       1     1
+##  6 2013-01-09 104787700 1357689600  86400  2013     2013     1       1     1
+##  7 2013-01-10  95316400 1357776000  86400  2013     2013     1       1     1
+##  8 2013-01-11  89598000 1357862400  86400  2013     2013     1       1     1
+##  9 2013-01-14  98892800 1358121600 259200  2013     2013     1       1     1
+## 10 2013-01-15 173242600 1358208000  86400  2013     2013     1       1     1
 ## # … with 998 more rows, and 21 more variables: month.xts &lt;int&gt;,
 ## #   month.lbl &lt;ord&gt;, day &lt;int&gt;, hour &lt;int&gt;, minute &lt;int&gt;, second &lt;int&gt;,
 ## #   hour12 &lt;int&gt;, am.pm &lt;int&gt;, wday &lt;int&gt;, wday.xts &lt;int&gt;, wday.lbl &lt;ord&gt;,

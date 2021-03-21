@@ -159,6 +159,38 @@ This dataset includes a Sample of 10 article pages (10 total time series)." />
 <li>
   <a href="../news/index.html">News</a>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Ecosystem
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Workflow</li>
+    <li>
+      <a href="https://business-science.github.io/modeltime/">Modeltime (Machine Learning)</a>
+    </li>
+    <li>
+      <a href="https://business-science.github.io/timetk/">TimeTK (Data Transformation &amp; Visualization)</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Improve</li>
+    <li>
+      <a href="https://business-science.github.io/modeltime.ensemble/">Modeltime Ensemble (Blending Forecasts)</a>
+    </li>
+    <li>
+      <a href="https://business-science.github.io/modeltime.resample/">Modeltime Resample (Backtesting)</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">More Power</li>
+    <li>
+      <a href="https://business-science.github.io/modeltime.h2o/">Modeltime H2O (AutoML)</a>
+    </li>
+    <li>
+      <a href="https://business-science.github.io/modeltime.gluonts/">Modeltime GluonTS (Deep Learning)</a>
+    </li>
+  </ul>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
@@ -218,20 +250,20 @@ This dataset includes a <strong>Sample of 10 article pages (10 total time series
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='va'>wikipedia_traffic_daily</span>
-</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 5,500 x 3</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 5,500 x 3</span><span>
 #&gt;    Page                                                         date       value
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                                                        </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> Death_of_Freddie_Gray_en.wikipedia.org_mobile-web_all-agents 2015-07-01   791
-#&gt; </span><span style='color: #555555;'> 2</span><span> Death_of_Freddie_Gray_en.wikipedia.org_mobile-web_all-agents 2015-07-02   704
-#&gt; </span><span style='color: #555555;'> 3</span><span> Death_of_Freddie_Gray_en.wikipedia.org_mobile-web_all-agents 2015-07-03   903
-#&gt; </span><span style='color: #555555;'> 4</span><span> Death_of_Freddie_Gray_en.wikipedia.org_mobile-web_all-agents 2015-07-04   732
-#&gt; </span><span style='color: #555555;'> 5</span><span> Death_of_Freddie_Gray_en.wikipedia.org_mobile-web_all-agents 2015-07-05   558
-#&gt; </span><span style='color: #555555;'> 6</span><span> Death_of_Freddie_Gray_en.wikipedia.org_mobile-web_all-agents 2015-07-06   504
-#&gt; </span><span style='color: #555555;'> 7</span><span> Death_of_Freddie_Gray_en.wikipedia.org_mobile-web_all-agents 2015-07-07   543
-#&gt; </span><span style='color: #555555;'> 8</span><span> Death_of_Freddie_Gray_en.wikipedia.org_mobile-web_all-agents 2015-07-08  </span><span style='text-decoration: underline;'>1</span><span>156
-#&gt; </span><span style='color: #555555;'> 9</span><span> Death_of_Freddie_Gray_en.wikipedia.org_mobile-web_all-agents 2015-07-09  </span><span style='text-decoration: underline;'>1</span><span>196
-#&gt; </span><span style='color: #555555;'>10</span><span> Death_of_Freddie_Gray_en.wikipedia.org_mobile-web_all-agents 2015-07-10   701
-#&gt; </span><span style='color: #555555;'># … with 5,490 more rows</span><span></div><div class='input'>
+#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>                                                        </span><span style='color: #949494;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> Death_of_Freddie_Gray_en.wikipedia.org_mobile-web_all-agents 2015-07-01   791
+#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> Death_of_Freddie_Gray_en.wikipedia.org_mobile-web_all-agents 2015-07-02   704
+#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> Death_of_Freddie_Gray_en.wikipedia.org_mobile-web_all-agents 2015-07-03   903
+#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> Death_of_Freddie_Gray_en.wikipedia.org_mobile-web_all-agents 2015-07-04   732
+#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> Death_of_Freddie_Gray_en.wikipedia.org_mobile-web_all-agents 2015-07-05   558
+#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> Death_of_Freddie_Gray_en.wikipedia.org_mobile-web_all-agents 2015-07-06   504
+#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> Death_of_Freddie_Gray_en.wikipedia.org_mobile-web_all-agents 2015-07-07   543
+#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> Death_of_Freddie_Gray_en.wikipedia.org_mobile-web_all-agents 2015-07-08  </span><span style='text-decoration: underline;'>1</span><span>156
+#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> Death_of_Freddie_Gray_en.wikipedia.org_mobile-web_all-agents 2015-07-09  </span><span style='text-decoration: underline;'>1</span><span>196
+#&gt; </span><span style='color: #BCBCBC;'>10</span><span> Death_of_Freddie_Gray_en.wikipedia.org_mobile-web_all-agents 2015-07-10   701
+#&gt; </span><span style='color: #949494;'># … with 5,490 more rows</span><span></div><div class='input'>
 </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
