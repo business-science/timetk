@@ -30,15 +30,14 @@ install.packages("timetk")
 
 ## Getting Started
 
--   [Full Time Series Machine Learning and Feature Engineering
-    Tutorial:](https://www.business-science.io/time-series/2020/03/18/time-series-machine-learning.html)
-    Showcases the (NEW) `step_timeseries_signature()` for building
-    ***200+ time series features*** using `parsnip`, `recipes`, and
-    `workflows`.
+-   [Visualizing Time Series (Start
+    Here)](https://business-science.github.io/timetk/articles/TK04_Plotting_Time_Series.html)
 
--   [Visit the timetk website
-    documentation](https://business-science.github.io/timetk/) for
-    tutorials and a [complete list of function
+-   [Full Time Series Machine Learning and Feature Engineering
+    Tutorial:](https://business-science.github.io/timetk/articles/TK03_Forecasting_Using_Time_Series_Signature.html)
+
+-   [API Documentation](https://business-science.github.io/timetk/) for
+    articles and a [complete list of function
     references](https://business-science.github.io/timetk/reference/index.html).
 
 ## Package Functionality
@@ -84,48 +83,6 @@ data frames or tibbles).
 | [Automatic Frequency & Trend](https://business-science.github.io/timetk/articles/TK06_Automatic_Frequency_And_Trend_Selection.html)       | ✅                                                    | :x:                                                 | :x:                                               | :x:                                                          |
 
 </div>
-
-## What can you do in 1 line of code?
-
-Investigate a time series…
-
-``` r
-taylor_30_min %>%
-    plot_time_series(date, value, .color_var = week(date), 
-                     .interactive = FALSE, .color_lab = "Week")
-```
-
-![](man/figures/README-unnamed-chunk-5-1.png)<!-- -->
-
-Visualize anomalies…
-
-``` r
-walmart_sales_weekly %>%
-    group_by(Store, Dept) %>%
-    plot_anomaly_diagnostics(Date, Weekly_Sales, 
-                             .facet_ncol = 3, .interactive = FALSE)
-```
-
-![](man/figures/README-unnamed-chunk-6-1.png)<!-- -->
-
-Make a seasonality plot…
-
-``` r
-taylor_30_min %>%
-    plot_seasonal_diagnostics(date, value, .interactive = FALSE)
-```
-
-![](man/figures/README-unnamed-chunk-7-1.png)<!-- -->
-
-Inspect autocorrelation, partial autocorrelation (and cross correlations
-too)…
-
-``` r
-taylor_30_min %>%
-    plot_acf_diagnostics(date, value, .lags = "1 week", .interactive = FALSE)
-```
-
-![](man/figures/README-unnamed-chunk-8-1.png)<!-- -->
 
 ## Summary
 

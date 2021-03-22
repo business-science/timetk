@@ -46,9 +46,11 @@ install.packages("timetk")
 
 ## Getting Started
 
-- [Full Time Series Machine Learning and Feature Engineering Tutorial:](https://www.business-science.io/time-series/2020/03/18/time-series-machine-learning.html) Showcases the (NEW) `step_timeseries_signature()` for building ___200+ time series features___ using `parsnip`, `recipes`, and `workflows`. 
+- [Visualizing Time Series (Start Here)](https://business-science.github.io/timetk/articles/TK04_Plotting_Time_Series.html)
 
-- [Visit the timetk website documentation](https://business-science.github.io/timetk/) for tutorials and a [complete list of function references](https://business-science.github.io/timetk/reference/index.html). 
+- [Full Time Series Machine Learning and Feature Engineering Tutorial:](https://business-science.github.io/timetk/articles/TK03_Forecasting_Using_Time_Series_Signature.html)  
+
+- [API Documentation](https://business-science.github.io/timetk/) for articles and a [complete list of function references](https://business-science.github.io/timetk/reference/index.html). 
 
 ## Package Functionality
 
@@ -92,45 +94,6 @@ There are _many_ R packages for working with Time Series data. Here's how `timet
 
 </div>
 
-
-## What can you do in 1 line of code?
-
-```{r, echo=FALSE}
-library(tidyverse)
-library(lubridate)
-library(timetk)
-```
-
-Investigate a time series... 
-
-```{r, fig.height=6}
-taylor_30_min %>%
-    plot_time_series(date, value, .color_var = week(date), 
-                     .interactive = FALSE, .color_lab = "Week")
-```
-
-Visualize anomalies...
-
-```{r, fig.height=7}
-walmart_sales_weekly %>%
-    group_by(Store, Dept) %>%
-    plot_anomaly_diagnostics(Date, Weekly_Sales, 
-                             .facet_ncol = 3, .interactive = FALSE)
-```
-
-Make a seasonality plot...
-
-```{r, fig.height=8}
-taylor_30_min %>%
-    plot_seasonal_diagnostics(date, value, .interactive = FALSE)
-```
-
-Inspect autocorrelation, partial autocorrelation (and cross correlations too)...
-
-```{r}
-taylor_30_min %>%
-    plot_acf_diagnostics(date, value, .lags = "1 week", .interactive = FALSE)
-```
 
 
 

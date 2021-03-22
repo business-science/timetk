@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Plotting Time Series • timetk</title>
+<title>Visualizing Time Series • timetk</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
 <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
@@ -18,7 +18,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
-<meta property="og:title" content="Plotting Time Series">
+<meta property="og:title" content="Visualizing Time Series">
 <meta property="og:description" content="timetk">
 <meta property="og:image" content="/logo.png">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -57,9 +57,12 @@
      
   </a>
 </li>
+<li>
+  <a href="../articles/TK04_Plotting_Time_Series.html">Getting Started</a>
+</li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Documentation
+    Articles
      
     <span class="caret"></span>
   </a>
@@ -102,11 +105,27 @@
     </li>
   </ul>
 </li>
-<li>
-  <a href="../reference/index.html">Function Reference</a>
-</li>
-<li>
-  <a href="../news/index.html">News</a>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    API
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+<li class="dropdown-header">API Functions</li>
+    <li>
+      <a href="../reference/index.html">
+        <span class="fas fa-home"></span>
+         
+        Function Reference
+      </a>
+    </li>
+    <li class="divider">
+    <li class="dropdown-header">Change History</li>
+    <li>
+      <a href="../news/index.html">News</a>
+    </li>
+  </ul>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -115,12 +134,12 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-<li class="dropdown-header">Workflow</li>
+<li class="dropdown-header">Forecast</li>
     <li>
-      <a href="https://business-science.github.io/modeltime/">Modeltime (Machine Learning)</a>
+      <a href="https://business-science.github.io/modeltime/">Modeltime (Forecasting)</a>
     </li>
     <li>
-      <a href="https://business-science.github.io/timetk/">TimeTK (Data Transformation &amp; Visualization)</a>
+      <a href="https://business-science.github.io/timetk/">TimeTK (Time Series Analysis)</a>
     </li>
     <li class="divider">
     <li class="dropdown-header">Improve</li>
@@ -131,7 +150,7 @@
       <a href="https://business-science.github.io/modeltime.resample/">Modeltime Resample (Backtesting)</a>
     </li>
     <li class="divider">
-    <li class="dropdown-header">More Power</li>
+    <li class="dropdown-header">Scale</li>
     <li>
       <a href="https://business-science.github.io/modeltime.h2o/">Modeltime H2O (AutoML)</a>
     </li>
@@ -139,6 +158,13 @@
       <a href="https://business-science.github.io/modeltime.gluonts/">Modeltime GluonTS (Deep Learning)</a>
     </li>
   </ul>
+</li>
+<li>
+  <a href="https://university.business-science.io/p/ds4b-203-r-high-performance-time-series-forecasting/">
+    <span class="fas fa-graduation-cap"></span>
+     
+    Learn
+  </a>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
@@ -161,7 +187,7 @@
       </header><script src="TK04_Plotting_Time_Series_files/header-attrs-2.7/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Plotting Time Series</h1>
+      <h1 data-toc-skip>Visualizing Time Series</h1>
                         <h4 class="author">Matt Dancho</h4>
             
       
@@ -324,32 +350,61 @@
   <span class="fu">scale_y_continuous</span><span class="op">(</span>labels <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org//reference/label_number.html">comma_format</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p><img src="TK04_Plotting_Time_Series_files/figure-html/unnamed-chunk-9-1.png" width="95%" style="display: block; margin: auto;"></p>
 </div>
-<div id="learning-more" class="section level1">
+<div id="summary" class="section level1">
 <h1 class="hasAnchor">
-<a href="#learning-more" class="anchor"></a>Learning More</h1>
-<p>
-<iframe width="100%" height="450" src="https://www.youtube.com/embed/elQb4VzRINg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="box-shadow: 0 0 5px 2px rgba(0, 0, 0, .5);">
-<span id="selection-marker-1" class="redactor-selection-marker"></span><span id="selection-marker-1" class="redactor-selection-marker"></span><span id="selection-marker-1" class="redactor-selection-marker"></span><span id="selection-marker-1" class="redactor-selection-marker"></span>
-</iframe>
-</p>
-<p><em>My Talk on High-Performance Time Series Forecasting</em></p>
-<p>Time series is changing. <strong>Businesses now need 10,000+ time series forecasts every day.</strong></p>
-<p><strong>High-Performance Forecasting Systems will save companies MILLIONS of dollars.</strong> Imagine what will happen to your career if you can provide your organization a “High-Performance Time Series Forecasting System” (HPTSF System).</p>
-<p>I teach how to build a HPTFS System in my <strong>High-Performance Time Series Forecasting Course</strong>. If interested in learning Scalable High-Performance Forecasting Strategies then <a href="https://university.business-science.io/p/ds4b-203-r-high-performance-time-series-forecasting">take my course</a>. You will learn:</p>
+<a href="#summary" class="anchor"></a>Summary</h1>
+<p>Timetk is part of the amazing Modeltime Ecosystem for time series forecasting. But it can take a long time to learn:</p>
 <ul>
-<li>Time Series Machine Learning (cutting-edge) with <code>Modeltime</code> - 30+ Models (Prophet, ARIMA, XGBoost, Random Forest, &amp; many more)</li>
-<li>NEW - Deep Learning with <code>GluonTS</code> (Competition Winners)</li>
-<li>Time Series Preprocessing, Noise Reduction, &amp; Anomaly Detection</li>
-<li>Feature engineering using lagged variables &amp; external regressors</li>
-<li>Hyperparameter Tuning</li>
-<li>Time series cross-validation</li>
-<li>Ensembling Multiple Machine Learning &amp; Univariate Modeling Techniques (Competition Winner)</li>
-<li>Scalable Forecasting - Forecast 1000+ time series in parallel</li>
+<li>Many algorithms</li>
+<li>Ensembling and Resampling</li>
+<li>Machine Learning</li>
+<li>Deep Learning</li>
+<li>Scalable Modeling: 10,000+ time series</li>
+</ul>
+<p>Your probably thinking how am I ever going to learn time series forecasting. Here’s the solution that will save you years of struggling.</p>
+</div>
+<div id="take-the-high-performance-forecasting-course" class="section level1">
+<h1 class="hasAnchor">
+<a href="#take-the-high-performance-forecasting-course" class="anchor"></a>Take the High-Performance Forecasting Course</h1>
+<blockquote>
+<p>Become the forecasting expert for your organization</p>
+</blockquote>
+<p><a href="https://university.business-science.io/p/ds4b-203-r-high-performance-time-series-forecasting/" target="_blank"><img src="https://www.filepicker.io/api/file/bKyqVAi5Qi64sS05QYLk" alt="High-Performance Time Series Forecasting Course" width="100%" style="box-shadow: 0 0 5px 2px rgba(0, 0, 0, .5);"></a></p>
+<p><a href="https://university.business-science.io/p/ds4b-203-r-high-performance-time-series-forecasting/"><em>High-Performance Time Series Course</em></a></p>
+<div id="time-series-is-changing" class="section level3">
+<h3 class="hasAnchor">
+<a href="#time-series-is-changing" class="anchor"></a>Time Series is Changing</h3>
+<p>Time series is changing. <strong>Businesses now need 10,000+ time series forecasts every day.</strong> This is what I call a <em>High-Performance Time Series Forecasting System (HPTSF)</em> - Accurate, Robust, and Scalable Forecasting.</p>
+<p><strong>High-Performance Forecasting Systems will save companies by improving accuracy and scalability.</strong> Imagine what will happen to your career if you can provide your organization a “High-Performance Time Series Forecasting System” (HPTSF System).</p>
+</div>
+<div id="how-to-learn-high-performance-time-series-forecasting" class="section level3">
+<h3 class="hasAnchor">
+<a href="#how-to-learn-high-performance-time-series-forecasting" class="anchor"></a>How to Learn High-Performance Time Series Forecasting</h3>
+<p>I teach how to build a HPTFS System in my <a href="https://university.business-science.io/p/ds4b-203-r-high-performance-time-series-forecasting"><strong>High-Performance Time Series Forecasting Course</strong></a>. You will learn:</p>
+<ul>
+<li>
+<strong>Time Series Machine Learning</strong> (cutting-edge) with <code>Modeltime</code> - 30+ Models (Prophet, ARIMA, XGBoost, Random Forest, &amp; many more)</li>
+<li>
+<strong>Deep Learning</strong> with <code>GluonTS</code> (Competition Winners)</li>
+<li>
+<strong>Time Series Preprocessing</strong>, Noise Reduction, &amp; Anomaly Detection</li>
+<li>
+<strong>Feature engineering</strong> using lagged variables &amp; external regressors</li>
+<li><strong>Hyperparameter Tuning</strong></li>
+<li><strong>Time series cross-validation</strong></li>
+<li>
+<strong>Ensembling</strong> Multiple Machine Learning &amp; Univariate Modeling Techniques (Competition Winner)</li>
+<li>
+<strong>Scalable Forecasting</strong> - Forecast 1000+ time series in parallel</li>
 <li>and more.</li>
 </ul>
-<p class="text-center" style="font-size:30px;">
-<a href="https://university.business-science.io/p/ds4b-203-r-high-performance-time-series-forecasting">Unlock the High-Performance Time Series Forecasting Course</a>
+<p class="text-center" style="font-size:24px;">
+Become the Time Series Expert for your organization.
 </p>
+<br><p class="text-center" style="font-size:30px;">
+<a href="https://university.business-science.io/p/ds4b-203-r-high-performance-time-series-forecasting">Take the High-Performance Time Series Forecasting Course</a>
+</p>
+</div>
 </div>
   </div>
 

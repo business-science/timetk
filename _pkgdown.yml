@@ -8,7 +8,9 @@ navbar:
   left:
     - icon: "fa-home"
       href: index.html
-    - text: "Documentation"
+    - text: "Getting Started"
+      href: articles/TK04_Plotting_Time_Series.html
+    - text: "Articles"
       href: articles/index.html
       menu:
         - text: 'Visualization'
@@ -38,16 +40,23 @@ navbar:
           href: articles/TK02_Time_Series_Date_Sequences.html
         - text: "Time Series Conversion (ts, zoo, & xts)"
           href: articles/TK00_Time_Series_Coercion.html
-    - text: "Function Reference"
+    - text: "API"
       href: reference/index.html
-    - text: "News"
-      href: news/index.html
+      menu:
+        - text: 'API Functions'
+        - icon: fa-home
+          text: 'Function Reference'
+          href: reference/index.html
+        - text: '---'
+        - text: 'Change History'
+        - text: "News"
+          href: news/index.html
     - text: "Ecosystem"
       menu:
-        - text: 'Workflow'
-        - text: 'Modeltime (Machine Learning)'
+        - text: 'Forecast'
+        - text: 'Modeltime (Forecasting)'
           href: https://business-science.github.io/modeltime/
-        - text: 'TimeTK (Data Transformation & Visualization)'
+        - text: 'TimeTK (Time Series Analysis)'
           href: https://business-science.github.io/timetk/
         - text: "---"
         - text: 'Improve'
@@ -56,11 +65,14 @@ navbar:
         - text: 'Modeltime Resample (Backtesting)'
           href: https://business-science.github.io/modeltime.resample/
         - text: "---"
-        - text: 'More Power'
+        - text: 'Scale'
         - text: 'Modeltime H2O (AutoML)'
           href: https://business-science.github.io/modeltime.h2o/
         - text: 'Modeltime GluonTS (Deep Learning)'
           href: https://business-science.github.io/modeltime.gluonts/
+    - icon: fas fa-graduation-cap
+      text: "Learn"
+      href: https://university.business-science.io/p/ds4b-203-r-high-performance-time-series-forecasting/
 
   right:
     - icon: fa-github
