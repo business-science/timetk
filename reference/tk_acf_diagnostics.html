@@ -95,7 +95,7 @@ visualization." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">timetk</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.1.9000</span>
       </span>
     </div>
 
@@ -317,7 +317,7 @@ group-wise analysis. Rather, it's used for processing Cross Correlations (CCFs).
 </div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span>
+    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/business-science/tidyquant'>tidyquant</a></span><span class='op'>)</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/business-science/timetk'>timetk</a></span><span class='op'>)</span>
 
@@ -332,7 +332,7 @@ group-wise analysis. Rather, it's used for processing Cross Correlations (CCFs).
 </div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 501 x 7</span><span>
 #&gt;      lag   ACF      PACF CCF_volume CCF_close .white_noise_upp… .white_noise_lo…
 #&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>      </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>             </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>            </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'> 1</span><span>     0 1.00   1            -</span><span style='color: #BB0000;'>0.447</span><span>     1.00             0.063</span><span style='text-decoration: underline;'>0</span><span>          -</span><span style='color: #BB0000;'>0.063</span><span style='color: #BB0000;text-decoration: underline;'>0</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 1</span><span>     0 1      1            -</span><span style='color: #BB0000;'>0.447</span><span>     1                0.063</span><span style='text-decoration: underline;'>0</span><span>          -</span><span style='color: #BB0000;'>0.063</span><span style='color: #BB0000;text-decoration: underline;'>0</span><span>
 #&gt; </span><span style='color: #BCBCBC;'> 2</span><span>     1 0.997  0.997        -</span><span style='color: #BB0000;'>0.444</span><span>     0.997            0.063</span><span style='text-decoration: underline;'>0</span><span>          -</span><span style='color: #BB0000;'>0.063</span><span style='color: #BB0000;text-decoration: underline;'>0</span><span>
 #&gt; </span><span style='color: #BCBCBC;'> 3</span><span>     2 0.994 -</span><span style='color: #BB0000;'>0.022</span><span style='color: #BB0000;text-decoration: underline;'>7</span><span>       -</span><span style='color: #BB0000;'>0.442</span><span>     0.994            0.063</span><span style='text-decoration: underline;'>0</span><span>          -</span><span style='color: #BB0000;'>0.063</span><span style='color: #BB0000;text-decoration: underline;'>0</span><span>
 #&gt; </span><span style='color: #BCBCBC;'> 4</span><span>     3 0.990  0.010</span><span style='text-decoration: underline;'>1</span><span>       -</span><span style='color: #BB0000;'>0.438</span><span>     0.990            0.063</span><span style='text-decoration: underline;'>0</span><span>          -</span><span style='color: #BB0000;'>0.063</span><span style='color: #BB0000;text-decoration: underline;'>0</span><span>
@@ -353,7 +353,7 @@ group-wise analysis. Rather, it's used for processing Cross Correlations (CCFs).
 #&gt; </span><span style='color: #949494;'># Groups:   symbol [4]</span><span>
 #&gt;    symbol   lag   ACF      PACF CCF_volume CCF_close .white_noise_upper
 #&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>      </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>              </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> FB         0 1.00   1            -</span><span style='color: #BB0000;'>0.447</span><span>     1.00              0.063</span><span style='text-decoration: underline;'>0</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> FB         0 1      1            -</span><span style='color: #BB0000;'>0.447</span><span>     1                 0.063</span><span style='text-decoration: underline;'>0</span><span>
 #&gt; </span><span style='color: #BCBCBC;'> 2</span><span> FB         1 0.997  0.997        -</span><span style='color: #BB0000;'>0.444</span><span>     0.997             0.063</span><span style='text-decoration: underline;'>0</span><span>
 #&gt; </span><span style='color: #BCBCBC;'> 3</span><span> FB         2 0.994 -</span><span style='color: #BB0000;'>0.022</span><span style='color: #BB0000;text-decoration: underline;'>7</span><span>       -</span><span style='color: #BB0000;'>0.442</span><span>     0.994             0.063</span><span style='text-decoration: underline;'>0</span><span>
 #&gt; </span><span style='color: #BCBCBC;'> 4</span><span> FB         3 0.990  0.010</span><span style='text-decoration: underline;'>1</span><span>       -</span><span style='color: #BB0000;'>0.438</span><span>     0.990             0.063</span><span style='text-decoration: underline;'>0</span><span>
