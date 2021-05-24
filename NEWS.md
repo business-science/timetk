@@ -1,3 +1,7 @@
+# timetk 2.6.1.9000 (Development Version)
+
+- Time Series CV: Add Label for `tune_results`
+
 # timetk 2.6.1
 
 __Improvements__
