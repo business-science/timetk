@@ -95,7 +95,7 @@ for the log_interval_vec() transformation function." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">timetk</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.1.9000</span>
       </span>
     </div>
 
@@ -103,7 +103,7 @@ for the log_interval_vec() transformation function." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa-home"></span>
+    <span class="fa fa-home"></span>
      
   </a>
 </li>
@@ -165,7 +165,7 @@ for the log_interval_vec() transformation function." />
     <li class="dropdown-header">API Functions</li>
     <li>
       <a href="../reference/index.html">
-        <span class="fas fa-home"></span>
+        <span class="fa fa-home"></span>
          
         Function Reference
       </a>
@@ -220,7 +220,7 @@ for the log_interval_vec() transformation function." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/business-science/timetk">
-    <span class="fas fa-github"></span>
+    <span class="fa fa-github"></span>
      
   </a>
 </li>
@@ -370,7 +370,7 @@ using methods implemented in the Forecast R Package.</p>
 </div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span>
+    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/business-science/tidyquant'>tidyquant</a></span><span class='op'>)</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/tidymodels/recipes'>recipes</a></span><span class='op'>)</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/business-science/timetk'>timetk</a></span><span class='op'>)</span>
@@ -389,14 +389,14 @@ using methods implemented in the Forecast R Package.</p>
     <span class='fu'><a href='plot_time_series.html'>plot_time_series</a></span><span class='op'>(</span><span class='va'>date</span>, <span class='va'>value</span>, <span class='va'>name</span>, .smooth <span class='op'>=</span> <span class='cn'>FALSE</span>, .interactive <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 </div><div class='img'><img src='step_log_interval-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='va'>recipe_log_interval</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 4 x 5</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 4 x 5</span>
 #&gt;   terms limit_lower limit_upper offset id                
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>       </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>       </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>             
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> FB              0        144.      1 log_interval_9QeuR
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span> AMZN            0        904.      1 log_interval_9QeuR
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span> NFLX            0        143.      1 log_interval_9QeuR
-#&gt; </span><span style='color: #BCBCBC;'>4</span><span> GOOG            0        859.      1 log_interval_9QeuR</div><div class='input'>
-</div></span></pre>
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>       <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>       <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>             
+#&gt; <span style='color: #BCBCBC;'>1</span> FB              0        144.      1 log_interval_9QeuR
+#&gt; <span style='color: #BCBCBC;'>2</span> AMZN            0        904.      1 log_interval_9QeuR
+#&gt; <span style='color: #BCBCBC;'>3</span> NFLX            0        143.      1 log_interval_9QeuR
+#&gt; <span style='color: #BCBCBC;'>4</span> GOOG            0        859.      1 log_interval_9QeuR</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

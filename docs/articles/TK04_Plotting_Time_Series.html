@@ -45,7 +45,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">timetk</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.1.9000</span>
       </span>
     </div>
 
@@ -53,7 +53,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fas fa-home"></span>
+    <span class="fa fa-home"></span>
      
   </a>
 </li>
@@ -115,7 +115,7 @@
 <li class="dropdown-header">API Functions</li>
     <li>
       <a href="../reference/index.html">
-        <span class="fas fa-home"></span>
+        <span class="fa fa-home"></span>
          
         Function Reference
       </a>
@@ -170,7 +170,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/business-science/timetk">
-    <span class="fas fa-github"></span>
+    <span class="fa fa-github"></span>
      
   </a>
 </li>
@@ -184,7 +184,7 @@
 
       
 
-      </header><script src="TK04_Plotting_Time_Series_files/header-attrs-2.7/header-attrs.js"></script><div class="row">
+      </header><script src="TK04_Plotting_Time_Series_files/header-attrs-2.9/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Visualizing Time Series</h1>
@@ -201,7 +201,7 @@
 <blockquote>
 <p>timetk: A toolkit for time series analysis in the tidyverse</p>
 </blockquote>
-<p><img src="timetk_version_2.jpg" width="95%" style="display: block; margin: auto;"></p>
+<p><img src="../../../../R%20Projects/Courses/timetk/vignettes/timetk_version_2.jpg" width="95%" style="display: block; margin: auto;"></p>
 <p>This tutorial focuses on, <code><a href="../reference/plot_time_series.html">plot_time_series()</a></code>, a workhorse time-series plotting function that:</p>
 <ul>
 <li>Generates interactive <code>plotly</code> plots (great for exploring &amp; shiny apps)</li>
@@ -210,7 +210,7 @@
 <li>Can be converted from interactive <code>plotly</code> to static <code>ggplot2</code> plots</li>
 </ul>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://lubridate.tidyverse.org">lubridate</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/business-science/timetk">timetk</a></span><span class="op">)</span>
 
@@ -235,7 +235,7 @@
 <span class="co">#&gt;  8 2000-06-05 03:30:00 21860</span>
 <span class="co">#&gt;  9 2000-06-05 04:00:00 21751</span>
 <span class="co">#&gt; 10 2000-06-05 04:30:00 21336</span>
-<span class="co">#&gt; # … with 4,022 more rows</span></code></pre></div>
+<span class="co">#&gt; # ... with 4,022 more rows</span></code></pre></div>
 <p>The <code><a href="../reference/plot_time_series.html">plot_time_series()</a></code> function generates an interactive <code>plotly</code> chart by default.</p>
 <ul>
 <li>Simply provide the date variable (time-based column, <code>.date_var</code>) and the numeric variable (<code>.value</code>) that changes over time as the first 2 arguments</li>
@@ -268,7 +268,7 @@
 <span class="co">#&gt;  8 D10   2014-07-10 2007.</span>
 <span class="co">#&gt;  9 D10   2014-07-11 2010 </span>
 <span class="co">#&gt; 10 D10   2014-07-12 2002.</span>
-<span class="co">#&gt; # … with 9,733 more rows</span></code></pre></div>
+<span class="co">#&gt; # ... with 9,733 more rows</span></code></pre></div>
 <p>Visualizing grouped data is as simple as grouping the data set with <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code> prior to piping into the <code><a href="../reference/plot_time_series.html">plot_time_series()</a></code> function. Key points:</p>
 <ul>
 <li>Groups can be added in 2 ways: by <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code> or by using the <code>...</code> to add groups.</li>
@@ -311,7 +311,7 @@
 <span class="co">#&gt;  8 H10   2015-07-01 19:00:00   446</span>
 <span class="co">#&gt;  9 H10   2015-07-01 20:00:00   434</span>
 <span class="co">#&gt; 10 H10   2015-07-01 21:00:00   422</span>
-<span class="co">#&gt; # … with 3,050 more rows</span></code></pre></div>
+<span class="co">#&gt; # ... with 3,050 more rows</span></code></pre></div>
 <p>The intent is to showcase the groups in faceted plots, but to highlight weekly windows (sub-groups) within the data while simultaneously doing a <code><a href="https://rdrr.io/r/base/Log.html">log()</a></code> transformation to the value. This is simple to do:</p>
 <ol style="list-style-type: decimal">
 <li>
@@ -347,7 +347,7 @@
                    .x_lab <span class="op">=</span> <span class="st">"Date (30-min intervals)"</span>,
                    .y_lab <span class="op">=</span> <span class="st">"Energy Demand (MW)"</span>,
                    .color_lab <span class="op">=</span> <span class="st">"Month"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">scale_y_continuous</span><span class="op">(</span>labels <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org//reference/label_number.html">comma_format</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+  <span class="fu">scale_y_continuous</span><span class="op">(</span>labels <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/label_number.html">comma_format</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p><img src="TK04_Plotting_Time_Series_files/figure-html/unnamed-chunk-9-1.png" width="95%" style="display: block; margin: auto;"></p>
 </div>
 <div id="summary" class="section level1">

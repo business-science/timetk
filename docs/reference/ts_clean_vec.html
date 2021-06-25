@@ -95,7 +95,7 @@ seasonality to numeric vector (non-ts) via the period argument." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">timetk</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.1.9000</span>
       </span>
     </div>
 
@@ -103,7 +103,7 @@ seasonality to numeric vector (non-ts) via the period argument." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa-home"></span>
+    <span class="fa fa-home"></span>
      
   </a>
 </li>
@@ -165,7 +165,7 @@ seasonality to numeric vector (non-ts) via the period argument." />
     <li class="dropdown-header">API Functions</li>
     <li>
       <a href="../reference/index.html">
-        <span class="fas fa-home"></span>
+        <span class="fa fa-home"></span>
          
         Function Reference
       </a>
@@ -220,7 +220,7 @@ seasonality to numeric vector (non-ts) via the period argument." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/business-science/timetk">
-    <span class="fas fa-github"></span>
+    <span class="fa fa-github"></span>
      
   </a>
 </li>
@@ -324,12 +324,12 @@ or can be specified by setting <code>lambda = numeric value</code>.</p>
 </div><div class='output co'>#&gt;  [1] 1 2 3 4 5 6 7 8 9 9 9 9</div><div class='input'>
 <span class='co'># Seasonal Interpolation: set period = 4</span>
 <span class='fu'>ts_clean_vec</span><span class='op'>(</span><span class='va'>values</span>, period <span class='op'>=</span> <span class='fl'>4</span>, lambda <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;  [1]  1.00000  2.00000  3.00000  8.00000  5.00000  6.00000  7.00000 11.25708
+</div><div class='output co'>#&gt;  [1]  1.00000  2.00000  3.00000  8.00000  5.00000  6.00000  7.00000 11.25703
 #&gt;  [9]  9.00000 10.00000 10.00000 14.00000</div><div class='input'>
 <span class='co'># Seasonal Interpolation with Box Cox Transformation (internal)</span>
 <span class='fu'>ts_clean_vec</span><span class='op'>(</span><span class='va'>values</span>, period <span class='op'>=</span> <span class='fl'>4</span>, lambda <span class='op'>=</span> <span class='st'>"auto"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;  [1]  1.000000  2.000000  3.000000  8.457374  3.834550  6.000000  7.000000
-#&gt;  [8] 15.911736  9.000000 10.000000 11.000000 24.000000</div><div class='input'>
+</div><div class='output co'>#&gt;  [1]  1.000000  2.000000  3.000000  8.444127  3.832690  6.000000  7.000000
+#&gt;  [8] 15.895521  9.000000 10.000000 11.000000 24.000000</div><div class='input'>
 
 </div></pre>
   </div>

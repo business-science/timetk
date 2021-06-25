@@ -99,7 +99,7 @@ Filtering all rows with value greater than a monthly average
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">timetk</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.1.9000</span>
       </span>
     </div>
 
@@ -107,7 +107,7 @@ Filtering all rows with value greater than a monthly average
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa-home"></span>
+    <span class="fa fa-home"></span>
      
   </a>
 </li>
@@ -169,7 +169,7 @@ Filtering all rows with value greater than a monthly average
     <li class="dropdown-header">API Functions</li>
     <li>
       <a href="../reference/index.html">
-        <span class="fas fa-home"></span>
+        <span class="fa fa-home"></span>
          
         Function Reference
       </a>
@@ -224,7 +224,7 @@ Filtering all rows with value greater than a monthly average
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/business-science/timetk">
-    <span class="fas fa-github"></span>
+    <span class="fa fa-github"></span>
      
   </a>
 </li>
@@ -330,60 +330,60 @@ Time units are grouped using <code><a href='http://lubridate.tidyverse.org/refer
 <span class='va'>m4_daily</span> <span class='op'>%&gt;%</span>
     <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>id</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
     <span class='fu'>filter_period</span><span class='op'>(</span>.period <span class='op'>=</span> <span class='st'>"1 month"</span>, <span class='va'>value</span> <span class='op'>==</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span><span class='op'>(</span><span class='va'>value</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>.date_var is missing. Using: date</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 350 x 3</span><span>
-#&gt; </span><span style='color: #949494;'># Groups:   id [4]</span><span>
+</div><div class='output co'>#&gt; <span class='message'>.date_var is missing. Using: date</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 350 x 3</span>
+#&gt; <span style='color: #949494;'># Groups:   id [4]</span>
 #&gt;    id    date       value
-#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> D10   2014-07-03 </span><span style='text-decoration: underline;'>2</span><span>076.
-#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> D10   2014-08-08 </span><span style='text-decoration: underline;'>2</span><span>028.
-#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> D10   2014-09-30 </span><span style='text-decoration: underline;'>2</span><span>024.
-#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> D10   2014-10-12 </span><span style='text-decoration: underline;'>2</span><span>155.
-#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> D10   2014-11-13 </span><span style='text-decoration: underline;'>2</span><span>245.
-#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> D10   2014-12-30 </span><span style='text-decoration: underline;'>2</span><span>345.
-#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> D10   2015-01-09 </span><span style='text-decoration: underline;'>2</span><span>369.
-#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> D10   2015-02-09 </span><span style='text-decoration: underline;'>2</span><span>341.
-#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> D10   2015-03-31 </span><span style='text-decoration: underline;'>2</span><span>392.
-#&gt; </span><span style='color: #BCBCBC;'>10</span><span> D10   2015-04-13 </span><span style='text-decoration: underline;'>2</span><span>500.
-#&gt; </span><span style='color: #949494;'># … with 340 more rows</span><span></div><div class='input'>
+#&gt;    <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
+#&gt; <span style='color: #BCBCBC;'> 1</span> D10   2014-07-03 <span style='text-decoration: underline;'>2</span>076.
+#&gt; <span style='color: #BCBCBC;'> 2</span> D10   2014-08-08 <span style='text-decoration: underline;'>2</span>028.
+#&gt; <span style='color: #BCBCBC;'> 3</span> D10   2014-09-30 <span style='text-decoration: underline;'>2</span>024.
+#&gt; <span style='color: #BCBCBC;'> 4</span> D10   2014-10-12 <span style='text-decoration: underline;'>2</span>155.
+#&gt; <span style='color: #BCBCBC;'> 5</span> D10   2014-11-13 <span style='text-decoration: underline;'>2</span>245.
+#&gt; <span style='color: #BCBCBC;'> 6</span> D10   2014-12-30 <span style='text-decoration: underline;'>2</span>345.
+#&gt; <span style='color: #BCBCBC;'> 7</span> D10   2015-01-09 <span style='text-decoration: underline;'>2</span>369.
+#&gt; <span style='color: #BCBCBC;'> 8</span> D10   2015-02-09 <span style='text-decoration: underline;'>2</span>341.
+#&gt; <span style='color: #BCBCBC;'> 9</span> D10   2015-03-31 <span style='text-decoration: underline;'>2</span>392.
+#&gt; <span style='color: #BCBCBC;'>10</span> D10   2015-04-13 <span style='text-decoration: underline;'>2</span>500.
+#&gt; <span style='color: #949494;'># ... with 340 more rows</span></div><div class='input'>
 <span class='co'># First date each month</span>
 <span class='va'>m4_daily</span> <span class='op'>%&gt;%</span>
     <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>id</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
     <span class='fu'>filter_period</span><span class='op'>(</span>.period <span class='op'>=</span> <span class='st'>"1 month"</span>, <span class='va'>date</span> <span class='op'>==</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/nth.html'>first</a></span><span class='op'>(</span><span class='va'>date</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>.date_var is missing. Using: date</span></div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 323 x 3</span><span>
-#&gt; </span><span style='color: #949494;'># Groups:   id [4]</span><span>
+</div><div class='output co'>#&gt; <span class='message'>.date_var is missing. Using: date</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 323 x 3</span>
+#&gt; <span style='color: #949494;'># Groups:   id [4]</span>
 #&gt;    id    date       value
-#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> D10   2014-07-03 </span><span style='text-decoration: underline;'>2</span><span>076.
-#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> D10   2014-08-01 </span><span style='text-decoration: underline;'>1</span><span>923.
-#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> D10   2014-09-01 </span><span style='text-decoration: underline;'>1</span><span>908.
-#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> D10   2014-10-01 </span><span style='text-decoration: underline;'>2</span><span>049.
-#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> D10   2014-11-01 </span><span style='text-decoration: underline;'>2</span><span>133.
-#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> D10   2014-12-01 </span><span style='text-decoration: underline;'>2</span><span>244.
-#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> D10   2015-01-01 </span><span style='text-decoration: underline;'>2</span><span>351 
-#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> D10   2015-02-01 </span><span style='text-decoration: underline;'>2</span><span>286.
-#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> D10   2015-03-01 </span><span style='text-decoration: underline;'>2</span><span>291.
-#&gt; </span><span style='color: #BCBCBC;'>10</span><span> D10   2015-04-01 </span><span style='text-decoration: underline;'>2</span><span>396.
-#&gt; </span><span style='color: #949494;'># … with 313 more rows</span><span></div><div class='input'>
+#&gt;    <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
+#&gt; <span style='color: #BCBCBC;'> 1</span> D10   2014-07-03 <span style='text-decoration: underline;'>2</span>076.
+#&gt; <span style='color: #BCBCBC;'> 2</span> D10   2014-08-01 <span style='text-decoration: underline;'>1</span>923.
+#&gt; <span style='color: #BCBCBC;'> 3</span> D10   2014-09-01 <span style='text-decoration: underline;'>1</span>908.
+#&gt; <span style='color: #BCBCBC;'> 4</span> D10   2014-10-01 <span style='text-decoration: underline;'>2</span>049.
+#&gt; <span style='color: #BCBCBC;'> 5</span> D10   2014-11-01 <span style='text-decoration: underline;'>2</span>133.
+#&gt; <span style='color: #BCBCBC;'> 6</span> D10   2014-12-01 <span style='text-decoration: underline;'>2</span>244.
+#&gt; <span style='color: #BCBCBC;'> 7</span> D10   2015-01-01 <span style='text-decoration: underline;'>2</span>351 
+#&gt; <span style='color: #BCBCBC;'> 8</span> D10   2015-02-01 <span style='text-decoration: underline;'>2</span>286.
+#&gt; <span style='color: #BCBCBC;'> 9</span> D10   2015-03-01 <span style='text-decoration: underline;'>2</span>291.
+#&gt; <span style='color: #BCBCBC;'>10</span> D10   2015-04-01 <span style='text-decoration: underline;'>2</span>396.
+#&gt; <span style='color: #949494;'># ... with 313 more rows</span></div><div class='input'>
 <span class='co'># All observations that are greater than a monthly average</span>
 <span class='va'>m4_daily</span> <span class='op'>%&gt;%</span>
     <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>id</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
     <span class='fu'>filter_period</span><span class='op'>(</span>.period <span class='op'>=</span> <span class='st'>"1 month"</span>, <span class='va'>value</span> <span class='op'>&gt;</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>value</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>.date_var is missing. Using: date</span></div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 4,880 x 3</span><span>
-#&gt; </span><span style='color: #949494;'># Groups:   id [4]</span><span>
+</div><div class='output co'>#&gt; <span class='message'>.date_var is missing. Using: date</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 4,880 x 3</span>
+#&gt; <span style='color: #949494;'># Groups:   id [4]</span>
 #&gt;    id    date       value
-#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> D10   2014-07-03 </span><span style='text-decoration: underline;'>2</span><span>076.
-#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> D10   2014-07-04 </span><span style='text-decoration: underline;'>2</span><span>073.
-#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> D10   2014-07-05 </span><span style='text-decoration: underline;'>2</span><span>049.
-#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> D10   2014-07-06 </span><span style='text-decoration: underline;'>2</span><span>049.
-#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> D10   2014-07-07 </span><span style='text-decoration: underline;'>2</span><span>006.
-#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> D10   2014-07-08 </span><span style='text-decoration: underline;'>2</span><span>018.
-#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> D10   2014-07-09 </span><span style='text-decoration: underline;'>2</span><span>019.
-#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> D10   2014-07-10 </span><span style='text-decoration: underline;'>2</span><span>007.
-#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> D10   2014-07-11 </span><span style='text-decoration: underline;'>2</span><span>010 
-#&gt; </span><span style='color: #BCBCBC;'>10</span><span> D10   2014-07-12 </span><span style='text-decoration: underline;'>2</span><span>002.
-#&gt; </span><span style='color: #949494;'># … with 4,870 more rows</span><span></div><div class='input'>
-</div></span></pre>
+#&gt;    <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
+#&gt; <span style='color: #BCBCBC;'> 1</span> D10   2014-07-03 <span style='text-decoration: underline;'>2</span>076.
+#&gt; <span style='color: #BCBCBC;'> 2</span> D10   2014-07-04 <span style='text-decoration: underline;'>2</span>073.
+#&gt; <span style='color: #BCBCBC;'> 3</span> D10   2014-07-05 <span style='text-decoration: underline;'>2</span>049.
+#&gt; <span style='color: #BCBCBC;'> 4</span> D10   2014-07-06 <span style='text-decoration: underline;'>2</span>049.
+#&gt; <span style='color: #BCBCBC;'> 5</span> D10   2014-07-07 <span style='text-decoration: underline;'>2</span>006.
+#&gt; <span style='color: #BCBCBC;'> 6</span> D10   2014-07-08 <span style='text-decoration: underline;'>2</span>018.
+#&gt; <span style='color: #BCBCBC;'> 7</span> D10   2014-07-09 <span style='text-decoration: underline;'>2</span>019.
+#&gt; <span style='color: #BCBCBC;'> 8</span> D10   2014-07-10 <span style='text-decoration: underline;'>2</span>007.
+#&gt; <span style='color: #BCBCBC;'> 9</span> D10   2014-07-11 <span style='text-decoration: underline;'>2</span>010 
+#&gt; <span style='color: #BCBCBC;'>10</span> D10   2014-07-12 <span style='text-decoration: underline;'>2</span>002.
+#&gt; <span style='color: #949494;'># ... with 4,870 more rows</span></div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

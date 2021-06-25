@@ -1,6 +1,8 @@
 # timetk 2.6.1.9000 (Development Version)
 
-- Time Series CV: Add Label for `tune_results`
+- Plot ACF Diagnostics (`plot_acf_diagnostics()`): Change default parameter to `.show_white_noise_bars = TRUE`. #85
+
+- Time Series CV (`time_series_cv()`): Add Label for `tune_results`
 
 # timetk 2.6.1
 

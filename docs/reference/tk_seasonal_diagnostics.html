@@ -93,7 +93,7 @@ It helps by automating feature collection for time series seasonality analysis."
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">timetk</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.1.9000</span>
       </span>
     </div>
 
@@ -101,7 +101,7 @@ It helps by automating feature collection for time series seasonality analysis."
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa-home"></span>
+    <span class="fa fa-home"></span>
      
   </a>
 </li>
@@ -163,7 +163,7 @@ It helps by automating feature collection for time series seasonality analysis."
     <li class="dropdown-header">API Functions</li>
     <li>
       <a href="../reference/index.html">
-        <span class="fas fa-home"></span>
+        <span class="fa fa-home"></span>
          
         Function Reference
       </a>
@@ -218,7 +218,7 @@ It helps by automating feature collection for time series seasonality analysis."
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/business-science/timetk">
-    <span class="fas fa-github"></span>
+    <span class="fa fa-github"></span>
      
   </a>
 </li>
@@ -311,81 +311,81 @@ they may be meaningless for some of the groups.</p>
 <span class='va'>m4_hourly</span> <span class='op'>%&gt;%</span>
     <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>id</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
     <span class='fu'>tk_seasonal_diagnostics</span><span class='op'>(</span><span class='va'>date</span>, <span class='va'>value</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 3,060 x 6</span><span>
-#&gt; </span><span style='color: #949494;'># Groups:   id [4]</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 3,060 x 6</span>
+#&gt; <span style='color: #949494;'># Groups:   id [4]</span>
 #&gt;    id    date                .value hour  wday.lbl  week 
-#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dttm&gt;</span><span>               </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> H10   2015-07-01 </span><span style='color: #949494;'>12:00:00</span><span>    513 12    Wednesday 26   
-#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> H10   2015-07-01 </span><span style='color: #949494;'>13:00:00</span><span>    512 13    Wednesday 26   
-#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> H10   2015-07-01 </span><span style='color: #949494;'>14:00:00</span><span>    506 14    Wednesday 26   
-#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> H10   2015-07-01 </span><span style='color: #949494;'>15:00:00</span><span>    500 15    Wednesday 26   
-#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> H10   2015-07-01 </span><span style='color: #949494;'>16:00:00</span><span>    490 16    Wednesday 26   
-#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> H10   2015-07-01 </span><span style='color: #949494;'>17:00:00</span><span>    484 17    Wednesday 26   
-#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> H10   2015-07-01 </span><span style='color: #949494;'>18:00:00</span><span>    467 18    Wednesday 26   
-#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> H10   2015-07-01 </span><span style='color: #949494;'>19:00:00</span><span>    446 19    Wednesday 26   
-#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> H10   2015-07-01 </span><span style='color: #949494;'>20:00:00</span><span>    434 20    Wednesday 26   
-#&gt; </span><span style='color: #BCBCBC;'>10</span><span> H10   2015-07-01 </span><span style='color: #949494;'>21:00:00</span><span>    422 21    Wednesday 26   
-#&gt; </span><span style='color: #949494;'># … with 3,050 more rows</span><span></div><div class='input'>
+#&gt;    <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dttm&gt;</span>               <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>
+#&gt; <span style='color: #BCBCBC;'> 1</span> H10   2015-07-01 <span style='color: #949494;'>12:00:00</span>    513 12    Wednesday 26   
+#&gt; <span style='color: #BCBCBC;'> 2</span> H10   2015-07-01 <span style='color: #949494;'>13:00:00</span>    512 13    Wednesday 26   
+#&gt; <span style='color: #BCBCBC;'> 3</span> H10   2015-07-01 <span style='color: #949494;'>14:00:00</span>    506 14    Wednesday 26   
+#&gt; <span style='color: #BCBCBC;'> 4</span> H10   2015-07-01 <span style='color: #949494;'>15:00:00</span>    500 15    Wednesday 26   
+#&gt; <span style='color: #BCBCBC;'> 5</span> H10   2015-07-01 <span style='color: #949494;'>16:00:00</span>    490 16    Wednesday 26   
+#&gt; <span style='color: #BCBCBC;'> 6</span> H10   2015-07-01 <span style='color: #949494;'>17:00:00</span>    484 17    Wednesday 26   
+#&gt; <span style='color: #BCBCBC;'> 7</span> H10   2015-07-01 <span style='color: #949494;'>18:00:00</span>    467 18    Wednesday 26   
+#&gt; <span style='color: #BCBCBC;'> 8</span> H10   2015-07-01 <span style='color: #949494;'>19:00:00</span>    446 19    Wednesday 26   
+#&gt; <span style='color: #BCBCBC;'> 9</span> H10   2015-07-01 <span style='color: #949494;'>20:00:00</span>    434 20    Wednesday 26   
+#&gt; <span style='color: #BCBCBC;'>10</span> H10   2015-07-01 <span style='color: #949494;'>21:00:00</span>    422 21    Wednesday 26   
+#&gt; <span style='color: #949494;'># ... with 3,050 more rows</span></div><div class='input'>
 <span class='co'># Monthly Data</span>
 <span class='va'>m4_monthly</span> <span class='op'>%&gt;%</span>
     <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>id</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
     <span class='fu'>tk_seasonal_diagnostics</span><span class='op'>(</span><span class='va'>date</span>, <span class='va'>value</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 1,574 x 6</span><span>
-#&gt; </span><span style='color: #949494;'># Groups:   id [4]</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 1,574 x 6</span>
+#&gt; <span style='color: #949494;'># Groups:   id [4]</span>
 #&gt;    id    date       .value month.lbl quarter year 
-#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;date&gt;</span><span>      </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> M1    1976-06-01   </span><span style='text-decoration: underline;'>8</span><span>000 June      2       1976 
-#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> M1    1976-07-01   </span><span style='text-decoration: underline;'>8</span><span>350 July      3       1976 
-#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> M1    1976-08-01   </span><span style='text-decoration: underline;'>8</span><span>570 August    3       1976 
-#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> M1    1976-09-01   </span><span style='text-decoration: underline;'>7</span><span>700 September 3       1976 
-#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> M1    1976-10-01   </span><span style='text-decoration: underline;'>7</span><span>080 October   4       1976 
-#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> M1    1976-11-01   </span><span style='text-decoration: underline;'>6</span><span>520 November  4       1976 
-#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> M1    1976-12-01   </span><span style='text-decoration: underline;'>6</span><span>070 December  4       1976 
-#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> M1    1977-01-01   </span><span style='text-decoration: underline;'>6</span><span>650 January   1       1977 
-#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> M1    1977-02-01   </span><span style='text-decoration: underline;'>6</span><span>830 February  1       1977 
-#&gt; </span><span style='color: #BCBCBC;'>10</span><span> M1    1977-03-01   </span><span style='text-decoration: underline;'>5</span><span>710 March     1       1977 
-#&gt; </span><span style='color: #949494;'># … with 1,564 more rows</span><span></div><div class='input'>
+#&gt;    <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>
+#&gt; <span style='color: #BCBCBC;'> 1</span> M1    1976-06-01   <span style='text-decoration: underline;'>8</span>000 June      2       1976 
+#&gt; <span style='color: #BCBCBC;'> 2</span> M1    1976-07-01   <span style='text-decoration: underline;'>8</span>350 July      3       1976 
+#&gt; <span style='color: #BCBCBC;'> 3</span> M1    1976-08-01   <span style='text-decoration: underline;'>8</span>570 August    3       1976 
+#&gt; <span style='color: #BCBCBC;'> 4</span> M1    1976-09-01   <span style='text-decoration: underline;'>7</span>700 September 3       1976 
+#&gt; <span style='color: #BCBCBC;'> 5</span> M1    1976-10-01   <span style='text-decoration: underline;'>7</span>080 October   4       1976 
+#&gt; <span style='color: #BCBCBC;'> 6</span> M1    1976-11-01   <span style='text-decoration: underline;'>6</span>520 November  4       1976 
+#&gt; <span style='color: #BCBCBC;'> 7</span> M1    1976-12-01   <span style='text-decoration: underline;'>6</span>070 December  4       1976 
+#&gt; <span style='color: #BCBCBC;'> 8</span> M1    1977-01-01   <span style='text-decoration: underline;'>6</span>650 January   1       1977 
+#&gt; <span style='color: #BCBCBC;'> 9</span> M1    1977-02-01   <span style='text-decoration: underline;'>6</span>830 February  1       1977 
+#&gt; <span style='color: #BCBCBC;'>10</span> M1    1977-03-01   <span style='text-decoration: underline;'>5</span>710 March     1       1977 
+#&gt; <span style='color: #949494;'># ... with 1,564 more rows</span></div><div class='input'>
 <span class='co'># ---- TRANSFORMATION ----</span>
 
 <span class='va'>m4_weekly</span> <span class='op'>%&gt;%</span>
     <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>id</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
     <span class='fu'>tk_seasonal_diagnostics</span><span class='op'>(</span><span class='va'>date</span>, <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='va'>value</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 2,295 x 7</span><span>
-#&gt; </span><span style='color: #949494;'># Groups:   id [4]</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 2,295 x 7</span>
+#&gt; <span style='color: #949494;'># Groups:   id [4]</span>
 #&gt;    id    date       .value week  month.lbl quarter year 
-#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;date&gt;</span><span>      </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> W10   1999-01-01   5.51 1     January   1       1999 
-#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> W10   1999-01-08   5.40 2     January   1       1999 
-#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> W10   1999-01-15   6.11 3     January   1       1999 
-#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> W10   1999-01-22   6.11 4     January   1       1999 
-#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> W10   1999-01-29   6.11 5     January   1       1999 
-#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> W10   1999-02-05   6.11 6     February  1       1999 
-#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> W10   1999-02-12   6.11 7     February  1       1999 
-#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> W10   1999-02-19   6.11 8     February  1       1999 
-#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> W10   1999-02-26   6.11 9     February  1       1999 
-#&gt; </span><span style='color: #BCBCBC;'>10</span><span> W10   1999-03-05   6.11 10    March     1       1999 
-#&gt; </span><span style='color: #949494;'># … with 2,285 more rows</span><span></div><div class='input'>
+#&gt;    <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>
+#&gt; <span style='color: #BCBCBC;'> 1</span> W10   1999-01-01   5.51 1     January   1       1999 
+#&gt; <span style='color: #BCBCBC;'> 2</span> W10   1999-01-08   5.40 2     January   1       1999 
+#&gt; <span style='color: #BCBCBC;'> 3</span> W10   1999-01-15   6.11 3     January   1       1999 
+#&gt; <span style='color: #BCBCBC;'> 4</span> W10   1999-01-22   6.11 4     January   1       1999 
+#&gt; <span style='color: #BCBCBC;'> 5</span> W10   1999-01-29   6.11 5     January   1       1999 
+#&gt; <span style='color: #BCBCBC;'> 6</span> W10   1999-02-05   6.11 6     February  1       1999 
+#&gt; <span style='color: #BCBCBC;'> 7</span> W10   1999-02-12   6.11 7     February  1       1999 
+#&gt; <span style='color: #BCBCBC;'> 8</span> W10   1999-02-19   6.11 8     February  1       1999 
+#&gt; <span style='color: #BCBCBC;'> 9</span> W10   1999-02-26   6.11 9     February  1       1999 
+#&gt; <span style='color: #BCBCBC;'>10</span> W10   1999-03-05   6.11 10    March     1       1999 
+#&gt; <span style='color: #949494;'># ... with 2,285 more rows</span></div><div class='input'>
 <span class='co'># ---- CUSTOM FEATURE SELECTION ----</span>
 
 <span class='va'>m4_hourly</span> <span class='op'>%&gt;%</span>
     <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>id</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
     <span class='fu'>tk_seasonal_diagnostics</span><span class='op'>(</span><span class='va'>date</span>, <span class='va'>value</span>, .feature_set <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"hour"</span>, <span class='st'>"week"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 3,060 x 5</span><span>
-#&gt; </span><span style='color: #949494;'># Groups:   id [4]</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 3,060 x 5</span>
+#&gt; <span style='color: #949494;'># Groups:   id [4]</span>
 #&gt;    id    date                .value hour  week 
-#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dttm&gt;</span><span>               </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> H10   2015-07-01 </span><span style='color: #949494;'>12:00:00</span><span>    513 12    26   
-#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> H10   2015-07-01 </span><span style='color: #949494;'>13:00:00</span><span>    512 13    26   
-#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> H10   2015-07-01 </span><span style='color: #949494;'>14:00:00</span><span>    506 14    26   
-#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> H10   2015-07-01 </span><span style='color: #949494;'>15:00:00</span><span>    500 15    26   
-#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> H10   2015-07-01 </span><span style='color: #949494;'>16:00:00</span><span>    490 16    26   
-#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> H10   2015-07-01 </span><span style='color: #949494;'>17:00:00</span><span>    484 17    26   
-#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> H10   2015-07-01 </span><span style='color: #949494;'>18:00:00</span><span>    467 18    26   
-#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> H10   2015-07-01 </span><span style='color: #949494;'>19:00:00</span><span>    446 19    26   
-#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> H10   2015-07-01 </span><span style='color: #949494;'>20:00:00</span><span>    434 20    26   
-#&gt; </span><span style='color: #BCBCBC;'>10</span><span> H10   2015-07-01 </span><span style='color: #949494;'>21:00:00</span><span>    422 21    26   
-#&gt; </span><span style='color: #949494;'># … with 3,050 more rows</span><span></div><div class='input'>
-</div></span></pre>
+#&gt;    <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dttm&gt;</span>               <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>
+#&gt; <span style='color: #BCBCBC;'> 1</span> H10   2015-07-01 <span style='color: #949494;'>12:00:00</span>    513 12    26   
+#&gt; <span style='color: #BCBCBC;'> 2</span> H10   2015-07-01 <span style='color: #949494;'>13:00:00</span>    512 13    26   
+#&gt; <span style='color: #BCBCBC;'> 3</span> H10   2015-07-01 <span style='color: #949494;'>14:00:00</span>    506 14    26   
+#&gt; <span style='color: #BCBCBC;'> 4</span> H10   2015-07-01 <span style='color: #949494;'>15:00:00</span>    500 15    26   
+#&gt; <span style='color: #BCBCBC;'> 5</span> H10   2015-07-01 <span style='color: #949494;'>16:00:00</span>    490 16    26   
+#&gt; <span style='color: #BCBCBC;'> 6</span> H10   2015-07-01 <span style='color: #949494;'>17:00:00</span>    484 17    26   
+#&gt; <span style='color: #BCBCBC;'> 7</span> H10   2015-07-01 <span style='color: #949494;'>18:00:00</span>    467 18    26   
+#&gt; <span style='color: #BCBCBC;'> 8</span> H10   2015-07-01 <span style='color: #949494;'>19:00:00</span>    446 19    26   
+#&gt; <span style='color: #BCBCBC;'> 9</span> H10   2015-07-01 <span style='color: #949494;'>20:00:00</span>    434 20    26   
+#&gt; <span style='color: #BCBCBC;'>10</span> H10   2015-07-01 <span style='color: #949494;'>21:00:00</span>    422 21    26   
+#&gt; <span style='color: #949494;'># ... with 3,050 more rows</span></div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

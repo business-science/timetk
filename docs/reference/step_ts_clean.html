@@ -93,7 +93,7 @@ step that will clean outliers and impute time series data." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">timetk</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.1.9000</span>
       </span>
     </div>
 
@@ -101,7 +101,7 @@ step that will clean outliers and impute time series data." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa-home"></span>
+    <span class="fa fa-home"></span>
      
   </a>
 </li>
@@ -163,7 +163,7 @@ step that will clean outliers and impute time series data." />
     <li class="dropdown-header">API Functions</li>
     <li>
       <a href="../reference/index.html">
-        <span class="fas fa-home"></span>
+        <span class="fa fa-home"></span>
          
         Function Reference
       </a>
@@ -218,7 +218,7 @@ step that will clean outliers and impute time series data." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/business-science/timetk">
-    <span class="fas fa-github"></span>
+    <span class="fa fa-github"></span>
      
   </a>
 </li>
@@ -372,7 +372,7 @@ or can be specified by setting <code>lambda = numeric value</code>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/business-science/tidyquant'>tidyquant</a></span><span class='op'>)</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/tidymodels/recipes'>recipes</a></span><span class='op'>)</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/business-science/timetk'>timetk</a></span><span class='op'>)</span>
@@ -384,52 +384,52 @@ or can be specified by setting <code>lambda = numeric value</code>.</p>
     <span class='fu'><a href='pad_by_time.html'>pad_by_time</a></span><span class='op'>(</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'>.date_var is missing. Using: date</span></div><div class='output co'>#&gt; <span class='message'>pad applied on the interval: day</span></div><div class='input'>
 <span class='va'>FANG_wide</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 1,459 x 5</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 1,459 x 5</span>
 #&gt;    date          FB  AMZN  NFLX  GOOG
-#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> 2013-01-02  28    257.  13.1  361.
-#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> 2013-01-03  27.8  258.  13.8  361.
-#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> 2013-01-04  28.8  259.  13.7  369.
-#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> 2013-01-05  </span><span style='color: #BB0000;'>NA</span><span>     </span><span style='color: #BB0000;'>NA</span><span>   </span><span style='color: #BB0000;'>NA</span><span>     </span><span style='color: #BB0000;'>NA</span><span> 
-#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> 2013-01-06  </span><span style='color: #BB0000;'>NA</span><span>     </span><span style='color: #BB0000;'>NA</span><span>   </span><span style='color: #BB0000;'>NA</span><span>     </span><span style='color: #BB0000;'>NA</span><span> 
-#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> 2013-01-07  29.4  268.  14.2  367.
-#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> 2013-01-08  29.1  266.  13.9  366.
-#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> 2013-01-09  30.6  266.  13.7  369.
-#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> 2013-01-10  31.3  265.  14    370.
-#&gt; </span><span style='color: #BCBCBC;'>10</span><span> 2013-01-11  31.7  268.  14.5  370.
-#&gt; </span><span style='color: #949494;'># … with 1,449 more rows</span><span></div><div class='input'>
+#&gt;    <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
+#&gt; <span style='color: #BCBCBC;'> 1</span> 2013-01-02  28    257.  13.1  361.
+#&gt; <span style='color: #BCBCBC;'> 2</span> 2013-01-03  27.8  258.  13.8  361.
+#&gt; <span style='color: #BCBCBC;'> 3</span> 2013-01-04  28.8  259.  13.7  369.
+#&gt; <span style='color: #BCBCBC;'> 4</span> 2013-01-05  <span style='color: #BB0000;'>NA</span>     <span style='color: #BB0000;'>NA</span>   <span style='color: #BB0000;'>NA</span>     <span style='color: #BB0000;'>NA</span> 
+#&gt; <span style='color: #BCBCBC;'> 5</span> 2013-01-06  <span style='color: #BB0000;'>NA</span>     <span style='color: #BB0000;'>NA</span>   <span style='color: #BB0000;'>NA</span>     <span style='color: #BB0000;'>NA</span> 
+#&gt; <span style='color: #BCBCBC;'> 6</span> 2013-01-07  29.4  268.  14.2  367.
+#&gt; <span style='color: #BCBCBC;'> 7</span> 2013-01-08  29.1  266.  13.9  366.
+#&gt; <span style='color: #BCBCBC;'> 8</span> 2013-01-09  30.6  266.  13.7  369.
+#&gt; <span style='color: #BCBCBC;'> 9</span> 2013-01-10  31.3  265.  14    370.
+#&gt; <span style='color: #BCBCBC;'>10</span> 2013-01-11  31.7  268.  14.5  370.
+#&gt; <span style='color: #949494;'># ... with 1,449 more rows</span></div><div class='input'>
 <span class='co'># Apply Imputation</span>
 <span class='va'>recipe_box_cox</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://recipes.tidymodels.org/reference/recipe.html'>recipe</a></span><span class='op'>(</span><span class='op'>~</span> <span class='va'>.</span>, data <span class='op'>=</span> <span class='va'>FANG_wide</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
     <span class='fu'>step_ts_clean</span><span class='op'>(</span><span class='va'>FB</span>, <span class='va'>AMZN</span>, <span class='va'>NFLX</span>, <span class='va'>GOOG</span>, period <span class='op'>=</span> <span class='fl'>252</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
     <span class='fu'><a href='https://recipes.tidymodels.org/reference/prep.html'>prep</a></span><span class='op'>(</span><span class='op'>)</span>
 
 <span class='va'>recipe_box_cox</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://recipes.tidymodels.org/reference/bake.html'>bake</a></span><span class='op'>(</span><span class='va'>FANG_wide</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 1,459 x 5</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 1,459 x 5</span>
 #&gt;    date          FB  AMZN  NFLX  GOOG
-#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> 2013-01-02  28    257.  13.1  361.
-#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> 2013-01-03  27.8  258.  13.8  361.
-#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> 2013-01-04  28.8  259.  13.7  369.
-#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> 2013-01-05  28.7  261.  14.0  365.
-#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> 2013-01-06  28.8  263.  14.5  365.
-#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> 2013-01-07  29.4  268.  14.2  367.
-#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> 2013-01-08  29.1  266.  13.9  366.
-#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> 2013-01-09  30.6  266.  13.7  369.
-#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> 2013-01-10  31.3  265.  14.   370.
-#&gt; </span><span style='color: #BCBCBC;'>10</span><span> 2013-01-11  31.7  268.  14.5  370.
-#&gt; </span><span style='color: #949494;'># … with 1,449 more rows</span><span></div><div class='input'>
+#&gt;    <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
+#&gt; <span style='color: #BCBCBC;'> 1</span> 2013-01-02  28    257.  13.1  361.
+#&gt; <span style='color: #BCBCBC;'> 2</span> 2013-01-03  27.8  258.  13.8  361.
+#&gt; <span style='color: #BCBCBC;'> 3</span> 2013-01-04  28.8  259.  13.7  369.
+#&gt; <span style='color: #BCBCBC;'> 4</span> 2013-01-05  28.2  262.  14.1  365.
+#&gt; <span style='color: #BCBCBC;'> 5</span> 2013-01-06  28.4  264.  14.6  366.
+#&gt; <span style='color: #BCBCBC;'> 6</span> 2013-01-07  29.4  268.  14.2  367.
+#&gt; <span style='color: #BCBCBC;'> 7</span> 2013-01-08  29.1  266.  13.9  366.
+#&gt; <span style='color: #BCBCBC;'> 8</span> 2013-01-09  30.6  266.  13.7  369.
+#&gt; <span style='color: #BCBCBC;'> 9</span> 2013-01-10  31.3  265.  14    370.
+#&gt; <span style='color: #BCBCBC;'>10</span> 2013-01-11  31.7  268.  14.5  370.
+#&gt; <span style='color: #949494;'># ... with 1,449 more rows</span></div><div class='input'>
 <span class='co'># Lambda parameter used during imputation process</span>
 <span class='va'>recipe_box_cox</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 4 x 3</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 4 x 3</span>
 #&gt;   terms lambda id            
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>         
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> FB     0.912 ts_clean_IbwPc
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span> AMZN   0.557 ts_clean_IbwPc
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span> NFLX   0.532 ts_clean_IbwPc
-#&gt; </span><span style='color: #BCBCBC;'>4</span><span> GOOG  -</span><span style='color: #BB0000;'>1.00</span><span>  ts_clean_IbwPc</div><div class='input'>
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>         
+#&gt; <span style='color: #BCBCBC;'>1</span> FB     0.912 ts_clean_IbwPc
+#&gt; <span style='color: #BCBCBC;'>2</span> AMZN   0.557 ts_clean_IbwPc
+#&gt; <span style='color: #BCBCBC;'>3</span> NFLX   0.532 ts_clean_IbwPc
+#&gt; <span style='color: #BCBCBC;'>4</span> GOOG  -<span style='color: #BB0000;'>1.00</span>  ts_clean_IbwPc</div><div class='input'>
 
 
-</div></span></pre>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -123,7 +123,7 @@
 #' @export
 plot_acf_diagnostics <- function(.data, .date_var, .value, .ccf_vars = NULL, .lags = 1000,
                                  .show_ccf_vars_only = FALSE,
-                                 .show_white_noise_bars = FALSE,
+                                 .show_white_noise_bars = TRUE,
                                  .facet_ncol = 1, .facet_scales = "fixed",
                                  .line_color = "#2c3e50", .line_size = 0.5,
                                  .line_alpha = 1,
@@ -153,7 +153,7 @@ plot_acf_diagnostics <- function(.data, .date_var, .value, .ccf_vars = NULL, .la
 #' @export
 plot_acf_diagnostics.data.frame <- function(.data, .date_var, .value, .ccf_vars = NULL, .lags = 1000,
                                             .show_ccf_vars_only = FALSE,
-                                            .show_white_noise_bars = FALSE,
+                                            .show_white_noise_bars = TRUE,
                                             .facet_ncol = 1, .facet_scales = "fixed",
                                             .line_color = "#2c3e50", .line_size = 0.5,
                                             .line_alpha = 1,
@@ -267,7 +267,7 @@ plot_acf_diagnostics.data.frame <- function(.data, .date_var, .value, .ccf_vars 
 #' @export
 plot_acf_diagnostics.grouped_df <- function(.data, .date_var, .value, .ccf_vars = NULL, .lags = 1000,
                                             .show_ccf_vars_only = FALSE,
-                                            .show_white_noise_bars = FALSE,
+                                            .show_white_noise_bars = TRUE,
                                             .facet_ncol = 1, .facet_scales = "fixed",
                                             .line_color = "#2c3e50", .line_size = 0.5,
                                             .line_alpha = 1,

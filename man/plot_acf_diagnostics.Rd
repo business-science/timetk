@@ -11,7 +11,7 @@ plot_acf_diagnostics(
   .ccf_vars = NULL,
   .lags = 1000,
   .show_ccf_vars_only = FALSE,
-  .show_white_noise_bars = FALSE,
+  .show_white_noise_bars = TRUE,
   .facet_ncol = 1,
   .facet_scales = "fixed",
   .line_color = "#2c3e50",
