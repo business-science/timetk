@@ -103,7 +103,7 @@ summarise_by_time() and summarize_by_time() are synonyms." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa-home"></span>
+    <span class="fa fa-home"></span>
      
   </a>
 </li>
@@ -165,7 +165,7 @@ summarise_by_time() and summarize_by_time() are synonyms." />
     <li class="dropdown-header">API Functions</li>
     <li>
       <a href="../reference/index.html">
-        <span class="fas fa-home"></span>
+        <span class="fa fa-home"></span>
          
         Function Reference
       </a>
@@ -220,7 +220,7 @@ summarise_by_time() and summarize_by_time() are synonyms." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/business-science/timetk">
-    <span class="fas fa-github"></span>
+    <span class="fa fa-github"></span>
      
   </a>
 </li>
@@ -358,21 +358,21 @@ The name will be the name of the variable in the result.</p>
         <span class='co'># Summarization</span>
         value  <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/nth.html'>first</a></span><span class='op'>(</span><span class='va'>value</span><span class='op'>)</span>
     <span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 323 x 3</span><span>
-#&gt; </span><span style='color: #949494;'># Groups:   id [4]</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 323 x 3</span>
+#&gt; <span style='color: #949494;'># Groups:   id [4]</span>
 #&gt;    id    date       value
-#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> D10   2014-07-01 </span><span style='text-decoration: underline;'>2</span><span>076.
-#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> D10   2014-08-01 </span><span style='text-decoration: underline;'>1</span><span>923.
-#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> D10   2014-09-01 </span><span style='text-decoration: underline;'>1</span><span>908.
-#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> D10   2014-10-01 </span><span style='text-decoration: underline;'>2</span><span>049.
-#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> D10   2014-11-01 </span><span style='text-decoration: underline;'>2</span><span>133.
-#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> D10   2014-12-01 </span><span style='text-decoration: underline;'>2</span><span>244.
-#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> D10   2015-01-01 </span><span style='text-decoration: underline;'>2</span><span>351 
-#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> D10   2015-02-01 </span><span style='text-decoration: underline;'>2</span><span>286.
-#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> D10   2015-03-01 </span><span style='text-decoration: underline;'>2</span><span>291.
-#&gt; </span><span style='color: #BCBCBC;'>10</span><span> D10   2015-04-01 </span><span style='text-decoration: underline;'>2</span><span>396.
-#&gt; </span><span style='color: #949494;'># … with 313 more rows</span><span></div><div class='input'>
+#&gt;    <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
+#&gt; <span style='color: #BCBCBC;'> 1</span> D10   2014-07-01 <span style='text-decoration: underline;'>2</span>076.
+#&gt; <span style='color: #BCBCBC;'> 2</span> D10   2014-08-01 <span style='text-decoration: underline;'>1</span>923.
+#&gt; <span style='color: #BCBCBC;'> 3</span> D10   2014-09-01 <span style='text-decoration: underline;'>1</span>908.
+#&gt; <span style='color: #BCBCBC;'> 4</span> D10   2014-10-01 <span style='text-decoration: underline;'>2</span>049.
+#&gt; <span style='color: #BCBCBC;'> 5</span> D10   2014-11-01 <span style='text-decoration: underline;'>2</span>133.
+#&gt; <span style='color: #BCBCBC;'> 6</span> D10   2014-12-01 <span style='text-decoration: underline;'>2</span>244.
+#&gt; <span style='color: #BCBCBC;'> 7</span> D10   2015-01-01 <span style='text-decoration: underline;'>2</span>351 
+#&gt; <span style='color: #BCBCBC;'> 8</span> D10   2015-02-01 <span style='text-decoration: underline;'>2</span>286.
+#&gt; <span style='color: #BCBCBC;'> 9</span> D10   2015-03-01 <span style='text-decoration: underline;'>2</span>291.
+#&gt; <span style='color: #BCBCBC;'>10</span> D10   2015-04-01 <span style='text-decoration: underline;'>2</span>396.
+#&gt; <span style='color: #949494;'># … with 313 more rows</span></div><div class='input'>
 <span class='co'># Last value in each month (day is first day of next month with ceiling option)</span>
 <span class='va'>m4_daily</span> <span class='op'>%&gt;%</span>
     <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>id</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
@@ -383,21 +383,21 @@ The name will be the name of the variable in the result.</p>
     <span class='op'>)</span> <span class='op'>%&gt;%</span>
     <span class='co'># Shift to the last day of the month</span>
     <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>date <span class='op'>=</span> <span class='va'>date</span> <span class='op'>%-time%</span> <span class='st'>"1 day"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>.date_var is missing. Using: date</span></div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 323 x 3</span><span>
-#&gt; </span><span style='color: #949494;'># Groups:   id [4]</span><span>
+</div><div class='output co'>#&gt; <span class='message'>.date_var is missing. Using: date</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 323 x 3</span>
+#&gt; <span style='color: #949494;'># Groups:   id [4]</span>
 #&gt;    id    date       value
-#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> D10   2014-07-31 </span><span style='text-decoration: underline;'>1</span><span>917.
-#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> D10   2014-08-31 </span><span style='text-decoration: underline;'>1</span><span>921.
-#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> D10   2014-09-30 </span><span style='text-decoration: underline;'>2</span><span>024.
-#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> D10   2014-10-31 </span><span style='text-decoration: underline;'>2</span><span>130 
-#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> D10   2014-11-30 </span><span style='text-decoration: underline;'>2</span><span>217.
-#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> D10   2014-12-31 </span><span style='text-decoration: underline;'>2</span><span>328.
-#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> D10   2015-01-31 </span><span style='text-decoration: underline;'>2</span><span>210.
-#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> D10   2015-02-28 </span><span style='text-decoration: underline;'>2</span><span>293.
-#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> D10   2015-03-31 </span><span style='text-decoration: underline;'>2</span><span>392.
-#&gt; </span><span style='color: #BCBCBC;'>10</span><span> D10   2015-04-30 </span><span style='text-decoration: underline;'>2</span><span>368.
-#&gt; </span><span style='color: #949494;'># … with 313 more rows</span><span></div><div class='input'>
+#&gt;    <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
+#&gt; <span style='color: #BCBCBC;'> 1</span> D10   2014-07-31 <span style='text-decoration: underline;'>1</span>917.
+#&gt; <span style='color: #BCBCBC;'> 2</span> D10   2014-08-31 <span style='text-decoration: underline;'>1</span>921.
+#&gt; <span style='color: #BCBCBC;'> 3</span> D10   2014-09-30 <span style='text-decoration: underline;'>2</span>024.
+#&gt; <span style='color: #BCBCBC;'> 4</span> D10   2014-10-31 <span style='text-decoration: underline;'>2</span>130 
+#&gt; <span style='color: #BCBCBC;'> 5</span> D10   2014-11-30 <span style='text-decoration: underline;'>2</span>217.
+#&gt; <span style='color: #BCBCBC;'> 6</span> D10   2014-12-31 <span style='text-decoration: underline;'>2</span>328.
+#&gt; <span style='color: #BCBCBC;'> 7</span> D10   2015-01-31 <span style='text-decoration: underline;'>2</span>210.
+#&gt; <span style='color: #BCBCBC;'> 8</span> D10   2015-02-28 <span style='text-decoration: underline;'>2</span>293.
+#&gt; <span style='color: #BCBCBC;'> 9</span> D10   2015-03-31 <span style='text-decoration: underline;'>2</span>392.
+#&gt; <span style='color: #BCBCBC;'>10</span> D10   2015-04-30 <span style='text-decoration: underline;'>2</span>368.
+#&gt; <span style='color: #949494;'># … with 313 more rows</span></div><div class='input'>
 <span class='co'># Total each year (.by is set to "year" now)</span>
 <span class='va'>m4_daily</span> <span class='op'>%&gt;%</span>
     <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>id</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
@@ -405,23 +405,23 @@ The name will be the name of the variable in the result.</p>
         .by        <span class='op'>=</span> <span class='st'>"year"</span>,
         value      <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>value</span><span class='op'>)</span>
     <span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>.date_var is missing. Using: date</span></div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 30 x 3</span><span>
-#&gt; </span><span style='color: #949494;'># Groups:   id [4]</span><span>
+</div><div class='output co'>#&gt; <span class='message'>.date_var is missing. Using: date</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 30 x 3</span>
+#&gt; <span style='color: #949494;'># Groups:   id [4]</span>
 #&gt;    id    date          value
-#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;date&gt;</span><span>        </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> D10   2014-01-01  </span><span style='text-decoration: underline;'>377</span><span>389.
-#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> D10   2015-01-01  </span><span style='text-decoration: underline;'>839</span><span>533.
-#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> D10   2016-01-01  </span><span style='text-decoration: underline;'>307</span><span>401.
-#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> D160  2000-01-01  </span><span style='text-decoration: underline;'>767</span><span>500.
-#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> D160  2001-01-01  </span><span style='text-decoration: underline;'>871</span><span>497.
-#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> D160  2002-01-01 1</span><span style='text-decoration: underline;'>464</span><span>374.
-#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> D160  2003-01-01 3</span><span style='text-decoration: underline;'>160</span><span>291.
-#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> D160  2004-01-01 5</span><span style='text-decoration: underline;'>424</span><span>860 
-#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> D160  2005-01-01 6</span><span style='text-decoration: underline;'>127</span><span>995.
-#&gt; </span><span style='color: #BCBCBC;'>10</span><span> D160  2006-01-01 3</span><span style='text-decoration: underline;'>694</span><span>712.
-#&gt; </span><span style='color: #949494;'># … with 20 more rows</span><span></div><div class='input'>
+#&gt;    <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>        <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
+#&gt; <span style='color: #BCBCBC;'> 1</span> D10   2014-01-01  <span style='text-decoration: underline;'>377</span>389.
+#&gt; <span style='color: #BCBCBC;'> 2</span> D10   2015-01-01  <span style='text-decoration: underline;'>839</span>533.
+#&gt; <span style='color: #BCBCBC;'> 3</span> D10   2016-01-01  <span style='text-decoration: underline;'>307</span>401.
+#&gt; <span style='color: #BCBCBC;'> 4</span> D160  2000-01-01  <span style='text-decoration: underline;'>767</span>500.
+#&gt; <span style='color: #BCBCBC;'> 5</span> D160  2001-01-01  <span style='text-decoration: underline;'>871</span>497.
+#&gt; <span style='color: #BCBCBC;'> 6</span> D160  2002-01-01 1<span style='text-decoration: underline;'>464</span>374.
+#&gt; <span style='color: #BCBCBC;'> 7</span> D160  2003-01-01 3<span style='text-decoration: underline;'>160</span>291.
+#&gt; <span style='color: #BCBCBC;'> 8</span> D160  2004-01-01 5<span style='text-decoration: underline;'>424</span>860 
+#&gt; <span style='color: #BCBCBC;'> 9</span> D160  2005-01-01 6<span style='text-decoration: underline;'>127</span>995.
+#&gt; <span style='color: #BCBCBC;'>10</span> D160  2006-01-01 3<span style='text-decoration: underline;'>694</span>712.
+#&gt; <span style='color: #949494;'># … with 20 more rows</span></div><div class='input'>
 
-</div></span></pre>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

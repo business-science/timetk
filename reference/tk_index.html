@@ -100,7 +100,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa-home"></span>
+    <span class="fa fa-home"></span>
      
   </a>
 </li>
@@ -162,7 +162,7 @@
     <li class="dropdown-header">API Functions</li>
     <li>
       <a href="../reference/index.html">
-        <span class="fas fa-home"></span>
+        <span class="fa fa-home"></span>
          
         Function Reference
       </a>
@@ -217,7 +217,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/business-science/timetk">
-    <span class="fas fa-github"></span>
+    <span class="fa fa-github"></span>
      
   </a>
 </li>
@@ -318,25 +318,25 @@ during coercion to <code>ts</code>.</p>
 </div><div class='output co'>#&gt; [1] "2000-01-01" "2000-01-02" "2000-01-03" "2000-01-04" "2000-01-05"</div><div class='input'>
 <span class='co'># Coercing back to tbl</span>
 <span class='fu'><a href='tk_tbl.html'>tk_tbl</a></span><span class='op'>(</span><span class='va'>data_ts</span>, timetk_idx <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span> <span class='co'># Returns regularized tbl</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: Warning: No index to preserve. Object otherwise converted to tibble successfully.</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 5 x 2</span><span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Warning: No index to preserve. Object otherwise converted to tibble successfully.</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 5 x 2</span>
 #&gt;         x     y
-#&gt;     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span>  27.6       5
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span>   0.465     4
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span>   5.78      3
-#&gt; </span><span style='color: #BCBCBC;'>4</span><span>   1.18      2
-#&gt; </span><span style='color: #BCBCBC;'>5</span><span> -</span><span style='color: #BB0000;'>19.1</span><span>       1</div><div class='input'><span class='fu'><a href='tk_tbl.html'>tk_tbl</a></span><span class='op'>(</span><span class='va'>data_ts</span>, timetk_idx <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>  <span class='co'># Returns time-based tbl</span>
-</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 5 x 3</span><span>
+#&gt;     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
+#&gt; <span style='color: #BCBCBC;'>1</span>  27.6       5
+#&gt; <span style='color: #BCBCBC;'>2</span>   0.465     4
+#&gt; <span style='color: #BCBCBC;'>3</span>   5.78      3
+#&gt; <span style='color: #BCBCBC;'>4</span>   1.18      2
+#&gt; <span style='color: #BCBCBC;'>5</span> -<span style='color: #BB0000;'>19.1</span>       1</div><div class='input'><span class='fu'><a href='tk_tbl.html'>tk_tbl</a></span><span class='op'>(</span><span class='va'>data_ts</span>, timetk_idx <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>  <span class='co'># Returns time-based tbl</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 5 x 3</span>
 #&gt;   index            x     y
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;date&gt;</span><span>       </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> 2000-01-01  27.6       5
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span> 2000-01-02   0.465     4
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span> 2000-01-03   5.78      3
-#&gt; </span><span style='color: #BCBCBC;'>4</span><span> 2000-01-04   1.18      2
-#&gt; </span><span style='color: #BCBCBC;'>5</span><span> 2000-01-05 -</span><span style='color: #BB0000;'>19.1</span><span>       1</div><div class='input'>
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>       <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
+#&gt; <span style='color: #BCBCBC;'>1</span> 2000-01-01  27.6       5
+#&gt; <span style='color: #BCBCBC;'>2</span> 2000-01-02   0.465     4
+#&gt; <span style='color: #BCBCBC;'>3</span> 2000-01-03   5.78      3
+#&gt; <span style='color: #BCBCBC;'>4</span> 2000-01-04   1.18      2
+#&gt; <span style='color: #BCBCBC;'>5</span> 2000-01-05 -<span style='color: #BB0000;'>19.1</span>       1</div><div class='input'>
 
 
-</div></span></pre>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

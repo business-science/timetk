@@ -101,7 +101,7 @@ diff_inv_vec() inverts the differencing transformation." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa-home"></span>
+    <span class="fa fa-home"></span>
      
   </a>
 </li>
@@ -163,7 +163,7 @@ diff_inv_vec() inverts the differencing transformation." />
     <li class="dropdown-header">API Functions</li>
     <li>
       <a href="../reference/index.html">
-        <span class="fas fa-home"></span>
+        <span class="fa fa-home"></span>
          
         Function Reference
       </a>
@@ -218,7 +218,7 @@ diff_inv_vec() inverts the differencing transformation." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/business-science/timetk">
-    <span class="fas fa-github"></span>
+    <span class="fa fa-github"></span>
      
   </a>
 </li>
@@ -365,24 +365,24 @@ where <code>diff_vec(difference = 1, log = TRUE) %&gt;% exp()</code> is approxim
             initial_values <span class='op'>=</span> <span class='va'>value</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span>
         <span class='op'>)</span>
     <span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>diff_vec(): Initial values: 2076.2</span></div><div class='output co'>#&gt; <span class='message'>diff_vec(): Initial values: 1821.9</span></div><div class='output co'>#&gt; <span class='message'>diff_vec(): Initial values: 9109.38</span></div><div class='output co'>#&gt; <span class='message'>diff_vec(): Initial values: 5647.3</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 9,743 x 5</span><span>
-#&gt; </span><span style='color: #949494;'># Groups:   id [4]</span><span>
+</div><div class='output co'>#&gt; <span class='message'>diff_vec(): Initial values: 2076.2</span></div><div class='output co'>#&gt; <span class='message'>diff_vec(): Initial values: 1821.9</span></div><div class='output co'>#&gt; <span class='message'>diff_vec(): Initial values: 9109.38</span></div><div class='output co'>#&gt; <span class='message'>diff_vec(): Initial values: 5647.3</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 9,743 x 5</span>
+#&gt; <span style='color: #949494;'># Groups:   id [4]</span>
 #&gt;    id    date       value difference difference_inv
-#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>      </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>          </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> D10   2014-07-03 </span><span style='text-decoration: underline;'>2</span><span>076.     </span><span style='color: #BB0000;'>NA</span><span>              </span><span style='text-decoration: underline;'>2</span><span>076.
-#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> D10   2014-07-04 </span><span style='text-decoration: underline;'>2</span><span>073.     -</span><span style='color: #BB0000;'>2.80</span><span>           </span><span style='text-decoration: underline;'>2</span><span>073.
-#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> D10   2014-07-05 </span><span style='text-decoration: underline;'>2</span><span>049.    -</span><span style='color: #BB0000;'>24.7</span><span>            </span><span style='text-decoration: underline;'>2</span><span>049.
-#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> D10   2014-07-06 </span><span style='text-decoration: underline;'>2</span><span>049.      0.200          </span><span style='text-decoration: underline;'>2</span><span>049.
-#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> D10   2014-07-07 </span><span style='text-decoration: underline;'>2</span><span>006.    -</span><span style='color: #BB0000;'>42.5</span><span>            </span><span style='text-decoration: underline;'>2</span><span>006.
-#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> D10   2014-07-08 </span><span style='text-decoration: underline;'>2</span><span>018.     11.2            </span><span style='text-decoration: underline;'>2</span><span>018.
-#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> D10   2014-07-09 </span><span style='text-decoration: underline;'>2</span><span>019.      1.5            </span><span style='text-decoration: underline;'>2</span><span>019.
-#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> D10   2014-07-10 </span><span style='text-decoration: underline;'>2</span><span>007.    -</span><span style='color: #BB0000;'>11.7</span><span>            </span><span style='text-decoration: underline;'>2</span><span>007.
-#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> D10   2014-07-11 </span><span style='text-decoration: underline;'>2</span><span>010       2.60           </span><span style='text-decoration: underline;'>2</span><span>010 
-#&gt; </span><span style='color: #BCBCBC;'>10</span><span> D10   2014-07-12 </span><span style='text-decoration: underline;'>2</span><span>002.     -</span><span style='color: #BB0000;'>8.5</span><span>            </span><span style='text-decoration: underline;'>2</span><span>002.
-#&gt; </span><span style='color: #949494;'># … with 9,733 more rows</span><span></div><div class='input'>
+#&gt;    <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>          <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
+#&gt; <span style='color: #BCBCBC;'> 1</span> D10   2014-07-03 <span style='text-decoration: underline;'>2</span>076.     <span style='color: #BB0000;'>NA</span>              <span style='text-decoration: underline;'>2</span>076.
+#&gt; <span style='color: #BCBCBC;'> 2</span> D10   2014-07-04 <span style='text-decoration: underline;'>2</span>073.     -<span style='color: #BB0000;'>2.80</span>           <span style='text-decoration: underline;'>2</span>073.
+#&gt; <span style='color: #BCBCBC;'> 3</span> D10   2014-07-05 <span style='text-decoration: underline;'>2</span>049.    -<span style='color: #BB0000;'>24.7</span>            <span style='text-decoration: underline;'>2</span>049.
+#&gt; <span style='color: #BCBCBC;'> 4</span> D10   2014-07-06 <span style='text-decoration: underline;'>2</span>049.      0.200          <span style='text-decoration: underline;'>2</span>049.
+#&gt; <span style='color: #BCBCBC;'> 5</span> D10   2014-07-07 <span style='text-decoration: underline;'>2</span>006.    -<span style='color: #BB0000;'>42.5</span>            <span style='text-decoration: underline;'>2</span>006.
+#&gt; <span style='color: #BCBCBC;'> 6</span> D10   2014-07-08 <span style='text-decoration: underline;'>2</span>018.     11.2            <span style='text-decoration: underline;'>2</span>018.
+#&gt; <span style='color: #BCBCBC;'> 7</span> D10   2014-07-09 <span style='text-decoration: underline;'>2</span>019.      1.5            <span style='text-decoration: underline;'>2</span>019.
+#&gt; <span style='color: #BCBCBC;'> 8</span> D10   2014-07-10 <span style='text-decoration: underline;'>2</span>007.    -<span style='color: #BB0000;'>11.7</span>            <span style='text-decoration: underline;'>2</span>007.
+#&gt; <span style='color: #BCBCBC;'> 9</span> D10   2014-07-11 <span style='text-decoration: underline;'>2</span>010       2.60           <span style='text-decoration: underline;'>2</span>010 
+#&gt; <span style='color: #BCBCBC;'>10</span> D10   2014-07-12 <span style='text-decoration: underline;'>2</span>002.     -<span style='color: #BB0000;'>8.5</span>            <span style='text-decoration: underline;'>2</span>002.
+#&gt; <span style='color: #949494;'># … with 9,733 more rows</span></div><div class='input'>
 
 
-</div></span></pre>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

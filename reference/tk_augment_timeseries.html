@@ -100,7 +100,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa-home"></span>
+    <span class="fa fa-home"></span>
      
   </a>
 </li>
@@ -162,7 +162,7 @@
     <li class="dropdown-header">API Functions</li>
     <li>
       <a href="../reference/index.html">
-        <span class="fas fa-home"></span>
+        <span class="fa fa-home"></span>
          
         Function Reference
       </a>
@@ -217,7 +217,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/business-science/timetk">
-    <span class="fas fa-github"></span>
+    <span class="fa fa-github"></span>
      
   </a>
 </li>
@@ -295,26 +295,26 @@ If <code>NULL</code>, the time-based column will interpret from the object (tibb
 <span class='va'>m4_daily</span> <span class='op'>%&gt;%</span>
     <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>id</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
     <span class='fu'>tk_augment_timeseries_signature</span><span class='op'>(</span><span class='va'>date</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 9,743 x 31</span><span>
-#&gt; </span><span style='color: #949494;'># Groups:   id [4]</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 9,743 x 31</span>
+#&gt; <span style='color: #949494;'># Groups:   id [4]</span>
 #&gt;    id    date       value  index.num  diff  year year.iso  half quarter month
-#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>      </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>    </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> D10   2014-07-03 </span><span style='text-decoration: underline;'>2</span><span>076. </span><span style='text-decoration: underline;'>1</span><span>404</span><span style='text-decoration: underline;'>345</span><span>600    </span><span style='color: #BB0000;'>NA</span><span>  </span><span style='text-decoration: underline;'>2</span><span>014     </span><span style='text-decoration: underline;'>2</span><span>014     2       3     7
-#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> D10   2014-07-04 </span><span style='text-decoration: underline;'>2</span><span>073. </span><span style='text-decoration: underline;'>1</span><span>404</span><span style='text-decoration: underline;'>432</span><span>000 </span><span style='text-decoration: underline;'>86</span><span>400  </span><span style='text-decoration: underline;'>2</span><span>014     </span><span style='text-decoration: underline;'>2</span><span>014     2       3     7
-#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> D10   2014-07-05 </span><span style='text-decoration: underline;'>2</span><span>049. </span><span style='text-decoration: underline;'>1</span><span>404</span><span style='text-decoration: underline;'>518</span><span>400 </span><span style='text-decoration: underline;'>86</span><span>400  </span><span style='text-decoration: underline;'>2</span><span>014     </span><span style='text-decoration: underline;'>2</span><span>014     2       3     7
-#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> D10   2014-07-06 </span><span style='text-decoration: underline;'>2</span><span>049. </span><span style='text-decoration: underline;'>1</span><span>404</span><span style='text-decoration: underline;'>604</span><span>800 </span><span style='text-decoration: underline;'>86</span><span>400  </span><span style='text-decoration: underline;'>2</span><span>014     </span><span style='text-decoration: underline;'>2</span><span>014     2       3     7
-#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> D10   2014-07-07 </span><span style='text-decoration: underline;'>2</span><span>006. </span><span style='text-decoration: underline;'>1</span><span>404</span><span style='text-decoration: underline;'>691</span><span>200 </span><span style='text-decoration: underline;'>86</span><span>400  </span><span style='text-decoration: underline;'>2</span><span>014     </span><span style='text-decoration: underline;'>2</span><span>014     2       3     7
-#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> D10   2014-07-08 </span><span style='text-decoration: underline;'>2</span><span>018. </span><span style='text-decoration: underline;'>1</span><span>404</span><span style='text-decoration: underline;'>777</span><span>600 </span><span style='text-decoration: underline;'>86</span><span>400  </span><span style='text-decoration: underline;'>2</span><span>014     </span><span style='text-decoration: underline;'>2</span><span>014     2       3     7
-#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> D10   2014-07-09 </span><span style='text-decoration: underline;'>2</span><span>019. </span><span style='text-decoration: underline;'>1</span><span>404</span><span style='text-decoration: underline;'>864</span><span>000 </span><span style='text-decoration: underline;'>86</span><span>400  </span><span style='text-decoration: underline;'>2</span><span>014     </span><span style='text-decoration: underline;'>2</span><span>014     2       3     7
-#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> D10   2014-07-10 </span><span style='text-decoration: underline;'>2</span><span>007. </span><span style='text-decoration: underline;'>1</span><span>404</span><span style='text-decoration: underline;'>950</span><span>400 </span><span style='text-decoration: underline;'>86</span><span>400  </span><span style='text-decoration: underline;'>2</span><span>014     </span><span style='text-decoration: underline;'>2</span><span>014     2       3     7
-#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> D10   2014-07-11 </span><span style='text-decoration: underline;'>2</span><span>010  </span><span style='text-decoration: underline;'>1</span><span>405</span><span style='text-decoration: underline;'>036</span><span>800 </span><span style='text-decoration: underline;'>86</span><span>400  </span><span style='text-decoration: underline;'>2</span><span>014     </span><span style='text-decoration: underline;'>2</span><span>014     2       3     7
-#&gt; </span><span style='color: #BCBCBC;'>10</span><span> D10   2014-07-12 </span><span style='text-decoration: underline;'>2</span><span>002. </span><span style='text-decoration: underline;'>1</span><span>405</span><span style='text-decoration: underline;'>123</span><span>200 </span><span style='text-decoration: underline;'>86</span><span>400  </span><span style='text-decoration: underline;'>2</span><span>014     </span><span style='text-decoration: underline;'>2</span><span>014     2       3     7
-#&gt; </span><span style='color: #949494;'># … with 9,733 more rows, and 21 more variables: month.xts &lt;int&gt;,</span><span>
-#&gt; </span><span style='color: #949494;'>#   month.lbl &lt;ord&gt;, day &lt;int&gt;, hour &lt;int&gt;, minute &lt;int&gt;, second &lt;int&gt;,</span><span>
-#&gt; </span><span style='color: #949494;'>#   hour12 &lt;int&gt;, am.pm &lt;int&gt;, wday &lt;int&gt;, wday.xts &lt;int&gt;, wday.lbl &lt;ord&gt;,</span><span>
-#&gt; </span><span style='color: #949494;'>#   mday &lt;int&gt;, qday &lt;int&gt;, yday &lt;int&gt;, mweek &lt;int&gt;, week &lt;int&gt;,</span><span>
-#&gt; </span><span style='color: #949494;'>#   week.iso &lt;int&gt;, week2 &lt;int&gt;, week3 &lt;int&gt;, week4 &lt;int&gt;, mday7 &lt;int&gt;</span><span></div><div class='input'>
-</div></span></pre>
+#&gt;    <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>
+#&gt; <span style='color: #BCBCBC;'> 1</span> D10   2014-07-03 <span style='text-decoration: underline;'>2</span>076. <span style='text-decoration: underline;'>1</span>404<span style='text-decoration: underline;'>345</span>600    <span style='color: #BB0000;'>NA</span>  <span style='text-decoration: underline;'>2</span>014     <span style='text-decoration: underline;'>2</span>014     2       3     7
+#&gt; <span style='color: #BCBCBC;'> 2</span> D10   2014-07-04 <span style='text-decoration: underline;'>2</span>073. <span style='text-decoration: underline;'>1</span>404<span style='text-decoration: underline;'>432</span>000 <span style='text-decoration: underline;'>86</span>400  <span style='text-decoration: underline;'>2</span>014     <span style='text-decoration: underline;'>2</span>014     2       3     7
+#&gt; <span style='color: #BCBCBC;'> 3</span> D10   2014-07-05 <span style='text-decoration: underline;'>2</span>049. <span style='text-decoration: underline;'>1</span>404<span style='text-decoration: underline;'>518</span>400 <span style='text-decoration: underline;'>86</span>400  <span style='text-decoration: underline;'>2</span>014     <span style='text-decoration: underline;'>2</span>014     2       3     7
+#&gt; <span style='color: #BCBCBC;'> 4</span> D10   2014-07-06 <span style='text-decoration: underline;'>2</span>049. <span style='text-decoration: underline;'>1</span>404<span style='text-decoration: underline;'>604</span>800 <span style='text-decoration: underline;'>86</span>400  <span style='text-decoration: underline;'>2</span>014     <span style='text-decoration: underline;'>2</span>014     2       3     7
+#&gt; <span style='color: #BCBCBC;'> 5</span> D10   2014-07-07 <span style='text-decoration: underline;'>2</span>006. <span style='text-decoration: underline;'>1</span>404<span style='text-decoration: underline;'>691</span>200 <span style='text-decoration: underline;'>86</span>400  <span style='text-decoration: underline;'>2</span>014     <span style='text-decoration: underline;'>2</span>014     2       3     7
+#&gt; <span style='color: #BCBCBC;'> 6</span> D10   2014-07-08 <span style='text-decoration: underline;'>2</span>018. <span style='text-decoration: underline;'>1</span>404<span style='text-decoration: underline;'>777</span>600 <span style='text-decoration: underline;'>86</span>400  <span style='text-decoration: underline;'>2</span>014     <span style='text-decoration: underline;'>2</span>014     2       3     7
+#&gt; <span style='color: #BCBCBC;'> 7</span> D10   2014-07-09 <span style='text-decoration: underline;'>2</span>019. <span style='text-decoration: underline;'>1</span>404<span style='text-decoration: underline;'>864</span>000 <span style='text-decoration: underline;'>86</span>400  <span style='text-decoration: underline;'>2</span>014     <span style='text-decoration: underline;'>2</span>014     2       3     7
+#&gt; <span style='color: #BCBCBC;'> 8</span> D10   2014-07-10 <span style='text-decoration: underline;'>2</span>007. <span style='text-decoration: underline;'>1</span>404<span style='text-decoration: underline;'>950</span>400 <span style='text-decoration: underline;'>86</span>400  <span style='text-decoration: underline;'>2</span>014     <span style='text-decoration: underline;'>2</span>014     2       3     7
+#&gt; <span style='color: #BCBCBC;'> 9</span> D10   2014-07-11 <span style='text-decoration: underline;'>2</span>010  <span style='text-decoration: underline;'>1</span>405<span style='text-decoration: underline;'>036</span>800 <span style='text-decoration: underline;'>86</span>400  <span style='text-decoration: underline;'>2</span>014     <span style='text-decoration: underline;'>2</span>014     2       3     7
+#&gt; <span style='color: #BCBCBC;'>10</span> D10   2014-07-12 <span style='text-decoration: underline;'>2</span>002. <span style='text-decoration: underline;'>1</span>405<span style='text-decoration: underline;'>123</span>200 <span style='text-decoration: underline;'>86</span>400  <span style='text-decoration: underline;'>2</span>014     <span style='text-decoration: underline;'>2</span>014     2       3     7
+#&gt; <span style='color: #949494;'># … with 9,733 more rows, and 21 more variables: month.xts &lt;int&gt;,</span>
+#&gt; <span style='color: #949494;'>#   month.lbl &lt;ord&gt;, day &lt;int&gt;, hour &lt;int&gt;, minute &lt;int&gt;, second &lt;int&gt;,</span>
+#&gt; <span style='color: #949494;'>#   hour12 &lt;int&gt;, am.pm &lt;int&gt;, wday &lt;int&gt;, wday.xts &lt;int&gt;, wday.lbl &lt;ord&gt;,</span>
+#&gt; <span style='color: #949494;'>#   mday &lt;int&gt;, qday &lt;int&gt;, yday &lt;int&gt;, mweek &lt;int&gt;, week &lt;int&gt;,</span>
+#&gt; <span style='color: #949494;'>#   week.iso &lt;int&gt;, week2 &lt;int&gt;, week3 &lt;int&gt;, week4 &lt;int&gt;, mday7 &lt;int&gt;</span></div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

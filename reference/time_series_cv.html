@@ -104,7 +104,7 @@ of the cross validation on the most recent time series data." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa-home"></span>
+    <span class="fa fa-home"></span>
      
   </a>
 </li>
@@ -166,7 +166,7 @@ of the cross validation on the most recent time series data." />
     <li class="dropdown-header">API Functions</li>
     <li>
       <a href="../reference/index.html">
-        <span class="fas fa-home"></span>
+        <span class="fa fa-home"></span>
          
         Function Reference
       </a>
@@ -221,7 +221,7 @@ of the cross validation on the most recent time series data." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/business-science/timetk">
-    <span class="fas fa-github"></span>
+    <span class="fa fa-github"></span>
      
   </a>
 </li>
@@ -387,30 +387,30 @@ split containing a training/testing sample.</p></li>
 </div><div class='output co'>#&gt; <span class='message'>Using date_var: date</span></div><div class='input'>
 <span class='va'>resample_spec</span>
 </div><div class='output co'>#&gt; # Time Series Cross Validation Plan 
-#&gt; <span style='color: #949494;'># A tibble: 3 x 2</span><span>
+#&gt; <span style='color: #949494;'># A tibble: 3 x 2</span>
 #&gt;   splits          id    
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;list&gt;</span><span>          </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> 
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> </span><span style='color: #949494;'>&lt;split [72/24]&gt;</span><span> Slice1
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span> </span><span style='color: #949494;'>&lt;split [72/24]&gt;</span><span> Slice2
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span> </span><span style='color: #949494;'>&lt;split [72/24]&gt;</span><span> Slice3</div><div class='input'>
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>          <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> 
+#&gt; <span style='color: #BCBCBC;'>1</span> <span style='color: #949494;'>&lt;split [72/24]&gt;</span> Slice1
+#&gt; <span style='color: #BCBCBC;'>2</span> <span style='color: #949494;'>&lt;split [72/24]&gt;</span> Slice2
+#&gt; <span style='color: #BCBCBC;'>3</span> <span style='color: #949494;'>&lt;split [72/24]&gt;</span> Slice3</div><div class='input'>
 <span class='co'># VISUALIZE CV PLAN ----</span>
 
 <span class='co'># Select date and value columns from the tscv diagnostic tool</span>
 <span class='va'>resample_spec</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='tk_time_series_cv_plan.html'>tk_time_series_cv_plan</a></span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 288 x 5</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 288 x 5</span>
 #&gt;    .id    .key     id    date       value
-#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span>    </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> Slice1 training M750  2007-07-01  </span><span style='text-decoration: underline;'>8</span><span>710
-#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> Slice1 training M750  2007-08-01  </span><span style='text-decoration: underline;'>8</span><span>300
-#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> Slice1 training M750  2007-09-01  </span><span style='text-decoration: underline;'>8</span><span>910
-#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> Slice1 training M750  2007-10-01  </span><span style='text-decoration: underline;'>9</span><span>710
-#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> Slice1 training M750  2007-11-01  </span><span style='text-decoration: underline;'>9</span><span>870
-#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> Slice1 training M750  2007-12-01  </span><span style='text-decoration: underline;'>9</span><span>980
-#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> Slice1 training M750  2008-01-01  </span><span style='text-decoration: underline;'>9</span><span>970
-#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> Slice1 training M750  2008-02-01  </span><span style='text-decoration: underline;'>9</span><span>970
-#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> Slice1 training M750  2008-03-01 </span><span style='text-decoration: underline;'>10</span><span>120
-#&gt; </span><span style='color: #BCBCBC;'>10</span><span> Slice1 training M750  2008-04-01 </span><span style='text-decoration: underline;'>10</span><span>150
-#&gt; </span><span style='color: #949494;'># … with 278 more rows</span><span></div><div class='input'>
+#&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
+#&gt; <span style='color: #BCBCBC;'> 1</span> Slice1 training M750  2007-07-01  <span style='text-decoration: underline;'>8</span>710
+#&gt; <span style='color: #BCBCBC;'> 2</span> Slice1 training M750  2007-08-01  <span style='text-decoration: underline;'>8</span>300
+#&gt; <span style='color: #BCBCBC;'> 3</span> Slice1 training M750  2007-09-01  <span style='text-decoration: underline;'>8</span>910
+#&gt; <span style='color: #BCBCBC;'> 4</span> Slice1 training M750  2007-10-01  <span style='text-decoration: underline;'>9</span>710
+#&gt; <span style='color: #BCBCBC;'> 5</span> Slice1 training M750  2007-11-01  <span style='text-decoration: underline;'>9</span>870
+#&gt; <span style='color: #BCBCBC;'> 6</span> Slice1 training M750  2007-12-01  <span style='text-decoration: underline;'>9</span>980
+#&gt; <span style='color: #BCBCBC;'> 7</span> Slice1 training M750  2008-01-01  <span style='text-decoration: underline;'>9</span>970
+#&gt; <span style='color: #BCBCBC;'> 8</span> Slice1 training M750  2008-02-01  <span style='text-decoration: underline;'>9</span>970
+#&gt; <span style='color: #BCBCBC;'> 9</span> Slice1 training M750  2008-03-01 <span style='text-decoration: underline;'>10</span>120
+#&gt; <span style='color: #BCBCBC;'>10</span> Slice1 training M750  2008-04-01 <span style='text-decoration: underline;'>10</span>150
+#&gt; <span style='color: #949494;'># … with 278 more rows</span></div><div class='input'>
 <span class='co'># Plot the date and value columns to see the CV Plan</span>
 <span class='va'>resample_spec</span> <span class='op'>%&gt;%</span>
     <span class='fu'><a href='plot_time_series_cv_plan.html'>plot_time_series_cv_plan</a></span><span class='op'>(</span><span class='va'>date</span>, <span class='va'>value</span>, .interactive <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
@@ -433,17 +433,17 @@ split containing a training/testing sample.</p></li>
 </div><div class='output co'>#&gt; <span class='message'>Data is not ordered by the 'date_var'. Resamples will be arranged by `Date`.</span></div><div class='output co'>#&gt; <span class='message'>Overlapping Timestamps Detected. Processing overlapping time series together using sliding windows.</span></div><div class='input'>
 <span class='va'>walmart_tscv</span>
 </div><div class='output co'>#&gt; # Time Series Cross Validation Plan 
-#&gt; </span><span style='color: #949494;'># A tibble: 4 x 2</span><span>
+#&gt; <span style='color: #949494;'># A tibble: 4 x 2</span>
 #&gt;   splits           id    
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;list&gt;</span><span>           </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> 
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> </span><span style='color: #949494;'>&lt;split [364/84]&gt;</span><span> Slice1
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span> </span><span style='color: #949494;'>&lt;split [364/84]&gt;</span><span> Slice2
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span> </span><span style='color: #949494;'>&lt;split [364/84]&gt;</span><span> Slice3
-#&gt; </span><span style='color: #BCBCBC;'>4</span><span> </span><span style='color: #949494;'>&lt;split [364/84]&gt;</span><span> Slice4</div><div class='input'>
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>           <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> 
+#&gt; <span style='color: #BCBCBC;'>1</span> <span style='color: #949494;'>&lt;split [364/84]&gt;</span> Slice1
+#&gt; <span style='color: #BCBCBC;'>2</span> <span style='color: #949494;'>&lt;split [364/84]&gt;</span> Slice2
+#&gt; <span style='color: #BCBCBC;'>3</span> <span style='color: #949494;'>&lt;split [364/84]&gt;</span> Slice3
+#&gt; <span style='color: #BCBCBC;'>4</span> <span style='color: #949494;'>&lt;split [364/84]&gt;</span> Slice4</div><div class='input'>
 <span class='va'>walmart_tscv</span> <span class='op'>%&gt;%</span>
     <span class='fu'><a href='plot_time_series_cv_plan.html'>plot_time_series_cv_plan</a></span><span class='op'>(</span><span class='va'>Date</span>, <span class='va'>Weekly_Sales</span>, .interactive <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 </div><div class='img'><img src='time_series_cv-2.png' alt='' width='700' height='433' /></div><div class='input'>
-</div></span></pre>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

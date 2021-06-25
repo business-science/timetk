@@ -100,7 +100,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa-home"></span>
+    <span class="fa fa-home"></span>
      
   </a>
 </li>
@@ -162,7 +162,7 @@
     <li class="dropdown-header">API Functions</li>
     <li>
       <a href="../reference/index.html">
-        <span class="fas fa-home"></span>
+        <span class="fa fa-home"></span>
          
         Function Reference
       </a>
@@ -217,7 +217,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/business-science/timetk">
-    <span class="fas fa-github"></span>
+    <span class="fa fa-github"></span>
      
   </a>
 </li>
@@ -329,24 +329,24 @@ which is the original (non-regularized) time-based index.</p>
 #&gt; 5 120</div><div class='input'>
 <span class='co'># Defualt index returned is regularized numeric index</span>
 <span class='fu'>tk_tbl</span><span class='op'>(</span><span class='va'>data_ts</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 5 x 2</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 5 x 2</span>
 #&gt;   index     x
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> </span><span style='text-decoration: underline;'>2</span><span>010    100
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span> </span><span style='text-decoration: underline;'>2</span><span>010.   105
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span> </span><span style='text-decoration: underline;'>2</span><span>010.   110
-#&gt; </span><span style='color: #BCBCBC;'>4</span><span> </span><span style='text-decoration: underline;'>2</span><span>010.   115
-#&gt; </span><span style='color: #BCBCBC;'>5</span><span> </span><span style='text-decoration: underline;'>2</span><span>010.   120</div><div class='input'>
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
+#&gt; <span style='color: #BCBCBC;'>1</span> <span style='text-decoration: underline;'>2</span>010    100
+#&gt; <span style='color: #BCBCBC;'>2</span> <span style='text-decoration: underline;'>2</span>010.   105
+#&gt; <span style='color: #BCBCBC;'>3</span> <span style='text-decoration: underline;'>2</span>010.   110
+#&gt; <span style='color: #BCBCBC;'>4</span> <span style='text-decoration: underline;'>2</span>010.   115
+#&gt; <span style='color: #BCBCBC;'>5</span> <span style='text-decoration: underline;'>2</span>010.   120</div><div class='input'>
 <span class='co'># Original date index returned (Only possible if original data has time-based index)</span>
 <span class='fu'>tk_tbl</span><span class='op'>(</span><span class='va'>data_ts</span>, timetk_idx <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 5 x 2</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 5 x 2</span>
 #&gt;   index          x
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> 2010-01-01   100
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span> 2010-01-02   105
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span> 2010-01-03   110
-#&gt; </span><span style='color: #BCBCBC;'>4</span><span> 2010-01-04   115
-#&gt; </span><span style='color: #BCBCBC;'>5</span><span> 2010-01-05   120</div><div class='input'>
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
+#&gt; <span style='color: #BCBCBC;'>1</span> 2010-01-01   100
+#&gt; <span style='color: #BCBCBC;'>2</span> 2010-01-02   105
+#&gt; <span style='color: #BCBCBC;'>3</span> 2010-01-03   110
+#&gt; <span style='color: #BCBCBC;'>4</span> 2010-01-04   115
+#&gt; <span style='color: #BCBCBC;'>5</span> 2010-01-05   120</div><div class='input'>
 
 <span class='co'>### xts to tibble: Comparison between as.data.frame() and tk_tbl()</span>
 <span class='va'>data_xts</span> <span class='op'>&lt;-</span> <span class='fu'><a href='tk_xts.html'>tk_xts</a></span><span class='op'>(</span><span class='va'>data_tbl</span><span class='op'>)</span>
@@ -361,14 +361,14 @@ which is the original (non-regularized) time-based index.</p>
 #&gt; 2010-01-05 120</div><div class='input'>
 <span class='co'># Dates are appropriate date class and within the data frame</span>
 <span class='fu'>tk_tbl</span><span class='op'>(</span><span class='va'>data_xts</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 5 x 2</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 5 x 2</span>
 #&gt;   index          x
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> 2010-01-01   100
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span> 2010-01-02   105
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span> 2010-01-03   110
-#&gt; </span><span style='color: #BCBCBC;'>4</span><span> 2010-01-04   115
-#&gt; </span><span style='color: #BCBCBC;'>5</span><span> 2010-01-05   120</div><div class='input'>
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
+#&gt; <span style='color: #BCBCBC;'>1</span> 2010-01-01   100
+#&gt; <span style='color: #BCBCBC;'>2</span> 2010-01-02   105
+#&gt; <span style='color: #BCBCBC;'>3</span> 2010-01-03   110
+#&gt; <span style='color: #BCBCBC;'>4</span> 2010-01-04   115
+#&gt; <span style='color: #BCBCBC;'>5</span> 2010-01-05   120</div><div class='input'>
 
 <span class='co'>### zooreg to tibble: Comparison between as.data.frame() and tk_tbl()</span>
 <span class='va'>data_zooreg</span> <span class='op'>&lt;-</span> <span class='fu'><a href='tk_zooreg.html'>tk_zooreg</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>8</span>, start <span class='op'>=</span> <span class='fu'>zoo</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/zoo/man/yearqtr.html'>yearqtr</a></span><span class='op'>(</span><span class='fl'>2000</span><span class='op'>)</span>, frequency <span class='op'>=</span> <span class='fl'>4</span><span class='op'>)</span>
@@ -386,17 +386,17 @@ which is the original (non-regularized) time-based index.</p>
 #&gt; 2001 Q4           8</div><div class='input'>
 <span class='co'># Dates are appropriate zoo yearqtr class within the data frame</span>
 <span class='fu'>tk_tbl</span><span class='op'>(</span><span class='va'>data_zooreg</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 8 x 2</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 8 x 2</span>
 #&gt;   index     value
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;yearqtr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> 2000 Q1       1
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span> 2000 Q2       2
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span> 2000 Q3       3
-#&gt; </span><span style='color: #BCBCBC;'>4</span><span> 2000 Q4       4
-#&gt; </span><span style='color: #BCBCBC;'>5</span><span> 2001 Q1       5
-#&gt; </span><span style='color: #BCBCBC;'>6</span><span> 2001 Q2       6
-#&gt; </span><span style='color: #BCBCBC;'>7</span><span> 2001 Q3       7
-#&gt; </span><span style='color: #BCBCBC;'>8</span><span> 2001 Q4       8</div><div class='input'>
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;yearqtr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>
+#&gt; <span style='color: #BCBCBC;'>1</span> 2000 Q1       1
+#&gt; <span style='color: #BCBCBC;'>2</span> 2000 Q2       2
+#&gt; <span style='color: #BCBCBC;'>3</span> 2000 Q3       3
+#&gt; <span style='color: #BCBCBC;'>4</span> 2000 Q4       4
+#&gt; <span style='color: #BCBCBC;'>5</span> 2001 Q1       5
+#&gt; <span style='color: #BCBCBC;'>6</span> 2001 Q2       6
+#&gt; <span style='color: #BCBCBC;'>7</span> 2001 Q3       7
+#&gt; <span style='color: #BCBCBC;'>8</span> 2001 Q4       8</div><div class='input'>
 
 <span class='co'>### zoo to tibble: Comparison between as.data.frame() and tk_tbl()</span>
 <span class='va'>data_zoo</span> <span class='op'>&lt;-</span> <span class='fu'>zoo</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/zoo/man/zoo.html'>zoo</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>12</span>, <span class='fu'>zoo</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/zoo/man/yearmon.html'>yearmon</a></span><span class='op'>(</span><span class='fl'>2016</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>11</span><span class='op'>)</span><span class='op'>/</span><span class='fl'>12</span><span class='op'>)</span><span class='op'>)</span>
@@ -418,25 +418,25 @@ which is the original (non-regularized) time-based index.</p>
 #&gt; Dec 2016       12</div><div class='input'>
 <span class='co'># Dates are appropriate zoo yearmon class within the data frame</span>
 <span class='fu'>tk_tbl</span><span class='op'>(</span><span class='va'>data_zoo</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 12 x 2</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 12 x 2</span>
 #&gt;    index     value
-#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;yearmon&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> Jan 2016      1
-#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> Feb 2016      2
-#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> Mar 2016      3
-#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> Apr 2016      4
-#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> May 2016      5
-#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> Jun 2016      6
-#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> Jul 2016      7
-#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> Aug 2016      8
-#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> Sep 2016      9
-#&gt; </span><span style='color: #BCBCBC;'>10</span><span> Oct 2016     10
-#&gt; </span><span style='color: #BCBCBC;'>11</span><span> Nov 2016     11
-#&gt; </span><span style='color: #BCBCBC;'>12</span><span> Dec 2016     12</div><div class='input'>
+#&gt;    <span style='color: #949494; font-style: italic;'>&lt;yearmon&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>
+#&gt; <span style='color: #BCBCBC;'> 1</span> Jan 2016      1
+#&gt; <span style='color: #BCBCBC;'> 2</span> Feb 2016      2
+#&gt; <span style='color: #BCBCBC;'> 3</span> Mar 2016      3
+#&gt; <span style='color: #BCBCBC;'> 4</span> Apr 2016      4
+#&gt; <span style='color: #BCBCBC;'> 5</span> May 2016      5
+#&gt; <span style='color: #BCBCBC;'> 6</span> Jun 2016      6
+#&gt; <span style='color: #BCBCBC;'> 7</span> Jul 2016      7
+#&gt; <span style='color: #BCBCBC;'> 8</span> Aug 2016      8
+#&gt; <span style='color: #BCBCBC;'> 9</span> Sep 2016      9
+#&gt; <span style='color: #BCBCBC;'>10</span> Oct 2016     10
+#&gt; <span style='color: #BCBCBC;'>11</span> Nov 2016     11
+#&gt; <span style='color: #BCBCBC;'>12</span> Dec 2016     12</div><div class='input'>
 
 
 
-</div></span></pre>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

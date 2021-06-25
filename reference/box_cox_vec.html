@@ -103,7 +103,7 @@ The auto_lambda() helps in selecting the optimal lambda value." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa-home"></span>
+    <span class="fa fa-home"></span>
      
   </a>
 </li>
@@ -165,7 +165,7 @@ The auto_lambda() helps in selecting the optimal lambda value." />
     <li class="dropdown-header">API Functions</li>
     <li>
       <a href="../reference/index.html">
-        <span class="fas fa-home"></span>
+        <span class="fa fa-home"></span>
          
         Function Reference
       </a>
@@ -220,7 +220,7 @@ The auto_lambda() helps in selecting the optimal lambda value." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/business-science/timetk">
-    <span class="fas fa-github"></span>
+    <span class="fa fa-github"></span>
      
   </a>
 </li>
@@ -343,22 +343,22 @@ Use either of 2 methods:</p><ol>
 <span class='va'>m4_daily</span> <span class='op'>%&gt;%</span>
     <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>id</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
     <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>value_bc <span class='op'>=</span> <span class='fu'>box_cox_vec</span><span class='op'>(</span><span class='va'>value</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>box_cox_vec(): Using value for lambda: 1.25119350454964</span></div><div class='output co'>#&gt; <span class='message'>box_cox_vec(): Using value for lambda: 0.0882021886505848</span></div><div class='output co'>#&gt; <span class='message'>box_cox_vec(): Using value for lambda: 1.99992424816297</span></div><div class='output co'>#&gt; <span class='message'>box_cox_vec(): Using value for lambda: 0.401716085353735</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 9,743 x 4</span><span>
-#&gt; </span><span style='color: #949494;'># Groups:   id [4]</span><span>
+</div><div class='output co'>#&gt; <span class='message'>box_cox_vec(): Using value for lambda: 1.25119350454964</span></div><div class='output co'>#&gt; <span class='message'>box_cox_vec(): Using value for lambda: 0.0882021886505848</span></div><div class='output co'>#&gt; <span class='message'>box_cox_vec(): Using value for lambda: 1.99992424816297</span></div><div class='output co'>#&gt; <span class='message'>box_cox_vec(): Using value for lambda: 0.401716085353735</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 9,743 x 4</span>
+#&gt; <span style='color: #949494;'># Groups:   id [4]</span>
 #&gt;    id    date       value value_bc
-#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>    </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> D10   2014-07-03 </span><span style='text-decoration: underline;'>2</span><span>076.   </span><span style='text-decoration: underline;'>11</span><span>303.
-#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> D10   2014-07-04 </span><span style='text-decoration: underline;'>2</span><span>073.   </span><span style='text-decoration: underline;'>11</span><span>284.
-#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> D10   2014-07-05 </span><span style='text-decoration: underline;'>2</span><span>049.   </span><span style='text-decoration: underline;'>11</span><span>116.
-#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> D10   2014-07-06 </span><span style='text-decoration: underline;'>2</span><span>049.   </span><span style='text-decoration: underline;'>11</span><span>117.
-#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> D10   2014-07-07 </span><span style='text-decoration: underline;'>2</span><span>006.   </span><span style='text-decoration: underline;'>10</span><span>829.
-#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> D10   2014-07-08 </span><span style='text-decoration: underline;'>2</span><span>018.   </span><span style='text-decoration: underline;'>10</span><span>905.
-#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> D10   2014-07-09 </span><span style='text-decoration: underline;'>2</span><span>019.   </span><span style='text-decoration: underline;'>10</span><span>915.
-#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> D10   2014-07-10 </span><span style='text-decoration: underline;'>2</span><span>007.   </span><span style='text-decoration: underline;'>10</span><span>836.
-#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> D10   2014-07-11 </span><span style='text-decoration: underline;'>2</span><span>010    </span><span style='text-decoration: underline;'>10</span><span>854.
-#&gt; </span><span style='color: #BCBCBC;'>10</span><span> D10   2014-07-12 </span><span style='text-decoration: underline;'>2</span><span>002.   </span><span style='text-decoration: underline;'>10</span><span>796.
-#&gt; </span><span style='color: #949494;'># … with 9,733 more rows</span><span></div><div class='input'>
-</div></span></pre>
+#&gt;    <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
+#&gt; <span style='color: #BCBCBC;'> 1</span> D10   2014-07-03 <span style='text-decoration: underline;'>2</span>076.   <span style='text-decoration: underline;'>11</span>303.
+#&gt; <span style='color: #BCBCBC;'> 2</span> D10   2014-07-04 <span style='text-decoration: underline;'>2</span>073.   <span style='text-decoration: underline;'>11</span>284.
+#&gt; <span style='color: #BCBCBC;'> 3</span> D10   2014-07-05 <span style='text-decoration: underline;'>2</span>049.   <span style='text-decoration: underline;'>11</span>116.
+#&gt; <span style='color: #BCBCBC;'> 4</span> D10   2014-07-06 <span style='text-decoration: underline;'>2</span>049.   <span style='text-decoration: underline;'>11</span>117.
+#&gt; <span style='color: #BCBCBC;'> 5</span> D10   2014-07-07 <span style='text-decoration: underline;'>2</span>006.   <span style='text-decoration: underline;'>10</span>829.
+#&gt; <span style='color: #BCBCBC;'> 6</span> D10   2014-07-08 <span style='text-decoration: underline;'>2</span>018.   <span style='text-decoration: underline;'>10</span>905.
+#&gt; <span style='color: #BCBCBC;'> 7</span> D10   2014-07-09 <span style='text-decoration: underline;'>2</span>019.   <span style='text-decoration: underline;'>10</span>915.
+#&gt; <span style='color: #BCBCBC;'> 8</span> D10   2014-07-10 <span style='text-decoration: underline;'>2</span>007.   <span style='text-decoration: underline;'>10</span>836.
+#&gt; <span style='color: #BCBCBC;'> 9</span> D10   2014-07-11 <span style='text-decoration: underline;'>2</span>010    <span style='text-decoration: underline;'>10</span>854.
+#&gt; <span style='color: #BCBCBC;'>10</span> D10   2014-07-12 <span style='text-decoration: underline;'>2</span>002.   <span style='text-decoration: underline;'>10</span>796.
+#&gt; <span style='color: #949494;'># … with 9,733 more rows</span></div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
