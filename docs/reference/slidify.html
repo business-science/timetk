@@ -101,7 +101,7 @@ rolling (sliding) .period specified by the user." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home"></span>
+    <span class="fas fa-home"></span>
      
   </a>
 </li>
@@ -163,7 +163,7 @@ rolling (sliding) .period specified by the user." />
     <li class="dropdown-header">API Functions</li>
     <li>
       <a href="../reference/index.html">
-        <span class="fa fa-home"></span>
+        <span class="fas fa-home"></span>
          
         Function Reference
       </a>
@@ -218,7 +218,7 @@ rolling (sliding) .period specified by the user." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/business-science/timetk">
-    <span class="fa fa-github"></span>
+    <span class="fas fa-github"></span>
      
   </a>
 </li>
@@ -380,7 +380,7 @@ to rolling windows.</p></li>
 #&gt; <span style='color: #BCBCBC;'> 8</span> FB     2013-01-11  31.3  32.0  31.1  31.7  89<span style='text-decoration: underline;'>598</span>000     31.7           30.4
 #&gt; <span style='color: #BCBCBC;'> 9</span> FB     2013-01-14  32.1  32.2  30.6  31.0  98<span style='text-decoration: underline;'>892</span>800     31.0           30.7
 #&gt; <span style='color: #BCBCBC;'>10</span> FB     2013-01-15  30.6  31.7  29.9  30.1 173<span style='text-decoration: underline;'>242</span>600     30.1           30.9
-#&gt; <span style='color: #949494;'># ... with 998 more rows</span></div><div class='input'>
+#&gt; <span style='color: #949494;'># … with 998 more rows</span></div><div class='input'>
 <span class='co'># Use `partial = TRUE` to allow partial windows (those with less than the full .period)</span>
 <span class='va'>mean_roll_5_partial</span> <span class='op'>&lt;-</span> <span class='fu'>slidify</span><span class='op'>(</span><span class='va'>mean</span>, .period <span class='op'>=</span> <span class='fl'>5</span>, .align <span class='op'>=</span> <span class='st'>"right"</span>, .partial <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 
@@ -399,7 +399,7 @@ to rolling windows.</p></li>
 #&gt; <span style='color: #BCBCBC;'> 8</span> FB     2013-01-11  31.3  32.0  31.1  31.7  89<span style='text-decoration: underline;'>598</span>000     31.7           30.4
 #&gt; <span style='color: #BCBCBC;'> 9</span> FB     2013-01-14  32.1  32.2  30.6  31.0  98<span style='text-decoration: underline;'>892</span>800     31.0           30.7
 #&gt; <span style='color: #BCBCBC;'>10</span> FB     2013-01-15  30.6  31.7  29.9  30.1 173<span style='text-decoration: underline;'>242</span>600     30.1           30.9
-#&gt; <span style='color: #949494;'># ... with 998 more rows</span></div><div class='input'>
+#&gt; <span style='color: #949494;'># … with 998 more rows</span></div><div class='input'>
 <span class='co'># There's nothing stopping you from combining multiple rolling functions with</span>
 <span class='co'># different .period sizes in the same mutate call</span>
 
@@ -424,7 +424,7 @@ to rolling windows.</p></li>
 #&gt; <span style='color: #BCBCBC;'> 8</span> FB     2013-01-11     31.7           30.4            <span style='color: #BB0000;'>NA</span>  
 #&gt; <span style='color: #BCBCBC;'> 9</span> FB     2013-01-14     31.0           30.7            <span style='color: #BB0000;'>NA</span>  
 #&gt; <span style='color: #BCBCBC;'>10</span> FB     2013-01-15     30.1           30.9            29.8
-#&gt; <span style='color: #949494;'># ... with 998 more rows</span></div><div class='input'>
+#&gt; <span style='color: #949494;'># … with 998 more rows</span></div><div class='input'>
 <span class='co'># For summary operations like rolling means, we can accomplish large-scale</span>
 <span class='co'># multi-rolls with tk_augment_slidify()</span>
 
@@ -447,7 +447,7 @@ to rolling windows.</p></li>
 #&gt; <span style='color: #BCBCBC;'> 8</span> FB     2013-01-11     31.7  30.4  30.1  29.8  29.6  <span style='color: #BB0000;'>NA</span>    <span style='color: #BB0000;'>NA</span>  
 #&gt; <span style='color: #BCBCBC;'> 9</span> FB     2013-01-14     31.0  30.7  30.5  30.3  29.9  29.7  <span style='color: #BB0000;'>NA</span>  
 #&gt; <span style='color: #BCBCBC;'>10</span> FB     2013-01-15     30.1  30.9  30.6  30.4  30.2  30.0  29.8
-#&gt; <span style='color: #949494;'># ... with 998 more rows</span></div><div class='input'>
+#&gt; <span style='color: #949494;'># … with 998 more rows</span></div><div class='input'>
 <span class='co'># --- GROUPS AND ROLLING ----</span>
 
 <span class='co'># One of the most powerful things about this is that it works with</span>
@@ -506,7 +506,7 @@ to rolling windows.</p></li>
 #&gt; <span style='color: #BCBCBC;'> 8</span> FB     2013-01-11  31.3  32.0  31.1  31.7  89<span style='text-decoration: underline;'>598</span>000     31.7       0.884
 #&gt; <span style='color: #BCBCBC;'> 9</span> FB     2013-01-14  32.1  32.2  30.6  31.0  98<span style='text-decoration: underline;'>892</span>800     31.0       0.667
 #&gt; <span style='color: #BCBCBC;'>10</span> FB     2013-01-15  30.6  31.7  29.9  30.1 173<span style='text-decoration: underline;'>242</span>600     30.1       0.379
-#&gt; <span style='color: #949494;'># ... with 998 more rows</span></div><div class='input'>
+#&gt; <span style='color: #949494;'># … with 998 more rows</span></div><div class='input'>
 <span class='co'># With &gt;2 args, create an anonymous function with &gt;2 args or use</span>
 <span class='co'># the purrr convention of ..1, ..2, ..3 to refer to the arguments</span>
 <span class='va'>avg_of_avgs</span> <span class='op'>&lt;-</span> <span class='fu'>slidify</span><span class='op'>(</span>
@@ -537,7 +537,7 @@ to rolling windows.</p></li>
 #&gt; <span style='color: #BCBCBC;'> 8</span> FB     2013-01-11  31.3  32.0  31.1  31.7  89<span style='text-decoration: underline;'>598</span>000     31.7        <span style='color: #BB0000;'>NA</span>  
 #&gt; <span style='color: #BCBCBC;'> 9</span> FB     2013-01-14  32.1  32.2  30.6  31.0  98<span style='text-decoration: underline;'>892</span>800     31.0        <span style='color: #BB0000;'>NA</span>  
 #&gt; <span style='color: #BCBCBC;'>10</span> FB     2013-01-15  30.6  31.7  29.9  30.1 173<span style='text-decoration: underline;'>242</span>600     30.1        29.7
-#&gt; <span style='color: #949494;'># ... with 998 more rows</span></div><div class='input'>
+#&gt; <span style='color: #949494;'># … with 998 more rows</span></div><div class='input'>
 <span class='co'># Optional arguments MUST be passed at the creation of the rolling function</span>
 <span class='co'># Only data arguments that are "rolled over" are allowed when calling the</span>
 <span class='co'># rolling version of the function</span>
@@ -560,7 +560,7 @@ to rolling windows.</p></li>
 #&gt; <span style='color: #BCBCBC;'> 8</span> FB     2013-01-11  31.3  32.0  31.1  31.7  89<span style='text-decoration: underline;'>598</span>000     31.7      30.4
 #&gt; <span style='color: #BCBCBC;'> 9</span> FB     2013-01-14  32.1  32.2  30.6  31.0  98<span style='text-decoration: underline;'>892</span>800     31.0      30.7
 #&gt; <span style='color: #BCBCBC;'>10</span> FB     2013-01-15  30.6  31.7  29.9  30.1 173<span style='text-decoration: underline;'>242</span>600     30.1      30.9
-#&gt; <span style='color: #949494;'># ... with 998 more rows</span></div><div class='input'>
+#&gt; <span style='color: #949494;'># … with 998 more rows</span></div><div class='input'>
 
 <span class='co'># --- ROLLING REGRESSIONS ----</span>
 
@@ -585,7 +585,7 @@ to rolling windows.</p></li>
 #&gt; <span style='color: #BCBCBC;'> 8</span> FB     2013-05-22  25.6  25.8  24.9  25.2 45<span style='text-decoration: underline;'>314</span>500     25.2        <span style='text-decoration: underline;'>15</span>847
 #&gt; <span style='color: #BCBCBC;'> 9</span> FB     2013-05-23  24.8  25.5  24.8  25.1 37<span style='text-decoration: underline;'>663</span>100     25.1        <span style='text-decoration: underline;'>15</span>848
 #&gt; <span style='color: #BCBCBC;'>10</span> FB     2013-05-24  25.0  25.0  24.1  24.3 58<span style='text-decoration: underline;'>727</span>900     24.3        <span style='text-decoration: underline;'>15</span>849
-#&gt; <span style='color: #949494;'># ... with 908 more rows, and 1 more variable: rolling_lm &lt;list&gt;</span></div><div class='input'>
+#&gt; <span style='color: #949494;'># … with 908 more rows, and 1 more variable: rolling_lm &lt;list&gt;</span></div><div class='input'>
 
 
 

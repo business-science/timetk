@@ -53,7 +53,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fa fa-home"></span>
+    <span class="fas fa-home"></span>
      
   </a>
 </li>
@@ -115,7 +115,7 @@
 <li class="dropdown-header">API Functions</li>
     <li>
       <a href="../reference/index.html">
-        <span class="fa fa-home"></span>
+        <span class="fas fa-home"></span>
          
         Function Reference
       </a>
@@ -170,7 +170,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/business-science/timetk">
-    <span class="fa fa-github"></span>
+    <span class="fas fa-github"></span>
      
   </a>
 </li>
@@ -184,14 +184,14 @@
 
       
 
-      </header><script src="TK01_Working_With_Time_Series_Index_files/header-attrs-2.9/header-attrs.js"></script><div class="row">
+      </header><script src="TK01_Working_With_Time_Series_Index_files/header-attrs-2.8/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>What is the Time Series Signature?</h1>
             <h3 class="subtitle">And the timestamp index, and the time series summary?</h3>
                         <h4 class="author">Matt Dancho</h4>
             
-            <h4 class="date">2021-06-25</h4>
+            <h4 class="date">2021-06-26</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/business-science/timetk/blob/master/vignettes/TK01_Working_With_Time_Series_Index.Rmd"><code>vignettes/TK01_Working_With_Time_Series_Index.Rmd</code></a></small>
       <div class="hidden name"><code>TK01_Working_With_Time_Series_Index.Rmd</code></div>
@@ -243,7 +243,7 @@
 ##  8 FB     2013-01-11  31.3  32.0  31.1  31.7  89598000     31.7
 ##  9 FB     2013-01-14  32.1  32.2  30.6  31.0  98892800     31.0
 ## 10 FB     2013-01-15  30.6  31.7  29.9  30.1 173242600     30.1
-## # ... with 998 more rows</code></pre>
+## # … with 998 more rows</code></pre>
 <p>To simplify the tutorial, we will select only the “date” and “volume” columns. For the <code>FB_vol_date</code> data frame, we can see from the “date” column that the observations are <em>daily</em> beginning on the second day of 2013.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">FB_vol_date</span> <span class="op">&lt;-</span> <span class="va">FB_tbl</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">volume</span><span class="op">)</span>
@@ -261,7 +261,7 @@
 ##  8 2013-01-11  89598000
 ##  9 2013-01-14  98892800
 ## 10 2013-01-15 173242600
-## # ... with 998 more rows</code></pre>
+## # … with 998 more rows</code></pre>
 </div>
 <div id="time-series-index" class="section level1">
 <h1 class="hasAnchor">
@@ -366,7 +366,7 @@
 ##  8 2013-01-11 1357862400  86400  2013     2013     1       1     1         0
 ##  9 2013-01-14 1358121600 259200  2013     2013     1       1     1         0
 ## 10 2013-01-15 1358208000  86400  2013     2013     1       1     1         0
-## # ... with 998 more rows, and 20 more variables: month.lbl &lt;ord&gt;, day &lt;int&gt;,
+## # … with 998 more rows, and 20 more variables: month.lbl &lt;ord&gt;, day &lt;int&gt;,
 ## #   hour &lt;int&gt;, minute &lt;int&gt;, second &lt;int&gt;, hour12 &lt;int&gt;, am.pm &lt;int&gt;,
 ## #   wday &lt;int&gt;, wday.xts &lt;int&gt;, wday.lbl &lt;ord&gt;, mday &lt;int&gt;, qday &lt;int&gt;,
 ## #   yday &lt;int&gt;, mweek &lt;int&gt;, week &lt;int&gt;, week.iso &lt;int&gt;, week2 &lt;int&gt;,
@@ -393,7 +393,7 @@
 ##  8 2013-01-11  89598000 1357862400  86400  2013     2013     1       1     1
 ##  9 2013-01-14  98892800 1358121600 259200  2013     2013     1       1     1
 ## 10 2013-01-15 173242600 1358208000  86400  2013     2013     1       1     1
-## # ... with 998 more rows, and 21 more variables: month.xts &lt;int&gt;,
+## # … with 998 more rows, and 21 more variables: month.xts &lt;int&gt;,
 ## #   month.lbl &lt;ord&gt;, day &lt;int&gt;, hour &lt;int&gt;, minute &lt;int&gt;, second &lt;int&gt;,
 ## #   hour12 &lt;int&gt;, am.pm &lt;int&gt;, wday &lt;int&gt;, wday.xts &lt;int&gt;, wday.lbl &lt;ord&gt;,
 ## #   mday &lt;int&gt;, qday &lt;int&gt;, yday &lt;int&gt;, mweek &lt;int&gt;, week &lt;int&gt;,

@@ -101,7 +101,7 @@ It helps by automating frequency and trend selection." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home"></span>
+    <span class="fas fa-home"></span>
      
   </a>
 </li>
@@ -163,7 +163,7 @@ It helps by automating frequency and trend selection." />
     <li class="dropdown-header">API Functions</li>
     <li>
       <a href="../reference/index.html">
-        <span class="fa fa-home"></span>
+        <span class="fas fa-home"></span>
          
         Function Reference
       </a>
@@ -218,7 +218,7 @@ It helps by automating frequency and trend selection." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/business-science/timetk">
-    <span class="fa fa-github"></span>
+    <span class="fas fa-github"></span>
      
   </a>
 </li>
@@ -338,12 +338,12 @@ based on the scale of the time series.</p>
 #&gt; <span style='color: #BCBCBC;'> 8</span> D10   2014-07-10   <span style='text-decoration: underline;'>10</span>836.  -<span style='color: #BB0000;'>8.25</span> <span style='text-decoration: underline;'>10</span>754.      90.5  <span style='text-decoration: underline;'>10</span>844.
 #&gt; <span style='color: #BCBCBC;'> 9</span> D10   2014-07-11   <span style='text-decoration: underline;'>10</span>854.  -<span style='color: #BB0000;'>7.93</span> <span style='text-decoration: underline;'>10</span>748.     114.   <span style='text-decoration: underline;'>10</span>862.
 #&gt; <span style='color: #BCBCBC;'>10</span> D10   2014-07-12   <span style='text-decoration: underline;'>10</span>796. -<span style='color: #BB0000;'>14.8</span>  <span style='text-decoration: underline;'>10</span>742.      69.1  <span style='text-decoration: underline;'>10</span>811.
-#&gt; <span style='color: #949494;'># ... with 9,733 more rows</span></div><div class='input'>
+#&gt; <span style='color: #949494;'># … with 9,733 more rows</span></div><div class='input'>
 <span class='co'># ---- CUSTOM TREND ----</span>
 <span class='va'>m4_weekly</span> <span class='op'>%&gt;%</span>
     <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>id</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
     <span class='fu'>tk_stl_diagnostics</span><span class='op'>(</span><span class='va'>date</span>, <span class='fu'><a href='box_cox_vec.html'>box_cox_vec</a></span><span class='op'>(</span><span class='va'>value</span><span class='op'>)</span>, .trend <span class='op'>=</span> <span class='st'>"2 quarters"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>frequency = 13 observations per 1 quarter</span></div><div class='output co'>#&gt; <span class='message'>trend = 25 observations per 2 quarters</span></div><div class='output co'>#&gt; <span class='message'>box_cox_vec(): Using value for lambda: -0.374719526760349</span></div><div class='output co'>#&gt; <span class='message'>frequency = 13 observations per 1 quarter</span></div><div class='output co'>#&gt; <span class='message'>trend = 25 observations per 2 quarters</span></div><div class='output co'>#&gt; <span class='message'>box_cox_vec(): Using value for lambda: 0.0597533426746494</span></div><div class='output co'>#&gt; <span class='message'>frequency = 13 observations per 1 quarter</span></div><div class='output co'>#&gt; <span class='message'>trend = 26 observations per 2 quarters</span></div><div class='output co'>#&gt; <span class='message'>box_cox_vec(): Using value for lambda: -0.937375922566063</span></div><div class='output co'>#&gt; <span class='message'>frequency = 13 observations per 1 quarter</span></div><div class='output co'>#&gt; <span class='message'>trend = 26 observations per 2 quarters</span></div><div class='output co'>#&gt; <span class='message'>box_cox_vec(): Using value for lambda: -0.195493340612351</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 2,295 x 7</span>
+</div><div class='output co'>#&gt; <span class='message'>frequency = 13 observations per 1 quarter</span></div><div class='output co'>#&gt; <span class='message'>trend = 25 observations per 2 quarters</span></div><div class='output co'>#&gt; <span class='message'>box_cox_vec(): Using value for lambda: -0.374719526760349</span></div><div class='output co'>#&gt; <span class='message'>frequency = 13 observations per 1 quarter</span></div><div class='output co'>#&gt; <span class='message'>trend = 25 observations per 2 quarters</span></div><div class='output co'>#&gt; <span class='message'>box_cox_vec(): Using value for lambda: 0.0597533426736463</span></div><div class='output co'>#&gt; <span class='message'>frequency = 13 observations per 1 quarter</span></div><div class='output co'>#&gt; <span class='message'>trend = 26 observations per 2 quarters</span></div><div class='output co'>#&gt; <span class='message'>box_cox_vec(): Using value for lambda: -0.937375922566063</span></div><div class='output co'>#&gt; <span class='message'>frequency = 13 observations per 1 quarter</span></div><div class='output co'>#&gt; <span class='message'>trend = 26 observations per 2 quarters</span></div><div class='output co'>#&gt; <span class='message'>box_cox_vec(): Using value for lambda: -0.195493340612351</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 2,295 x 7</span>
 #&gt; <span style='color: #949494;'># Groups:   id [4]</span>
 #&gt;    id    date       observed     season trend  remainder seasadj
 #&gt;    <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>        <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
@@ -357,7 +357,7 @@ based on the scale of the time series.</p>
 #&gt; <span style='color: #BCBCBC;'> 8</span> W10   1999-02-19     2.40 -<span style='color: #BB0000;'>0.000</span><span style='color: #BB0000; text-decoration: underline;'>057</span><span style='color: #BB0000;'>8</span>  2.40  0.000<span style='text-decoration: underline;'>114</span>     2.40
 #&gt; <span style='color: #BCBCBC;'> 9</span> W10   1999-02-26     2.40 -<span style='color: #BB0000;'>0.000</span><span style='color: #BB0000; text-decoration: underline;'>171</span>   2.40  0.000<span style='text-decoration: underline;'>235</span>     2.40
 #&gt; <span style='color: #BCBCBC;'>10</span> W10   1999-03-05     2.40 -<span style='color: #BB0000;'>0.000</span><span style='color: #BB0000; text-decoration: underline;'>163</span>   2.40  0.000<span style='text-decoration: underline;'>216</span>     2.40
-#&gt; <span style='color: #949494;'># ... with 2,285 more rows</span></div><div class='input'>
+#&gt; <span style='color: #949494;'># … with 2,285 more rows</span></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

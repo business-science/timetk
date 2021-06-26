@@ -101,7 +101,7 @@ step that will clean outliers and impute time series data." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home"></span>
+    <span class="fas fa-home"></span>
      
   </a>
 </li>
@@ -163,7 +163,7 @@ step that will clean outliers and impute time series data." />
     <li class="dropdown-header">API Functions</li>
     <li>
       <a href="../reference/index.html">
-        <span class="fa fa-home"></span>
+        <span class="fas fa-home"></span>
          
         Function Reference
       </a>
@@ -218,7 +218,7 @@ step that will clean outliers and impute time series data." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/business-science/timetk">
-    <span class="fa fa-github"></span>
+    <span class="fas fa-github"></span>
      
   </a>
 </li>
@@ -397,7 +397,7 @@ or can be specified by setting <code>lambda = numeric value</code>.</p>
 #&gt; <span style='color: #BCBCBC;'> 8</span> 2013-01-09  30.6  266.  13.7  369.
 #&gt; <span style='color: #BCBCBC;'> 9</span> 2013-01-10  31.3  265.  14    370.
 #&gt; <span style='color: #BCBCBC;'>10</span> 2013-01-11  31.7  268.  14.5  370.
-#&gt; <span style='color: #949494;'># ... with 1,449 more rows</span></div><div class='input'>
+#&gt; <span style='color: #949494;'># … with 1,449 more rows</span></div><div class='input'>
 <span class='co'># Apply Imputation</span>
 <span class='va'>recipe_box_cox</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://recipes.tidymodels.org/reference/recipe.html'>recipe</a></span><span class='op'>(</span><span class='op'>~</span> <span class='va'>.</span>, data <span class='op'>=</span> <span class='va'>FANG_wide</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
     <span class='fu'>step_ts_clean</span><span class='op'>(</span><span class='va'>FB</span>, <span class='va'>AMZN</span>, <span class='va'>NFLX</span>, <span class='va'>GOOG</span>, period <span class='op'>=</span> <span class='fl'>252</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
@@ -417,7 +417,7 @@ or can be specified by setting <code>lambda = numeric value</code>.</p>
 #&gt; <span style='color: #BCBCBC;'> 8</span> 2013-01-09  30.6  266.  13.7  369.
 #&gt; <span style='color: #BCBCBC;'> 9</span> 2013-01-10  31.3  265.  14    370.
 #&gt; <span style='color: #BCBCBC;'>10</span> 2013-01-11  31.7  268.  14.5  370.
-#&gt; <span style='color: #949494;'># ... with 1,449 more rows</span></div><div class='input'>
+#&gt; <span style='color: #949494;'># … with 1,449 more rows</span></div><div class='input'>
 <span class='co'># Lambda parameter used during imputation process</span>
 <span class='va'>recipe_box_cox</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 4 x 3</span>
