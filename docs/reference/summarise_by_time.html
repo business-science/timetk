@@ -254,7 +254,8 @@ calculation by groups like "5 seconds", "week", or "3 months".</p>
   <span class='va'>.date_var</span>,
   .by <span class='op'>=</span> <span class='st'>"day"</span>,
   <span class='va'>...</span>,
-  .type <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"floor"</span>, <span class='st'>"ceiling"</span>, <span class='st'>"round"</span><span class='op'>)</span>
+  .type <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"floor"</span>, <span class='st'>"ceiling"</span>, <span class='st'>"round"</span><span class='op'>)</span>,
+  .week_start <span class='op'>=</span> <span class='cn'>NULL</span>
 <span class='op'>)</span>
 
 <span class='fu'>summarize_by_time</span><span class='op'>(</span>
@@ -262,7 +263,8 @@ calculation by groups like "5 seconds", "week", or "3 months".</p>
   <span class='va'>.date_var</span>,
   .by <span class='op'>=</span> <span class='st'>"day"</span>,
   <span class='va'>...</span>,
-  .type <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"floor"</span>, <span class='st'>"ceiling"</span>, <span class='st'>"round"</span><span class='op'>)</span>
+  .type <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"floor"</span>, <span class='st'>"ceiling"</span>, <span class='st'>"round"</span><span class='op'>)</span>,
+  .week_start <span class='op'>=</span> <span class='cn'>NULL</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -302,7 +304,7 @@ Time units are collapsed using <code><a href='http://lubridate.tidyverse.org/ref
       <td><p>Name-value pairs of summary functions.
 The name will be the name of the variable in the result.</p>
 <p>The value can be:</p><ul>
-<li><p>A vector of length 1, e.g. <code><a href='https://rdrr.io/r/base/Extremes.html'>min(x)</a></code>, <code><a href='https://dplyr.tidyverse.org/reference/context.html'>n()</a></code>, or <code><a href='https://rdrr.io/r/base/sum.html'>sum(is.na(y))</a></code>.</p></li>
+<li><p>A vector of length 1, e.g. <code><a href='https://rdrr.io/r/base/Extremes.html'>min(x)</a></code>, <code>n()</code>, or <code><a href='https://rdrr.io/r/base/sum.html'>sum(is.na(y))</a></code>.</p></li>
 <li><p>A vector of length <code>n</code>, e.g. <code><a href='https://rdrr.io/r/stats/quantile.html'>quantile()</a></code>.</p></li>
 <li><p>A data frame, to add multiple columns from a single expression.</p></li>
 </ul></td>
@@ -310,6 +312,11 @@ The name will be the name of the variable in the result.</p>
     <tr>
       <th>.type</th>
       <td><p>One of "floor", "ceiling", or "round. Defaults to "floor". See <code><a href='http://lubridate.tidyverse.org/reference/round_date.html'>lubridate::round_date</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>.week_start</th>
+      <td><p>when unit is weeks, specify the reference day.
+7 represents Sunday and 1 represents Monday.</p></td>
     </tr>
     </table>
 

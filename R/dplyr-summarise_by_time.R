@@ -48,7 +48,8 @@
 #'   Arbitrary unique English abbreviations as in the `lubridate::period()` constructor are allowed.
 #'
 #' @param .type One of "floor", "ceiling", or "round. Defaults to "floor". See `lubridate::round_date`.
-#'
+#' @param .week_start when unit is weeks, specify the reference day.
+#'  7 represents Sunday and 1 represents Monday.
 #'
 #'
 #' @return
@@ -104,7 +105,8 @@
 #'
 #' @export
 summarise_by_time <- function(.data, .date_var, .by = "day", ...,
-                              .type = c("floor", "ceiling", "round")) {
+                              .type = c("floor", "ceiling", "round"),
+                              .week_start = NULL) {
 
     if (rlang::quo_is_missing(rlang::enquo(.date_var))) {
         message(".date_var is missing. Using: ", tk_get_timeseries_variables(.data)[1])
@@ -119,7 +121,8 @@ summarize_by_time <- summarise_by_time
 
 #' @export
 summarise_by_time.default <- function(.data, .date_var, .by = "day", ...,
-                                      .type = c("floor", "ceiling", "round")) {
+                                      .type = c("floor", "ceiling", "round"),
+                                      .week_start = NULL) {
 
     stop("Object is not of class `data.frame`.", call. = FALSE)
 
@@ -127,7 +130,8 @@ summarise_by_time.default <- function(.data, .date_var, .by = "day", ...,
 
 #' @export
 summarise_by_time.data.frame <- function(.data, .date_var, .by = "day", ...,
-                                         .type = c("floor", "ceiling", "round")) {
+                                         .type = c("floor", "ceiling", "round"),
+                                         .week_start = NULL) {
 
     data_groups_expr   <- rlang::syms(dplyr::group_vars(.data))
     date_var_expr      <- rlang::enquo(.date_var)
@@ -144,7 +148,7 @@ summarise_by_time.data.frame <- function(.data, .date_var, .by = "day", ...,
         rlang::abort(stringr::str_glue("Attempting to use .date_var = {date_var_text}. Column does not exist in .data. Please specify a date or date-time column."))
     }
 
-    # Choose lubridate function
+    # Choose .type lubridate function
     fun_type <- tolower(.type[[1]])
     if (fun_type == "floor") {
         .f <- lubridate::floor_date
@@ -154,9 +158,14 @@ summarise_by_time.data.frame <- function(.data, .date_var, .by = "day", ...,
         .f <- lubridate::round_date
     }
 
+    # Check .week_start
+    if (is.null(.week_start)) {
+        .week_start <- getOption("lubridate.week.start", 7)
+    }
+
     # Time-based summarization logic
     ret_tbl <- .data %>%
-        dplyr::mutate(!! date_var_expr := .f(!! date_var_expr, unit = .by)) %>%
+        dplyr::mutate(!! date_var_expr := .f(!! date_var_expr, unit = .by, week_start = .week_start)) %>%
         dplyr::group_by_at(.vars = dplyr::vars(!!! data_groups_expr, !! date_var_expr)) %>%
         dplyr::arrange(!! date_var_expr, .by_group = TRUE) %>%
         dplyr::summarize(...)

@@ -10,7 +10,8 @@ summarise_by_time(
   .date_var,
   .by = "day",
   ...,
-  .type = c("floor", "ceiling", "round")
+  .type = c("floor", "ceiling", "round"),
+  .week_start = NULL
 )
 
 summarize_by_time(
@@ -18,7 +19,8 @@ summarize_by_time(
   .date_var,
   .by = "day",
   ...,
-  .type = c("floor", "ceiling", "round")
+  .type = c("floor", "ceiling", "round"),
+  .week_start = NULL
 )
 }
 \arguments{
@@ -58,6 +60,9 @@ The value can be:
 }}
 
 \item{.type}{One of "floor", "ceiling", or "round. Defaults to "floor". See \code{lubridate::round_date}.}
+
+\item{.week_start}{when unit is weeks, specify the reference day.
+7 represents Sunday and 1 represents Monday.}
 }
 \value{
 A \code{tibble} or \code{data.frame}
