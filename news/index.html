@@ -241,7 +241,9 @@
 <h1 class="page-header" data-toc-text="2.6.1.9000">
 <a href="#timetk-2619000-development-version" class="anchor"></a>timetk 2.6.1.9000 (Development Version)<small> Unreleased </small>
 </h1>
+<p><strong>Improvements</strong></p>
 <ul>
+<li><p><code><a href="../reference/summarise_by_time.html">summarize_by_time()</a></code>: Added a <code>.week_start</code> argument to allow specifying <code>.week_start = 1</code> for Monday start. Default is 7 for Sunday Start. This can also be changed with the <code>lubridate</code> by setting the <code>lubridate.week.start</code> option.</p></li>
 <li><p>Plot ACF Diagnostics (<code><a href="../reference/plot_acf_diagnostics.html">plot_acf_diagnostics()</a></code>): Change default parameter to <code>.show_white_noise_bars = TRUE</code>. <a href='https://github.com/business-science/timetk/issues/85'>#85</a></p></li>
 <li><p>Time Series CV (<code><a href="../reference/time_series_cv.html">time_series_cv()</a></code>): Add Label for <code>tune_results</code></p></li>
 </ul>
