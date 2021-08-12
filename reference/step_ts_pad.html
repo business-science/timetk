@@ -415,7 +415,7 @@ missing values with the most common value.</p></li>
 #&gt; Padded time series features from date [trained]</div><div class='input'>
 <span class='co'># Bake the recipe object - Adds the padding</span>
 <span class='fu'><a href='https://recipes.tidymodels.org/reference/bake.html'>bake</a></span><span class='op'>(</span><span class='fu'><a href='https://recipes.tidymodels.org/reference/prep.html'>prep</a></span><span class='op'>(</span><span class='va'>rec_obj</span><span class='op'>)</span>, <span class='va'>FB_tbl</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 1,459 x 3</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 1,459 × 3</span>
 #&gt;    symbol date       adjusted
 #&gt;    <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>        <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
 #&gt; <span style='color: #BCBCBC;'> 1</span> FB     2013-01-02     28  
@@ -432,11 +432,11 @@ missing values with the most common value.</p></li>
 <span class='co'># Tidy shows which features have been added during the 1st step</span>
 <span class='co'>#  in this case, step 1 is the step_timeseries_signature step</span>
 <span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='fu'><a href='https://recipes.tidymodels.org/reference/prep.html'>prep</a></span><span class='op'>(</span><span class='va'>rec_obj</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 1 x 6</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 1 × 6</span>
 #&gt;   number operation type   trained skip  id              
 #&gt;    <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;lgl&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;lgl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>           
 #&gt; <span style='color: #BCBCBC;'>1</span>      1 step      ts_pad TRUE    FALSE ts_padding_fvs4b</div><div class='input'><span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='fu'><a href='https://recipes.tidymodels.org/reference/prep.html'>prep</a></span><span class='op'>(</span><span class='va'>rec_obj</span><span class='op'>)</span>, number <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 1 x 4</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 1 × 4</span>
 #&gt;   terms by    pad_value id              
 #&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;lgl&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>           
 #&gt; <span style='color: #BCBCBC;'>1</span> date  day   <span style='color: #BB0000;'>NA</span>        ts_padding_fvs4b</div><div class='input'>

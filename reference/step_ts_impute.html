@@ -382,7 +382,7 @@ or can be specified by setting <code>lambda = numeric value</code>.</p>
     <span class='fu'><a href='pad_by_time.html'>pad_by_time</a></span><span class='op'>(</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'>.date_var is missing. Using: date</span></div><div class='output co'>#&gt; <span class='message'>pad applied on the interval: day</span></div><div class='input'>
 <span class='va'>FANG_wide</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 1,459 x 5</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 1,459 × 5</span>
 #&gt;    date          FB  AMZN  NFLX  GOOG
 #&gt;    <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
 #&gt; <span style='color: #BCBCBC;'> 1</span> 2013-01-02  28    257.  13.1  361.
@@ -402,7 +402,7 @@ or can be specified by setting <code>lambda = numeric value</code>.</p>
     <span class='fu'><a href='https://recipes.tidymodels.org/reference/prep.html'>prep</a></span><span class='op'>(</span><span class='op'>)</span>
 
 <span class='va'>recipe_box_cox</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://recipes.tidymodels.org/reference/bake.html'>bake</a></span><span class='op'>(</span><span class='va'>FANG_wide</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 1,459 x 5</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 1,459 × 5</span>
 #&gt;    date          FB  AMZN  NFLX  GOOG
 #&gt;    <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
 #&gt; <span style='color: #BCBCBC;'> 1</span> 2013-01-02  28    257.  13.1  361.
@@ -418,7 +418,7 @@ or can be specified by setting <code>lambda = numeric value</code>.</p>
 #&gt; <span style='color: #949494;'># … with 1,449 more rows</span></div><div class='input'>
 <span class='co'># Lambda parameter used during imputation process</span>
 <span class='va'>recipe_box_cox</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 4 x 3</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 4 × 3</span>
 #&gt;   terms lambda id             
 #&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>          
 #&gt; <span style='color: #BCBCBC;'>1</span> FB     0.912 ts_impute_LdPaM

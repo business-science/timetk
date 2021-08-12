@@ -190,7 +190,7 @@
       <h1 data-toc-skip>Time Series Data Wrangling</h1>
                         <h4 class="author">Matt Dancho</h4>
             
-            <h4 class="date">2021-06-28</h4>
+            <h4 class="date">2021-08-12</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/business-science/timetk/blob/master/vignettes/TK07_Time_Series_Data_Wrangling.Rmd"><code>vignettes/TK07_Time_Series_Data_Wrangling.Rmd</code></a></small>
       <div class="hidden name"><code>TK07_Time_Series_Data_Wrangling.Rmd</code></div>
@@ -238,7 +238,7 @@
 </ul>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">FANG</span></code></pre></div>
-<pre><code>## # A tibble: 4,032 x 8
+<pre><code>## # A tibble: 4,032 × 8
 ##    symbol date        open  high   low close    volume adjusted
 ##    &lt;chr&gt;  &lt;date&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
 ##  1 FB     2013-01-02  27.4  28.2  27.4  28    69846400     28  
@@ -357,7 +357,7 @@
 ## pad applied on the interval: day
 ## pad applied on the interval: day
 ## pad applied on the interval: day</code></pre>
-<pre><code>## # A tibble: 5,836 x 8
+<pre><code>## # A tibble: 5,836 × 8
 ## # Groups:   symbol [4]
 ##    symbol date        open  high   low close    volume adjusted
 ##    &lt;chr&gt;  &lt;date&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
@@ -434,7 +434,7 @@
   <span class="co"># Apply roll apply Function</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>rolling_avg_30 <span class="op">=</span> <span class="fu"><a href="../reference/slidify_vec.html">slidify_vec</a></span><span class="op">(</span><span class="va">adjusted</span>,  <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/pkg/tidyquant/man/excel_stat_summary_functions.html">AVERAGE</a></span><span class="op">(</span><span class="va">.</span><span class="op">)</span>, 
                                       .period <span class="op">=</span> <span class="fl">30</span>, .partial <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre><code>## # A tibble: 4,032 x 4
+<pre><code>## # A tibble: 4,032 × 4
 ## # Groups:   symbol [4]
 ##    symbol date       adjusted rolling_avg_30
 ##    &lt;chr&gt;  &lt;date&gt;        &lt;dbl&gt;          &lt;dbl&gt;
@@ -473,7 +473,7 @@
   <span class="co"># Apply rolling regression</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>rolling_lm <span class="op">=</span> <span class="fu">lm_roll</span><span class="op">(</span><span class="va">adjusted</span>, <span class="va">volume</span>, <span class="va">numeric_date</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">rolling_lm</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre><code>## # A tibble: 3,676 x 6
+<pre><code>## # A tibble: 3,676 × 6
 ## # Groups:   symbol [4]
 ##    symbol date       adjusted   volume numeric_date rolling_lm
 ##    &lt;chr&gt;  &lt;date&gt;        &lt;dbl&gt;    &lt;dbl&gt;        &lt;dbl&gt; &lt;list&gt;    

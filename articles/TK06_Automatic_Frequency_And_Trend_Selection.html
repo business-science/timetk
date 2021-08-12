@@ -220,7 +220,7 @@
 
 <span class="va">FB_tbl</span> <span class="op">&lt;-</span> <span class="va">FANG</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">symbol</span> <span class="op">==</span> <span class="st">"FB"</span><span class="op">)</span>
 <span class="va">FB_tbl</span></code></pre></div>
-<pre><code>## # A tibble: 1,008 x 8
+<pre><code>## # A tibble: 1,008 × 8
 ##    symbol date        open  high   low close    volume adjusted
 ##    &lt;chr&gt;  &lt;date&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
 ##  1 FB     2013-01-02  27.4  28.2  27.4  28    69846400     28  
@@ -238,7 +238,7 @@
 <p>Taylor’s Energy Demand data at a 30-minute timestamp interval.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">taylor_30_min</span></code></pre></div>
-<pre><code>## # A tibble: 4,032 x 2
+<pre><code>## # A tibble: 4,032 × 2
 ##    date                value
 ##    &lt;dttm&gt;              &lt;dbl&gt;
 ##  1 2000-06-05 00:00:00 22262
@@ -325,7 +325,7 @@
 <p>You can access the current template with <code><a href="../reference/set_tk_time_scale_template.html">get_tk_time_scale_template()</a></code>.</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/set_tk_time_scale_template.html">get_tk_time_scale_template</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre><code>## # A tibble: 8 x 3
+<pre><code>## # A tibble: 8 × 3
 ##   time_scale frequency trend   
 ##   &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt;   
 ## 1 second     1 hour    12 hours

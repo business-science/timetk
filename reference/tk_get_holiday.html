@@ -320,7 +320,7 @@ Filter on an index to identify all holidays that are commonly non-working.</p>
 <span class='co'># --- BASIC USAGE ----</span>
 
 <span class='fu'>tk_get_holiday_signature</span><span class='op'>(</span><span class='va'>idx</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 365 x 130</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 365 × 130</span>
 #&gt;    index      exch_NYSE exch_LONDON exch_NERC exch_TSX exch_ZURICH locale_GB
 #&gt;    <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>         <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>       <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>       <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
 #&gt; <span style='color: #BCBCBC;'> 1</span> 2017-01-01         0           0         0        0           0         0
@@ -339,45 +339,13 @@ Filter on an index to identify all holidays that are commonly non-working.</p>
 #&gt; <span style='color: #949494;'>#   JP_Gantan &lt;dbl&gt;, JP_NewYearsDay &lt;dbl&gt;, World_NewYearsDay &lt;dbl&gt;,</span>
 #&gt; <span style='color: #949494;'>#   World_SolemnityOfMary &lt;dbl&gt;, US_NewYearsDay &lt;dbl&gt;, CH_BerchtoldsDay &lt;dbl&gt;,</span>
 #&gt; <span style='color: #949494;'>#   JP_BankHolidayJan2 &lt;dbl&gt;, JP_BankHolidayJan3 &lt;dbl&gt;, World_Epiphany &lt;dbl&gt;,</span>
-#&gt; <span style='color: #949494;'>#   IT_Epiphany &lt;dbl&gt;, JP_ComingOfAgeDay &lt;dbl&gt;, JP_SeijinNoHi &lt;dbl&gt;,</span>
-#&gt; <span style='color: #949494;'>#   US_MLKingsBirthday &lt;dbl&gt;, US_InaugurationDay &lt;dbl&gt;,</span>
-#&gt; <span style='color: #949494;'>#   World_PresentationOfLord &lt;dbl&gt;, JP_KenkokuKinenNoHi &lt;dbl&gt;,</span>
-#&gt; <span style='color: #949494;'>#   JP_NatFoundationDay &lt;dbl&gt;, World_Septuagesima &lt;dbl&gt;,</span>
-#&gt; <span style='color: #949494;'>#   US_LincolnsBirthday &lt;dbl&gt;, US_PresidentsDay &lt;dbl&gt;,</span>
-#&gt; <span style='color: #949494;'>#   US_WashingtonsBirthday &lt;dbl&gt;, World_Quinquagesima &lt;dbl&gt;,</span>
-#&gt; <span style='color: #949494;'>#   World_AshWednesday &lt;dbl&gt;, US_CPulaskisBirthday &lt;dbl&gt;,</span>
-#&gt; <span style='color: #949494;'>#   World_Annunciation &lt;dbl&gt;, World_PalmSunday &lt;dbl&gt;, World_GoodFriday &lt;dbl&gt;,</span>
-#&gt; <span style='color: #949494;'>#   US_GoodFriday &lt;dbl&gt;, World_Easter &lt;dbl&gt;, World_EasterSunday &lt;dbl&gt;,</span>
-#&gt; <span style='color: #949494;'>#   CH_Sechselaeuten &lt;dbl&gt;, World_EasterMonday &lt;dbl&gt;, IT_LiberationDay &lt;dbl&gt;,</span>
-#&gt; <span style='color: #949494;'>#   JP_GreeneryDay &lt;dbl&gt;, JP_MidoriNoHi &lt;dbl&gt;, GB_MayDay &lt;dbl&gt;,</span>
-#&gt; <span style='color: #949494;'>#   World_LaborDay &lt;dbl&gt;, JP_ConstitutionDay &lt;dbl&gt;, JP_KenpouKinenBi &lt;dbl&gt;,</span>
-#&gt; <span style='color: #949494;'>#   JP_KokuminNoKyujitu &lt;dbl&gt;, JP_NationHoliday &lt;dbl&gt;, JP_ChildrensDay &lt;dbl&gt;,</span>
-#&gt; <span style='color: #949494;'>#   JP_KodomoNoHi &lt;dbl&gt;, FR_FetDeLaVictoire1945 &lt;dbl&gt;,</span>
-#&gt; <span style='color: #949494;'>#   World_RogationSunday &lt;dbl&gt;, CA_VictoriaDay &lt;dbl&gt;, World_Ascension &lt;dbl&gt;,</span>
-#&gt; <span style='color: #949494;'>#   CH_Ascension &lt;dbl&gt;, DE_Ascension &lt;dbl&gt;, FR_Ascension &lt;dbl&gt;,</span>
-#&gt; <span style='color: #949494;'>#   GB_BankHoliday &lt;dbl&gt;, US_MemorialDay &lt;dbl&gt;, US_DecorationMemorialDay &lt;dbl&gt;,</span>
-#&gt; <span style='color: #949494;'>#   World_Pentecost &lt;dbl&gt;, World_PentecostMonday &lt;dbl&gt;,</span>
-#&gt; <span style='color: #949494;'>#   World_TrinitySunday &lt;dbl&gt;, World_CorpusChristi &lt;dbl&gt;,</span>
-#&gt; <span style='color: #949494;'>#   DE_CorpusChristi &lt;dbl&gt;, CA_CanadaDay &lt;dbl&gt;, US_IndependenceDay &lt;dbl&gt;,</span>
-#&gt; <span style='color: #949494;'>#   FR_BastilleDay &lt;dbl&gt;, JP_MarineDay &lt;dbl&gt;, JP_UmiNoHi &lt;dbl&gt;,</span>
-#&gt; <span style='color: #949494;'>#   CH_ConfederationDay &lt;dbl&gt;, World_TransfigurationOfLord &lt;dbl&gt;,</span>
-#&gt; <span style='color: #949494;'>#   CA_CivicProvincialHoliday &lt;dbl&gt;, World_AssumptionOfMary &lt;dbl&gt;,</span>
-#&gt; <span style='color: #949494;'>#   FR_AssumptionVirginMary &lt;dbl&gt;, IT_AssumptionOfVirginMary &lt;dbl&gt;,</span>
-#&gt; <span style='color: #949494;'>#   GB_SummerBankHoliday &lt;dbl&gt;, CA_LabourDay &lt;dbl&gt;, US_LaborDay &lt;dbl&gt;,</span>
-#&gt; <span style='color: #949494;'>#   World_BirthOfVirginMary &lt;dbl&gt;, CH_Knabenschiessen &lt;dbl&gt;,</span>
-#&gt; <span style='color: #949494;'>#   World_CelebrationOfHolyCross &lt;dbl&gt;, JP_KeirouNOhi &lt;dbl&gt;,</span>
-#&gt; <span style='color: #949494;'>#   JP_RespectForTheAgedDay &lt;dbl&gt;, JP_AutumnalEquinox &lt;dbl&gt;,</span>
-#&gt; <span style='color: #949494;'>#   JP_ShuubunNoHi &lt;dbl&gt;, World_MassOfArchangels &lt;dbl&gt;, DE_GermanUnity &lt;dbl&gt;,</span>
-#&gt; <span style='color: #949494;'>#   CA_ThanksgivingDay &lt;dbl&gt;, US_ColumbusDay &lt;dbl&gt;,</span>
-#&gt; <span style='color: #949494;'>#   JP_HealthandSportsDay &lt;dbl&gt;, JP_TaiikuNoHi &lt;dbl&gt;, World_AllSaints &lt;dbl&gt;,</span>
-#&gt; <span style='color: #949494;'>#   FR_AllSaints &lt;dbl&gt;, IT_AllSaints &lt;dbl&gt;, World_AllSouls &lt;dbl&gt;,</span>
-#&gt; <span style='color: #949494;'>#   JP_BunkaNoHi &lt;dbl&gt;, JP_NationalCultureDay &lt;dbl&gt;, …</span></div><div class='input'>
+#&gt; <span style='color: #949494;'>#   IT_Epiphany &lt;dbl&gt;, JP_ComingOfAgeDay &lt;dbl&gt;, JP_SeijinNoHi &lt;dbl&gt;, …</span></div><div class='input'>
 <span class='co'># ---- FILTERING WITH PATTERNS &amp; SETS ----</span>
 
 <span class='co'># List available holidays - see patterns</span>
 <span class='fu'>tk_get_holidays_by_year</span><span class='op'>(</span><span class='fl'>2020</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
     <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>holiday_name</span> <span class='op'>%&gt;%</span> <span class='fu'>str_detect</span><span class='op'>(</span><span class='st'>"US_"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 17 x 3</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 17 × 3</span>
 #&gt;    date       locale holiday_name            
 #&gt;    <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                   
 #&gt; <span style='color: #BCBCBC;'> 1</span> 2020-01-01 US     US_NewYearsDay          
@@ -404,7 +372,7 @@ Filter on an index to identify all holidays that are commonly non-working.</p>
     holiday_pattern <span class='op'>=</span> <span class='st'>"(US_NewYears)|(US_Christmas)|(US_Thanks)"</span>,
     locale_set      <span class='op'>=</span> <span class='st'>"none"</span>,
     exchange_set    <span class='op'>=</span> <span class='st'>"none"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 365 x 4</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 365 × 4</span>
 #&gt;    index      US_NewYearsDay US_ThanksgivingDay US_ChristmasDay
 #&gt;    <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>              <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>              <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>           <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
 #&gt; <span style='color: #BCBCBC;'> 1</span> 2017-01-01              1                  0               0
@@ -426,7 +394,7 @@ Filter on an index to identify all holidays that are commonly non-working.</p>
     holiday_pattern <span class='op'>=</span> <span class='st'>"$^"</span>, <span class='co'># Matches nothing on purpose</span>
     locale_set      <span class='op'>=</span> <span class='st'>"US"</span>,
     exchange_set    <span class='op'>=</span> <span class='st'>"none"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 365 x 2</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 365 × 2</span>
 #&gt;    index      locale_US
 #&gt;    <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>         <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
 #&gt; <span style='color: #BCBCBC;'> 1</span> 2017-01-01         1
@@ -446,7 +414,7 @@ Filter on an index to identify all holidays that are commonly non-working.</p>
     holiday_pattern <span class='op'>=</span> <span class='st'>"$^"</span>, <span class='co'># Matches nothing on purpose</span>
     locale_set      <span class='op'>=</span> <span class='st'>"none"</span>,
     exchange_set    <span class='op'>=</span> <span class='st'>"NYSE"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 365 x 2</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 365 × 2</span>
 #&gt;    index      exch_NYSE
 #&gt;    <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>         <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
 #&gt; <span style='color: #BCBCBC;'> 1</span> 2017-01-01         0

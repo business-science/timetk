@@ -403,7 +403,7 @@ be removed using <code><a href='https://recipes.tidymodels.org/reference/step_rm
 
 <span class='co'># Not yet prep'ed - just returns parameters selected</span>
 <span class='va'>rec_holiday</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 3 x 4</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 3 × 4</span>
 #&gt;   terms param           value id                     
 #&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>           <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                  
 #&gt; <span style='color: #BCBCBC;'>1</span> index holiday_pattern ^US_  holiday_signature_mb92Q
@@ -414,7 +414,7 @@ be removed using <code><a href='https://recipes.tidymodels.org/reference/step_rm
 
 <span class='co'># Now prep'ed - returns new features that will be created</span>
 <span class='va'>rec_holiday_prep</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 19 x 3</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 19 × 3</span>
 #&gt;    terms value                    id                     
 #&gt;    <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>                    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                  
 #&gt; <span style='color: #BCBCBC;'> 1</span> index exch_NYSE                holiday_signature_mb92Q
@@ -438,7 +438,7 @@ be removed using <code><a href='https://recipes.tidymodels.org/reference/step_rm
 #&gt; <span style='color: #BCBCBC;'>19</span> index US_ChristmasDay          holiday_signature_mb92Q</div><div class='input'>
 <span class='co'># Apply the recipe to add new holiday features!</span>
 <span class='fu'><a href='https://recipes.tidymodels.org/reference/bake.html'>bake</a></span><span class='op'>(</span><span class='va'>rec_holiday_prep</span>, <span class='va'>dates_in_2017_tbl</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 365 x 20</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 365 × 20</span>
 #&gt;    index      index_exch_NYSE index_locale_US index_US_NewYear… index_US_MLKing…
 #&gt;    <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>               <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>           <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>             <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>            <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
 #&gt; <span style='color: #BCBCBC;'> 1</span> 2017-01-01               0               1                 1                0
@@ -457,8 +457,7 @@ be removed using <code><a href='https://recipes.tidymodels.org/reference/step_rm
 #&gt; <span style='color: #949494;'>#   index_US_GoodFriday &lt;dbl&gt;, index_US_MemorialDay &lt;dbl&gt;,</span>
 #&gt; <span style='color: #949494;'>#   index_US_DecorationMemorialDay &lt;dbl&gt;, index_US_IndependenceDay &lt;dbl&gt;,</span>
 #&gt; <span style='color: #949494;'>#   index_US_LaborDay &lt;dbl&gt;, index_US_ColumbusDay &lt;dbl&gt;,</span>
-#&gt; <span style='color: #949494;'>#   index_US_ElectionDay &lt;dbl&gt;, index_US_VeteransDay &lt;dbl&gt;,</span>
-#&gt; <span style='color: #949494;'>#   index_US_ThanksgivingDay &lt;dbl&gt;, index_US_ChristmasDay &lt;dbl&gt;</span></div><div class='input'>
+#&gt; <span style='color: #949494;'>#   index_US_ElectionDay &lt;dbl&gt;, index_US_VeteransDay &lt;dbl&gt;, …</span></div><div class='input'>
 
 
 
