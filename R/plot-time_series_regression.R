@@ -100,18 +100,33 @@ plot_time_series_regression.data.frame <- function(.data, .date_var, .formula, .
     date_var_expr  <- rlang::enquo(.date_var)
     value_expr     <- rlang::f_lhs(.formula)
 
+    df <- .data
+
     # Linear Regression
-    model_lm <- stats::lm(.formula, data = .data)
+    model_lm <- stats::lm(.formula, data = df)
 
     if (.show_summary) {
         print(stats::summary.lm(model_lm))
     }
 
+    # Pad Fitted Values
+
+    fitted_vec <- stats::predict(model_lm, data = df)
+
+    rowid_tbl <- tibble::tibble(row_id = seq(1, nrow(df)))
+
+    predictions_tbl <- tibble::tibble(
+        row_id = names(fitted_vec) %>% as.integer(),
+        values = as.numeric(fitted_vec)
+    )
+
+    predictions_padded_tbl <- dplyr::left_join(rowid_tbl, predictions_tbl, by = "row_id")
+
     # Data Formatted
-    data_formatted <- tibble::as_tibble(.data) %>%
+    data_formatted <- tibble::as_tibble(df) %>%
         dplyr::mutate(!! rlang::quo_name(value_expr) := !! value_expr) %>%
         dplyr::select(!! date_var_expr, rlang::quo_name(value_expr)) %>%
-        dplyr::mutate(fitted = model_lm$fitted.values) %>%
+        dplyr::mutate(fitted = predictions_padded_tbl$values) %>%
         tidyr::pivot_longer(-(!! date_var_expr))
 
     # Plot
@@ -132,7 +147,7 @@ plot_time_series_regression.grouped_df <- function(.data, .date_var, .formula, .
     # Linear Regression
     data_modeled <- .data %>%
         tidyr::nest() %>%
-        dplyr::mutate(model = purrr::map(data, ~ tibble::tibble(fitted = stats::lm(.formula, data = .x)$fitted.values))) %>%
+        dplyr::mutate(model = purrr::map(data, ~ tibble::tibble(fitted = stats::predict(stats::lm(.formula, data = .x), .x)))) %>%
         tidyr::unnest(cols = c(data, model))
 
 

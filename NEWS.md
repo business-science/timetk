@@ -8,6 +8,10 @@ __Improvements__
 
 - Time Series CV (`time_series_cv()`): Add Label for `tune_results`
 
+__Bug Fixes__
+
+- `plot_time_series_regression()`: Fixed an issue when lags are added to `.formula`. Pads lags with NA. 
+
 # timetk 2.6.1
 
 __Improvements__
