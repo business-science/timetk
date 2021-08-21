@@ -107,7 +107,9 @@ tk_tbl.data.frame <- function(data, preserve_index = TRUE, rename_index = "index
                 tibble::rownames_to_column(var = rename_index) %>%
                 tibble::as_tibble(...)
 
-            ret <- suppressMessages(readr::type_convert(ret))
+            if (any(vapply(ret, is.character, logical(1)))) {
+                ret <- suppressMessages(readr::type_convert(ret))
+            }
 
         } else {
 
@@ -163,8 +165,9 @@ tk_tbl.zoo <- function(data, preserve_index = TRUE, rename_index = "index", time
 
             if (!is.null(rename_index)) colnames(ret)[[1]] <- rename_index
 
-            ret <- suppressMessages(readr::type_convert(ret))
-
+            if (any(vapply(ret, is.character, logical(1)))) {
+                ret <- suppressMessages(readr::type_convert(ret))
+            }
 
         } else {
 
