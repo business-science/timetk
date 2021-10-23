@@ -12,6 +12,8 @@ __Bug Fixes__
 
 - `plot_time_series_regression()`: Fixed an issue when lags are added to `.formula`. Pads lags with NA. 
 
+- `tk_tbl.zoo()`: Fix an issue when `readr::type_convert()` produces warning messages about not having character columns in inputs. #89
+
 # timetk 2.6.1
 
 __Improvements__
