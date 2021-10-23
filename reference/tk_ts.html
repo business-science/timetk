@@ -384,8 +384,7 @@ using <code><a href='https://rdrr.io/r/stats/ts.html'>stats::ts()</a></code>.</p
 </div><div class='output co'>#&gt; [1] "2016-01-01" "2016-01-02" "2016-01-03" "2016-01-04" "2016-01-05"</div><div class='input'>
 <span class='co'># Coerce back to tibble</span>
 <span class='va'>data_ts</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='tk_tbl.html'>tk_tbl</a></span><span class='op'>(</span>timetk_idx <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: `type_convert()` only converts columns of type 'character'.</span>
-#&gt; <span class='warning'>- `df` has no columns of type 'character'</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 5 × 3</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 5 × 3</span>
 #&gt;   index          y     z
 #&gt;   <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
 #&gt; <span style='color: #BCBCBC;'>1</span> 2016-01-01     1  9.48

@@ -249,8 +249,8 @@
 </ul>
 <p><strong>Bug Fixes</strong></p>
 <ul>
-<li>
-<code><a href="../reference/plot_time_series_regression.html">plot_time_series_regression()</a></code>: Fixed an issue when lags are added to <code>.formula</code>. Pads lags with NA.</li>
+<li><p><code><a href="../reference/plot_time_series_regression.html">plot_time_series_regression()</a></code>: Fixed an issue when lags are added to <code>.formula</code>. Pads lags with NA.</p></li>
+<li><p><code>tk_tbl.zoo()</code>: Fix an issue when <code><a href="https://readr.tidyverse.org/reference/type_convert.html">readr::type_convert()</a></code> produces warning messages about not having character columns in inputs. <a href='https://github.com/business-science/timetk/issues/89'>#89</a></p></li>
 </ul>
 </div>
     <div id="timetk-261" class="section level1">
@@ -477,7 +477,7 @@
 <p><strong>New Parsing Functions</strong></p>
 <ul>
 <li>
-<code><a href="../reference/parse_date2.html">parse_date2()</a></code> and <code><a href="../reference/parse_date2.html">parse_datetime2()</a></code>: These are similar to <code><a href="https://readr.tidyverse.org/reference/parse_datetime.html">readr::parse_date()</a></code> and <code><a href="http://lubridate.tidyverse.org/reference/as_date.html">lubridate::as_date()</a></code> in that they parse character vectors to date and datetimes. The key advantage is SPEED. <code><a href="../reference/parse_date2.html">parse_date2()</a></code> uses <code>anytime</code> package to process using C++ <code>Boost.Date_Time</code> library.</li>
+<code><a href="../reference/parse_date2.html">parse_date2()</a></code> and <code><a href="../reference/parse_date2.html">parse_datetime2()</a></code>: These are similar to <code><a href="https://readr.tidyverse.org/reference/parse_datetime.html">readr::parse_date()</a></code> and <code><a href="https://lubridate.tidyverse.org/reference/as_date.html">lubridate::as_date()</a></code> in that they parse character vectors to date and datetimes. The key advantage is SPEED. <code><a href="../reference/parse_date2.html">parse_date2()</a></code> uses <code>anytime</code> package to process using C++ <code>Boost.Date_Time</code> library.</li>
 </ul>
 <p><strong>Improvements</strong>:</p>
 <ul>
@@ -522,7 +522,7 @@
 <li>
 <code><a href="../reference/tk_make_future_timeseries.html">tk_make_future_timeseries()</a></code>:
 <ul>
-<li>Fix bug when day of month doesn’t exist. Lubridate <code><a href="http://lubridate.tidyverse.org/reference/period.html">period()</a></code> returns <code>NA</code>. Fix implemented with <code><a href="http://lubridate.tidyverse.org/reference/round_date.html">ceiling_date()</a></code>.</li>
+<li>Fix bug when day of month doesn’t exist. Lubridate <code><a href="https://lubridate.tidyverse.org/reference/period.html">period()</a></code> returns <code>NA</code>. Fix implemented with <code><a href="https://lubridate.tidyverse.org/reference/round_date.html">ceiling_date()</a></code>.</li>
 </ul>
 </li>
 <li>

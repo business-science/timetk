@@ -316,7 +316,7 @@ datetime, date, yearmon, and yearqtr values. Regularized dates cannot be decompo
 #&gt; <span style='color: #949494;'># … with 3 more variables: diff.mean &lt;dbl&gt;, diff.q3 &lt;dbl&gt;, diff.maximum &lt;dbl&gt;</span></div><div class='input'>
 
 <span class='co'># Works with dates in any periodicity</span>
-<span class='va'>idx_weekly</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.Date.html'>seq.Date</a></span><span class='op'>(</span>from <span class='op'>=</span> <span class='fu'><a href='http://lubridate.tidyverse.org/reference/ymd.html'>ymd</a></span><span class='op'>(</span><span class='st'>"2016-01-01"</span><span class='op'>)</span>, by <span class='op'>=</span> <span class='st'>'week'</span>, length.out <span class='op'>=</span> <span class='fl'>6</span><span class='op'>)</span>
+<span class='va'>idx_weekly</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.Date.html'>seq.Date</a></span><span class='op'>(</span>from <span class='op'>=</span> <span class='fu'><a href='https://lubridate.tidyverse.org/reference/ymd.html'>ymd</a></span><span class='op'>(</span><span class='st'>"2016-01-01"</span><span class='op'>)</span>, by <span class='op'>=</span> <span class='st'>'week'</span>, length.out <span class='op'>=</span> <span class='fl'>6</span><span class='op'>)</span>
 
 <span class='fu'>tk_get_timeseries_signature</span><span class='op'>(</span><span class='va'>idx_weekly</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 6 × 29</span>
@@ -340,7 +340,7 @@ datetime, date, yearmon, and yearqtr values. Regularized dates cannot be decompo
 #&gt; <span style='color: #949494;'># … with 3 more variables: diff.mean &lt;dbl&gt;, diff.q3 &lt;dbl&gt;, diff.maximum &lt;dbl&gt;</span></div><div class='input'>
 
 <span class='co'># Works with zoo yearmon and yearqtr classes</span>
-<span class='va'>idx_yearmon</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.Date.html'>seq.Date</a></span><span class='op'>(</span>from       <span class='op'>=</span> <span class='fu'><a href='http://lubridate.tidyverse.org/reference/ymd.html'>ymd</a></span><span class='op'>(</span><span class='st'>"2016-01-01"</span><span class='op'>)</span>,
+<span class='va'>idx_yearmon</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.Date.html'>seq.Date</a></span><span class='op'>(</span>from       <span class='op'>=</span> <span class='fu'><a href='https://lubridate.tidyverse.org/reference/ymd.html'>ymd</a></span><span class='op'>(</span><span class='st'>"2016-01-01"</span><span class='op'>)</span>,
                         by         <span class='op'>=</span> <span class='st'>"month"</span>,
                         length.out <span class='op'>=</span> <span class='fl'>12</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
     <span class='fu'>as.yearmon</span><span class='op'>(</span><span class='op'>)</span>
@@ -367,9 +367,9 @@ datetime, date, yearmon, and yearqtr values. Regularized dates cannot be decompo
 #&gt; <span style='color: #949494;'>#   mweek &lt;int&gt;, week &lt;int&gt;, week.iso &lt;int&gt;, week2 &lt;int&gt;, week3 &lt;int&gt;,</span>
 #&gt; <span style='color: #949494;'>#   week4 &lt;int&gt;, mday7 &lt;int&gt;</span></div><div class='input'><span class='fu'>tk_get_timeseries_summary</span><span class='op'>(</span><span class='va'>idx_yearmon</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 1 × 12</span>
-#&gt;   n.obs start     end   units scale tzone diff.minimum diff.q1 diff.median diff.mean
-#&gt;   <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;yearmon&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;yea&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>        <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>       <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
-#&gt; <span style='color: #BCBCBC;'>1</span>    12 Jan 2016  Dec … days  month UTC        2<span style='text-decoration: underline;'>505</span>600 2<span style='text-decoration: underline;'>592</span>000     2<span style='text-decoration: underline;'>678</span>400  2<span style='text-decoration: underline;'>631</span>273.
+#&gt;   n.obs start end   units scale tzone diff.minimum diff.q1 diff.median diff.mean
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;yea&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;yea&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>        <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>       <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
+#&gt; <span style='color: #BCBCBC;'>1</span>    12 Jan … Dec … days  month UTC        2<span style='text-decoration: underline;'>505</span>600 2<span style='text-decoration: underline;'>592</span>000     2<span style='text-decoration: underline;'>678</span>400  2<span style='text-decoration: underline;'>631</span>273.
 #&gt; <span style='color: #949494;'># … with 2 more variables: diff.q3 &lt;dbl&gt;, diff.maximum &lt;dbl&gt;</span></div><div class='input'>
 </div></pre>
   </div>

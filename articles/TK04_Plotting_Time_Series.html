@@ -317,13 +317,13 @@
 <li>
 <code>.value = log(value)</code> Applies the Log Transformation</li>
 <li>
-<code>.color_var = week(date)</code> The date column is transformed to a <code><a href="http://lubridate.tidyverse.org/reference/week.html">lubridate::week()</a></code> number. The color is applied to each of the week numbers.</li>
+<code>.color_var = week(date)</code> The date column is transformed to a <code><a href="https://lubridate.tidyverse.org/reference/week.html">lubridate::week()</a></code> number. The color is applied to each of the week numbers.</li>
 </ol>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">m4_hourly</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="../reference/plot_time_series.html">plot_time_series</a></span><span class="op">(</span><span class="va">date</span>, <span class="fu"><a href="https://rdrr.io/r/base/Log.html">log</a></span><span class="op">(</span><span class="va">value</span><span class="op">)</span>,             <span class="co"># Apply a Log Transformation</span>
-                   .color_var <span class="op">=</span> <span class="fu"><a href="http://lubridate.tidyverse.org/reference/week.html">week</a></span><span class="op">(</span><span class="va">date</span><span class="op">)</span>,      <span class="co"># Color applied to Week transformation</span>
+                   .color_var <span class="op">=</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/week.html">week</a></span><span class="op">(</span><span class="va">date</span><span class="op">)</span>,      <span class="co"># Color applied to Week transformation</span>
                    <span class="co"># Facet formatting</span>
                    .facet_ncol <span class="op">=</span> <span class="fl">2</span>, 
                    .facet_scales <span class="op">=</span> <span class="st">"free"</span>, 
@@ -337,7 +337,7 @@
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">taylor_30_min</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="../reference/plot_time_series.html">plot_time_series</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">value</span>, 
-                   .color_var <span class="op">=</span> <span class="fu"><a href="http://lubridate.tidyverse.org/reference/month.html">month</a></span><span class="op">(</span><span class="va">date</span>, label <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,
+                   .color_var <span class="op">=</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/month.html">month</a></span><span class="op">(</span><span class="va">date</span>, label <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,
                    
                    <span class="co"># Returns static ggplot</span>
                    .interactive <span class="op">=</span> <span class="cn">FALSE</span>,  
