@@ -142,12 +142,30 @@ plot_time_series_regression.grouped_df <- function(.data, .date_var, .formula, .
     date_var_expr  <- rlang::enquo(.date_var)
     value_expr     <- rlang::f_lhs(.formula)
 
-    if (.show_summary) message("'.show_summary = TRUE' is only available for ungrouped time series data.")
+    # if (.show_summary) message("'.show_summary = TRUE' is only available for ungrouped time series data.")
 
     # Linear Regression
     data_modeled <- .data %>%
         tidyr::nest() %>%
-        dplyr::mutate(model = purrr::map(data, ~ tibble::tibble(fitted = stats::predict(stats::lm(.formula, data = .x), .x)))) %>%
+        dplyr::mutate(grp_names = stringr::str_c(!!! rlang::syms(group_names), collapse = ", ")) %>%
+        dplyr::mutate(model = purrr::map2(data, grp_names, .f = function(df, grp_names) {
+
+            mod <- stats::lm(.formula, data = df)
+
+            if (.show_summary) {
+                cat("\n")
+                cat(stringr::str_glue("Summary for Group: {grp_names}"))
+                cat("---")
+                print(stats::summary.lm(mod))
+                cat('----\n')
+            }
+
+            ret <- tibble::tibble(fitted = stats::predict(mod, df))
+
+            return(ret)
+
+        })) %>%
+        dplyr::select(-grp_names) %>%
         tidyr::unnest(cols = c(data, model))
 
 

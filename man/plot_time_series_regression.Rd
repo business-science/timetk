@@ -21,8 +21,7 @@ plot_time_series_regression(
 as the y-axis value. The right-hand side of the formula is used to develop the linear regression model.
 See \code{\link[stats:lm]{stats::lm()}} for details.}
 
-\item{.show_summary}{If \code{TRUE}, prints the \code{summary.lm()}.
-Only available for non-grouped data.}
+\item{.show_summary}{If \code{TRUE}, prints the \code{summary.lm()}.}
 
 \item{...}{Additional arguments passed to \code{\link[=plot_time_series]{plot_time_series()}}}
 }
