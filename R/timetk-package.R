@@ -22,5 +22,6 @@
 #' @importFrom dplyr %>%
 #' @importFrom xts xts
 #' @import recipes
+#' @importFrom generics tidy
 
 NULL
