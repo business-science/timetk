@@ -17,7 +17,6 @@
 #' @param .show_white_noise_bars Shows the white noise significance bounds.
 #' @param .facet_ncol Facets: Number of facet columns. Has no effect if using `grouped_df`.
 #' @param .facet_scales Facets: Options include "fixed", "free", "free_y", "free_x"
-#' @param .facet_dir The direction of faceting ("h" for horizontal, "v" for vertical). Default is "h".
 #' @param .line_color Line color. Use keyword: "scale_color" to change the color by the facet.
 #' @param .line_size Line size
 #' @param .line_alpha Line opacity. Adjust the transparency of the line. Range: (0, 1)
