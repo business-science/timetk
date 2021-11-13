@@ -4,15 +4,21 @@ __Improvements__
 
 - `summarize_by_time()`: Added a `.week_start` argument to allow specifying `.week_start = 1` for Monday start. Default is 7 for Sunday Start. This can also be changed with the `lubridate` by setting the `lubridate.week.start` option. 
 
-- Plot ACF Diagnostics (`plot_acf_diagnostics()`): Change default parameter to `.show_white_noise_bars = TRUE`. #85
+- Plotting Functions: 
+  
+  - Several plotting functions gain a new `.facet_dir` argument for adjusting the direction of `facet_wrap(dir)`. #94 
+  - Plot ACF Diagnostics (`plot_acf_diagnostics()`): Change default parameter to `.show_white_noise_bars = TRUE`. #85
+  - `plot_timeseries_regression()`: Can now `show_summary` for group-wise models when visualizing groups
 
 - Time Series CV (`time_series_cv()`): Add Label for `tune_results`
 
 __Bug Fixes__
 
+- `tk_tbl.zoo()`: Fix an issue when `readr::type_convert()` produces warning messages about not having character columns in inputs. #89
+
 - `plot_time_series_regression()`: Fixed an issue when lags are added to `.formula`. Pads lags with NA. 
 
-- `tk_tbl.zoo()`: Fix an issue when `readr::type_convert()` produces warning messages about not having character columns in inputs. #89
+
 
 # timetk 2.6.1
 

@@ -1,7 +1,6 @@
 context("Test tk_tbl")
 
 FB_tbl <- FANG %>% filter(symbol == "FB")
-# FB_tbl <- tidyquant::tq_get("AAPL", from = "2015-01-01", to = "2016-12-31")
 
 # FUNCTION: tk_tbl -----
 
