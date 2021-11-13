@@ -149,13 +149,13 @@ fourier_vec.yearmon <- function(x, period, K = 1, type = c("sin", "cos"), scale_
 }
 
 #' @export
-fourier_vec.yearqtr <- function(x, period, K = 1, type = c("sin", "cos")) {
+fourier_vec.yearqtr <- function(x, period, K = 1, type = c("sin", "cos"), scale_factor = NULL) {
     x_scaled <- x * 4
     calc_fourier(x = x_scaled, period = period, K = K, type = type)
 }
 
 #' @export
-fourier_vec.default <- function(x, period, K = 1, type = c("sin", "cos")) {
+fourier_vec.default <- function(x, period, K = 1, type = c("sin", "cos"), scale_factor = NULL) {
     rlang::abort(paste0("fourier_vec(x): No method for class: ", class(x)[[1]]))
 }
 
