@@ -361,134 +361,152 @@ the <code>length_out</code> parameter, the length may differ than the <code>leng
 </div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://dplyr.tidyverse.org'>dplyr</a></span><span class='op'>)</span>
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/business-science/tidyquant'>tidyquant</a></span><span class='op'>)</span>
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/business-science/timetk'>timetk</a></span><span class='op'>)</span>
-
-<span class='fu'><a href='https://rdrr.io/r/base/options.html'>options</a></span><span class='op'>(</span>max.print <span class='op'>=</span> <span class='fl'>50</span><span class='op'>)</span>
-
-<span class='co'># ---- DATE ----</span>
-
-<span class='co'># Start + End, Guesses by = "day"</span>
-<span class='fu'>tk_make_timeseries</span><span class='op'>(</span><span class='st'>"2017-01-01"</span>, <span class='st'>"2017-12-31"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>Using by: day</span></div><div class='output co'>#&gt;  [1] "2017-01-01" "2017-01-02" "2017-01-03" "2017-01-04" "2017-01-05"
-#&gt;  [6] "2017-01-06" "2017-01-07" "2017-01-08" "2017-01-09" "2017-01-10"
-#&gt; [11] "2017-01-11" "2017-01-12" "2017-01-13" "2017-01-14" "2017-01-15"
-#&gt; [16] "2017-01-16" "2017-01-17" "2017-01-18" "2017-01-19" "2017-01-20"
-#&gt; [21] "2017-01-21" "2017-01-22" "2017-01-23" "2017-01-24" "2017-01-25"
-#&gt; [26] "2017-01-26" "2017-01-27" "2017-01-28" "2017-01-29" "2017-01-30"
-#&gt; [31] "2017-01-31" "2017-02-01" "2017-02-02" "2017-02-03" "2017-02-04"
-#&gt; [36] "2017-02-05" "2017-02-06" "2017-02-07" "2017-02-08" "2017-02-09"
-#&gt; [41] "2017-02-10" "2017-02-11" "2017-02-12" "2017-02-13" "2017-02-14"
-#&gt; [46] "2017-02-15" "2017-02-16" "2017-02-17" "2017-02-18" "2017-02-19"
-#&gt;  [ reached 'max' / getOption("max.print") -- omitted 315 entries ]</div><div class='input'>
-<span class='co'># Just Start</span>
-<span class='fu'>tk_make_timeseries</span><span class='op'>(</span><span class='st'>"2017"</span><span class='op'>)</span> <span class='co'># Same result</span>
-</div><div class='output co'>#&gt; <span class='message'>Using by: day</span></div><div class='output co'>#&gt;  [1] "2017-01-01" "2017-01-02" "2017-01-03" "2017-01-04" "2017-01-05"
-#&gt;  [6] "2017-01-06" "2017-01-07" "2017-01-08" "2017-01-09" "2017-01-10"
-#&gt; [11] "2017-01-11" "2017-01-12" "2017-01-13" "2017-01-14" "2017-01-15"
-#&gt; [16] "2017-01-16" "2017-01-17" "2017-01-18" "2017-01-19" "2017-01-20"
-#&gt; [21] "2017-01-21" "2017-01-22" "2017-01-23" "2017-01-24" "2017-01-25"
-#&gt; [26] "2017-01-26" "2017-01-27" "2017-01-28" "2017-01-29" "2017-01-30"
-#&gt; [31] "2017-01-31" "2017-02-01" "2017-02-02" "2017-02-03" "2017-02-04"
-#&gt; [36] "2017-02-05" "2017-02-06" "2017-02-07" "2017-02-08" "2017-02-09"
-#&gt; [41] "2017-02-10" "2017-02-11" "2017-02-12" "2017-02-13" "2017-02-14"
-#&gt; [46] "2017-02-15" "2017-02-16" "2017-02-17" "2017-02-18" "2017-02-19"
-#&gt;  [ reached 'max' / getOption("max.print") -- omitted 315 entries ]</div><div class='input'>
-<span class='co'># Only dates in February, 2017</span>
-<span class='fu'>tk_make_timeseries</span><span class='op'>(</span><span class='st'>"2017-02"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>Using by: day</span></div><div class='output co'>#&gt;  [1] "2017-02-01" "2017-02-02" "2017-02-03" "2017-02-04" "2017-02-05"
-#&gt;  [6] "2017-02-06" "2017-02-07" "2017-02-08" "2017-02-09" "2017-02-10"
-#&gt; [11] "2017-02-11" "2017-02-12" "2017-02-13" "2017-02-14" "2017-02-15"
-#&gt; [16] "2017-02-16" "2017-02-17" "2017-02-18" "2017-02-19" "2017-02-20"
-#&gt; [21] "2017-02-21" "2017-02-22" "2017-02-23" "2017-02-24" "2017-02-25"
-#&gt; [26] "2017-02-26" "2017-02-27" "2017-02-28"</div><div class='input'>
-<span class='co'># Start + Length Out, Guesses by = "day"</span>
-<span class='fu'>tk_make_timeseries</span><span class='op'>(</span><span class='st'>"2012"</span>, length_out <span class='op'>=</span> <span class='fl'>6</span><span class='op'>)</span> <span class='co'># Guesses by = "day"</span>
-</div><div class='output co'>#&gt; <span class='message'>Using by: day</span></div><div class='output co'>#&gt; [1] "2012-01-01" "2012-01-02" "2012-01-03" "2012-01-04" "2012-01-05"
-#&gt; [6] "2012-01-06"</div><div class='input'>
-<span class='co'># Start + By + Length Out, Spacing 6 observations by monthly interval</span>
-<span class='fu'>tk_make_timeseries</span><span class='op'>(</span><span class='st'>"2012"</span>, by <span class='op'>=</span> <span class='st'>"1 month"</span>, length_out <span class='op'>=</span> <span class='fl'>6</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "2012-01-01" "2012-02-01" "2012-03-01" "2012-04-01" "2012-05-01"
-#&gt; [6] "2012-06-01"</div><div class='input'>
-<span class='co'># Start + By + Length Out, Phrase "1 year 6 months"</span>
-<span class='fu'>tk_make_timeseries</span><span class='op'>(</span><span class='st'>"2012"</span>, by <span class='op'>=</span> <span class='st'>"1 month"</span>,
-                   length_out <span class='op'>=</span> <span class='st'>"1 year 6 months"</span>, include_endpoints <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;  [1] "2012-01-01" "2012-02-01" "2012-03-01" "2012-04-01" "2012-05-01"
-#&gt;  [6] "2012-06-01" "2012-07-01" "2012-08-01" "2012-09-01" "2012-10-01"
-#&gt; [11] "2012-11-01" "2012-12-01" "2013-01-01" "2013-02-01" "2013-03-01"
-#&gt; [16] "2013-04-01" "2013-05-01" "2013-06-01"</div><div class='input'>
-<span class='co'># Going in Reverse, End + Length Out</span>
-<span class='fu'>tk_make_timeseries</span><span class='op'>(</span>end_date <span class='op'>=</span> <span class='st'>"2012-01-01"</span>, by <span class='op'>=</span> <span class='st'>"1 month"</span>,
-                   length_out <span class='op'>=</span> <span class='st'>"1 year 6 months"</span>, include_endpoints <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;  [1] "2010-08-01" "2010-09-01" "2010-10-01" "2010-11-01" "2010-12-01"
-#&gt;  [6] "2011-01-01" "2011-02-01" "2011-03-01" "2011-04-01" "2011-05-01"
-#&gt; [11] "2011-06-01" "2011-07-01" "2011-08-01" "2011-09-01" "2011-10-01"
-#&gt; [16] "2011-11-01" "2011-12-01" "2012-01-01"</div><div class='input'>
-<span class='co'># ---- DATE-TIME ----</span>
-
-<span class='co'># Start + End, Guesses by second</span>
-<span class='fu'>tk_make_timeseries</span><span class='op'>(</span><span class='st'>"2016-01-01 01:01:02"</span>, <span class='st'>"2016-01-01 01:01:04"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>Using by: sec</span></div><div class='output co'>#&gt; [1] "2016-01-01 01:01:02 UTC" "2016-01-01 01:01:03 UTC"
-#&gt; [3] "2016-01-01 01:01:04 UTC"</div><div class='input'>
-<span class='co'># Date-Time Sequence - By 10 Minutes</span>
-<span class='co'># - Converts to date-time automatically &amp; applies 10-min interval</span>
-<span class='fu'>tk_make_timeseries</span><span class='op'>(</span><span class='st'>"2017-01-01"</span>, <span class='st'>"2017-01-02"</span>, by <span class='op'>=</span> <span class='st'>"10 min"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;  [1] "2017-01-01 00:00:00 UTC" "2017-01-01 00:10:00 UTC"
-#&gt;  [3] "2017-01-01 00:20:00 UTC" "2017-01-01 00:30:00 UTC"
-#&gt;  [5] "2017-01-01 00:40:00 UTC" "2017-01-01 00:50:00 UTC"
-#&gt;  [7] "2017-01-01 01:00:00 UTC" "2017-01-01 01:10:00 UTC"
-#&gt;  [9] "2017-01-01 01:20:00 UTC" "2017-01-01 01:30:00 UTC"
-#&gt; [11] "2017-01-01 01:40:00 UTC" "2017-01-01 01:50:00 UTC"
-#&gt; [13] "2017-01-01 02:00:00 UTC" "2017-01-01 02:10:00 UTC"
-#&gt; [15] "2017-01-01 02:20:00 UTC" "2017-01-01 02:30:00 UTC"
-#&gt; [17] "2017-01-01 02:40:00 UTC" "2017-01-01 02:50:00 UTC"
-#&gt; [19] "2017-01-01 03:00:00 UTC" "2017-01-01 03:10:00 UTC"
-#&gt; [21] "2017-01-01 03:20:00 UTC" "2017-01-01 03:30:00 UTC"
-#&gt; [23] "2017-01-01 03:40:00 UTC" "2017-01-01 03:50:00 UTC"
-#&gt; [25] "2017-01-01 04:00:00 UTC" "2017-01-01 04:10:00 UTC"
-#&gt; [27] "2017-01-01 04:20:00 UTC" "2017-01-01 04:30:00 UTC"
-#&gt; [29] "2017-01-01 04:40:00 UTC" "2017-01-01 04:50:00 UTC"
-#&gt; [31] "2017-01-01 05:00:00 UTC" "2017-01-01 05:10:00 UTC"
-#&gt; [33] "2017-01-01 05:20:00 UTC" "2017-01-01 05:30:00 UTC"
-#&gt; [35] "2017-01-01 05:40:00 UTC" "2017-01-01 05:50:00 UTC"
-#&gt; [37] "2017-01-01 06:00:00 UTC" "2017-01-01 06:10:00 UTC"
-#&gt; [39] "2017-01-01 06:20:00 UTC" "2017-01-01 06:30:00 UTC"
-#&gt; [41] "2017-01-01 06:40:00 UTC" "2017-01-01 06:50:00 UTC"
-#&gt; [43] "2017-01-01 07:00:00 UTC" "2017-01-01 07:10:00 UTC"
-#&gt; [45] "2017-01-01 07:20:00 UTC" "2017-01-01 07:30:00 UTC"
-#&gt; [47] "2017-01-01 07:40:00 UTC" "2017-01-01 07:50:00 UTC"
-#&gt; [49] "2017-01-01 08:00:00 UTC" "2017-01-01 08:10:00 UTC"
-#&gt;  [ reached 'max' / getOption("max.print") -- omitted 95 entries ]</div><div class='input'>
-
-<span class='co'># --- REMOVE / INCLUDE ENDPOINTS ----</span>
-
-<span class='co'># Last value in this case is desired</span>
-<span class='fu'>tk_make_timeseries</span><span class='op'>(</span><span class='st'>"2017-01-01"</span>, by <span class='op'>=</span> <span class='st'>"30 min"</span>, length_out <span class='op'>=</span> <span class='st'>"6 hours"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;  [1] "2017-01-01 00:00:00 UTC" "2017-01-01 00:30:00 UTC"
-#&gt;  [3] "2017-01-01 01:00:00 UTC" "2017-01-01 01:30:00 UTC"
-#&gt;  [5] "2017-01-01 02:00:00 UTC" "2017-01-01 02:30:00 UTC"
-#&gt;  [7] "2017-01-01 03:00:00 UTC" "2017-01-01 03:30:00 UTC"
-#&gt;  [9] "2017-01-01 04:00:00 UTC" "2017-01-01 04:30:00 UTC"
-#&gt; [11] "2017-01-01 05:00:00 UTC" "2017-01-01 05:30:00 UTC"
-#&gt; [13] "2017-01-01 06:00:00 UTC"</div><div class='input'>
-<span class='co'># Last value in monthly case is not wanted</span>
-<span class='fu'>tk_make_timeseries</span><span class='op'>(</span><span class='st'>"2012-01-01"</span>, by <span class='op'>=</span> <span class='st'>"1 month"</span>,
-                   length_out <span class='op'>=</span> <span class='st'>"12 months"</span>,
-                   include_endpoints <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span> <span class='co'># Removes unnecessary last value</span>
-</div><div class='output co'>#&gt;  [1] "2012-01-01" "2012-02-01" "2012-03-01" "2012-04-01" "2012-05-01"
-#&gt;  [6] "2012-06-01" "2012-07-01" "2012-08-01" "2012-09-01" "2012-10-01"
-#&gt; [11] "2012-11-01" "2012-12-01"</div><div class='input'>
-
-<span class='co'># ---- SKIP &amp; INSERT VALUES ----</span>
-
-<span class='fu'>tk_make_timeseries</span><span class='op'>(</span>
-    <span class='st'>"2011-01-01"</span>, length_out <span class='op'>=</span> <span class='fl'>5</span>,
-    skip_values   <span class='op'>=</span> <span class='st'>"2011-01-05"</span>,
-    insert_values <span class='op'>=</span> <span class='st'>"2011-01-06"</span>
-<span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>Using by: day</span></div><div class='output co'>#&gt; [1] "2011-01-01" "2011-01-02" "2011-01-03" "2011-01-04" "2011-01-06"</div><div class='input'>
-</div></pre>
+    <pre class="examples"><span class='r-in'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://dplyr.tidyverse.org'>dplyr</a></span><span class='op'>)</span></span>
+<span class='r-in'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/business-science/tidyquant'>tidyquant</a></span><span class='op'>)</span></span>
+<span class='r-in'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/business-science/timetk'>timetk</a></span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/options.html'>options</a></span><span class='op'>(</span>max.print <span class='op'>=</span> <span class='fl'>50</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># ---- DATE ----</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Start + End, Guesses by = "day"</span></span>
+<span class='r-in'><span class='fu'>tk_make_timeseries</span><span class='op'>(</span><span class='st'>"2017-01-01"</span>, <span class='st'>"2017-12-31"</span><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> Using by: day</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [1] "2017-01-01" "2017-01-02" "2017-01-03" "2017-01-04" "2017-01-05"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [6] "2017-01-06" "2017-01-07" "2017-01-08" "2017-01-09" "2017-01-10"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [11] "2017-01-11" "2017-01-12" "2017-01-13" "2017-01-14" "2017-01-15"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [16] "2017-01-16" "2017-01-17" "2017-01-18" "2017-01-19" "2017-01-20"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [21] "2017-01-21" "2017-01-22" "2017-01-23" "2017-01-24" "2017-01-25"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [26] "2017-01-26" "2017-01-27" "2017-01-28" "2017-01-29" "2017-01-30"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [31] "2017-01-31" "2017-02-01" "2017-02-02" "2017-02-03" "2017-02-04"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [36] "2017-02-05" "2017-02-06" "2017-02-07" "2017-02-08" "2017-02-09"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [41] "2017-02-10" "2017-02-11" "2017-02-12" "2017-02-13" "2017-02-14"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [46] "2017-02-15" "2017-02-16" "2017-02-17" "2017-02-18" "2017-02-19"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [ reached 'max' / getOption("max.print") -- omitted 315 entries ]</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Just Start</span></span>
+<span class='r-in'><span class='fu'>tk_make_timeseries</span><span class='op'>(</span><span class='st'>"2017"</span><span class='op'>)</span> <span class='co'># Same result</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> Using by: day</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [1] "2017-01-01" "2017-01-02" "2017-01-03" "2017-01-04" "2017-01-05"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [6] "2017-01-06" "2017-01-07" "2017-01-08" "2017-01-09" "2017-01-10"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [11] "2017-01-11" "2017-01-12" "2017-01-13" "2017-01-14" "2017-01-15"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [16] "2017-01-16" "2017-01-17" "2017-01-18" "2017-01-19" "2017-01-20"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [21] "2017-01-21" "2017-01-22" "2017-01-23" "2017-01-24" "2017-01-25"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [26] "2017-01-26" "2017-01-27" "2017-01-28" "2017-01-29" "2017-01-30"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [31] "2017-01-31" "2017-02-01" "2017-02-02" "2017-02-03" "2017-02-04"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [36] "2017-02-05" "2017-02-06" "2017-02-07" "2017-02-08" "2017-02-09"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [41] "2017-02-10" "2017-02-11" "2017-02-12" "2017-02-13" "2017-02-14"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [46] "2017-02-15" "2017-02-16" "2017-02-17" "2017-02-18" "2017-02-19"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [ reached 'max' / getOption("max.print") -- omitted 315 entries ]</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Only dates in February, 2017</span></span>
+<span class='r-in'><span class='fu'>tk_make_timeseries</span><span class='op'>(</span><span class='st'>"2017-02"</span><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> Using by: day</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [1] "2017-02-01" "2017-02-02" "2017-02-03" "2017-02-04" "2017-02-05"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [6] "2017-02-06" "2017-02-07" "2017-02-08" "2017-02-09" "2017-02-10"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [11] "2017-02-11" "2017-02-12" "2017-02-13" "2017-02-14" "2017-02-15"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [16] "2017-02-16" "2017-02-17" "2017-02-18" "2017-02-19" "2017-02-20"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [21] "2017-02-21" "2017-02-22" "2017-02-23" "2017-02-24" "2017-02-25"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [26] "2017-02-26" "2017-02-27" "2017-02-28"</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Start + Length Out, Guesses by = "day"</span></span>
+<span class='r-in'><span class='fu'>tk_make_timeseries</span><span class='op'>(</span><span class='st'>"2012"</span>, length_out <span class='op'>=</span> <span class='fl'>6</span><span class='op'>)</span> <span class='co'># Guesses by = "day"</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> Using by: day</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "2012-01-01" "2012-01-02" "2012-01-03" "2012-01-04" "2012-01-05"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [6] "2012-01-06"</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Start + By + Length Out, Spacing 6 observations by monthly interval</span></span>
+<span class='r-in'><span class='fu'>tk_make_timeseries</span><span class='op'>(</span><span class='st'>"2012"</span>, by <span class='op'>=</span> <span class='st'>"1 month"</span>, length_out <span class='op'>=</span> <span class='fl'>6</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "2012-01-01" "2012-02-01" "2012-03-01" "2012-04-01" "2012-05-01"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [6] "2012-06-01"</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Start + By + Length Out, Phrase "1 year 6 months"</span></span>
+<span class='r-in'><span class='fu'>tk_make_timeseries</span><span class='op'>(</span><span class='st'>"2012"</span>, by <span class='op'>=</span> <span class='st'>"1 month"</span>,</span>
+<span class='r-in'>                   length_out <span class='op'>=</span> <span class='st'>"1 year 6 months"</span>, include_endpoints <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [1] "2012-01-01" "2012-02-01" "2012-03-01" "2012-04-01" "2012-05-01"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [6] "2012-06-01" "2012-07-01" "2012-08-01" "2012-09-01" "2012-10-01"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [11] "2012-11-01" "2012-12-01" "2013-01-01" "2013-02-01" "2013-03-01"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [16] "2013-04-01" "2013-05-01" "2013-06-01"</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Going in Reverse, End + Length Out</span></span>
+<span class='r-in'><span class='fu'>tk_make_timeseries</span><span class='op'>(</span>end_date <span class='op'>=</span> <span class='st'>"2012-01-01"</span>, by <span class='op'>=</span> <span class='st'>"1 month"</span>,</span>
+<span class='r-in'>                   length_out <span class='op'>=</span> <span class='st'>"1 year 6 months"</span>, include_endpoints <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [1] "2010-08-01" "2010-09-01" "2010-10-01" "2010-11-01" "2010-12-01"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [6] "2011-01-01" "2011-02-01" "2011-03-01" "2011-04-01" "2011-05-01"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [11] "2011-06-01" "2011-07-01" "2011-08-01" "2011-09-01" "2011-10-01"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [16] "2011-11-01" "2011-12-01" "2012-01-01"</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># ---- DATE-TIME ----</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Start + End, Guesses by second</span></span>
+<span class='r-in'><span class='fu'>tk_make_timeseries</span><span class='op'>(</span><span class='st'>"2016-01-01 01:01:02"</span>, <span class='st'>"2016-01-01 01:01:04"</span><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> Using by: sec</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "2016-01-01 01:01:02 UTC" "2016-01-01 01:01:03 UTC"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [3] "2016-01-01 01:01:04 UTC"</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Date-Time Sequence - By 10 Minutes</span></span>
+<span class='r-in'><span class='co'># - Converts to date-time automatically &amp; applies 10-min interval</span></span>
+<span class='r-in'><span class='fu'>tk_make_timeseries</span><span class='op'>(</span><span class='st'>"2017-01-01"</span>, <span class='st'>"2017-01-02"</span>, by <span class='op'>=</span> <span class='st'>"10 min"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [1] "2017-01-01 00:00:00 UTC" "2017-01-01 00:10:00 UTC"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [3] "2017-01-01 00:20:00 UTC" "2017-01-01 00:30:00 UTC"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [5] "2017-01-01 00:40:00 UTC" "2017-01-01 00:50:00 UTC"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [7] "2017-01-01 01:00:00 UTC" "2017-01-01 01:10:00 UTC"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [9] "2017-01-01 01:20:00 UTC" "2017-01-01 01:30:00 UTC"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [11] "2017-01-01 01:40:00 UTC" "2017-01-01 01:50:00 UTC"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [13] "2017-01-01 02:00:00 UTC" "2017-01-01 02:10:00 UTC"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [15] "2017-01-01 02:20:00 UTC" "2017-01-01 02:30:00 UTC"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [17] "2017-01-01 02:40:00 UTC" "2017-01-01 02:50:00 UTC"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [19] "2017-01-01 03:00:00 UTC" "2017-01-01 03:10:00 UTC"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [21] "2017-01-01 03:20:00 UTC" "2017-01-01 03:30:00 UTC"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [23] "2017-01-01 03:40:00 UTC" "2017-01-01 03:50:00 UTC"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [25] "2017-01-01 04:00:00 UTC" "2017-01-01 04:10:00 UTC"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [27] "2017-01-01 04:20:00 UTC" "2017-01-01 04:30:00 UTC"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [29] "2017-01-01 04:40:00 UTC" "2017-01-01 04:50:00 UTC"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [31] "2017-01-01 05:00:00 UTC" "2017-01-01 05:10:00 UTC"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [33] "2017-01-01 05:20:00 UTC" "2017-01-01 05:30:00 UTC"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [35] "2017-01-01 05:40:00 UTC" "2017-01-01 05:50:00 UTC"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [37] "2017-01-01 06:00:00 UTC" "2017-01-01 06:10:00 UTC"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [39] "2017-01-01 06:20:00 UTC" "2017-01-01 06:30:00 UTC"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [41] "2017-01-01 06:40:00 UTC" "2017-01-01 06:50:00 UTC"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [43] "2017-01-01 07:00:00 UTC" "2017-01-01 07:10:00 UTC"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [45] "2017-01-01 07:20:00 UTC" "2017-01-01 07:30:00 UTC"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [47] "2017-01-01 07:40:00 UTC" "2017-01-01 07:50:00 UTC"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [49] "2017-01-01 08:00:00 UTC" "2017-01-01 08:10:00 UTC"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [ reached 'max' / getOption("max.print") -- omitted 95 entries ]</span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># --- REMOVE / INCLUDE ENDPOINTS ----</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Last value in this case is desired</span></span>
+<span class='r-in'><span class='fu'>tk_make_timeseries</span><span class='op'>(</span><span class='st'>"2017-01-01"</span>, by <span class='op'>=</span> <span class='st'>"30 min"</span>, length_out <span class='op'>=</span> <span class='st'>"6 hours"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [1] "2017-01-01 00:00:00 UTC" "2017-01-01 00:30:00 UTC"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [3] "2017-01-01 01:00:00 UTC" "2017-01-01 01:30:00 UTC"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [5] "2017-01-01 02:00:00 UTC" "2017-01-01 02:30:00 UTC"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [7] "2017-01-01 03:00:00 UTC" "2017-01-01 03:30:00 UTC"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [9] "2017-01-01 04:00:00 UTC" "2017-01-01 04:30:00 UTC"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [11] "2017-01-01 05:00:00 UTC" "2017-01-01 05:30:00 UTC"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [13] "2017-01-01 06:00:00 UTC"</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Last value in monthly case is not wanted</span></span>
+<span class='r-in'><span class='fu'>tk_make_timeseries</span><span class='op'>(</span><span class='st'>"2012-01-01"</span>, by <span class='op'>=</span> <span class='st'>"1 month"</span>,</span>
+<span class='r-in'>                   length_out <span class='op'>=</span> <span class='st'>"12 months"</span>,</span>
+<span class='r-in'>                   include_endpoints <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span> <span class='co'># Removes unnecessary last value</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [1] "2012-01-01" "2012-02-01" "2012-03-01" "2012-04-01" "2012-05-01"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [6] "2012-06-01" "2012-07-01" "2012-08-01" "2012-09-01" "2012-10-01"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [11] "2012-11-01" "2012-12-01"</span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># ---- SKIP &amp; INSERT VALUES ----</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>tk_make_timeseries</span><span class='op'>(</span></span>
+<span class='r-in'>    <span class='st'>"2011-01-01"</span>, length_out <span class='op'>=</span> <span class='fl'>5</span>,</span>
+<span class='r-in'>    skip_values   <span class='op'>=</span> <span class='st'>"2011-01-05"</span>,</span>
+<span class='r-in'>    insert_values <span class='op'>=</span> <span class='st'>"2011-01-06"</span></span>
+<span class='r-in'><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> Using by: day</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "2011-01-01" "2011-01-02" "2011-01-03" "2011-01-04" "2011-01-06"</span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

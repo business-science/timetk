@@ -370,80 +370,88 @@ split containing a training/testing sample.</p></li>
 </div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span>
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/business-science/timetk'>timetk</a></span><span class='op'>)</span>
-
-<span class='co'># DATA ----</span>
-<span class='va'>m750</span> <span class='op'>&lt;-</span> <span class='va'>m4_monthly</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>id</span> <span class='op'>==</span> <span class='st'>"M750"</span><span class='op'>)</span>
-
-
-<span class='co'># RESAMPLE SPEC ----</span>
-<span class='va'>resample_spec</span> <span class='op'>&lt;-</span> <span class='fu'>time_series_cv</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>m750</span>,
-                                initial     <span class='op'>=</span> <span class='st'>"6 years"</span>,
-                                assess      <span class='op'>=</span> <span class='st'>"24 months"</span>,
-                                skip        <span class='op'>=</span> <span class='st'>"24 months"</span>,
-                                cumulative  <span class='op'>=</span> <span class='cn'>FALSE</span>,
-                                slice_limit <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>Using date_var: date</span></div><div class='input'>
-<span class='va'>resample_spec</span>
-</div><div class='output co'>#&gt; # Time Series Cross Validation Plan 
-#&gt; <span style='color: #949494;'># A tibble: 3 × 2</span>
-#&gt;   splits          id    
-#&gt;   <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>          <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> 
-#&gt; <span style='color: #BCBCBC;'>1</span> <span style='color: #949494;'>&lt;split [72/24]&gt;</span> Slice1
-#&gt; <span style='color: #BCBCBC;'>2</span> <span style='color: #949494;'>&lt;split [72/24]&gt;</span> Slice2
-#&gt; <span style='color: #BCBCBC;'>3</span> <span style='color: #949494;'>&lt;split [72/24]&gt;</span> Slice3</div><div class='input'>
-<span class='co'># VISUALIZE CV PLAN ----</span>
-
-<span class='co'># Select date and value columns from the tscv diagnostic tool</span>
-<span class='va'>resample_spec</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='tk_time_series_cv_plan.html'>tk_time_series_cv_plan</a></span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 288 × 5</span>
-#&gt;    .id    .key     id    date       value
-#&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
-#&gt; <span style='color: #BCBCBC;'> 1</span> Slice1 training M750  2007-07-01  <span style='text-decoration: underline;'>8</span>710
-#&gt; <span style='color: #BCBCBC;'> 2</span> Slice1 training M750  2007-08-01  <span style='text-decoration: underline;'>8</span>300
-#&gt; <span style='color: #BCBCBC;'> 3</span> Slice1 training M750  2007-09-01  <span style='text-decoration: underline;'>8</span>910
-#&gt; <span style='color: #BCBCBC;'> 4</span> Slice1 training M750  2007-10-01  <span style='text-decoration: underline;'>9</span>710
-#&gt; <span style='color: #BCBCBC;'> 5</span> Slice1 training M750  2007-11-01  <span style='text-decoration: underline;'>9</span>870
-#&gt; <span style='color: #BCBCBC;'> 6</span> Slice1 training M750  2007-12-01  <span style='text-decoration: underline;'>9</span>980
-#&gt; <span style='color: #BCBCBC;'> 7</span> Slice1 training M750  2008-01-01  <span style='text-decoration: underline;'>9</span>970
-#&gt; <span style='color: #BCBCBC;'> 8</span> Slice1 training M750  2008-02-01  <span style='text-decoration: underline;'>9</span>970
-#&gt; <span style='color: #BCBCBC;'> 9</span> Slice1 training M750  2008-03-01 <span style='text-decoration: underline;'>10</span>120
-#&gt; <span style='color: #BCBCBC;'>10</span> Slice1 training M750  2008-04-01 <span style='text-decoration: underline;'>10</span>150
-#&gt; <span style='color: #949494;'># … with 278 more rows</span></div><div class='input'>
-<span class='co'># Plot the date and value columns to see the CV Plan</span>
-<span class='va'>resample_spec</span> <span class='op'>%&gt;%</span>
-    <span class='fu'><a href='plot_time_series_cv_plan.html'>plot_time_series_cv_plan</a></span><span class='op'>(</span><span class='va'>date</span>, <span class='va'>value</span>, .interactive <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='img'><img src='time_series_cv-1.png' alt='' width='700' height='433' /></div><div class='input'>
-
-<span class='co'># PANEL DATA / TIME SERIES GROUPS ----</span>
-<span class='co'># - Time Series Groups are processed using an *ungrouped* data set</span>
-<span class='co'># - The data has sliding windows applied starting with the beginning of the series</span>
-<span class='co'># - The seven groups of weekly time series are</span>
-<span class='co'>#   processed together for &lt;split [358/78]&gt; dimensions</span>
-
-<span class='va'>walmart_tscv</span> <span class='op'>&lt;-</span> <span class='va'>walmart_sales_weekly</span> <span class='op'>%&gt;%</span>
-    <span class='fu'>time_series_cv</span><span class='op'>(</span>
-        date_var    <span class='op'>=</span> <span class='va'>Date</span>,
-        initial     <span class='op'>=</span> <span class='st'>"12 months"</span>,
-        assess      <span class='op'>=</span> <span class='st'>"3 months"</span>,
-        skip        <span class='op'>=</span> <span class='st'>"3 months"</span>,
-        slice_limit <span class='op'>=</span> <span class='fl'>4</span>
-    <span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>Data is not ordered by the 'date_var'. Resamples will be arranged by `Date`.</span></div><div class='output co'>#&gt; <span class='message'>Overlapping Timestamps Detected. Processing overlapping time series together using sliding windows.</span></div><div class='input'>
-<span class='va'>walmart_tscv</span>
-</div><div class='output co'>#&gt; # Time Series Cross Validation Plan 
-#&gt; <span style='color: #949494;'># A tibble: 4 × 2</span>
-#&gt;   splits           id    
-#&gt;   <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>           <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> 
-#&gt; <span style='color: #BCBCBC;'>1</span> <span style='color: #949494;'>&lt;split [364/84]&gt;</span> Slice1
-#&gt; <span style='color: #BCBCBC;'>2</span> <span style='color: #949494;'>&lt;split [364/84]&gt;</span> Slice2
-#&gt; <span style='color: #BCBCBC;'>3</span> <span style='color: #949494;'>&lt;split [364/84]&gt;</span> Slice3
-#&gt; <span style='color: #BCBCBC;'>4</span> <span style='color: #949494;'>&lt;split [364/84]&gt;</span> Slice4</div><div class='input'>
-<span class='va'>walmart_tscv</span> <span class='op'>%&gt;%</span>
-    <span class='fu'><a href='plot_time_series_cv_plan.html'>plot_time_series_cv_plan</a></span><span class='op'>(</span><span class='va'>Date</span>, <span class='va'>Weekly_Sales</span>, .interactive <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='img'><img src='time_series_cv-2.png' alt='' width='700' height='433' /></div><div class='input'>
-</div></pre>
+    <pre class="examples"><span class='r-in'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span></span>
+<span class='r-in'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/business-science/timetk'>timetk</a></span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># DATA ----</span></span>
+<span class='r-in'><span class='va'>m750</span> <span class='op'>&lt;-</span> <span class='va'>m4_monthly</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>id</span> <span class='op'>==</span> <span class='st'>"M750"</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># RESAMPLE SPEC ----</span></span>
+<span class='r-in'><span class='va'>resample_spec</span> <span class='op'>&lt;-</span> <span class='fu'>time_series_cv</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>m750</span>,</span>
+<span class='r-in'>                                initial     <span class='op'>=</span> <span class='st'>"6 years"</span>,</span>
+<span class='r-in'>                                assess      <span class='op'>=</span> <span class='st'>"24 months"</span>,</span>
+<span class='r-in'>                                skip        <span class='op'>=</span> <span class='st'>"24 months"</span>,</span>
+<span class='r-in'>                                cumulative  <span class='op'>=</span> <span class='cn'>FALSE</span>,</span>
+<span class='r-in'>                                slice_limit <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> Using date_var: date</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>resample_spec</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> # Time Series Cross Validation Plan </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 3 × 2</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   splits          id    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>          <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>1</span> <span style='color: #949494;'>&lt;split [72/24]&gt;</span> Slice1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>2</span> <span style='color: #949494;'>&lt;split [72/24]&gt;</span> Slice2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>3</span> <span style='color: #949494;'>&lt;split [72/24]&gt;</span> Slice3</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># VISUALIZE CV PLAN ----</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Select date and value columns from the tscv diagnostic tool</span></span>
+<span class='r-in'><span class='va'>resample_spec</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='tk_time_series_cv_plan.html'>tk_time_series_cv_plan</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 288 × 5</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    .id    .key     id    date       value</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 1</span> Slice1 training M750  2007-07-01  <span style='text-decoration: underline;'>8</span>710</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 2</span> Slice1 training M750  2007-08-01  <span style='text-decoration: underline;'>8</span>300</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 3</span> Slice1 training M750  2007-09-01  <span style='text-decoration: underline;'>8</span>910</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 4</span> Slice1 training M750  2007-10-01  <span style='text-decoration: underline;'>9</span>710</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 5</span> Slice1 training M750  2007-11-01  <span style='text-decoration: underline;'>9</span>870</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 6</span> Slice1 training M750  2007-12-01  <span style='text-decoration: underline;'>9</span>980</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 7</span> Slice1 training M750  2008-01-01  <span style='text-decoration: underline;'>9</span>970</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 8</span> Slice1 training M750  2008-02-01  <span style='text-decoration: underline;'>9</span>970</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 9</span> Slice1 training M750  2008-03-01 <span style='text-decoration: underline;'>10</span>120</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>10</span> Slice1 training M750  2008-04-01 <span style='text-decoration: underline;'>10</span>150</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># … with 278 more rows</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Plot the date and value columns to see the CV Plan</span></span>
+<span class='r-in'><span class='va'>resample_spec</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>    <span class='fu'><a href='plot_time_series_cv_plan.html'>plot_time_series_cv_plan</a></span><span class='op'>(</span><span class='va'>date</span>, <span class='va'>value</span>, .interactive <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='time_series_cv-1.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># PANEL DATA / TIME SERIES GROUPS ----</span></span>
+<span class='r-in'><span class='co'># - Time Series Groups are processed using an *ungrouped* data set</span></span>
+<span class='r-in'><span class='co'># - The data has sliding windows applied starting with the beginning of the series</span></span>
+<span class='r-in'><span class='co'># - The seven groups of weekly time series are</span></span>
+<span class='r-in'><span class='co'>#   processed together for &lt;split [358/78]&gt; dimensions</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>walmart_tscv</span> <span class='op'>&lt;-</span> <span class='va'>walmart_sales_weekly</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>    <span class='fu'>time_series_cv</span><span class='op'>(</span></span>
+<span class='r-in'>        date_var    <span class='op'>=</span> <span class='va'>Date</span>,</span>
+<span class='r-in'>        initial     <span class='op'>=</span> <span class='st'>"12 months"</span>,</span>
+<span class='r-in'>        assess      <span class='op'>=</span> <span class='st'>"3 months"</span>,</span>
+<span class='r-in'>        skip        <span class='op'>=</span> <span class='st'>"3 months"</span>,</span>
+<span class='r-in'>        slice_limit <span class='op'>=</span> <span class='fl'>4</span></span>
+<span class='r-in'>    <span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> Data is not ordered by the 'date_var'. Resamples will be arranged by `Date`.</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> Overlapping Timestamps Detected. Processing overlapping time series together using sliding windows.</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>walmart_tscv</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> # Time Series Cross Validation Plan </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 4 × 2</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   splits           id    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>           <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>1</span> <span style='color: #949494;'>&lt;split [364/84]&gt;</span> Slice1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>2</span> <span style='color: #949494;'>&lt;split [364/84]&gt;</span> Slice2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>3</span> <span style='color: #949494;'>&lt;split [364/84]&gt;</span> Slice3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>4</span> <span style='color: #949494;'>&lt;split [364/84]&gt;</span> Slice4</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>walmart_tscv</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>    <span class='fu'><a href='plot_time_series_cv_plan.html'>plot_time_series_cv_plan</a></span><span class='op'>(</span><span class='va'>Date</span>, <span class='va'>Weekly_Sales</span>, .interactive <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='time_series_cv-2.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

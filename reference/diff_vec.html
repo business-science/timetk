@@ -331,58 +331,71 @@ where <code>diff_vec(difference = 1, log = TRUE) %&gt;% exp()</code> is approxim
 </div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://dplyr.tidyverse.org'>dplyr</a></span><span class='op'>)</span>
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/business-science/timetk'>timetk</a></span><span class='op'>)</span>
-
-<span class='co'># --- USAGE ----</span>
-
-<span class='fu'>diff_vec</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, lag <span class='op'>=</span> <span class='fl'>2</span>, difference <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-    <span class='fu'>diff_inv_vec</span><span class='op'>(</span>lag <span class='op'>=</span> <span class='fl'>2</span>, difference <span class='op'>=</span> <span class='fl'>2</span>, initial_values <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>diff_vec(): Initial values: 1, 2, 3, 4</span></div><div class='output co'>#&gt;  [1]  1  2  3  4  5  6  7  8  9 10</div><div class='input'>
-<span class='co'># --- VECTOR ----</span>
-
-<span class='co'># Get Change</span>
-<span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span> <span class='op'>%&gt;%</span> <span class='fu'>diff_vec</span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>diff_vec(): Initial values: 1</span></div><div class='output co'>#&gt;  [1] NA  1  1  1  1  1  1  1  1  1</div><div class='input'>
-<span class='co'># Get Acceleration</span>
-<span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span> <span class='op'>%&gt;%</span> <span class='fu'>diff_vec</span><span class='op'>(</span>difference <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>diff_vec(): Initial values: 1, 2</span></div><div class='output co'>#&gt;  [1] NA NA  0  0  0  0  0  0  0  0</div><div class='input'>
-<span class='co'># Get approximate rate of change</span>
-<span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span> <span class='op'>%&gt;%</span> <span class='fu'>diff_vec</span><span class='op'>(</span>log <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>-</span> <span class='fl'>1</span>
-</div><div class='output co'>#&gt; <span class='message'>diff_vec(): Initial values: 1</span></div><div class='output co'>#&gt;  [1]        NA 1.0000000 0.5000000 0.3333333 0.2500000 0.2000000 0.1666667
-#&gt;  [8] 0.1428571 0.1250000 0.1111111</div><div class='input'>
-
-<span class='co'># --- MUTATE ----</span>
-
-<span class='va'>m4_daily</span> <span class='op'>%&gt;%</span>
-    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>id</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>difference <span class='op'>=</span> <span class='fu'>diff_vec</span><span class='op'>(</span><span class='va'>value</span>, lag <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>
-        difference_inv <span class='op'>=</span> <span class='fu'>diff_inv_vec</span><span class='op'>(</span>
-            <span class='va'>difference</span>,
-            lag <span class='op'>=</span> <span class='fl'>1</span>,
-            <span class='co'># Add initial value to calculate the inverse difference</span>
-            initial_values <span class='op'>=</span> <span class='va'>value</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span>
-        <span class='op'>)</span>
-    <span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>diff_vec(): Initial values: 2076.2</span></div><div class='output co'>#&gt; <span class='message'>diff_vec(): Initial values: 1821.9</span></div><div class='output co'>#&gt; <span class='message'>diff_vec(): Initial values: 9109.38</span></div><div class='output co'>#&gt; <span class='message'>diff_vec(): Initial values: 5647.3</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 9,743 × 5</span>
-#&gt; <span style='color: #949494;'># Groups:   id [4]</span>
-#&gt;    id    date       value difference difference_inv
-#&gt;    <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>          <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
-#&gt; <span style='color: #BCBCBC;'> 1</span> D10   2014-07-03 <span style='text-decoration: underline;'>2</span>076.     <span style='color: #BB0000;'>NA</span>              <span style='text-decoration: underline;'>2</span>076.
-#&gt; <span style='color: #BCBCBC;'> 2</span> D10   2014-07-04 <span style='text-decoration: underline;'>2</span>073.     -<span style='color: #BB0000;'>2.80</span>           <span style='text-decoration: underline;'>2</span>073.
-#&gt; <span style='color: #BCBCBC;'> 3</span> D10   2014-07-05 <span style='text-decoration: underline;'>2</span>049.    -<span style='color: #BB0000;'>24.7</span>            <span style='text-decoration: underline;'>2</span>049.
-#&gt; <span style='color: #BCBCBC;'> 4</span> D10   2014-07-06 <span style='text-decoration: underline;'>2</span>049.      0.200          <span style='text-decoration: underline;'>2</span>049.
-#&gt; <span style='color: #BCBCBC;'> 5</span> D10   2014-07-07 <span style='text-decoration: underline;'>2</span>006.    -<span style='color: #BB0000;'>42.5</span>            <span style='text-decoration: underline;'>2</span>006.
-#&gt; <span style='color: #BCBCBC;'> 6</span> D10   2014-07-08 <span style='text-decoration: underline;'>2</span>018.     11.2            <span style='text-decoration: underline;'>2</span>018.
-#&gt; <span style='color: #BCBCBC;'> 7</span> D10   2014-07-09 <span style='text-decoration: underline;'>2</span>019.      1.5            <span style='text-decoration: underline;'>2</span>019.
-#&gt; <span style='color: #BCBCBC;'> 8</span> D10   2014-07-10 <span style='text-decoration: underline;'>2</span>007.    -<span style='color: #BB0000;'>11.7</span>            <span style='text-decoration: underline;'>2</span>007.
-#&gt; <span style='color: #BCBCBC;'> 9</span> D10   2014-07-11 <span style='text-decoration: underline;'>2</span>010       2.60           <span style='text-decoration: underline;'>2</span>010 
-#&gt; <span style='color: #BCBCBC;'>10</span> D10   2014-07-12 <span style='text-decoration: underline;'>2</span>002.     -<span style='color: #BB0000;'>8.5</span>            <span style='text-decoration: underline;'>2</span>002.
-#&gt; <span style='color: #949494;'># … with 9,733 more rows</span></div><div class='input'>
-
-
-</div></pre>
+    <pre class="examples"><span class='r-in'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://dplyr.tidyverse.org'>dplyr</a></span><span class='op'>)</span></span>
+<span class='r-in'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/business-science/timetk'>timetk</a></span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># --- USAGE ----</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>diff_vec</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, lag <span class='op'>=</span> <span class='fl'>2</span>, difference <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>    <span class='fu'>diff_inv_vec</span><span class='op'>(</span>lag <span class='op'>=</span> <span class='fl'>2</span>, difference <span class='op'>=</span> <span class='fl'>2</span>, initial_values <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> diff_vec(): Initial values: 1, 2, 3, 4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [1]  1  2  3  4  5  6  7  8  9 10</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># --- VECTOR ----</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Get Change</span></span>
+<span class='r-in'><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'>diff_vec</span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> diff_vec(): Initial values: 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [1] NA  1  1  1  1  1  1  1  1  1</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Get Acceleration</span></span>
+<span class='r-in'><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'>diff_vec</span><span class='op'>(</span>difference <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> diff_vec(): Initial values: 1, 2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [1] NA NA  0  0  0  0  0  0  0  0</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Get approximate rate of change</span></span>
+<span class='r-in'><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'>diff_vec</span><span class='op'>(</span>log <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>-</span> <span class='fl'>1</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> diff_vec(): Initial values: 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [1]        NA 1.0000000 0.5000000 0.3333333 0.2500000 0.2000000 0.1666667</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [8] 0.1428571 0.1250000 0.1111111</span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># --- MUTATE ----</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>m4_daily</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>id</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>difference <span class='op'>=</span> <span class='fu'>diff_vec</span><span class='op'>(</span><span class='va'>value</span>, lag <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span></span>
+<span class='r-in'>        difference_inv <span class='op'>=</span> <span class='fu'>diff_inv_vec</span><span class='op'>(</span></span>
+<span class='r-in'>            <span class='va'>difference</span>,</span>
+<span class='r-in'>            lag <span class='op'>=</span> <span class='fl'>1</span>,</span>
+<span class='r-in'>            <span class='co'># Add initial value to calculate the inverse difference</span></span>
+<span class='r-in'>            initial_values <span class='op'>=</span> <span class='va'>value</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span></span>
+<span class='r-in'>        <span class='op'>)</span></span>
+<span class='r-in'>    <span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> diff_vec(): Initial values: 2076.2</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> diff_vec(): Initial values: 1821.9</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> diff_vec(): Initial values: 9109.38</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> diff_vec(): Initial values: 5647.3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 9,743 × 5</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># Groups:   id [4]</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    id    date       value difference difference_inv</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>          <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 1</span> D10   2014-07-03 <span style='text-decoration: underline;'>2</span>076.     <span style='color: #BB0000;'>NA</span>              <span style='text-decoration: underline;'>2</span>076.</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 2</span> D10   2014-07-04 <span style='text-decoration: underline;'>2</span>073.     -<span style='color: #BB0000;'>2.80</span>           <span style='text-decoration: underline;'>2</span>073.</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 3</span> D10   2014-07-05 <span style='text-decoration: underline;'>2</span>049.    -<span style='color: #BB0000;'>24.7</span>            <span style='text-decoration: underline;'>2</span>049.</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 4</span> D10   2014-07-06 <span style='text-decoration: underline;'>2</span>049.      0.200          <span style='text-decoration: underline;'>2</span>049.</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 5</span> D10   2014-07-07 <span style='text-decoration: underline;'>2</span>006.    -<span style='color: #BB0000;'>42.5</span>            <span style='text-decoration: underline;'>2</span>006.</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 6</span> D10   2014-07-08 <span style='text-decoration: underline;'>2</span>018.     11.2            <span style='text-decoration: underline;'>2</span>018.</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 7</span> D10   2014-07-09 <span style='text-decoration: underline;'>2</span>019.      1.5            <span style='text-decoration: underline;'>2</span>019.</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 8</span> D10   2014-07-10 <span style='text-decoration: underline;'>2</span>007.    -<span style='color: #BB0000;'>11.7</span>            <span style='text-decoration: underline;'>2</span>007.</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 9</span> D10   2014-07-11 <span style='text-decoration: underline;'>2</span>010       2.60           <span style='text-decoration: underline;'>2</span>010 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>10</span> D10   2014-07-12 <span style='text-decoration: underline;'>2</span>002.     -<span style='color: #BB0000;'>8.5</span>            <span style='text-decoration: underline;'>2</span>002.</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># … with 9,733 more rows</span></span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

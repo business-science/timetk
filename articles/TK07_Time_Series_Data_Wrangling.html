@@ -190,7 +190,7 @@
       <h1 data-toc-skip>Time Series Data Wrangling</h1>
                         <h4 class="author">Matt Dancho</h4>
             
-            <h4 class="date">2021-10-23</h4>
+            <h4 class="date">2021-11-13</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/business-science/timetk/blob/master/vignettes/TK07_Time_Series_Data_Wrangling.Rmd"><code>vignettes/TK07_Time_Series_Data_Wrangling.Rmd</code></a></small>
       <div class="hidden name"><code>TK07_Time_Series_Data_Wrangling.Rmd</code></div>
@@ -254,14 +254,14 @@
 ## # … with 4,022 more rows</code></pre>
 <p>The adjusted column contains the adjusted closing prices for each day.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">FANG</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">symbol</span><span class="op">)</span> <span class="op">%&gt;%</span>
+<code class="sourceCode R"><span class="va">FANG</span> <span class="op"><a href="https://rdrr.io/pkg/tidyquant/man/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">symbol</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/tidyquant/man/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="../reference/plot_time_series.html">plot_time_series</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">adjusted</span>, .facet_ncol <span class="op">=</span> <span class="fl">2</span>, .interactive <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
 <p><img src="TK07_Time_Series_Data_Wrangling_files/figure-html/unnamed-chunk-4-1.png" width="95%" style="display: block; margin: auto;"></p>
 <p>The volume column contains the trade volume (number of times the stock was transacted) for the day.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">FANG</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">symbol</span><span class="op">)</span> <span class="op">%&gt;%</span>
+<code class="sourceCode R"><span class="va">FANG</span> <span class="op"><a href="https://rdrr.io/pkg/tidyquant/man/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">symbol</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/tidyquant/man/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="../reference/plot_time_series.html">plot_time_series</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">volume</span>, .facet_ncol <span class="op">=</span> <span class="fl">2</span>, .interactive <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
 <p><img src="TK07_Time_Series_Data_Wrangling_files/figure-html/unnamed-chunk-5-1.png" width="95%" style="display: block; margin: auto;"></p>
 </div>
@@ -286,12 +286,12 @@
 </li>
 </ul>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">FANG</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">symbol</span><span class="op">)</span> <span class="op">%&gt;%</span>
+<code class="sourceCode R"><span class="va">FANG</span> <span class="op"><a href="https://rdrr.io/pkg/tidyquant/man/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">symbol</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/tidyquant/man/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="../reference/summarise_by_time.html">summarise_by_time</a></span><span class="op">(</span>
     <span class="va">date</span>, .by <span class="op">=</span> <span class="st">"quarter"</span>,
     volume <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/tidyquant/man/excel_stat_summary_functions.html">SUM</a></span><span class="op">(</span><span class="va">volume</span><span class="op">)</span>
-  <span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/tidyquant/man/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="../reference/plot_time_series.html">plot_time_series</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">volume</span>, .facet_ncol <span class="op">=</span> <span class="fl">2</span>, .interactive <span class="op">=</span> <span class="cn">FALSE</span>, .y_intercept <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></code></pre></div>
 <p><img src="TK07_Time_Series_Data_Wrangling_files/figure-html/unnamed-chunk-6-1.png" width="95%" style="display: block; margin: auto;"></p>
 </div>
@@ -304,12 +304,12 @@
 <li>Use the summarization by time: <code>.by = "month"</code> to aggregate by month.</li>
 </ul>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">FANG</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">symbol</span><span class="op">)</span> <span class="op">%&gt;%</span>
+<code class="sourceCode R"><span class="va">FANG</span> <span class="op"><a href="https://rdrr.io/pkg/tidyquant/man/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">symbol</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/tidyquant/man/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="../reference/summarise_by_time.html">summarise_by_time</a></span><span class="op">(</span>
     <span class="va">date</span>, .by <span class="op">=</span> <span class="st">"month"</span>,
     adjusted <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/tidyquant/man/excel_stat_summary_functions.html">FIRST</a></span><span class="op">(</span><span class="va">adjusted</span><span class="op">)</span>
-  <span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/tidyquant/man/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="../reference/plot_time_series.html">plot_time_series</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">adjusted</span>, .facet_ncol <span class="op">=</span> <span class="fl">2</span>, .interactive <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
 <p><img src="TK07_Time_Series_Data_Wrangling_files/figure-html/unnamed-chunk-7-1.png" width="95%" style="display: block; margin: auto;"></p>
 </div>
@@ -330,9 +330,9 @@
 <li>A more advanced example of filtering using <code>%+time</code> and <code>%-time</code> is shown in <em>“Padding Data: Low to High Frequency”</em>.</li>
 </ul>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">FANG</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">symbol</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/filter_by_time.html">filter_by_time</a></span><span class="op">(</span><span class="va">date</span>, <span class="st">"2013-09"</span>, <span class="st">"2013"</span><span class="op">)</span> <span class="op">%&gt;%</span>
+<code class="sourceCode R"><span class="va">FANG</span> <span class="op"><a href="https://rdrr.io/pkg/tidyquant/man/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">symbol</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/tidyquant/man/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="../reference/filter_by_time.html">filter_by_time</a></span><span class="op">(</span><span class="va">date</span>, <span class="st">"2013-09"</span>, <span class="st">"2013"</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/tidyquant/man/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="../reference/plot_time_series.html">plot_time_series</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">adjusted</span>, .facet_ncol <span class="op">=</span> <span class="fl">2</span>, .interactive <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
 <p><img src="TK07_Time_Series_Data_Wrangling_files/figure-html/unnamed-chunk-8-1.png" width="95%" style="display: block; margin: auto;"></p>
 </div>
@@ -350,8 +350,8 @@
 <li>We can add a value using <code>.pad_value</code> or we can impute using a function like <code><a href="../reference/ts_impute_vec.html">ts_impute_vec()</a></code> (shown next).</li>
 </ul>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">FANG</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">symbol</span><span class="op">)</span> <span class="op">%&gt;%</span>
+<code class="sourceCode R"><span class="va">FANG</span> <span class="op"><a href="https://rdrr.io/pkg/tidyquant/man/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">symbol</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/tidyquant/man/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="../reference/pad_by_time.html">pad_by_time</a></span><span class="op">(</span><span class="va">date</span>, .by <span class="op">=</span> <span class="st">"auto"</span><span class="op">)</span> <span class="co"># Guesses .by = "day"</span></code></pre></div>
 <pre><code>## pad applied on the interval: day
 ## pad applied on the interval: day
@@ -385,16 +385,16 @@
 <ul>
 <li>“start”: A special keyword that signals the start of a series</li>
 <li>
-<code>FIRST(date) %+time% "1 month"</code>: Selecting the first date in the sequence then using a special infix operation, <code><a href="../reference/time_arithmetic.html">%+time%</a></code>, called “add time”. In this case I add “1 month”.</li>
+<code>FIRST(date) %+time% "1 month"</code>: Selecting the first date in the sequence then using a special infix operation, <code>%+time%</code>, called “add time”. In this case I add “1 month”.</li>
 </ul>
 </li>
 </ul>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">FANG</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">symbol</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/pad_by_time.html">pad_by_time</a></span><span class="op">(</span><span class="va">date</span>, .by <span class="op">=</span> <span class="st">"hour"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate_all.html">mutate_at</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/vars.html">vars</a></span><span class="op">(</span><span class="va">open</span><span class="op">:</span><span class="va">adjusted</span><span class="op">)</span>, .funs <span class="op">=</span> <span class="va">ts_impute_vec</span>, period <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/filter_by_time.html">filter_by_time</a></span><span class="op">(</span><span class="va">date</span>, <span class="st">"start"</span>, <span class="fu"><a href="https://rdrr.io/pkg/tidyquant/man/excel_stat_summary_functions.html">FIRST</a></span><span class="op">(</span><span class="va">date</span><span class="op">)</span> <span class="op">%+time%</span> <span class="st">"1 month"</span><span class="op">)</span> <span class="op">%&gt;%</span>
+<code class="sourceCode R"><span class="va">FANG</span> <span class="op"><a href="https://rdrr.io/pkg/tidyquant/man/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">symbol</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/tidyquant/man/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="../reference/pad_by_time.html">pad_by_time</a></span><span class="op">(</span><span class="va">date</span>, .by <span class="op">=</span> <span class="st">"hour"</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/tidyquant/man/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate_all.html">mutate_at</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/vars.html">vars</a></span><span class="op">(</span><span class="va">open</span><span class="op">:</span><span class="va">adjusted</span><span class="op">)</span>, .funs <span class="op">=</span> <span class="va">ts_impute_vec</span>, period <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/tidyquant/man/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="../reference/filter_by_time.html">filter_by_time</a></span><span class="op">(</span><span class="va">date</span>, <span class="st">"start"</span>, <span class="fu"><a href="https://rdrr.io/pkg/tidyquant/man/excel_stat_summary_functions.html">FIRST</a></span><span class="op">(</span><span class="va">date</span><span class="op">)</span> <span class="op"><a href="../reference/time_arithmetic.html">%+time%</a></span> <span class="st">"1 month"</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/tidyquant/man/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="../reference/plot_time_series.html">plot_time_series</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">adjusted</span>, .facet_ncol <span class="op">=</span> <span class="fl">2</span>, .interactive <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> </code></pre></div>
 <p><img src="TK07_Time_Series_Data_Wrangling_files/figure-html/unnamed-chunk-10-1.png" width="95%" style="display: block; margin: auto;"></p>
 </div>
@@ -416,21 +416,21 @@
 <span class="va">roll_avg_30</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/slidify.html">slidify</a></span><span class="op">(</span>.f <span class="op">=</span> <span class="va">AVERAGE</span>, .period <span class="op">=</span> <span class="fl">30</span>, .align <span class="op">=</span> <span class="st">"center"</span>, .partial <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 
 <span class="co"># Apply the rolling function</span>
-<span class="va">FANG</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">symbol</span>, <span class="va">date</span>, <span class="va">adjusted</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">symbol</span><span class="op">)</span> <span class="op">%&gt;%</span>
+<span class="va">FANG</span> <span class="op"><a href="https://rdrr.io/pkg/tidyquant/man/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">symbol</span>, <span class="va">date</span>, <span class="va">adjusted</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/tidyquant/man/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">symbol</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/tidyquant/man/pipe.html">%&gt;%</a></span>
   <span class="co"># Apply Sliding Function</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>rolling_avg_30 <span class="op">=</span> <span class="fu">roll_avg_30</span><span class="op">(</span><span class="va">adjusted</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span>cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">adjusted</span>, <span class="va">rolling_avg_30</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>rolling_avg_30 <span class="op">=</span> <span class="fu">roll_avg_30</span><span class="op">(</span><span class="va">adjusted</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/tidyquant/man/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span>cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">adjusted</span>, <span class="va">rolling_avg_30</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/tidyquant/man/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="../reference/plot_time_series.html">plot_time_series</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">value</span>, .color_var <span class="op">=</span> <span class="va">name</span>,
                    .facet_ncol <span class="op">=</span> <span class="fl">2</span>, .smooth <span class="op">=</span> <span class="cn">FALSE</span>, 
                    .interactive <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
 <p><img src="TK07_Time_Series_Data_Wrangling_files/figure-html/unnamed-chunk-11-1.png" width="95%" style="display: block; margin: auto;"></p>
 <p>For simple rolling calculations (rolling average), we can accomplish this operation faster with <code><a href="../reference/slidify_vec.html">slidify_vec()</a></code> - A vectorized rolling function for simple summary rolls (e.g. <code><a href="https://rdrr.io/r/base/mean.html">mean()</a></code>, <code><a href="https://rdrr.io/r/stats/sd.html">sd()</a></code>, <code><a href="https://rdrr.io/r/base/sum.html">sum()</a></code>, etc)</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">FANG</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">symbol</span>, <span class="va">date</span>, <span class="va">adjusted</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">symbol</span><span class="op">)</span> <span class="op">%&gt;%</span>
+<code class="sourceCode R"><span class="va">FANG</span> <span class="op"><a href="https://rdrr.io/pkg/tidyquant/man/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">symbol</span>, <span class="va">date</span>, <span class="va">adjusted</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/tidyquant/man/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">symbol</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/tidyquant/man/pipe.html">%&gt;%</a></span>
   <span class="co"># Apply roll apply Function</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>rolling_avg_30 <span class="op">=</span> <span class="fu"><a href="../reference/slidify_vec.html">slidify_vec</a></span><span class="op">(</span><span class="va">adjusted</span>,  <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/pkg/tidyquant/man/excel_stat_summary_functions.html">AVERAGE</a></span><span class="op">(</span><span class="va">.</span><span class="op">)</span>, 
                                       .period <span class="op">=</span> <span class="fl">30</span>, .partial <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></code></pre></div>
@@ -466,12 +466,12 @@
                    .unlist <span class="op">=</span> <span class="cn">FALSE</span>, .align <span class="op">=</span> <span class="st">"right"</span><span class="op">)</span>
 
 
-<span class="va">FANG</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">symbol</span>, <span class="va">date</span>, <span class="va">adjusted</span>, <span class="va">volume</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">symbol</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>numeric_date <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">date</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
+<span class="va">FANG</span> <span class="op"><a href="https://rdrr.io/pkg/tidyquant/man/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">symbol</span>, <span class="va">date</span>, <span class="va">adjusted</span>, <span class="va">volume</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/tidyquant/man/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">symbol</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/tidyquant/man/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>numeric_date <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">date</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/tidyquant/man/pipe.html">%&gt;%</a></span>
   <span class="co"># Apply rolling regression</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>rolling_lm <span class="op">=</span> <span class="fu">lm_roll</span><span class="op">(</span><span class="va">adjusted</span>, <span class="va">volume</span>, <span class="va">numeric_date</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>rolling_lm <span class="op">=</span> <span class="fu">lm_roll</span><span class="op">(</span><span class="va">adjusted</span>, <span class="va">volume</span>, <span class="va">numeric_date</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/tidyquant/man/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">rolling_lm</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>## # A tibble: 3,676 × 6
 ## # Groups:   symbol [4]

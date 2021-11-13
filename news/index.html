@@ -244,13 +244,21 @@
 <p><strong>Improvements</strong></p>
 <ul>
 <li><p><code><a href="../reference/summarise_by_time.html">summarize_by_time()</a></code>: Added a <code>.week_start</code> argument to allow specifying <code>.week_start = 1</code> for Monday start. Default is 7 for Sunday Start. This can also be changed with the <code>lubridate</code> by setting the <code>lubridate.week.start</code> option.</p></li>
-<li><p>Plot ACF Diagnostics (<code><a href="../reference/plot_acf_diagnostics.html">plot_acf_diagnostics()</a></code>): Change default parameter to <code>.show_white_noise_bars = TRUE</code>. <a href='https://github.com/business-science/timetk/issues/85'>#85</a></p></li>
+<li>
+<p>Plotting Functions:</p>
+<ul>
+<li>Several plotting functions gain a new <code>.facet_dir</code> argument for adjusting the direction of <code>facet_wrap(dir)</code>. <a href='https://github.com/business-science/timetk/issues/94'>#94</a></li>
+<li>Plot ACF Diagnostics (<code><a href="../reference/plot_acf_diagnostics.html">plot_acf_diagnostics()</a></code>): Change default parameter to <code>.show_white_noise_bars = TRUE</code>. <a href='https://github.com/business-science/timetk/issues/85'>#85</a></li>
+<li>
+<code>plot_timeseries_regression()</code>: Can now <code>show_summary</code> for group-wise models when visualizing groups</li>
+</ul>
+</li>
 <li><p>Time Series CV (<code><a href="../reference/time_series_cv.html">time_series_cv()</a></code>): Add Label for <code>tune_results</code></p></li>
 </ul>
 <p><strong>Bug Fixes</strong></p>
 <ul>
-<li><p><code><a href="../reference/plot_time_series_regression.html">plot_time_series_regression()</a></code>: Fixed an issue when lags are added to <code>.formula</code>. Pads lags with NA.</p></li>
 <li><p><code>tk_tbl.zoo()</code>: Fix an issue when <code><a href="https://readr.tidyverse.org/reference/type_convert.html">readr::type_convert()</a></code> produces warning messages about not having character columns in inputs. <a href='https://github.com/business-science/timetk/issues/89'>#89</a></p></li>
+<li><p><code><a href="../reference/plot_time_series_regression.html">plot_time_series_regression()</a></code>: Fixed an issue when lags are added to <code>.formula</code>. Pads lags with NA.</p></li>
 </ul>
 </div>
     <div id="timetk-261" class="section level1">
@@ -324,7 +332,7 @@
 </ul>
 <p><strong>Bug Fixes</strong></p>
 <ul>
-<li>Add warning when <code><a href="../reference/time_arithmetic.html">%+time%</a></code> and <code><a href="../reference/time_arithmetic.html">%-time%</a></code> return missing values</li>
+<li>Add warning when <code>%+time%</code> and <code>%-time%</code> return missing values</li>
 <li>Fix issues with <code><a href="../reference/tk_make_timeseries.html">tk_make_timeseries()</a></code> and <code><a href="../reference/tk_make_future_timeseries.html">tk_make_future_timeseries()</a></code> providing odd results for regular time series. <a href="https://github.com/business-science/timetk/issues/60">GitHub Issue 60</a>
 </li>
 </ul>

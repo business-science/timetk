@@ -337,101 +337,109 @@ using <code><a href='https://rdrr.io/r/stats/ts.html'>stats::ts()</a></code>.</p
     <div class='dont-index'><p><code><a href='tk_index.html'>tk_index()</a></code>, <code><a href='tk_tbl.html'>tk_tbl()</a></code>, <code><a href='tk_xts.html'>tk_xts()</a></code>, <code><a href='tk_zoo.html'>tk_zoo()</a></code>, <code><a href='tk_zooreg.html'>tk_zooreg()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span>
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/business-science/timetk'>timetk</a></span><span class='op'>)</span>
-
-<span class='co'>### tibble to ts: Comparison between tk_ts() and stats::ts()</span>
-<span class='va'>data_tbl</span> <span class='op'>&lt;-</span> <span class='fu'>tibble</span><span class='fu'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span>
-    date <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.Date.html'>seq.Date</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span><span class='op'>(</span><span class='st'>"2016-01-01"</span><span class='op'>)</span>, by <span class='op'>=</span> <span class='fl'>1</span>, length.out <span class='op'>=</span> <span class='fl'>5</span><span class='op'>)</span>,
-    x    <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='st'>"chr values"</span>, <span class='fl'>5</span><span class='op'>)</span>,
-    y    <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/cumsum.html'>cumsum</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span><span class='op'>)</span>,
-    z    <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/cumsum.html'>cumsum</a></span><span class='op'>(</span><span class='fl'>11</span><span class='op'>:</span><span class='fl'>15</span><span class='op'>)</span> <span class='op'>*</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='co'># as.ts: Character columns introduce NA's; Result does not retain index</span>
-<span class='fu'>stats</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/r/stats/ts.html'>ts</a></span><span class='op'>(</span><span class='va'>data_tbl</span><span class='op'>[</span>,<span class='op'>-</span><span class='fl'>1</span><span class='op'>]</span>, start <span class='op'>=</span> <span class='fl'>2016</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Time Series:
-#&gt; Start = 2016 
-#&gt; End = 2020 
-#&gt; Frequency = 1 
-#&gt;      x  y         z
-#&gt; 2016 1  1  9.482951
-#&gt; 2017 1  3 19.827989
-#&gt; 2018 1  6 31.035113
-#&gt; 2019 1 10 43.104324
-#&gt; 2020 1 15 56.035621</div><div class='input'>
-<span class='co'># tk_ts: Only numeric columns get coerced; Result retains index in numeric format</span>
-<span class='va'>data_ts</span> <span class='op'>&lt;-</span> <span class='fu'>tk_ts</span><span class='op'>(</span><span class='va'>data_tbl</span>, start <span class='op'>=</span> <span class='fl'>2016</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: Non-numeric columns being dropped: date, x</span></div><div class='input'><span class='va'>data_ts</span>
-</div><div class='output co'>#&gt; Time Series:
-#&gt; Start = 2016 
-#&gt; End = 2020 
-#&gt; Frequency = 1 
-#&gt;       y         z
-#&gt; 2016  1  9.482951
-#&gt; 2017  3 19.827989
-#&gt; 2018  6 31.035113
-#&gt; 2019 10 43.104324
-#&gt; 2020 15 56.035621
-#&gt; attr(,"index")
-#&gt; [1] 1451606400 1451692800 1451779200 1451865600 1451952000
-#&gt; attr(,"index")attr(,"tzone")
-#&gt; [1] UTC
-#&gt; attr(,"index")attr(,"tclass")
-#&gt; [1] Date</div><div class='input'>
-<span class='co'># timetk index</span>
-<span class='fu'><a href='tk_index.html'>tk_index</a></span><span class='op'>(</span><span class='va'>data_ts</span>, timetk_idx <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>   <span class='co'># Regularized index returned</span>
-</div><div class='output co'>#&gt; [1] 2016 2017 2018 2019 2020</div><div class='input'><span class='fu'><a href='tk_index.html'>tk_index</a></span><span class='op'>(</span><span class='va'>data_ts</span>, timetk_idx <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>    <span class='co'># Original date index returned</span>
-</div><div class='output co'>#&gt; [1] "2016-01-01" "2016-01-02" "2016-01-03" "2016-01-04" "2016-01-05"</div><div class='input'>
-<span class='co'># Coerce back to tibble</span>
-<span class='va'>data_ts</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='tk_tbl.html'>tk_tbl</a></span><span class='op'>(</span>timetk_idx <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 5 × 3</span>
-#&gt;   index          y     z
-#&gt;   <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
-#&gt; <span style='color: #BCBCBC;'>1</span> 2016-01-01     1  9.48
-#&gt; <span style='color: #BCBCBC;'>2</span> 2016-01-02     3 19.8 
-#&gt; <span style='color: #BCBCBC;'>3</span> 2016-01-03     6 31.0 
-#&gt; <span style='color: #BCBCBC;'>4</span> 2016-01-04    10 43.1 
-#&gt; <span style='color: #BCBCBC;'>5</span> 2016-01-05    15 56.0 </div><div class='input'>
-
-<span class='co'>### Using select</span>
-<span class='fu'>tk_ts</span><span class='op'>(</span><span class='va'>data_tbl</span>, select <span class='op'>=</span> <span class='va'>y</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Time Series:
-#&gt; Start = 1 
-#&gt; End = 5 
-#&gt; Frequency = 1 
-#&gt;       y
-#&gt; [1,]  1
-#&gt; [2,]  3
-#&gt; [3,]  6
-#&gt; [4,] 10
-#&gt; [5,] 15
-#&gt; attr(,"index")
-#&gt; [1] 1451606400 1451692800 1451779200 1451865600 1451952000
-#&gt; attr(,"index")attr(,"tzone")
-#&gt; [1] UTC
-#&gt; attr(,"index")attr(,"tclass")
-#&gt; [1] Date</div><div class='input'>
-
-<span class='co'>### NSE: Enables programming</span>
-<span class='va'>select</span>   <span class='op'>&lt;-</span> <span class='st'>"y"</span>
-<span class='fu'>tk_ts_</span><span class='op'>(</span><span class='va'>data_tbl</span>, select <span class='op'>=</span> <span class='va'>select</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Time Series:
-#&gt; Start = 1 
-#&gt; End = 5 
-#&gt; Frequency = 1 
-#&gt;       y
-#&gt; [1,]  1
-#&gt; [2,]  3
-#&gt; [3,]  6
-#&gt; [4,] 10
-#&gt; [5,] 15
-#&gt; attr(,"index")
-#&gt; [1] 1451606400 1451692800 1451779200 1451865600 1451952000
-#&gt; attr(,"index")attr(,"tzone")
-#&gt; [1] UTC
-#&gt; attr(,"index")attr(,"tclass")
-#&gt; [1] Date</div><div class='input'>
-</div></pre>
+    <pre class="examples"><span class='r-in'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span></span>
+<span class='r-in'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/business-science/timetk'>timetk</a></span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>### tibble to ts: Comparison between tk_ts() and stats::ts()</span></span>
+<span class='r-in'><span class='va'>data_tbl</span> <span class='op'>&lt;-</span> <span class='fu'>tibble</span><span class='fu'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span></span>
+<span class='r-in'>    date <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.Date.html'>seq.Date</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span><span class='op'>(</span><span class='st'>"2016-01-01"</span><span class='op'>)</span>, by <span class='op'>=</span> <span class='fl'>1</span>, length.out <span class='op'>=</span> <span class='fl'>5</span><span class='op'>)</span>,</span>
+<span class='r-in'>    x    <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='st'>"chr values"</span>, <span class='fl'>5</span><span class='op'>)</span>,</span>
+<span class='r-in'>    y    <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/cumsum.html'>cumsum</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span><span class='op'>)</span>,</span>
+<span class='r-in'>    z    <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/cumsum.html'>cumsum</a></span><span class='op'>(</span><span class='fl'>11</span><span class='op'>:</span><span class='fl'>15</span><span class='op'>)</span> <span class='op'>*</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># as.ts: Character columns introduce NA's; Result does not retain index</span></span>
+<span class='r-in'><span class='fu'>stats</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/r/stats/ts.html'>ts</a></span><span class='op'>(</span><span class='va'>data_tbl</span><span class='op'>[</span>,<span class='op'>-</span><span class='fl'>1</span><span class='op'>]</span>, start <span class='op'>=</span> <span class='fl'>2016</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Time Series:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Start = 2016 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> End = 2020 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Frequency = 1 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      x  y         z</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2016 1  1  9.482951</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2017 1  3 19.827989</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2018 1  6 31.035113</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2019 1 10 43.104324</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2020 1 15 56.035621</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># tk_ts: Only numeric columns get coerced; Result retains index in numeric format</span></span>
+<span class='r-in'><span class='va'>data_ts</span> <span class='op'>&lt;-</span> <span class='fu'>tk_ts</span><span class='op'>(</span><span class='va'>data_tbl</span>, start <span class='op'>=</span> <span class='fl'>2016</span><span class='op'>)</span></span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span>Non-numeric columns being dropped: date, x</span>
+<span class='r-in'><span class='va'>data_ts</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Time Series:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Start = 2016 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> End = 2020 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Frequency = 1 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       y         z</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2016  1  9.482951</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2017  3 19.827989</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2018  6 31.035113</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2019 10 43.104324</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2020 15 56.035621</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> attr(,"index")</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 1451606400 1451692800 1451779200 1451865600 1451952000</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> attr(,"index")attr(,"tzone")</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] UTC</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> attr(,"index")attr(,"tclass")</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] Date</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># timetk index</span></span>
+<span class='r-in'><span class='fu'><a href='tk_index.html'>tk_index</a></span><span class='op'>(</span><span class='va'>data_ts</span>, timetk_idx <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>   <span class='co'># Regularized index returned</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 2016 2017 2018 2019 2020</span>
+<span class='r-in'><span class='fu'><a href='tk_index.html'>tk_index</a></span><span class='op'>(</span><span class='va'>data_ts</span>, timetk_idx <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>    <span class='co'># Original date index returned</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "2016-01-01" "2016-01-02" "2016-01-03" "2016-01-04" "2016-01-05"</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Coerce back to tibble</span></span>
+<span class='r-in'><span class='va'>data_ts</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='tk_tbl.html'>tk_tbl</a></span><span class='op'>(</span>timetk_idx <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 5 × 3</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   index          y     z</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>1</span> 2016-01-01     1  9.48</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>2</span> 2016-01-02     3 19.8 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>3</span> 2016-01-03     6 31.0 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>4</span> 2016-01-04    10 43.1 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>5</span> 2016-01-05    15 56.0 </span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>### Using select</span></span>
+<span class='r-in'><span class='fu'>tk_ts</span><span class='op'>(</span><span class='va'>data_tbl</span>, select <span class='op'>=</span> <span class='va'>y</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Time Series:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Start = 1 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> End = 5 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Frequency = 1 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       y</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1,]  1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [2,]  3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [3,]  6</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [4,] 10</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [5,] 15</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> attr(,"index")</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 1451606400 1451692800 1451779200 1451865600 1451952000</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> attr(,"index")attr(,"tzone")</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] UTC</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> attr(,"index")attr(,"tclass")</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] Date</span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>### NSE: Enables programming</span></span>
+<span class='r-in'><span class='va'>select</span>   <span class='op'>&lt;-</span> <span class='st'>"y"</span></span>
+<span class='r-in'><span class='fu'>tk_ts_</span><span class='op'>(</span><span class='va'>data_tbl</span>, select <span class='op'>=</span> <span class='va'>select</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Time Series:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Start = 1 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> End = 5 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Frequency = 1 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       y</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1,]  1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [2,]  3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [3,]  6</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [4,] 10</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [5,] 15</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> attr(,"index")</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 1451606400 1451692800 1451779200 1451865600 1451952000</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> attr(,"index")attr(,"tzone")</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] UTC</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> attr(,"index")attr(,"tclass")</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] Date</span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

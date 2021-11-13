@@ -253,6 +253,7 @@ consolidates 20+ lines of <code>ggplot2</code> code, and scales well to many tim
   .facet_vars <span class='op'>=</span> <span class='cn'>NULL</span>,
   .facet_ncol <span class='op'>=</span> <span class='fl'>1</span>,
   .facet_scales <span class='op'>=</span> <span class='st'>"free_y"</span>,
+  .facet_dir <span class='op'>=</span> <span class='st'>"h"</span>,
   .facet_collapse <span class='op'>=</span> <span class='cn'>TRUE</span>,
   .facet_collapse_sep <span class='op'>=</span> <span class='st'>" "</span>,
   .line_color <span class='op'>=</span> <span class='st'>"#2c3e50"</span>,
@@ -311,6 +312,10 @@ These can be selected using <code>tidyselect()</code> helpers (e.g <code><a href
       <th>.facet_scales</th>
       <td><p>Control facet x &amp; y-axis ranges.
 Options include "fixed", "free", "free_y", "free_x"</p></td>
+    </tr>
+    <tr>
+      <th>.facet_dir</th>
+      <td><p>The direction of faceting ("h" for horizontal, "v" for vertical). Default is "h".</p></td>
     </tr>
     <tr>
       <th>.facet_collapse</th>
@@ -452,49 +457,53 @@ or a numeric value (e.g. <code>smooth_period = 365</code>).</p>
 <p>Time-based windows return the median number of observations in a window using <code><a href='tk_get_frequency.html'>tk_get_trend()</a></code>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span>
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/business-science/tidyquant'>tidyquant</a></span><span class='op'>)</span>
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://lubridate.tidyverse.org'>lubridate</a></span><span class='op'>)</span>
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/business-science/timetk'>timetk</a></span><span class='op'>)</span>
-
-<span class='co'># Works with individual time series</span>
-<span class='va'>FANG</span> <span class='op'>%&gt;%</span>
-    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>symbol</span> <span class='op'>==</span> <span class='st'>"FB"</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-    <span class='fu'>plot_time_series</span><span class='op'>(</span><span class='va'>date</span>, <span class='va'>adjusted</span>, .interactive <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='img'><img src='plot_time_series-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># Works with groups</span>
-<span class='va'>FANG</span> <span class='op'>%&gt;%</span>
-    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>symbol</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-    <span class='fu'>plot_time_series</span><span class='op'>(</span><span class='va'>date</span>, <span class='va'>adjusted</span>,
-                     .facet_ncol  <span class='op'>=</span> <span class='fl'>2</span>,     <span class='co'># 2-column layout</span>
-                     .interactive <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='img'><img src='plot_time_series-2.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># Can also group inside &amp; use .color_var</span>
-<span class='va'>FANG</span> <span class='op'>%&gt;%</span>
-    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>year <span class='op'>=</span> <span class='fu'><a href='https://lubridate.tidyverse.org/reference/year.html'>year</a></span><span class='op'>(</span><span class='va'>date</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-    <span class='fu'>plot_time_series</span><span class='op'>(</span><span class='va'>date</span>, <span class='va'>adjusted</span>,
-                     .facet_vars   <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>symbol</span>, <span class='va'>year</span><span class='op'>)</span>, <span class='co'># add groups/facets</span>
-                     .color_var    <span class='op'>=</span> <span class='va'>year</span>,            <span class='co'># color by year</span>
-                     .facet_ncol   <span class='op'>=</span> <span class='fl'>4</span>,
-                     .facet_scales <span class='op'>=</span> <span class='st'>"free"</span>,
-                     .interactive  <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='img'><img src='plot_time_series-3.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># Can apply transformations to .value or .color_var</span>
-<span class='co'># - .value = log(adjusted)</span>
-<span class='co'># - .color_var = year(date)</span>
-<span class='va'>FANG</span> <span class='op'>%&gt;%</span>
-    <span class='fu'>plot_time_series</span><span class='op'>(</span><span class='va'>date</span>, <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='va'>adjusted</span><span class='op'>)</span>,
-                     .color_var    <span class='op'>=</span> <span class='fu'><a href='https://lubridate.tidyverse.org/reference/year.html'>year</a></span><span class='op'>(</span><span class='va'>date</span><span class='op'>)</span>,
-                     .facet_vars   <span class='op'>=</span> <span class='fu'><a href='https://tidyselect.r-lib.org/reference/starts_with.html'>contains</a></span><span class='op'>(</span><span class='st'>"symbol"</span><span class='op'>)</span>,
-                     .facet_ncol   <span class='op'>=</span> <span class='fl'>2</span>,
-                     .facet_scales <span class='op'>=</span> <span class='st'>"free"</span>,
-                     .y_lab        <span class='op'>=</span> <span class='st'>"Log Scale"</span>,
-                     .interactive  <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='img'><img src='plot_time_series-4.png' alt='' width='700' height='433' /></div><div class='input'>
-
-
-</div></pre>
+    <pre class="examples"><span class='r-in'></span>
+<span class='r-in'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span></span>
+<span class='r-in'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/business-science/tidyquant'>tidyquant</a></span><span class='op'>)</span></span>
+<span class='r-in'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://lubridate.tidyverse.org'>lubridate</a></span><span class='op'>)</span></span>
+<span class='r-in'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/business-science/timetk'>timetk</a></span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Works with individual time series</span></span>
+<span class='r-in'><span class='va'>FANG</span> <span class='op'><a href='https://rdrr.io/pkg/tidyquant/man/pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>symbol</span> <span class='op'>==</span> <span class='st'>"FB"</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/tidyquant/man/pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>    <span class='fu'>plot_time_series</span><span class='op'>(</span><span class='va'>date</span>, <span class='va'>adjusted</span>, .interactive <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='plot_time_series-1.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Works with groups</span></span>
+<span class='r-in'><span class='va'>FANG</span> <span class='op'><a href='https://rdrr.io/pkg/tidyquant/man/pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>symbol</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/tidyquant/man/pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>    <span class='fu'>plot_time_series</span><span class='op'>(</span><span class='va'>date</span>, <span class='va'>adjusted</span>,</span>
+<span class='r-in'>                     .facet_ncol  <span class='op'>=</span> <span class='fl'>2</span>,     <span class='co'># 2-column layout</span></span>
+<span class='r-in'>                     .interactive <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='plot_time_series-2.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Can also group inside &amp; use .color_var</span></span>
+<span class='r-in'><span class='va'>FANG</span> <span class='op'><a href='https://rdrr.io/pkg/tidyquant/man/pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>year <span class='op'>=</span> <span class='fu'><a href='https://lubridate.tidyverse.org/reference/year.html'>year</a></span><span class='op'>(</span><span class='va'>date</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/tidyquant/man/pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>    <span class='fu'>plot_time_series</span><span class='op'>(</span><span class='va'>date</span>, <span class='va'>adjusted</span>,</span>
+<span class='r-in'>                     .facet_vars   <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>symbol</span>, <span class='va'>year</span><span class='op'>)</span>, <span class='co'># add groups/facets</span></span>
+<span class='r-in'>                     .color_var    <span class='op'>=</span> <span class='va'>year</span>,            <span class='co'># color by year</span></span>
+<span class='r-in'>                     .facet_ncol   <span class='op'>=</span> <span class='fl'>4</span>,</span>
+<span class='r-in'>                     .facet_scales <span class='op'>=</span> <span class='st'>"free"</span>,</span>
+<span class='r-in'>                     .interactive  <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='plot_time_series-3.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Can apply transformations to .value or .color_var</span></span>
+<span class='r-in'><span class='co'># - .value = log(adjusted)</span></span>
+<span class='r-in'><span class='co'># - .color_var = year(date)</span></span>
+<span class='r-in'><span class='va'>FANG</span> <span class='op'><a href='https://rdrr.io/pkg/tidyquant/man/pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>    <span class='fu'>plot_time_series</span><span class='op'>(</span><span class='va'>date</span>, <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='va'>adjusted</span><span class='op'>)</span>,</span>
+<span class='r-in'>                     .color_var    <span class='op'>=</span> <span class='fu'><a href='https://lubridate.tidyverse.org/reference/year.html'>year</a></span><span class='op'>(</span><span class='va'>date</span><span class='op'>)</span>,</span>
+<span class='r-in'>                     .facet_vars   <span class='op'>=</span> <span class='fu'><a href='https://tidyselect.r-lib.org/reference/starts_with.html'>contains</a></span><span class='op'>(</span><span class='st'>"symbol"</span><span class='op'>)</span>,</span>
+<span class='r-in'>                     .facet_ncol   <span class='op'>=</span> <span class='fl'>2</span>,</span>
+<span class='r-in'>                     .facet_scales <span class='op'>=</span> <span class='st'>"free"</span>,</span>
+<span class='r-in'>                     .y_lab        <span class='op'>=</span> <span class='st'>"Log Scale"</span>,</span>
+<span class='r-in'>                     .interactive  <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='plot_time_series-4.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

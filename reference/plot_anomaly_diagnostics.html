@@ -257,6 +257,7 @@ Plots are available in interactive <code>plotly</code> (default) and static <cod
   .message <span class='op'>=</span> <span class='cn'>TRUE</span>,
   .facet_ncol <span class='op'>=</span> <span class='fl'>1</span>,
   .facet_scales <span class='op'>=</span> <span class='st'>"free"</span>,
+  .facet_dir <span class='op'>=</span> <span class='st'>"h"</span>,
   .line_color <span class='op'>=</span> <span class='st'>"#2c3e50"</span>,
   .line_size <span class='op'>=</span> <span class='fl'>0.5</span>,
   .line_type <span class='op'>=</span> <span class='fl'>1</span>,
@@ -328,6 +329,10 @@ and trend selection (if applicable).</p></td>
     <tr>
       <th>.facet_scales</th>
       <td><p>Control facet x &amp; y-axis ranges. Options include "fixed", "free", "free_y", "free_x"</p></td>
+    </tr>
+    <tr>
+      <th>.facet_dir</th>
+      <td><p>The direction of faceting ("h" for horizontal, "v" for vertical). Default is "h".</p></td>
     </tr>
     <tr>
       <th>.line_color</th>
@@ -448,20 +453,21 @@ A Novel Technique for Long-Term Anomaly Detection in the Cloud. Twitter Inc.</p>
 </div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span>
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/business-science/timetk'>timetk</a></span><span class='op'>)</span>
-
-<span class='va'>walmart_sales_weekly</span> <span class='op'>%&gt;%</span>
-    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>id</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-    <span class='fu'>plot_anomaly_diagnostics</span><span class='op'>(</span><span class='va'>Date</span>, <span class='va'>Weekly_Sales</span>,
-                             .message <span class='op'>=</span> <span class='cn'>FALSE</span>,
-                             .facet_ncol <span class='op'>=</span> <span class='fl'>3</span>,
-                             .ribbon_alpha <span class='op'>=</span> <span class='fl'>0.25</span>,
-                             .interactive <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='img'><img src='plot_anomaly_diagnostics-1.png' alt='' width='700' height='433' /></div><div class='input'>
-
-
-</div></pre>
+    <pre class="examples"><span class='r-in'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span></span>
+<span class='r-in'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/business-science/timetk'>timetk</a></span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>walmart_sales_weekly</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>id</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>    <span class='fu'>plot_anomaly_diagnostics</span><span class='op'>(</span><span class='va'>Date</span>, <span class='va'>Weekly_Sales</span>,</span>
+<span class='r-in'>                             .message <span class='op'>=</span> <span class='cn'>FALSE</span>,</span>
+<span class='r-in'>                             .facet_ncol <span class='op'>=</span> <span class='fl'>3</span>,</span>
+<span class='r-in'>                             .ribbon_alpha <span class='op'>=</span> <span class='fl'>0.25</span>,</span>
+<span class='r-in'>                             .interactive <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='plot_anomaly_diagnostics-1.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

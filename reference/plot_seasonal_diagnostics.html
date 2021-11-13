@@ -350,64 +350,70 @@ they may be meaningless for some of the groups.</p>
 <p>The <code>.value</code> parameter respects transformations (e.g. <code>.value = log(sales)</code>).</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://dplyr.tidyverse.org'>dplyr</a></span><span class='op'>)</span>
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/business-science/timetk'>timetk</a></span><span class='op'>)</span>
-
-<span class='co'># ---- MULTIPLE FREQUENCY ----</span>
-<span class='co'># Taylor 30-minute dataset from forecast package</span>
-<span class='va'>taylor_30_min</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 4,032 × 2</span>
-#&gt;    date                value
-#&gt;    <span style='color: #949494; font-style: italic;'>&lt;dttm&gt;</span>              <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
-#&gt; <span style='color: #BCBCBC;'> 1</span> 2000-06-05 <span style='color: #949494;'>00:00:00</span> <span style='text-decoration: underline;'>22</span>262
-#&gt; <span style='color: #BCBCBC;'> 2</span> 2000-06-05 <span style='color: #949494;'>00:30:00</span> <span style='text-decoration: underline;'>21</span>756
-#&gt; <span style='color: #BCBCBC;'> 3</span> 2000-06-05 <span style='color: #949494;'>01:00:00</span> <span style='text-decoration: underline;'>22</span>247
-#&gt; <span style='color: #BCBCBC;'> 4</span> 2000-06-05 <span style='color: #949494;'>01:30:00</span> <span style='text-decoration: underline;'>22</span>759
-#&gt; <span style='color: #BCBCBC;'> 5</span> 2000-06-05 <span style='color: #949494;'>02:00:00</span> <span style='text-decoration: underline;'>22</span>549
-#&gt; <span style='color: #BCBCBC;'> 6</span> 2000-06-05 <span style='color: #949494;'>02:30:00</span> <span style='text-decoration: underline;'>22</span>313
-#&gt; <span style='color: #BCBCBC;'> 7</span> 2000-06-05 <span style='color: #949494;'>03:00:00</span> <span style='text-decoration: underline;'>22</span>128
-#&gt; <span style='color: #BCBCBC;'> 8</span> 2000-06-05 <span style='color: #949494;'>03:30:00</span> <span style='text-decoration: underline;'>21</span>860
-#&gt; <span style='color: #BCBCBC;'> 9</span> 2000-06-05 <span style='color: #949494;'>04:00:00</span> <span style='text-decoration: underline;'>21</span>751
-#&gt; <span style='color: #BCBCBC;'>10</span> 2000-06-05 <span style='color: #949494;'>04:30:00</span> <span style='text-decoration: underline;'>21</span>336
-#&gt; <span style='color: #949494;'># … with 4,022 more rows</span></div><div class='input'>
-<span class='co'># Visualize series</span>
-<span class='va'>taylor_30_min</span> <span class='op'>%&gt;%</span>
-    <span class='fu'><a href='plot_time_series.html'>plot_time_series</a></span><span class='op'>(</span><span class='va'>date</span>, <span class='va'>value</span>, .interactive <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='img'><img src='plot_seasonal_diagnostics-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># Visualize seasonality</span>
-<span class='va'>taylor_30_min</span> <span class='op'>%&gt;%</span>
-    <span class='fu'>plot_seasonal_diagnostics</span><span class='op'>(</span><span class='va'>date</span>, <span class='va'>value</span>, .interactive <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='img'><img src='plot_seasonal_diagnostics-2.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># ---- GROUPED EXAMPLES ----</span>
-<span class='co'># m4 hourly dataset</span>
-<span class='va'>m4_hourly</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 3,060 × 3</span>
-#&gt;    id    date                value
-#&gt;    <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dttm&gt;</span>              <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
-#&gt; <span style='color: #BCBCBC;'> 1</span> H10   2015-07-01 <span style='color: #949494;'>12:00:00</span>   513
-#&gt; <span style='color: #BCBCBC;'> 2</span> H10   2015-07-01 <span style='color: #949494;'>13:00:00</span>   512
-#&gt; <span style='color: #BCBCBC;'> 3</span> H10   2015-07-01 <span style='color: #949494;'>14:00:00</span>   506
-#&gt; <span style='color: #BCBCBC;'> 4</span> H10   2015-07-01 <span style='color: #949494;'>15:00:00</span>   500
-#&gt; <span style='color: #BCBCBC;'> 5</span> H10   2015-07-01 <span style='color: #949494;'>16:00:00</span>   490
-#&gt; <span style='color: #BCBCBC;'> 6</span> H10   2015-07-01 <span style='color: #949494;'>17:00:00</span>   484
-#&gt; <span style='color: #BCBCBC;'> 7</span> H10   2015-07-01 <span style='color: #949494;'>18:00:00</span>   467
-#&gt; <span style='color: #BCBCBC;'> 8</span> H10   2015-07-01 <span style='color: #949494;'>19:00:00</span>   446
-#&gt; <span style='color: #BCBCBC;'> 9</span> H10   2015-07-01 <span style='color: #949494;'>20:00:00</span>   434
-#&gt; <span style='color: #BCBCBC;'>10</span> H10   2015-07-01 <span style='color: #949494;'>21:00:00</span>   422
-#&gt; <span style='color: #949494;'># … with 3,050 more rows</span></div><div class='input'>
-<span class='co'># Visualize series</span>
-<span class='va'>m4_hourly</span> <span class='op'>%&gt;%</span>
-    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>id</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-    <span class='fu'><a href='plot_time_series.html'>plot_time_series</a></span><span class='op'>(</span><span class='va'>date</span>, <span class='va'>value</span>, .facet_scales <span class='op'>=</span> <span class='st'>"free"</span>, .interactive <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='img'><img src='plot_seasonal_diagnostics-3.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># Visualize seasonality</span>
-<span class='va'>m4_hourly</span> <span class='op'>%&gt;%</span>
-    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>id</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-    <span class='fu'>plot_seasonal_diagnostics</span><span class='op'>(</span><span class='va'>date</span>, <span class='va'>value</span>, .interactive <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='img'><img src='plot_seasonal_diagnostics-4.png' alt='' width='700' height='433' /></div><div class='input'>
-
-
-</div></pre>
+    <pre class="examples"><span class='r-in'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://dplyr.tidyverse.org'>dplyr</a></span><span class='op'>)</span></span>
+<span class='r-in'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/business-science/timetk'>timetk</a></span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># ---- MULTIPLE FREQUENCY ----</span></span>
+<span class='r-in'><span class='co'># Taylor 30-minute dataset from forecast package</span></span>
+<span class='r-in'><span class='va'>taylor_30_min</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 4,032 × 2</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    date                value</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;dttm&gt;</span>              <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 1</span> 2000-06-05 <span style='color: #949494;'>00:00:00</span> <span style='text-decoration: underline;'>22</span>262</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 2</span> 2000-06-05 <span style='color: #949494;'>00:30:00</span> <span style='text-decoration: underline;'>21</span>756</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 3</span> 2000-06-05 <span style='color: #949494;'>01:00:00</span> <span style='text-decoration: underline;'>22</span>247</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 4</span> 2000-06-05 <span style='color: #949494;'>01:30:00</span> <span style='text-decoration: underline;'>22</span>759</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 5</span> 2000-06-05 <span style='color: #949494;'>02:00:00</span> <span style='text-decoration: underline;'>22</span>549</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 6</span> 2000-06-05 <span style='color: #949494;'>02:30:00</span> <span style='text-decoration: underline;'>22</span>313</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 7</span> 2000-06-05 <span style='color: #949494;'>03:00:00</span> <span style='text-decoration: underline;'>22</span>128</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 8</span> 2000-06-05 <span style='color: #949494;'>03:30:00</span> <span style='text-decoration: underline;'>21</span>860</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 9</span> 2000-06-05 <span style='color: #949494;'>04:00:00</span> <span style='text-decoration: underline;'>21</span>751</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>10</span> 2000-06-05 <span style='color: #949494;'>04:30:00</span> <span style='text-decoration: underline;'>21</span>336</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># … with 4,022 more rows</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Visualize series</span></span>
+<span class='r-in'><span class='va'>taylor_30_min</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>    <span class='fu'><a href='plot_time_series.html'>plot_time_series</a></span><span class='op'>(</span><span class='va'>date</span>, <span class='va'>value</span>, .interactive <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='plot_seasonal_diagnostics-1.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Visualize seasonality</span></span>
+<span class='r-in'><span class='va'>taylor_30_min</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>    <span class='fu'>plot_seasonal_diagnostics</span><span class='op'>(</span><span class='va'>date</span>, <span class='va'>value</span>, .interactive <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='plot_seasonal_diagnostics-2.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># ---- GROUPED EXAMPLES ----</span></span>
+<span class='r-in'><span class='co'># m4 hourly dataset</span></span>
+<span class='r-in'><span class='va'>m4_hourly</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 3,060 × 3</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    id    date                value</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dttm&gt;</span>              <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 1</span> H10   2015-07-01 <span style='color: #949494;'>12:00:00</span>   513</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 2</span> H10   2015-07-01 <span style='color: #949494;'>13:00:00</span>   512</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 3</span> H10   2015-07-01 <span style='color: #949494;'>14:00:00</span>   506</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 4</span> H10   2015-07-01 <span style='color: #949494;'>15:00:00</span>   500</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 5</span> H10   2015-07-01 <span style='color: #949494;'>16:00:00</span>   490</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 6</span> H10   2015-07-01 <span style='color: #949494;'>17:00:00</span>   484</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 7</span> H10   2015-07-01 <span style='color: #949494;'>18:00:00</span>   467</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 8</span> H10   2015-07-01 <span style='color: #949494;'>19:00:00</span>   446</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 9</span> H10   2015-07-01 <span style='color: #949494;'>20:00:00</span>   434</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>10</span> H10   2015-07-01 <span style='color: #949494;'>21:00:00</span>   422</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># … with 3,050 more rows</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Visualize series</span></span>
+<span class='r-in'><span class='va'>m4_hourly</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>id</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>    <span class='fu'><a href='plot_time_series.html'>plot_time_series</a></span><span class='op'>(</span><span class='va'>date</span>, <span class='va'>value</span>, .facet_scales <span class='op'>=</span> <span class='st'>"free"</span>, .interactive <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='plot_seasonal_diagnostics-3.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Visualize seasonality</span></span>
+<span class='r-in'><span class='va'>m4_hourly</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>id</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>    <span class='fu'>plot_seasonal_diagnostics</span><span class='op'>(</span><span class='va'>date</span>, <span class='va'>value</span>, .interactive <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='plot_seasonal_diagnostics-4.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

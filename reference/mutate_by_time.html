@@ -324,44 +324,46 @@ if ungrouped).</p></li>
 </div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># Libraries</span>
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/business-science/timetk'>timetk</a></span><span class='op'>)</span>
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://dplyr.tidyverse.org'>dplyr</a></span><span class='op'>)</span>
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyr.tidyverse.org'>tidyr</a></span><span class='op'>)</span>
-
-<span class='co'># First value in each month</span>
-<span class='va'>m4_daily_first_by_month_tbl</span> <span class='op'>&lt;-</span> <span class='va'>m4_daily</span> <span class='op'>%&gt;%</span>
-    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>id</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-    <span class='fu'>mutate_by_time</span><span class='op'>(</span>
-        .date_var <span class='op'>=</span> <span class='va'>date</span>,
-        .by       <span class='op'>=</span> <span class='st'>"month"</span>, <span class='co'># Setup for monthly aggregation</span>
-        <span class='co'># mutate recycles a single value</span>
-        first_value_by_month  <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/nth.html'>first</a></span><span class='op'>(</span><span class='va'>value</span><span class='op'>)</span>
-    <span class='op'>)</span>
-<span class='va'>m4_daily_first_by_month_tbl</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 9,743 × 4</span>
-#&gt; <span style='color: #949494;'># Groups:   id [4]</span>
-#&gt;    id    date       value first_value_by_month
-#&gt;    <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>                <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
-#&gt; <span style='color: #BCBCBC;'> 1</span> D10   2014-07-03 <span style='text-decoration: underline;'>2</span>076.                <span style='text-decoration: underline;'>2</span>076.
-#&gt; <span style='color: #BCBCBC;'> 2</span> D10   2014-07-04 <span style='text-decoration: underline;'>2</span>073.                <span style='text-decoration: underline;'>2</span>076.
-#&gt; <span style='color: #BCBCBC;'> 3</span> D10   2014-07-05 <span style='text-decoration: underline;'>2</span>049.                <span style='text-decoration: underline;'>2</span>076.
-#&gt; <span style='color: #BCBCBC;'> 4</span> D10   2014-07-06 <span style='text-decoration: underline;'>2</span>049.                <span style='text-decoration: underline;'>2</span>076.
-#&gt; <span style='color: #BCBCBC;'> 5</span> D10   2014-07-07 <span style='text-decoration: underline;'>2</span>006.                <span style='text-decoration: underline;'>2</span>076.
-#&gt; <span style='color: #BCBCBC;'> 6</span> D10   2014-07-08 <span style='text-decoration: underline;'>2</span>018.                <span style='text-decoration: underline;'>2</span>076.
-#&gt; <span style='color: #BCBCBC;'> 7</span> D10   2014-07-09 <span style='text-decoration: underline;'>2</span>019.                <span style='text-decoration: underline;'>2</span>076.
-#&gt; <span style='color: #BCBCBC;'> 8</span> D10   2014-07-10 <span style='text-decoration: underline;'>2</span>007.                <span style='text-decoration: underline;'>2</span>076.
-#&gt; <span style='color: #BCBCBC;'> 9</span> D10   2014-07-11 <span style='text-decoration: underline;'>2</span>010                 <span style='text-decoration: underline;'>2</span>076.
-#&gt; <span style='color: #BCBCBC;'>10</span> D10   2014-07-12 <span style='text-decoration: underline;'>2</span>002.                <span style='text-decoration: underline;'>2</span>076.
-#&gt; <span style='color: #949494;'># … with 9,733 more rows</span></div><div class='input'>
-<span class='co'># Visualize Time Series vs 1st Value Each Month</span>
-<span class='va'>m4_daily_first_by_month_tbl</span> <span class='op'>%&gt;%</span>
-    <span class='fu'><a href='https://tidyr.tidyverse.org/reference/pivot_longer.html'>pivot_longer</a></span><span class='op'>(</span><span class='va'>value</span><span class='op'>:</span><span class='va'>first_value_by_month</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-    <span class='fu'><a href='plot_time_series.html'>plot_time_series</a></span><span class='op'>(</span><span class='va'>date</span>, <span class='va'>value</span>, <span class='va'>name</span>,
-                     .facet_scale <span class='op'>=</span> <span class='st'>"free"</span>, .facet_ncol <span class='op'>=</span> <span class='fl'>2</span>,
-                     .smooth <span class='op'>=</span> <span class='cn'>FALSE</span>, .interactive <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='img'><img src='mutate_by_time-1.png' alt='' width='700' height='433' /></div><div class='input'>
-</div></pre>
+    <pre class="examples"><span class='r-in'><span class='co'># Libraries</span></span>
+<span class='r-in'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/business-science/timetk'>timetk</a></span><span class='op'>)</span></span>
+<span class='r-in'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://dplyr.tidyverse.org'>dplyr</a></span><span class='op'>)</span></span>
+<span class='r-in'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyr.tidyverse.org'>tidyr</a></span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># First value in each month</span></span>
+<span class='r-in'><span class='va'>m4_daily_first_by_month_tbl</span> <span class='op'>&lt;-</span> <span class='va'>m4_daily</span> <span class='op'><a href='https://tidyr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>id</span><span class='op'>)</span> <span class='op'><a href='https://tidyr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>    <span class='fu'>mutate_by_time</span><span class='op'>(</span></span>
+<span class='r-in'>        .date_var <span class='op'>=</span> <span class='va'>date</span>,</span>
+<span class='r-in'>        .by       <span class='op'>=</span> <span class='st'>"month"</span>, <span class='co'># Setup for monthly aggregation</span></span>
+<span class='r-in'>        <span class='co'># mutate recycles a single value</span></span>
+<span class='r-in'>        first_value_by_month  <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/nth.html'>first</a></span><span class='op'>(</span><span class='va'>value</span><span class='op'>)</span></span>
+<span class='r-in'>    <span class='op'>)</span></span>
+<span class='r-in'><span class='va'>m4_daily_first_by_month_tbl</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 9,743 × 4</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># Groups:   id [4]</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    id    date       value first_value_by_month</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>                <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 1</span> D10   2014-07-03 <span style='text-decoration: underline;'>2</span>076.                <span style='text-decoration: underline;'>2</span>076.</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 2</span> D10   2014-07-04 <span style='text-decoration: underline;'>2</span>073.                <span style='text-decoration: underline;'>2</span>076.</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 3</span> D10   2014-07-05 <span style='text-decoration: underline;'>2</span>049.                <span style='text-decoration: underline;'>2</span>076.</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 4</span> D10   2014-07-06 <span style='text-decoration: underline;'>2</span>049.                <span style='text-decoration: underline;'>2</span>076.</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 5</span> D10   2014-07-07 <span style='text-decoration: underline;'>2</span>006.                <span style='text-decoration: underline;'>2</span>076.</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 6</span> D10   2014-07-08 <span style='text-decoration: underline;'>2</span>018.                <span style='text-decoration: underline;'>2</span>076.</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 7</span> D10   2014-07-09 <span style='text-decoration: underline;'>2</span>019.                <span style='text-decoration: underline;'>2</span>076.</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 8</span> D10   2014-07-10 <span style='text-decoration: underline;'>2</span>007.                <span style='text-decoration: underline;'>2</span>076.</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 9</span> D10   2014-07-11 <span style='text-decoration: underline;'>2</span>010                 <span style='text-decoration: underline;'>2</span>076.</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>10</span> D10   2014-07-12 <span style='text-decoration: underline;'>2</span>002.                <span style='text-decoration: underline;'>2</span>076.</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># … with 9,733 more rows</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Visualize Time Series vs 1st Value Each Month</span></span>
+<span class='r-in'><span class='va'>m4_daily_first_by_month_tbl</span> <span class='op'><a href='https://tidyr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>    <span class='fu'><a href='https://tidyr.tidyverse.org/reference/pivot_longer.html'>pivot_longer</a></span><span class='op'>(</span><span class='va'>value</span><span class='op'>:</span><span class='va'>first_value_by_month</span><span class='op'>)</span> <span class='op'><a href='https://tidyr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>    <span class='fu'><a href='plot_time_series.html'>plot_time_series</a></span><span class='op'>(</span><span class='va'>date</span>, <span class='va'>value</span>, <span class='va'>name</span>,</span>
+<span class='r-in'>                     .facet_scale <span class='op'>=</span> <span class='st'>"free"</span>, .facet_ncol <span class='op'>=</span> <span class='fl'>2</span>,</span>
+<span class='r-in'>                     .smooth <span class='op'>=</span> <span class='cn'>FALSE</span>, .interactive <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='mutate_by_time-1.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

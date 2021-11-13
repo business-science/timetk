@@ -191,7 +191,7 @@
             <h3 class="subtitle">Between ts, xts, zoo, and tbl</h3>
                         <h4 class="author">Matt Dancho</h4>
             
-            <h4 class="date">2021-10-23</h4>
+            <h4 class="date">2021-11-13</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/business-science/timetk/blob/master/vignettes/TK00_Time_Series_Coercion.Rmd"><code>vignettes/TK00_Time_Series_Coercion.Rmd</code></a></small>
       <div class="hidden name"><code>TK00_Time_Series_Coercion.Rmd</code></div>
@@ -223,7 +223,7 @@
 <a href="#data" class="anchor"></a>Data</h1>
 <p>We’ll use the “Q10” dataset - The first ID from a sample a quarterly datasets (see <code>m4_quarterly</code>) from the <a href="https://mofc.unic.ac.cy/m4/">M4 Competition</a>. The return structure is a <code>tibble</code>, which is not conducive to many of the popular time series analysis packages including <code>quantmod</code>, <code>TTR</code>, <code>forecast</code> and many others.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">q10_quarterly</span> <span class="op">&lt;-</span> <span class="va">m4_quarterly</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">id</span> <span class="op">==</span> <span class="st">"Q10"</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">q10_quarterly</span> <span class="op">&lt;-</span> <span class="va">m4_quarterly</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">id</span> <span class="op">==</span> <span class="st">"Q10"</span><span class="op">)</span>
 <span class="va">q10_quarterly</span></code></pre></div>
 <pre><code>## # A tibble: 59 × 3
 ##    id    date       value
@@ -250,7 +250,7 @@
 <p>First, only numeric columns get coerced. If the user forgets to add the <code>[,"pct"]</code> to drop the “date” column, <code><a href="https://rdrr.io/r/stats/ts.html">ts()</a></code> returns dates in numeric format which is not what the user wants.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># date column gets coerced to numeric</span>
-<span class="fu"><a href="https://rdrr.io/r/stats/ts.html">ts</a></span><span class="op">(</span><span class="va">q10_quarterly</span>, start <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2000</span>, <span class="fl">1</span><span class="op">)</span>, freq <span class="op">=</span> <span class="fl">4</span><span class="op">)</span> <span class="op">%&gt;%</span>
+<span class="fu"><a href="https://rdrr.io/r/stats/ts.html">ts</a></span><span class="op">(</span><span class="va">q10_quarterly</span>, start <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2000</span>, <span class="fl">1</span><span class="op">)</span>, freq <span class="op">=</span> <span class="fl">4</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
     <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>##      id  date  value
 ## [1,]  1 10957 2329.0
@@ -338,10 +338,10 @@
 <div id="advantages-of-conversion-with-tk_tbl" class="section level2">
 <h2 class="hasAnchor">
 <a href="#advantages-of-conversion-with-tk_tbl" class="anchor"></a>Advantages of conversion with tk_tbl()</h2>
-<p>Since we used the <code><a href="../reference/tk_ts.html">tk_ts()</a></code> during conversion, we can extract the original index in date format using <code><a href="../reference/tk_index.html">tk_index(timetk_idx = TRUE)</a></code> (the default is <code>timetk_idx = FALSE</code> which returns the default regularized index).</p>
+<p>Since we used the <code><a href="../reference/tk_ts.html">tk_ts()</a></code> during conversion, we can extract the original index in date format using <code>tk_index(timetk_idx = TRUE)</code> (the default is <code>timetk_idx = FALSE</code> which returns the default regularized index).</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Can now retrieve the original date index</span>
-<span class="va">timetk_index</span> <span class="op">&lt;-</span> <span class="va">q10_quarterly_ts_timetk</span> <span class="op">%&gt;%</span>
+<span class="va">timetk_index</span> <span class="op">&lt;-</span> <span class="va">q10_quarterly_ts_timetk</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
     <span class="fu"><a href="../reference/tk_index.html">tk_index</a></span><span class="op">(</span>timetk_idx <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">timetk_index</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] "2000-01-01" "2000-04-01" "2000-07-01" "2000-10-01" "2001-01-01"
@@ -352,7 +352,7 @@
 <p>Next, the <code><a href="../reference/tk_tbl.html">tk_tbl()</a></code> function has an argument <code>timetk_idx</code> also which can be used to select which index to return. First, we show conversion using the default index. Notice that the index returned is “regularized” meaning its actually a numeric index rather than a time-based index.</p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Conversion back to tibble using the default index (regularized)</span>
-<span class="va">q10_quarterly_ts_timetk</span> <span class="op">%&gt;%</span>
+<span class="va">q10_quarterly_ts_timetk</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
     <span class="fu"><a href="../reference/tk_tbl.html">tk_tbl</a></span><span class="op">(</span>index_rename <span class="op">=</span> <span class="st">"date"</span>, timetk_idx <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
 <pre><code>## # A tibble: 59 × 2
 ##    index     value
@@ -371,8 +371,8 @@
 <p>We can now get the original date index using the <code><a href="../reference/tk_tbl.html">tk_tbl()</a></code> argument <code>timetk_idx = TRUE</code>.</p>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Conversion back to tibble now using the timetk index (date / date-time)</span>
-<span class="va">q10_quarterly_timetk</span> <span class="op">&lt;-</span> <span class="va">q10_quarterly_ts_timetk</span> <span class="op">%&gt;%</span>
-    <span class="fu"><a href="../reference/tk_tbl.html">tk_tbl</a></span><span class="op">(</span>timetk_idx <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">%&gt;%</span>
+<span class="va">q10_quarterly_timetk</span> <span class="op">&lt;-</span> <span class="va">q10_quarterly_ts_timetk</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="../reference/tk_tbl.html">tk_tbl</a></span><span class="op">(</span>timetk_idx <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span>date <span class="op">=</span> <span class="va">index</span><span class="op">)</span>
 <span class="va">q10_quarterly_timetk</span></code></pre></div>
 <pre><code>## # A tibble: 59 × 2
@@ -392,7 +392,7 @@
 <p>We can see that in this case (and in most cases) you can get the same data frame you began with.</p>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Comparing the coerced tibble with the original tibble</span>
-<span class="fu"><a href="https://rdrr.io/r/base/identical.html">identical</a></span><span class="op">(</span><span class="va">q10_quarterly_timetk</span>, <span class="va">q10_quarterly</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">id</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/base/identical.html">identical</a></span><span class="op">(</span><span class="va">q10_quarterly_timetk</span>, <span class="va">q10_quarterly</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">id</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 </div>
 </div>
@@ -442,7 +442,7 @@
 <p>Use the <code>select</code> argument to specify which columns to drop. Use the <code>date_var</code> argument to specify which column to use as the date index. Notice the message and warning are no longer present.</p>
 <div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># End - Using `select` and `date_var` args</span>
-<span class="fu"><a href="../reference/tk_xts.html">tk_xts</a></span><span class="op">(</span><span class="va">q10_quarterly</span>, select <span class="op">=</span> <span class="op">-</span><span class="op">(</span><span class="va">id</span><span class="op">:</span><span class="va">date</span><span class="op">)</span>, date_var <span class="op">=</span> <span class="va">date</span><span class="op">)</span> <span class="op">%&gt;%</span>
+<span class="fu"><a href="../reference/tk_xts.html">tk_xts</a></span><span class="op">(</span><span class="va">q10_quarterly</span>, select <span class="op">=</span> <span class="op">-</span><span class="op">(</span><span class="va">id</span><span class="op">:</span><span class="va">date</span><span class="op">)</span>, date_var <span class="op">=</span> <span class="va">date</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
     <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>##             value
 ## 2000-01-01 2329.0
@@ -454,7 +454,7 @@
 <p>Also, as an alternative, we can set <code>silent = TRUE</code> to bypass the warnings since the default dropping of the “date” column is what is desired. Notice no warnings or messages.</p>
 <div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># End - Using `silent` to silence warnings</span>
-<span class="fu"><a href="../reference/tk_xts.html">tk_xts</a></span><span class="op">(</span><span class="va">q10_quarterly</span>, silent <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">%&gt;%</span>
+<span class="fu"><a href="../reference/tk_xts.html">tk_xts</a></span><span class="op">(</span><span class="va">q10_quarterly</span>, silent <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
     <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>##             value
 ## 2000-01-01 2329.0
@@ -495,10 +495,10 @@
 ## 2000 Q4 2381.5
 ## 2001 Q1 2382.6
 ## 2001 Q2 2405.0</code></pre>
-<p>The original time-based index is retained and can be accessed using <code><a href="../reference/tk_index.html">tk_index(timetk_idx = TRUE)</a></code>.</p>
+<p>The original time-based index is retained and can be accessed using <code>tk_index(timetk_idx = TRUE)</code>.</p>
 <div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Retrieve original time-based index</span>
-<span class="fu"><a href="../reference/tk_index.html">tk_index</a></span><span class="op">(</span><span class="va">q10_quarterly_zooreg</span>, timetk_idx <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">%&gt;%</span>
+<span class="fu"><a href="../reference/tk_index.html">tk_index</a></span><span class="op">(</span><span class="va">q10_quarterly_zooreg</span>, timetk_idx <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
     <span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>##  Date[1:59], format: "2000-01-01" "2000-04-01" "2000-07-01" "2000-10-01" "2001-01-01" ...</code></pre>
 </div>
@@ -526,10 +526,10 @@
 ## 2012 2510.5 2548.4 2548.6 2530.7
 ## 2013 2497.1 2520.4 2516.9 2505.5
 ## 2014 2513.9 2549.9 2555.3</code></pre>
-<p>The original time-based index is retained and can be accessed using <code><a href="../reference/tk_index.html">tk_index(timetk_idx = TRUE)</a></code>.</p>
+<p>The original time-based index is retained and can be accessed using <code>tk_index(timetk_idx = TRUE)</code>.</p>
 <div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Retrieve original time-based index</span>
-<span class="fu"><a href="../reference/tk_index.html">tk_index</a></span><span class="op">(</span><span class="va">q10_quarterly_ts</span>, timetk_idx <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">%&gt;%</span>
+<span class="fu"><a href="../reference/tk_index.html">tk_index</a></span><span class="op">(</span><span class="va">q10_quarterly_ts</span>, timetk_idx <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
     <span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>##  Date[1:59], format: "2000-01-01" "2000-04-01" "2000-07-01" "2000-10-01" "2001-01-01" ...</code></pre>
 </div>
@@ -787,7 +787,7 @@
 <a href="#working-with-zooyearmon-and-zooyearqtr-index" class="anchor"></a>Working with zoo::yearmon and zoo::yearqtr index</h1>
 <p>The <code>zoo</code> package has the <code>yearmon</code> and <code>yearqtr</code> classes for working with regularized monthly and quarterly data, respectively. The “timetk index” tracks the format during conversion. Here’s and example with <code>yearqtr</code>.</p>
 <div class="sourceCode" id="cb79"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">yearqtr_tbl</span> <span class="op">&lt;-</span> <span class="va">q10_quarterly</span> <span class="op">%&gt;%</span>
+<code class="sourceCode R"><span class="va">yearqtr_tbl</span> <span class="op">&lt;-</span> <span class="va">q10_quarterly</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>date <span class="op">=</span> <span class="fu">zoo</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/zoo/man/yearqtr.html">as.yearqtr</a></span><span class="op">(</span><span class="va">date</span><span class="op">)</span><span class="op">)</span>
 <span class="va">yearqtr_tbl</span></code></pre></div>
 <pre><code>## # A tibble: 59 × 3
@@ -810,7 +810,7 @@
 <pre><code>## Warning: Non-numeric columns being dropped: id, date</code></pre>
 <pre><code>## Using column `date` for date_var.</code></pre>
 <div class="sourceCode" id="cb84"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">yearqtr_xts</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="va">yearqtr_xts</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>##          value
 ## 2000 Q1 2329.0
 ## 2000 Q2 2349.9
@@ -821,7 +821,7 @@
 <p>We can coerce to <code>ts</code> and, although the “timetk index” is hidden, the <code>yearqtr</code> class is intact.</p>
 <div class="sourceCode" id="cb86"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">yearqtr_ts</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tk_ts.html">tk_ts</a></span><span class="op">(</span><span class="va">yearqtr_xts</span>, start <span class="op">=</span> <span class="fl">1997</span>, freq <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
-<span class="va">yearqtr_ts</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<span class="va">yearqtr_ts</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>##       value
 ## [1,] 2329.0
 ## [2,] 2349.9
@@ -831,7 +831,7 @@
 ## [6,] 2405.0</code></pre>
 <p>Coercing from <code>ts</code> to <code>tbl</code> using <code>timetk_idx = TRUE</code> shows that the original index was maintained through each of the conversion steps.</p>
 <div class="sourceCode" id="cb88"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">yearqtr_ts</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/tk_tbl.html">tk_tbl</a></span><span class="op">(</span>timetk_idx <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="va">yearqtr_ts</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="../reference/tk_tbl.html">tk_tbl</a></span><span class="op">(</span>timetk_idx <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <pre><code>## # A tibble: 59 × 2
 ##    index     value
 ##    &lt;yearqtr&gt; &lt;dbl&gt;

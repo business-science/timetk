@@ -373,32 +373,44 @@ and <code>.trend</code> as time-based durations (e.g. "6 weeks") or numeric valu
 based on the scale of the time series.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span>
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/business-science/timetk'>timetk</a></span><span class='op'>)</span>
-
-<span class='co'># ---- SINGLE TIME SERIES DECOMPOSITION ----</span>
-<span class='va'>m4_hourly</span> <span class='op'>%&gt;%</span>
-    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>id</span> <span class='op'>==</span> <span class='st'>"H10"</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-    <span class='fu'>plot_stl_diagnostics</span><span class='op'>(</span>
-        <span class='va'>date</span>, <span class='va'>value</span>,
-        <span class='co'># Set features to return, desired frequency and trend</span>
-        .feature_set <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"observed"</span>, <span class='st'>"season"</span>, <span class='st'>"trend"</span>, <span class='st'>"remainder"</span><span class='op'>)</span>,
-        .frequency   <span class='op'>=</span> <span class='st'>"24 hours"</span>,
-        .trend       <span class='op'>=</span> <span class='st'>"1 week"</span>,
-        .interactive <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>frequency = 24 observations per 24 hours</span></div><div class='output co'>#&gt; <span class='message'>trend = 168 observations per 1 week</span></div><div class='img'><img src='plot_stl_diagnostics-1.png' alt='' width='700' height='433' /></div><div class='input'>
-
-<span class='co'># ---- GROUPS ----</span>
-<span class='va'>m4_hourly</span> <span class='op'>%&gt;%</span>
-    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>id</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-    <span class='fu'>plot_stl_diagnostics</span><span class='op'>(</span>
-        <span class='va'>date</span>, <span class='va'>value</span>,
-        .feature_set <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"observed"</span>, <span class='st'>"season"</span>, <span class='st'>"trend"</span><span class='op'>)</span>,
-        .interactive <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>frequency = 24 observations per 1 day</span></div><div class='output co'>#&gt; <span class='message'>trend = 336 observations per 14 days</span></div><div class='output co'>#&gt; <span class='message'>frequency = 24 observations per 1 day</span></div><div class='output co'>#&gt; <span class='message'>trend = 336 observations per 14 days</span></div><div class='output co'>#&gt; <span class='message'>frequency = 24 observations per 1 day</span></div><div class='output co'>#&gt; <span class='message'>trend = 336 observations per 14 days</span></div><div class='output co'>#&gt; <span class='message'>frequency = 24 observations per 1 day</span></div><div class='output co'>#&gt; <span class='message'>trend = 336 observations per 14 days</span></div><div class='img'><img src='plot_stl_diagnostics-2.png' alt='' width='700' height='433' /></div><div class='input'>
-
-
-</div></pre>
+    <pre class="examples"><span class='r-in'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span></span>
+<span class='r-in'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/business-science/timetk'>timetk</a></span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># ---- SINGLE TIME SERIES DECOMPOSITION ----</span></span>
+<span class='r-in'><span class='va'>m4_hourly</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>id</span> <span class='op'>==</span> <span class='st'>"H10"</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>    <span class='fu'>plot_stl_diagnostics</span><span class='op'>(</span></span>
+<span class='r-in'>        <span class='va'>date</span>, <span class='va'>value</span>,</span>
+<span class='r-in'>        <span class='co'># Set features to return, desired frequency and trend</span></span>
+<span class='r-in'>        .feature_set <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"observed"</span>, <span class='st'>"season"</span>, <span class='st'>"trend"</span>, <span class='st'>"remainder"</span><span class='op'>)</span>,</span>
+<span class='r-in'>        .frequency   <span class='op'>=</span> <span class='st'>"24 hours"</span>,</span>
+<span class='r-in'>        .trend       <span class='op'>=</span> <span class='st'>"1 week"</span>,</span>
+<span class='r-in'>        .interactive <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> frequency = 24 observations per 24 hours</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> trend = 168 observations per 1 week</span>
+<span class='r-plt img'><img src='plot_stl_diagnostics-1.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># ---- GROUPS ----</span></span>
+<span class='r-in'><span class='va'>m4_hourly</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>id</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>    <span class='fu'>plot_stl_diagnostics</span><span class='op'>(</span></span>
+<span class='r-in'>        <span class='va'>date</span>, <span class='va'>value</span>,</span>
+<span class='r-in'>        .feature_set <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"observed"</span>, <span class='st'>"season"</span>, <span class='st'>"trend"</span><span class='op'>)</span>,</span>
+<span class='r-in'>        .interactive <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> frequency = 24 observations per 1 day</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> trend = 336 observations per 14 days</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> frequency = 24 observations per 1 day</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> trend = 336 observations per 14 days</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> frequency = 24 observations per 1 day</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> trend = 336 observations per 14 days</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> frequency = 24 observations per 1 day</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> trend = 336 observations per 14 days</span>
+<span class='r-plt img'><img src='plot_stl_diagnostics-2.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

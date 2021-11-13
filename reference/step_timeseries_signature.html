@@ -350,91 +350,96 @@ be removed using <code><a href='https://recipes.tidymodels.org/reference/step_rm
 </div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/tidymodels/recipes'>recipes</a></span><span class='op'>)</span>
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span>
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/business-science/tidyquant'>tidyquant</a></span><span class='op'>)</span>
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/business-science/timetk'>timetk</a></span><span class='op'>)</span>
-
-<span class='va'>FB_tbl</span> <span class='op'>&lt;-</span> <span class='va'>FANG</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>symbol</span> <span class='op'>==</span> <span class='st'>"FB"</span><span class='op'>)</span>
-
-<span class='co'># Create a recipe object with a timeseries signature step</span>
-<span class='va'>rec_obj</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://recipes.tidymodels.org/reference/recipe.html'>recipe</a></span><span class='op'>(</span><span class='va'>adjusted</span> <span class='op'>~</span> <span class='va'>.</span>, data <span class='op'>=</span> <span class='va'>FB_tbl</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-    <span class='fu'>step_timeseries_signature</span><span class='op'>(</span><span class='va'>date</span><span class='op'>)</span>
-
-<span class='co'># View the recipe object</span>
-<span class='va'>rec_obj</span>
-</div><div class='output co'>#&gt; Recipe
-#&gt; 
-#&gt; Inputs:
-#&gt; 
-#&gt;       role #variables
-#&gt;    outcome          1
-#&gt;  predictor          7
-#&gt; 
-#&gt; Operations:
-#&gt; 
-#&gt; Timeseries signature features from date</div><div class='input'>
-<span class='co'># Prepare the recipe object</span>
-<span class='fu'><a href='https://recipes.tidymodels.org/reference/prep.html'>prep</a></span><span class='op'>(</span><span class='va'>rec_obj</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Recipe
-#&gt; 
-#&gt; Inputs:
-#&gt; 
-#&gt;       role #variables
-#&gt;    outcome          1
-#&gt;  predictor          7
-#&gt; 
-#&gt; Training data contained 1008 data points and no missing data.
-#&gt; 
-#&gt; Operations:
-#&gt; 
-#&gt; Timeseries signature features from date [trained]</div><div class='input'>
-<span class='co'># Bake the recipe object - Adds the Time Series Signature</span>
-<span class='fu'><a href='https://recipes.tidymodels.org/reference/bake.html'>bake</a></span><span class='op'>(</span><span class='fu'><a href='https://recipes.tidymodels.org/reference/prep.html'>prep</a></span><span class='op'>(</span><span class='va'>rec_obj</span><span class='op'>)</span>, <span class='va'>FB_tbl</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 1,008 × 35</span>
-#&gt;    symbol date        open  high   low close    volume adjusted date_index.num
-#&gt;    <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>          <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
-#&gt; <span style='color: #BCBCBC;'> 1</span> FB     2013-01-02  27.4  28.2  27.4  28    69<span style='text-decoration: underline;'>846</span>400     28       <span style='text-decoration: underline;'>1</span>357<span style='text-decoration: underline;'>084</span>800
-#&gt; <span style='color: #BCBCBC;'> 2</span> FB     2013-01-03  27.9  28.5  27.6  27.8  63<span style='text-decoration: underline;'>140</span>600     27.8     <span style='text-decoration: underline;'>1</span>357<span style='text-decoration: underline;'>171</span>200
-#&gt; <span style='color: #BCBCBC;'> 3</span> FB     2013-01-04  28.0  28.9  27.8  28.8  72<span style='text-decoration: underline;'>715</span>400     28.8     <span style='text-decoration: underline;'>1</span>357<span style='text-decoration: underline;'>257</span>600
-#&gt; <span style='color: #BCBCBC;'> 4</span> FB     2013-01-07  28.7  29.8  28.6  29.4  83<span style='text-decoration: underline;'>781</span>800     29.4     <span style='text-decoration: underline;'>1</span>357<span style='text-decoration: underline;'>516</span>800
-#&gt; <span style='color: #BCBCBC;'> 5</span> FB     2013-01-08  29.5  29.6  28.9  29.1  45<span style='text-decoration: underline;'>871</span>300     29.1     <span style='text-decoration: underline;'>1</span>357<span style='text-decoration: underline;'>603</span>200
-#&gt; <span style='color: #BCBCBC;'> 6</span> FB     2013-01-09  29.7  30.6  29.5  30.6 104<span style='text-decoration: underline;'>787</span>700     30.6     <span style='text-decoration: underline;'>1</span>357<span style='text-decoration: underline;'>689</span>600
-#&gt; <span style='color: #BCBCBC;'> 7</span> FB     2013-01-10  30.6  31.5  30.3  31.3  95<span style='text-decoration: underline;'>316</span>400     31.3     <span style='text-decoration: underline;'>1</span>357<span style='text-decoration: underline;'>776</span>000
-#&gt; <span style='color: #BCBCBC;'> 8</span> FB     2013-01-11  31.3  32.0  31.1  31.7  89<span style='text-decoration: underline;'>598</span>000     31.7     <span style='text-decoration: underline;'>1</span>357<span style='text-decoration: underline;'>862</span>400
-#&gt; <span style='color: #BCBCBC;'> 9</span> FB     2013-01-14  32.1  32.2  30.6  31.0  98<span style='text-decoration: underline;'>892</span>800     31.0     <span style='text-decoration: underline;'>1</span>358<span style='text-decoration: underline;'>121</span>600
-#&gt; <span style='color: #BCBCBC;'>10</span> FB     2013-01-15  30.6  31.7  29.9  30.1 173<span style='text-decoration: underline;'>242</span>600     30.1     <span style='text-decoration: underline;'>1</span>358<span style='text-decoration: underline;'>208</span>000
-#&gt; <span style='color: #949494;'># … with 998 more rows, and 26 more variables: date_year &lt;int&gt;,</span>
-#&gt; <span style='color: #949494;'>#   date_year.iso &lt;int&gt;, date_half &lt;int&gt;, date_quarter &lt;int&gt;, date_month &lt;int&gt;,</span>
-#&gt; <span style='color: #949494;'>#   date_month.xts &lt;int&gt;, date_month.lbl &lt;ord&gt;, date_day &lt;int&gt;,</span>
-#&gt; <span style='color: #949494;'>#   date_hour &lt;int&gt;, date_minute &lt;int&gt;, date_second &lt;int&gt;, date_hour12 &lt;int&gt;,</span>
-#&gt; <span style='color: #949494;'>#   date_am.pm &lt;int&gt;, date_wday &lt;int&gt;, date_wday.xts &lt;int&gt;,</span>
-#&gt; <span style='color: #949494;'>#   date_wday.lbl &lt;ord&gt;, date_mday &lt;int&gt;, date_qday &lt;int&gt;, date_yday &lt;int&gt;,</span>
-#&gt; <span style='color: #949494;'>#   date_mweek &lt;int&gt;, date_week &lt;int&gt;, date_week.iso &lt;int&gt;, date_week2 &lt;int&gt;, …</span></div><div class='input'>
-<span class='co'># Tidy shows which features have been added during the 1st step</span>
-<span class='co'>#  in this case, step 1 is the step_timeseries_signature step</span>
-<span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='va'>rec_obj</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 1 × 6</span>
-#&gt;   number operation type                 trained skip  id                        
-#&gt;    <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                <span style='color: #949494; font-style: italic;'>&lt;lgl&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;lgl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                     
-#&gt; <span style='color: #BCBCBC;'>1</span>      1 step      timeseries_signature FALSE   FALSE timeseries_signature_BBVkz</div><div class='input'><span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='va'>rec_obj</span>, number <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 27 × 3</span>
-#&gt;    terms value     id                        
-#&gt;    <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                     
-#&gt; <span style='color: #BCBCBC;'> 1</span> date  index.num timeseries_signature_BBVkz
-#&gt; <span style='color: #BCBCBC;'> 2</span> date  year      timeseries_signature_BBVkz
-#&gt; <span style='color: #BCBCBC;'> 3</span> date  year.iso  timeseries_signature_BBVkz
-#&gt; <span style='color: #BCBCBC;'> 4</span> date  half      timeseries_signature_BBVkz
-#&gt; <span style='color: #BCBCBC;'> 5</span> date  quarter   timeseries_signature_BBVkz
-#&gt; <span style='color: #BCBCBC;'> 6</span> date  month     timeseries_signature_BBVkz
-#&gt; <span style='color: #BCBCBC;'> 7</span> date  month.xts timeseries_signature_BBVkz
-#&gt; <span style='color: #BCBCBC;'> 8</span> date  month.lbl timeseries_signature_BBVkz
-#&gt; <span style='color: #BCBCBC;'> 9</span> date  day       timeseries_signature_BBVkz
-#&gt; <span style='color: #BCBCBC;'>10</span> date  hour      timeseries_signature_BBVkz
-#&gt; <span style='color: #949494;'># … with 17 more rows</span></div><div class='input'>
-
-
-</div></pre>
+    <pre class="examples"><span class='r-in'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/tidymodels/recipes'>recipes</a></span><span class='op'>)</span></span>
+<span class='r-in'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span></span>
+<span class='r-in'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/business-science/tidyquant'>tidyquant</a></span><span class='op'>)</span></span>
+<span class='r-in'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/business-science/timetk'>timetk</a></span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>FB_tbl</span> <span class='op'>&lt;-</span> <span class='va'>FANG</span> <span class='op'><a href='https://rdrr.io/pkg/tidyquant/man/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>symbol</span> <span class='op'>==</span> <span class='st'>"FB"</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Create a recipe object with a timeseries signature step</span></span>
+<span class='r-in'><span class='va'>rec_obj</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://recipes.tidymodels.org/reference/recipe.html'>recipe</a></span><span class='op'>(</span><span class='va'>adjusted</span> <span class='op'>~</span> <span class='va'>.</span>, data <span class='op'>=</span> <span class='va'>FB_tbl</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/tidyquant/man/pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>    <span class='fu'>step_timeseries_signature</span><span class='op'>(</span><span class='va'>date</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># View the recipe object</span></span>
+<span class='r-in'><span class='va'>rec_obj</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Recipe</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Inputs:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       role #variables</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    outcome          1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  predictor          7</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Operations:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Timeseries signature features from date</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Prepare the recipe object</span></span>
+<span class='r-in'><span class='fu'><a href='https://recipes.tidymodels.org/reference/prep.html'>prep</a></span><span class='op'>(</span><span class='va'>rec_obj</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Recipe</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Inputs:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       role #variables</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    outcome          1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  predictor          7</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Training data contained 1008 data points and no missing data.</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Operations:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Timeseries signature features from date [trained]</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Bake the recipe object - Adds the Time Series Signature</span></span>
+<span class='r-in'><span class='fu'><a href='https://recipes.tidymodels.org/reference/bake.html'>bake</a></span><span class='op'>(</span><span class='fu'><a href='https://recipes.tidymodels.org/reference/prep.html'>prep</a></span><span class='op'>(</span><span class='va'>rec_obj</span><span class='op'>)</span>, <span class='va'>FB_tbl</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 1,008 × 35</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    symbol date        open  high   low close    volume adjusted date_index.num</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>          <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 1</span> FB     2013-01-02  27.4  28.2  27.4  28    69<span style='text-decoration: underline;'>846</span>400     28       <span style='text-decoration: underline;'>1</span>357<span style='text-decoration: underline;'>084</span>800</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 2</span> FB     2013-01-03  27.9  28.5  27.6  27.8  63<span style='text-decoration: underline;'>140</span>600     27.8     <span style='text-decoration: underline;'>1</span>357<span style='text-decoration: underline;'>171</span>200</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 3</span> FB     2013-01-04  28.0  28.9  27.8  28.8  72<span style='text-decoration: underline;'>715</span>400     28.8     <span style='text-decoration: underline;'>1</span>357<span style='text-decoration: underline;'>257</span>600</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 4</span> FB     2013-01-07  28.7  29.8  28.6  29.4  83<span style='text-decoration: underline;'>781</span>800     29.4     <span style='text-decoration: underline;'>1</span>357<span style='text-decoration: underline;'>516</span>800</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 5</span> FB     2013-01-08  29.5  29.6  28.9  29.1  45<span style='text-decoration: underline;'>871</span>300     29.1     <span style='text-decoration: underline;'>1</span>357<span style='text-decoration: underline;'>603</span>200</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 6</span> FB     2013-01-09  29.7  30.6  29.5  30.6 104<span style='text-decoration: underline;'>787</span>700     30.6     <span style='text-decoration: underline;'>1</span>357<span style='text-decoration: underline;'>689</span>600</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 7</span> FB     2013-01-10  30.6  31.5  30.3  31.3  95<span style='text-decoration: underline;'>316</span>400     31.3     <span style='text-decoration: underline;'>1</span>357<span style='text-decoration: underline;'>776</span>000</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 8</span> FB     2013-01-11  31.3  32.0  31.1  31.7  89<span style='text-decoration: underline;'>598</span>000     31.7     <span style='text-decoration: underline;'>1</span>357<span style='text-decoration: underline;'>862</span>400</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 9</span> FB     2013-01-14  32.1  32.2  30.6  31.0  98<span style='text-decoration: underline;'>892</span>800     31.0     <span style='text-decoration: underline;'>1</span>358<span style='text-decoration: underline;'>121</span>600</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>10</span> FB     2013-01-15  30.6  31.7  29.9  30.1 173<span style='text-decoration: underline;'>242</span>600     30.1     <span style='text-decoration: underline;'>1</span>358<span style='text-decoration: underline;'>208</span>000</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># … with 998 more rows, and 26 more variables: date_year &lt;int&gt;,</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'>#   date_year.iso &lt;int&gt;, date_half &lt;int&gt;, date_quarter &lt;int&gt;, date_month &lt;int&gt;,</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'>#   date_month.xts &lt;int&gt;, date_month.lbl &lt;ord&gt;, date_day &lt;int&gt;,</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'>#   date_hour &lt;int&gt;, date_minute &lt;int&gt;, date_second &lt;int&gt;, date_hour12 &lt;int&gt;,</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'>#   date_am.pm &lt;int&gt;, date_wday &lt;int&gt;, date_wday.xts &lt;int&gt;,</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'>#   date_wday.lbl &lt;ord&gt;, date_mday &lt;int&gt;, date_qday &lt;int&gt;, date_yday &lt;int&gt;,</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'>#   date_mweek &lt;int&gt;, date_week &lt;int&gt;, date_week.iso &lt;int&gt;, date_week2 &lt;int&gt;, …</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Tidy shows which features have been added during the 1st step</span></span>
+<span class='r-in'><span class='co'>#  in this case, step 1 is the step_timeseries_signature step</span></span>
+<span class='r-in'><span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='va'>rec_obj</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 1 × 6</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   number operation type                 trained skip  id                        </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                <span style='color: #949494; font-style: italic;'>&lt;lgl&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;lgl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                     </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>1</span>      1 step      timeseries_signature FALSE   FALSE timeseries_signature_BBVkz</span>
+<span class='r-in'><span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='va'>rec_obj</span>, number <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 27 × 3</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    terms value     id                        </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                     </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 1</span> date  index.num timeseries_signature_BBVkz</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 2</span> date  year      timeseries_signature_BBVkz</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 3</span> date  year.iso  timeseries_signature_BBVkz</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 4</span> date  half      timeseries_signature_BBVkz</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 5</span> date  quarter   timeseries_signature_BBVkz</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 6</span> date  month     timeseries_signature_BBVkz</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 7</span> date  month.xts timeseries_signature_BBVkz</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 8</span> date  month.lbl timeseries_signature_BBVkz</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 9</span> date  day       timeseries_signature_BBVkz</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>10</span> date  hour      timeseries_signature_BBVkz</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># … with 17 more rows</span></span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

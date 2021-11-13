@@ -313,45 +313,47 @@ to add both sin and cos series.</p>
 </div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span>
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/business-science/timetk'>timetk</a></span><span class='op'>)</span>
-
-<span class='fu'><a href='https://rdrr.io/r/base/options.html'>options</a></span><span class='op'>(</span>max.print <span class='op'>=</span> <span class='fl'>50</span><span class='op'>)</span>
-
-<span class='va'>date_sequence</span> <span class='op'>&lt;-</span> <span class='fu'><a href='tk_make_timeseries.html'>tk_make_timeseries</a></span><span class='op'>(</span><span class='st'>"2016-01-01"</span>, <span class='st'>"2016-01-31"</span>, by <span class='op'>=</span> <span class='st'>"hour"</span><span class='op'>)</span>
-
-<span class='co'># --- VECTOR ---</span>
-
-<span class='fu'>fourier_vec</span><span class='op'>(</span><span class='va'>date_sequence</span>, period <span class='op'>=</span> <span class='fl'>7</span> <span class='op'>*</span> <span class='fl'>24</span>, K <span class='op'>=</span> <span class='fl'>1</span>, type <span class='op'>=</span> <span class='st'>"sin"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;  [1] 0.7818315 0.8045978 0.8262388 0.8467242 0.8660254 0.8841154 0.9009689
-#&gt;  [8] 0.9165623 0.9308737 0.9438833 0.9555728 0.9659258 0.9749279 0.9825665
-#&gt; [15] 0.9888308 0.9937122 0.9972038 0.9993007 1.0000000 0.9993007 0.9972038
-#&gt; [22] 0.9937122 0.9888308 0.9825665 0.9749279 0.9659258 0.9555728 0.9438833
-#&gt; [29] 0.9308737 0.9165623 0.9009689 0.8841154 0.8660254 0.8467242 0.8262388
-#&gt; [36] 0.8045978 0.7818315 0.7579717 0.7330519 0.7071068 0.6801727 0.6522874
-#&gt; [43] 0.6234898 0.5938202 0.5633201 0.5320321 0.5000000 0.4672686 0.4338837
-#&gt; [50] 0.3998920
-#&gt;  [ reached getOption("max.print") -- omitted 671 entries ]</div><div class='input'>
-<span class='co'># --- MUTATE ---</span>
-
-<span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span>date <span class='op'>=</span> <span class='va'>date_sequence</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-    <span class='co'># Add cosine series that oscilates at a 7-day period</span>
-    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>
-        C1_7 <span class='op'>=</span> <span class='fu'>fourier_vec</span><span class='op'>(</span><span class='va'>date</span>, period <span class='op'>=</span> <span class='fl'>7</span><span class='op'>*</span><span class='fl'>24</span>, K <span class='op'>=</span> <span class='fl'>1</span>, type <span class='op'>=</span> <span class='st'>"cos"</span><span class='op'>)</span>,
-        C2_7 <span class='op'>=</span> <span class='fu'>fourier_vec</span><span class='op'>(</span><span class='va'>date</span>, period <span class='op'>=</span> <span class='fl'>7</span><span class='op'>*</span><span class='fl'>24</span>, K <span class='op'>=</span> <span class='fl'>2</span>, type <span class='op'>=</span> <span class='st'>"cos"</span><span class='op'>)</span>
-    <span class='op'>)</span> <span class='op'>%&gt;%</span>
-    <span class='co'># Visualize</span>
-    <span class='fu'>pivot_longer</span><span class='op'>(</span>cols <span class='op'>=</span> <span class='fu'><a href='https://tidyselect.r-lib.org/reference/starts_with.html'>contains</a></span><span class='op'>(</span><span class='st'>"_"</span><span class='op'>)</span>, names_to <span class='op'>=</span> <span class='st'>"name"</span>, values_to <span class='op'>=</span> <span class='st'>"value"</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-    <span class='fu'><a href='plot_time_series.html'>plot_time_series</a></span><span class='op'>(</span>
-        <span class='va'>date</span>, <span class='va'>value</span>, .color_var <span class='op'>=</span> <span class='va'>name</span>,
-        .smooth <span class='op'>=</span> <span class='cn'>FALSE</span>,
-        .interactive <span class='op'>=</span> <span class='cn'>FALSE</span>,
-        .title <span class='op'>=</span> <span class='st'>"7-Day Fourier Terms"</span>
-    <span class='op'>)</span>
-</div><div class='img'><img src='fourier_vec-1.png' alt='' width='700' height='433' /></div><div class='input'>
-
-
-</div></pre>
+    <pre class="examples"><span class='r-in'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span></span>
+<span class='r-in'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/business-science/timetk'>timetk</a></span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/options.html'>options</a></span><span class='op'>(</span>max.print <span class='op'>=</span> <span class='fl'>50</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>date_sequence</span> <span class='op'>&lt;-</span> <span class='fu'><a href='tk_make_timeseries.html'>tk_make_timeseries</a></span><span class='op'>(</span><span class='st'>"2016-01-01"</span>, <span class='st'>"2016-01-31"</span>, by <span class='op'>=</span> <span class='st'>"hour"</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># --- VECTOR ---</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>fourier_vec</span><span class='op'>(</span><span class='va'>date_sequence</span>, period <span class='op'>=</span> <span class='fl'>7</span> <span class='op'>*</span> <span class='fl'>24</span>, K <span class='op'>=</span> <span class='fl'>1</span>, type <span class='op'>=</span> <span class='st'>"sin"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [1] 0.7818315 0.8045978 0.8262388 0.8467242 0.8660254 0.8841154 0.9009689</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [8] 0.9165623 0.9308737 0.9438833 0.9555728 0.9659258 0.9749279 0.9825665</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [15] 0.9888308 0.9937122 0.9972038 0.9993007 1.0000000 0.9993007 0.9972038</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [22] 0.9937122 0.9888308 0.9825665 0.9749279 0.9659258 0.9555728 0.9438833</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [29] 0.9308737 0.9165623 0.9009689 0.8841154 0.8660254 0.8467242 0.8262388</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [36] 0.8045978 0.7818315 0.7579717 0.7330519 0.7071068 0.6801727 0.6522874</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [43] 0.6234898 0.5938202 0.5633201 0.5320321 0.5000000 0.4672686 0.4338837</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [50] 0.3998920</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [ reached getOption("max.print") -- omitted 671 entries ]</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># --- MUTATE ---</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span>date <span class='op'>=</span> <span class='va'>date_sequence</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>    <span class='co'># Add cosine series that oscilates at a 7-day period</span></span>
+<span class='r-in'>    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span></span>
+<span class='r-in'>        C1_7 <span class='op'>=</span> <span class='fu'>fourier_vec</span><span class='op'>(</span><span class='va'>date</span>, period <span class='op'>=</span> <span class='fl'>7</span><span class='op'>*</span><span class='fl'>24</span>, K <span class='op'>=</span> <span class='fl'>1</span>, type <span class='op'>=</span> <span class='st'>"cos"</span><span class='op'>)</span>,</span>
+<span class='r-in'>        C2_7 <span class='op'>=</span> <span class='fu'>fourier_vec</span><span class='op'>(</span><span class='va'>date</span>, period <span class='op'>=</span> <span class='fl'>7</span><span class='op'>*</span><span class='fl'>24</span>, K <span class='op'>=</span> <span class='fl'>2</span>, type <span class='op'>=</span> <span class='st'>"cos"</span><span class='op'>)</span></span>
+<span class='r-in'>    <span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>    <span class='co'># Visualize</span></span>
+<span class='r-in'>    <span class='fu'><a href='https://tidyr.tidyverse.org/reference/pivot_longer.html'>pivot_longer</a></span><span class='op'>(</span>cols <span class='op'>=</span> <span class='fu'><a href='https://tidyselect.r-lib.org/reference/starts_with.html'>contains</a></span><span class='op'>(</span><span class='st'>"_"</span><span class='op'>)</span>, names_to <span class='op'>=</span> <span class='st'>"name"</span>, values_to <span class='op'>=</span> <span class='st'>"value"</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>    <span class='fu'><a href='plot_time_series.html'>plot_time_series</a></span><span class='op'>(</span></span>
+<span class='r-in'>        <span class='va'>date</span>, <span class='va'>value</span>, .color_var <span class='op'>=</span> <span class='va'>name</span>,</span>
+<span class='r-in'>        .smooth <span class='op'>=</span> <span class='cn'>FALSE</span>,</span>
+<span class='r-in'>        .interactive <span class='op'>=</span> <span class='cn'>FALSE</span>,</span>
+<span class='r-in'>        .title <span class='op'>=</span> <span class='st'>"7-Day Fourier Terms"</span></span>
+<span class='r-in'>    <span class='op'>)</span></span>
+<span class='r-plt img'><img src='fourier_vec-1.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
