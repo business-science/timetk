@@ -18,6 +18,8 @@ __Bug Fixes__
 
 - `plot_time_series_regression()`: Fixed an issue when lags are added to `.formula`. Pads lags with NA. 
 
+- `step_fourier()` and `fourier_vec()`: Fixed issue with step_fourier failing with one observation. Added scale_factor argument to override date sequences with the stored scale factor. #77 
+
 
 
 # timetk 2.6.1

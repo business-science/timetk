@@ -235,14 +235,15 @@ bake.step_fourier <- function(object, new_data, ...) {
     if (!all(object$K == as.integer(object$K)))
         rlang::abort("step_diff() requires 'K' argument to be integer valued.")
 
-    make_call <- function(col, period_val, K_val, type_val) {
+    make_call <- function(col, period_val, K_val, type_val, scale_factor_val) {
         rlang::call2(
             "fourier_vec",
-            x          = rlang::sym(col),
-            period     = period_val,
-            K          = K_val,
-            type       = type_val,
-            .ns        = "timetk"
+            x            = rlang::sym(col),
+            period       = period_val,
+            K            = K_val,
+            type         = type_val,
+            scale_factor = scale_factor_val,
+            .ns          = "timetk"
         )
     }
 
@@ -252,10 +253,12 @@ bake.step_fourier <- function(object, new_data, ...) {
         type_val    = c("sin", "cos"),
         K_val       = 1:max(object$K),
         period_val  = object$period,
+        scale_factor_val = object$scale_factor,
 
-        stringsAsFactors = FALSE)
+        stringsAsFactors = FALSE
+    )
 
-    calls   <- purrr::pmap(.l = list(grid$col, grid$period_val, grid$K_val, grid$type_val), make_call)
+    calls   <- purrr::pmap(.l = list(grid$col, grid$period_val, grid$K_val, grid$type_val, grid$scale_factor_val), make_call)
 
     # Column names
     newname <- paste0(grid$col, "_", grid$type_val, round(grid$period_val, 2), "_K", grid$K_val)

@@ -8,6 +8,9 @@
 #' @param period The number of observations that complete one cycle.
 #' @param K The fourier term order.
 #' @param type Either "sin" or "cos" for the appropriate type of fourier term.
+#' @param scale_factor Scale factor is a calculated value that scales date sequences to numeric sequences.
+#' A user can provide a different value of scale factor to override the date scaling.
+#' Default: NULL (auto-scale).
 #'
 #' @return A numeric vector
 #'
@@ -93,47 +96,54 @@
 #'
 #' @name fourier_vec
 #' @export
-fourier_vec <- function(x, period, K = 1, type = c("sin", "cos")) {
+fourier_vec <- function(x, period, K = 1, type = c("sin", "cos"), scale_factor = NULL) {
 
     UseMethod("fourier_vec", x)
 }
 
 #' @export
-fourier_vec.integer <- function(x, period, K = 1, type = c("sin", "cos")) {
+fourier_vec.integer <- function(x, period, K = 1, type = c("sin", "cos"), scale_factor = NULL) {
     calc_fourier(x = x, period = period, K = K, type = type)
 }
 
 #' @export
-fourier_vec.double <- function(x, period, K = 1, type = c("sin", "cos")) {
+fourier_vec.double <- function(x, period, K = 1, type = c("sin", "cos"), scale_factor = NULL) {
     calc_fourier(x = x, period = period, K = K, type = type)
 }
 
 #' @export
-fourier_vec.Date <- function(x, period, K = 1, type = c("sin", "cos")) {
+fourier_vec.Date <- function(x, period, K = 1, type = c("sin", "cos"), scale_factor = NULL) {
 
     x_num    <- as.POSIXct(x) %>% as.numeric() %>% as.integer()
 
-    scale_factor <- date_to_seq_scale_factor(x)
-    if (scale_factor == 0) rlang::abort("Time difference between observations is zero. Try arranging data to have a positive time difference between observations. If working with time series groups, arrange by groups first, then date.")
+    if (is.null(scale_factor)) {
+        scale_factor <- date_to_seq_scale_factor(x)
+        if (scale_factor == 0) rlang::abort("Time difference between observations is zero. Try arranging data to have a positive time difference between observations. If working with time series groups, arrange by groups first, then date.")
+    }
+
     x_scaled <- x_num / scale_factor
 
     calc_fourier(x = x_scaled, period = period, K = K, type = type)
 }
 
 #' @export
-fourier_vec.POSIXct <- function(x, period, K = 1, type = c("sin", "cos")) {
+fourier_vec.POSIXct <- function(x, period, K = 1, type = c("sin", "cos"), scale_factor = NULL) {
 
     x_num    <- as.numeric(x) %>% as.integer()
 
-    scale_factor <- date_to_seq_scale_factor(x)
-    if (scale_factor == 0) rlang::abort("Time difference between observations is zero. Try arranging data to have a positive time difference between observations. If working with time series groups, arrange by groups first, then date.")
+    if (is.null(scale_factor)) {
+        scale_factor <- date_to_seq_scale_factor(x)
+        if (scale_factor == 0) rlang::abort("Time difference between observations is zero. Try arranging data to have a positive time difference between observations. If working with time series groups, arrange by groups first, then date.")
+    }
+
     x_scaled <- x_num / scale_factor
 
     calc_fourier(x = x_scaled, period = period, K = K, type = type)
 }
 
 #' @export
-fourier_vec.yearmon <- function(x, period, K = 1, type = c("sin", "cos")) {
+fourier_vec.yearmon <- function(x, period, K = 1, type = c("sin", "cos"), scale_factor = NULL) {
+
     x_scaled <- x * 12
     calc_fourier(x = x, period = period, K = K, type = type)
 }

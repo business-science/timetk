@@ -4,7 +4,7 @@
 \alias{fourier_vec}
 \title{Fourier Series}
 \usage{
-fourier_vec(x, period, K = 1, type = c("sin", "cos"))
+fourier_vec(x, period, K = 1, type = c("sin", "cos"), scale_factor = NULL)
 }
 \arguments{
 \item{x}{A date, POSIXct, yearmon, yearqtr, or numeric sequence (scaled to difference 1 for \code{period} alignment)
@@ -15,6 +15,10 @@ to be converted to a fourier series.}
 \item{K}{The fourier term order.}
 
 \item{type}{Either "sin" or "cos" for the appropriate type of fourier term.}
+
+\item{scale_factor}{Scale factor is a calculated value that scales date sequences to numeric sequences.
+A user can provide a different value of scale factor to override the date scaling.
+Default: NULL (auto-scale).}
 }
 \value{
 A numeric vector
