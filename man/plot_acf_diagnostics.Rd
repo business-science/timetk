@@ -86,6 +86,8 @@ Set to \code{tidyquant::palette_light()} "steel blue" by default.}
 \item{.interactive}{Returns either a static (\code{ggplot2}) visualization or an interactive (\code{plotly}) visualization}
 
 \item{.plotly_slider}{If TRUE, returns a plotly x-axis range slider.}
+
+\item{.facet_dir}{The direction of faceting ("h" for horizontal, "v" for vertical). Default is "h".}
 }
 \value{
 A static \code{ggplot2} plot or an interactive \code{plotly} plot

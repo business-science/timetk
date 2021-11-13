@@ -10,7 +10,6 @@
 #' as the y-axis value. The right-hand side of the formula is used to develop the linear regression model.
 #' See [stats::lm()] for details.
 #' @param .show_summary If `TRUE`, prints the `summary.lm()`.
-#'  Only available for non-grouped data.
 #' @param ... Additional arguments passed to [plot_time_series()]
 #'
 #' @return A static `ggplot2` plot or an interactive `plotly` plot

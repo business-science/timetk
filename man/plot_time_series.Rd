@@ -12,6 +12,7 @@ plot_time_series(
   .facet_vars = NULL,
   .facet_ncol = 1,
   .facet_scales = "free_y",
+  .facet_dir = "h",
   .facet_collapse = TRUE,
   .facet_collapse_sep = " ",
   .line_color = "#2c3e50",
@@ -54,6 +55,8 @@ These can be selected using \code{tidyselect()} helpers (e.g \code{contains()}).
 
 \item{.facet_scales}{Control facet x & y-axis ranges.
 Options include "fixed", "free", "free_y", "free_x"}
+
+\item{.facet_dir}{The direction of faceting ("h" for horizontal, "v" for vertical). Default is "h".}
 
 \item{.facet_collapse}{Multiple facets included on one facet strip instead of
 multiple facet strips.}

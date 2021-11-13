@@ -14,6 +14,7 @@
 #' @param .facet_ncol Number of facet columns.
 #' @param .facet_scales Control facet x & y-axis ranges.
 #'  Options include "fixed", "free", "free_y", "free_x"
+#' @param .facet_dir The direction of faceting ("h" for horizontal, "v" for vertical). Default is "h".
 #' @param .facet_collapse Multiple facets included on one facet strip instead of
 #'  multiple facet strips.
 #' @param .facet_collapse_sep The separator used for collapsing facets.
@@ -138,9 +139,12 @@
 #'
 #' @export
 plot_time_series <- function(.data, .date_var, .value, .color_var = NULL,
+
                              .facet_vars = NULL,
                              .facet_ncol = 1, .facet_scales = "free_y",
+                             .facet_dir = "h",
                              .facet_collapse = TRUE, .facet_collapse_sep = " ",
+
                              .line_color = "#2c3e50", .line_size = 0.5,
                              .line_type = 1, .line_alpha = 1,
                              .y_intercept = NULL, .y_intercept_color = "#2c3e50",
@@ -180,7 +184,8 @@ plot_time_series <- function(.data, .date_var, .value, .color_var = NULL,
 #' @export
 plot_time_series.data.frame <- function(.data, .date_var, .value, .color_var = NULL,
                                         .facet_vars = NULL,
-                                        .facet_ncol = 1, .facet_scales = "free_y",
+                                        .facet_ncol = 1,  .facet_scales = "free_y",
+                                        .facet_dir = "h",
                                         .facet_collapse = TRUE, .facet_collapse_sep = " ",
                                         .line_color = "#2c3e50", .line_size = 0.5,
                                         .line_type = 1, .line_alpha = 1,
@@ -319,7 +324,8 @@ plot_time_series.data.frame <- function(.data, .date_var, .value, .color_var = N
             ggplot2::facet_wrap(
                 ggplot2::vars(!!! rlang::syms(facet_names)),
                 ncol   = .facet_ncol,
-                scales = .facet_scales
+                scales = .facet_scales,
+                dir    = .facet_dir
             )
     }
 
@@ -384,7 +390,7 @@ plot_time_series.data.frame <- function(.data, .date_var, .value, .color_var = N
 #' @export
 plot_time_series.grouped_df <- function(.data, .date_var, .value, .color_var = NULL,
                                         .facet_vars = NULL,
-                                        .facet_ncol = 1, .facet_scales = "free_y",
+                                        .facet_ncol = 1,  .facet_scales = "free_y", .facet_dir = "h",
                                         .facet_collapse = TRUE, .facet_collapse_sep = " ",
                                         .line_color = "#2c3e50", .line_size = 0.5,
                                         .line_type = 1, .line_alpha = 1,
@@ -430,6 +436,7 @@ plot_time_series.grouped_df <- function(.data, .date_var, .value, .color_var = N
 
         .facet_ncol            = .facet_ncol,
         .facet_scales          = .facet_scales,
+        .facet_dir             = .facet_dir,
         .facet_collapse        = .facet_collapse,
         .facet_collapse_sep    = .facet_collapse_sep,
         .line_color            = .line_color,

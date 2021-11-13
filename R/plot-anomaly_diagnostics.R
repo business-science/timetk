@@ -11,6 +11,7 @@
 #'  These can be selected using `tidyselect()` helpers (e.g `contains()`).
 #' @param .facet_ncol Number of facet columns.
 #' @param .facet_scales Control facet x & y-axis ranges. Options include "fixed", "free", "free_y", "free_x"
+#' @param .facet_dir The direction of faceting ("h" for horizontal, "v" for vertical). Default is "h".
 #' @param .line_color Line color.
 #' @param .line_size Line size.
 #' @param .line_type Line type.
@@ -111,6 +112,7 @@ plot_anomaly_diagnostics <- function(.data, .date_var, .value, .facet_vars = NUL
                                      .message = TRUE,
 
                                      .facet_ncol = 1, .facet_scales = "free",
+                                     .facet_dir = "h",
 
                                      .line_color = "#2c3e50", .line_size = 0.5,
                                      .line_type = 1, .line_alpha = 1,
@@ -154,6 +156,7 @@ plot_anomaly_diagnostics.data.frame <- function(.data, .date_var, .value, .facet
                                                 .message = TRUE,
 
                                                 .facet_ncol = 1, .facet_scales = "free",
+                                                .facet_dir = "h",
 
                                                 .line_color = "#2c3e50", .line_size = 0.5,
                                                 .line_type = 1, .line_alpha = 1,
@@ -230,7 +233,8 @@ plot_anomaly_diagnostics.data.frame <- function(.data, .date_var, .value, .facet
             ggplot2::facet_wrap(
                 ggplot2::vars(!!! rlang::syms(facet_names)),
                 ncol   = .facet_ncol,
-                scales = .facet_scales
+                scales = .facet_scales,
+                dir    = .facet_dir
             )
     }
 
@@ -278,6 +282,7 @@ plot_anomaly_diagnostics.grouped_df <- function(.data, .date_var, .value, .facet
                                                 .message = TRUE,
 
                                                 .facet_ncol = 1, .facet_scales = "free",
+                                                .facet_dir = "h",
 
                                                 .line_color = "#2c3e50", .line_size = 0.5,
                                                 .line_type = 1, .line_alpha = 1,
@@ -328,6 +333,7 @@ plot_anomaly_diagnostics.grouped_df <- function(.data, .date_var, .value, .facet
 
         .facet_ncol         = .facet_ncol,
         .facet_scales       = .facet_scales,
+        .facet_dir          = .facet_dir,
 
         .line_color         = .line_color,
         .line_size          = .line_size,

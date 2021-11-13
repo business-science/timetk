@@ -16,6 +16,7 @@ plot_anomaly_diagnostics(
   .message = TRUE,
   .facet_ncol = 1,
   .facet_scales = "free",
+  .facet_dir = "h",
   .line_color = "#2c3e50",
   .line_size = 0.5,
   .line_type = 1,
@@ -63,6 +64,8 @@ and trend selection (if applicable).}
 \item{.facet_ncol}{Number of facet columns.}
 
 \item{.facet_scales}{Control facet x & y-axis ranges. Options include "fixed", "free", "free_y", "free_x"}
+
+\item{.facet_dir}{The direction of faceting ("h" for horizontal, "v" for vertical). Default is "h".}
 
 \item{.line_color}{Line color.}
 
