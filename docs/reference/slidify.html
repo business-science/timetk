@@ -101,7 +101,7 @@ rolling (sliding) .period specified by the user." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa-home"></span>
+    <span class="fa fa-home"></span>
      
   </a>
 </li>
@@ -163,7 +163,7 @@ rolling (sliding) .period specified by the user." />
     <li class="dropdown-header">API Functions</li>
     <li>
       <a href="../reference/index.html">
-        <span class="fas fa-home"></span>
+        <span class="fa fa-home"></span>
          
         Function Reference
       </a>
@@ -218,7 +218,7 @@ rolling (sliding) .period specified by the user." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/business-science/timetk">
-    <span class="fas fa-github"></span>
+    <span class="fa fa-github"></span>
      
   </a>
 </li>
@@ -367,7 +367,7 @@ to rolling windows.</p></li>
 
 <span class='va'>FB</span> <span class='op'>%&gt;%</span>
     <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>rolling_mean_5 <span class='op'>=</span> <span class='fu'>mean_roll_5</span><span class='op'>(</span><span class='va'>adjusted</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 1,008 x 9</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 1,008 × 9</span>
 #&gt;    symbol date        open  high   low close    volume adjusted rolling_mean_5
 #&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>          <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
 #&gt; <span style='color: #BCBCBC;'> 1</span> FB     2013-01-02  27.4  28.2  27.4  28    69<span style='text-decoration: underline;'>846</span>400     28             <span style='color: #BB0000;'>NA</span>  
@@ -386,7 +386,7 @@ to rolling windows.</p></li>
 
 <span class='va'>FB</span> <span class='op'>%&gt;%</span>
     <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>rolling_mean_5 <span class='op'>=</span> <span class='fu'>mean_roll_5_partial</span><span class='op'>(</span><span class='va'>adjusted</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 1,008 x 9</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 1,008 × 9</span>
 #&gt;    symbol date        open  high   low close    volume adjusted rolling_mean_5
 #&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>          <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
 #&gt; <span style='color: #BCBCBC;'> 1</span> FB     2013-01-02  27.4  28.2  27.4  28    69<span style='text-decoration: underline;'>846</span>400     28             28  
@@ -411,7 +411,7 @@ to rolling windows.</p></li>
         rolling_mean_5  <span class='op'>=</span> <span class='fu'>mean_roll_5</span><span class='op'>(</span><span class='va'>adjusted</span><span class='op'>)</span>,
         rolling_mean_10 <span class='op'>=</span> <span class='fu'>mean_roll_10</span><span class='op'>(</span><span class='va'>adjusted</span><span class='op'>)</span>
     <span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 1,008 x 5</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 1,008 × 5</span>
 #&gt;    symbol date       adjusted rolling_mean_5 rolling_mean_10
 #&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>        <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>          <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>           <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
 #&gt; <span style='color: #BCBCBC;'> 1</span> FB     2013-01-02     28             <span style='color: #BB0000;'>NA</span>              <span style='color: #BB0000;'>NA</span>  
@@ -434,7 +434,7 @@ to rolling windows.</p></li>
         <span class='va'>adjusted</span>, .period <span class='op'>=</span> <span class='fl'>5</span><span class='op'>:</span><span class='fl'>10</span>, .f <span class='op'>=</span> <span class='va'>mean</span>, .align <span class='op'>=</span> <span class='st'>"right"</span>,
         .names <span class='op'>=</span> <span class='fu'>str_c</span><span class='op'>(</span><span class='st'>"MA_"</span>, <span class='fl'>5</span><span class='op'>:</span><span class='fl'>10</span><span class='op'>)</span>
     <span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 1,008 x 9</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 1,008 × 9</span>
 #&gt;    symbol date       adjusted  MA_5  MA_6  MA_7  MA_8  MA_9 MA_10
 #&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>        <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
 #&gt; <span style='color: #BCBCBC;'> 1</span> FB     2013-01-02     28    <span style='color: #BB0000;'>NA</span>    <span style='color: #BB0000;'>NA</span>    <span style='color: #BB0000;'>NA</span>    <span style='color: #BB0000;'>NA</span>    <span style='color: #BB0000;'>NA</span>    <span style='color: #BB0000;'>NA</span>  
@@ -460,7 +460,7 @@ to rolling windows.</p></li>
     <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>symbol</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
     <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>mean_roll <span class='op'>=</span> <span class='fu'>mean_roll_3</span><span class='op'>(</span><span class='va'>adjusted</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
     <span class='fu'><a href='https://dplyr.tidyverse.org/reference/slice.html'>slice</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 20 x 9</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 20 × 9</span>
 #&gt; <span style='color: #949494;'># Groups:   symbol [4]</span>
 #&gt;    symbol date        open  high   low close   volume adjusted mean_roll
 #&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
@@ -493,7 +493,7 @@ to rolling windows.</p></li>
 
 <span class='va'>FB</span> <span class='op'>%&gt;%</span>
     <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>running_cor <span class='op'>=</span> <span class='fu'>cor_roll</span><span class='op'>(</span><span class='va'>adjusted</span>, <span class='va'>open</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 1,008 x 9</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 1,008 × 9</span>
 #&gt;    symbol date        open  high   low close    volume adjusted running_cor
 #&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>       <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
 #&gt; <span style='color: #BCBCBC;'> 1</span> FB     2013-01-02  27.4  28.2  27.4  28    69<span style='text-decoration: underline;'>846</span>400     28        <span style='color: #BB0000;'>NA</span>    
@@ -524,7 +524,7 @@ to rolling windows.</p></li>
 
 <span class='va'>FB</span> <span class='op'>%&gt;%</span>
     <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>avg_of_avgs <span class='op'>=</span> <span class='fu'>avg_of_avgs</span><span class='op'>(</span><span class='va'>open</span>, <span class='va'>high</span>, <span class='va'>low</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 1,008 x 9</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 1,008 × 9</span>
 #&gt;    symbol date        open  high   low close    volume adjusted avg_of_avgs
 #&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>       <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
 #&gt; <span style='color: #BCBCBC;'> 1</span> FB     2013-01-02  27.4  28.2  27.4  28    69<span style='text-decoration: underline;'>846</span>400     28          <span style='color: #BB0000;'>NA</span>  
@@ -547,7 +547,7 @@ to rolling windows.</p></li>
 
 <span class='va'>FB</span> <span class='op'>%&gt;%</span>
     <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>roll_mean <span class='op'>=</span> <span class='fu'>roll_mean_na_rm</span><span class='op'>(</span><span class='va'>adjusted</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 1,008 x 9</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 1,008 × 9</span>
 #&gt;    symbol date        open  high   low close    volume adjusted roll_mean
 #&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
 #&gt; <span style='color: #BCBCBC;'> 1</span> FB     2013-01-02  27.4  28.2  27.4  28    69<span style='text-decoration: underline;'>846</span>400     <span style='color: #BB0000;'>NA</span>        <span style='color: #BB0000;'>NA</span>  
@@ -572,7 +572,7 @@ to rolling windows.</p></li>
     <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>numeric_date <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='va'>date</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
     <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>rolling_lm <span class='op'>=</span> <span class='fu'>lm_roll</span><span class='op'>(</span><span class='va'>adjusted</span>, <span class='va'>numeric_date</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
     <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span><span class='op'>(</span><span class='va'>rolling_lm</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 918 x 10</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 918 × 10</span>
 #&gt;    symbol date        open  high   low close   volume adjusted numeric_date
 #&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>        <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
 #&gt; <span style='color: #BCBCBC;'> 1</span> FB     2013-05-13  26.6  27.3  26.5  26.8 29<span style='text-decoration: underline;'>068</span>800     26.8        <span style='text-decoration: underline;'>15</span>838

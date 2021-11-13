@@ -100,7 +100,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa-home"></span>
+    <span class="fa fa-home"></span>
      
   </a>
 </li>
@@ -162,7 +162,7 @@
     <li class="dropdown-header">API Functions</li>
     <li>
       <a href="../reference/index.html">
-        <span class="fas fa-home"></span>
+        <span class="fa fa-home"></span>
          
         Function Reference
       </a>
@@ -217,7 +217,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/business-science/timetk">
-    <span class="fas fa-github"></span>
+    <span class="fa fa-github"></span>
      
   </a>
 </li>
@@ -329,7 +329,7 @@ which is the original (non-regularized) time-based index.</p>
 #&gt; 5 120</div><div class='input'>
 <span class='co'># Defualt index returned is regularized numeric index</span>
 <span class='fu'>tk_tbl</span><span class='op'>(</span><span class='va'>data_ts</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 5 x 2</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 5 × 2</span>
 #&gt;   index     x
 #&gt;   <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
 #&gt; <span style='color: #BCBCBC;'>1</span> <span style='text-decoration: underline;'>2</span>010    100
@@ -339,7 +339,7 @@ which is the original (non-regularized) time-based index.</p>
 #&gt; <span style='color: #BCBCBC;'>5</span> <span style='text-decoration: underline;'>2</span>010.   120</div><div class='input'>
 <span class='co'># Original date index returned (Only possible if original data has time-based index)</span>
 <span class='fu'>tk_tbl</span><span class='op'>(</span><span class='va'>data_ts</span>, timetk_idx <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 5 x 2</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 5 × 2</span>
 #&gt;   index          x
 #&gt;   <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
 #&gt; <span style='color: #BCBCBC;'>1</span> 2010-01-01   100
@@ -361,7 +361,7 @@ which is the original (non-regularized) time-based index.</p>
 #&gt; 2010-01-05 120</div><div class='input'>
 <span class='co'># Dates are appropriate date class and within the data frame</span>
 <span class='fu'>tk_tbl</span><span class='op'>(</span><span class='va'>data_xts</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 5 x 2</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 5 × 2</span>
 #&gt;   index          x
 #&gt;   <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
 #&gt; <span style='color: #BCBCBC;'>1</span> 2010-01-01   100
@@ -386,7 +386,7 @@ which is the original (non-regularized) time-based index.</p>
 #&gt; 2001 Q4           8</div><div class='input'>
 <span class='co'># Dates are appropriate zoo yearqtr class within the data frame</span>
 <span class='fu'>tk_tbl</span><span class='op'>(</span><span class='va'>data_zooreg</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 8 x 2</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 8 × 2</span>
 #&gt;   index     value
 #&gt;   <span style='color: #949494; font-style: italic;'>&lt;yearqtr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>
 #&gt; <span style='color: #BCBCBC;'>1</span> 2000 Q1       1
@@ -418,7 +418,7 @@ which is the original (non-regularized) time-based index.</p>
 #&gt; Dec 2016       12</div><div class='input'>
 <span class='co'># Dates are appropriate zoo yearmon class within the data frame</span>
 <span class='fu'>tk_tbl</span><span class='op'>(</span><span class='va'>data_zoo</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 12 x 2</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 12 × 2</span>
 #&gt;    index     value
 #&gt;    <span style='color: #949494; font-style: italic;'>&lt;yearmon&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>
 #&gt; <span style='color: #BCBCBC;'> 1</span> Jan 2016      1

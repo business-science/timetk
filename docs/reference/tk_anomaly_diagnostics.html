@@ -101,7 +101,7 @@ It performs automatic anomaly detection for one or more time series groups." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa-home"></span>
+    <span class="fa fa-home"></span>
      
   </a>
 </li>
@@ -163,7 +163,7 @@ It performs automatic anomaly detection for one or more time series groups." />
     <li class="dropdown-header">API Functions</li>
     <li>
       <a href="../reference/index.html">
-        <span class="fas fa-home"></span>
+        <span class="fa fa-home"></span>
          
         Function Reference
       </a>
@@ -218,7 +218,7 @@ It performs automatic anomaly detection for one or more time series groups." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/business-science/timetk">
-    <span class="fas fa-github"></span>
+    <span class="fa fa-github"></span>
      
   </a>
 </li>
@@ -376,7 +376,7 @@ A Novel Technique for Long-Term Anomaly Detection in the Cloud. Twitter Inc.</p>
     <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>id</span> <span class='op'>%in%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"1_1"</span>, <span class='st'>"1_3"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
     <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>id</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
     <span class='fu'>tk_anomaly_diagnostics</span><span class='op'>(</span><span class='va'>Date</span>, <span class='va'>Weekly_Sales</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>frequency = 13 observations per 1 quarter</span></div><div class='output co'>#&gt; <span class='message'>trend = 52 observations per 1 year</span></div><div class='output co'>#&gt; <span class='message'>frequency = 13 observations per 1 quarter</span></div><div class='output co'>#&gt; <span class='message'>trend = 52 observations per 1 year</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 286 x 12</span>
+</div><div class='output co'>#&gt; <span class='message'>frequency = 13 observations per 1 quarter</span></div><div class='output co'>#&gt; <span class='message'>trend = 52 observations per 1 year</span></div><div class='output co'>#&gt; <span class='message'>frequency = 13 observations per 1 quarter</span></div><div class='output co'>#&gt; <span class='message'>trend = 52 observations per 1 year</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 286 × 12</span>
 #&gt; <span style='color: #949494;'># Groups:   id [2]</span>
 #&gt;    id    Date       observed season  trend remainder seasadj remainder_l1
 #&gt;    <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>        <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>        <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>

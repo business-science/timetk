@@ -99,7 +99,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa-home"></span>
+    <span class="fa fa-home"></span>
      
   </a>
 </li>
@@ -161,7 +161,7 @@
     <li class="dropdown-header">API Functions</li>
     <li>
       <a href="../reference/index.html">
-        <span class="fas fa-home"></span>
+        <span class="fa fa-home"></span>
          
         Function Reference
       </a>
@@ -216,7 +216,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/business-science/timetk">
-    <span class="fas fa-github"></span>
+    <span class="fa fa-github"></span>
      
   </a>
 </li>
@@ -241,9 +241,24 @@
 <h1 class="page-header" data-toc-text="2.6.1.9000">
 <a href="#timetk-2619000-development-version" class="anchor"></a>timetk 2.6.1.9000 (Development Version)<small> Unreleased </small>
 </h1>
+<p><strong>Improvements</strong></p>
 <ul>
-<li><p>Plot ACF Diagnostics (<code><a href="../reference/plot_acf_diagnostics.html">plot_acf_diagnostics()</a></code>): Change default parameter to <code>.show_white_noise_bars = TRUE</code>. <a href='https://github.com/business-science/timetk/issues/85'>#85</a></p></li>
+<li><p><code><a href="../reference/summarise_by_time.html">summarize_by_time()</a></code>: Added a <code>.week_start</code> argument to allow specifying <code>.week_start = 1</code> for Monday start. Default is 7 for Sunday Start. This can also be changed with the <code>lubridate</code> by setting the <code>lubridate.week.start</code> option.</p></li>
+<li>
+<p>Plotting Functions:</p>
+<ul>
+<li>Several plotting functions gain a new <code>.facet_dir</code> argument for adjusting the direction of <code>facet_wrap(dir)</code>. <a href='https://github.com/business-science/timetk/issues/94'>#94</a></li>
+<li>Plot ACF Diagnostics (<code><a href="../reference/plot_acf_diagnostics.html">plot_acf_diagnostics()</a></code>): Change default parameter to <code>.show_white_noise_bars = TRUE</code>. <a href='https://github.com/business-science/timetk/issues/85'>#85</a></li>
+<li>
+<code>plot_timeseries_regression()</code>: Can now <code>show_summary</code> for group-wise models when visualizing groups</li>
+</ul>
+</li>
 <li><p>Time Series CV (<code><a href="../reference/time_series_cv.html">time_series_cv()</a></code>): Add Label for <code>tune_results</code></p></li>
+</ul>
+<p><strong>Bug Fixes</strong></p>
+<ul>
+<li><p><code>tk_tbl.zoo()</code>: Fix an issue when <code><a href="https://readr.tidyverse.org/reference/type_convert.html">readr::type_convert()</a></code> produces warning messages about not having character columns in inputs. <a href='https://github.com/business-science/timetk/issues/89'>#89</a></p></li>
+<li><p><code><a href="../reference/plot_time_series_regression.html">plot_time_series_regression()</a></code>: Fixed an issue when lags are added to <code>.formula</code>. Pads lags with NA.</p></li>
 </ul>
 </div>
     <div id="timetk-261" class="section level1">
@@ -470,7 +485,7 @@
 <p><strong>New Parsing Functions</strong></p>
 <ul>
 <li>
-<code><a href="../reference/parse_date2.html">parse_date2()</a></code> and <code><a href="../reference/parse_date2.html">parse_datetime2()</a></code>: These are similar to <code><a href="https://readr.tidyverse.org/reference/parse_datetime.html">readr::parse_date()</a></code> and <code><a href="http://lubridate.tidyverse.org/reference/as_date.html">lubridate::as_date()</a></code> in that they parse character vectors to date and datetimes. The key advantage is SPEED. <code><a href="../reference/parse_date2.html">parse_date2()</a></code> uses <code>anytime</code> package to process using C++ <code>Boost.Date_Time</code> library.</li>
+<code><a href="../reference/parse_date2.html">parse_date2()</a></code> and <code><a href="../reference/parse_date2.html">parse_datetime2()</a></code>: These are similar to <code><a href="https://readr.tidyverse.org/reference/parse_datetime.html">readr::parse_date()</a></code> and <code><a href="https://lubridate.tidyverse.org/reference/as_date.html">lubridate::as_date()</a></code> in that they parse character vectors to date and datetimes. The key advantage is SPEED. <code><a href="../reference/parse_date2.html">parse_date2()</a></code> uses <code>anytime</code> package to process using C++ <code>Boost.Date_Time</code> library.</li>
 </ul>
 <p><strong>Improvements</strong>:</p>
 <ul>
@@ -515,7 +530,7 @@
 <li>
 <code><a href="../reference/tk_make_future_timeseries.html">tk_make_future_timeseries()</a></code>:
 <ul>
-<li>Fix bug when day of month doesn’t exist. Lubridate <code><a href="http://lubridate.tidyverse.org/reference/period.html">period()</a></code> returns <code>NA</code>. Fix implemented with <code><a href="http://lubridate.tidyverse.org/reference/round_date.html">ceiling_date()</a></code>.</li>
+<li>Fix bug when day of month doesn’t exist. Lubridate <code><a href="https://lubridate.tidyverse.org/reference/period.html">period()</a></code> returns <code>NA</code>. Fix implemented with <code><a href="https://lubridate.tidyverse.org/reference/round_date.html">ceiling_date()</a></code>.</li>
 </ul>
 </li>
 <li>

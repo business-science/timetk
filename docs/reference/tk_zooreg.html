@@ -100,7 +100,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa-home"></span>
+    <span class="fa fa-home"></span>
      
   </a>
 </li>
@@ -162,7 +162,7 @@
     <li class="dropdown-header">API Functions</li>
     <li>
       <a href="../reference/index.html">
-        <span class="fas fa-home"></span>
+        <span class="fa fa-home"></span>
          
         Function Reference
       </a>
@@ -217,7 +217,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/business-science/timetk">
-    <span class="fas fa-github"></span>
+    <span class="fa fa-github"></span>
      
   </a>
 </li>
@@ -364,22 +364,22 @@ using <code><a href='https://rdrr.io/pkg/zoo/man/zooreg.html'>zoo::zooreg()</a><
 <span class='co'># zoo::zooreg: Values coerced to character; Result does not retain index</span>
 <span class='va'>data_zooreg</span> <span class='op'>&lt;-</span> <span class='fu'>zoo</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/zoo/man/zooreg.html'>zooreg</a></span><span class='op'>(</span><span class='va'>data_tbl</span><span class='op'>[</span>,<span class='op'>-</span><span class='fl'>1</span><span class='op'>]</span>, start <span class='op'>=</span> <span class='fl'>2016</span>, freq <span class='op'>=</span> <span class='fl'>365</span><span class='op'>)</span>
 <span class='va'>data_zooreg</span>                <span class='co'># Numeric values coerced to character</span>
-</div><div class='output co'>#&gt;         x          y  z         
-#&gt; 2016(1) chr values  1  -4.754148
-#&gt; 2016(2) chr values  3  -9.940491
-#&gt; 2016(3) chr values  6 -15.559029
-#&gt; 2016(4) chr values 10 -21.609762
-#&gt; 2016(5) chr values 15 -28.092691</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>rownames</a></span><span class='op'>(</span><span class='va'>data_zooreg</span><span class='op'>)</span>      <span class='co'># NULL, no dates retained</span>
+</div><div class='output co'>#&gt;         x          y  z        
+#&gt; 2016(1) chr values  1 0.2109535
+#&gt; 2016(2) chr values  3 0.4410846
+#&gt; 2016(3) chr values  6 0.6903933
+#&gt; 2016(4) chr values 10 0.9588796
+#&gt; 2016(5) chr values 15 1.2465435</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>rownames</a></span><span class='op'>(</span><span class='va'>data_zooreg</span><span class='op'>)</span>      <span class='co'># NULL, no dates retained</span>
 </div><div class='output co'>#&gt; NULL</div><div class='input'>
 <span class='co'># tk_zooreg: Only numeric columns get coerced; Result retains index as rownames</span>
 <span class='va'>data_tk_zooreg</span> <span class='op'>&lt;-</span> <span class='fu'>tk_zooreg</span><span class='op'>(</span><span class='va'>data_tbl</span>, start <span class='op'>=</span> <span class='fl'>2016</span>, freq <span class='op'>=</span> <span class='fl'>365</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='warning'>Warning: Non-numeric columns being dropped: date, x</span></div><div class='input'><span class='va'>data_tk_zooreg</span>             <span class='co'># No inadvertent coercion to character class</span>
-</div><div class='output co'>#&gt;          y          z
-#&gt; 2016(1)  1  -4.754148
-#&gt; 2016(2)  3  -9.940491
-#&gt; 2016(3)  6 -15.559029
-#&gt; 2016(4) 10 -21.609762
-#&gt; 2016(5) 15 -28.092691</div><div class='input'>
+</div><div class='output co'>#&gt;          y         z
+#&gt; 2016(1)  1 0.2109535
+#&gt; 2016(2)  3 0.4410846
+#&gt; 2016(3)  6 0.6903933
+#&gt; 2016(4) 10 0.9588796
+#&gt; 2016(5) 15 1.2465435</div><div class='input'>
 <span class='co'># timetk index</span>
 <span class='fu'><a href='tk_index.html'>tk_index</a></span><span class='op'>(</span><span class='va'>data_tk_zooreg</span>, timetk_idx <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>   <span class='co'># Regularized index returned</span>
 </div><div class='output co'>#&gt; [1] 2016.000 2016.003 2016.005 2016.008 2016.011</div><div class='input'><span class='fu'><a href='tk_index.html'>tk_index</a></span><span class='op'>(</span><span class='va'>data_tk_zooreg</span>, timetk_idx <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>    <span class='co'># Original date index returned</span>

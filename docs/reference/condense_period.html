@@ -103,7 +103,7 @@ the beginning or end of the period." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa-home"></span>
+    <span class="fa fa-home"></span>
      
   </a>
 </li>
@@ -165,7 +165,7 @@ the beginning or end of the period." />
     <li class="dropdown-header">API Functions</li>
     <li>
       <a href="../reference/index.html">
-        <span class="fas fa-home"></span>
+        <span class="fa fa-home"></span>
          
         Function Reference
       </a>
@@ -220,7 +220,7 @@ the beginning or end of the period." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/business-science/timetk">
-    <span class="fas fa-github"></span>
+    <span class="fa fa-github"></span>
      
   </a>
 </li>
@@ -266,7 +266,7 @@ If missing, attempts to auto-detect date column.</p></td>
     <tr>
       <th>.period</th>
       <td><p>A period to condense the time series to.
-Time units are condensed using <code><a href='http://lubridate.tidyverse.org/reference/round_date.html'>lubridate::floor_date()</a></code> or <code><a href='http://lubridate.tidyverse.org/reference/round_date.html'>lubridate::ceiling_date()</a></code>.</p>
+Time units are condensed using <code><a href='https://lubridate.tidyverse.org/reference/round_date.html'>lubridate::floor_date()</a></code> or <code><a href='https://lubridate.tidyverse.org/reference/round_date.html'>lubridate::ceiling_date()</a></code>.</p>
 <p>The value can be:</p><ul>
 <li><p><code>second</code></p></li>
 <li><p><code>minute</code></p></li>
@@ -281,7 +281,7 @@ Time units are condensed using <code><a href='http://lubridate.tidyverse.org/ref
 <li><p><code>year</code></p></li>
 </ul>
 
-<p>Arbitrary unique English abbreviations as in the <code><a href='http://lubridate.tidyverse.org/reference/period.html'>lubridate::period()</a></code> constructor are allowed:</p><ul>
+<p>Arbitrary unique English abbreviations as in the <code><a href='https://lubridate.tidyverse.org/reference/period.html'>lubridate::period()</a></code> constructor are allowed:</p><ul>
 <li><p><code>"1 year"</code></p></li>
 <li><p><code>"2 months"</code></p></li>
 <li><p><code>"30 seconds"</code></p></li>
@@ -321,7 +321,7 @@ or the last.</p></td>
 <span class='va'>m4_daily</span> <span class='op'>%&gt;%</span>
     <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>id</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
     <span class='fu'>condense_period</span><span class='op'>(</span>.period <span class='op'>=</span> <span class='st'>"1 month"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>.date_var is missing. Using: date</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 323 x 3</span>
+</div><div class='output co'>#&gt; <span class='message'>.date_var is missing. Using: date</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 323 × 3</span>
 #&gt; <span style='color: #949494;'># Groups:   id [4]</span>
 #&gt;    id    date       value
 #&gt;    <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
@@ -340,7 +340,7 @@ or the last.</p></td>
 <span class='va'>m4_daily</span> <span class='op'>%&gt;%</span>
     <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>id</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
     <span class='fu'>condense_period</span><span class='op'>(</span>.period <span class='op'>=</span> <span class='st'>"1 month"</span>, .side <span class='op'>=</span> <span class='st'>"end"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>.date_var is missing. Using: date</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 323 x 3</span>
+</div><div class='output co'>#&gt; <span class='message'>.date_var is missing. Using: date</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 323 × 3</span>
 #&gt; <span style='color: #949494;'># Groups:   id [4]</span>
 #&gt;    id    date       value
 #&gt;    <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>

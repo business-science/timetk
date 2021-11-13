@@ -101,7 +101,7 @@ Works with dplyr groups too." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa-home"></span>
+    <span class="fa fa-home"></span>
      
   </a>
 </li>
@@ -163,7 +163,7 @@ Works with dplyr groups too." />
     <li class="dropdown-header">API Functions</li>
     <li>
       <a href="../reference/index.html">
-        <span class="fas fa-home"></span>
+        <span class="fa fa-home"></span>
          
         Function Reference
       </a>
@@ -218,7 +218,7 @@ Works with dplyr groups too." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/business-science/timetk">
-    <span class="fas fa-github"></span>
+    <span class="fa fa-github"></span>
      
   </a>
 </li>
@@ -338,7 +338,7 @@ arguments.</p>
         .names   <span class='op'>=</span> <span class='fu'>str_c</span><span class='op'>(</span><span class='st'>"MA_"</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>10</span>, <span class='fl'>30</span>, <span class='fl'>60</span>, <span class='fl'>90</span><span class='op'>)</span><span class='op'>)</span>
     <span class='op'>)</span> <span class='op'>%&gt;%</span>
     <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>ungroup</a></span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 4,032 x 7</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 4,032 × 7</span>
 #&gt;    symbol date       adjusted MA_10 MA_30 MA_60 MA_90
 #&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>        <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
 #&gt; <span style='color: #BCBCBC;'> 1</span> FB     2013-01-02     28    28.9  30.0  29.7  29.1
@@ -363,7 +363,7 @@ arguments.</p>
         .partial <span class='op'>=</span> <span class='cn'>TRUE</span>
     <span class='op'>)</span> <span class='op'>%&gt;%</span>
     <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>ungroup</a></span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 4,032 x 12</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 4,032 × 12</span>
 #&gt;    symbol date       adjusted    volume adjusted_roll_10 volume_roll_10
 #&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>        <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>            <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>          <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
 #&gt; <span style='color: #BCBCBC;'> 1</span> FB     2013-01-02     28    69<span style='text-decoration: underline;'>846</span>400             28.9      73<span style='text-decoration: underline;'>357</span>200 

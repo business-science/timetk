@@ -101,7 +101,7 @@ Plots are available in interactive plotly (default) and static ggplot2 format." 
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa-home"></span>
+    <span class="fa fa-home"></span>
      
   </a>
 </li>
@@ -163,7 +163,7 @@ Plots are available in interactive plotly (default) and static ggplot2 format." 
     <li class="dropdown-header">API Functions</li>
     <li>
       <a href="../reference/index.html">
-        <span class="fas fa-home"></span>
+        <span class="fa fa-home"></span>
          
         Function Reference
       </a>
@@ -218,7 +218,7 @@ Plots are available in interactive plotly (default) and static ggplot2 format." 
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/business-science/timetk">
-    <span class="fas fa-github"></span>
+    <span class="fa fa-github"></span>
      
   </a>
 </li>
@@ -257,6 +257,7 @@ Plots are available in interactive <code>plotly</code> (default) and static <cod
   .message <span class='op'>=</span> <span class='cn'>TRUE</span>,
   .facet_ncol <span class='op'>=</span> <span class='fl'>1</span>,
   .facet_scales <span class='op'>=</span> <span class='st'>"free"</span>,
+  .facet_dir <span class='op'>=</span> <span class='st'>"h"</span>,
   .line_color <span class='op'>=</span> <span class='st'>"#2c3e50"</span>,
   .line_size <span class='op'>=</span> <span class='fl'>0.5</span>,
   .line_type <span class='op'>=</span> <span class='fl'>1</span>,
@@ -328,6 +329,10 @@ and trend selection (if applicable).</p></td>
     <tr>
       <th>.facet_scales</th>
       <td><p>Control facet x &amp; y-axis ranges. Options include "fixed", "free", "free_y", "free_x"</p></td>
+    </tr>
+    <tr>
+      <th>.facet_dir</th>
+      <td><p>The direction of faceting ("h" for horizontal, "v" for vertical). Default is "h".</p></td>
     </tr>
     <tr>
       <th>.line_color</th>

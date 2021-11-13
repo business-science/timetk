@@ -104,7 +104,7 @@ of the cross validation on the most recent time series data." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa-home"></span>
+    <span class="fa fa-home"></span>
      
   </a>
 </li>
@@ -166,7 +166,7 @@ of the cross validation on the most recent time series data." />
     <li class="dropdown-header">API Functions</li>
     <li>
       <a href="../reference/index.html">
-        <span class="fas fa-home"></span>
+        <span class="fa fa-home"></span>
          
         Function Reference
       </a>
@@ -221,7 +221,7 @@ of the cross validation on the most recent time series data." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/business-science/timetk">
-    <span class="fas fa-github"></span>
+    <span class="fa fa-github"></span>
      
   </a>
 </li>
@@ -387,7 +387,7 @@ split containing a training/testing sample.</p></li>
 </div><div class='output co'>#&gt; <span class='message'>Using date_var: date</span></div><div class='input'>
 <span class='va'>resample_spec</span>
 </div><div class='output co'>#&gt; # Time Series Cross Validation Plan 
-#&gt; <span style='color: #949494;'># A tibble: 3 x 2</span>
+#&gt; <span style='color: #949494;'># A tibble: 3 × 2</span>
 #&gt;   splits          id    
 #&gt;   <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>          <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> 
 #&gt; <span style='color: #BCBCBC;'>1</span> <span style='color: #949494;'>&lt;split [72/24]&gt;</span> Slice1
@@ -397,7 +397,7 @@ split containing a training/testing sample.</p></li>
 
 <span class='co'># Select date and value columns from the tscv diagnostic tool</span>
 <span class='va'>resample_spec</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='tk_time_series_cv_plan.html'>tk_time_series_cv_plan</a></span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 288 x 5</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 288 × 5</span>
 #&gt;    .id    .key     id    date       value
 #&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
 #&gt; <span style='color: #BCBCBC;'> 1</span> Slice1 training M750  2007-07-01  <span style='text-decoration: underline;'>8</span>710
@@ -433,7 +433,7 @@ split containing a training/testing sample.</p></li>
 </div><div class='output co'>#&gt; <span class='message'>Data is not ordered by the 'date_var'. Resamples will be arranged by `Date`.</span></div><div class='output co'>#&gt; <span class='message'>Overlapping Timestamps Detected. Processing overlapping time series together using sliding windows.</span></div><div class='input'>
 <span class='va'>walmart_tscv</span>
 </div><div class='output co'>#&gt; # Time Series Cross Validation Plan 
-#&gt; <span style='color: #949494;'># A tibble: 4 x 2</span>
+#&gt; <span style='color: #949494;'># A tibble: 4 × 2</span>
 #&gt;   splits           id    
 #&gt;   <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>           <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> 
 #&gt; <span style='color: #BCBCBC;'>1</span> <span style='color: #949494;'>&lt;split [364/84]&gt;</span> Slice1

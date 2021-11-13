@@ -102,7 +102,7 @@ show the effect of feature engineering" />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa-home"></span>
+    <span class="fa fa-home"></span>
      
   </a>
 </li>
@@ -164,7 +164,7 @@ show the effect of feature engineering" />
     <li class="dropdown-header">API Functions</li>
     <li>
       <a href="../reference/index.html">
-        <span class="fas fa-home"></span>
+        <span class="fa fa-home"></span>
          
         Function Reference
       </a>
@@ -219,7 +219,7 @@ show the effect of feature engineering" />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/business-science/timetk">
-    <span class="fas fa-github"></span>
+    <span class="fa fa-github"></span>
      
   </a>
 </li>
@@ -274,8 +274,7 @@ See <code><a href='https://rdrr.io/r/stats/lm.html'>stats::lm()</a></code> for d
     </tr>
     <tr>
       <th>.show_summary</th>
-      <td><p>If <code>TRUE</code>, prints the <code><a href='https://rdrr.io/r/stats/summary.lm.html'>summary.lm()</a></code>.
-Only available for non-grouped data.</p></td>
+      <td><p>If <code>TRUE</code>, prints the <code><a href='https://rdrr.io/r/stats/summary.lm.html'>summary.lm()</a></code>.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -320,14 +319,14 @@ the effect of feature engineering on a time series.</p><ul>
     <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>id</span> <span class='op'>==</span> <span class='st'>"M750"</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
     <span class='fu'>plot_time_series_regression</span><span class='op'>(</span>
         .date_var     <span class='op'>=</span> <span class='va'>date</span>,
-        .formula      <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='va'>value</span><span class='op'>)</span> <span class='op'>~</span> <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='va'>date</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='http://lubridate.tidyverse.org/reference/month.html'>month</a></span><span class='op'>(</span><span class='va'>date</span>, label <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>,
+        .formula      <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='va'>value</span><span class='op'>)</span> <span class='op'>~</span> <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='va'>date</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://lubridate.tidyverse.org/reference/month.html'>month</a></span><span class='op'>(</span><span class='va'>date</span>, label <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>,
         .show_summary <span class='op'>=</span> <span class='cn'>TRUE</span>,
         .facet_ncol   <span class='op'>=</span> <span class='fl'>2</span>,
         .interactive  <span class='op'>=</span> <span class='cn'>FALSE</span>
     <span class='op'>)</span>
 </div><div class='output co'>#&gt; 
 #&gt; Call:
-#&gt; stats::lm(formula = .formula, data = .data)
+#&gt; stats::lm(formula = .formula, data = df)
 #&gt; 
 #&gt; Residuals:
 #&gt;      Min       1Q   Median       3Q      Max 
@@ -359,7 +358,7 @@ the effect of feature engineering on a time series.</p><ul>
     <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>id</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
     <span class='fu'>plot_time_series_regression</span><span class='op'>(</span>
         .date_var    <span class='op'>=</span> <span class='va'>date</span>,
-        .formula     <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='va'>value</span><span class='op'>)</span> <span class='op'>~</span> <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='va'>date</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='http://lubridate.tidyverse.org/reference/month.html'>month</a></span><span class='op'>(</span><span class='va'>date</span>, label <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>,
+        .formula     <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='va'>value</span><span class='op'>)</span> <span class='op'>~</span> <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='va'>date</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://lubridate.tidyverse.org/reference/month.html'>month</a></span><span class='op'>(</span><span class='va'>date</span>, label <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>,
         .facet_ncol  <span class='op'>=</span> <span class='fl'>2</span>,
         .interactive <span class='op'>=</span> <span class='cn'>FALSE</span>
     <span class='op'>)</span>

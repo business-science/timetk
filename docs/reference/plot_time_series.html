@@ -101,7 +101,7 @@ consolidates 20+ lines of ggplot2 code, and scales well to many time series." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa-home"></span>
+    <span class="fa fa-home"></span>
      
   </a>
 </li>
@@ -163,7 +163,7 @@ consolidates 20+ lines of ggplot2 code, and scales well to many time series." />
     <li class="dropdown-header">API Functions</li>
     <li>
       <a href="../reference/index.html">
-        <span class="fas fa-home"></span>
+        <span class="fa fa-home"></span>
          
         Function Reference
       </a>
@@ -218,7 +218,7 @@ consolidates 20+ lines of ggplot2 code, and scales well to many time series." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/business-science/timetk">
-    <span class="fas fa-github"></span>
+    <span class="fa fa-github"></span>
      
   </a>
 </li>
@@ -253,6 +253,7 @@ consolidates 20+ lines of <code>ggplot2</code> code, and scales well to many tim
   .facet_vars <span class='op'>=</span> <span class='cn'>NULL</span>,
   .facet_ncol <span class='op'>=</span> <span class='fl'>1</span>,
   .facet_scales <span class='op'>=</span> <span class='st'>"free_y"</span>,
+  .facet_dir <span class='op'>=</span> <span class='st'>"h"</span>,
   .facet_collapse <span class='op'>=</span> <span class='cn'>TRUE</span>,
   .facet_collapse_sep <span class='op'>=</span> <span class='st'>" "</span>,
   .line_color <span class='op'>=</span> <span class='st'>"#2c3e50"</span>,
@@ -311,6 +312,10 @@ These can be selected using <code>tidyselect()</code> helpers (e.g <code><a href
       <th>.facet_scales</th>
       <td><p>Control facet x &amp; y-axis ranges.
 Options include "fixed", "free", "free_y", "free_x"</p></td>
+    </tr>
+    <tr>
+      <th>.facet_dir</th>
+      <td><p>The direction of faceting ("h" for horizontal, "v" for vertical). Default is "h".</p></td>
     </tr>
     <tr>
       <th>.facet_collapse</th>
@@ -472,7 +477,7 @@ or a numeric value (e.g. <code>smooth_period = 365</code>).</p>
 </div><div class='img'><img src='plot_time_series-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Can also group inside &amp; use .color_var</span>
 <span class='va'>FANG</span> <span class='op'>%&gt;%</span>
-    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>year <span class='op'>=</span> <span class='fu'><a href='http://lubridate.tidyverse.org/reference/year.html'>year</a></span><span class='op'>(</span><span class='va'>date</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>year <span class='op'>=</span> <span class='fu'><a href='https://lubridate.tidyverse.org/reference/year.html'>year</a></span><span class='op'>(</span><span class='va'>date</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
     <span class='fu'>plot_time_series</span><span class='op'>(</span><span class='va'>date</span>, <span class='va'>adjusted</span>,
                      .facet_vars   <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>symbol</span>, <span class='va'>year</span><span class='op'>)</span>, <span class='co'># add groups/facets</span>
                      .color_var    <span class='op'>=</span> <span class='va'>year</span>,            <span class='co'># color by year</span>
@@ -485,7 +490,7 @@ or a numeric value (e.g. <code>smooth_period = 365</code>).</p>
 <span class='co'># - .color_var = year(date)</span>
 <span class='va'>FANG</span> <span class='op'>%&gt;%</span>
     <span class='fu'>plot_time_series</span><span class='op'>(</span><span class='va'>date</span>, <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='va'>adjusted</span><span class='op'>)</span>,
-                     .color_var    <span class='op'>=</span> <span class='fu'><a href='http://lubridate.tidyverse.org/reference/year.html'>year</a></span><span class='op'>(</span><span class='va'>date</span><span class='op'>)</span>,
+                     .color_var    <span class='op'>=</span> <span class='fu'><a href='https://lubridate.tidyverse.org/reference/year.html'>year</a></span><span class='op'>(</span><span class='va'>date</span><span class='op'>)</span>,
                      .facet_vars   <span class='op'>=</span> <span class='fu'><a href='https://tidyselect.r-lib.org/reference/starts_with.html'>contains</a></span><span class='op'>(</span><span class='st'>"symbol"</span><span class='op'>)</span>,
                      .facet_ncol   <span class='op'>=</span> <span class='fl'>2</span>,
                      .facet_scales <span class='op'>=</span> <span class='st'>"free"</span>,
