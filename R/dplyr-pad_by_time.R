@@ -113,7 +113,8 @@
 #' @name pad_by_time
 #' @export
 pad_by_time <- function(.data, .date_var, .by = "auto",
-                        .pad_value = NA, .fill_na_direction = c("none", "down", "up", "downup", "updown"),
+                        .pad_value = NA,
+                        .fill_na_direction = c("none", "down", "up", "downup", "updown"),
                         .start_date = NULL, .end_date = NULL) {
 
     if (!tolower(.fill_na_direction[1]) %in% c("none", "down", "up", "downup", "updown")) {
@@ -159,34 +160,48 @@ pad_by_time.data.frame <- function(.data, .date_var, .by = "auto",
 
 #' @export
 pad_by_time.grouped_df <- function(.data, .date_var, .by = "auto",
-                                   .pad_value = NA, .fill_na_direction = c("none", "down", "up", "downup", "updown"),
+                                   .pad_value = NA,
+                                   .fill_na_direction = c("none", "down", "up", "downup", "updown"),
                                    .start_date = NULL, .end_date = NULL) {
 
-    group_names <- dplyr::group_vars(.data)
+    group_names   <- dplyr::group_vars(.data)
     date_var_expr <- rlang::enquo(.date_var)
 
     if (rlang::quo_is_missing(rlang::enquo(.date_var))) {
         date_var_expr <- rlang::sym(tk_get_timeseries_variables(.data)[1])
     }
 
+    padder(
+        .data = .data,
+        .date_var          = !! enquo(.date_var),
+        .by                = .by,
+        .pad_value         = .pad_value,
+        .fill_na_direction = .fill_na_direction,
+        .start_date        = .start_date,
+        .end_date          = .end_date,
 
-    .data %>%
-        tidyr::nest() %>%
-        dplyr::mutate(nested.col = purrr::map(
-            .x         = data,
-            .f         = function(df) padder(
-                .data              = df,
-                .date_var          = !! date_var_expr,
-                .by                = .by,
-                .pad_value         = .pad_value,
-                .fill_na_direction = .fill_na_direction,
-                .start_date        = .start_date,
-                .end_date          = .end_date
-            )
-        )) %>%
-        dplyr::select(-data) %>%
-        tidyr::unnest(cols = nested.col) %>%
-        dplyr::group_by_at(.vars = group_names)
+        .group             = group_names
+
+    )
+
+
+    # .data %>%
+    #     tidyr::nest() %>%
+    #     dplyr::mutate(nested.col = purrr::map(
+    #         .x         = data,
+    #         .f         = function(df) padder(
+    #             .data              = df,
+    #             .date_var          = !! date_var_expr,
+    #             .by                = .by,
+    #             .pad_value         = .pad_value,
+    #             .fill_na_direction = .fill_na_direction,
+    #             .start_date        = .start_date,
+    #             .end_date          = .end_date
+    #         )
+    #     )) %>%
+    #     dplyr::select(-data) %>%
+    #     tidyr::unnest(cols = nested.col) %>%
+    #     dplyr::group_by_at(.vars = group_names)
 }
 
 
