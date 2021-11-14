@@ -292,6 +292,9 @@ tk_make_future_timeseries.Date <- function(idx, length_out, inspect_weekdays = F
         # Handle day of month that gets dropped in yearmon conversion
         date_seq <- handle_day_of_month_multi(date_seq, idx)
 
+        # Handle end of month
+        date_seq <- handle_end_of_month_multi(date_seq, idx)
+
     } else if (idx_summary$scale == "quarter") {
 
         # print("quarter")
@@ -319,6 +322,9 @@ tk_make_future_timeseries.Date <- function(idx, length_out, inspect_weekdays = F
 
         # Handle day of month that gets dropped in yearqtr conversion
         date_seq <- handle_day_of_month_multi(date_seq, idx)
+
+        # Handle end of month
+        date_seq <- handle_end_of_month_multi(date_seq, idx)
 
     } else {
 
@@ -970,19 +976,73 @@ handle_day_of_month_multi <- function(seq1, seq0) {
     # Analyze original sequence for irregularity & monthly
     seq_summary     <- tk_get_timeseries_summary(seq0)
     is_month_or_qtr <- any(seq_summary$scale %in% c("month", "quarter"))
-    is_irregular    <- seq_summary$diff.q1 != seq_summary$diff.q3
+    # is_irregular    <- seq_summary$diff.q1 != seq_summary$diff.q3
 
-    if (is_month_or_qtr & is_irregular) {
+    # print("Month or Quarter?")
+    # print(is_month_or_qtr)
+    # print("Irregular")
+    # print(is_irregular)
+    # print(is_month_or_qtr & is_irregular)
 
-        # Apply correct day of month based on seq0
-        day_of_month          <- lubridate::mday(seq0) %>% stats::median()
-        lubridate::mday(seq)  <- day_of_month
+    if (is_month_or_qtr) {
 
-        # Handle day of month that gets miss-applied
-        day_of_month_is_wrong <- lubridate::mday(seq) != day_of_month
-        seq_shifted <- lubridate::floor_date(seq, unit = "month") - lubridate::days(1)
-        if (any(day_of_month_is_wrong)) {
-            seq[day_of_month_is_wrong] <- seq_shifted[day_of_month_is_wrong]
+        # print("here")
+
+        # # Apply correct day of month based on seq0
+        # day_of_month          <- lubridate::mday(seq0) %>% stats::median()
+        # lubridate::mday(seq)  <- day_of_month
+        #
+        # # Handle day of month that gets miss-applied
+        # day_of_month_is_wrong <- lubridate::mday(seq) != day_of_month
+        # seq_shifted <- lubridate::floor_date(seq, unit = "month") - lubridate::days(1)
+        # if (any(day_of_month_is_wrong)) {
+        #     seq[day_of_month_is_wrong] <- seq_shifted[day_of_month_is_wrong]
+        # }
+
+        seq_orig <- seq
+
+        seq <- tryCatch({
+
+            # Apply correct day of month based on seq0
+            day_of_month          <- lubridate::mday(seq0) %>% stats::median()
+            lubridate::mday(seq)  <- day_of_month
+
+            # Handle day of month that gets miss-applied
+            day_of_month_is_wrong <- lubridate::mday(seq) != day_of_month
+            seq_shifted <- lubridate::floor_date(seq, unit = "month") - lubridate::days(1)
+            if (any(day_of_month_is_wrong)) {
+                seq[day_of_month_is_wrong] <- seq_shifted[day_of_month_is_wrong]
+            }
+
+            seq
+
+        }, error = function(e) {
+            seq_orig
+        })
+
+    }
+
+    return(seq)
+}
+
+handle_end_of_month_multi <- function(seq1, seq0) {
+
+    seq <- seq1
+
+    # Analyze original sequence for month/quarter scale
+    seq_summary     <- tk_get_timeseries_summary(seq0)
+    is_month_or_qtr <- any(seq_summary$scale %in% c("month", "quarter"))
+
+    # Test EOM
+    if (is_month_or_qtr) {
+
+        eom_detected <- FALSE
+        eom <- lubridate::ceiling_date(seq0, unit = "month") - lubridate::days(1)
+        if(all(seq0 == eom)) eom_detected <- TRUE
+
+        # Shift sequence to EOM
+        if (eom_detected) {
+            seq <- lubridate::ceiling_date(seq, unit = "month") - lubridate::days(1)
         }
 
     }

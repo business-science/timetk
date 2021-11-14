@@ -371,6 +371,9 @@ tk_make_timeseries <- function(start_date, end_date, by, length_out = NULL,
             seq <- seq[-length(seq)]
         }
 
+        # * HANDLE END OF MONTH ----
+        seq <- handle_end_of_month_irregular(seq, start_date, end_date)
+
         seq <- add_subtract_sequence(seq, skip_values, insert_values)
 
     }
@@ -408,3 +411,34 @@ handle_day_of_month_irregular <- function(seq, MDAY = NULL) {
     return(seq)
 }
 
+handle_end_of_month_irregular <- function(seq, start_date_test, end_date_test) {
+
+    if (rlang::is_missing(start_date_test)) start_date_test <- NULL
+    if (rlang::is_missing(end_date_test)) end_date_test <- NULL
+
+    # Check if padded sequence is irregular, indicating monthly, quarterly sequence
+    seq_summary     <- tk_get_timeseries_summary(seq)
+    is_month_or_qtr <- any(seq_summary$scale %in% c("month", "quarter"))
+
+    # Test EOM
+    if (is_month_or_qtr) {
+
+        eom_detected <- FALSE
+        if (!is.null(start_date_test)) {
+            eom <- lubridate::ceiling_date(start_date_test, unit = "month") - lubridate::days(1)
+            if(start_date_test == eom) eom_detected <- TRUE
+        }
+        if (!is.null(end_date_test)) {
+            eom <- lubridate::ceiling_date(end_date_test, unit = "month") - lubridate::days(1)
+            if(end_date_test == eom) eom_detected <- TRUE
+        }
+
+        # Shift sequence to EOM
+        if (eom_detected) {
+            seq <- lubridate::ceiling_date(seq, unit = "month") - lubridate::days(1)
+        }
+
+    }
+
+    return(seq)
+}

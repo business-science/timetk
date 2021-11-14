@@ -1,4 +1,4 @@
-context("Testing tk_make_future_timeseries")
+context("Testing tk_make_future_timeseries - new")
 
 # tk_make_future_timeseries_signature -----
 
@@ -174,7 +174,9 @@ test_that("tk_make_future_timeseries(date) test returns correct format.", {
     expectation <- c("2017-03-15", "2017-04-15") %>% ymd()
     test_1 <- tk_make_future_timeseries(idx, length_out = 2)
     test_2 <- tk_make_future_timeseries(idx, length_out = "2 months")
-    expect_identical(test_1, test_2, expectation)
+
+    expect_identical(test_1, expectation)
+    expect_identical(test_2, expectation)
 
     # With skip
     test_date   <- c("2017-01-01", "2017-02-01") %>% ymd()
@@ -197,7 +199,9 @@ test_that("tk_make_future_timeseries(date) test returns correct format.", {
     test_1 <- tk_make_future_timeseries(test_date, length_out = 2)
     test_2 <- tk_make_future_timeseries(test_date, length_out = "6 months")
     expectation <- c("2017-07-15", "2017-10-15") %>% ymd()
-    expect_identical(test_1, test_2, expectation)
+
+    expect_identical(test_1, expectation)
+    expect_identical(test_2, expectation)
 
     # With skip
     test_date    <- c("2017-01-01", "2017-04-01") %>% ymd()
@@ -393,5 +397,17 @@ expect_every_three <-
 test_that("tk_make_future_timeseries(predict_every_three) test returns correct format.", {
     expect_warning(test <- tk_make_future_timeseries(idx_every_three, length_out = 4 * 7 + 1, inspect_weekdays = TRUE))
     expect_equal(test, expect_every_three)
+})
+
+
+test_that("tk_make_future_timeseries(): End of Month", {
+
+    series <- c("2011-01-31", "2011-04-30", "2011-07-31", "2011-10-31") %>% ymd()
+
+    test <- tk_make_future_timeseries(series, length_out = 4)
+    expectation <- c("2012-01-31", "2012-04-30", "2012-07-31", "2012-10-31") %>% ymd()
+
+    expect_equal(test, expectation)
+
 })
 
