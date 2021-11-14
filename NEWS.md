@@ -12,7 +12,11 @@ __Improvements__
 
 - Time Series CV (`time_series_cv()`): Add Label for `tune_results`
 
+- Improve speed of `pad_by_time()`. #93
+
 __Bug Fixes__
+
+- `tk_make_timeseries()` and `tk_make_future_timeseries()` are now able to handle end of months. #72
 
 - `tk_tbl.zoo()`: Fix an issue when `readr::type_convert()` produces warning messages about not having character columns in inputs. #89
 
