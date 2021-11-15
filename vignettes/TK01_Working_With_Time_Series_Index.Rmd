@@ -1,6 +1,5 @@
 ---
-title: "What is the Time Series Signature?"
-subtitle: "And the timestamp index, and the time series summary?"
+title: "Time Series Features"
 author: "Matt Dancho"
 date: "`r Sys.Date()`"
 output: 
@@ -8,7 +7,7 @@ output:
     toc: true
     toc_depth: 2
 vignette: >
-  %\VignetteIndexEntry{Time Series Signature}
+  %\VignetteIndexEntry{Time Series Features}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

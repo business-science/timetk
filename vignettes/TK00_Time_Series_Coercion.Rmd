@@ -1,5 +1,5 @@
 ---
-title: "Time Series Conversion"
+title: "Time Series Class Conversion"
 subtitle: "Between ts, xts, zoo, and tbl"
 author: "Matt Dancho"
 date: "`r Sys.Date()`"
@@ -8,7 +8,7 @@ output:
     toc: true
     toc_depth: 2
 vignette: >
-  %\VignetteIndexEntry{Time Series Conversion Using timetk}
+  %\VignetteIndexEntry{Time Series Class Conversion}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

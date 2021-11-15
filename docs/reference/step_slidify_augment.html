@@ -93,7 +93,7 @@ step that will &quot;augment&quot; (add multiple new columns) that have had a sl
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">timetk</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.1.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.2</span>
       </span>
     </div>
 
@@ -122,18 +122,18 @@ step that will &quot;augment&quot; (add multiple new columns) that have had a sl
     <li>
       <a href="../articles/TK05_Plotting_Seasonality_and_Correlation.html">Plotting Seasonality and Correlation</a>
     </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Data Wrangling</li>
     <li>
-      <a href="../articles/TK08_Automatic_Anomaly_Detection.html">Automatic Anomaly Detection</a>
+      <a href="../articles/TK07_Time_Series_Data_Wrangling.html">Time Series Data Wrangling</a>
     </li>
     <li class="divider"></li>
     <li class="dropdown-header">Machine Learning</li>
     <li>
       <a href="../articles/TK03_Forecasting_Using_Time_Series_Signature.html">Time Series Machine Learning</a>
     </li>
-    <li class="divider"></li>
-    <li class="dropdown-header">Data Wrangling</li>
     <li>
-      <a href="../articles/TK07_Time_Series_Data_Wrangling.html">Time Series Data Wrangling</a>
+      <a href="../articles/TK08_Automatic_Anomaly_Detection.html">Anomaly Detection</a>
     </li>
     <li class="divider"></li>
     <li class="dropdown-header">Time Series Fundamentals</li>
@@ -149,7 +149,7 @@ step that will &quot;augment&quot; (add multiple new columns) that have had a sl
       <a href="../articles/TK02_Time_Series_Date_Sequences.html">Intelligent Date &amp; Time Sequences</a>
     </li>
     <li>
-      <a href="../articles/TK00_Time_Series_Coercion.html">Time Series Conversion (ts, zoo, &amp; xts)</a>
+      <a href="../articles/TK00_Time_Series_Coercion.html">Time Series Class Conversion (tbl, ts, zoo, &amp; xts)</a>
     </li>
   </ul>
 </li>
@@ -416,7 +416,7 @@ is <code><a href='step_smooth.html'>step_smooth()</a></code>, which implements l
 #&gt; <span class='message'><span style='color: #BB0000;'>x</span> <span style='color: #0000BB;'>dials</span>::<span style='color: #00BB00;'>momentum()</span> masks <span style='color: #0000BB;'>TTR</span>::momentum()</span>
 #&gt; <span class='message'><span style='color: #BB0000;'>x</span> <span style='color: #0000BB;'>yardstick</span>::<span style='color: #00BB00;'>spec()</span> masks <span style='color: #0000BB;'>readr</span>::spec()</span>
 #&gt; <span class='message'><span style='color: #BB0000;'>x</span> <span style='color: #0000BB;'>recipes</span>::<span style='color: #00BB00;'>step()</span>   masks <span style='color: #0000BB;'>stats</span>::step()</span>
-#&gt; <span class='message'><span style='color: #0000BB;'>•</span> Use <span style='color: #00BB00;'>tidymodels_prefer()</span> to resolve common conflicts.</span></div><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span>
+#&gt; <span class='message'><span style='color: #0000BB;'>•</span> Dig deeper into tidy modeling with R at <span style='color: #00BB00;'>https://www.tmwr.org</span></span></div><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/business-science/timetk'>timetk</a></span><span class='op'>)</span>
 
 <span class='va'>m750</span> <span class='op'>&lt;-</span> <span class='va'>m4_monthly</span> <span class='op'>%&gt;%</span>

@@ -45,7 +45,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">timetk</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.1.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.2</span>
       </span>
     </div>
 
@@ -74,18 +74,18 @@
     <li>
       <a href="../articles/TK05_Plotting_Seasonality_and_Correlation.html">Plotting Seasonality and Correlation</a>
     </li>
+    <li class="divider">
+    <li class="dropdown-header">Data Wrangling</li>
     <li>
-      <a href="../articles/TK08_Automatic_Anomaly_Detection.html">Automatic Anomaly Detection</a>
+      <a href="../articles/TK07_Time_Series_Data_Wrangling.html">Time Series Data Wrangling</a>
     </li>
     <li class="divider">
     <li class="dropdown-header">Machine Learning</li>
     <li>
       <a href="../articles/TK03_Forecasting_Using_Time_Series_Signature.html">Time Series Machine Learning</a>
     </li>
-    <li class="divider">
-    <li class="dropdown-header">Data Wrangling</li>
     <li>
-      <a href="../articles/TK07_Time_Series_Data_Wrangling.html">Time Series Data Wrangling</a>
+      <a href="../articles/TK08_Automatic_Anomaly_Detection.html">Anomaly Detection</a>
     </li>
     <li class="divider">
     <li class="dropdown-header">Time Series Fundamentals</li>
@@ -101,7 +101,7 @@
       <a href="../articles/TK02_Time_Series_Date_Sequences.html">Intelligent Date &amp; Time Sequences</a>
     </li>
     <li>
-      <a href="../articles/TK00_Time_Series_Coercion.html">Time Series Conversion (ts, zoo, &amp; xts)</a>
+      <a href="../articles/TK00_Time_Series_Coercion.html">Time Series Class Conversion (tbl, ts, zoo, &amp; xts)</a>
     </li>
   </ul>
 </li>
@@ -190,7 +190,7 @@
       <h1 data-toc-skip>Time Series Data Wrangling</h1>
                         <h4 class="author">Matt Dancho</h4>
             
-            <h4 class="date">2021-11-13</h4>
+            <h4 class="date">2021-11-15</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/business-science/timetk/blob/master/vignettes/TK07_Time_Series_Data_Wrangling.Rmd"><code>vignettes/TK07_Time_Series_Data_Wrangling.Rmd</code></a></small>
       <div class="hidden name"><code>TK07_Time_Series_Data_Wrangling.Rmd</code></div>
@@ -353,24 +353,21 @@
 <code class="sourceCode R"><span class="va">FANG</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">symbol</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="../reference/pad_by_time.html">pad_by_time</a></span><span class="op">(</span><span class="va">date</span>, .by <span class="op">=</span> <span class="st">"auto"</span><span class="op">)</span> <span class="co"># Guesses .by = "day"</span></code></pre></div>
-<pre><code>## pad applied on the interval: day
-## pad applied on the interval: day
-## pad applied on the interval: day
-## pad applied on the interval: day</code></pre>
+<pre><code>## pad applied on the interval: day</code></pre>
 <pre><code>## # A tibble: 5,836 × 8
 ## # Groups:   symbol [4]
-##    symbol date        open  high   low close    volume adjusted
-##    &lt;chr&gt;  &lt;date&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
-##  1 FB     2013-01-02  27.4  28.2  27.4  28    69846400     28  
-##  2 FB     2013-01-03  27.9  28.5  27.6  27.8  63140600     27.8
-##  3 FB     2013-01-04  28.0  28.9  27.8  28.8  72715400     28.8
-##  4 FB     2013-01-05  NA    NA    NA    NA          NA     NA  
-##  5 FB     2013-01-06  NA    NA    NA    NA          NA     NA  
-##  6 FB     2013-01-07  28.7  29.8  28.6  29.4  83781800     29.4
-##  7 FB     2013-01-08  29.5  29.6  28.9  29.1  45871300     29.1
-##  8 FB     2013-01-09  29.7  30.6  29.5  30.6 104787700     30.6
-##  9 FB     2013-01-10  30.6  31.5  30.3  31.3  95316400     31.3
-## 10 FB     2013-01-11  31.3  32.0  31.1  31.7  89598000     31.7
+##    symbol date        open  high   low close  volume adjusted
+##    &lt;chr&gt;  &lt;date&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;
+##  1 AMZN   2013-01-02  256.  258.  253.  257. 3271000     257.
+##  2 AMZN   2013-01-03  257.  261.  256.  258. 2750900     258.
+##  3 AMZN   2013-01-04  258.  260.  257.  259. 1874200     259.
+##  4 AMZN   2013-01-05   NA    NA    NA    NA       NA      NA 
+##  5 AMZN   2013-01-06   NA    NA    NA    NA       NA      NA 
+##  6 AMZN   2013-01-07  263.  270.  263.  268. 4910000     268.
+##  7 AMZN   2013-01-08  267.  269.  264.  266. 3010700     266.
+##  8 AMZN   2013-01-09  268.  270.  265.  266. 2265600     266.
+##  9 AMZN   2013-01-10  269.  269.  262.  265. 2863400     265.
+## 10 AMZN   2013-01-11  265.  268.  264.  268. 2413300     268.
 ## # … with 5,826 more rows</code></pre>
 </div>
 <div id="low-to-high-frequency" class="section level2">

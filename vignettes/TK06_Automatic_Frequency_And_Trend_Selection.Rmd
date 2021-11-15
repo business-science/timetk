@@ -2,7 +2,7 @@
 title: "Automatic Frequency and Trend Selection"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{TK06_Automatic_Frequency_And_Trend_Selection}
+  %\VignetteIndexEntry{Automatic Frequency and Trend Selection}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

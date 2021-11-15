@@ -26,7 +26,7 @@ devtools::load_all()
 [![R-CMD-check](https://github.com/business-science/timetk/workflows/R-CMD-check/badge.svg)](https://github.com/business-science/timetk/actions)
 [![codecov](https://codecov.io/gh/business-science/timetk/branch/master/graph/badge.svg)](https://app.codecov.io/gh/business-science/timetk)
 
->  Visualize, wrangle, and transform time series data using the `tidyverse`
+>  Time series analysis using the `tidyverse`
 
 
 ## Installation
@@ -61,7 +61,6 @@ There are _many_ R packages for working with Time Series data. Here's how `timet
 | Static Plots (ggplot)        |  ✅  |  :x:  |  ✅   |  :x:  |  
 | [Time Series](https://business-science.github.io/timetk/articles/TK04_Plotting_Time_Series.html)                  |  ✅  |  :x:  |  ✅   |  :x:  |  
 | [Correlation, Seasonality](https://business-science.github.io/timetk/articles/TK05_Plotting_Seasonality_and_Correlation.html)     |  ✅  |  :x:  |  ✅   |  :x:  |  
-| [Anomaly Detection](https://business-science.github.io/timetk/articles/TK08_Automatic_Anomaly_Detection.html)            |  ✅  |  :x:  |  :x:  |  :x:  |  
 | [__Data Wrangling__](https://business-science.github.io/timetk/articles/TK07_Time_Series_Data_Wrangling.html)           |        |         |         |             |             
 | Time-Based Summarization     |  ✅  |  :x:  |  :x:   |  ✅  |  
 | Time-Based Filtering         |  ✅  |  :x:  |  :x:   |  ✅  |  
@@ -69,6 +68,8 @@ There are _many_ R packages for working with Time Series data. Here's how `timet
 | Low to High Frequency        |  ✅  |  :x:  |  :x:   |  :x:  |  
 | Imputation                   |  ✅  |  ✅  |  :x:   |  :x:  |  
 | Sliding / Rolling            |  ✅  |  ✅  |  :x:   |  ✅  |  
+| __Machine Learning__            |        |         |         |             |
+| [Anomaly Detection](https://business-science.github.io/timetk/articles/TK08_Automatic_Anomaly_Detection.html)            |  ✅  |  :x:  |  :x:  |  :x:  |  
 | [__Feature Engineering (recipes)__](https://business-science.github.io/timetk/articles/TK03_Forecasting_Using_Time_Series_Signature.html)  |        |         |         |             |             
 | Date Feature Engineering     |  ✅  |  :x:  |  :x:   |  :x:  |  
 | Holiday Feature Engineering  |  ✅  |  :x:  |  :x:   |  :x:  |  

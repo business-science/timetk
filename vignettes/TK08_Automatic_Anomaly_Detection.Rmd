@@ -1,5 +1,5 @@
 ---
-title: "Automatic Anomaly Detection"
+title: "Anomaly Detection"
 author: "Matt Dancho"
 date: "`r Sys.Date()`"
 output: 
@@ -7,7 +7,7 @@ output:
     toc: true
     toc_depth: 2
 vignette: >
-  %\VignetteIndexEntry{Automatic Anomaly Detection}
+  %\VignetteIndexEntry{Anomaly Detection}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

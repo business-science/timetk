@@ -18,8 +18,6 @@ navbar:
           href: articles/TK04_Plotting_Time_Series.html
         - text: "Plotting Seasonality and Correlation"
           href: articles/TK05_Plotting_Seasonality_and_Correlation.html
-        - text: "Automatic Anomaly Detection"
-          href: articles/TK08_Automatic_Anomaly_Detection.html
         - text: '---'
         - text: 'Data Wrangling'
         - text: "Time Series Data Wrangling"
@@ -28,6 +26,8 @@ navbar:
         - text: "Machine Learning"
         - text: "Time Series Machine Learning"
           href: articles/TK03_Forecasting_Using_Time_Series_Signature.html
+        - text: "Anomaly Detection"
+          href: articles/TK08_Automatic_Anomaly_Detection.html
         - text: '---'
         - text: 'Time Series Fundamentals'
         - text: "What is the Time Series Signature?"
@@ -38,7 +38,7 @@ navbar:
         - text: "Sequences & Data Structures"
         - text: "Intelligent Date & Time Sequences"
           href: articles/TK02_Time_Series_Date_Sequences.html
-        - text: "Time Series Conversion (ts, zoo, & xts)"
+        - text: "Time Series Class Conversion (tbl, ts, zoo, & xts)"
           href: articles/TK00_Time_Series_Coercion.html
     - text: "API"
       href: reference/index.html
