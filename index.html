@@ -48,7 +48,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">timetk</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.1.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.2</span>
       </span>
     </div>
 
@@ -77,18 +77,18 @@
     <li>
       <a href="articles/TK05_Plotting_Seasonality_and_Correlation.html">Plotting Seasonality and Correlation</a>
     </li>
+    <li class="divider">
+    <li class="dropdown-header">Data Wrangling</li>
     <li>
-      <a href="articles/TK08_Automatic_Anomaly_Detection.html">Automatic Anomaly Detection</a>
+      <a href="articles/TK07_Time_Series_Data_Wrangling.html">Time Series Data Wrangling</a>
     </li>
     <li class="divider">
     <li class="dropdown-header">Machine Learning</li>
     <li>
       <a href="articles/TK03_Forecasting_Using_Time_Series_Signature.html">Time Series Machine Learning</a>
     </li>
-    <li class="divider">
-    <li class="dropdown-header">Data Wrangling</li>
     <li>
-      <a href="articles/TK07_Time_Series_Data_Wrangling.html">Time Series Data Wrangling</a>
+      <a href="articles/TK08_Automatic_Anomaly_Detection.html">Anomaly Detection</a>
     </li>
     <li class="divider">
     <li class="dropdown-header">Time Series Fundamentals</li>
@@ -104,7 +104,7 @@
       <a href="articles/TK02_Time_Series_Date_Sequences.html">Intelligent Date &amp; Time Sequences</a>
     </li>
     <li>
-      <a href="articles/TK00_Time_Series_Coercion.html">Time Series Conversion (ts, zoo, &amp; xts)</a>
+      <a href="articles/TK00_Time_Series_Coercion.html">Time Series Class Conversion (tbl, ts, zoo, &amp; xts)</a>
     </li>
   </ul>
 </li>
@@ -193,9 +193,9 @@
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#timetk" class="anchor"></a>timetk</h1></div>
 <p><img src="reference/figures/logo.png" width="147" height="170" align="right"></p>
-<p><a href="https://cran.r-project.org/package=timetk"><img src="http://www.r-pkg.org/badges/version/timetk" alt="CRAN_Status_Badge"></a> <img src="http://cranlogs.r-pkg.org/badges/timetk?color=brightgreen"><img src="http://cranlogs.r-pkg.org/badges/grand-total/timetk?color=brightgreen"><a href="https://github.com/business-science/timetk/actions"><img src="https://github.com/business-science/timetk/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a> <a href="https://codecov.io/gh/business-science/timetk"><img src="https://codecov.io/gh/business-science/timetk/branch/master/graph/badge.svg" alt="codecov"></a></p>
+<p><a href="https://cran.r-project.org/package=timetk"><img src="http://www.r-pkg.org/badges/version/timetk" alt="CRAN_Status_Badge"></a> <img src="http://cranlogs.r-pkg.org/badges/timetk?color=brightgreen"><img src="http://cranlogs.r-pkg.org/badges/grand-total/timetk?color=brightgreen"><a href="https://github.com/business-science/timetk/actions"><img src="https://github.com/business-science/timetk/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a> <a href="https://app.codecov.io/gh/business-science/timetk"><img src="https://codecov.io/gh/business-science/timetk/branch/master/graph/badge.svg" alt="codecov"></a></p>
 <blockquote>
-<p>A <code>tidyverse</code> toolkit to visualize, wrangle, and transform time series data</p>
+<p>Time series analysis using the <code>tidyverse</code></p>
 </blockquote>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
@@ -206,15 +206,6 @@
 <p><em>Or, download CRAN approved version</em>:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"timetk"</span><span class="op">)</span></code></pre></div>
-</div>
-<div id="getting-started" class="section level2">
-<h2 class="hasAnchor">
-<a href="#getting-started" class="anchor"></a>Getting Started</h2>
-<ul>
-<li><p><a href="https://business-science.github.io/timetk/articles/TK04_Plotting_Time_Series.html">Visualizing Time Series (Start Here)</a></p></li>
-<li><p><a href="https://business-science.github.io/timetk/articles/TK03_Forecasting_Using_Time_Series_Signature.html">Full Time Series Machine Learning and Feature Engineering Tutorial:</a></p></li>
-<li><p><a href="https://business-science.github.io/timetk/">API Documentation</a> for articles and a <a href="https://business-science.github.io/timetk/reference/index.html">complete list of function references</a>.</p></li>
-</ul>
 </div>
 <div id="package-functionality" class="section level2">
 <h2 class="hasAnchor">
@@ -287,6 +278,62 @@
 <td><span class="emoji" data-emoji="x">❌</span></td>
 </tr>
 <tr class="even">
+<td><a href="https://business-science.github.io/timetk/articles/TK07_Time_Series_Data_Wrangling.html"><strong>Data Wrangling</strong></a></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Time-Based Summarization</td>
+<td>✅</td>
+<td><span class="emoji" data-emoji="x">❌</span></td>
+<td><span class="emoji" data-emoji="x">❌</span></td>
+<td>✅</td>
+</tr>
+<tr class="even">
+<td>Time-Based Filtering</td>
+<td>✅</td>
+<td><span class="emoji" data-emoji="x">❌</span></td>
+<td><span class="emoji" data-emoji="x">❌</span></td>
+<td>✅</td>
+</tr>
+<tr class="odd">
+<td>Padding Gaps</td>
+<td>✅</td>
+<td>✅</td>
+<td><span class="emoji" data-emoji="x">❌</span></td>
+<td><span class="emoji" data-emoji="x">❌</span></td>
+</tr>
+<tr class="even">
+<td>Low to High Frequency</td>
+<td>✅</td>
+<td><span class="emoji" data-emoji="x">❌</span></td>
+<td><span class="emoji" data-emoji="x">❌</span></td>
+<td><span class="emoji" data-emoji="x">❌</span></td>
+</tr>
+<tr class="odd">
+<td>Imputation</td>
+<td>✅</td>
+<td>✅</td>
+<td><span class="emoji" data-emoji="x">❌</span></td>
+<td><span class="emoji" data-emoji="x">❌</span></td>
+</tr>
+<tr class="even">
+<td>Sliding / Rolling</td>
+<td>✅</td>
+<td>✅</td>
+<td><span class="emoji" data-emoji="x">❌</span></td>
+<td>✅</td>
+</tr>
+<tr class="odd">
+<td><strong>Machine Learning</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
 <td><a href="https://business-science.github.io/timetk/articles/TK08_Automatic_Anomaly_Detection.html">Anomaly Detection</a></td>
 <td>✅</td>
 <td><span class="emoji" data-emoji="x">❌</span></td>
@@ -294,153 +341,104 @@
 <td><span class="emoji" data-emoji="x">❌</span></td>
 </tr>
 <tr class="odd">
-<td><a href="https://business-science.github.io/timetk/articles/TK07_Time_Series_Data_Wrangling.html"><strong>Data Wrangling</strong></a></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>Time-Based Summarization</td>
-<td>✅</td>
-<td><span class="emoji" data-emoji="x">❌</span></td>
-<td><span class="emoji" data-emoji="x">❌</span></td>
-<td>✅</td>
-</tr>
-<tr class="odd">
-<td>Time-Based Filtering</td>
-<td>✅</td>
-<td><span class="emoji" data-emoji="x">❌</span></td>
-<td><span class="emoji" data-emoji="x">❌</span></td>
-<td>✅</td>
-</tr>
-<tr class="even">
-<td>Padding Gaps</td>
-<td>✅</td>
-<td>✅</td>
-<td><span class="emoji" data-emoji="x">❌</span></td>
-<td><span class="emoji" data-emoji="x">❌</span></td>
-</tr>
-<tr class="odd">
-<td>Low to High Frequency</td>
-<td>✅</td>
-<td><span class="emoji" data-emoji="x">❌</span></td>
-<td><span class="emoji" data-emoji="x">❌</span></td>
-<td><span class="emoji" data-emoji="x">❌</span></td>
-</tr>
-<tr class="even">
-<td>Imputation</td>
-<td>✅</td>
-<td>✅</td>
-<td><span class="emoji" data-emoji="x">❌</span></td>
-<td><span class="emoji" data-emoji="x">❌</span></td>
-</tr>
-<tr class="odd">
-<td>Sliding / Rolling</td>
-<td>✅</td>
-<td>✅</td>
-<td><span class="emoji" data-emoji="x">❌</span></td>
-<td>✅</td>
-</tr>
-<tr class="even">
 <td><a href="https://business-science.github.io/timetk/articles/TK03_Forecasting_Using_Time_Series_Signature.html"><strong>Feature Engineering (recipes)</strong></a></td>
 <td></td>
 <td></td>
 <td></td>
 <td></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>Date Feature Engineering</td>
 <td>✅</td>
 <td><span class="emoji" data-emoji="x">❌</span></td>
 <td><span class="emoji" data-emoji="x">❌</span></td>
 <td><span class="emoji" data-emoji="x">❌</span></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>Holiday Feature Engineering</td>
 <td>✅</td>
 <td><span class="emoji" data-emoji="x">❌</span></td>
 <td><span class="emoji" data-emoji="x">❌</span></td>
 <td><span class="emoji" data-emoji="x">❌</span></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>Fourier Series</td>
 <td>✅</td>
 <td><span class="emoji" data-emoji="x">❌</span></td>
 <td><span class="emoji" data-emoji="x">❌</span></td>
 <td><span class="emoji" data-emoji="x">❌</span></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>Smoothing &amp; Rolling</td>
 <td>✅</td>
 <td><span class="emoji" data-emoji="x">❌</span></td>
 <td><span class="emoji" data-emoji="x">❌</span></td>
 <td><span class="emoji" data-emoji="x">❌</span></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>Padding</td>
 <td>✅</td>
 <td><span class="emoji" data-emoji="x">❌</span></td>
 <td><span class="emoji" data-emoji="x">❌</span></td>
 <td><span class="emoji" data-emoji="x">❌</span></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>Imputation</td>
 <td>✅</td>
 <td><span class="emoji" data-emoji="x">❌</span></td>
 <td><span class="emoji" data-emoji="x">❌</span></td>
 <td><span class="emoji" data-emoji="x">❌</span></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><strong>Cross Validation (rsample)</strong></td>
 <td></td>
 <td></td>
 <td></td>
 <td></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><a href="https://business-science.github.io/timetk/reference/time_series_cv.html">Time Series Cross Validation</a></td>
 <td>✅</td>
 <td><span class="emoji" data-emoji="x">❌</span></td>
 <td><span class="emoji" data-emoji="x">❌</span></td>
 <td><span class="emoji" data-emoji="x">❌</span></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><a href="https://business-science.github.io/timetk/reference/plot_time_series_cv_plan.html">Time Series CV Plan Visualization</a></td>
 <td>✅</td>
 <td><span class="emoji" data-emoji="x">❌</span></td>
 <td><span class="emoji" data-emoji="x">❌</span></td>
 <td><span class="emoji" data-emoji="x">❌</span></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><strong>More Awesomeness</strong></td>
 <td></td>
 <td></td>
 <td></td>
 <td></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><a href="https://business-science.github.io/timetk/articles/TK02_Time_Series_Date_Sequences.html">Making Time Series (Intelligently)</a></td>
 <td>✅</td>
 <td>✅</td>
 <td><span class="emoji" data-emoji="x">❌</span></td>
 <td>✅</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><a href="https://business-science.github.io/timetk/articles/TK02_Time_Series_Date_Sequences.html">Handling Holidays &amp; Weekends</a></td>
 <td>✅</td>
 <td><span class="emoji" data-emoji="x">❌</span></td>
 <td><span class="emoji" data-emoji="x">❌</span></td>
 <td><span class="emoji" data-emoji="x">❌</span></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><a href="https://business-science.github.io/timetk/articles/TK00_Time_Series_Coercion.html">Class Conversion</a></td>
 <td>✅</td>
 <td>✅</td>
 <td><span class="emoji" data-emoji="x">❌</span></td>
 <td><span class="emoji" data-emoji="x">❌</span></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><a href="https://business-science.github.io/timetk/articles/TK06_Automatic_Frequency_And_Trend_Selection.html">Automatic Frequency &amp; Trend</a></td>
 <td>✅</td>
 <td><span class="emoji" data-emoji="x">❌</span></td>
@@ -450,6 +448,16 @@
 </tbody>
 </table>
 </div>
+</div>
+<div id="getting-started" class="section level2">
+<h2 class="hasAnchor">
+<a href="#getting-started" class="anchor"></a>Getting Started</h2>
+<ul>
+<li><p><a href="https://business-science.github.io/timetk/articles/TK04_Plotting_Time_Series.html">Visualizing Time Series</a></p></li>
+<li><p><a href="https://business-science.github.io/timetk/articles/TK07_Time_Series_Data_Wrangling.html">Wrangling Time Series</a></p></li>
+<li><p><a href="https://business-science.github.io/timetk/articles/TK03_Forecasting_Using_Time_Series_Signature.html">Full Time Series Machine Learning and Feature Engineering Tutorial</a></p></li>
+<li><p><a href="https://business-science.github.io/timetk/">API Documentation</a> for articles and a <a href="https://business-science.github.io/timetk/reference/index.html">complete list of function references</a>.</p></li>
+</ul>
 </div>
 <div id="summary" class="section level2">
 <h2 class="hasAnchor">

@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>What is the Time Series Signature? • timetk</title>
+<title>Time Series Features • timetk</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
 <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
@@ -18,7 +18,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
-<meta property="og:title" content="What is the Time Series Signature?">
+<meta property="og:title" content="Time Series Features">
 <meta property="og:description" content="timetk">
 <meta property="og:image" content="/logo.png">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -45,7 +45,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">timetk</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.1.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.2</span>
       </span>
     </div>
 
@@ -74,18 +74,18 @@
     <li>
       <a href="../articles/TK05_Plotting_Seasonality_and_Correlation.html">Plotting Seasonality and Correlation</a>
     </li>
+    <li class="divider">
+    <li class="dropdown-header">Data Wrangling</li>
     <li>
-      <a href="../articles/TK08_Automatic_Anomaly_Detection.html">Automatic Anomaly Detection</a>
+      <a href="../articles/TK07_Time_Series_Data_Wrangling.html">Time Series Data Wrangling</a>
     </li>
     <li class="divider">
     <li class="dropdown-header">Machine Learning</li>
     <li>
       <a href="../articles/TK03_Forecasting_Using_Time_Series_Signature.html">Time Series Machine Learning</a>
     </li>
-    <li class="divider">
-    <li class="dropdown-header">Data Wrangling</li>
     <li>
-      <a href="../articles/TK07_Time_Series_Data_Wrangling.html">Time Series Data Wrangling</a>
+      <a href="../articles/TK08_Automatic_Anomaly_Detection.html">Anomaly Detection</a>
     </li>
     <li class="divider">
     <li class="dropdown-header">Time Series Fundamentals</li>
@@ -101,7 +101,7 @@
       <a href="../articles/TK02_Time_Series_Date_Sequences.html">Intelligent Date &amp; Time Sequences</a>
     </li>
     <li>
-      <a href="../articles/TK00_Time_Series_Coercion.html">Time Series Conversion (ts, zoo, &amp; xts)</a>
+      <a href="../articles/TK00_Time_Series_Coercion.html">Time Series Class Conversion (tbl, ts, zoo, &amp; xts)</a>
     </li>
   </ul>
 </li>
@@ -187,11 +187,10 @@
       </header><script src="TK01_Working_With_Time_Series_Index_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>What is the Time Series Signature?</h1>
-            <h3 class="subtitle">And the timestamp index, and the time series summary?</h3>
+      <h1 data-toc-skip>Time Series Features</h1>
                         <h4 class="author">Matt Dancho</h4>
             
-            <h4 class="date">2021-11-14</h4>
+            <h4 class="date">2021-11-15</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/business-science/timetk/blob/master/vignettes/TK01_Working_With_Time_Series_Index.Rmd"><code>vignettes/TK01_Working_With_Time_Series_Index.Rmd</code></a></small>
       <div class="hidden name"><code>TK01_Working_With_Time_Series_Index.Rmd</code></div>
