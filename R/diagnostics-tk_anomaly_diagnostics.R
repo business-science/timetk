@@ -104,7 +104,7 @@ tk_anomaly_diagnostics <- function(.data, .date_var, .value,
         stop(call. = FALSE, "tk_anomaly_diagnostics(.date_var) is missing. Please supply a date or date-time column.")
     }
     if (rlang::quo_is_missing(value_expr)) {
-        stop(call. = FALSE, "tk_anomaly_diagnostics(.value) is missing. Please a numeric column.")
+        stop(call. = FALSE, "tk_anomaly_diagnostics(.value) is missing. Please supply a numeric column.")
     }
 
     UseMethod("tk_anomaly_diagnostics", .data)
@@ -116,7 +116,6 @@ tk_anomaly_diagnostics <- function(.data, .date_var, .value,
 
 
 #' @export
-#' @rdname tk_anomaly_diagnostics
 tk_anomaly_diagnostics.data.frame <- function(.data, .date_var, .value,
                                               .frequency = "auto", .trend = "auto",
                                               .alpha = 0.05, .max_anomalies = 0.2,
