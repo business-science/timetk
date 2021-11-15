@@ -9,10 +9,10 @@
 ![](http://cranlogs.r-pkg.org/badges/timetk?color=brightgreen)
 ![](http://cranlogs.r-pkg.org/badges/grand-total/timetk?color=brightgreen)
 [![R-CMD-check](https://github.com/business-science/timetk/workflows/R-CMD-check/badge.svg)](https://github.com/business-science/timetk/actions)
-[![codecov](https://codecov.io/gh/business-science/timetk/branch/master/graph/badge.svg)](https://codecov.io/gh/business-science/timetk)
+[![codecov](https://codecov.io/gh/business-science/timetk/branch/master/graph/badge.svg)](https://app.codecov.io/gh/business-science/timetk)
 
-> A `tidyverse` toolkit to visualize, wrangle, and transform time series
-> data
+> Visualize, wrangle, and transform time series data using the
+> `tidyverse`
 
 ## Installation
 
@@ -27,18 +27,6 @@ remotes::install_github("business-science/timetk")
 ``` r
 install.packages("timetk")
 ```
-
-## Getting Started
-
--   [Visualizing Time Series (Start
-    Here)](https://business-science.github.io/timetk/articles/TK04_Plotting_Time_Series.html)
-
--   [Full Time Series Machine Learning and Feature Engineering
-    Tutorial:](https://business-science.github.io/timetk/articles/TK03_Forecasting_Using_Time_Series_Signature.html)
-
--   [API Documentation](https://business-science.github.io/timetk/) for
-    articles and a [complete list of function
-    references](https://business-science.github.io/timetk/reference/index.html).
 
 ## Package Functionality
 
@@ -83,6 +71,21 @@ data frames or tibbles).
 | [Automatic Frequency & Trend](https://business-science.github.io/timetk/articles/TK06_Automatic_Frequency_And_Trend_Selection.html)       | ✅                                                    | :x:                                                 | :x:                                               | :x:                                                          |
 
 </div>
+
+## Getting Started
+
+-   [Visualizing Time
+    Series](https://business-science.github.io/timetk/articles/TK04_Plotting_Time_Series.html)
+
+-   [Wrangling Time
+    Series](https://business-science.github.io/timetk/articles/TK07_Time_Series_Data_Wrangling.html)
+
+-   [Full Time Series Machine Learning and Feature Engineering
+    Tutorial](https://business-science.github.io/timetk/articles/TK03_Forecasting_Using_Time_Series_Signature.html)
+
+-   [API Documentation](https://business-science.github.io/timetk/) for
+    articles and a [complete list of function
+    references](https://business-science.github.io/timetk/reference/index.html).
 
 ## Summary
 

@@ -21,13 +21,13 @@ navbar:
         - text: "Automatic Anomaly Detection"
           href: articles/TK08_Automatic_Anomaly_Detection.html
         - text: '---'
-        - text: "Machine Learning"
-        - text: "Time Series Machine Learning"
-          href: articles/TK03_Forecasting_Using_Time_Series_Signature.html
-        - text: '---'
         - text: 'Data Wrangling'
         - text: "Time Series Data Wrangling"
           href: articles/TK07_Time_Series_Data_Wrangling.html
+        - text: '---'
+        - text: "Machine Learning"
+        - text: "Time Series Machine Learning"
+          href: articles/TK03_Forecasting_Using_Time_Series_Signature.html
         - text: '---'
         - text: 'Time Series Fundamentals'
         - text: "What is the Time Series Signature?"
