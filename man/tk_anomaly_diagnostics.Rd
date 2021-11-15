@@ -2,21 +2,9 @@
 % Please edit documentation in R/diagnostics-tk_anomaly_diagnostics.R
 \name{tk_anomaly_diagnostics}
 \alias{tk_anomaly_diagnostics}
-\alias{tk_anomaly_diagnostics.data.frame}
 \title{Automatic group-wise Anomaly Detection by STL Decomposition}
 \usage{
 tk_anomaly_diagnostics(
-  .data,
-  .date_var,
-  .value,
-  .frequency = "auto",
-  .trend = "auto",
-  .alpha = 0.05,
-  .max_anomalies = 0.2,
-  .message = TRUE
-)
-
-\method{tk_anomaly_diagnostics}{data.frame}(
   .data,
   .date_var,
   .value,
