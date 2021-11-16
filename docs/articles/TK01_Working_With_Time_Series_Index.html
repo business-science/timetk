@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Time Series Features • timetk</title>
+<title>Calendar Features • timetk</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
 <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
@@ -18,7 +18,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
-<meta property="og:title" content="Time Series Features">
+<meta property="og:title" content="Calendar Features">
 <meta property="og:description" content="timetk">
 <meta property="og:image" content="/logo.png">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -45,7 +45,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">timetk</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.2.9000</span>
       </span>
     </div>
 
@@ -90,10 +90,10 @@
     <li class="divider">
     <li class="dropdown-header">Time Series Fundamentals</li>
     <li>
-      <a href="../articles/TK01_Working_With_Time_Series_Index.html">What is the Time Series Signature?</a>
+      <a href="../articles/TK01_Working_With_Time_Series_Index.html">Calendar Features</a>
     </li>
     <li>
-      <a href="../articles/TK06_Automatic_Frequency_And_Trend_Selection.html">Automatic Frequency Detection</a>
+      <a href="../articles/TK06_Automatic_Frequency_And_Trend_Selection.html">Frequency and Trend</a>
     </li>
     <li class="divider">
     <li class="dropdown-header">Sequences &amp; Data Structures</li>
@@ -187,10 +187,10 @@
       </header><script src="TK01_Working_With_Time_Series_Index_files/header-attrs-2.11/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Time Series Features</h1>
+      <h1 data-toc-skip>Calendar Features</h1>
                         <h4 class="author">Matt Dancho</h4>
             
-            <h4 class="date">2021-11-15</h4>
+            <h4 class="date">2021-11-16</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/business-science/timetk/blob/master/vignettes/TK01_Working_With_Time_Series_Index.Rmd"><code>vignettes/TK01_Working_With_Time_Series_Index.Rmd</code></a></small>
       <div class="hidden name"><code>TK01_Working_With_Time_Series_Index.Rmd</code></div>
@@ -199,10 +199,11 @@
 
     
     
-<blockquote>
-<p>A collection of tools for working with time series in R</p>
-</blockquote>
-<p>The <strong>time series index</strong>, which consists of a collection of time-based values that define <em>when</em> each observation occurred, is the most important part of a time series object.</p>
+<p>This vignette covers making and working with <strong>Calendar Features</strong>, which are derived from a time series index, or the sequence of date/datetime stamps that accompany time series data.</p>
+<div id="introduction" class="section level1">
+<h1 class="hasAnchor">
+<a href="#introduction" class="anchor"></a>Introduction</h1>
+<p>The <strong>time series index</strong> consists of a collection of time-based values that define <em>when</em> each observation occurred, is the most important part of a time series object.</p>
 <p>The index gives the user a lot of information in a simple timestamp. Consider the datetime <strong><em>“2016-01-01 00:00:00”</em></strong>.</p>
 <p>From this timestamp, we can decompose the date and time information to get the <strong>signature</strong>, which consists of the year, quarter, month, day, day of year, day of month, hour, minute, and second of the occurrence of a single observation. Further, the difference between two or more observations is the <strong>frequency</strong> from which we can obtain even more information such as the periodicity of the data and whether or not these observations are on a regular interval. This information is critical as it provides the basis for performance over time in finance, decay rates in biology, growth rates in economics, and so on.</p>
 <p>In this vignette the user will be exposed to:</p>
@@ -211,6 +212,7 @@
 <li>Time Series Signature</li>
 <li>Time Series Summary</li>
 </ol>
+</div>
 <div id="prerequisites" class="section level1">
 <h1 class="hasAnchor">
 <a href="#prerequisites" class="anchor"></a>Prerequisites</h1>

@@ -93,7 +93,7 @@ It performs automatic anomaly detection for one or more time series groups." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">timetk</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.2.9000</span>
       </span>
     </div>
 
@@ -138,10 +138,10 @@ It performs automatic anomaly detection for one or more time series groups." />
     <li class="divider"></li>
     <li class="dropdown-header">Time Series Fundamentals</li>
     <li>
-      <a href="../articles/TK01_Working_With_Time_Series_Index.html">What is the Time Series Signature?</a>
+      <a href="../articles/TK01_Working_With_Time_Series_Index.html">Calendar Features</a>
     </li>
     <li>
-      <a href="../articles/TK06_Automatic_Frequency_And_Trend_Selection.html">Automatic Frequency Detection</a>
+      <a href="../articles/TK06_Automatic_Frequency_And_Trend_Selection.html">Frequency and Trend</a>
     </li>
     <li class="divider"></li>
     <li class="dropdown-header">Sequences &amp; Data Structures</li>
@@ -246,18 +246,6 @@ It performs automatic anomaly detection for one or more time series groups.</p>
     </div>
 
     <pre class="usage"><span class='fu'>tk_anomaly_diagnostics</span><span class='op'>(</span>
-  <span class='va'>.data</span>,
-  <span class='va'>.date_var</span>,
-  <span class='va'>.value</span>,
-  .frequency <span class='op'>=</span> <span class='st'>"auto"</span>,
-  .trend <span class='op'>=</span> <span class='st'>"auto"</span>,
-  .alpha <span class='op'>=</span> <span class='fl'>0.05</span>,
-  .max_anomalies <span class='op'>=</span> <span class='fl'>0.2</span>,
-  .message <span class='op'>=</span> <span class='cn'>TRUE</span>
-<span class='op'>)</span>
-
-<span class='co'># S3 method for data.frame</span>
-<span class='fu'>tk_anomaly_diagnostics</span><span class='op'>(</span>
   <span class='va'>.data</span>,
   <span class='va'>.date_var</span>,
   <span class='va'>.value</span>,

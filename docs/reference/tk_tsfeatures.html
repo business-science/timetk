@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Visualize STL Decomposition Features for One or More Time Series — plot_stl_diagnostics • timetk</title>
+<title>Time series feature matrix (Tidy) — tk_tsfeatures • timetk</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -48,9 +48,10 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Visualize STL Decomposition Features for One or More Time Series — plot_stl_diagnostics" />
-<meta property="og:description" content="An interactive and scalable function for visualizing time series STL Decomposition.
-Plots are available in interactive plotly (default) and static ggplot2 format." />
+<meta property="og:title" content="Time series feature matrix (Tidy) — tk_tsfeatures" />
+<meta property="og:description" content="tk_tsfeatures() is a tidyverse compliant wrapper for tsfeatures::tsfeatures().
+The function computes a matrix of time series features that describes the various time
+series. It's designed for groupwise analysis using dplyr groups." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -235,34 +236,31 @@ Plots are available in interactive plotly (default) and static ggplot2 format." 
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Visualize STL Decomposition Features for One or More Time Series</h1>
-    <small class="dont-index">Source: <a href='https://github.com/business-science/timetk/blob/master/R/plot-stl_diagnostics.R'><code>R/plot-stl_diagnostics.R</code></a></small>
-    <div class="hidden name"><code>plot_stl_diagnostics.Rd</code></div>
+    <h1>Time series feature matrix (Tidy)</h1>
+    <small class="dont-index">Source: <a href='https://github.com/business-science/timetk/blob/master/R/diagnostiscs-tsfeatures.R'><code>R/diagnostiscs-tsfeatures.R</code></a></small>
+    <div class="hidden name"><code>tk_tsfeatures.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>An interactive and scalable function for visualizing time series STL Decomposition.
-Plots are available in interactive <code>plotly</code> (default) and static <code>ggplot2</code> format.</p>
+    <p><code>tk_tsfeatures()</code> is a tidyverse compliant wrapper for <code><a href='http://pkg.robjhyndman.com/tsfeatures/reference/tsfeatures.html'>tsfeatures::tsfeatures()</a></code>.
+The function computes a matrix of time series features that describes the various time
+series. It's designed for groupwise analysis using <code>dplyr</code> groups.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>plot_stl_diagnostics</span><span class='op'>(</span>
+    <pre class="usage"><span class='fu'>tk_tsfeatures</span><span class='op'>(</span>
   <span class='va'>.data</span>,
   <span class='va'>.date_var</span>,
   <span class='va'>.value</span>,
-  .facet_vars <span class='op'>=</span> <span class='cn'>NULL</span>,
-  .feature_set <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"observed"</span>, <span class='st'>"season"</span>, <span class='st'>"trend"</span>, <span class='st'>"remainder"</span>, <span class='st'>"seasadj"</span><span class='op'>)</span>,
-  .frequency <span class='op'>=</span> <span class='st'>"auto"</span>,
-  .trend <span class='op'>=</span> <span class='st'>"auto"</span>,
-  .message <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  .facet_scales <span class='op'>=</span> <span class='st'>"free"</span>,
-  .line_color <span class='op'>=</span> <span class='st'>"#2c3e50"</span>,
-  .line_size <span class='op'>=</span> <span class='fl'>0.5</span>,
-  .line_type <span class='op'>=</span> <span class='fl'>1</span>,
-  .line_alpha <span class='op'>=</span> <span class='fl'>1</span>,
-  .title <span class='op'>=</span> <span class='st'>"STL Diagnostics"</span>,
-  .x_lab <span class='op'>=</span> <span class='st'>""</span>,
-  .y_lab <span class='op'>=</span> <span class='st'>""</span>,
-  .interactive <span class='op'>=</span> <span class='cn'>TRUE</span>
+  .period <span class='op'>=</span> <span class='st'>"auto"</span>,
+  .features <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"frequency"</span>, <span class='st'>"stl_features"</span>, <span class='st'>"entropy"</span>, <span class='st'>"acf_features"</span><span class='op'>)</span>,
+  .scale <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  .trim <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  .trim_amount <span class='op'>=</span> <span class='fl'>0.1</span>,
+  .parallel <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  .na_action <span class='op'>=</span> <span class='va'>na.pass</span>,
+  .prefix <span class='op'>=</span> <span class='st'>"ts_"</span>,
+  .silent <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  <span class='va'>...</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -281,123 +279,120 @@ Plots are available in interactive <code>plotly</code> (default) and static <cod
       <td><p>A column containing numeric values</p></td>
     </tr>
     <tr>
-      <th>.facet_vars</th>
-      <td><p>One or more grouping columns that broken out into <code>ggplot2</code> facets.
-These can be selected using <code>tidyselect()</code> helpers (e.g <code><a href='https://tidyselect.r-lib.org/reference/starts_with.html'>contains()</a></code>).</p></td>
+      <th>.period</th>
+      <td><p>The periodicity (frequency) of the time series data. Values can be provided as follows:</p><ul>
+<li><p>"auto" (default) Calculates using <code><a href='tk_get_frequency.html'>tk_get_frequency()</a></code>.</p></li>
+<li><p>"2 weeks": Would calculate the median number of observations in a 2-week window.</p></li>
+<li><p>7 (numeric): Would interpret the <code>ts</code> frequency as 7 observations per cycle (common for weekly data)</p></li>
+</ul></td>
     </tr>
     <tr>
-      <th>.feature_set</th>
-      <td><p>The STL decompositions to visualize.
-Select one or more of "observed", "season", "trend", "remainder", "seasadj".</p></td>
+      <th>.features</th>
+      <td><p>Passed to <code>features</code> in the underlying <code>tsfeatures()</code> function.
+A vector of function names that represent a feature aggregation function. Examples:</p><ol>
+<li><p>Use one of the function names from <code>tsfeatures</code> R package e.g.("lumpiness", "stl_features").</p></li>
+<li><p>Use a function name (e.g. "mean" or "median")</p></li>
+<li><p>Create your own function and provide the function name</p></li>
+</ol></td>
     </tr>
     <tr>
-      <th>.frequency</th>
-      <td><p>Controls the seasonal adjustment (removal of seasonality).
-Input can be either "auto", a time-based definition (e.g. "2 weeks"),
-or a numeric number of observations per frequency (e.g. 10).
-Refer to <code><a href='tk_get_frequency.html'>tk_get_frequency()</a></code>.</p></td>
+      <th>.scale</th>
+      <td><p>If <code>TRUE</code>, time series are scaled to mean 0 and sd 1 before features are computed.</p></td>
     </tr>
     <tr>
-      <th>.trend</th>
-      <td><p>Controls the trend component.
-For STL, trend controls the sensitivity of the lowess smoother, which is used to remove the remainder.</p></td>
+      <th>.trim</th>
+      <td><p>If <code>TRUE</code>, time series are trimmed by trim_amount before features are computed.
+Values larger than trim_amount in absolute value are set to <code>NA</code>.</p></td>
     </tr>
     <tr>
-      <th>.message</th>
-      <td><p>A boolean. If <code>TRUE</code>, will output information related to automatic frequency
-and trend selection (if applicable).</p></td>
+      <th>.trim_amount</th>
+      <td><p>Default level of trimming if trim==TRUE. Default: 0.1.</p></td>
     </tr>
     <tr>
-      <th>.facet_scales</th>
-      <td><p>Control facet x &amp; y-axis ranges. Options include "fixed", "free", "free_y", "free_x"</p></td>
+      <th>.parallel</th>
+      <td><p>If TRUE, multiple cores (or multiple sessions) will be used.
+This only speeds things up when there are a large number of time series.</p>
+<p>When <code>.parallel = TRUE</code>, the <code>multiprocess = future::multisession</code>.
+This can be adjusted by setting <code>multiprocess</code> parameter.
+See the <code><a href='http://pkg.robjhyndman.com/tsfeatures/reference/tsfeatures.html'>tsfeatures::tsfeatures()</a></code> function for mor details.</p></td>
     </tr>
     <tr>
-      <th>.line_color</th>
-      <td><p>Line color.</p></td>
+      <th>.na_action</th>
+      <td><p>A function to handle missing values. Use na.interp to estimate missing values.</p></td>
     </tr>
     <tr>
-      <th>.line_size</th>
-      <td><p>Line size.</p></td>
+      <th>.prefix</th>
+      <td><p>A prefix to prefix the feature columns. Default: <code>"ts_"</code>.</p></td>
     </tr>
     <tr>
-      <th>.line_type</th>
-      <td><p>Line type.</p></td>
+      <th>.silent</th>
+      <td><p>Whether or not to show messages and warnings.</p></td>
     </tr>
     <tr>
-      <th>.line_alpha</th>
-      <td><p>Line alpha (opacity). Range: (0, 1).</p></td>
-    </tr>
-    <tr>
-      <th>.title</th>
-      <td><p>Plot title.</p></td>
-    </tr>
-    <tr>
-      <th>.x_lab</th>
-      <td><p>Plot x-axis label</p></td>
-    </tr>
-    <tr>
-      <th>.y_lab</th>
-      <td><p>Plot y-axis label</p></td>
-    </tr>
-    <tr>
-      <th>.interactive</th>
-      <td><p>If TRUE, returns a <code>plotly</code> interactive plot.
-If FALSE, returns a static <code>ggplot2</code> plot.</p></td>
+      <th>...</th>
+      <td><p>Other arguments get passed to the feature functions.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A <code>plotly</code> or <code>ggplot2</code> visualization</p>
+    <p>A <code>tibble</code> or <code>data.frame</code> with aggregated features that describe each time series.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The <code>plot_stl_diagnostics()</code> function generates a Seasonal-Trend-Loess decomposition.
-The function is "tidy" in the sense that it works
-on data frames and is designed to work with <code>dplyr</code> groups.</p>
-<p><strong>STL method</strong>:</p>
-<p>The STL method implements time series decomposition using
-the underlying <code><a href='https://rdrr.io/r/stats/stl.html'>stats::stl()</a></code>. The decomposition separates the
-"season" and "trend" components from
-the "observed" values leaving the "remainder".</p>
-<p><strong>Frequency &amp; Trend Selection</strong></p>
-<p>The user can control two parameters: <code>.frequency</code> and <code>.trend</code>.</p><ol>
-<li><p>The <code>.frequency</code> parameter adjusts the "season" component that is removed
-from the "observed" values.</p></li>
-<li><p>The <code>.trend</code> parameter adjusts the
-trend window (<code>t.window</code> parameter from <code><a href='https://rdrr.io/r/stats/stl.html'>stl()</a></code>) that is used.</p></li>
+    <p>The <code>timetk::tk_tsfeatures()</code> function implements the <code>tsfeatures</code> package
+for computing aggregated feature matrix for time series that is useful in many types of
+analysis such as clustering time series.</p>
+<p>The <code>timetk</code> version ports the <code><a href='http://pkg.robjhyndman.com/tsfeatures/reference/tsfeatures.html'>tsfeatures::tsfeatures()</a></code> function to a <code>tidyverse</code>-compliant
+format that uses a tidy data frame containing grouping columns (optional), a date column, and
+a value column. Other columns are ignored.</p>
+<p>It then becomes easy to summarize each time series by group-wise application of <code>.features</code>,
+which are simply functions that evaluate a time series and return single aggregated value.
+(Example: "mean" would return the mean of the time series (note that values are scaled to mean 1 and sd 0 first))</p>
+<p><strong>Function Internals:</strong></p>
+<p>Internally, the time series are converted to <code>ts</code> class using <code><a href='tk_ts.html'>tk_ts(.period)</a></code> where the
+period is the frequency of the time series. Values can be provided for <code>.period</code>, which will be used
+prior to convertion to <code>ts</code> class.</p>
+<p>The function then leverages <code><a href='http://pkg.robjhyndman.com/tsfeatures/reference/tsfeatures.html'>tsfeatures::tsfeatures()</a></code> to compute the feature matrix of summarized
+feature values.</p>
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+
+    
+<ol>
+<li><p>Rob Hyndman, Yanfei Kang, Pablo Montero-Manso, Thiyanga Talagala, Earo Wang, Yangzhuoran Yang,
+Mitchell O'Hara-Wild: tsfeatures R package</p></li>
 </ol>
 
-<p>The user may supply both <code>.frequency</code>
-and <code>.trend</code> as time-based durations (e.g. "6 weeks") or numeric values
-(e.g. 180) or "auto", which automatically selects the frequency and/or trend
-based on the scale of the time series.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span>
+    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://dplyr.tidyverse.org'>dplyr</a></span><span class='op'>)</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/business-science/timetk'>timetk</a></span><span class='op'>)</span>
 
-<span class='co'># ---- SINGLE TIME SERIES DECOMPOSITION ----</span>
-<span class='va'>m4_hourly</span> <span class='op'>%&gt;%</span>
-    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>id</span> <span class='op'>==</span> <span class='st'>"H10"</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-    <span class='fu'>plot_stl_diagnostics</span><span class='op'>(</span>
-        <span class='va'>date</span>, <span class='va'>value</span>,
-        <span class='co'># Set features to return, desired frequency and trend</span>
-        .feature_set <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"observed"</span>, <span class='st'>"season"</span>, <span class='st'>"trend"</span>, <span class='st'>"remainder"</span><span class='op'>)</span>,
-        .frequency   <span class='op'>=</span> <span class='st'>"24 hours"</span>,
-        .trend       <span class='op'>=</span> <span class='st'>"1 week"</span>,
-        .interactive <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>frequency = 24 observations per 24 hours</span></div><div class='output co'>#&gt; <span class='message'>trend = 168 observations per 1 week</span></div><div class='img'><img src='plot_stl_diagnostics-1.png' alt='' width='700' height='433' /></div><div class='input'>
-
-<span class='co'># ---- GROUPS ----</span>
-<span class='va'>m4_hourly</span> <span class='op'>%&gt;%</span>
+<span class='va'>walmart_sales_weekly</span> <span class='op'>%&gt;%</span>
     <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>id</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-    <span class='fu'>plot_stl_diagnostics</span><span class='op'>(</span>
-        <span class='va'>date</span>, <span class='va'>value</span>,
-        .feature_set <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"observed"</span>, <span class='st'>"season"</span>, <span class='st'>"trend"</span><span class='op'>)</span>,
-        .interactive <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>frequency = 24 observations per 1 day</span></div><div class='output co'>#&gt; <span class='message'>trend = 336 observations per 14 days</span></div><div class='output co'>#&gt; <span class='message'>frequency = 24 observations per 1 day</span></div><div class='output co'>#&gt; <span class='message'>trend = 336 observations per 14 days</span></div><div class='output co'>#&gt; <span class='message'>frequency = 24 observations per 1 day</span></div><div class='output co'>#&gt; <span class='message'>trend = 336 observations per 14 days</span></div><div class='output co'>#&gt; <span class='message'>frequency = 24 observations per 1 day</span></div><div class='output co'>#&gt; <span class='message'>trend = 336 observations per 14 days</span></div><div class='img'><img src='plot_stl_diagnostics-2.png' alt='' width='700' height='433' /></div><div class='input'>
-
-
+    <span class='fu'>tk_tsfeatures</span><span class='op'>(</span>
+      .date_var <span class='op'>=</span> <span class='va'>Date</span>,
+      .value    <span class='op'>=</span> <span class='va'>Weekly_Sales</span>,
+      .period   <span class='op'>=</span> <span class='fl'>52</span>,
+      .features <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"frequency"</span>, <span class='st'>"stl_features"</span>, <span class='st'>"entropy"</span>, <span class='st'>"acf_features"</span>, <span class='st'>"mean"</span><span class='op'>)</span>,
+      .scale    <span class='op'>=</span> <span class='cn'>TRUE</span>,
+      .prefix   <span class='op'>=</span> <span class='st'>"ts_"</span>
+    <span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 7 × 22</span>
+#&gt; <span style='color: #949494;'># Groups:   id [7]</span>
+#&gt;   id    ts_frequency ts_nperiods ts_seasonal_period ts_trend ts_spike ts_linearity
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>        <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>       <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>              <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>        <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
+#&gt; <span style='color: #BCBCBC;'>1</span> 1_1             52           1                 52 0.000<span style='text-decoration: underline;'>670</span>  2.80<span style='color: #949494;'>e</span><span style='color: #BB0000;'>-5</span>      -<span style='color: #BB0000;'>0.058</span><span style='color: #BB0000; text-decoration: underline;'>1</span>
+#&gt; <span style='color: #BCBCBC;'>2</span> 1_3             52           1                 52 0.061<span style='text-decoration: underline;'>4</span>    9.87<span style='color: #949494;'>e</span><span style='color: #BB0000;'>-6</span>       0.511 
+#&gt; <span style='color: #BCBCBC;'>3</span> 1_8             52           1                 52 0.756     1.95<span style='color: #949494;'>e</span><span style='color: #BB0000;'>-6</span>       6.41  
+#&gt; <span style='color: #BCBCBC;'>4</span> 1_13            52           1                 52 0.354     4.75<span style='color: #949494;'>e</span><span style='color: #BB0000;'>-6</span>       2.74  
+#&gt; <span style='color: #BCBCBC;'>5</span> 1_38            52           1                 52 0.425     1.79<span style='color: #949494;'>e</span><span style='color: #BB0000;'>-5</span>      -<span style='color: #BB0000;'>4.07</span>  
+#&gt; <span style='color: #BCBCBC;'>6</span> 1_93            52           1                 52 0.791     7.54<span style='color: #949494;'>e</span><span style='color: #BB0000;'>-7</span>       6.22  
+#&gt; <span style='color: #BCBCBC;'>7</span> 1_95            52           1                 52 0.639     5.67<span style='color: #949494;'>e</span><span style='color: #BB0000;'>-7</span>       3.94  
+#&gt; <span style='color: #949494;'># … with 15 more variables: ts_curvature &lt;dbl&gt;, ts_e_acf1 &lt;dbl&gt;,</span>
+#&gt; <span style='color: #949494;'>#   ts_e_acf10 &lt;dbl&gt;, ts_seasonal_strength &lt;dbl&gt;, ts_peak &lt;dbl&gt;,</span>
+#&gt; <span style='color: #949494;'>#   ts_trough &lt;dbl&gt;, ts_entropy &lt;dbl&gt;, ts_x_acf1 &lt;dbl&gt;, ts_x_acf10 &lt;dbl&gt;,</span>
+#&gt; <span style='color: #949494;'>#   ts_diff1_acf1 &lt;dbl&gt;, ts_diff1_acf10 &lt;dbl&gt;, ts_diff2_acf1 &lt;dbl&gt;,</span>
+#&gt; <span style='color: #949494;'>#   ts_diff2_acf10 &lt;dbl&gt;, ts_seas_acf1 &lt;dbl&gt;, ts_mean &lt;dbl&gt;</span></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

@@ -30,9 +30,9 @@ navbar:
           href: articles/TK08_Automatic_Anomaly_Detection.html
         - text: '---'
         - text: 'Time Series Fundamentals'
-        - text: "What is the Time Series Signature?"
+        - text: "Calendar Features"
           href: articles/TK01_Working_With_Time_Series_Index.html
-        - text: "Automatic Frequency Detection"
+        - text: "Frequency and Trend"
           href: articles/TK06_Automatic_Frequency_And_Trend_Selection.html
         - text: "---"
         - text: "Sequences & Data Structures"
@@ -110,6 +110,10 @@ reference:
     contents:
     - "between_time"
     - "add_time"
+  - title: Time Series Features
+    desc: Tidy integration with `tsfeatures`
+    contents:
+    - "tk_tsfeatures"
   - title: Augment Operations (Quickly Add Many Features)
     desc: __Add multiple columns to the original data. Respects `dplyr` groups.__
     contents:

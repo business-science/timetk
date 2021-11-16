@@ -1,8 +1,8 @@
 ---
-title: "Automatic Frequency and Trend Selection"
+title: "Frequency and Trend Selection"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Automatic Frequency and Trend Selection}
+  %\VignetteIndexEntry{Frequency and Trend Selection}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
