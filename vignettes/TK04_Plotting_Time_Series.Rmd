@@ -26,9 +26,6 @@ knitr::opts_chunk$set(
 ```
 
 
-
-> timetk: A toolkit for time series analysis in the tidyverse
-
 ```{r, echo=FALSE}
 knitr::include_graphics("timetk_version_2.jpg")
 ```
@@ -40,6 +37,10 @@ This tutorial focuses on, `plot_time_series()`, a workhorse time-series plotting
 - Consolidates 20+ lines of `ggplot2` & `plotly` code
 - Scales well to many time series
 - Can be converted from interactive `plotly` to static `ggplot2` plots
+
+# Libraries
+
+Run the following code to setup for this tutorial. 
 
 ```{r setup}
 library(tidyverse)

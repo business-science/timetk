@@ -26,9 +26,13 @@ knitr::opts_chunk$set(
 # devtools::load_all() # Travis CI fails on load_all()
 ```
 
-> A collection of tools for working with time series in R
+This vignette covers __Machine Learning for Forecasting__ using the _time-series signature_, a collection calendar features derived from the timestamps in the time series. 
 
-The time series signature is a collection of useful features that describe the time series index of a time-based data set. It contains a wealth of features that can be used to forecast time series that contain patterns. In this vignette, the user will learn methods to implement machine learning to predict future outcomes in a time-based data set. The vignette example uses a well known time series dataset, the Bike Sharing Dataset, from the UCI Machine Learning Repository. The vignette follows an example where we'll use `timetk` to build a basic Machine Learning model to predict future values using the time series signature. The objective is to build a model and predict the next six months of Bike Sharing daily counts.  
+# Introduction
+
+The time series signature is a collection of useful features that describe the time series index of a time-based data set. It contains a wealth of features that can be used to forecast time series that contain patterns.
+
+In this vignette, the user will learn methods to implement machine learning to predict future outcomes in a time-based data set. The vignette example uses a well known time series dataset, the Bike Sharing Dataset, from the UCI Machine Learning Repository. The vignette follows an example where we'll use `timetk` to build a basic Machine Learning model to predict future values using the time series signature. The objective is to build a model and predict the next six months of Bike Sharing daily counts.  
 
 
 # Prerequisites

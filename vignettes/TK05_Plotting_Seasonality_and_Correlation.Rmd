@@ -25,13 +25,15 @@ knitr::opts_chunk$set(
 )
 ```
 
-> timetk: A toolkit for time series analysis in R
+This tutorial focuses on 3 functions for visualizing time series diagnostics:
 
-This tutorial focuses on 3 new functions for visualizing time series diagnostics:
+- __ACF Diagnostics:__ `plot_acf_diagnostics()`
+- __Seasonality Diagnostics:__ `plot_seasonal_diagnostics()`
+- __STL Diagnostics:__ `plot_stl_diagnostics()`
 
-- ACF Diagnostics: `plot_acf_diagnostics()`
-- Seasonality Diagnostics: `plot_seasonal_diagnostics()`
-- STL Diagnostics: `plot_stl_diagnostics()`
+# Libraries
+
+Run the following code to set up for this tutorial.
 
 ```{r setup}
 library(tidyverse)

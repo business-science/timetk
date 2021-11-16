@@ -26,9 +26,7 @@ knitr::opts_chunk$set(
 # devtools::load_all() # Travis CI fails on load_all()
 ```
 
-> A collection of tools for working with time series in R
-
-Time series data wrangling is an essential skill for any forecaster. `timetk` includes the essential data wrangling tools. In this tutorial:
+__Time series data wrangling__ is an essential skill for any forecaster. `timetk` includes the essential data wrangling tools. In this tutorial, we'll cover:
 
 - __Summarise by Time__ - For time-based aggregations
 - __Filter by Time__ - For complex time-based filtering
@@ -41,6 +39,9 @@ Additional concepts covered:
 - __Advanced Filtering__ - Using the new add time `%+time` infix operation (See _Padding Data: Low to High Frequency_)
 - __Visualization__ - `plot_time_series()` for all visualizations
 
+# Libraries
+
+Load the following libraries. 
 
 ```{r}
 library(tidyverse)

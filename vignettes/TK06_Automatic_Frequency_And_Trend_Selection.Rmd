@@ -21,9 +21,7 @@ knitr::opts_chunk$set(
 # devtools::load_all() # Travis CI fails on load_all()
 ```
 
-> A collection of tools for working with time series in R
-
-Frequency and trend cycles are used in many time series applications including Seasonal ARIMA (SARIMA) forecasting and STL Decomposition. New in `timetk` 1.0.0 are __Automatic Frequency and Trend Selection tools.__ These tools use only the the timestamp information to make logical guesses about the frequency and trend.
+__Frequency and trend cycles__ are used in many time series applications including Seasonal ARIMA (SARIMA) forecasting and STL Decomposition. `timetk` includes functionality for __Automatic Frequency and Trend Selection.__ These tools use only the the timestamp information to make logical guesses about the frequency and trend.
 
 
 # Prerequisites

@@ -27,7 +27,9 @@ knitr::opts_chunk$set(
 # devtools::load_all() # Travis CI fails on load_all()
 ```
 
-> timetk: A toolkit for time series analysis in R
+This vignette covers __time series class conversion__ to and from the many time series classes in R including the general data frame (or tibble) and the various time series classes (`xts`, `zoo`, and `ts`).
+
+# Introduction
 
 The time series landscape in R is vast, deep, and complex causing many inconsistencies in data attributes and formats ultimately making it difficult to coerce between the different data structures. The `zoo` and `xts` packages solved a number of the issues in dealing with the various classes (`ts`, `zoo`, `xts`, `irts`, `msts`, and the list goes on...). However, because these packages deal in classes other than data frame, the issues with conversion between `tbl` and other time series object classes are still present.
 

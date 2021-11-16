@@ -26,9 +26,7 @@ knitr::opts_chunk$set(
 # devtools::load_all() # Travis CI fails on load_all()
 ```
 
-> A collection of tools for working with time series in R
-
-Creating and modifying date sequences is critical to machine learning projects. We discuss:
+__Creating and modifying date sequences__ is critical to machine learning projects. We discuss:
 
 - Making a Time Series Sequence: `tk_make_timeseries()`
 - Making a Future Sequence: `tk_make_future_timeseries()`

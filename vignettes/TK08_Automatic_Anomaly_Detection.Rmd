@@ -26,7 +26,6 @@ knitr::opts_chunk$set(
 # devtools::load_all() # Travis CI fails on load_all()
 ```
 
-> A collection of tools for working with time series in R
 
 __Anomaly detection__ is an important part of time series analysis:
 
