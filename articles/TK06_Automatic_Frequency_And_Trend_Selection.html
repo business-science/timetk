@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Automatic Frequency and Trend Selection • timetk</title>
+<title>Frequency and Trend Selection • timetk</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
 <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
@@ -18,7 +18,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
-<meta property="og:title" content="Automatic Frequency and Trend Selection">
+<meta property="og:title" content="Frequency and Trend Selection">
 <meta property="og:description" content="timetk">
 <meta property="og:image" content="/logo.png">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -87,13 +87,16 @@
     <li>
       <a href="../articles/TK08_Automatic_Anomaly_Detection.html">Anomaly Detection</a>
     </li>
+    <li>
+      <a href="../articles/TK09_Clustering.html">Clustering</a>
+    </li>
     <li class="divider">
     <li class="dropdown-header">Time Series Fundamentals</li>
     <li>
-      <a href="../articles/TK01_Working_With_Time_Series_Index.html">What is the Time Series Signature?</a>
+      <a href="../articles/TK01_Working_With_Time_Series_Index.html">Calendar Features</a>
     </li>
     <li>
-      <a href="../articles/TK06_Automatic_Frequency_And_Trend_Selection.html">Automatic Frequency Detection</a>
+      <a href="../articles/TK06_Automatic_Frequency_And_Trend_Selection.html">Frequency and Trend</a>
     </li>
     <li class="divider">
     <li class="dropdown-header">Sequences &amp; Data Structures</li>
@@ -187,7 +190,7 @@
       </header><script src="TK06_Automatic_Frequency_And_Trend_Selection_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Automatic Frequency and Trend Selection</h1>
+      <h1 data-toc-skip>Frequency and Trend Selection</h1>
             
       
       <small class="dont-index">Source: <a href="https://github.com/business-science/timetk/blob/master/vignettes/TK06_Automatic_Frequency_And_Trend_Selection.Rmd"><code>vignettes/TK06_Automatic_Frequency_And_Trend_Selection.Rmd</code></a></small>
@@ -197,10 +200,7 @@
 
     
     
-<blockquote>
-<p>A collection of tools for working with time series in R</p>
-</blockquote>
-<p>Frequency and trend cycles are used in many time series applications including Seasonal ARIMA (SARIMA) forecasting and STL Decomposition. New in <code>timetk</code> 1.0.0 are <strong>Automatic Frequency and Trend Selection tools.</strong> These tools use only the the timestamp information to make logical guesses about the frequency and trend.</p>
+<p><strong>Frequency and trend cycles</strong> are used in many time series applications including Seasonal ARIMA (SARIMA) forecasting and STL Decomposition. <code>timetk</code> includes functionality for <strong>Automatic Frequency and Trend Selection.</strong> These tools use only the the timestamp information to make logical guesses about the frequency and trend.</p>
 <div id="prerequisites" class="section level1">
 <h1 class="hasAnchor">
 <a href="#prerequisites" class="anchor"></a>Prerequisites</h1>

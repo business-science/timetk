@@ -87,13 +87,16 @@
     <li>
       <a href="../articles/TK08_Automatic_Anomaly_Detection.html">Anomaly Detection</a>
     </li>
+    <li>
+      <a href="../articles/TK09_Clustering.html">Clustering</a>
+    </li>
     <li class="divider">
     <li class="dropdown-header">Time Series Fundamentals</li>
     <li>
-      <a href="../articles/TK01_Working_With_Time_Series_Index.html">What is the Time Series Signature?</a>
+      <a href="../articles/TK01_Working_With_Time_Series_Index.html">Calendar Features</a>
     </li>
     <li>
-      <a href="../articles/TK06_Automatic_Frequency_And_Trend_Selection.html">Automatic Frequency Detection</a>
+      <a href="../articles/TK06_Automatic_Frequency_And_Trend_Selection.html">Frequency and Trend</a>
     </li>
     <li class="divider">
     <li class="dropdown-header">Sequences &amp; Data Structures</li>
@@ -199,10 +202,7 @@
 
     
     
-<blockquote>
-<p>A collection of tools for working with time series in R</p>
-</blockquote>
-<p>Time series data wrangling is an essential skill for any forecaster. <code>timetk</code> includes the essential data wrangling tools. In this tutorial:</p>
+<p><strong>Time series data wrangling</strong> is an essential skill for any forecaster. <code>timetk</code> includes the essential data wrangling tools. In this tutorial, we’ll cover:</p>
 <ul>
 <li>
 <strong>Summarise by Time</strong> - For time-based aggregations</li>
@@ -223,10 +223,15 @@
 <li>
 <strong>Visualization</strong> - <code><a href="../reference/plot_time_series.html">plot_time_series()</a></code> for all visualizations</li>
 </ul>
+<div id="libraries" class="section level1">
+<h1 class="hasAnchor">
+<a href="#libraries" class="anchor"></a>Libraries</h1>
+<p>Load the following libraries.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/business-science/tidyquant">tidyquant</a></span><span class="op">)</span> 
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/business-science/timetk">timetk</a></span><span class="op">)</span></code></pre></div>
+</div>
 <div id="data" class="section level1">
 <h1 class="hasAnchor">
 <a href="#data" class="anchor"></a>Data</h1>
