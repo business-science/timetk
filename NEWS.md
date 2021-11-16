@@ -2,6 +2,8 @@
 
 __New Features__
 
+- `tk_tsfeatures()`: A new function that makes it easy to generate time series feature matrix using `tsfeatures`. The main benefit is that you can pipe time series data in `tibbles` with `dplyr` groups. The features will be produced by group.  
+
 # timetk 2.6.2
 
 __Improvements__
