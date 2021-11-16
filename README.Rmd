@@ -69,7 +69,9 @@ There are _many_ R packages for working with Time Series data. Here's how `timet
 | Imputation                   |  ✅  |  ✅  |  :x:   |  :x:  |  
 | Sliding / Rolling            |  ✅  |  ✅  |  :x:   |  ✅  |  
 | __Machine Learning__            |        |         |         |             |
-| [Anomaly Detection](https://business-science.github.io/timetk/articles/TK08_Automatic_Anomaly_Detection.html)            |  ✅  |  :x:  |  :x:  |  :x:  |  
+| [Time Series Machine Learning](https://business-science.github.io/timetk/articles/TK03_Forecasting_Using_Time_Series_Signature.html)            |  ✅  |  :x:  |  :x:  |  :x:  |  |
+[Anomaly Detection](https://business-science.github.io/timetk/articles/TK08_Automatic_Anomaly_Detection.html)            |  ✅  |  :x:  |  :x:  |  :x:  |  
+| [Clustering](https://business-science.github.io/timetk/articles/TK09_Clustering.html)            |  ✅  |  :x:  |  :x:  |  :x:  |  
 | [__Feature Engineering (recipes)__](https://business-science.github.io/timetk/articles/TK03_Forecasting_Using_Time_Series_Signature.html)  |        |         |         |             |             
 | Date Feature Engineering     |  ✅  |  :x:  |  :x:   |  :x:  |  
 | Holiday Feature Engineering  |  ✅  |  :x:  |  :x:   |  :x:  |  

@@ -28,6 +28,8 @@ navbar:
           href: articles/TK03_Forecasting_Using_Time_Series_Signature.html
         - text: "Anomaly Detection"
           href: articles/TK08_Automatic_Anomaly_Detection.html
+        - text: "Clustering"
+          href: articles/TK09_Clustering.html
         - text: '---'
         - text: 'Time Series Fundamentals'
         - text: "Calendar Features"

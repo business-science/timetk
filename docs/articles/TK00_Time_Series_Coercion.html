@@ -87,6 +87,9 @@
     <li>
       <a href="../articles/TK08_Automatic_Anomaly_Detection.html">Anomaly Detection</a>
     </li>
+    <li>
+      <a href="../articles/TK09_Clustering.html">Clustering</a>
+    </li>
     <li class="divider">
     <li class="dropdown-header">Time Series Fundamentals</li>
     <li>
@@ -200,9 +203,10 @@
 
     
     
-<blockquote>
-<p>timetk: A toolkit for time series analysis in R</p>
-</blockquote>
+<p>This vignette covers <strong>time series class conversion</strong> to and from the many time series classes in R including the general data frame (or tibble) and the various time series classes (<code>xts</code>, <code>zoo</code>, and <code>ts</code>).</p>
+<div id="introduction" class="section level1">
+<h1 class="hasAnchor">
+<a href="#introduction" class="anchor"></a>Introduction</h1>
 <p>The time series landscape in R is vast, deep, and complex causing many inconsistencies in data attributes and formats ultimately making it difficult to coerce between the different data structures. The <code>zoo</code> and <code>xts</code> packages solved a number of the issues in dealing with the various classes (<code>ts</code>, <code>zoo</code>, <code>xts</code>, <code>irts</code>, <code>msts</code>, and the list goes on…). However, because these packages deal in classes other than data frame, the issues with conversion between <code>tbl</code> and other time series object classes are still present.</p>
 <p>The <code>timetk</code> package provides tools that solve the issues with conversion, maximizing attribute extensibility (the required data attributes are retained during the conversion to each of the primary time series classes). The following tools are available to coerce and retrieve key information:</p>
 <ul>
@@ -210,6 +214,7 @@
 <li><p><strong>Index function</strong>: <code>tk_index</code> returns the index. When the argument, <code>timetk_idx = TRUE</code>, A time-based index (non-regularized index) of <code>forecast</code> objects, models, and <code>ts</code> objects is returned if present. Refer to <code><a href="../reference/tk_ts.html">tk_ts()</a></code> to learn about non-regularized index persistence during the conversion process.</p></li>
 </ul>
 <p>This vignette includes a brief case study on conversion issues and then a detailed explanation of <code>timetk</code> function conversion between time-based <code>tbl</code> objects and several primary time series classes (<code>xts</code>, <code>zoo</code>, <code>zooreg</code> and <code>ts</code>).</p>
+</div>
 <div id="prerequisites" class="section level1">
 <h1 class="hasAnchor">
 <a href="#prerequisites" class="anchor"></a>Prerequisites</h1>
