@@ -170,6 +170,9 @@ tk_get_timeseries_summary.default <- function(idx) {
 }
 
 get_timeseries_summary_date <- function(idx) {
+
+
+
     idx_numeric <- as.numeric(as.POSIXct(idx))
     idx_diff <- diff(idx_numeric)
     idx_diff_summary <- idx_diff %>%
@@ -180,7 +183,8 @@ get_timeseries_summary_date <- function(idx) {
         ) %>%
         purrr::map_df(~ .x)
 
-    idx_periodicity <- xts::periodicity(idx)
+    suppressWarnings(idx_periodicity <- xts::periodicity(idx))
+
     idx_period_summary <- tibble::tibble(
         start              = idx_periodicity$start,
         end                = idx_periodicity$end,
