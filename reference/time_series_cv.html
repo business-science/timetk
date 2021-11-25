@@ -263,6 +263,7 @@ of the cross validation on the most recent time series data.</p>
   lag <span class='op'>=</span> <span class='fl'>0</span>,
   cumulative <span class='op'>=</span> <span class='cn'>FALSE</span>,
   slice_limit <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/context.html'>n</a></span><span class='op'>(</span><span class='op'>)</span>,
+  point_forecast <span class='op'>=</span> <span class='cn'>FALSE</span>,
   <span class='va'>...</span>
 <span class='op'>)</span></pre>
 
@@ -309,6 +310,11 @@ size specified by <code>initial</code> at each resample?.</p></td>
 which returns the maximum number of slices.</p></td>
     </tr>
     <tr>
+      <th>point_forecast</th>
+      <td><p>Whether or not to have the testing set be a single point forecast or to be a forecast horizon.
+The default is to be a forecast horizon. Default: <code>FALSE</code></p></td>
+    </tr>
+    <tr>
       <th>...</th>
       <td><p>Not currently used.</p></td>
     </tr>
@@ -352,6 +358,13 @@ set and resampling occurs over a fixed window.</p>
 <p><strong>Slice Limit</strong></p>
 <p>This controls the number of slices. If <code>slice_limit = 5</code>, only the most recent
 5 slices will be returned.</p>
+<p><strong>Point Forecast</strong></p>
+<p>A point forecast is sometimes desired such as if you want to forecast a value
+"4-weeks" into the future. You can do this by setting the following parameters:</p><ul>
+<li><p>assess = "4 weeks"</p></li>
+<li><p>point_forecast = TRUE</p></li>
+</ul>
+
 <p><strong>Panel Data / Time Series Groups / Overlapping Timestamps</strong></p>
 <p>Overlapping timestamps occur when your data has more than one
 time series group. This is sometimes called <em>Panel Data</em> or <em>Time Series Groups</em>.</p>

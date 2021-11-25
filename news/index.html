@@ -254,6 +254,12 @@
 <li>
 <a href="https://business-science.github.io/timetk/articles/TK09_Clustering.html">Time Series Clustering:</a> Uses the new <code><a href="../reference/tk_tsfeatures.html">tk_tsfeatures()</a></code> function to perform time series clustering. <a href='https://github.com/business-science/timetk/issues/95'>#95</a> <a href='https://github.com/business-science/timetk/issues/84'>#84</a></li>
 </ul>
+<p><strong>Improvements</strong></p>
+<p>Improvements for <strong>point forecasting</strong> when the target is n-periods into the future.</p>
+<ul>
+<li>
+<code><a href="../reference/time_series_cv.html">time_series_cv()</a></code>, <code><a href="../reference/time_series_split.html">time_series_split()</a></code>: New parameter <code>point_forecast</code>. This is useful for testing / assessing the n-th prediction in the future. When set to <code>TRUE</code>, will return a single point that returns on the last value in <code>assess</code>.</li>
+</ul>
 </div>
     <div id="timetk-262" class="section level1">
 <h1 class="page-header" data-toc-text="2.6.2">
