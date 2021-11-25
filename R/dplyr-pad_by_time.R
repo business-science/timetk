@@ -262,7 +262,7 @@ padder <- function(.data, .date_var, .by = "auto", .pad_value = NA, .fill_na_dir
 
     # Apply the padding
     ret <- .data %>%
-        dplyr::mutate(check_missing = 1) %>%
+        dplyr::mutate(check_row_exists = 1) %>%
         padr::pad(
             by          = rlang::quo_name(date_var_expr),
             interval    = .by,
@@ -278,23 +278,23 @@ padder <- function(.data, .date_var, .by = "auto", .pad_value = NA, .fill_na_dir
 
         # ret <- ret %>%
         #     dplyr::mutate_at(
-        #         .vars = dplyr::vars(-(!! date_var_expr), -check_missing),
+        #         .vars = dplyr::vars(-(!! date_var_expr), -check_row_exists),
         #         .f = function(x) {
-        #             ifelse(is.na(ret$check_missing), .pad_value, x)
+        #             ifelse(is.na(ret$check_row_exists), .pad_value, x)
         #         }
         #     )
 
         # group_names <- dplyr::group_vars(ret)
-        # ret[is.na(ret[['check_missing']]), setdiff(names(ret), c(group_names, date_var_expr))] <- 0
+        # ret[is.na(ret[['check_row_exists']]), setdiff(names(ret), c(group_names, date_var_expr))] <- 0
 
         numeric_cols <- names(ret)[ret %>% purrr::map(is.numeric) %>% unlist()]
-        ret[is.na(ret[['check_missing']]), numeric_cols] <- .pad_value
+        ret[is.na(ret[['check_row_exists']]), numeric_cols] <- .pad_value
 
     }
 
-    # Drop check_missing column
+    # Drop check_row_exists column
     ret <- ret %>%
-        dplyr::select(-check_missing)
+        dplyr::select(-check_row_exists)
 
     # Fill NA
     if (.fill_na_direction != "none") {
