@@ -263,6 +263,7 @@ of the cross validation on the most recent time series data.</p>
   lag <span class='op'>=</span> <span class='fl'>0</span>,
   cumulative <span class='op'>=</span> <span class='cn'>FALSE</span>,
   slice_limit <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/context.html'>n</a></span><span class='op'>(</span><span class='op'>)</span>,
+  point_forecast <span class='op'>=</span> <span class='cn'>FALSE</span>,
   <span class='va'>...</span>
 <span class='op'>)</span></pre>
 
@@ -309,6 +310,11 @@ size specified by <code>initial</code> at each resample?.</p></td>
 which returns the maximum number of slices.</p></td>
     </tr>
     <tr>
+      <th>point_forecast</th>
+      <td><p>Whether or not to have the testing set be a single point forecast or to be a forecast horizon.
+The default is to be a forecast horizon. Default: <code>FALSE</code></p></td>
+    </tr>
+    <tr>
       <th>...</th>
       <td><p>Not currently used.</p></td>
     </tr>
@@ -352,6 +358,13 @@ set and resampling occurs over a fixed window.</p>
 <p><strong>Slice Limit</strong></p>
 <p>This controls the number of slices. If <code>slice_limit = 5</code>, only the most recent
 5 slices will be returned.</p>
+<p><strong>Point Forecast</strong></p>
+<p>A point forecast is sometimes desired such as if you want to forecast a value
+"4-weeks" into the future. You can do this by setting the following parameters:</p><ul>
+<li><p>assess = "4 weeks"</p></li>
+<li><p>point_forecast = TRUE</p></li>
+</ul>
+
 <p><strong>Panel Data / Time Series Groups / Overlapping Timestamps</strong></p>
 <p>Overlapping timestamps occur when your data has more than one
 time series group. This is sometimes called <em>Panel Data</em> or <em>Time Series Groups</em>.</p>
@@ -390,7 +403,7 @@ split containing a training/testing sample.</p></li>
 </div><div class='output co'>#&gt; <span class='message'>Using date_var: date</span></div><div class='input'>
 <span class='va'>resample_spec</span>
 </div><div class='output co'>#&gt; # Time Series Cross Validation Plan 
-#&gt; <span style='color: #949494;'># A tibble: 3 × 2</span>
+#&gt; <span style='color: #949494;'># A tibble: 3 x 2</span>
 #&gt;   splits          id    
 #&gt;   <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>          <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> 
 #&gt; <span style='color: #BCBCBC;'>1</span> <span style='color: #949494;'>&lt;split [72/24]&gt;</span> Slice1
@@ -400,7 +413,7 @@ split containing a training/testing sample.</p></li>
 
 <span class='co'># Select date and value columns from the tscv diagnostic tool</span>
 <span class='va'>resample_spec</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='tk_time_series_cv_plan.html'>tk_time_series_cv_plan</a></span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 288 × 5</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 288 x 5</span>
 #&gt;    .id    .key     id    date       value
 #&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
 #&gt; <span style='color: #BCBCBC;'> 1</span> Slice1 training M750  2007-07-01  <span style='text-decoration: underline;'>8</span>710
@@ -413,7 +426,7 @@ split containing a training/testing sample.</p></li>
 #&gt; <span style='color: #BCBCBC;'> 8</span> Slice1 training M750  2008-02-01  <span style='text-decoration: underline;'>9</span>970
 #&gt; <span style='color: #BCBCBC;'> 9</span> Slice1 training M750  2008-03-01 <span style='text-decoration: underline;'>10</span>120
 #&gt; <span style='color: #BCBCBC;'>10</span> Slice1 training M750  2008-04-01 <span style='text-decoration: underline;'>10</span>150
-#&gt; <span style='color: #949494;'># … with 278 more rows</span></div><div class='input'>
+#&gt; <span style='color: #949494;'># ... with 278 more rows</span></div><div class='input'>
 <span class='co'># Plot the date and value columns to see the CV Plan</span>
 <span class='va'>resample_spec</span> <span class='op'>%&gt;%</span>
     <span class='fu'><a href='plot_time_series_cv_plan.html'>plot_time_series_cv_plan</a></span><span class='op'>(</span><span class='va'>date</span>, <span class='va'>value</span>, .interactive <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
@@ -436,7 +449,7 @@ split containing a training/testing sample.</p></li>
 </div><div class='output co'>#&gt; <span class='message'>Data is not ordered by the 'date_var'. Resamples will be arranged by `Date`.</span></div><div class='output co'>#&gt; <span class='message'>Overlapping Timestamps Detected. Processing overlapping time series together using sliding windows.</span></div><div class='input'>
 <span class='va'>walmart_tscv</span>
 </div><div class='output co'>#&gt; # Time Series Cross Validation Plan 
-#&gt; <span style='color: #949494;'># A tibble: 4 × 2</span>
+#&gt; <span style='color: #949494;'># A tibble: 4 x 2</span>
 #&gt;   splits           id    
 #&gt;   <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>           <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> 
 #&gt; <span style='color: #BCBCBC;'>1</span> <span style='color: #949494;'>&lt;split [364/84]&gt;</span> Slice1

@@ -259,6 +259,7 @@ train/test split.</p>
   lag <span class='op'>=</span> <span class='fl'>0</span>,
   cumulative <span class='op'>=</span> <span class='cn'>FALSE</span>,
   slice <span class='op'>=</span> <span class='fl'>1</span>,
+  point_forecast <span class='op'>=</span> <span class='cn'>FALSE</span>,
   <span class='va'>...</span>
 <span class='op'>)</span></pre>
 
@@ -302,6 +303,11 @@ size specified by <code>initial</code> at each resample?.</p></td>
     <tr>
       <th>slice</th>
       <td><p>Returns a single slice from <a href='time_series_cv.html'>time_series_cv</a></p></td>
+    </tr>
+    <tr>
+      <th>point_forecast</th>
+      <td><p>Whether or not to have the testing set be a single point forecast or to be a forecast horizon.
+The default is to be a forecast horizon. Default: <code>FALSE</code></p></td>
     </tr>
     <tr>
       <th>...</th>

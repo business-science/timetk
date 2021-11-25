@@ -305,7 +305,7 @@ line color</p></td>
     <tr>
       <th>.facet_vars</th>
       <td><p>One or more grouping columns that broken out into <code>ggplot2</code> facets.
-These can be selected using <code>tidyselect()</code> helpers (e.g <code><a href='https://tidyselect.r-lib.org/reference/starts_with.html'>contains()</a></code>).</p></td>
+These can be selected using <code>tidyselect()</code> helpers (e.g <code>contains()</code>).</p></td>
     </tr>
     <tr>
       <th>.facet_ncol</th>
@@ -438,7 +438,7 @@ Either 0, 1, 2 (0 = lest flexible, 2 = more flexible).</p></td>
 <p>By default, an interactive <code>plotly</code> visualization is returned.</p>
 <p><strong>Scalable with Facets &amp; Dplyr Groups</strong></p>
 <p><code>plot_time_series()</code> returns multiple time series plots using <code>ggplot2</code> facets:</p><ul>
-<li><p><code><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by()</a></code> - If groups are detected, multiple facets are returned</p></li>
+<li><p><code>group_by()</code> - If groups are detected, multiple facets are returned</p></li>
 <li><p><code>plot_time_series(.facet_vars)</code> - You can manually supply facets as well.</p></li>
 </ul>
 
@@ -468,19 +468,19 @@ or a numeric value (e.g. <code>smooth_period = 365</code>).</p>
 
 <span class='co'># Works with individual time series</span>
 <span class='va'>FANG</span> <span class='op'>%&gt;%</span>
-    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>symbol</span> <span class='op'>==</span> <span class='st'>"FB"</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+    <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>symbol</span> <span class='op'>==</span> <span class='st'>"FB"</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
     <span class='fu'>plot_time_series</span><span class='op'>(</span><span class='va'>date</span>, <span class='va'>adjusted</span>, .interactive <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 </div><div class='img'><img src='plot_time_series-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Works with groups</span>
 <span class='va'>FANG</span> <span class='op'>%&gt;%</span>
-    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>symbol</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+    <span class='fu'>group_by</span><span class='op'>(</span><span class='va'>symbol</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
     <span class='fu'>plot_time_series</span><span class='op'>(</span><span class='va'>date</span>, <span class='va'>adjusted</span>,
                      .facet_ncol  <span class='op'>=</span> <span class='fl'>2</span>,     <span class='co'># 2-column layout</span>
                      .interactive <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 </div><div class='img'><img src='plot_time_series-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Can also group inside &amp; use .color_var</span>
 <span class='va'>FANG</span> <span class='op'>%&gt;%</span>
-    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>year <span class='op'>=</span> <span class='fu'><a href='https://lubridate.tidyverse.org/reference/year.html'>year</a></span><span class='op'>(</span><span class='va'>date</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+    <span class='fu'>mutate</span><span class='op'>(</span>year <span class='op'>=</span> <span class='fu'><a href='https://lubridate.tidyverse.org/reference/year.html'>year</a></span><span class='op'>(</span><span class='va'>date</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
     <span class='fu'>plot_time_series</span><span class='op'>(</span><span class='va'>date</span>, <span class='va'>adjusted</span>,
                      .facet_vars   <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>symbol</span>, <span class='va'>year</span><span class='op'>)</span>, <span class='co'># add groups/facets</span>
                      .color_var    <span class='op'>=</span> <span class='va'>year</span>,            <span class='co'># color by year</span>
@@ -494,7 +494,7 @@ or a numeric value (e.g. <code>smooth_period = 365</code>).</p>
 <span class='va'>FANG</span> <span class='op'>%&gt;%</span>
     <span class='fu'>plot_time_series</span><span class='op'>(</span><span class='va'>date</span>, <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='va'>adjusted</span><span class='op'>)</span>,
                      .color_var    <span class='op'>=</span> <span class='fu'><a href='https://lubridate.tidyverse.org/reference/year.html'>year</a></span><span class='op'>(</span><span class='va'>date</span><span class='op'>)</span>,
-                     .facet_vars   <span class='op'>=</span> <span class='fu'><a href='https://tidyselect.r-lib.org/reference/starts_with.html'>contains</a></span><span class='op'>(</span><span class='st'>"symbol"</span><span class='op'>)</span>,
+                     .facet_vars   <span class='op'>=</span> <span class='fu'>contains</span><span class='op'>(</span><span class='st'>"symbol"</span><span class='op'>)</span>,
                      .facet_ncol   <span class='op'>=</span> <span class='fl'>2</span>,
                      .facet_scales <span class='op'>=</span> <span class='st'>"free"</span>,
                      .y_lab        <span class='op'>=</span> <span class='st'>"Log Scale"</span>,

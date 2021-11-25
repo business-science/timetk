@@ -368,7 +368,7 @@ The name will be the name of the variable in the result.</p>
         <span class='co'># Summarization</span>
         value  <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/nth.html'>first</a></span><span class='op'>(</span><span class='va'>value</span><span class='op'>)</span>
     <span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 323 × 3</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 323 x 3</span>
 #&gt; <span style='color: #949494;'># Groups:   id [4]</span>
 #&gt;    id    date       value
 #&gt;    <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
@@ -382,7 +382,7 @@ The name will be the name of the variable in the result.</p>
 #&gt; <span style='color: #BCBCBC;'> 8</span> D10   2015-02-01 <span style='text-decoration: underline;'>2</span>286.
 #&gt; <span style='color: #BCBCBC;'> 9</span> D10   2015-03-01 <span style='text-decoration: underline;'>2</span>291.
 #&gt; <span style='color: #BCBCBC;'>10</span> D10   2015-04-01 <span style='text-decoration: underline;'>2</span>396.
-#&gt; <span style='color: #949494;'># … with 313 more rows</span></div><div class='input'>
+#&gt; <span style='color: #949494;'># ... with 313 more rows</span></div><div class='input'>
 <span class='co'># Last value in each month (day is first day of next month with ceiling option)</span>
 <span class='va'>m4_daily</span> <span class='op'>%&gt;%</span>
     <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>id</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
@@ -393,7 +393,7 @@ The name will be the name of the variable in the result.</p>
     <span class='op'>)</span> <span class='op'>%&gt;%</span>
     <span class='co'># Shift to the last day of the month</span>
     <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>date <span class='op'>=</span> <span class='va'>date</span> <span class='op'>%-time%</span> <span class='st'>"1 day"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>.date_var is missing. Using: date</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 323 × 3</span>
+</div><div class='output co'>#&gt; <span class='message'>.date_var is missing. Using: date</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 323 x 3</span>
 #&gt; <span style='color: #949494;'># Groups:   id [4]</span>
 #&gt;    id    date       value
 #&gt;    <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
@@ -407,7 +407,7 @@ The name will be the name of the variable in the result.</p>
 #&gt; <span style='color: #BCBCBC;'> 8</span> D10   2015-02-28 <span style='text-decoration: underline;'>2</span>293.
 #&gt; <span style='color: #BCBCBC;'> 9</span> D10   2015-03-31 <span style='text-decoration: underline;'>2</span>392.
 #&gt; <span style='color: #BCBCBC;'>10</span> D10   2015-04-30 <span style='text-decoration: underline;'>2</span>368.
-#&gt; <span style='color: #949494;'># … with 313 more rows</span></div><div class='input'>
+#&gt; <span style='color: #949494;'># ... with 313 more rows</span></div><div class='input'>
 <span class='co'># Total each year (.by is set to "year" now)</span>
 <span class='va'>m4_daily</span> <span class='op'>%&gt;%</span>
     <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>id</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
@@ -415,7 +415,7 @@ The name will be the name of the variable in the result.</p>
         .by        <span class='op'>=</span> <span class='st'>"year"</span>,
         value      <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>value</span><span class='op'>)</span>
     <span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>.date_var is missing. Using: date</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 30 × 3</span>
+</div><div class='output co'>#&gt; <span class='message'>.date_var is missing. Using: date</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 30 x 3</span>
 #&gt; <span style='color: #949494;'># Groups:   id [4]</span>
 #&gt;    id    date          value
 #&gt;    <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>        <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
@@ -429,7 +429,7 @@ The name will be the name of the variable in the result.</p>
 #&gt; <span style='color: #BCBCBC;'> 8</span> D160  2004-01-01 5<span style='text-decoration: underline;'>424</span>860 
 #&gt; <span style='color: #BCBCBC;'> 9</span> D160  2005-01-01 6<span style='text-decoration: underline;'>127</span>995.
 #&gt; <span style='color: #BCBCBC;'>10</span> D160  2006-01-01 3<span style='text-decoration: underline;'>694</span>712.
-#&gt; <span style='color: #949494;'># … with 20 more rows</span></div><div class='input'>
+#&gt; <span style='color: #949494;'># ... with 20 more rows</span></div><div class='input'>
 
 </div></pre>
   </div>
