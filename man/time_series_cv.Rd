@@ -13,6 +13,7 @@ time_series_cv(
   lag = 0,
   cumulative = FALSE,
   slice_limit = n(),
+  point_forecast = FALSE,
   ...
 )
 }
@@ -39,6 +40,9 @@ size specified by \code{initial} at each resample?.}
 
 \item{slice_limit}{The number of slices to return. Set to \code{dplyr::n()},
 which returns the maximum number of slices.}
+
+\item{point_forecast}{Whether or not to have the testing set be a single point forecast or to be a forecast horizon.
+The default is to be a forecast horizon. Default: \code{FALSE}}
 
 \item{...}{Not currently used.}
 }
@@ -99,6 +103,15 @@ set and resampling occurs over a fixed window.
 
 This controls the number of slices. If \code{slice_limit = 5}, only the most recent
 5 slices will be returned.
+
+\strong{Point Forecast}
+
+A point forecast is sometimes desired such as if you want to forecast a value
+"4-weeks" into the future. You can do this by setting the following parameters:
+\itemize{
+\item assess = "4 weeks"
+\item point_forecast = TRUE
+}
 
 \strong{Panel Data / Time Series Groups / Overlapping Timestamps}
 

@@ -15,6 +15,8 @@
 #'  during training and testing.
 #' @param slice_limit The number of slices to return. Set to `dplyr::n()`,
 #'  which returns the maximum number of slices.
+#' @param point_forecast Whether or not to have the testing set be a single point forecast or to be a forecast horizon.
+#'  The default is to be a forecast horizon. Default: `FALSE`
 #'
 #' @details
 #'
@@ -61,6 +63,14 @@
 #'
 #' This controls the number of slices. If `slice_limit = 5`, only the most recent
 #' 5 slices will be returned.
+#'
+#' __Point Forecast__
+#'
+#' A point forecast is sometimes desired such as if you want to forecast a value
+#' "4-weeks" into the future. You can do this by setting the following parameters:
+#'
+#' - assess = "4 weeks"
+#' - point_forecast = TRUE
 #'
 #' __Panel Data / Time Series Groups / Overlapping Timestamps__
 #'
@@ -138,7 +148,7 @@
 #' @importFrom dplyr n
 time_series_cv <- function(data, date_var = NULL, initial = 5, assess = 1,
                            skip = 1, lag = 0, cumulative = FALSE,
-                           slice_limit = n(), ...) {
+                           slice_limit = n(), point_forecast = FALSE, ...) {
 
     if (!inherits(data, "data.frame")) rlang::abort("'data' must be an object of class `data.frame`.")
     if (inherits(data, "grouped_df")) message("Groups detected. Removing groups.")
@@ -168,7 +178,7 @@ time_series_cv <- function(data, date_var = NULL, initial = 5, assess = 1,
     lookup_table <- data %>%
         tibble::rowid_to_column(".rowid")
 
-    # print(lookup_table %>% tail(12))
+    # print(lookup_table)
 
     index_table_min <- lookup_table %>%
         dplyr::select(.rowid, !! date_var_expr) %>%
@@ -184,7 +194,7 @@ time_series_cv <- function(data, date_var = NULL, initial = 5, assess = 1,
         dplyr::ungroup() %>%
         dplyr::mutate(idx = 1:dplyr::n())
 
-    # print(index_table %>% tail(12))
+    # print(index_table_max)
 
     timestamps_duplicated <- FALSE
     if (nrow(data) > nrow(index_table_min)) {
@@ -289,9 +299,18 @@ time_series_cv <- function(data, date_var = NULL, initial = 5, assess = 1,
     stops_lag_conv    <- get_row_ids(stops + 1 - lag, type = "min")
     stops_assess_conv <- get_row_ids(stops + assess, type = "max")
 
+
+
     # 6.0 SELECT INDICIES -----
     in_ind  <- mapply(seq, starts_conv, stops_conv, SIMPLIFY = FALSE)
-    out_ind <- mapply(seq, stops_lag_conv, stops_assess_conv, SIMPLIFY = FALSE)
+
+    if (!point_forecast) {
+        out_ind <- mapply(seq, stops_lag_conv, stops_assess_conv, SIMPLIFY = FALSE)
+    } else {
+        stops_assess_conv_min <- get_row_ids(stops + assess, type = "min")
+        out_ind <- mapply(seq, stops_assess_conv_min, stops_assess_conv, SIMPLIFY = FALSE)
+    }
+
 
     # message("in_ind")
     # print(in_ind)

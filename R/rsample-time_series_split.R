@@ -95,19 +95,21 @@
 #'
 #' @export
 time_series_split <- function(data, date_var = NULL, initial = 5, assess = 1,
-                              skip = 1, lag = 0, cumulative = FALSE, slice = 1, ...) {
+                              skip = 1, lag = 0, cumulative = FALSE, slice = 1,
+                              point_forecast = FALSE, ...) {
 
     date_var_expr <- rlang::enquo(date_var)
 
     time_series_cv(
         data,
-        date_var    = !! date_var_expr,
-        initial     = initial,
-        assess      = assess,
-        skip        = skip,
-        lag         = lag,
-        cumulative  = cumulative,
-        slice_limit = slice
+        date_var       = !! date_var_expr,
+        initial        = initial,
+        assess         = assess,
+        skip           = skip,
+        lag            = lag,
+        cumulative     = cumulative,
+        slice_limit    = slice,
+        point_forecast = point_forecast
     ) %>%
         dplyr::slice(slice) %>%
         purrr::pluck("splits", 1)

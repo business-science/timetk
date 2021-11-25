@@ -13,6 +13,7 @@ time_series_split(
   lag = 0,
   cumulative = FALSE,
   slice = 1,
+  point_forecast = FALSE,
   ...
 )
 }
@@ -38,6 +39,9 @@ during training and testing.}
 size specified by \code{initial} at each resample?.}
 
 \item{slice}{Returns a single slice from \link{time_series_cv}}
+
+\item{point_forecast}{Whether or not to have the testing set be a single point forecast or to be a forecast horizon.
+The default is to be a forecast horizon. Default: \code{FALSE}}
 
 \item{...}{Not currently used.}
 }
