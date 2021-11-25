@@ -37,6 +37,14 @@
 #' - The eight intervals in are: year, quarter, month, week, day, hour, min, and sec.
 #' - Intervals like 5 minutes, 6 hours, 10 days are possible.
 #'
+#' __Pad Value, .pad_value__
+#'
+#' A pad value can be supplied that fills in missing numeric data. Note that this is only applied to numeric columns.
+#'
+#' __Fill NA Direction, .fill_na_directions__
+#'
+#' Uses `tidyr::fill()` to fill missing observations using a fill strategy.
+#'
 #' @seealso
 #'
 #' Imputation:
@@ -104,6 +112,11 @@
 #' FANG %>%
 #'     group_by(symbol) %>%
 #'     pad_by_time(.by = "day")
+#'
+#' # Apply constant pad value
+#' FANG %>%
+#'     group_by(symbol) %>%
+#'     pad_by_time(.by = "day", .pad_value = 0)
 #'
 #' # Apply filled padding to groups
 #' FANG %>%
@@ -224,10 +237,12 @@ parse_date_by <- function(.date, .by, idx) {
 }
 
 padder <- function(.data, .date_var, .by = "auto", .pad_value = NA, .fill_na_direction = "none",
-                           .start_date = NULL, .end_date = NULL,
-                           .group = NULL, .stop_padding_if = 10e6) {
+                   .start_date = NULL, .end_date = NULL,
+                   .group = NULL, .stop_padding_if = 10e6) {
 
     date_var_expr <- rlang::enquo(.date_var)
+    date_text     <- rlang::as_label(date_var_expr)
+
     .fill_na_direction <- tolower(.fill_na_direction[1])
 
     if (rlang::quo_is_missing(date_var_expr)) {
@@ -260,13 +275,21 @@ padder <- function(.data, .date_var, .by = "auto", .pad_value = NA, .fill_na_dir
     # Replace fill values
     if (!is.na(.pad_value)) {
         # ret[is.na(ret)] <- .pad_value
-        ret <- ret %>%
-            dplyr::mutate_at(
-                .vars = dplyr::vars(-(!! date_var_expr), -check_missing),
-                .f = function(x) {
-                    ifelse(is.na(ret$check_missing), .pad_value, x)
-                }
-            )
+
+        # ret <- ret %>%
+        #     dplyr::mutate_at(
+        #         .vars = dplyr::vars(-(!! date_var_expr), -check_missing),
+        #         .f = function(x) {
+        #             ifelse(is.na(ret$check_missing), .pad_value, x)
+        #         }
+        #     )
+
+        # group_names <- dplyr::group_vars(ret)
+        # ret[is.na(ret[['check_missing']]), setdiff(names(ret), c(group_names, date_var_expr))] <- 0
+
+        numeric_cols <- names(ret)[ret %>% purrr::map(is.numeric) %>% unlist()]
+        ret[is.na(ret[['check_missing']]), numeric_cols] <- .pad_value
+
     }
 
     # Drop check_missing column

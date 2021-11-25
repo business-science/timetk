@@ -314,6 +314,10 @@ This is possible by supplying a higher frequency to <code>pad_by_time()</code>.<
 <li><p>Intervals like 5 minutes, 6 hours, 10 days are possible.</p></li>
 </ul>
 
+<p><strong>Pad Value, .pad_value</strong></p>
+<p>A pad value can be supplied that fills in missing numeric data. Note that this is only applied to numeric columns.</p>
+<p><strong>Fill NA Direction, .fill_na_directions</strong></p>
+<p>Uses <code><a href='https://tidyr.tidyverse.org/reference/fill.html'>tidyr::fill()</a></code> to fill missing observations using a fill strategy.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     
@@ -352,7 +356,7 @@ This is possible by supplying a higher frequency to <code>pad_by_time()</code>.<
 <span class='op'>)</span> <span class='op'>%&gt;%</span>
     <span class='fu'><a href='https://dplyr.tidyverse.org/reference/slice.html'>slice</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>4</span><span class='op'>)</span> <span class='co'># Lose the 4th quarter on purpose</span>
 <span class='va'>missing_data_tbl</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 4 × 2</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 4 x 2</span>
 #&gt;   date       value
 #&gt;   <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>
 #&gt; <span style='color: #BCBCBC;'>1</span> 2014-01-01     1
@@ -362,7 +366,7 @@ This is possible by supplying a higher frequency to <code>pad_by_time()</code>.<
 
 <span class='co'># Detects missing quarter, and pads the missing regularly spaced quarter with NA</span>
 <span class='va'>missing_data_tbl</span> <span class='op'>%&gt;%</span> <span class='fu'>pad_by_time</span><span class='op'>(</span><span class='va'>date</span>, .by <span class='op'>=</span> <span class='st'>"quarter"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 5 × 2</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: The `.dots` argument of `group_by()` is deprecated as of dplyr 1.0.0.</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 5 x 2</span>
 #&gt;   date       value
 #&gt;   <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>
 #&gt; <span style='color: #BCBCBC;'>1</span> 2014-01-01     1
@@ -372,7 +376,7 @@ This is possible by supplying a higher frequency to <code>pad_by_time()</code>.<
 #&gt; <span style='color: #BCBCBC;'>5</span> 2015-01-01     5</div><div class='input'>
 <span class='co'># Can specify a shorter period. This fills monthly.</span>
 <span class='va'>missing_data_tbl</span> <span class='op'>%&gt;%</span> <span class='fu'>pad_by_time</span><span class='op'>(</span><span class='va'>date</span>, .by <span class='op'>=</span> <span class='st'>"month"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 13 × 2</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 13 x 2</span>
 #&gt;    date       value
 #&gt;    <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>
 #&gt; <span style='color: #BCBCBC;'> 1</span> 2014-01-01     1
@@ -390,7 +394,7 @@ This is possible by supplying a higher frequency to <code>pad_by_time()</code>.<
 #&gt; <span style='color: #BCBCBC;'>13</span> 2015-01-01     5</div><div class='input'>
 <span class='co'># Can let pad_by_time() auto-detect date and period</span>
 <span class='va'>missing_data_tbl</span> <span class='op'>%&gt;%</span> <span class='fu'>pad_by_time</span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>.date_var is missing. Using: date</span></div><div class='output co'>#&gt; <span class='message'>pad applied on the interval: quarter</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 5 × 2</span>
+</div><div class='output co'>#&gt; <span class='message'>.date_var is missing. Using: date</span></div><div class='output co'>#&gt; <span class='message'>pad applied on the interval: quarter</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 5 x 2</span>
 #&gt;   date       value
 #&gt;   <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>
 #&gt; <span style='color: #BCBCBC;'>1</span> 2014-01-01     1
@@ -400,9 +404,9 @@ This is possible by supplying a higher frequency to <code>pad_by_time()</code>.<
 #&gt; <span style='color: #BCBCBC;'>5</span> 2015-01-01     5</div><div class='input'>
 <span class='co'># Can specify a .pad_value</span>
 <span class='va'>missing_data_tbl</span> <span class='op'>%&gt;%</span> <span class='fu'>pad_by_time</span><span class='op'>(</span><span class='va'>date</span>, .by <span class='op'>=</span> <span class='st'>"quarter"</span>, .pad_value <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 5 × 2</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 5 x 2</span>
 #&gt;   date       value
-#&gt;   <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>
 #&gt; <span style='color: #BCBCBC;'>1</span> 2014-01-01     1
 #&gt; <span style='color: #BCBCBC;'>2</span> 2014-04-01     2
 #&gt; <span style='color: #BCBCBC;'>3</span> 2014-07-01     3
@@ -412,7 +416,7 @@ This is possible by supplying a higher frequency to <code>pad_by_time()</code>.<
 <span class='va'>missing_data_tbl</span> <span class='op'>%&gt;%</span>
     <span class='fu'>pad_by_time</span><span class='op'>(</span><span class='va'>date</span>, .by <span class='op'>=</span> <span class='st'>"quarter"</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
     <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>value <span class='op'>=</span> <span class='fu'><a href='ts_impute_vec.html'>ts_impute_vec</a></span><span class='op'>(</span><span class='va'>value</span>, period <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 5 × 2</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 5 x 2</span>
 #&gt;   date       value
 #&gt;   <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
 #&gt; <span style='color: #BCBCBC;'>1</span> 2014-01-01     1
@@ -423,7 +427,7 @@ This is possible by supplying a higher frequency to <code>pad_by_time()</code>.<
 <span class='co'># Can specify a custom .start_date and .end_date</span>
 <span class='va'>missing_data_tbl</span> <span class='op'>%&gt;%</span>
    <span class='fu'>pad_by_time</span><span class='op'>(</span><span class='va'>date</span>, .by <span class='op'>=</span> <span class='st'>"quarter"</span>, .start_date <span class='op'>=</span> <span class='st'>"2013"</span>, .end_date <span class='op'>=</span> <span class='st'>"2015-07-01"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 11 × 2</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 11 x 2</span>
 #&gt;    date       value
 #&gt;    <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>
 #&gt; <span style='color: #BCBCBC;'> 1</span> 2013-01-01    <span style='color: #BB0000;'>NA</span>
@@ -442,7 +446,7 @@ This is possible by supplying a higher frequency to <code>pad_by_time()</code>.<
    <span class='fu'>pad_by_time</span><span class='op'>(</span><span class='va'>date</span>, .by <span class='op'>=</span> <span class='st'>"quarter"</span>,
                .fill_na_direction <span class='op'>=</span> <span class='st'>"downup"</span>,
                .start_date <span class='op'>=</span> <span class='st'>"2013"</span>, .end_date <span class='op'>=</span> <span class='st'>"2015-07-01"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 11 × 2</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 11 x 2</span>
 #&gt;    date       value
 #&gt;    <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>
 #&gt; <span style='color: #BCBCBC;'> 1</span> 2013-01-01     1
@@ -462,7 +466,7 @@ This is possible by supplying a higher frequency to <code>pad_by_time()</code>.<
 <span class='va'>FANG</span> <span class='op'>%&gt;%</span>
     <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>symbol</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
     <span class='fu'>pad_by_time</span><span class='op'>(</span>.by <span class='op'>=</span> <span class='st'>"day"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>.date_var is missing. Using: date</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 5,836 × 8</span>
+</div><div class='output co'>#&gt; <span class='message'>.date_var is missing. Using: date</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 5,836 x 8</span>
 #&gt; <span style='color: #949494;'># Groups:   symbol [4]</span>
 #&gt;    symbol date        open  high   low close  volume adjusted
 #&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
@@ -476,12 +480,31 @@ This is possible by supplying a higher frequency to <code>pad_by_time()</code>.<
 #&gt; <span style='color: #BCBCBC;'> 8</span> AMZN   2013-01-09  268.  270.  265.  266. 2<span style='text-decoration: underline;'>265</span>600     266.
 #&gt; <span style='color: #BCBCBC;'> 9</span> AMZN   2013-01-10  269.  269.  262.  265. 2<span style='text-decoration: underline;'>863</span>400     265.
 #&gt; <span style='color: #BCBCBC;'>10</span> AMZN   2013-01-11  265.  268.  264.  268. 2<span style='text-decoration: underline;'>413</span>300     268.
-#&gt; <span style='color: #949494;'># … with 5,826 more rows</span></div><div class='input'>
+#&gt; <span style='color: #949494;'># ... with 5,826 more rows</span></div><div class='input'>
+<span class='co'># Apply constant pad value</span>
+<span class='va'>FANG</span> <span class='op'>%&gt;%</span>
+    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>symbol</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+    <span class='fu'>pad_by_time</span><span class='op'>(</span>.by <span class='op'>=</span> <span class='st'>"day"</span>, .pad_value <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>.date_var is missing. Using: date</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 5,836 x 8</span>
+#&gt; <span style='color: #949494;'># Groups:   symbol [4]</span>
+#&gt;    symbol date        open  high   low close  volume adjusted
+#&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
+#&gt; <span style='color: #BCBCBC;'> 1</span> AMZN   2013-01-02  256.  258.  253.  257. 3<span style='text-decoration: underline;'>271</span>000     257.
+#&gt; <span style='color: #BCBCBC;'> 2</span> AMZN   2013-01-03  257.  261.  256.  258. 2<span style='text-decoration: underline;'>750</span>900     258.
+#&gt; <span style='color: #BCBCBC;'> 3</span> AMZN   2013-01-04  258.  260.  257.  259. 1<span style='text-decoration: underline;'>874</span>200     259.
+#&gt; <span style='color: #BCBCBC;'> 4</span> AMZN   2013-01-05    0     0     0     0        0       0 
+#&gt; <span style='color: #BCBCBC;'> 5</span> AMZN   2013-01-06    0     0     0     0        0       0 
+#&gt; <span style='color: #BCBCBC;'> 6</span> AMZN   2013-01-07  263.  270.  263.  268. 4<span style='text-decoration: underline;'>910</span>000     268.
+#&gt; <span style='color: #BCBCBC;'> 7</span> AMZN   2013-01-08  267.  269.  264.  266. 3<span style='text-decoration: underline;'>010</span>700     266.
+#&gt; <span style='color: #BCBCBC;'> 8</span> AMZN   2013-01-09  268.  270.  265.  266. 2<span style='text-decoration: underline;'>265</span>600     266.
+#&gt; <span style='color: #BCBCBC;'> 9</span> AMZN   2013-01-10  269.  269.  262.  265. 2<span style='text-decoration: underline;'>863</span>400     265.
+#&gt; <span style='color: #BCBCBC;'>10</span> AMZN   2013-01-11  265.  268.  264.  268. 2<span style='text-decoration: underline;'>413</span>300     268.
+#&gt; <span style='color: #949494;'># ... with 5,826 more rows</span></div><div class='input'>
 <span class='co'># Apply filled padding to groups</span>
 <span class='va'>FANG</span> <span class='op'>%&gt;%</span>
     <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>symbol</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
     <span class='fu'>pad_by_time</span><span class='op'>(</span>.by <span class='op'>=</span> <span class='st'>"day"</span>, .fill_na_direction <span class='op'>=</span> <span class='st'>"down"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>.date_var is missing. Using: date</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 5,836 × 8</span>
+</div><div class='output co'>#&gt; <span class='message'>.date_var is missing. Using: date</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 5,836 x 8</span>
 #&gt; <span style='color: #949494;'># Groups:   symbol [4]</span>
 #&gt;    symbol date        open  high   low close  volume adjusted
 #&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
@@ -495,7 +518,7 @@ This is possible by supplying a higher frequency to <code>pad_by_time()</code>.<
 #&gt; <span style='color: #BCBCBC;'> 8</span> AMZN   2013-01-09  268.  270.  265.  266. 2<span style='text-decoration: underline;'>265</span>600     266.
 #&gt; <span style='color: #BCBCBC;'> 9</span> AMZN   2013-01-10  269.  269.  262.  265. 2<span style='text-decoration: underline;'>863</span>400     265.
 #&gt; <span style='color: #BCBCBC;'>10</span> AMZN   2013-01-11  265.  268.  264.  268. 2<span style='text-decoration: underline;'>413</span>300     268.
-#&gt; <span style='color: #949494;'># … with 5,826 more rows</span></div><div class='input'>
+#&gt; <span style='color: #949494;'># ... with 5,826 more rows</span></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

@@ -59,6 +59,14 @@ Padding can be applied in the following ways:
 \item The eight intervals in are: year, quarter, month, week, day, hour, min, and sec.
 \item Intervals like 5 minutes, 6 hours, 10 days are possible.
 }
+
+\strong{Pad Value, .pad_value}
+
+A pad value can be supplied that fills in missing numeric data. Note that this is only applied to numeric columns.
+
+\strong{Fill NA Direction, .fill_na_directions}
+
+Uses \code{tidyr::fill()} to fill missing observations using a fill strategy.
 }
 \examples{
 library(tidyverse)
@@ -107,6 +115,11 @@ missing_data_tbl \%>\%
 FANG \%>\%
     group_by(symbol) \%>\%
     pad_by_time(.by = "day")
+
+# Apply constant pad value
+FANG \%>\%
+    group_by(symbol) \%>\%
+    pad_by_time(.by = "day", .pad_value = 0)
 
 # Apply filled padding to groups
 FANG \%>\%
