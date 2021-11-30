@@ -63,7 +63,7 @@ tk_augment_differences <- function(.data,
     # Checks
     column_expr <- enquo(.value)
     if (rlang::quo_is_missing(column_expr)) stop(call. = FALSE, "tk_augment_differences(.value) is missing.")
-    if (rlang::is_missing(.lags)) stop(call. = FALSE, "tk_augment_differences(.lags) is missing.")
+    # if (rlang::is_missing(.lags)) stop(call. = FALSE, "tk_augment_differences(.lags) is missing.")
     # if (rlang::is_missing(.differences)) stop(call. = FALSE, "tk_augment_differences(.differences) is missing.")
     if (!any(.names == "auto")) {
         if (length(.names) != length(.lags) * length(.differences)) {

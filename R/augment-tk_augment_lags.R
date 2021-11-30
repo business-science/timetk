@@ -72,7 +72,7 @@ tk_augment_lags <- function(.data,
     column_expr <- enquo(.value)
 
     if (rlang::quo_is_missing(column_expr)) stop(call. = FALSE, "tk_augment_lags(.value) is missing.")
-    if (rlang::is_missing(.lags)) stop(call. = FALSE, "tk_augment_lags(.lags) is missing.")
+    # if (rlang::is_missing(.lags)) stop(call. = FALSE, "tk_augment_lags(.lags) is missing.")
 
     UseMethod("tk_augment_lags", .data)
 }
@@ -165,7 +165,7 @@ tk_augment_leads <- function(.data,
     column_expr <- enquo(.value)
 
     if (rlang::quo_is_missing(column_expr)) stop(call. = FALSE, "tk_augment_leads(.value) is missing.")
-    if (rlang::is_missing(.lags)) stop(call. = FALSE, "tk_augment_leads(.lags) is missing.")
+    # if (rlang::is_missing(.lags)) stop(call. = FALSE, "tk_augment_leads(.lags) is missing.")
 
     UseMethod("tk_augment_leads", .data)
 }

@@ -286,7 +286,7 @@ tk_make_timeseries <- function(start_date, end_date, by, length_out = NULL,
 
         # Drop last value if length_out is character
         # - This happens because the end_date is 1 period longer than the desired length out
-        if (!rlang::is_missing(length_out)) {
+        if (!is.null(length_out)) {
             if (is.character(length_out)) {
                 seq <- seq[1:(length(seq)-1)]
             }
@@ -324,7 +324,7 @@ tk_make_timeseries <- function(start_date, end_date, by, length_out = NULL,
         # Handle character length_out
         drop_end_1   <- FALSE
         drop_begin_1 <- FALSE
-        if (!rlang::is_missing(length_out)) {
+        if (!is.null(length_out)) {
             if (is.character(length_out)) {
                 if (!rlang::is_missing(start_date)) {
                     end_date <- start_date %+time% length_out
