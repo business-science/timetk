@@ -85,6 +85,7 @@
 #'     )
 #'
 #' @name tk_tsfeatures
+#' @importFrom stats na.pass
 #' @export
 tk_tsfeatures <- function(
     .data,
@@ -139,7 +140,7 @@ tk_tsfeatures.data.frame <- function(
     # Check if numeric period is supplied
     if (!is.numeric(.period)) {
         .period <- .data %>%
-            pull(!! rlang::enquo(.date_var)) %>%
+            dplyr::pull(!! rlang::enquo(.date_var)) %>%
             tk_get_frequency(
                 period = .period,
                 message = !.silent
@@ -203,7 +204,7 @@ tk_tsfeatures.grouped_df <- function(
             # Check if numeric period is supplied
             if (!is.numeric(.period)) {
                 .period <- df %>%
-                    pull(!! date_var_expr) %>%
+                    dplyr::pull(!! date_var_expr) %>%
                     tk_get_frequency(
                         period = .period,
                         message = !.silent
@@ -233,7 +234,7 @@ tk_tsfeatures.grouped_df <- function(
         dplyr::rename_with(.fn = ~ stringr::str_c(.prefix, .))
 
     ret <- dplyr::bind_cols(
-        data_nested %>% select(!!! group_exprs),
+        data_nested %>% dplyr::select(!!! group_exprs),
         ts_features
     )
 
