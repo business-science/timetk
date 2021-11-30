@@ -14,6 +14,10 @@ Improvements for __point forecasting__ when the target is n-periods into the fut
 
 - `time_series_cv()`, `time_series_split()`: New parameter `point_forecast`. This is useful for testing / assessing the n-th prediction in the future. When set to `TRUE`, will return a single point that returns on the last value in `assess`.  
 
+__Fixes__
+
+- Updates for rlang > 0.4.11 (dev version) #98
+
 # timetk 2.6.2
 
 __Improvements__
