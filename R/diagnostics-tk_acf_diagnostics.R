@@ -191,7 +191,7 @@ tk_acf_diagnostics.data.frame <- function(.data, .date_var, .value, .ccf_vars = 
                 .[(length(.) - (lag_max - lag_min)):length(.)]
         }) %>%
         dplyr::bind_cols() %>%
-        dplyr::rename_all(~ str_c("CCF_", .))
+        dplyr::rename_all(~ stringr::str_c("CCF_", .))
 
     ret <- tibble::tibble(
         ACF  = acf_values,
