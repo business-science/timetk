@@ -6,8 +6,8 @@ template:
       google: Roboto
     heading_font:
       google: Montserrat
-    code_font:
-      google: JetBrains Mono
+    # code_font:
+    #   google: JetBrains Mono
   params:
     bootswatch: flatly
     ganalytics: UA-76139189-2
