@@ -10,7 +10,8 @@ Description:
     Easy visualization, wrangling, and feature engineering of time series data for 
     forecasting and machine learning prediction. Consolidates and extends time series functionality 
     from packages including 'dplyr', 'stats', 'xts', 'forecast', 'slider', 'padr', 'recipes', and 'rsample'.
-URL: https://github.com/business-science/timetk
+URL: https://github.com/business-science/timetk,
+    https://business-science.github.io/timetk/
 BugReports: https://github.com/business-science/timetk/issues
 License: GPL (>= 3)
 Encoding: UTF-8

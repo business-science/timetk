@@ -1,3 +1,4 @@
+url: https://business-science.github.io/timetk/
 template:
   bootstrap: 5
   bslib:
@@ -6,238 +7,229 @@ template:
     heading_font:
       google: Montserrat
     code_font:
-      google: "JetBrains Mono"
+      google: JetBrains Mono
   params:
     bootswatch: flatly
     ganalytics: UA-76139189-2
-
 navbar:
-  title: "timetk"
+  title: timetk
   left:
-    - icon: "fa-home"
-      href: index.html
-    - text: "Getting Started"
+  - icon: fa-home
+    href: index.html
+  - text: Getting Started
+    href: articles/TK04_Plotting_Time_Series.html
+  - text: Articles
+    href: articles/index.html
+    menu:
+    - text: Visualization
+    - text: Plotting Time Series
       href: articles/TK04_Plotting_Time_Series.html
-    - text: "Articles"
-      href: articles/index.html
-      menu:
-        - text: 'Visualization'
-        - text: "Plotting Time Series"
-          href: articles/TK04_Plotting_Time_Series.html
-        - text: "Plotting Seasonality and Correlation"
-          href: articles/TK05_Plotting_Seasonality_and_Correlation.html
-        - text: '---'
-        - text: 'Data Wrangling'
-        - text: "Time Series Data Wrangling"
-          href: articles/TK07_Time_Series_Data_Wrangling.html
-        - text: '---'
-        - text: "Machine Learning"
-        - text: "Time Series Machine Learning"
-          href: articles/TK03_Forecasting_Using_Time_Series_Signature.html
-        - text: "Anomaly Detection"
-          href: articles/TK08_Automatic_Anomaly_Detection.html
-        - text: "Clustering"
-          href: articles/TK09_Clustering.html
-        - text: '---'
-        - text: 'Time Series Fundamentals'
-        - text: "Calendar Features"
-          href: articles/TK01_Working_With_Time_Series_Index.html
-        - text: "Frequency and Trend"
-          href: articles/TK06_Automatic_Frequency_And_Trend_Selection.html
-        - text: "---"
-        - text: "Sequences & Data Structures"
-        - text: "Intelligent Date & Time Sequences"
-          href: articles/TK02_Time_Series_Date_Sequences.html
-        - text: "Time Series Class Conversion (tbl, ts, zoo, & xts)"
-          href: articles/TK00_Time_Series_Coercion.html
-    - text: "API"
+    - text: Plotting Seasonality and Correlation
+      href: articles/TK05_Plotting_Seasonality_and_Correlation.html
+    - text: '---'
+    - text: Data Wrangling
+    - text: Time Series Data Wrangling
+      href: articles/TK07_Time_Series_Data_Wrangling.html
+    - text: '---'
+    - text: Machine Learning
+    - text: Time Series Machine Learning
+      href: articles/TK03_Forecasting_Using_Time_Series_Signature.html
+    - text: Anomaly Detection
+      href: articles/TK08_Automatic_Anomaly_Detection.html
+    - text: Clustering
+      href: articles/TK09_Clustering.html
+    - text: '---'
+    - text: Time Series Fundamentals
+    - text: Calendar Features
+      href: articles/TK01_Working_With_Time_Series_Index.html
+    - text: Frequency and Trend
+      href: articles/TK06_Automatic_Frequency_And_Trend_Selection.html
+    - text: '---'
+    - text: Sequences & Data Structures
+    - text: Intelligent Date & Time Sequences
+      href: articles/TK02_Time_Series_Date_Sequences.html
+    - text: Time Series Class Conversion (tbl, ts, zoo, & xts)
+      href: articles/TK00_Time_Series_Coercion.html
+  - text: API
+    href: reference/index.html
+    menu:
+    - text: API Functions
+    - icon: fa-home
+      text: Function Reference
       href: reference/index.html
-      menu:
-        - text: 'API Functions'
-        - icon: fa-home
-          text: 'Function Reference'
-          href: reference/index.html
-        - text: '---'
-        - text: 'Change History'
-        - text: "News"
-          href: news/index.html
-    - text: "Ecosystem"
-      menu:
-        - text: 'Forecast'
-        - text: 'Modeltime (Forecasting)'
-          href: https://business-science.github.io/modeltime/
-        - text: 'TimeTK (Time Series Analysis)'
-          href: https://business-science.github.io/timetk/
-        - text: "---"
-        - text: 'Improve'
-        - text: 'Modeltime Ensemble (Blending Forecasts)'
-          href: https://business-science.github.io/modeltime.ensemble/
-        - text: 'Modeltime Resample (Backtesting)'
-          href: https://business-science.github.io/modeltime.resample/
-        - text: "---"
-        - text: 'Scale'
-        - text: 'Modeltime H2O (AutoML)'
-          href: https://business-science.github.io/modeltime.h2o/
-        - text: 'Modeltime GluonTS (Deep Learning)'
-          href: https://business-science.github.io/modeltime.gluonts/
-    - icon: fas fa-graduation-cap
-      text: "Learn"
-      href: https://university.business-science.io/p/ds4b-203-r-high-performance-time-series-forecasting/
-
+    - text: '---'
+    - text: Change History
+    - text: News
+      href: news/index.html
+  - text: Ecosystem
+    menu:
+    - text: Forecast
+    - text: Modeltime (Forecasting)
+      href: https://business-science.github.io/modeltime/
+    - text: TimeTK (Time Series Analysis)
+      href: https://business-science.github.io/timetk/
+    - text: '---'
+    - text: Improve
+    - text: Modeltime Ensemble (Blending Forecasts)
+      href: https://business-science.github.io/modeltime.ensemble/
+    - text: Modeltime Resample (Backtesting)
+      href: https://business-science.github.io/modeltime.resample/
+    - text: '---'
+    - text: Scale
+    - text: Modeltime H2O (AutoML)
+      href: https://business-science.github.io/modeltime.h2o/
+    - text: Modeltime GluonTS (Deep Learning)
+      href: https://business-science.github.io/modeltime.gluonts/
+  - icon: fas fa-graduation-cap
+    text: Learn
+    href: https://university.business-science.io/p/ds4b-203-r-high-performance-time-series-forecasting/
   right:
-    - icon: fa-github
-      href: https://github.com/business-science/timetk
-
+  - icon: fa-github
+    href: https://github.com/business-science/timetk
 reference:
-  - title: Plotting Time Series
-    desc: __Detect relationships through visualizations__
-  - subtitle: Time Series Plotting
-    contents:
-    - "plot_time_series"
-  - subtitle: Correlation, Seasonalilty, & Anomaly Plotting
-    contents:
-    - contains("plot_acf")
-    - contains("plot_anomaly")
-    - contains("plot_seasonal")
-    - contains("plot_stl")
-    - "plot_time_series_regression"
-  - title: Time Series Data Wrangling Operations
-    desc: __Extension for `dplyr` for time-series data manipulations__
-  - subtitle: Data Frame Operations
-    contents:
-    - contains("summarise")
-    - contains("mutate")
-    - "pad_by_time"
-    - "filter_by_time"
-    - "filter_period"
-    - "slice_period"
-    - "condense_period"
-    - "future_frame"
-  - subtitle: Function Operations
-    contents:
-    - "slidify"
-  - subtitle: Vector Operations
-    contents:
-    - "between_time"
-    - "add_time"
-  - title: Time Series Features
-    desc: Tidy integration with `tsfeatures`
-    contents:
-    - "tk_tsfeatures"
-  - title: Augment Operations (Quickly Add Many Features)
-    desc: __Add multiple columns to the original data. Respects `dplyr` groups.__
-    contents:
-    - "tk_augment_timeseries_signature"
-    - "tk_augment_holiday_signature"
-    - "tk_augment_slidify"
-    - "tk_augment_differences"
-    - "tk_augment_lags"
-    - starts_with("tk_augment")
-  - title: Vectorized Transformations
-    desc: __Use with `mutate` to apply vectorized transformations to time series data__
-    contents:
-    - contains("box_cox_vec")
-    - contains("diff_vec")
-    - contains("lag_vec")
-    - "standardize_vec"
-    - "normalize_vec"
-    - contains("_vec")
-  - title: Feature Engineering Operations (Recipe Steps)
-    desc: __Preprocessing & feature engineering operations for use with `recipes` and the `tidymodels` ecosystem__
-  - subtitle: Engineered Features
-  - contents:
-    - "step_timeseries_signature"
-    - "step_holiday_signature"
-    - "step_fourier"
-  - subtitle: Lags & Diffs
-    desc: See `recipes::step_lag()` for lagged features.
-  - contents:
-    - "step_diff"
-  - subtitle: Smoothing & Rolling
-  - contents:
-    - "step_smooth"
-    - "step_slidify"
-    - "step_slidify_augment"
-  - subtitle: Variance Reduction
-    desc: See `recipes::step_log()` for log transformation.
-  - contents:
-    - "step_box_cox"
-    - "step_log_interval"
-  - subtitle: Add Rows to a Time series
-    contents:
-    - "step_ts_pad"
-  - subtitle: Imputation & Outlier Cleaning
-    desc: See `recipes::step_rollimpute()` for rolling imputation.
-  - contents:
-    - "step_ts_impute"
-    - "step_ts_clean"
-  - title: Cross Validation Operations (Rsample & Tune)
-    desc: __Resampling for time series cross validation using `rsamples`__
-  - subtitle: Time Series Cross Validation (Resample Sets)
-    contents:
-    - "time_series_split"
-    - "time_series_cv"
-  - subtitle: Cross Validation Plan Visualization (Resample Sets)
-    desc: Uses the output of `time_series_cv` or `rsample::rolling_origin`
-    contents:
-    - "plot_time_series_cv_plan"
-    - "tk_time_series_cv_plan"
-  - title: Index Operations
-    desc: __Extract and check the date or date-time index.__
-    contents:
-    - starts_with("tk_index")
-    - starts_with("has_timetk_idx")
-  - title: Make Operations
-    desc: __Make time series sequences.__
-    contents:
-    - "tk_make_timeseries"
-    - starts_with("tk_make_future")
-    - starts_with("tk_make")
-  - title: Get Operations
-    desc: __Get summaries, frequency, and signatures from the time series index.__
-    contents:
-    - "tk_get_timeseries_signature"
-    - "tk_get_holiday_signature"
-    - contains("tk_get")
-  - title: Diagnostic Operations
-    desc: __These power the time series plotting functions__
-    contents:
-    - "tk_summary_diagnostics"
-    - "tk_anomaly_diagnostics"
-    - "tk_acf_diagnostics"
-    - "tk_seasonal_diagnostics"
-    - "tk_stl_diagnostics"
-  - title: Conversion Operations
-    desc: __Functions for converting between common time series formats.__
-    contents:
-    - "tk_tbl"
-    - "tk_ts"
-    - "tk_ts_"
-    - "tk_xts"
-    - "tk_xts_"
-    - "tk_zoo"
-    - "tk_zoo_"
-    - "tk_zooreg"
-    - "tk_zooreg_"
-  - title: Time Scale Template
-    desc: __The timescale template is used to automate frequency and trendcycle calculations.__
-    contents:
-    - contains("time_scale")
-  - title: Time Series Datasets
-    desc: __Time series from various forecasting competitions. Domains include economic, retail, and web (google analytics)__
-    contents:
-    - "m4_hourly"
-    - "m4_daily"
-    - "m4_weekly"
-    - contains("m4_")
-    - contains("walmart")
-    - contains("wikipedia")
-    - "bike_sharing_daily"
-    - "taylor_30_min"
-  - title: Date Utilities
-    contents:
-    - "parse_date2"
-    - "is_date_class"
-
-
+- title: Plotting Time Series
+  desc: __Detect relationships through visualizations__
+- subtitle: Time Series Plotting
+  contents: plot_time_series
+- subtitle: Correlation, Seasonalilty, & Anomaly Plotting
+  contents:
+  - contains("plot_acf")
+  - contains("plot_anomaly")
+  - contains("plot_seasonal")
+  - contains("plot_stl")
+  - plot_time_series_regression
+- title: Time Series Data Wrangling Operations
+  desc: __Extension for `dplyr` for time-series data manipulations__
+- subtitle: Data Frame Operations
+  contents:
+  - contains("summarise")
+  - contains("mutate")
+  - pad_by_time
+  - filter_by_time
+  - filter_period
+  - slice_period
+  - condense_period
+  - future_frame
+- subtitle: Function Operations
+  contents: slidify
+- subtitle: Vector Operations
+  contents:
+  - between_time
+  - add_time
+- title: Time Series Features
+  desc: Tidy integration with `tsfeatures`
+  contents: tk_tsfeatures
+- title: Augment Operations (Quickly Add Many Features)
+  desc: __Add multiple columns to the original data. Respects `dplyr` groups.__
+  contents:
+  - tk_augment_timeseries_signature
+  - tk_augment_holiday_signature
+  - tk_augment_slidify
+  - tk_augment_differences
+  - tk_augment_lags
+  - starts_with("tk_augment")
+- title: Vectorized Transformations
+  desc: __Use with `mutate` to apply vectorized transformations to time series data__
+  contents:
+  - contains("box_cox_vec")
+  - contains("diff_vec")
+  - contains("lag_vec")
+  - standardize_vec
+  - normalize_vec
+  - contains("_vec")
+- title: Feature Engineering Operations (Recipe Steps)
+  desc: __Preprocessing & feature engineering operations for use with `recipes` and
+    the `tidymodels` ecosystem__
+- subtitle: Engineered Features
+- contents:
+  - step_timeseries_signature
+  - step_holiday_signature
+  - step_fourier
+- subtitle: Lags & Diffs
+  desc: See `recipes::step_lag()` for lagged features.
+- contents: step_diff
+- subtitle: Smoothing & Rolling
+- contents:
+  - step_smooth
+  - step_slidify
+  - step_slidify_augment
+- subtitle: Variance Reduction
+  desc: See `recipes::step_log()` for log transformation.
+- contents:
+  - step_box_cox
+  - step_log_interval
+- subtitle: Add Rows to a Time series
+  contents: step_ts_pad
+- subtitle: Imputation & Outlier Cleaning
+  desc: See `recipes::step_rollimpute()` for rolling imputation.
+- contents:
+  - step_ts_impute
+  - step_ts_clean
+- title: Cross Validation Operations (Rsample & Tune)
+  desc: __Resampling for time series cross validation using `rsamples`__
+- subtitle: Time Series Cross Validation (Resample Sets)
+  contents:
+  - time_series_split
+  - time_series_cv
+- subtitle: Cross Validation Plan Visualization (Resample Sets)
+  desc: Uses the output of `time_series_cv` or `rsample::rolling_origin`
+  contents:
+  - plot_time_series_cv_plan
+  - tk_time_series_cv_plan
+- title: Index Operations
+  desc: __Extract and check the date or date-time index.__
+  contents:
+  - starts_with("tk_index")
+  - starts_with("has_timetk_idx")
+- title: Make Operations
+  desc: __Make time series sequences.__
+  contents:
+  - tk_make_timeseries
+  - starts_with("tk_make_future")
+  - starts_with("tk_make")
+- title: Get Operations
+  desc: __Get summaries, frequency, and signatures from the time series index.__
+  contents:
+  - tk_get_timeseries_signature
+  - tk_get_holiday_signature
+  - contains("tk_get")
+- title: Diagnostic Operations
+  desc: __These power the time series plotting functions__
+  contents:
+  - tk_summary_diagnostics
+  - tk_anomaly_diagnostics
+  - tk_acf_diagnostics
+  - tk_seasonal_diagnostics
+  - tk_stl_diagnostics
+- title: Conversion Operations
+  desc: __Functions for converting between common time series formats.__
+  contents:
+  - tk_tbl
+  - tk_ts
+  - tk_ts_
+  - tk_xts
+  - tk_xts_
+  - tk_zoo
+  - tk_zoo_
+  - tk_zooreg
+  - tk_zooreg_
+- title: Time Scale Template
+  desc: __The timescale template is used to automate frequency and trendcycle calculations.__
+  contents: contains("time_scale")
+- title: Time Series Datasets
+  desc: __Time series from various forecasting competitions. Domains include economic,
+    retail, and web (google analytics)__
+  contents:
+  - m4_hourly
+  - m4_daily
+  - m4_weekly
+  - contains("m4_")
+  - contains("walmart")
+  - contains("wikipedia")
+  - bike_sharing_daily
+  - taylor_30_min
+- title: Date Utilities
+  contents:
+  - parse_date2
+  - is_date_class
 

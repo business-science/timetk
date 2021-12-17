@@ -1,312 +1,312 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>/404.html</loc>
+    <loc>https://business-science.github.io/timetk/404.html</loc>
   </url>
   <url>
-    <loc>/articles/TK00_Time_Series_Coercion.html</loc>
+    <loc>https://business-science.github.io/timetk/articles/TK00_Time_Series_Coercion.html</loc>
   </url>
   <url>
-    <loc>/articles/TK01_Working_With_Time_Series_Index.html</loc>
+    <loc>https://business-science.github.io/timetk/articles/TK01_Working_With_Time_Series_Index.html</loc>
   </url>
   <url>
-    <loc>/articles/TK02_Time_Series_Date_Sequences.html</loc>
+    <loc>https://business-science.github.io/timetk/articles/TK02_Time_Series_Date_Sequences.html</loc>
   </url>
   <url>
-    <loc>/articles/TK03_Forecasting_Using_Time_Series_Signature.html</loc>
+    <loc>https://business-science.github.io/timetk/articles/TK03_Forecasting_Using_Time_Series_Signature.html</loc>
   </url>
   <url>
-    <loc>/articles/TK04_Plotting_Time_Series.html</loc>
+    <loc>https://business-science.github.io/timetk/articles/TK04_Plotting_Time_Series.html</loc>
   </url>
   <url>
-    <loc>/articles/TK05_Plotting_Seasonality_and_Correlation.html</loc>
+    <loc>https://business-science.github.io/timetk/articles/TK05_Plotting_Seasonality_and_Correlation.html</loc>
   </url>
   <url>
-    <loc>/articles/TK06_Automatic_Frequency_And_Trend_Selection.html</loc>
+    <loc>https://business-science.github.io/timetk/articles/TK06_Automatic_Frequency_And_Trend_Selection.html</loc>
   </url>
   <url>
-    <loc>/articles/TK07_Time_Series_Data_Wrangling.html</loc>
+    <loc>https://business-science.github.io/timetk/articles/TK07_Time_Series_Data_Wrangling.html</loc>
   </url>
   <url>
-    <loc>/articles/TK08_Automatic_Anomaly_Detection.html</loc>
+    <loc>https://business-science.github.io/timetk/articles/TK08_Automatic_Anomaly_Detection.html</loc>
   </url>
   <url>
-    <loc>/articles/TK09_Clustering.html</loc>
+    <loc>https://business-science.github.io/timetk/articles/TK09_Clustering.html</loc>
   </url>
   <url>
-    <loc>/articles/index.html</loc>
+    <loc>https://business-science.github.io/timetk/articles/index.html</loc>
   </url>
   <url>
-    <loc>/authors.html</loc>
+    <loc>https://business-science.github.io/timetk/authors.html</loc>
   </url>
   <url>
-    <loc>/index.html</loc>
+    <loc>https://business-science.github.io/timetk/index.html</loc>
   </url>
   <url>
-    <loc>/news/index.html</loc>
+    <loc>https://business-science.github.io/timetk/news/index.html</loc>
   </url>
   <url>
-    <loc>/reference/between_time.html</loc>
+    <loc>https://business-science.github.io/timetk/reference/between_time.html</loc>
   </url>
   <url>
-    <loc>/reference/bike_sharing_daily.html</loc>
+    <loc>https://business-science.github.io/timetk/reference/bike_sharing_daily.html</loc>
   </url>
   <url>
-    <loc>/reference/box_cox_vec.html</loc>
+    <loc>https://business-science.github.io/timetk/reference/box_cox_vec.html</loc>
   </url>
   <url>
-    <loc>/reference/condense_period.html</loc>
+    <loc>https://business-science.github.io/timetk/reference/condense_period.html</loc>
   </url>
   <url>
-    <loc>/reference/diff_vec.html</loc>
+    <loc>https://business-science.github.io/timetk/reference/diff_vec.html</loc>
   </url>
   <url>
-    <loc>/reference/filter_by_time.html</loc>
+    <loc>https://business-science.github.io/timetk/reference/filter_by_time.html</loc>
   </url>
   <url>
-    <loc>/reference/filter_period.html</loc>
+    <loc>https://business-science.github.io/timetk/reference/filter_period.html</loc>
   </url>
   <url>
-    <loc>/reference/fourier_vec.html</loc>
+    <loc>https://business-science.github.io/timetk/reference/fourier_vec.html</loc>
   </url>
   <url>
-    <loc>/reference/future_frame.html</loc>
+    <loc>https://business-science.github.io/timetk/reference/future_frame.html</loc>
   </url>
   <url>
-    <loc>/reference/index.html</loc>
+    <loc>https://business-science.github.io/timetk/reference/index.html</loc>
   </url>
   <url>
-    <loc>/reference/is_date_class.html</loc>
+    <loc>https://business-science.github.io/timetk/reference/is_date_class.html</loc>
   </url>
   <url>
-    <loc>/reference/lag_vec.html</loc>
+    <loc>https://business-science.github.io/timetk/reference/lag_vec.html</loc>
   </url>
   <url>
-    <loc>/reference/log_interval_vec.html</loc>
+    <loc>https://business-science.github.io/timetk/reference/log_interval_vec.html</loc>
   </url>
   <url>
-    <loc>/reference/m4_daily.html</loc>
+    <loc>https://business-science.github.io/timetk/reference/m4_daily.html</loc>
   </url>
   <url>
-    <loc>/reference/m4_hourly.html</loc>
+    <loc>https://business-science.github.io/timetk/reference/m4_hourly.html</loc>
   </url>
   <url>
-    <loc>/reference/m4_monthly.html</loc>
+    <loc>https://business-science.github.io/timetk/reference/m4_monthly.html</loc>
   </url>
   <url>
-    <loc>/reference/m4_quarterly.html</loc>
+    <loc>https://business-science.github.io/timetk/reference/m4_quarterly.html</loc>
   </url>
   <url>
-    <loc>/reference/m4_weekly.html</loc>
+    <loc>https://business-science.github.io/timetk/reference/m4_weekly.html</loc>
   </url>
   <url>
-    <loc>/reference/m4_yearly.html</loc>
+    <loc>https://business-science.github.io/timetk/reference/m4_yearly.html</loc>
   </url>
   <url>
-    <loc>/reference/mutate_by_time.html</loc>
+    <loc>https://business-science.github.io/timetk/reference/mutate_by_time.html</loc>
   </url>
   <url>
-    <loc>/reference/normalize_vec.html</loc>
+    <loc>https://business-science.github.io/timetk/reference/normalize_vec.html</loc>
   </url>
   <url>
-    <loc>/reference/pad_by_time.html</loc>
+    <loc>https://business-science.github.io/timetk/reference/pad_by_time.html</loc>
   </url>
   <url>
-    <loc>/reference/parse_date2.html</loc>
+    <loc>https://business-science.github.io/timetk/reference/parse_date2.html</loc>
   </url>
   <url>
-    <loc>/reference/plot_acf_diagnostics.html</loc>
+    <loc>https://business-science.github.io/timetk/reference/plot_acf_diagnostics.html</loc>
   </url>
   <url>
-    <loc>/reference/plot_anomaly_diagnostics.html</loc>
+    <loc>https://business-science.github.io/timetk/reference/plot_anomaly_diagnostics.html</loc>
   </url>
   <url>
-    <loc>/reference/plot_seasonal_diagnostics.html</loc>
+    <loc>https://business-science.github.io/timetk/reference/plot_seasonal_diagnostics.html</loc>
   </url>
   <url>
-    <loc>/reference/plot_stl_diagnostics.html</loc>
+    <loc>https://business-science.github.io/timetk/reference/plot_stl_diagnostics.html</loc>
   </url>
   <url>
-    <loc>/reference/plot_time_series.html</loc>
+    <loc>https://business-science.github.io/timetk/reference/plot_time_series.html</loc>
   </url>
   <url>
-    <loc>/reference/plot_time_series_cv_plan.html</loc>
+    <loc>https://business-science.github.io/timetk/reference/plot_time_series_cv_plan.html</loc>
   </url>
   <url>
-    <loc>/reference/plot_time_series_regression.html</loc>
+    <loc>https://business-science.github.io/timetk/reference/plot_time_series_regression.html</loc>
   </url>
   <url>
-    <loc>/reference/required_pkgs.timetk.html</loc>
+    <loc>https://business-science.github.io/timetk/reference/required_pkgs.timetk.html</loc>
   </url>
   <url>
-    <loc>/reference/slice_period.html</loc>
+    <loc>https://business-science.github.io/timetk/reference/slice_period.html</loc>
   </url>
   <url>
-    <loc>/reference/slidify.html</loc>
+    <loc>https://business-science.github.io/timetk/reference/slidify.html</loc>
   </url>
   <url>
-    <loc>/reference/slidify_vec.html</loc>
+    <loc>https://business-science.github.io/timetk/reference/slidify_vec.html</loc>
   </url>
   <url>
-    <loc>/reference/smooth_vec.html</loc>
+    <loc>https://business-science.github.io/timetk/reference/smooth_vec.html</loc>
   </url>
   <url>
-    <loc>/reference/standardize_vec.html</loc>
+    <loc>https://business-science.github.io/timetk/reference/standardize_vec.html</loc>
   </url>
   <url>
-    <loc>/reference/step_box_cox.html</loc>
+    <loc>https://business-science.github.io/timetk/reference/step_box_cox.html</loc>
   </url>
   <url>
-    <loc>/reference/step_diff.html</loc>
+    <loc>https://business-science.github.io/timetk/reference/step_diff.html</loc>
   </url>
   <url>
-    <loc>/reference/step_fourier.html</loc>
+    <loc>https://business-science.github.io/timetk/reference/step_fourier.html</loc>
   </url>
   <url>
-    <loc>/reference/step_holiday_signature.html</loc>
+    <loc>https://business-science.github.io/timetk/reference/step_holiday_signature.html</loc>
   </url>
   <url>
-    <loc>/reference/step_log_interval.html</loc>
+    <loc>https://business-science.github.io/timetk/reference/step_log_interval.html</loc>
   </url>
   <url>
-    <loc>/reference/step_slidify.html</loc>
+    <loc>https://business-science.github.io/timetk/reference/step_slidify.html</loc>
   </url>
   <url>
-    <loc>/reference/step_slidify_augment.html</loc>
+    <loc>https://business-science.github.io/timetk/reference/step_slidify_augment.html</loc>
   </url>
   <url>
-    <loc>/reference/step_smooth.html</loc>
+    <loc>https://business-science.github.io/timetk/reference/step_smooth.html</loc>
   </url>
   <url>
-    <loc>/reference/step_timeseries_signature.html</loc>
+    <loc>https://business-science.github.io/timetk/reference/step_timeseries_signature.html</loc>
   </url>
   <url>
-    <loc>/reference/step_ts_clean.html</loc>
+    <loc>https://business-science.github.io/timetk/reference/step_ts_clean.html</loc>
   </url>
   <url>
-    <loc>/reference/step_ts_impute.html</loc>
+    <loc>https://business-science.github.io/timetk/reference/step_ts_impute.html</loc>
   </url>
   <url>
-    <loc>/reference/step_ts_pad.html</loc>
+    <loc>https://business-science.github.io/timetk/reference/step_ts_pad.html</loc>
   </url>
   <url>
-    <loc>/reference/summarise_by_time.html</loc>
+    <loc>https://business-science.github.io/timetk/reference/summarise_by_time.html</loc>
   </url>
   <url>
-    <loc>/reference/taylor_30_min.html</loc>
+    <loc>https://business-science.github.io/timetk/reference/taylor_30_min.html</loc>
   </url>
   <url>
-    <loc>/reference/tidyeval.html</loc>
+    <loc>https://business-science.github.io/timetk/reference/tidyeval.html</loc>
   </url>
   <url>
-    <loc>/reference/time_arithmetic.html</loc>
+    <loc>https://business-science.github.io/timetk/reference/time_arithmetic.html</loc>
   </url>
   <url>
-    <loc>/reference/time_series_cv.html</loc>
+    <loc>https://business-science.github.io/timetk/reference/time_series_cv.html</loc>
   </url>
   <url>
-    <loc>/reference/time_series_split.html</loc>
+    <loc>https://business-science.github.io/timetk/reference/time_series_split.html</loc>
   </url>
   <url>
-    <loc>/reference/timetk.html</loc>
+    <loc>https://business-science.github.io/timetk/reference/timetk.html</loc>
   </url>
   <url>
-    <loc>/reference/timetk_internal.html</loc>
+    <loc>https://business-science.github.io/timetk/reference/timetk_internal.html</loc>
   </url>
   <url>
-    <loc>/reference/tk_acf_diagnostics.html</loc>
+    <loc>https://business-science.github.io/timetk/reference/tk_acf_diagnostics.html</loc>
   </url>
   <url>
-    <loc>/reference/tk_anomaly_diagnostics.html</loc>
+    <loc>https://business-science.github.io/timetk/reference/tk_anomaly_diagnostics.html</loc>
   </url>
   <url>
-    <loc>/reference/tk_augment_differences.html</loc>
+    <loc>https://business-science.github.io/timetk/reference/tk_augment_differences.html</loc>
   </url>
   <url>
-    <loc>/reference/tk_augment_fourier.html</loc>
+    <loc>https://business-science.github.io/timetk/reference/tk_augment_fourier.html</loc>
   </url>
   <url>
-    <loc>/reference/tk_augment_holiday.html</loc>
+    <loc>https://business-science.github.io/timetk/reference/tk_augment_holiday.html</loc>
   </url>
   <url>
-    <loc>/reference/tk_augment_lags.html</loc>
+    <loc>https://business-science.github.io/timetk/reference/tk_augment_lags.html</loc>
   </url>
   <url>
-    <loc>/reference/tk_augment_slidify.html</loc>
+    <loc>https://business-science.github.io/timetk/reference/tk_augment_slidify.html</loc>
   </url>
   <url>
-    <loc>/reference/tk_augment_timeseries.html</loc>
+    <loc>https://business-science.github.io/timetk/reference/tk_augment_timeseries.html</loc>
   </url>
   <url>
-    <loc>/reference/tk_get_frequency.html</loc>
+    <loc>https://business-science.github.io/timetk/reference/tk_get_frequency.html</loc>
   </url>
   <url>
-    <loc>/reference/tk_get_holiday.html</loc>
+    <loc>https://business-science.github.io/timetk/reference/tk_get_holiday.html</loc>
   </url>
   <url>
-    <loc>/reference/tk_get_timeseries.html</loc>
+    <loc>https://business-science.github.io/timetk/reference/tk_get_timeseries.html</loc>
   </url>
   <url>
-    <loc>/reference/tk_get_timeseries_unit_frequency.html</loc>
+    <loc>https://business-science.github.io/timetk/reference/tk_get_timeseries_unit_frequency.html</loc>
   </url>
   <url>
-    <loc>/reference/tk_get_timeseries_variables.html</loc>
+    <loc>https://business-science.github.io/timetk/reference/tk_get_timeseries_variables.html</loc>
   </url>
   <url>
-    <loc>/reference/tk_index.html</loc>
+    <loc>https://business-science.github.io/timetk/reference/tk_index.html</loc>
   </url>
   <url>
-    <loc>/reference/tk_make_future_timeseries.html</loc>
+    <loc>https://business-science.github.io/timetk/reference/tk_make_future_timeseries.html</loc>
   </url>
   <url>
-    <loc>/reference/tk_make_holiday_sequence.html</loc>
+    <loc>https://business-science.github.io/timetk/reference/tk_make_holiday_sequence.html</loc>
   </url>
   <url>
-    <loc>/reference/tk_make_timeseries.html</loc>
+    <loc>https://business-science.github.io/timetk/reference/tk_make_timeseries.html</loc>
   </url>
   <url>
-    <loc>/reference/tk_seasonal_diagnostics.html</loc>
+    <loc>https://business-science.github.io/timetk/reference/tk_seasonal_diagnostics.html</loc>
   </url>
   <url>
-    <loc>/reference/tk_stl_diagnostics.html</loc>
+    <loc>https://business-science.github.io/timetk/reference/tk_stl_diagnostics.html</loc>
   </url>
   <url>
-    <loc>/reference/tk_summary_diagnostics.html</loc>
+    <loc>https://business-science.github.io/timetk/reference/tk_summary_diagnostics.html</loc>
   </url>
   <url>
-    <loc>/reference/tk_tbl.html</loc>
+    <loc>https://business-science.github.io/timetk/reference/tk_tbl.html</loc>
   </url>
   <url>
-    <loc>/reference/tk_time_scale_template.html</loc>
+    <loc>https://business-science.github.io/timetk/reference/tk_time_scale_template.html</loc>
   </url>
   <url>
-    <loc>/reference/tk_time_series_cv_plan.html</loc>
+    <loc>https://business-science.github.io/timetk/reference/tk_time_series_cv_plan.html</loc>
   </url>
   <url>
-    <loc>/reference/tk_ts.html</loc>
+    <loc>https://business-science.github.io/timetk/reference/tk_ts.html</loc>
   </url>
   <url>
-    <loc>/reference/tk_tsfeatures.html</loc>
+    <loc>https://business-science.github.io/timetk/reference/tk_tsfeatures.html</loc>
   </url>
   <url>
-    <loc>/reference/tk_xts.html</loc>
+    <loc>https://business-science.github.io/timetk/reference/tk_xts.html</loc>
   </url>
   <url>
-    <loc>/reference/tk_zoo.html</loc>
+    <loc>https://business-science.github.io/timetk/reference/tk_zoo.html</loc>
   </url>
   <url>
-    <loc>/reference/tk_zooreg.html</loc>
+    <loc>https://business-science.github.io/timetk/reference/tk_zooreg.html</loc>
   </url>
   <url>
-    <loc>/reference/ts_clean_vec.html</loc>
+    <loc>https://business-science.github.io/timetk/reference/ts_clean_vec.html</loc>
   </url>
   <url>
-    <loc>/reference/ts_impute_vec.html</loc>
+    <loc>https://business-science.github.io/timetk/reference/ts_impute_vec.html</loc>
   </url>
   <url>
-    <loc>/reference/walmart_sales_weekly.html</loc>
+    <loc>https://business-science.github.io/timetk/reference/walmart_sales_weekly.html</loc>
   </url>
   <url>
-    <loc>/reference/wikipedia_traffic_daily.html</loc>
+    <loc>https://business-science.github.io/timetk/reference/wikipedia_traffic_daily.html</loc>
   </url>
 </urlset>
