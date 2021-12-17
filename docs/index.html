@@ -4,7 +4,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="
+    Easy visualization, wrangling, and feature engineering of time series data for 
+    forecasting and machine learning prediction. Consolidates and extends time series functionality 
+    from packages including dplyr, stats, xts, forecast, slider, padr, recipes, and rsample.">
 <title>A Tool Kit for Working with Time Series in R • timetk</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
@@ -12,12 +16,14 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="apple-touch-icon-120x120.png">
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="apple-touch-icon-60x60.png">
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="bootstrap-toc.css">
-<script src="bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="deps/bootstrap-5.1.0/bootstrap.min.css" rel="stylesheet">
+<script src="deps/bootstrap-5.1.0/bootstrap.bundle.min.js"></script><link href="deps/_Roboto-0.4.0/font.css" rel="stylesheet">
+<link href="deps/_JetBrains%20Mono-0.4.0/font.css" rel="stylesheet">
+<link href="deps/_Montserrat-0.4.0/font.css" rel="stylesheet">
+<!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
-<script src="pkgdown.js"></script><link href="extra.css" rel="stylesheet">
+<!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="pkgdown.js"></script><link href="extra.css" rel="stylesheet">
 <meta property="og:title" content="A Tool Kit for Working with Time Series in R">
 <meta property="og:description" content="
     Easy visualization, wrangling, and feature engineering of time series data for 
@@ -35,184 +41,134 @@
   gtag('config', 'UA-76139189-2');
 </script>
 </head>
-<body data-spy="scroll" data-target="#toc">
-    <div class="container template-home">
-      <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <span class="navbar-brand">
-        <a class="navbar-link" href="index.html">timetk</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.2.9000</span>
-      </span>
-    </div>
+<body>
+    <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
+    
 
-    <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav">
-<li>
-  <a href="index.html">
+    <nav class="navbar fixed-top navbar-dark navbar-expand-lg bg-primary"><div class="container">
+    
+    <a class="navbar-brand me-2" href="index.html">timetk</a>
+
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.6.2.9000</small>
+
+    
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div id="navbar" class="collapse navbar-collapse ms-2">
+      <ul class="navbar-nav me-auto">
+<li class="active nav-item">
+  <a class="nav-link" href="index.html">
     <span class="fa fa-home"></span>
      
   </a>
 </li>
-<li>
-  <a href="articles/TK04_Plotting_Time_Series.html">Getting Started</a>
+<li class="nav-item">
+  <a class="nav-link" href="articles/TK04_Plotting_Time_Series.html">Getting Started</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-<li class="dropdown-header">Visualization</li>
-    <li>
-      <a href="articles/TK04_Plotting_Time_Series.html">Plotting Time Series</a>
-    </li>
-    <li>
-      <a href="articles/TK05_Plotting_Seasonality_and_Correlation.html">Plotting Seasonality and Correlation</a>
-    </li>
-    <li class="divider">
-    <li class="dropdown-header">Data Wrangling</li>
-    <li>
-      <a href="articles/TK07_Time_Series_Data_Wrangling.html">Time Series Data Wrangling</a>
-    </li>
-    <li class="divider">
-    <li class="dropdown-header">Machine Learning</li>
-    <li>
-      <a href="articles/TK03_Forecasting_Using_Time_Series_Signature.html">Time Series Machine Learning</a>
-    </li>
-    <li>
-      <a href="articles/TK08_Automatic_Anomaly_Detection.html">Anomaly Detection</a>
-    </li>
-    <li>
-      <a href="articles/TK09_Clustering.html">Clustering</a>
-    </li>
-    <li class="divider">
-    <li class="dropdown-header">Time Series Fundamentals</li>
-    <li>
-      <a href="articles/TK01_Working_With_Time_Series_Index.html">Calendar Features</a>
-    </li>
-    <li>
-      <a href="articles/TK06_Automatic_Frequency_And_Trend_Selection.html">Frequency and Trend</a>
-    </li>
-    <li class="divider">
-    <li class="dropdown-header">Sequences &amp; Data Structures</li>
-    <li>
-      <a href="articles/TK02_Time_Series_Date_Sequences.html">Intelligent Date &amp; Time Sequences</a>
-    </li>
-    <li>
-      <a href="articles/TK00_Time_Series_Coercion.html">Time Series Class Conversion (tbl, ts, zoo, &amp; xts)</a>
-    </li>
-  </ul>
+<li class="nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <h6 class="dropdown-header" data-toc-skip>Visualization</h6>
+    <a class="dropdown-item" href="articles/TK04_Plotting_Time_Series.html">Plotting Time Series</a>
+    <a class="dropdown-item" href="articles/TK05_Plotting_Seasonality_and_Correlation.html">Plotting Seasonality and Correlation</a>
+    <div class="dropdown-divider"></div>
+    <h6 class="dropdown-header" data-toc-skip>Data Wrangling</h6>
+    <a class="dropdown-item" href="articles/TK07_Time_Series_Data_Wrangling.html">Time Series Data Wrangling</a>
+    <div class="dropdown-divider"></div>
+    <h6 class="dropdown-header" data-toc-skip>Machine Learning</h6>
+    <a class="dropdown-item" href="articles/TK03_Forecasting_Using_Time_Series_Signature.html">Time Series Machine Learning</a>
+    <a class="dropdown-item" href="articles/TK08_Automatic_Anomaly_Detection.html">Anomaly Detection</a>
+    <a class="dropdown-item" href="articles/TK09_Clustering.html">Clustering</a>
+    <div class="dropdown-divider"></div>
+    <h6 class="dropdown-header" data-toc-skip>Time Series Fundamentals</h6>
+    <a class="dropdown-item" href="articles/TK01_Working_With_Time_Series_Index.html">Calendar Features</a>
+    <a class="dropdown-item" href="articles/TK06_Automatic_Frequency_And_Trend_Selection.html">Frequency and Trend</a>
+    <div class="dropdown-divider"></div>
+    <h6 class="dropdown-header" data-toc-skip>Sequences &amp; Data Structures</h6>
+    <a class="dropdown-item" href="articles/TK02_Time_Series_Date_Sequences.html">Intelligent Date &amp; Time Sequences</a>
+    <a class="dropdown-item" href="articles/TK00_Time_Series_Coercion.html">Time Series Class Conversion (tbl, ts, zoo, &amp; xts)</a>
+  </div>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    API
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-<li class="dropdown-header">API Functions</li>
-    <li>
-      <a href="reference/index.html">
-        <span class="fa fa-home"></span>
-         
-        Function Reference
-      </a>
-    </li>
-    <li class="divider">
-    <li class="dropdown-header">Change History</li>
-    <li>
-      <a href="news/index.html">News</a>
-    </li>
-  </ul>
+<li class="nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-api">API</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-api">
+    <h6 class="dropdown-header" data-toc-skip>API Functions</h6>
+    <a class="dropdown-item" href="reference/index.html">
+      <span class="fa fa-home"></span>
+       
+      Function Reference
+    </a>
+    <div class="dropdown-divider"></div>
+    <h6 class="dropdown-header" data-toc-skip>Change History</h6>
+    <a class="dropdown-item" href="news/index.html">News</a>
+  </div>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Ecosystem
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-<li class="dropdown-header">Forecast</li>
-    <li>
-      <a href="https://business-science.github.io/modeltime/">Modeltime (Forecasting)</a>
-    </li>
-    <li>
-      <a href="https://business-science.github.io/timetk/">TimeTK (Time Series Analysis)</a>
-    </li>
-    <li class="divider">
-    <li class="dropdown-header">Improve</li>
-    <li>
-      <a href="https://business-science.github.io/modeltime.ensemble/">Modeltime Ensemble (Blending Forecasts)</a>
-    </li>
-    <li>
-      <a href="https://business-science.github.io/modeltime.resample/">Modeltime Resample (Backtesting)</a>
-    </li>
-    <li class="divider">
-    <li class="dropdown-header">Scale</li>
-    <li>
-      <a href="https://business-science.github.io/modeltime.h2o/">Modeltime H2O (AutoML)</a>
-    </li>
-    <li>
-      <a href="https://business-science.github.io/modeltime.gluonts/">Modeltime GluonTS (Deep Learning)</a>
-    </li>
-  </ul>
+<li class="nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-ecosystem">Ecosystem</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-ecosystem">
+    <h6 class="dropdown-header" data-toc-skip>Forecast</h6>
+    <a class="external-link dropdown-item" href="https://business-science.github.io/modeltime/">Modeltime (Forecasting)</a>
+    <a class="external-link dropdown-item" href="https://business-science.github.io/timetk/">TimeTK (Time Series Analysis)</a>
+    <div class="dropdown-divider"></div>
+    <h6 class="dropdown-header" data-toc-skip>Improve</h6>
+    <a class="external-link dropdown-item" href="https://business-science.github.io/modeltime.ensemble/">Modeltime Ensemble (Blending Forecasts)</a>
+    <a class="external-link dropdown-item" href="https://business-science.github.io/modeltime.resample/">Modeltime Resample (Backtesting)</a>
+    <div class="dropdown-divider"></div>
+    <h6 class="dropdown-header" data-toc-skip>Scale</h6>
+    <a class="external-link dropdown-item" href="https://business-science.github.io/modeltime.h2o/">Modeltime H2O (AutoML)</a>
+    <a class="external-link dropdown-item" href="https://business-science.github.io/modeltime.gluonts/">Modeltime GluonTS (Deep Learning)</a>
+  </div>
 </li>
-<li>
-  <a href="https://university.business-science.io/p/ds4b-203-r-high-performance-time-series-forecasting/">
-    <span class="fas fa-graduation-cap"></span>
+<li class="nav-item">
+  <a class="external-link nav-link" href="https://university.business-science.io/p/ds4b-203-r-high-performance-time-series-forecasting/">
+    <span class="fas fa fas fa-graduation-cap"></span>
      
     Learn
   </a>
 </li>
       </ul>
-<ul class="nav navbar-nav navbar-right">
-<li>
-  <a href="https://github.com/business-science/timetk">
+<form class="form-inline my-2 my-lg-0" role="search">
+        <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="search.json" id="search-input" placeholder="Search for" autocomplete="off">
+</form>
+
+      <ul class="navbar-nav">
+<li class="nav-item">
+  <a class="external-link nav-link" href="https://github.com/business-science/timetk">
     <span class="fa fa-github"></span>
      
   </a>
 </li>
       </ul>
 </div>
-<!--/.nav-collapse -->
+
+    
   </div>
-<!--/.container -->
+</nav><div class="container template-home">
+<div class="row">
+  <main id="main" class="col-md-9"><div class="section level1">
+<div class="page-header">
+<img src="logo.png" class="logo" alt=""><h1 id="timetk">timetk<a class="anchor" aria-label="anchor" href="#timetk"></a>
+</h1>
 </div>
-<!--/.navbar -->
 
-      
-
-      </header><div class="row">
-  <div class="contents col-md-9">
-<div id="timetk" class="section level1">
-<div class="page-header"><h1 class="hasAnchor">
-<a href="#timetk" class="anchor"></a>timetk</h1></div>
-<p><img src="reference/figures/logo.png" width="147" height="170" align="right"></p>
-<p><a href="https://cran.r-project.org/package=timetk"><img src="http://www.r-pkg.org/badges/version/timetk" alt="CRAN_Status_Badge"></a> <img src="http://cranlogs.r-pkg.org/badges/timetk?color=brightgreen"><img src="http://cranlogs.r-pkg.org/badges/grand-total/timetk?color=brightgreen"><a href="https://github.com/business-science/timetk/actions"><img src="https://github.com/business-science/timetk/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a> <a href="https://app.codecov.io/gh/business-science/timetk"><img src="https://codecov.io/gh/business-science/timetk/branch/master/graph/badge.svg" alt="codecov"></a></p>
 <blockquote>
-<p>Time series analysis using the <code>tidyverse</code></p>
+<p>Time series analysis in the <code>tidyverse</code></p>
 </blockquote>
-<div id="installation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h2>
+<div class="section level2">
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h2>
 <p><em>Download the development version with latest features</em>:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"business-science/timetk"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"business-science/timetk"</span><span class="op">)</span></code></pre></div>
 <p><em>Or, download CRAN approved version</em>:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"timetk"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"timetk"</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="package-functionality" class="section level2">
-<h2 class="hasAnchor">
-<a href="#package-functionality" class="anchor"></a>Package Functionality</h2>
+<div class="section level2">
+<h2 id="package-functionality">Package Functionality<a class="anchor" aria-label="anchor" href="#package-functionality"></a>
+</h2>
 <p>There are <em>many</em> R packages for working with Time Series data. Here’s how <code>timetk</code> compares to the “tidy” time series R packages for data visualization, wrangling, and feature engineeering (those that leverage data frames or tibbles).</p>
 <div class="comparison">
 <table class="table">
@@ -225,10 +181,10 @@
 </colgroup>
 <thead><tr class="header">
 <th>Task</th>
-<th><a href="https://business-science.github.io/timetk/">timetk</a></th>
-<th><a href="https://tsibble.tidyverts.org/index.html">tsibble</a></th>
-<th><a href="https://feasts.tidyverts.org/index.html">feasts</a></th>
-<th><a href="https://business-science.github.io/tibbletime/">tibbletime</a></th>
+<th><a href="https://business-science.github.io/timetk/" class="external-link">timetk</a></th>
+<th><a href="https://tsibble.tidyverts.org/index.html" class="external-link">tsibble</a></th>
+<th><a href="https://feasts.tidyverts.org/index.html" class="external-link">feasts</a></th>
+<th><a href="https://business-science.github.io/tibbletime/" class="external-link">tibbletime</a></th>
 </tr></thead>
 <tbody>
 <tr class="odd">
@@ -246,7 +202,7 @@
 <td>tibbletime (tbl_time)</td>
 </tr>
 <tr class="odd">
-<td><a href="https://business-science.github.io/timetk/articles/TK04_Plotting_Time_Series.html"><strong>Visualization</strong></a></td>
+<td><a href="https://business-science.github.io/timetk/articles/TK04_Plotting_Time_Series.html" class="external-link"><strong>Visualization</strong></a></td>
 <td></td>
 <td></td>
 <td></td>
@@ -267,21 +223,21 @@
 <td><span class="emoji" data-emoji="x">❌</span></td>
 </tr>
 <tr class="even">
-<td><a href="https://business-science.github.io/timetk/articles/TK04_Plotting_Time_Series.html">Time Series</a></td>
+<td><a href="https://business-science.github.io/timetk/articles/TK04_Plotting_Time_Series.html" class="external-link">Time Series</a></td>
 <td>✅</td>
 <td><span class="emoji" data-emoji="x">❌</span></td>
 <td>✅</td>
 <td><span class="emoji" data-emoji="x">❌</span></td>
 </tr>
 <tr class="odd">
-<td><a href="https://business-science.github.io/timetk/articles/TK05_Plotting_Seasonality_and_Correlation.html">Correlation, Seasonality</a></td>
+<td><a href="https://business-science.github.io/timetk/articles/TK05_Plotting_Seasonality_and_Correlation.html" class="external-link">Correlation, Seasonality</a></td>
 <td>✅</td>
 <td><span class="emoji" data-emoji="x">❌</span></td>
 <td>✅</td>
 <td><span class="emoji" data-emoji="x">❌</span></td>
 </tr>
 <tr class="even">
-<td><a href="https://business-science.github.io/timetk/articles/TK07_Time_Series_Data_Wrangling.html"><strong>Data Wrangling</strong></a></td>
+<td><a href="https://business-science.github.io/timetk/articles/TK07_Time_Series_Data_Wrangling.html" class="external-link"><strong>Data Wrangling</strong></a></td>
 <td></td>
 <td></td>
 <td></td>
@@ -337,28 +293,28 @@
 <td></td>
 </tr>
 <tr class="even">
-<td><a href="https://business-science.github.io/timetk/articles/TK03_Forecasting_Using_Time_Series_Signature.html">Time Series Machine Learning</a></td>
+<td><a href="https://business-science.github.io/timetk/articles/TK03_Forecasting_Using_Time_Series_Signature.html" class="external-link">Time Series Machine Learning</a></td>
 <td>✅</td>
 <td><span class="emoji" data-emoji="x">❌</span></td>
 <td><span class="emoji" data-emoji="x">❌</span></td>
 <td><span class="emoji" data-emoji="x">❌</span></td>
 </tr>
 <tr class="odd">
-<td><a href="https://business-science.github.io/timetk/articles/TK08_Automatic_Anomaly_Detection.html">Anomaly Detection</a></td>
+<td><a href="https://business-science.github.io/timetk/articles/TK08_Automatic_Anomaly_Detection.html" class="external-link">Anomaly Detection</a></td>
 <td>✅</td>
 <td><span class="emoji" data-emoji="x">❌</span></td>
 <td><span class="emoji" data-emoji="x">❌</span></td>
 <td><span class="emoji" data-emoji="x">❌</span></td>
 </tr>
 <tr class="even">
-<td><a href="https://business-science.github.io/timetk/articles/TK09_Clustering.html">Clustering</a></td>
+<td><a href="https://business-science.github.io/timetk/articles/TK09_Clustering.html" class="external-link">Clustering</a></td>
 <td>✅</td>
 <td><span class="emoji" data-emoji="x">❌</span></td>
 <td><span class="emoji" data-emoji="x">❌</span></td>
 <td><span class="emoji" data-emoji="x">❌</span></td>
 </tr>
 <tr class="odd">
-<td><a href="https://business-science.github.io/timetk/articles/TK03_Forecasting_Using_Time_Series_Signature.html"><strong>Feature Engineering (recipes)</strong></a></td>
+<td><a href="https://business-science.github.io/timetk/articles/TK03_Forecasting_Using_Time_Series_Signature.html" class="external-link"><strong>Feature Engineering (recipes)</strong></a></td>
 <td></td>
 <td></td>
 <td></td>
@@ -414,14 +370,14 @@
 <td></td>
 </tr>
 <tr class="odd">
-<td><a href="https://business-science.github.io/timetk/reference/time_series_cv.html">Time Series Cross Validation</a></td>
+<td><a href="https://business-science.github.io/timetk/reference/time_series_cv.html" class="external-link">Time Series Cross Validation</a></td>
 <td>✅</td>
 <td><span class="emoji" data-emoji="x">❌</span></td>
 <td><span class="emoji" data-emoji="x">❌</span></td>
 <td><span class="emoji" data-emoji="x">❌</span></td>
 </tr>
 <tr class="even">
-<td><a href="https://business-science.github.io/timetk/reference/plot_time_series_cv_plan.html">Time Series CV Plan Visualization</a></td>
+<td><a href="https://business-science.github.io/timetk/reference/plot_time_series_cv_plan.html" class="external-link">Time Series CV Plan Visualization</a></td>
 <td>✅</td>
 <td><span class="emoji" data-emoji="x">❌</span></td>
 <td><span class="emoji" data-emoji="x">❌</span></td>
@@ -435,28 +391,28 @@
 <td></td>
 </tr>
 <tr class="even">
-<td><a href="https://business-science.github.io/timetk/articles/TK02_Time_Series_Date_Sequences.html">Making Time Series (Intelligently)</a></td>
+<td><a href="https://business-science.github.io/timetk/articles/TK02_Time_Series_Date_Sequences.html" class="external-link">Making Time Series (Intelligently)</a></td>
 <td>✅</td>
 <td>✅</td>
 <td><span class="emoji" data-emoji="x">❌</span></td>
 <td>✅</td>
 </tr>
 <tr class="odd">
-<td><a href="https://business-science.github.io/timetk/articles/TK02_Time_Series_Date_Sequences.html">Handling Holidays &amp; Weekends</a></td>
+<td><a href="https://business-science.github.io/timetk/articles/TK02_Time_Series_Date_Sequences.html" class="external-link">Handling Holidays &amp; Weekends</a></td>
 <td>✅</td>
 <td><span class="emoji" data-emoji="x">❌</span></td>
 <td><span class="emoji" data-emoji="x">❌</span></td>
 <td><span class="emoji" data-emoji="x">❌</span></td>
 </tr>
 <tr class="even">
-<td><a href="https://business-science.github.io/timetk/articles/TK00_Time_Series_Coercion.html">Class Conversion</a></td>
+<td><a href="https://business-science.github.io/timetk/articles/TK00_Time_Series_Coercion.html" class="external-link">Class Conversion</a></td>
 <td>✅</td>
 <td>✅</td>
 <td><span class="emoji" data-emoji="x">❌</span></td>
 <td><span class="emoji" data-emoji="x">❌</span></td>
 </tr>
 <tr class="odd">
-<td><a href="https://business-science.github.io/timetk/articles/TK06_Automatic_Frequency_And_Trend_Selection.html">Automatic Frequency &amp; Trend</a></td>
+<td><a href="https://business-science.github.io/timetk/articles/TK06_Automatic_Frequency_And_Trend_Selection.html" class="external-link">Automatic Frequency &amp; Trend</a></td>
 <td>✅</td>
 <td><span class="emoji" data-emoji="x">❌</span></td>
 <td><span class="emoji" data-emoji="x">❌</span></td>
@@ -466,19 +422,19 @@
 </table>
 </div>
 </div>
-<div id="getting-started" class="section level2">
-<h2 class="hasAnchor">
-<a href="#getting-started" class="anchor"></a>Getting Started</h2>
+<div class="section level2">
+<h2 id="getting-started">Getting Started<a class="anchor" aria-label="anchor" href="#getting-started"></a>
+</h2>
 <ul>
-<li><p><a href="https://business-science.github.io/timetk/articles/TK04_Plotting_Time_Series.html">Visualizing Time Series</a></p></li>
-<li><p><a href="https://business-science.github.io/timetk/articles/TK07_Time_Series_Data_Wrangling.html">Wrangling Time Series</a></p></li>
-<li><p><a href="https://business-science.github.io/timetk/articles/TK03_Forecasting_Using_Time_Series_Signature.html">Full Time Series Machine Learning and Feature Engineering Tutorial</a></p></li>
-<li><p><a href="https://business-science.github.io/timetk/">API Documentation</a> for articles and a <a href="https://business-science.github.io/timetk/reference/index.html">complete list of function references</a>.</p></li>
+<li><p><a href="https://business-science.github.io/timetk/articles/TK04_Plotting_Time_Series.html" class="external-link">Visualizing Time Series</a></p></li>
+<li><p><a href="https://business-science.github.io/timetk/articles/TK07_Time_Series_Data_Wrangling.html" class="external-link">Wrangling Time Series</a></p></li>
+<li><p><a href="https://business-science.github.io/timetk/articles/TK03_Forecasting_Using_Time_Series_Signature.html" class="external-link">Full Time Series Machine Learning and Feature Engineering Tutorial</a></p></li>
+<li><p><a href="https://business-science.github.io/timetk/" class="external-link">API Documentation</a> for articles and a <a href="https://business-science.github.io/timetk/reference/index.html" class="external-link">complete list of function references</a>.</p></li>
 </ul>
 </div>
-<div id="summary" class="section level2">
-<h2 class="hasAnchor">
-<a href="#summary" class="anchor"></a>Summary</h2>
+<div class="section level2">
+<h2 id="summary">Summary<a class="anchor" aria-label="anchor" href="#summary"></a>
+</h2>
 <p>Timetk is an amazing package that is part of the <code>modeltime</code> ecosystem for time series analysis and forecasting. The forecasting system is extensive, and it can take a long time to learn:</p>
 <ul>
 <li>Many algorithms</li>
@@ -489,24 +445,24 @@
 </ul>
 <p>Your probably thinking how am I ever going to learn time series forecasting. Here’s the solution that will save you years of struggling.</p>
 </div>
-<div id="take-the-high-performance-forecasting-course" class="section level2">
-<h2 class="hasAnchor">
-<a href="#take-the-high-performance-forecasting-course" class="anchor"></a>Take the High-Performance Forecasting Course</h2>
+<div class="section level2">
+<h2 id="take-the-high-performance-forecasting-course">Take the High-Performance Forecasting Course<a class="anchor" aria-label="anchor" href="#take-the-high-performance-forecasting-course"></a>
+</h2>
 <blockquote>
 <p>Become the forecasting expert for your organization</p>
 </blockquote>
-<p><a href="https://university.business-science.io/p/ds4b-203-r-high-performance-time-series-forecasting/" target="_blank"><img src="https://www.filepicker.io/api/file/bKyqVAi5Qi64sS05QYLk" alt="High-Performance Time Series Forecasting Course" width="100%" style="box-shadow: 0 0 5px 2px rgba(0, 0, 0, .5);"></a></p>
-<p><a href="https://university.business-science.io/p/ds4b-203-r-high-performance-time-series-forecasting/"><em>High-Performance Time Series Course</em></a></p>
-<div id="time-series-is-changing" class="section level3">
-<h3 class="hasAnchor">
-<a href="#time-series-is-changing" class="anchor"></a>Time Series is Changing</h3>
+<p><a href="https://university.business-science.io/p/ds4b-203-r-high-performance-time-series-forecasting/" target="_blank" class="external-link"><img src="https://www.filepicker.io/api/file/bKyqVAi5Qi64sS05QYLk" alt="High-Performance Time Series Forecasting Course" width="100%" style="box-shadow: 0 0 5px 2px rgba(0, 0, 0, .5);"></a></p>
+<p><a href="https://university.business-science.io/p/ds4b-203-r-high-performance-time-series-forecasting/" class="external-link"><em>High-Performance Time Series Course</em></a></p>
+<div class="section level3">
+<h3 id="time-series-is-changing">Time Series is Changing<a class="anchor" aria-label="anchor" href="#time-series-is-changing"></a>
+</h3>
 <p>Time series is changing. <strong>Businesses now need 10,000+ time series forecasts every day.</strong> This is what I call a <em>High-Performance Time Series Forecasting System (HPTSF)</em> - Accurate, Robust, and Scalable Forecasting.</p>
 <p><strong>High-Performance Forecasting Systems will save companies by improving accuracy and scalability.</strong> Imagine what will happen to your career if you can provide your organization a “High-Performance Time Series Forecasting System” (HPTSF System).</p>
 </div>
-<div id="how-to-learn-high-performance-time-series-forecasting" class="section level3">
-<h3 class="hasAnchor">
-<a href="#how-to-learn-high-performance-time-series-forecasting" class="anchor"></a>How to Learn High-Performance Time Series Forecasting</h3>
-<p>I teach how to build a HPTFS System in my <a href="https://university.business-science.io/p/ds4b-203-r-high-performance-time-series-forecasting"><strong>High-Performance Time Series Forecasting Course</strong></a>. You will learn:</p>
+<div class="section level3">
+<h3 id="how-to-learn-high-performance-time-series-forecasting">How to Learn High-Performance Time Series Forecasting<a class="anchor" aria-label="anchor" href="#how-to-learn-high-performance-time-series-forecasting"></a>
+</h3>
+<p>I teach how to build a HPTFS System in my <a href="https://university.business-science.io/p/ds4b-203-r-high-performance-time-series-forecasting" class="external-link"><strong>High-Performance Time Series Forecasting Course</strong></a>. You will learn:</p>
 <ul>
 <li>
 <strong>Time Series Machine Learning</strong> (cutting-edge) with <code>Modeltime</code> - 30+ Models (Prophet, ARIMA, XGBoost, Random Forest, &amp; many more)</li>
@@ -528,36 +484,36 @@
 Become the Time Series Expert for your organization.
 </p>
 <br><p class="text-center" style="font-size:30px;">
-<a href="https://university.business-science.io/p/ds4b-203-r-high-performance-time-series-forecasting">Take the High-Performance Time Series Forecasting Course</a>
+<a href="https://university.business-science.io/p/ds4b-203-r-high-performance-time-series-forecasting" class="external-link">Take the High-Performance Time Series Forecasting Course</a>
 </p>
 </div>
 </div>
-<div id="acknowledgements" class="section level2">
-<h2 class="hasAnchor">
-<a href="#acknowledgements" class="anchor"></a>Acknowledgements</h2>
+<div class="section level2">
+<h2 id="acknowledgements">Acknowledgements<a class="anchor" aria-label="anchor" href="#acknowledgements"></a>
+</h2>
 <p>The <code>timetk</code> package wouldn’t be possible without other amazing time series packages.</p>
 <ul>
 <li>
-<a href="https://rdrr.io/r/stats/stats-package.html">stats</a> - Basically every <code>timetk</code> function that uses a period (frequency) argument owes it to <code><a href="https://rdrr.io/r/stats/ts.html">ts()</a></code>.
+<a href="https://rdrr.io/r/stats/stats-package.html" class="external-link">stats</a> - Basically every <code>timetk</code> function that uses a period (frequency) argument owes it to <code><a href="https://rdrr.io/r/stats/ts.html" class="external-link">ts()</a></code>.
 <ul>
 <li>
-<code><a href="reference/plot_acf_diagnostics.html">plot_acf_diagnostics()</a></code>: Leverages <code><a href="https://rdrr.io/r/stats/acf.html">stats::acf()</a></code>, <code><a href="https://rdrr.io/r/stats/acf.html">stats::pacf()</a></code> &amp; <code><a href="https://rdrr.io/r/stats/acf.html">stats::ccf()</a></code>
+<code><a href="reference/plot_acf_diagnostics.html">plot_acf_diagnostics()</a></code>: Leverages <code><a href="https://rdrr.io/r/stats/acf.html" class="external-link">stats::acf()</a></code>, <code><a href="https://rdrr.io/r/stats/acf.html" class="external-link">stats::pacf()</a></code> &amp; <code><a href="https://rdrr.io/r/stats/acf.html" class="external-link">stats::ccf()</a></code>
 </li>
 <li>
-<code><a href="reference/plot_stl_diagnostics.html">plot_stl_diagnostics()</a></code>: Leverages <code><a href="https://rdrr.io/r/stats/stl.html">stats::stl()</a></code>
+<code><a href="reference/plot_stl_diagnostics.html">plot_stl_diagnostics()</a></code>: Leverages <code><a href="https://rdrr.io/r/stats/stl.html" class="external-link">stats::stl()</a></code>
 </li>
 </ul>
 </li>
 <li>
-<a href="https://lubridate.tidyverse.org/">lubridate</a>: <code>timetk</code> makes heavy use of <code><a href="https://lubridate.tidyverse.org/reference/round_date.html">floor_date()</a></code>, <code><a href="https://lubridate.tidyverse.org/reference/round_date.html">ceiling_date()</a></code>, and <code><a href="https://lubridate.tidyverse.org/reference/duration.html">duration()</a></code> for “time-based phrases”.
+<a href="https://lubridate.tidyverse.org/" class="external-link">lubridate</a>: <code>timetk</code> makes heavy use of <code>floor_date()</code>, <code>ceiling_date()</code>, and <code>duration()</code> for “time-based phrases”.
 <ul>
-<li>Add and Subtract Time (<code><a href="reference/time_arithmetic.html">%+time%</a></code> &amp; <code><a href="reference/time_arithmetic.html">%-time%</a></code>): <code>"2012-01-01" %+time% "1 month 4 days"</code> uses <code>lubridate</code> to intelligently offset the day</li>
+<li>Add and Subtract Time (<code>%+time%</code> &amp; <code>%-time%</code>): <code>"2012-01-01" %+time% "1 month 4 days"</code> uses <code>lubridate</code> to intelligently offset the day</li>
 </ul>
 </li>
 <li>
-<a href="https://github.com/joshuaulrich/xts">xts</a>: Used to calculate periodicity and fast lag automation.</li>
+<a href="https://github.com/joshuaulrich/xts" class="external-link">xts</a>: Used to calculate periodicity and fast lag automation.</li>
 <li>
-<a href="https://pkg.robjhyndman.com/forecast/">forecast (retired)</a>: Possibly my favorite R package of all time. It’s based on <code>ts</code>, and it’s predecessor is the <code>tidyverts</code> (<code>fable</code>, <code>tsibble</code>, <code>feasts</code>, and <code>fabletools</code>).
+<a href="https://pkg.robjhyndman.com/forecast/" class="external-link">forecast (retired)</a>: Possibly my favorite R package of all time. It’s based on <code>ts</code>, and it’s predecessor is the <code>tidyverts</code> (<code>fable</code>, <code>tsibble</code>, <code>feasts</code>, and <code>fabletools</code>).
 <ul>
 <li>The <code><a href="reference/ts_impute_vec.html">ts_impute_vec()</a></code> function for low-level vectorized imputation using STL + Linear Interpolation uses <code>na.interp()</code> under the hood.</li>
 <li>The <code><a href="reference/ts_clean_vec.html">ts_clean_vec()</a></code> function for low-level vectorized imputation using STL + Linear Interpolation uses <code>tsclean()</code> under the hood.</li>
@@ -566,10 +522,10 @@ Become the Time Series Expert for your organization.
 </ul>
 </li>
 <li>
-<a href="https://business-science.github.io/tibbletime/">tibbletime (retired)</a>: While <code>timetk</code> does not import <code>tibbletime</code>, it uses much of the innovative functionality to interpret time-based phrases:
+<a href="https://business-science.github.io/tibbletime/" class="external-link">tibbletime (retired)</a>: While <code>timetk</code> does not import <code>tibbletime</code>, it uses much of the innovative functionality to interpret time-based phrases:
 <ul>
 <li>
-<code><a href="reference/tk_make_timeseries.html">tk_make_timeseries()</a></code> - Extends <code><a href="https://rdrr.io/r/base/seq.Date.html">seq.Date()</a></code> and <code><a href="https://rdrr.io/r/base/seq.POSIXt.html">seq.POSIXt()</a></code> using a simple phase like “2012-02” to populate the entire time series from start to finish in February 2012.</li>
+<code><a href="reference/tk_make_timeseries.html">tk_make_timeseries()</a></code> - Extends <code><a href="https://rdrr.io/r/base/seq.Date.html" class="external-link">seq.Date()</a></code> and <code><a href="https://rdrr.io/r/base/seq.POSIXt.html" class="external-link">seq.POSIXt()</a></code> using a simple phase like “2012-02” to populate the entire time series from start to finish in February 2012.</li>
 <li>
 <code><a href="reference/filter_by_time.html">filter_by_time()</a></code>, <code><a href="reference/between_time.html">between_time()</a></code> - Uses innovative endpoint detection from phrases like “2012”</li>
 <li>
@@ -577,71 +533,87 @@ Become the Time Series Expert for your organization.
 </ul>
 </li>
 <li>
-<a href="https://davisvaughan.github.io/slider/">slider</a>: A powerful R package that provides a <code>purrr</code>-syntax for complex rolling (sliding) calculations.
+<a href="https://davisvaughan.github.io/slider/" class="external-link">slider</a>: A powerful R package that provides a <code>purrr</code>-syntax for complex rolling (sliding) calculations.
 <ul>
 <li>
-<code><a href="reference/slidify.html">slidify()</a></code> uses <code><a href="https://rdrr.io/pkg/slider/man/slide2.html">slider::pslide</a></code> under the hood.</li>
+<code><a href="reference/slidify.html">slidify()</a></code> uses <code><a href="https://rdrr.io/pkg/slider/man/slide2.html" class="external-link">slider::pslide</a></code> under the hood.</li>
 <li>
-<code><a href="reference/slidify_vec.html">slidify_vec()</a></code> uses <code><a href="https://rdrr.io/pkg/slider/man/slide.html">slider::slide_vec()</a></code> for simple vectorized rolls (slides).</li>
+<code><a href="reference/slidify_vec.html">slidify_vec()</a></code> uses <code><a href="https://rdrr.io/pkg/slider/man/slide.html" class="external-link">slider::slide_vec()</a></code> for simple vectorized rolls (slides).</li>
 </ul>
 </li>
 <li>
-<a href="https://edwinth.github.io/padr/">padr</a>: Used for padding time series from low frequency to high frequency and filling in gaps.
+<a href="https://edwinth.github.io/padr/" class="external-link">padr</a>: Used for padding time series from low frequency to high frequency and filling in gaps.
 <ul>
-<li>The <code><a href="reference/pad_by_time.html">pad_by_time()</a></code> function is a wrapper for <code><a href="https://rdrr.io/pkg/padr/man/pad.html">padr::pad()</a></code>.</li>
+<li>The <code><a href="reference/pad_by_time.html">pad_by_time()</a></code> function is a wrapper for <code><a href="https://rdrr.io/pkg/padr/man/pad.html" class="external-link">padr::pad()</a></code>.</li>
 <li>See the <code><a href="reference/step_ts_pad.html">step_ts_pad()</a></code> to apply padding as a preprocessing recipe!</li>
 </ul>
 </li>
 <li>
-<a href="https://github.com/RamiKrispin/TSstudio">TSstudio</a>: This is the best interactive time series visualization tool out there. It leverages the <code>ts</code> system, which is the same system the <code>forecast</code> R package uses. A ton of inspiration for visuals came from using <code>TSstudio</code>.</li>
+<a href="https://github.com/RamiKrispin/TSstudio" class="external-link">TSstudio</a>: This is the best interactive time series visualization tool out there. It leverages the <code>ts</code> system, which is the same system the <code>forecast</code> R package uses. A ton of inspiration for visuals came from using <code>TSstudio</code>.</li>
 </ul>
 </div>
 </div>
-  </div>
-
-  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
-    <div class="links">
-<h2>Links</h2>
+  </main><aside class="col-md-3"><div class="links">
+<h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li>Download from CRAN at <br><a href="https://cloud.r-project.org/package=timetk">https://​cloud.r-project.org/​package=timetk</a>
-</li>
-<li>Browse source code at <br><a href="https://github.com/business-science/timetk/">https://​github.com/​business-science/​timetk/​</a>
-</li>
-<li>Report a bug at <br><a href="https://github.com/business-science/timetk/issues">https://​github.com/​business-science/​timetk/​issues</a>
-</li>
+<li><a href="https://cloud.r-project.org/package=timetk" class="external-link">View on CRAN</a></li>
+<li><a href="https://github.com/business-science/timetk/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/business-science/timetk/issues" class="external-link">Report a bug</a></li>
 </ul>
 </div>
+
 <div class="license">
-<h2>License</h2>
+<h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
 <li>GPL (&gt;= 3)</li>
 </ul>
 </div>
+
+
+<div class="citation">
+<h2 data-toc-skip>Citation</h2>
+<ul class="list-unstyled">
+<li><a href="authors.html#citation">Citing timetk</a></li>
+</ul>
+</div>
+
 <div class="developers">
-<h2>Developers</h2>
+<h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
 <li>Matt Dancho <br><small class="roles"> Author, maintainer </small>  </li>
 <li>Davis Vaughan <br><small class="roles"> Author </small>  </li>
 </ul>
 </div>
 
-  </div>
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://cran.r-project.org/package=timetk" class="external-link"><img src="http://www.r-pkg.org/badges/version/timetk" alt="CRAN_Status_Badge"></a></li>
+<li><a href="https://github.com/business-science/timetk/actions" class="external-link"><img src="https://github.com/business-science/timetk/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
+<li><a href="https://app.codecov.io/gh/business-science/timetk" class="external-link"><img src="https://codecov.io/gh/business-science/timetk/branch/master/graph/badge.svg" alt="codecov"></a></li>
+</ul>
+</div>
+
+  </aside>
 </div>
 
 
-      <footer><div class="copyright">
-  <p>Developed by Matt Dancho, Davis Vaughan.</p>
+    <footer><div class="pkgdown-footer-left">
+  <p></p>
+<p>Developed by Matt Dancho, Davis Vaughan.</p>
 </div>
 
-<div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+<div class="pkgdown-footer-right">
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
 </div>
 
-      </footer>
+    </footer>
 </div>
 
   
 
+  
 
   </body>
 </html>

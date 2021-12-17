@@ -3,15 +3,13 @@
 
 # timetk
 
-<img src="man/figures/logo.png" width="147" height="170" align="right" />
-
 [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/timetk)](https://cran.r-project.org/package=timetk)
 ![](http://cranlogs.r-pkg.org/badges/timetk?color=brightgreen)
 ![](http://cranlogs.r-pkg.org/badges/grand-total/timetk?color=brightgreen)
 [![R-CMD-check](https://github.com/business-science/timetk/workflows/R-CMD-check/badge.svg)](https://github.com/business-science/timetk/actions)
 [![codecov](https://codecov.io/gh/business-science/timetk/branch/master/graph/badge.svg)](https://app.codecov.io/gh/business-science/timetk)
 
-> Time series analysis using the `tidyverse`
+> Time series analysis in the `tidyverse`
 
 ## Installation
 

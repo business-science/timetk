@@ -4,7 +4,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="timetk">
 <title>Calendar Features • timetk</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
@@ -12,12 +13,14 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png">
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
-<script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="../deps/bootstrap-5.1.0/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.1.0/bootstrap.bundle.min.js"></script><link href="../deps/_Roboto-0.4.0/font.css" rel="stylesheet">
+<link href="../deps/_JetBrains%20Mono-0.4.0/font.css" rel="stylesheet">
+<link href="../deps/_Montserrat-0.4.0/font.css" rel="stylesheet">
+<!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
+<!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
 <meta property="og:title" content="Calendar Features">
 <meta property="og:description" content="timetk">
 <meta property="og:image" content="/logo.png">
@@ -32,180 +35,129 @@
   gtag('config', 'UA-76139189-2');
 </script>
 </head>
-<body data-spy="scroll" data-target="#toc">
-    <div class="container template-article">
-      <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <span class="navbar-brand">
-        <a class="navbar-link" href="../index.html">timetk</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.2.9000</span>
-      </span>
-    </div>
+<body>
+    <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
+    
 
-    <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
+    <nav class="navbar fixed-top navbar-dark navbar-expand-lg bg-primary"><div class="container">
+    
+    <a class="navbar-brand me-2" href="../index.html">timetk</a>
+
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.6.2.9000</small>
+
+    
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div id="navbar" class="collapse navbar-collapse ms-2">
+      <ul class="navbar-nav me-auto">
+<li class="nav-item">
+  <a class="nav-link" href="../index.html">
     <span class="fa fa-home"></span>
      
   </a>
 </li>
-<li>
-  <a href="../articles/TK04_Plotting_Time_Series.html">Getting Started</a>
+<li class="nav-item">
+  <a class="nav-link" href="../articles/TK04_Plotting_Time_Series.html">Getting Started</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-<li class="dropdown-header">Visualization</li>
-    <li>
-      <a href="../articles/TK04_Plotting_Time_Series.html">Plotting Time Series</a>
-    </li>
-    <li>
-      <a href="../articles/TK05_Plotting_Seasonality_and_Correlation.html">Plotting Seasonality and Correlation</a>
-    </li>
-    <li class="divider">
-    <li class="dropdown-header">Data Wrangling</li>
-    <li>
-      <a href="../articles/TK07_Time_Series_Data_Wrangling.html">Time Series Data Wrangling</a>
-    </li>
-    <li class="divider">
-    <li class="dropdown-header">Machine Learning</li>
-    <li>
-      <a href="../articles/TK03_Forecasting_Using_Time_Series_Signature.html">Time Series Machine Learning</a>
-    </li>
-    <li>
-      <a href="../articles/TK08_Automatic_Anomaly_Detection.html">Anomaly Detection</a>
-    </li>
-    <li>
-      <a href="../articles/TK09_Clustering.html">Clustering</a>
-    </li>
-    <li class="divider">
-    <li class="dropdown-header">Time Series Fundamentals</li>
-    <li>
-      <a href="../articles/TK01_Working_With_Time_Series_Index.html">Calendar Features</a>
-    </li>
-    <li>
-      <a href="../articles/TK06_Automatic_Frequency_And_Trend_Selection.html">Frequency and Trend</a>
-    </li>
-    <li class="divider">
-    <li class="dropdown-header">Sequences &amp; Data Structures</li>
-    <li>
-      <a href="../articles/TK02_Time_Series_Date_Sequences.html">Intelligent Date &amp; Time Sequences</a>
-    </li>
-    <li>
-      <a href="../articles/TK00_Time_Series_Coercion.html">Time Series Class Conversion (tbl, ts, zoo, &amp; xts)</a>
-    </li>
-  </ul>
+<li class="active nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <h6 class="dropdown-header" data-toc-skip>Visualization</h6>
+    <a class="dropdown-item" href="../articles/TK04_Plotting_Time_Series.html">Plotting Time Series</a>
+    <a class="dropdown-item" href="../articles/TK05_Plotting_Seasonality_and_Correlation.html">Plotting Seasonality and Correlation</a>
+    <div class="dropdown-divider"></div>
+    <h6 class="dropdown-header" data-toc-skip>Data Wrangling</h6>
+    <a class="dropdown-item" href="../articles/TK07_Time_Series_Data_Wrangling.html">Time Series Data Wrangling</a>
+    <div class="dropdown-divider"></div>
+    <h6 class="dropdown-header" data-toc-skip>Machine Learning</h6>
+    <a class="dropdown-item" href="../articles/TK03_Forecasting_Using_Time_Series_Signature.html">Time Series Machine Learning</a>
+    <a class="dropdown-item" href="../articles/TK08_Automatic_Anomaly_Detection.html">Anomaly Detection</a>
+    <a class="dropdown-item" href="../articles/TK09_Clustering.html">Clustering</a>
+    <div class="dropdown-divider"></div>
+    <h6 class="dropdown-header" data-toc-skip>Time Series Fundamentals</h6>
+    <a class="dropdown-item" href="../articles/TK01_Working_With_Time_Series_Index.html">Calendar Features</a>
+    <a class="dropdown-item" href="../articles/TK06_Automatic_Frequency_And_Trend_Selection.html">Frequency and Trend</a>
+    <div class="dropdown-divider"></div>
+    <h6 class="dropdown-header" data-toc-skip>Sequences &amp; Data Structures</h6>
+    <a class="dropdown-item" href="../articles/TK02_Time_Series_Date_Sequences.html">Intelligent Date &amp; Time Sequences</a>
+    <a class="dropdown-item" href="../articles/TK00_Time_Series_Coercion.html">Time Series Class Conversion (tbl, ts, zoo, &amp; xts)</a>
+  </div>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    API
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-<li class="dropdown-header">API Functions</li>
-    <li>
-      <a href="../reference/index.html">
-        <span class="fa fa-home"></span>
-         
-        Function Reference
-      </a>
-    </li>
-    <li class="divider">
-    <li class="dropdown-header">Change History</li>
-    <li>
-      <a href="../news/index.html">News</a>
-    </li>
-  </ul>
+<li class="nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-api">API</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-api">
+    <h6 class="dropdown-header" data-toc-skip>API Functions</h6>
+    <a class="dropdown-item" href="../reference/index.html">
+      <span class="fa fa-home"></span>
+       
+      Function Reference
+    </a>
+    <div class="dropdown-divider"></div>
+    <h6 class="dropdown-header" data-toc-skip>Change History</h6>
+    <a class="dropdown-item" href="../news/index.html">News</a>
+  </div>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Ecosystem
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-<li class="dropdown-header">Forecast</li>
-    <li>
-      <a href="https://business-science.github.io/modeltime/">Modeltime (Forecasting)</a>
-    </li>
-    <li>
-      <a href="https://business-science.github.io/timetk/">TimeTK (Time Series Analysis)</a>
-    </li>
-    <li class="divider">
-    <li class="dropdown-header">Improve</li>
-    <li>
-      <a href="https://business-science.github.io/modeltime.ensemble/">Modeltime Ensemble (Blending Forecasts)</a>
-    </li>
-    <li>
-      <a href="https://business-science.github.io/modeltime.resample/">Modeltime Resample (Backtesting)</a>
-    </li>
-    <li class="divider">
-    <li class="dropdown-header">Scale</li>
-    <li>
-      <a href="https://business-science.github.io/modeltime.h2o/">Modeltime H2O (AutoML)</a>
-    </li>
-    <li>
-      <a href="https://business-science.github.io/modeltime.gluonts/">Modeltime GluonTS (Deep Learning)</a>
-    </li>
-  </ul>
+<li class="nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-ecosystem">Ecosystem</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-ecosystem">
+    <h6 class="dropdown-header" data-toc-skip>Forecast</h6>
+    <a class="external-link dropdown-item" href="https://business-science.github.io/modeltime/">Modeltime (Forecasting)</a>
+    <a class="external-link dropdown-item" href="https://business-science.github.io/timetk/">TimeTK (Time Series Analysis)</a>
+    <div class="dropdown-divider"></div>
+    <h6 class="dropdown-header" data-toc-skip>Improve</h6>
+    <a class="external-link dropdown-item" href="https://business-science.github.io/modeltime.ensemble/">Modeltime Ensemble (Blending Forecasts)</a>
+    <a class="external-link dropdown-item" href="https://business-science.github.io/modeltime.resample/">Modeltime Resample (Backtesting)</a>
+    <div class="dropdown-divider"></div>
+    <h6 class="dropdown-header" data-toc-skip>Scale</h6>
+    <a class="external-link dropdown-item" href="https://business-science.github.io/modeltime.h2o/">Modeltime H2O (AutoML)</a>
+    <a class="external-link dropdown-item" href="https://business-science.github.io/modeltime.gluonts/">Modeltime GluonTS (Deep Learning)</a>
+  </div>
 </li>
-<li>
-  <a href="https://university.business-science.io/p/ds4b-203-r-high-performance-time-series-forecasting/">
-    <span class="fas fa-graduation-cap"></span>
+<li class="nav-item">
+  <a class="external-link nav-link" href="https://university.business-science.io/p/ds4b-203-r-high-performance-time-series-forecasting/">
+    <span class="fas fa fas fa-graduation-cap"></span>
      
     Learn
   </a>
 </li>
       </ul>
-<ul class="nav navbar-nav navbar-right">
-<li>
-  <a href="https://github.com/business-science/timetk">
+<form class="form-inline my-2 my-lg-0" role="search">
+        <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off">
+</form>
+
+      <ul class="navbar-nav">
+<li class="nav-item">
+  <a class="external-link nav-link" href="https://github.com/business-science/timetk">
     <span class="fa fa-github"></span>
      
   </a>
 </li>
       </ul>
 </div>
-<!--/.nav-collapse -->
+
+    
   </div>
-<!--/.container -->
-</div>
-<!--/.navbar -->
+</nav><div class="container template-article">
 
-      
-
-      </header><script src="TK01_Working_With_Time_Series_Index_files/header-attrs-2.11/header-attrs.js"></script><div class="row">
-  <div class="col-md-9 contents">
-    <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Calendar Features</h1>
-                        <h4 class="author">Matt Dancho</h4>
+<div class="row">
+  <main id="main"><div class="page-header">
+      <img src="../logo.png" class="logo" alt=""><h1>Calendar Features</h1>
+                        <h4 data-toc-skip class="author">Matt Dancho</h4>
             
-            <h4 class="date">2021-11-16</h4>
+            <h4 data-toc-skip class="date">2021-12-16</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/business-science/timetk/blob/master/vignettes/TK01_Working_With_Time_Series_Index.Rmd"><code>vignettes/TK01_Working_With_Time_Series_Index.Rmd</code></a></small>
-      <div class="hidden name"><code>TK01_Working_With_Time_Series_Index.Rmd</code></div>
-
+      <small class="dont-index">Source: <a href="https://github.com/business-science/timetk/blob/HEAD/vignettes/TK01_Working_With_Time_Series_Index.Rmd" class="external-link"><code>vignettes/TK01_Working_With_Time_Series_Index.Rmd</code></a></small>
+      <div class="d-none name"><code>TK01_Working_With_Time_Series_Index.Rmd</code></div>
     </div>
 
     
     
 <p>This vignette covers making and working with <strong>Calendar Features</strong>, which are derived from a time series index, or the sequence of date/datetime stamps that accompany time series data.</p>
-<div id="introduction" class="section level1">
-<h1 class="hasAnchor">
-<a href="#introduction" class="anchor"></a>Introduction</h1>
+<div class="section level1">
+<h1 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
+</h1>
 <p>The <strong>time series index</strong> consists of a collection of time-based values that define <em>when</em> each observation occurred, is the most important part of a time series object.</p>
 <p>The index gives the user a lot of information in a simple timestamp. Consider the datetime <strong><em>“2016-01-01 00:00:00”</em></strong>.</p>
 <p>From this timestamp, we can decompose the date and time information to get the <strong>signature</strong>, which consists of the year, quarter, month, day, day of year, day of month, hour, minute, and second of the occurrence of a single observation. Further, the difference between two or more observations is the <strong>frequency</strong> from which we can obtain even more information such as the periodicity of the data and whether or not these observations are on a regular interval. This information is critical as it provides the basis for performance over time in finance, decay rates in biology, growth rates in economics, and so on.</p>
@@ -216,60 +168,60 @@
 <li>Time Series Summary</li>
 </ol>
 </div>
-<div id="prerequisites" class="section level1">
-<h1 class="hasAnchor">
-<a href="#prerequisites" class="anchor"></a>Prerequisites</h1>
+<div class="section level1">
+<h1 id="prerequisites">Prerequisites<a class="anchor" aria-label="anchor" href="#prerequisites"></a>
+</h1>
 <p>Before we get started, load the following packages.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/business-science/tidyquant">tidyquant</a></span><span class="op">)</span> <span class="co"># Used for FANG dataset</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/business-science/timetk">timetk</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/business-science/tidyquant" class="external-link">tidyquant</a></span><span class="op">)</span> <span class="co"># Used for FANG dataset</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/business-science/timetk" class="external-link">timetk</a></span><span class="op">)</span></code></pre></div>
 </div>
-<div id="data" class="section level1">
-<h1 class="hasAnchor">
-<a href="#data" class="anchor"></a>Data</h1>
+<div class="section level1">
+<h1 id="data">Data<a class="anchor" aria-label="anchor" href="#data"></a>
+</h1>
 <p>We’ll use the Facebook stock prices from the <code>FANG</code> data set from <code>tidyquant</code>. These are the historical stock prices (open, high, low, close, volume, and adjusted) for the “FB” stock from 2013 through 2016.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"FANG"</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"FANG"</span><span class="op">)</span>
 
-<span class="va">FB_tbl</span> <span class="op">&lt;-</span> <span class="va">FANG</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">symbol</span> <span class="op">==</span> <span class="st">"FB"</span><span class="op">)</span>
+<span class="va">FB_tbl</span> <span class="op">&lt;-</span> <span class="va">FANG</span> <span class="op"><a href="https://rdrr.io/pkg/tidyquant/man/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">symbol</span> <span class="op">==</span> <span class="st">"FB"</span><span class="op">)</span>
 <span class="va">FB_tbl</span></code></pre></div>
-<pre><code>## # A tibble: 1,008 × 8
-##    symbol date        open  high   low close    volume adjusted
-##    &lt;chr&gt;  &lt;date&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
-##  1 FB     2013-01-02  27.4  28.2  27.4  28    69846400     28  
-##  2 FB     2013-01-03  27.9  28.5  27.6  27.8  63140600     27.8
-##  3 FB     2013-01-04  28.0  28.9  27.8  28.8  72715400     28.8
-##  4 FB     2013-01-07  28.7  29.8  28.6  29.4  83781800     29.4
-##  5 FB     2013-01-08  29.5  29.6  28.9  29.1  45871300     29.1
-##  6 FB     2013-01-09  29.7  30.6  29.5  30.6 104787700     30.6
-##  7 FB     2013-01-10  30.6  31.5  30.3  31.3  95316400     31.3
-##  8 FB     2013-01-11  31.3  32.0  31.1  31.7  89598000     31.7
-##  9 FB     2013-01-14  32.1  32.2  30.6  31.0  98892800     31.0
-## 10 FB     2013-01-15  30.6  31.7  29.9  30.1 173242600     30.1
-## # … with 998 more rows</code></pre>
+<pre><code><span class="co">## <span style="color: #949494;"># A tibble: 1,008 × 8</span></span>
+<span class="co">##    symbol date        open  high   low close    volume adjusted</span>
+<span class="co">##    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="co">## <span style="color: #BCBCBC;"> 1</span> FB     2013-01-02  27.4  28.2  27.4  28    69<span style="text-decoration: underline;">846</span>400     28  </span>
+<span class="co">## <span style="color: #BCBCBC;"> 2</span> FB     2013-01-03  27.9  28.5  27.6  27.8  63<span style="text-decoration: underline;">140</span>600     27.8</span>
+<span class="co">## <span style="color: #BCBCBC;"> 3</span> FB     2013-01-04  28.0  28.9  27.8  28.8  72<span style="text-decoration: underline;">715</span>400     28.8</span>
+<span class="co">## <span style="color: #BCBCBC;"> 4</span> FB     2013-01-07  28.7  29.8  28.6  29.4  83<span style="text-decoration: underline;">781</span>800     29.4</span>
+<span class="co">## <span style="color: #BCBCBC;"> 5</span> FB     2013-01-08  29.5  29.6  28.9  29.1  45<span style="text-decoration: underline;">871</span>300     29.1</span>
+<span class="co">## <span style="color: #BCBCBC;"> 6</span> FB     2013-01-09  29.7  30.6  29.5  30.6 104<span style="text-decoration: underline;">787</span>700     30.6</span>
+<span class="co">## <span style="color: #BCBCBC;"> 7</span> FB     2013-01-10  30.6  31.5  30.3  31.3  95<span style="text-decoration: underline;">316</span>400     31.3</span>
+<span class="co">## <span style="color: #BCBCBC;"> 8</span> FB     2013-01-11  31.3  32.0  31.1  31.7  89<span style="text-decoration: underline;">598</span>000     31.7</span>
+<span class="co">## <span style="color: #BCBCBC;"> 9</span> FB     2013-01-14  32.1  32.2  30.6  31.0  98<span style="text-decoration: underline;">892</span>800     31.0</span>
+<span class="co">## <span style="color: #BCBCBC;">10</span> FB     2013-01-15  30.6  31.7  29.9  30.1 173<span style="text-decoration: underline;">242</span>600     30.1</span>
+<span class="co">## <span style="color: #949494;"># … with 998 more rows</span></span></code></pre>
 <p>To simplify the tutorial, we will select only the “date” and “volume” columns. For the <code>FB_vol_date</code> data frame, we can see from the “date” column that the observations are <em>daily</em> beginning on the second day of 2013.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">FB_vol_date</span> <span class="op">&lt;-</span> <span class="va">FB_tbl</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">volume</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">FB_vol_date</span> <span class="op">&lt;-</span> <span class="va">FB_tbl</span> <span class="op"><a href="https://rdrr.io/pkg/tidyquant/man/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">volume</span><span class="op">)</span>
 <span class="va">FB_vol_date</span></code></pre></div>
-<pre><code>## # A tibble: 1,008 × 2
-##    date          volume
-##    &lt;date&gt;         &lt;dbl&gt;
-##  1 2013-01-02  69846400
-##  2 2013-01-03  63140600
-##  3 2013-01-04  72715400
-##  4 2013-01-07  83781800
-##  5 2013-01-08  45871300
-##  6 2013-01-09 104787700
-##  7 2013-01-10  95316400
-##  8 2013-01-11  89598000
-##  9 2013-01-14  98892800
-## 10 2013-01-15 173242600
-## # … with 998 more rows</code></pre>
+<pre><code><span class="co">## <span style="color: #949494;"># A tibble: 1,008 × 2</span></span>
+<span class="co">##    date          volume</span>
+<span class="co">##    <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="co">## <span style="color: #BCBCBC;"> 1</span> 2013-01-02  69<span style="text-decoration: underline;">846</span>400</span>
+<span class="co">## <span style="color: #BCBCBC;"> 2</span> 2013-01-03  63<span style="text-decoration: underline;">140</span>600</span>
+<span class="co">## <span style="color: #BCBCBC;"> 3</span> 2013-01-04  72<span style="text-decoration: underline;">715</span>400</span>
+<span class="co">## <span style="color: #BCBCBC;"> 4</span> 2013-01-07  83<span style="text-decoration: underline;">781</span>800</span>
+<span class="co">## <span style="color: #BCBCBC;"> 5</span> 2013-01-08  45<span style="text-decoration: underline;">871</span>300</span>
+<span class="co">## <span style="color: #BCBCBC;"> 6</span> 2013-01-09 104<span style="text-decoration: underline;">787</span>700</span>
+<span class="co">## <span style="color: #BCBCBC;"> 7</span> 2013-01-10  95<span style="text-decoration: underline;">316</span>400</span>
+<span class="co">## <span style="color: #BCBCBC;"> 8</span> 2013-01-11  89<span style="text-decoration: underline;">598</span>000</span>
+<span class="co">## <span style="color: #BCBCBC;"> 9</span> 2013-01-14  98<span style="text-decoration: underline;">892</span>800</span>
+<span class="co">## <span style="color: #BCBCBC;">10</span> 2013-01-15 173<span style="text-decoration: underline;">242</span>600</span>
+<span class="co">## <span style="color: #949494;"># … with 998 more rows</span></span></code></pre>
 </div>
-<div id="time-series-index" class="section level1">
-<h1 class="hasAnchor">
-<a href="#time-series-index" class="anchor"></a>Time Series Index</h1>
+<div class="section level1">
+<h1 id="time-series-index">Time Series Index<a class="anchor" aria-label="anchor" href="#time-series-index"></a>
+</h1>
 <p>Before we can analyze an index, we need to extract it from the object. The function <code><a href="../reference/tk_index.html">tk_index()</a></code> extracts the index from any time series object including data frame (or <code>tbl</code>), <code>xts</code>, <code>zoo</code>, etc. The index is always returned in the native date, datetime, yearmon, or yearqtr format. Note that the index must be in one of these time-based classes for extraction to work:</p>
 <ul>
 <li>datetimes: Must inherit <code>POSIXt</code>
@@ -283,16 +235,16 @@
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># idx_date</span>
 <span class="va">idx_date</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tk_index.html">tk_index</a></span><span class="op">(</span><span class="va">FB_vol_date</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">idx_date</span><span class="op">)</span></code></pre></div>
-<pre><code>##  Date[1:1008], format: "2013-01-02" "2013-01-03" "2013-01-04" "2013-01-07" "2013-01-08" ...</code></pre>
+<span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">idx_date</span><span class="op">)</span></code></pre></div>
+<pre><code><span class="co">##  Date[1:1008], format: "2013-01-02" "2013-01-03" "2013-01-04" "2013-01-07" "2013-01-08" ...</span></code></pre>
 </div>
-<div id="time-series-signature" class="section level1">
-<h1 class="hasAnchor">
-<a href="#time-series-signature" class="anchor"></a>Time Series Signature</h1>
+<div class="section level1">
+<h1 id="time-series-signature">Time Series Signature<a class="anchor" aria-label="anchor" href="#time-series-signature"></a>
+</h1>
 <p>The index can be decomposed into a <em>signature</em>. The time series signature is a unique set of properties of the time series values that describe the time series.</p>
-<div id="get-functions---turning-an-index-into-information" class="section level2">
-<h2 class="hasAnchor">
-<a href="#get-functions---turning-an-index-into-information" class="anchor"></a>Get Functions - Turning an Index into Information</h2>
+<div class="section level2">
+<h2 id="get-functions---turning-an-index-into-information">Get Functions - Turning an Index into Information<a class="anchor" aria-label="anchor" href="#get-functions---turning-an-index-into-information"></a>
+</h2>
 <p>The function <code><a href="../reference/tk_get_timeseries.html">tk_get_timeseries_signature()</a></code> can be used to convert the index to a tibble containing the following values (columns):</p>
 <ul>
 <li>
@@ -357,90 +309,90 @@
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># idx_date signature</span>
 <span class="fu"><a href="../reference/tk_get_timeseries.html">tk_get_timeseries_signature</a></span><span class="op">(</span><span class="va">idx_date</span><span class="op">)</span></code></pre></div>
-<pre><code>## # A tibble: 1,008 × 29
-##    index       index.num   diff  year year.iso  half quarter month month.xts
-##    &lt;date&gt;          &lt;dbl&gt;  &lt;dbl&gt; &lt;int&gt;    &lt;int&gt; &lt;int&gt;   &lt;int&gt; &lt;int&gt;     &lt;int&gt;
-##  1 2013-01-02 1357084800     NA  2013     2013     1       1     1         0
-##  2 2013-01-03 1357171200  86400  2013     2013     1       1     1         0
-##  3 2013-01-04 1357257600  86400  2013     2013     1       1     1         0
-##  4 2013-01-07 1357516800 259200  2013     2013     1       1     1         0
-##  5 2013-01-08 1357603200  86400  2013     2013     1       1     1         0
-##  6 2013-01-09 1357689600  86400  2013     2013     1       1     1         0
-##  7 2013-01-10 1357776000  86400  2013     2013     1       1     1         0
-##  8 2013-01-11 1357862400  86400  2013     2013     1       1     1         0
-##  9 2013-01-14 1358121600 259200  2013     2013     1       1     1         0
-## 10 2013-01-15 1358208000  86400  2013     2013     1       1     1         0
-## # … with 998 more rows, and 20 more variables: month.lbl &lt;ord&gt;, day &lt;int&gt;,
-## #   hour &lt;int&gt;, minute &lt;int&gt;, second &lt;int&gt;, hour12 &lt;int&gt;, am.pm &lt;int&gt;,
-## #   wday &lt;int&gt;, wday.xts &lt;int&gt;, wday.lbl &lt;ord&gt;, mday &lt;int&gt;, qday &lt;int&gt;,
-## #   yday &lt;int&gt;, mweek &lt;int&gt;, week &lt;int&gt;, week.iso &lt;int&gt;, week2 &lt;int&gt;,
-## #   week3 &lt;int&gt;, week4 &lt;int&gt;, mday7 &lt;int&gt;</code></pre>
+<pre><code><span class="co">## <span style="color: #949494;"># A tibble: 1,008 × 29</span></span>
+<span class="co">##    index       index.num   diff  year year.iso  half quarter month month.xts</span>
+<span class="co">##    <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
+<span class="co">## <span style="color: #BCBCBC;"> 1</span> 2013-01-02 <span style="text-decoration: underline;">1</span>357<span style="text-decoration: underline;">084</span>800     <span style="color: #BB0000;">NA</span>  <span style="text-decoration: underline;">2</span>013     <span style="text-decoration: underline;">2</span>013     1       1     1         0</span>
+<span class="co">## <span style="color: #BCBCBC;"> 2</span> 2013-01-03 <span style="text-decoration: underline;">1</span>357<span style="text-decoration: underline;">171</span>200  <span style="text-decoration: underline;">86</span>400  <span style="text-decoration: underline;">2</span>013     <span style="text-decoration: underline;">2</span>013     1       1     1         0</span>
+<span class="co">## <span style="color: #BCBCBC;"> 3</span> 2013-01-04 <span style="text-decoration: underline;">1</span>357<span style="text-decoration: underline;">257</span>600  <span style="text-decoration: underline;">86</span>400  <span style="text-decoration: underline;">2</span>013     <span style="text-decoration: underline;">2</span>013     1       1     1         0</span>
+<span class="co">## <span style="color: #BCBCBC;"> 4</span> 2013-01-07 <span style="text-decoration: underline;">1</span>357<span style="text-decoration: underline;">516</span>800 <span style="text-decoration: underline;">259</span>200  <span style="text-decoration: underline;">2</span>013     <span style="text-decoration: underline;">2</span>013     1       1     1         0</span>
+<span class="co">## <span style="color: #BCBCBC;"> 5</span> 2013-01-08 <span style="text-decoration: underline;">1</span>357<span style="text-decoration: underline;">603</span>200  <span style="text-decoration: underline;">86</span>400  <span style="text-decoration: underline;">2</span>013     <span style="text-decoration: underline;">2</span>013     1       1     1         0</span>
+<span class="co">## <span style="color: #BCBCBC;"> 6</span> 2013-01-09 <span style="text-decoration: underline;">1</span>357<span style="text-decoration: underline;">689</span>600  <span style="text-decoration: underline;">86</span>400  <span style="text-decoration: underline;">2</span>013     <span style="text-decoration: underline;">2</span>013     1       1     1         0</span>
+<span class="co">## <span style="color: #BCBCBC;"> 7</span> 2013-01-10 <span style="text-decoration: underline;">1</span>357<span style="text-decoration: underline;">776</span>000  <span style="text-decoration: underline;">86</span>400  <span style="text-decoration: underline;">2</span>013     <span style="text-decoration: underline;">2</span>013     1       1     1         0</span>
+<span class="co">## <span style="color: #BCBCBC;"> 8</span> 2013-01-11 <span style="text-decoration: underline;">1</span>357<span style="text-decoration: underline;">862</span>400  <span style="text-decoration: underline;">86</span>400  <span style="text-decoration: underline;">2</span>013     <span style="text-decoration: underline;">2</span>013     1       1     1         0</span>
+<span class="co">## <span style="color: #BCBCBC;"> 9</span> 2013-01-14 <span style="text-decoration: underline;">1</span>358<span style="text-decoration: underline;">121</span>600 <span style="text-decoration: underline;">259</span>200  <span style="text-decoration: underline;">2</span>013     <span style="text-decoration: underline;">2</span>013     1       1     1         0</span>
+<span class="co">## <span style="color: #BCBCBC;">10</span> 2013-01-15 <span style="text-decoration: underline;">1</span>358<span style="text-decoration: underline;">208</span>000  <span style="text-decoration: underline;">86</span>400  <span style="text-decoration: underline;">2</span>013     <span style="text-decoration: underline;">2</span>013     1       1     1         0</span>
+<span class="co">## <span style="color: #949494;"># … with 998 more rows, and 20 more variables: month.lbl &lt;ord&gt;, day &lt;int&gt;,</span></span>
+<span class="co">## <span style="color: #949494;">#   hour &lt;int&gt;, minute &lt;int&gt;, second &lt;int&gt;, hour12 &lt;int&gt;, am.pm &lt;int&gt;,</span></span>
+<span class="co">## <span style="color: #949494;">#   wday &lt;int&gt;, wday.xts &lt;int&gt;, wday.lbl &lt;ord&gt;, mday &lt;int&gt;, qday &lt;int&gt;,</span></span>
+<span class="co">## <span style="color: #949494;">#   yday &lt;int&gt;, mweek &lt;int&gt;, week &lt;int&gt;, week.iso &lt;int&gt;, week2 &lt;int&gt;,</span></span>
+<span class="co">## <span style="color: #949494;">#   week3 &lt;int&gt;, week4 &lt;int&gt;, mday7 &lt;int&gt;</span></span></code></pre>
 </div>
-<div id="augment-functions-adding-many-features-to-a-data-frame" class="section level2">
-<h2 class="hasAnchor">
-<a href="#augment-functions-adding-many-features-to-a-data-frame" class="anchor"></a>Augment Functions (Adding Many Features to a Data Frame)</h2>
+<div class="section level2">
+<h2 id="augment-functions-adding-many-features-to-a-data-frame">Augment Functions (Adding Many Features to a Data Frame)<a class="anchor" aria-label="anchor" href="#augment-functions-adding-many-features-to-a-data-frame"></a>
+</h2>
 <p>It’s usually important to keep the index signature with the values (e.g. volume in our example). We can use an expedited approach with <code><a href="../reference/tk_augment_timeseries.html">tk_augment_timeseries_signature()</a></code>, which adds the signature to the end of the time series object.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Augmenting a data frame</span>
-<span class="va">FB_vol_date_signature</span> <span class="op">&lt;-</span> <span class="va">FB_vol_date</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/tk_augment_timeseries.html">tk_augment_timeseries_signature</a></span><span class="op">(</span>.date_var <span class="op">=</span> <span class="va">date</span><span class="op">)</span>
+<span class="va">FB_vol_date_signature</span> <span class="op">&lt;-</span> <span class="va">FB_vol_date</span> <span class="op"><a href="https://rdrr.io/pkg/tidyquant/man/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="../reference/tk_augment_timeseries.html">tk_augment_timeseries_signature</a></span><span class="op">(</span>.date_var <span class="op">=</span> <span class="va">date</span><span class="op">)</span>
 <span class="va">FB_vol_date_signature</span></code></pre></div>
-<pre><code>## # A tibble: 1,008 × 30
-##    date          volume  index.num   diff  year year.iso  half quarter month
-##    &lt;date&gt;         &lt;dbl&gt;      &lt;dbl&gt;  &lt;dbl&gt; &lt;int&gt;    &lt;int&gt; &lt;int&gt;   &lt;int&gt; &lt;int&gt;
-##  1 2013-01-02  69846400 1357084800     NA  2013     2013     1       1     1
-##  2 2013-01-03  63140600 1357171200  86400  2013     2013     1       1     1
-##  3 2013-01-04  72715400 1357257600  86400  2013     2013     1       1     1
-##  4 2013-01-07  83781800 1357516800 259200  2013     2013     1       1     1
-##  5 2013-01-08  45871300 1357603200  86400  2013     2013     1       1     1
-##  6 2013-01-09 104787700 1357689600  86400  2013     2013     1       1     1
-##  7 2013-01-10  95316400 1357776000  86400  2013     2013     1       1     1
-##  8 2013-01-11  89598000 1357862400  86400  2013     2013     1       1     1
-##  9 2013-01-14  98892800 1358121600 259200  2013     2013     1       1     1
-## 10 2013-01-15 173242600 1358208000  86400  2013     2013     1       1     1
-## # … with 998 more rows, and 21 more variables: month.xts &lt;int&gt;,
-## #   month.lbl &lt;ord&gt;, day &lt;int&gt;, hour &lt;int&gt;, minute &lt;int&gt;, second &lt;int&gt;,
-## #   hour12 &lt;int&gt;, am.pm &lt;int&gt;, wday &lt;int&gt;, wday.xts &lt;int&gt;, wday.lbl &lt;ord&gt;,
-## #   mday &lt;int&gt;, qday &lt;int&gt;, yday &lt;int&gt;, mweek &lt;int&gt;, week &lt;int&gt;,
-## #   week.iso &lt;int&gt;, week2 &lt;int&gt;, week3 &lt;int&gt;, week4 &lt;int&gt;, mday7 &lt;int&gt;</code></pre>
-<p>Modeling is now much easier. As an example, we can use linear regression model using the <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> function with the month and year as a predictor of volume.</p>
+<pre><code><span class="co">## <span style="color: #949494;"># A tibble: 1,008 × 30</span></span>
+<span class="co">##    date          volume  index.num   diff  year year.iso  half quarter month</span>
+<span class="co">##    <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
+<span class="co">## <span style="color: #BCBCBC;"> 1</span> 2013-01-02  69<span style="text-decoration: underline;">846</span>400 <span style="text-decoration: underline;">1</span>357<span style="text-decoration: underline;">084</span>800     <span style="color: #BB0000;">NA</span>  <span style="text-decoration: underline;">2</span>013     <span style="text-decoration: underline;">2</span>013     1       1     1</span>
+<span class="co">## <span style="color: #BCBCBC;"> 2</span> 2013-01-03  63<span style="text-decoration: underline;">140</span>600 <span style="text-decoration: underline;">1</span>357<span style="text-decoration: underline;">171</span>200  <span style="text-decoration: underline;">86</span>400  <span style="text-decoration: underline;">2</span>013     <span style="text-decoration: underline;">2</span>013     1       1     1</span>
+<span class="co">## <span style="color: #BCBCBC;"> 3</span> 2013-01-04  72<span style="text-decoration: underline;">715</span>400 <span style="text-decoration: underline;">1</span>357<span style="text-decoration: underline;">257</span>600  <span style="text-decoration: underline;">86</span>400  <span style="text-decoration: underline;">2</span>013     <span style="text-decoration: underline;">2</span>013     1       1     1</span>
+<span class="co">## <span style="color: #BCBCBC;"> 4</span> 2013-01-07  83<span style="text-decoration: underline;">781</span>800 <span style="text-decoration: underline;">1</span>357<span style="text-decoration: underline;">516</span>800 <span style="text-decoration: underline;">259</span>200  <span style="text-decoration: underline;">2</span>013     <span style="text-decoration: underline;">2</span>013     1       1     1</span>
+<span class="co">## <span style="color: #BCBCBC;"> 5</span> 2013-01-08  45<span style="text-decoration: underline;">871</span>300 <span style="text-decoration: underline;">1</span>357<span style="text-decoration: underline;">603</span>200  <span style="text-decoration: underline;">86</span>400  <span style="text-decoration: underline;">2</span>013     <span style="text-decoration: underline;">2</span>013     1       1     1</span>
+<span class="co">## <span style="color: #BCBCBC;"> 6</span> 2013-01-09 104<span style="text-decoration: underline;">787</span>700 <span style="text-decoration: underline;">1</span>357<span style="text-decoration: underline;">689</span>600  <span style="text-decoration: underline;">86</span>400  <span style="text-decoration: underline;">2</span>013     <span style="text-decoration: underline;">2</span>013     1       1     1</span>
+<span class="co">## <span style="color: #BCBCBC;"> 7</span> 2013-01-10  95<span style="text-decoration: underline;">316</span>400 <span style="text-decoration: underline;">1</span>357<span style="text-decoration: underline;">776</span>000  <span style="text-decoration: underline;">86</span>400  <span style="text-decoration: underline;">2</span>013     <span style="text-decoration: underline;">2</span>013     1       1     1</span>
+<span class="co">## <span style="color: #BCBCBC;"> 8</span> 2013-01-11  89<span style="text-decoration: underline;">598</span>000 <span style="text-decoration: underline;">1</span>357<span style="text-decoration: underline;">862</span>400  <span style="text-decoration: underline;">86</span>400  <span style="text-decoration: underline;">2</span>013     <span style="text-decoration: underline;">2</span>013     1       1     1</span>
+<span class="co">## <span style="color: #BCBCBC;"> 9</span> 2013-01-14  98<span style="text-decoration: underline;">892</span>800 <span style="text-decoration: underline;">1</span>358<span style="text-decoration: underline;">121</span>600 <span style="text-decoration: underline;">259</span>200  <span style="text-decoration: underline;">2</span>013     <span style="text-decoration: underline;">2</span>013     1       1     1</span>
+<span class="co">## <span style="color: #BCBCBC;">10</span> 2013-01-15 173<span style="text-decoration: underline;">242</span>600 <span style="text-decoration: underline;">1</span>358<span style="text-decoration: underline;">208</span>000  <span style="text-decoration: underline;">86</span>400  <span style="text-decoration: underline;">2</span>013     <span style="text-decoration: underline;">2</span>013     1       1     1</span>
+<span class="co">## <span style="color: #949494;"># … with 998 more rows, and 21 more variables: month.xts &lt;int&gt;,</span></span>
+<span class="co">## <span style="color: #949494;">#   month.lbl &lt;ord&gt;, day &lt;int&gt;, hour &lt;int&gt;, minute &lt;int&gt;, second &lt;int&gt;,</span></span>
+<span class="co">## <span style="color: #949494;">#   hour12 &lt;int&gt;, am.pm &lt;int&gt;, wday &lt;int&gt;, wday.xts &lt;int&gt;, wday.lbl &lt;ord&gt;,</span></span>
+<span class="co">## <span style="color: #949494;">#   mday &lt;int&gt;, qday &lt;int&gt;, yday &lt;int&gt;, mweek &lt;int&gt;, week &lt;int&gt;,</span></span>
+<span class="co">## <span style="color: #949494;">#   week.iso &lt;int&gt;, week2 &lt;int&gt;, week3 &lt;int&gt;, week4 &lt;int&gt;, mday7 &lt;int&gt;</span></span></code></pre>
+<p>Modeling is now much easier. As an example, we can use linear regression model using the <code><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm()</a></code> function with the month and year as a predictor of volume.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Example Benefit 2: Modeling is easier</span>
-<span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">volume</span> <span class="op">~</span> <span class="va">year</span> <span class="op">+</span> <span class="va">month.lbl</span>, data <span class="op">=</span> <span class="va">FB_vol_date_signature</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></code></pre></div>
-<pre><code>## 
-## Call:
-## lm(formula = volume ~ year + month.lbl, data = FB_vol_date_signature)
-## 
-## Residuals:
-##       Min        1Q    Median        3Q       Max 
-## -51042223 -13528407  -4588594   8296073 304011277 
-## 
-## Coefficients:
-##                Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)   2.494e+10  1.414e+09  17.633  &lt; 2e-16 ***
-## year         -1.236e+07  7.021e+05 -17.604  &lt; 2e-16 ***
-## month.lbl.L  -9.589e+06  2.740e+06  -3.499 0.000488 ***
-## month.lbl.Q   7.348e+06  2.725e+06   2.697 0.007122 ** 
-## month.lbl.C  -9.773e+06  2.711e+06  -3.605 0.000328 ***
-## month.lbl^4  -2.885e+06  2.720e+06  -1.060 0.289176    
-## month.lbl^5  -2.994e+06  2.749e+06  -1.089 0.276428    
-## month.lbl^6   3.169e+06  2.753e+06   1.151 0.249851    
-## month.lbl^7   6.000e+05  2.721e+06   0.221 0.825514    
-## month.lbl^8   8.281e+03  2.702e+06   0.003 0.997555    
-## month.lbl^9   9.504e+06  2.704e+06   3.515 0.000459 ***
-## month.lbl^10 -5.911e+06  2.701e+06  -2.188 0.028888 *  
-## month.lbl^11 -4.738e+06  2.696e+06  -1.757 0.079181 .  
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## Residual standard error: 24910000 on 995 degrees of freedom
-## Multiple R-squared:  0.2714, Adjusted R-squared:  0.2626 
-## F-statistic: 30.89 on 12 and 995 DF,  p-value: &lt; 2.2e-16</code></pre>
+<span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">volume</span> <span class="op">~</span> <span class="va">year</span> <span class="op">+</span> <span class="va">month.lbl</span>, data <span class="op">=</span> <span class="va">FB_vol_date_signature</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></code></pre></div>
+<pre><code><span class="co">## </span>
+<span class="co">## Call:</span>
+<span class="co">## lm(formula = volume ~ year + month.lbl, data = FB_vol_date_signature)</span>
+<span class="co">## </span>
+<span class="co">## Residuals:</span>
+<span class="co">##       Min        1Q    Median        3Q       Max </span>
+<span class="co">## -51042223 -13528407  -4588594   8296073 304011277 </span>
+<span class="co">## </span>
+<span class="co">## Coefficients:</span>
+<span class="co">##                Estimate Std. Error t value Pr(&gt;|t|)    </span>
+<span class="co">## (Intercept)   2.494e+10  1.414e+09  17.633  &lt; 2e-16 ***</span>
+<span class="co">## year         -1.236e+07  7.021e+05 -17.604  &lt; 2e-16 ***</span>
+<span class="co">## month.lbl.L  -9.589e+06  2.740e+06  -3.499 0.000488 ***</span>
+<span class="co">## month.lbl.Q   7.348e+06  2.725e+06   2.697 0.007122 ** </span>
+<span class="co">## month.lbl.C  -9.773e+06  2.711e+06  -3.605 0.000328 ***</span>
+<span class="co">## month.lbl^4  -2.885e+06  2.720e+06  -1.060 0.289176    </span>
+<span class="co">## month.lbl^5  -2.994e+06  2.749e+06  -1.089 0.276428    </span>
+<span class="co">## month.lbl^6   3.169e+06  2.753e+06   1.151 0.249851    </span>
+<span class="co">## month.lbl^7   6.000e+05  2.721e+06   0.221 0.825514    </span>
+<span class="co">## month.lbl^8   8.281e+03  2.702e+06   0.003 0.997555    </span>
+<span class="co">## month.lbl^9   9.504e+06  2.704e+06   3.515 0.000459 ***</span>
+<span class="co">## month.lbl^10 -5.911e+06  2.701e+06  -2.188 0.028888 *  </span>
+<span class="co">## month.lbl^11 -4.738e+06  2.696e+06  -1.757 0.079181 .  </span>
+<span class="co">## ---</span>
+<span class="co">## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span>
+<span class="co">## </span>
+<span class="co">## Residual standard error: 24910000 on 995 degrees of freedom</span>
+<span class="co">## Multiple R-squared:  0.2714, Adjusted R-squared:  0.2626 </span>
+<span class="co">## F-statistic: 30.89 on 12 and 995 DF,  p-value: &lt; 2.2e-16</span></code></pre>
 </div>
 </div>
-<div id="time-series-summary" class="section level1">
-<h1 class="hasAnchor">
-<a href="#time-series-summary" class="anchor"></a>Time Series Summary</h1>
+<div class="section level1">
+<h1 id="time-series-summary">Time Series Summary<a class="anchor" aria-label="anchor" href="#time-series-summary"></a>
+</h1>
 <p>The next index analysis tool is the summary metrics, which can be retrieved using the <code><a href="../reference/tk_get_timeseries.html">tk_get_timeseries_summary()</a></code> function. The summary reports the following attributes as a single-row tibble.</p>
 <p><em>General Summary</em>:</p>
 <p>The first six columns are general summary information.</p>
@@ -461,10 +413,10 @@
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># idx_date: First six columns, general summary</span>
 <span class="fu"><a href="../reference/tk_get_timeseries.html">tk_get_timeseries_summary</a></span><span class="op">(</span><span class="va">idx_date</span><span class="op">)</span><span class="op">[</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">6</span><span class="op">]</span></code></pre></div>
-<pre><code>## # A tibble: 1 × 6
-##   n.obs start      end        units scale tzone
-##   &lt;int&gt; &lt;date&gt;     &lt;date&gt;     &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;
-## 1  1008 2013-01-02 2016-12-30 days  day   UTC</code></pre>
+<pre><code><span class="co">## <span style="color: #949494;"># A tibble: 1 × 6</span></span>
+<span class="co">##   n.obs start      end        units scale tzone</span>
+<span class="co">##   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span>
+<span class="co">## <span style="color: #BCBCBC;">1</span>  <span style="text-decoration: underline;">1</span>008 2013-01-02 2016-12-30 days  day   UTC</span></code></pre>
 <p><em>Differences Summary</em>:</p>
 <p>The next group of values are the <strong>differences summary</strong> (i.e. summary of frequency). All values are in seconds:</p>
 <ul>
@@ -484,16 +436,16 @@
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># idx_date: Last six columns, difference summary</span>
 <span class="fu"><a href="../reference/tk_get_timeseries.html">tk_get_timeseries_summary</a></span><span class="op">(</span><span class="va">idx_date</span><span class="op">)</span><span class="op">[</span>,<span class="fl">7</span><span class="op">:</span><span class="fl">12</span><span class="op">]</span></code></pre></div>
-<pre><code>## # A tibble: 1 × 6
-##   diff.minimum diff.q1 diff.median diff.mean diff.q3 diff.maximum
-##          &lt;dbl&gt;   &lt;dbl&gt;       &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;        &lt;dbl&gt;
-## 1        86400   86400       86400   125096.   86400       345600</code></pre>
+<pre><code><span class="co">## <span style="color: #949494;"># A tibble: 1 × 6</span></span>
+<span class="co">##   diff.minimum diff.q1 diff.median diff.mean diff.q3 diff.maximum</span>
+<span class="co">##          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="co">## <span style="color: #BCBCBC;">1</span>        <span style="text-decoration: underline;">86</span>400   <span style="text-decoration: underline;">86</span>400       <span style="text-decoration: underline;">86</span>400   <span style="text-decoration: underline;">125</span>096.   <span style="text-decoration: underline;">86</span>400       <span style="text-decoration: underline;">345</span>600</span></code></pre>
 <p>The <strong>differences</strong> provide information about the <em>regularity of the frequency</em>. Generally speaking if all difference values are equal, the index is regular. However, scales beyond “day” are never theoretically regular since the differences in seconds are not equivalent. However, conceptually monthly, quarterly and yearly data can be thought of as regular if the index contains consecutive months, quarters, or years, respectively. Therefore, the difference attributes are most meaningful for daily and lower time scales because the difference summary always indicates level of regularity.</p>
 <p>From the second group (differences summary), we immediately recognize that the mean is different than the median and therefore the index is <em>irregular</em> (meaning certain days are missing). Further we can see that the maximum difference is 345,600 seconds, indicating the maximum difference is 4 days (345,600 seconds / 86400 seconds/day).</p>
 </div>
-<div id="learning-more" class="section level1">
-<h1 class="hasAnchor">
-<a href="#learning-more" class="anchor"></a>Learning More</h1>
+<div class="section level1">
+<h1 id="learning-more">Learning More<a class="anchor" aria-label="anchor" href="#learning-more"></a>
+</h1>
 <p>
 <iframe width="100%" height="450" src="https://www.youtube.com/embed/elQb4VzRINg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="box-shadow: 0 0 5px 2px rgba(0, 0, 0, .5);">
 <span id="selection-marker-1" class="redactor-selection-marker"></span><span id="selection-marker-1" class="redactor-selection-marker"></span><span id="selection-marker-1" class="redactor-selection-marker"></span><span id="selection-marker-1" class="redactor-selection-marker"></span>
@@ -502,7 +454,7 @@
 <p><em>My Talk on High-Performance Time Series Forecasting</em></p>
 <p>Time series is changing. <strong>Businesses now need 10,000+ time series forecasts every day.</strong></p>
 <p><strong>High-Performance Forecasting Systems will save companies MILLIONS of dollars.</strong> Imagine what will happen to your career if you can provide your organization a “High-Performance Time Series Forecasting System” (HPTSF System).</p>
-<p>I teach how to build a HPTFS System in my <strong>High-Performance Time Series Forecasting Course</strong>. If interested in learning Scalable High-Performance Forecasting Strategies then <a href="https://university.business-science.io/p/ds4b-203-r-high-performance-time-series-forecasting">take my course</a>. You will learn:</p>
+<p>I teach how to build a HPTFS System in my <strong>High-Performance Time Series Forecasting Course</strong>. If interested in learning Scalable High-Performance Forecasting Strategies then <a href="https://university.business-science.io/p/ds4b-203-r-high-performance-time-series-forecasting" class="external-link">take my course</a>. You will learn:</p>
 <ul>
 <li>Time Series Machine Learning (cutting-edge) with <code>Modeltime</code> - 30+ Models (Prophet, ARIMA, XGBoost, Random Forest, &amp; many more)</li>
 <li>NEW - Deep Learning with <code>GluonTS</code> (Competition Winners)</li>
@@ -515,34 +467,31 @@
 <li>and more.</li>
 </ul>
 <p class="text-center" style="font-size:30px;">
-<a href="https://university.business-science.io/p/ds4b-203-r-high-performance-time-series-forecasting">Unlock the High-Performance Time Series Forecasting Course</a>
+<a href="https://university.business-science.io/p/ds4b-203-r-high-performance-time-series-forecasting" class="external-link">Unlock the High-Performance Time Series Forecasting Course</a>
 </p>
 </div>
-  </div>
-
-  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
-
-        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
-    </nav>
-</div>
-
+  </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
+    </nav></aside>
 </div>
 
 
 
-      <footer><div class="copyright">
-  <p>Developed by Matt Dancho, Davis Vaughan.</p>
+    <footer><div class="pkgdown-footer-left">
+  <p></p>
+<p>Developed by Matt Dancho, Davis Vaughan.</p>
 </div>
 
-<div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+<div class="pkgdown-footer-right">
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
 </div>
 
-      </footer>
+    </footer>
 </div>
 
   
 
+  
 
   </body>
 </html>
