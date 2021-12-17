@@ -6,7 +6,7 @@ template:
     heading_font:
       google: Montserrat
     code_font:
-      google: "Ubuntu Mono"
+      google: "JetBrains Mono"
   params:
     bootswatch: flatly
     ganalytics: UA-76139189-2
@@ -238,5 +238,6 @@ reference:
     contents:
     - "parse_date2"
     - "is_date_class"
+
 
 

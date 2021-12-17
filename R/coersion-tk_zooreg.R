@@ -171,7 +171,7 @@ tk_zooreg_dispatch_ <- function(data, select, date_var, start, end, frequency, d
 
 
 
-#' @rdname timetk_internal
+
 #' @export
 tk_zooreg_.data.frame <- function(data, select, date_var, start, end, frequency, deltat, ts.eps, order.by, silent) {
 
@@ -187,7 +187,7 @@ tk_zooreg_.data.frame <- function(data, select, date_var, start, end, frequency,
 
 }
 
-#' @rdname timetk_internal
+
 #' @export
 tk_zooreg_.default <- function(data, select, date_var, start, end, frequency, deltat, ts.eps, order.by, silent) {
 

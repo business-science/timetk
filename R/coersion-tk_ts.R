@@ -154,7 +154,7 @@ tk_ts_dispatch_ <- function(data, select, start, end, frequency, deltat, ts.eps,
 
 
 
-#' @rdname timetk_internal
+
 #' @export
 tk_ts_.data.frame <- function(data, select, start, end, frequency, deltat, ts.eps, silent) {
 
@@ -170,7 +170,7 @@ tk_ts_.data.frame <- function(data, select, start, end, frequency, deltat, ts.ep
 
 }
 
-#' @rdname timetk_internal
+
 #' @export
 tk_ts_.default <- function(data, select, start, end, frequency, deltat, ts.eps, silent) {
 
