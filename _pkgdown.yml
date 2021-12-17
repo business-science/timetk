@@ -6,7 +6,7 @@ template:
     heading_font:
       google: Montserrat
     code_font:
-      google: "JetBrains Mono"
+      google: "Ubuntu Mono"
   params:
     bootswatch: flatly
     ganalytics: UA-76139189-2

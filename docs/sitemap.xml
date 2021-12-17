@@ -10,9 +10,6 @@
     <loc>/articles/TK01_Working_With_Time_Series_Index.html</loc>
   </url>
   <url>
-    <loc>/articles/TK02_Making_A_Future_Time_Series_Index.html</loc>
-  </url>
-  <url>
     <loc>/articles/TK02_Time_Series_Date_Sequences.html</loc>
   </url>
   <url>
@@ -40,27 +37,6 @@
     <loc>/articles/index.html</loc>
   </url>
   <url>
-    <loc>/articles/temp_archive/TK00_Time_Series_Coercion.html</loc>
-  </url>
-  <url>
-    <loc>/articles/temp_archive/TK01_Working_With_Time_Series_Index.html</loc>
-  </url>
-  <url>
-    <loc>/articles/temp_archive/TK02_Time_Series_Date_Sequences.html</loc>
-  </url>
-  <url>
-    <loc>/articles/temp_archive/TK03_Forecasting_Using_Time_Series_Signature.html</loc>
-  </url>
-  <url>
-    <loc>/articles/temp_archive/TK05_Plotting_Seasonality_and_Correlation.html</loc>
-  </url>
-  <url>
-    <loc>/articles/temp_archive/TK06_Automatic_Frequency_And_Trend_Selection.html</loc>
-  </url>
-  <url>
-    <loc>/articles/temp_archive/TK08_Automatic_Anomaly_Detection.html</loc>
-  </url>
-  <url>
     <loc>/authors.html</loc>
   </url>
   <url>
@@ -68,12 +44,6 @@
   </url>
   <url>
     <loc>/news/index.html</loc>
-  </url>
-  <url>
-    <loc>/reference/add_time.html</loc>
-  </url>
-  <url>
-    <loc>/reference/arima_workflow_tuned.html</loc>
   </url>
   <url>
     <loc>/reference/between_time.html</loc>
@@ -85,9 +55,6 @@
     <loc>/reference/box_cox_vec.html</loc>
   </url>
   <url>
-    <loc>/reference/condense_by_time.html</loc>
-  </url>
-  <url>
     <loc>/reference/condense_period.html</loc>
   </url>
   <url>
@@ -95,9 +62,6 @@
   </url>
   <url>
     <loc>/reference/filter_by_time.html</loc>
-  </url>
-  <url>
-    <loc>/reference/filter_in_period.html</loc>
   </url>
   <url>
     <loc>/reference/filter_period.html</loc>
@@ -109,16 +73,7 @@
     <loc>/reference/future_frame.html</loc>
   </url>
   <url>
-    <loc>/reference/impute_ts_vec.html</loc>
-  </url>
-  <url>
     <loc>/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>/reference/initial_time_split_2.html</loc>
-  </url>
-  <url>
-    <loc>/reference/initial_timeseries_split.html</loc>
   </url>
   <url>
     <loc>/reference/is_date_class.html</loc>
@@ -166,12 +121,6 @@
     <loc>/reference/plot_anomaly_diagnostics.html</loc>
   </url>
   <url>
-    <loc>/reference/plot_lag_diagnostics.html</loc>
-  </url>
-  <url>
-    <loc>/reference/plot_parameter_ranking.html</loc>
-  </url>
-  <url>
     <loc>/reference/plot_seasonal_diagnostics.html</loc>
   </url>
   <url>
@@ -187,16 +136,7 @@
     <loc>/reference/plot_time_series_regression.html</loc>
   </url>
   <url>
-    <loc>/reference/plot_tune_rank_parameters.html</loc>
-  </url>
-  <url>
     <loc>/reference/required_pkgs.timetk.html</loc>
-  </url>
-  <url>
-    <loc>/reference/roll_apply_vec.html</loc>
-  </url>
-  <url>
-    <loc>/reference/rolling_origin_2.html</loc>
   </url>
   <url>
     <loc>/reference/slice_period.html</loc>
@@ -223,19 +163,10 @@
     <loc>/reference/step_fourier.html</loc>
   </url>
   <url>
-    <loc>/reference/step_fourier_series.html</loc>
-  </url>
-  <url>
     <loc>/reference/step_holiday_signature.html</loc>
   </url>
   <url>
-    <loc>/reference/step_impute_ts.html</loc>
-  </url>
-  <url>
     <loc>/reference/step_log_interval.html</loc>
-  </url>
-  <url>
-    <loc>/reference/step_roll_apply.html</loc>
   </url>
   <url>
     <loc>/reference/step_slidify.html</loc>
@@ -271,9 +202,6 @@
     <loc>/reference/time_arithmetic.html</loc>
   </url>
   <url>
-    <loc>/reference/time_scale_template.html</loc>
-  </url>
-  <url>
     <loc>/reference/time_series_cv.html</loc>
   </url>
   <url>
@@ -304,9 +232,6 @@
     <loc>/reference/tk_augment_lags.html</loc>
   </url>
   <url>
-    <loc>/reference/tk_augment_roll_apply.html</loc>
-  </url>
-  <url>
     <loc>/reference/tk_augment_slidify.html</loc>
   </url>
   <url>
@@ -331,34 +256,13 @@
     <loc>/reference/tk_index.html</loc>
   </url>
   <url>
-    <loc>/reference/tk_lag_diagnostics.html</loc>
-  </url>
-  <url>
-    <loc>/reference/tk_make_date_sequence.html</loc>
-  </url>
-  <url>
     <loc>/reference/tk_make_future_timeseries.html</loc>
   </url>
   <url>
     <loc>/reference/tk_make_holiday_sequence.html</loc>
   </url>
   <url>
-    <loc>/reference/tk_make_index_sequence.html</loc>
-  </url>
-  <url>
-    <loc>/reference/tk_make_time_series.html</loc>
-  </url>
-  <url>
     <loc>/reference/tk_make_timeseries.html</loc>
-  </url>
-  <url>
-    <loc>/reference/tk_parameter_ranking.html</loc>
-  </url>
-  <url>
-    <loc>/reference/tk_parameter_select.html</loc>
-  </url>
-  <url>
-    <loc>/reference/tk_parameter_select_by_row.html</loc>
   </url>
   <url>
     <loc>/reference/tk_seasonal_diagnostics.html</loc>
@@ -385,12 +289,6 @@
     <loc>/reference/tk_tsfeatures.html</loc>
   </url>
   <url>
-    <loc>/reference/tk_tune_rank_parameters.html</loc>
-  </url>
-  <url>
-    <loc>/reference/tk_tune_select_parameters.html</loc>
-  </url>
-  <url>
     <loc>/reference/tk_xts.html</loc>
   </url>
   <url>
@@ -407,9 +305,6 @@
   </url>
   <url>
     <loc>/reference/walmart_sales_weekly.html</loc>
-  </url>
-  <url>
-    <loc>/reference/wikipedia_daily.html</loc>
   </url>
   <url>
     <loc>/reference/wikipedia_traffic_daily.html</loc>
