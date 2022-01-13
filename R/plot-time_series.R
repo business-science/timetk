@@ -477,12 +477,20 @@ auto_smooth <- function(idx, x,
                         smooth_degree,
                         smooth_message) {
 
+    if (length(idx) < 2) {
+        return(x)
+    }
+
     if (all(c(is.null(smooth_span), is.numeric(idx)))) {
         # Numeric index
         smooth_span <- 0.75
     }
 
-    if (all(c(!is.null(smooth_period), is.null(smooth_span)))) {
+    if (all({
+        c(!is.null(smooth_period),
+          is.null(smooth_span)
+          )
+    })) {
         # smooth_period = some value, and smooth span is NULL
 
         if (tolower(smooth_period) == "auto") {
@@ -507,7 +515,8 @@ auto_smooth <- function(idx, x,
        x      = x,
        period = smooth_period,
        span   = smooth_span,
-       degree = smooth_degree)
+       degree = smooth_degree
+    )
 
     return(ret)
 }

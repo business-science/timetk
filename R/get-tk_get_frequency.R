@@ -86,6 +86,8 @@ NULL
 #' @rdname tk_get_frequency
 tk_get_frequency <- function(idx, period = "auto", message = TRUE) {
 
+    if (length(idx) <= 1) rlang::abort("Cannot calculate frequency with less than 2 observations.")
+
     check_weeks(period)
 
     # Setup inputs
@@ -148,6 +150,8 @@ tk_get_frequency <- function(idx, period = "auto", message = TRUE) {
 #' @export
 #' @rdname tk_get_frequency
 tk_get_trend <- function(idx, period = "auto", message = TRUE) {
+
+    if (length(idx) <= 1) rlang::abort("Cannot calculate trend with less than 2 observations.")
 
     # Setup inputs
     template <- get_tk_time_scale_template()

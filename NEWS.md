@@ -17,6 +17,7 @@ Improvements for __point forecasting__ when the target is n-periods into the fut
 __Fixes__
 
 - Updates for rlang > 0.4.11 (dev version) #98
+- `plot_time_series()`: Smoother no longer fails when time series has 1 observation #106
 
 # timetk 2.6.2
 
