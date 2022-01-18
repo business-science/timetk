@@ -23,7 +23,7 @@ plot_time_series_boxplot(
   .y_intercept = NULL,
   .y_intercept_color = "#2c3e50",
   .smooth = TRUE,
-  .smooth_func = c("mean", "median"),
+  .smooth_func = ~mean(.x, na.rm = TRUE),
   .smooth_period = "auto",
   .smooth_message = FALSE,
   .smooth_span = NULL,
@@ -47,7 +47,9 @@ plot_time_series_boxplot(
 
 \item{.value}{A column containing numeric values}
 
-\item{.period}{A time series unit for the boxplot}
+\item{.period}{A time series unit for the boxplot.
+Set to "auto" by default, which uses \code{tk_get_trend()}.
+to determine a logical trend cycle.}
 
 \item{.color_var}{A categorical column that can be used to change the
 line color}
@@ -82,8 +84,13 @@ multiple facet strips.}
 \item{.smooth}{Logical - Whether or not to include a trendline smoother.
 Uses See \code{\link[=smooth_vec]{smooth_vec()}} to apply a LOESS smoother.}
 
-\item{.smooth_func}{Either "mean" or "median". Defines how to aggregate
-the .value to show the smoothed trendline.}
+\item{.smooth_func}{Defines how to aggregate the .value to show the smoothed trendline.
+The default is \code{~ mean(.x, na.rm = TRUE)}, which uses lambda function to ensure \code{NA} values are removed.
+Possible values are:
+\itemize{
+\item A function, e.g. \code{mean}.
+\item A purrr-style lambda, e.g. \code{~ mean(.x, na.rm = TRUE)}
+}}
 
 \item{.smooth_period}{Number of observations to include in the Loess Smoother.
 Set to "auto" by default, which uses \code{tk_get_trend()}
@@ -159,7 +166,9 @@ will be applied.
 
 The \code{.smooth = TRUE} option returns a smoother that is calculated based on either:
 \enumerate{
-\item A \code{.smooth_func}: The method of aggregation (mean or median)
+\item A \code{.smooth_func}: The method of aggregation.
+Usually an aggregation like \code{mean} is used.
+The \code{purrr}-style function syntax can be used to apply complex functions.
 \item A \code{.smooth_period}: Number of observations
 \item A \code{.smooth_span}: A percentage of observations
 }
@@ -227,11 +236,11 @@ FANG \%>\%
     group_by(symbol) \%>\%
     plot_time_series_boxplot(
         date, adjusted,
-        .period        = "3 months",
-        .smooth        = TRUE,
-        .smooth_func   = "median",
-        .smooth_period = "2 years",
-        .facet_ncol    = 2,     # 2-column layout
-        .interactive   = FALSE)
+        .period           = "3 months",
+        .smooth           = TRUE,
+        .smooth_func      = median,
+        .smooth_period    = "5 years",
+        .facet_ncol       = 2,     # 2-column layout
+        .interactive      = FALSE)
 
 }

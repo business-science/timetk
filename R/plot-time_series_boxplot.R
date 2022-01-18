@@ -7,7 +7,9 @@
 #' @param .data A `tibble` or `data.frame` with a time-based column
 #' @param .date_var A column containing either date or date-time values
 #' @param .value A column containing numeric values
-#' @param .period A time series unit for the boxplot
+#' @param .period A time series unit for the boxplot.
+#'  Set to "auto" by default, which uses `tk_get_trend()`.
+#'  to determine a logical trend cycle.
 #' @param .color_var A categorical column that can be used to change the
 #'  line color
 #' @param .facet_vars One or more grouping columns that broken out into `ggplot2` facets.
@@ -27,8 +29,11 @@
 #' @param .y_intercept_color Color for the y-intercept
 #' @param .smooth Logical - Whether or not to include a trendline smoother.
 #'  Uses See [smooth_vec()] to apply a LOESS smoother.
-#' @param .smooth_func Either "mean" or "median". Defines how to aggregate
-#'  the .value to show the smoothed trendline.
+#' @param .smooth_func Defines how to aggregate the .value to show the smoothed trendline.
+#'  The default is `~ mean(.x, na.rm = TRUE)`, which uses lambda function to ensure `NA` values are removed.
+#'  Possible values are:
+#'  * A function, e.g. `mean`.
+#'  * A purrr-style lambda, e.g. `~ mean(.x, na.rm = TRUE)`
 #' @param .smooth_period Number of observations to include in the Loess Smoother.
 #'  Set to "auto" by default, which uses `tk_get_trend()`
 #'  to determine a logical trend cycle.
@@ -84,7 +89,9 @@
 #'
 #' The `.smooth = TRUE` option returns a smoother that is calculated based on either:
 #'
-#' 1. A `.smooth_func`: The method of aggregation (mean or median)
+#' 1. A `.smooth_func`: The method of aggregation.
+#'   Usually an aggregation like `mean` is used.
+#'   The `purrr`-style function syntax can be used to apply complex functions.
 #' 2. A `.smooth_period`: Number of observations
 #' 3. A `.smooth_span`: A percentage of observations
 #'
@@ -153,12 +160,12 @@
 #'     group_by(symbol) %>%
 #'     plot_time_series_boxplot(
 #'         date, adjusted,
-#'         .period        = "3 months",
-#'         .smooth        = TRUE,
-#'         .smooth_func   = "median",
-#'         .smooth_period = "2 years",
-#'         .facet_ncol    = 2,     # 2-column layout
-#'         .interactive   = FALSE)
+#'         .period           = "3 months",
+#'         .smooth           = TRUE,
+#'         .smooth_func      = median,
+#'         .smooth_period    = "5 years",
+#'         .facet_ncol       = 2,     # 2-column layout
+#'         .interactive      = FALSE)
 #'
 #' @export
 plot_time_series_boxplot <- function(
@@ -177,7 +184,7 @@ plot_time_series_boxplot <- function(
     .y_intercept = NULL, .y_intercept_color = "#2c3e50",
 
     .smooth = TRUE,
-    .smooth_func = c("mean", "median"),
+    .smooth_func = ~ mean(.x, na.rm = TRUE),
     .smooth_period = "auto",
     .smooth_message = FALSE,
     .smooth_span = NULL, .smooth_degree = 2,
@@ -225,7 +232,7 @@ plot_time_series_boxplot.data.frame <- function(
     .y_intercept = NULL, .y_intercept_color = "#2c3e50",
 
     .smooth = TRUE,
-    .smooth_func = c("mean", "median"),
+    .smooth_func = ~ mean(.x, na.rm = TRUE),
     .smooth_period = "auto",
     .smooth_message = FALSE,
     .smooth_span = NULL, .smooth_degree = 2,
@@ -316,7 +323,9 @@ plot_time_series_boxplot.data.frame <- function(
 
         # Apply smoother
         data_formatted_smooth <- data_formatted_smooth %>%
-            summarise(.value_mod = mean(.value_mod, na.rm = TRUE)) %>%
+            dplyr::summarise(
+                dplyr::across(.cols = .value_mod, .fns = .smooth_func)
+            ) %>%
             dplyr::mutate(.value_smooth = auto_smooth(
                 idx                   = .box_group,
                 x                     = .value_mod,
@@ -449,7 +458,7 @@ plot_time_series_boxplot.grouped_df <- function(
     .y_intercept = NULL, .y_intercept_color = "#2c3e50",
 
     .smooth = TRUE,
-    .smooth_func = c("mean", "median"),
+    .smooth_func = ~ mean(.x, na.rm = TRUE),
     .smooth_period = "auto",
     .smooth_message = FALSE,
     .smooth_span = NULL, .smooth_degree = 2,
@@ -503,6 +512,7 @@ plot_time_series_boxplot.grouped_df <- function(
         .y_intercept_color     = .y_intercept_color,
 
         .smooth                = .smooth,
+        .smooth_func           = .smooth_func,
         .smooth_period         = .smooth_period,
         .smooth_message        = .smooth_message,
         .smooth_span           = .smooth_span,

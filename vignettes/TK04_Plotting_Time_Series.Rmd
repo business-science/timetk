@@ -4,7 +4,7 @@ author: "Matt Dancho"
 output: 
   rmarkdown::html_vignette:
     toc: true
-    toc_depth: 2
+    toc_depth: 1
 vignette: >
   %\VignetteIndexEntry{Visualizing Time Series}
   %\VignetteEngine{knitr::rmarkdown}
@@ -51,7 +51,7 @@ library(timetk)
 interactive <- FALSE
 ```
 
-# Plotting Single Time Series
+# Plotting Time Series
 
 Let's start with a popular time series, `taylor_30_min`, which includes energy demand in megawatts at a sampling interval of 30-minutes. This is a single time series. 
 
@@ -72,7 +72,7 @@ taylor_30_min %>%
 ```
 
 
-# Plotting Groups
+## Plotting Groups
 
 Next, let's move on to a dataset with time series groups, `m4_daily`, which is a sample of 4 time series from the M4 competition that are sampled at a daily frequency. 
 
@@ -97,7 +97,7 @@ m4_daily %>%
 
 
 
-# Visualizing Transformations & Sub-Groups
+## Visualizing Transformations & Sub-Groups
 
 Let's switch to an hourly dataset with multiple groups. We can showcase:
 
@@ -124,7 +124,7 @@ m4_hourly %>%
                    .interactive = interactive)
 ```
 
-# Static ggplot2 Visualizations & Customizations
+## Static ggplot2 Visualizations & Customizations
 
 All of the visualizations can be converted from interactive `plotly` (great for exploring and shiny apps) to static `ggplot2` visualizations (great for reports).
 
@@ -143,6 +143,41 @@ taylor_30_min %>%
                    .color_lab = "Month") +
   scale_y_continuous(labels = scales::comma_format())
 ```
+
+# Box Plots (Time Series)
+
+The `plot_time_series_boxplot()` function can be used to make box plots. Box plots use an aggregation, which is a key parameter defined by the `.period` argument.
+
+```{r}
+m4_monthly %>%
+    group_by(id) %>%
+    plot_time_series_boxplot(
+        date, value,
+        .period      = "1 year",
+        .facet_ncol  = 2,
+        .interactive = FALSE)
+```
+
+
+# Regression Plots (Time Series)
+
+A time series regression plot, `plot_time_series_regression()`, can be useful to quickly assess key features that are correlated to a time series. 
+
+- Internally the function passes a `formula` to the `stats::lm()` function. 
+- A linear regression summary can be output by toggling `show_summary = TRUE`.  
+
+```{r}
+m4_monthly %>%
+    group_by(id) %>%
+    plot_time_series_regression(
+        .date_var     = date,
+        .formula      = log(value) ~ as.numeric(date) + month(date, label = TRUE),
+        .facet_ncol   = 2,
+        .interactive  = FALSE,
+        .show_summary = FALSE
+    )
+```
+
 
 # Summary
 
