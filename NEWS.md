@@ -4,6 +4,8 @@ __New Features__
 
 - `tk_tsfeatures()`: A new function that makes it easy to generate time series feature matrix using `tsfeatures`. The main benefit is that you can pipe time series data in `tibbles` with `dplyr` groups. The features will be produced by group. #95 #84
 
+- 
+
 __New Vignettes__
 
 - [Time Series Clustering:](https://business-science.github.io/timetk/articles/TK09_Clustering.html) Uses the new `tk_tsfeatures()` function to perform time series clustering. #95 #84
