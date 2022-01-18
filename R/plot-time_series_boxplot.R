@@ -7,7 +7,7 @@
 #' @param .data A `tibble` or `data.frame` with a time-based column
 #' @param .date_var A column containing either date or date-time values
 #' @param .value A column containing numeric values
-#' @param .unit A time series unit for the boxplot
+#' @param .period A time series unit for the boxplot
 #' @param .color_var A categorical column that can be used to change the
 #'  line color
 #' @param .facet_vars One or more grouping columns that broken out into `ggplot2` facets.
@@ -27,6 +27,8 @@
 #' @param .y_intercept_color Color for the y-intercept
 #' @param .smooth Logical - Whether or not to include a trendline smoother.
 #'  Uses See [smooth_vec()] to apply a LOESS smoother.
+#' @param .smooth_func Either "mean" or "median". Defines how to aggregate
+#'  the .value to show the smoothed trendline.
 #' @param .smooth_period Number of observations to include in the Loess Smoother.
 #'  Set to "auto" by default, which uses `tk_get_trend()`
 #'  to determine a logical trend cycle.
@@ -82,8 +84,9 @@
 #'
 #' The `.smooth = TRUE` option returns a smoother that is calculated based on either:
 #'
-#' 1. A `.smooth_period`: Number of observations
-#' 2. A `.smooth_span`: A percentage of observations
+#' 1. A `.smooth_func`: The method of aggregation (mean or median)
+#' 2. A `.smooth_period`: Number of observations
+#' 3. A `.smooth_span`: A percentage of observations
 #'
 #' By default, the `.smooth_period` is automatically calculated using 75% of the observertions.
 #' This is the same as `geom_smooth(method = "loess", span = 0.75)`.
@@ -105,43 +108,62 @@
 #' # Works with individual time series
 #' FANG %>%
 #'     filter(symbol == "FB") %>%
-#'     plot_time_series_boxplot(date, adjusted, .interactive = FALSE)
+#'     plot_time_series_boxplot(
+#'         date, adjusted,
+#'         .period      = "3 months",
+#'         .interactive = FALSE)
 #'
 #' # Works with groups
 #' FANG %>%
 #'     group_by(symbol) %>%
-#'     plot_time_series_boxplot(date, adjusted,
-#'                      .facet_ncol  = 2,     # 2-column layout
-#'                      .interactive = FALSE)
+#'     plot_time_series_boxplot(
+#'         date, adjusted,
+#'         .period      = "3 months",
+#'         .facet_ncol  = 2,     # 2-column layout
+#'         .interactive = FALSE)
 #'
 #' # Can also group inside & use .color_var
 #' FANG %>%
 #'     mutate(year = year(date)) %>%
-#'     plot_time_series_boxplot(date, adjusted,
-#'                      .facet_vars   = c(symbol, year), # add groups/facets
-#'                      .color_var    = year,            # color by year
-#'                      .facet_ncol   = 4,
-#'                      .facet_scales = "free",
-#'                      .interactive  = FALSE)
+#'     plot_time_series_boxplot(
+#'         date, adjusted,
+#'         .period      = "3 months",
+#'         .facet_vars   = c(symbol, year), # add groups/facets
+#'         .color_var    = year,            # color by year
+#'         .facet_ncol   = 4,
+#'         .facet_scales = "free",
+#'         .interactive  = FALSE)
 #'
 #' # Can apply transformations to .value or .color_var
 #' # - .value = log(adjusted)
 #' # - .color_var = year(date)
 #' FANG %>%
-#'     plot_time_series_boxplot(date, log(adjusted),
-#'                      .color_var    = year(date),
-#'                      .facet_vars   = contains("symbol"),
-#'                      .facet_ncol   = 2,
-#'                      .facet_scales = "free",
-#'                      .y_lab        = "Log Scale",
-#'                      .interactive  = FALSE)
+#'     plot_time_series_boxplot(
+#'         date, log(adjusted),
+#'         .period      = "3 months",
+#'         .color_var    = year(date),
+#'         .facet_vars   = contains("symbol"),
+#'         .facet_ncol   = 2,
+#'         .facet_scales = "free",
+#'         .y_lab        = "Log Scale",
+#'         .interactive  = FALSE)
 #'
-#'
+#' # Can adjust the smoother
+#' FANG %>%
+#'     group_by(symbol) %>%
+#'     plot_time_series_boxplot(
+#'         date, adjusted,
+#'         .period        = "3 months",
+#'         .smooth        = TRUE,
+#'         .smooth_func   = "median",
+#'         .smooth_period = "2 years",
+#'         .facet_ncol    = 2,     # 2-column layout
+#'         .interactive   = FALSE)
 #'
 #' @export
 plot_time_series_boxplot <- function(
     .data, .date_var, .value,
-    .unit = "day",
+    .period = "day",
 
     .color_var = NULL,
 
@@ -154,7 +176,9 @@ plot_time_series_boxplot <- function(
     .line_type = 1, .line_alpha = 1,
     .y_intercept = NULL, .y_intercept_color = "#2c3e50",
 
-    .smooth = TRUE, .smooth_period = "auto",
+    .smooth = TRUE,
+    .smooth_func = c("mean", "median"),
+    .smooth_period = "auto",
     .smooth_message = FALSE,
     .smooth_span = NULL, .smooth_degree = 2,
     .smooth_color = "#3366FF", .smooth_size = 1, .smooth_alpha = 1,
@@ -190,7 +214,7 @@ plot_time_series_boxplot <- function(
 #' @export
 plot_time_series_boxplot.data.frame <- function(
     .data, .date_var, .value,
-    .unit = "day",
+    .period = "day",
     .color_var = NULL,
     .facet_vars = NULL,
     .facet_ncol = 1,  .facet_scales = "free_y",
@@ -200,7 +224,9 @@ plot_time_series_boxplot.data.frame <- function(
     .line_type = 1, .line_alpha = 1,
     .y_intercept = NULL, .y_intercept_color = "#2c3e50",
 
-    .smooth = TRUE, .smooth_period = "auto",
+    .smooth = TRUE,
+    .smooth_func = c("mean", "median"),
+    .smooth_period = "auto",
     .smooth_message = FALSE,
     .smooth_span = NULL, .smooth_degree = 2,
     .smooth_color = "#3366FF", .smooth_size = 1, .smooth_alpha = 1,
@@ -228,13 +254,11 @@ plot_time_series_boxplot.data.frame <- function(
 
     # ---- DATA SETUP ----
 
-    print(.unit)
-
     # Evaluate Formula
     data_formatted <- tibble::as_tibble(.data) %>%
         dplyr::group_by(!!! facets_expr) %>%
         dplyr::mutate(.value_mod = !! value_expr) %>%
-        dplyr::mutate(.box_group = lubridate::floor_date(!! date_var_expr, unit = .unit)) %>%
+        dplyr::mutate(.box_group = lubridate::floor_date(!! date_var_expr, unit = .period)) %>%
         dplyr::ungroup()
 
     # Color setup
@@ -275,19 +299,24 @@ plot_time_series_boxplot.data.frame <- function(
 
         # Handle Groups
         group_names   <- dplyr::group_vars(data_formatted)
+
+        group_names   <- c(group_names, ".box_group")
+
         if (!rlang::quo_is_null(color_var_expr)) {
             # If color applied, add as group variable
             group_names <- c(group_names, ".color_mod")
         }
 
+        data_formatted_smooth <- data_formatted
         if (length(group_names) > 0) {
-            data_formatted <- data_formatted %>%
+            data_formatted_smooth <- data_formatted_smooth %>%
                 dplyr::ungroup() %>%
                 dplyr::group_by(!!! rlang::syms(group_names))
         }
 
         # Apply smoother
-        data_formatted <- data_formatted %>%
+        data_formatted_smooth <- data_formatted_smooth %>%
+            summarise(.value_mod = mean(.value_mod, na.rm = TRUE)) %>%
             dplyr::mutate(.value_smooth = auto_smooth(
                 idx                   = .box_group,
                 x                     = .value_mod,
@@ -307,9 +336,6 @@ plot_time_series_boxplot.data.frame <- function(
 
 
     # ---- PLOT SETUP ----
-
-    data_formatted <<- data_formatted
-    print(data_formatted)
 
     g <- data_formatted %>%
         dplyr::rename(.value = .value_mod) %>%
@@ -357,7 +383,9 @@ plot_time_series_boxplot.data.frame <- function(
                     ggplot2::aes(y = .value_smooth),
                     color = .smooth_color,
                     size  = .smooth_size,
-                    alpha = .smooth_alpha)
+                    alpha = .smooth_alpha,
+                    data  = data_formatted_smooth
+                )
 
         } else {
             g <- g +
@@ -365,7 +393,8 @@ plot_time_series_boxplot.data.frame <- function(
                     ggplot2::aes(y = .value_smooth, group = .color_mod),
                     color = .smooth_color,
                     size  = .smooth_size,
-                    alpha = .smooth_alpha
+                    alpha = .smooth_alpha,
+                    data  = data_formatted_smooth
                 )
         }
 
@@ -410,7 +439,7 @@ plot_time_series_boxplot.data.frame <- function(
 #' @export
 plot_time_series_boxplot.grouped_df <- function(
     .data, .date_var, .value,
-    .unit = "day",
+    .period = "day",
     .color_var = NULL,
     .facet_vars = NULL,
     .facet_ncol = 1,  .facet_scales = "free_y", .facet_dir = "h",
@@ -419,7 +448,9 @@ plot_time_series_boxplot.grouped_df <- function(
     .line_type = 1, .line_alpha = 1,
     .y_intercept = NULL, .y_intercept_color = "#2c3e50",
 
-    .smooth = TRUE, .smooth_period = "auto",
+    .smooth = TRUE,
+    .smooth_func = c("mean", "median"),
+    .smooth_period = "auto",
     .smooth_message = FALSE,
     .smooth_span = NULL, .smooth_degree = 2,
     .smooth_color = "#3366FF", .smooth_size = 1, .smooth_alpha = 1,
@@ -453,7 +484,7 @@ plot_time_series_boxplot.grouped_df <- function(
         .data              = data_formatted,
         .date_var          = !! rlang::enquo(.date_var),
         .value             = !! rlang::enquo(.value),
-        .unit              = .unit,
+        .period              = .period,
         .color_var         = !! rlang::enquo(.color_var),
 
         # ...

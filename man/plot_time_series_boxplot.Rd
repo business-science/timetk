@@ -8,7 +8,7 @@ plot_time_series_boxplot(
   .data,
   .date_var,
   .value,
-  .unit = "day",
+  .period = "day",
   .color_var = NULL,
   .facet_vars = NULL,
   .facet_ncol = 1,
@@ -23,6 +23,7 @@ plot_time_series_boxplot(
   .y_intercept = NULL,
   .y_intercept_color = "#2c3e50",
   .smooth = TRUE,
+  .smooth_func = c("mean", "median"),
   .smooth_period = "auto",
   .smooth_message = FALSE,
   .smooth_span = NULL,
@@ -46,7 +47,7 @@ plot_time_series_boxplot(
 
 \item{.value}{A column containing numeric values}
 
-\item{.unit}{A time series unit for the boxplot}
+\item{.period}{A time series unit for the boxplot}
 
 \item{.color_var}{A categorical column that can be used to change the
 line color}
@@ -80,6 +81,9 @@ multiple facet strips.}
 
 \item{.smooth}{Logical - Whether or not to include a trendline smoother.
 Uses See \code{\link[=smooth_vec]{smooth_vec()}} to apply a LOESS smoother.}
+
+\item{.smooth_func}{Either "mean" or "median". Defines how to aggregate
+the .value to show the smoothed trendline.}
 
 \item{.smooth_period}{Number of observations to include in the Loess Smoother.
 Set to "auto" by default, which uses \code{tk_get_trend()}
@@ -155,6 +159,7 @@ will be applied.
 
 The \code{.smooth = TRUE} option returns a smoother that is calculated based on either:
 \enumerate{
+\item A \code{.smooth_func}: The method of aggregation (mean or median)
 \item A \code{.smooth_period}: Number of observations
 \item A \code{.smooth_span}: A percentage of observations
 }
@@ -177,37 +182,56 @@ library(timetk)
 # Works with individual time series
 FANG \%>\%
     filter(symbol == "FB") \%>\%
-    plot_time_series_boxplot(date, adjusted, .interactive = FALSE)
+    plot_time_series_boxplot(
+        date, adjusted,
+        .period      = "3 months",
+        .interactive = FALSE)
 
 # Works with groups
 FANG \%>\%
     group_by(symbol) \%>\%
-    plot_time_series_boxplot(date, adjusted,
-                     .facet_ncol  = 2,     # 2-column layout
-                     .interactive = FALSE)
+    plot_time_series_boxplot(
+        date, adjusted,
+        .period      = "3 months",
+        .facet_ncol  = 2,     # 2-column layout
+        .interactive = FALSE)
 
 # Can also group inside & use .color_var
 FANG \%>\%
     mutate(year = year(date)) \%>\%
-    plot_time_series_boxplot(date, adjusted,
-                     .facet_vars   = c(symbol, year), # add groups/facets
-                     .color_var    = year,            # color by year
-                     .facet_ncol   = 4,
-                     .facet_scales = "free",
-                     .interactive  = FALSE)
+    plot_time_series_boxplot(
+        date, adjusted,
+        .period      = "3 months",
+        .facet_vars   = c(symbol, year), # add groups/facets
+        .color_var    = year,            # color by year
+        .facet_ncol   = 4,
+        .facet_scales = "free",
+        .interactive  = FALSE)
 
 # Can apply transformations to .value or .color_var
 # - .value = log(adjusted)
 # - .color_var = year(date)
 FANG \%>\%
-    plot_time_series_boxplot(date, log(adjusted),
-                     .color_var    = year(date),
-                     .facet_vars   = contains("symbol"),
-                     .facet_ncol   = 2,
-                     .facet_scales = "free",
-                     .y_lab        = "Log Scale",
-                     .interactive  = FALSE)
+    plot_time_series_boxplot(
+        date, log(adjusted),
+        .period      = "3 months",
+        .color_var    = year(date),
+        .facet_vars   = contains("symbol"),
+        .facet_ncol   = 2,
+        .facet_scales = "free",
+        .y_lab        = "Log Scale",
+        .interactive  = FALSE)
 
-
+# Can adjust the smoother
+FANG \%>\%
+    group_by(symbol) \%>\%
+    plot_time_series_boxplot(
+        date, adjusted,
+        .period        = "3 months",
+        .smooth        = TRUE,
+        .smooth_func   = "median",
+        .smooth_period = "2 years",
+        .facet_ncol    = 2,     # 2-column layout
+        .interactive   = FALSE)
 
 }
