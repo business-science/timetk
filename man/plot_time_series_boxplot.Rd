@@ -8,7 +8,7 @@ plot_time_series_boxplot(
   .data,
   .date_var,
   .value,
-  .period = "day",
+  .period,
   .color_var = NULL,
   .facet_vars = NULL,
   .facet_ncol = 1,
@@ -47,9 +47,12 @@ plot_time_series_boxplot(
 
 \item{.value}{A column containing numeric values}
 
-\item{.period}{A time series unit for the boxplot.
-Set to "auto" by default, which uses \code{tk_get_trend()}.
-to determine a logical trend cycle.}
+\item{.period}{A time series unit of aggregation for the boxplot. Examples include:
+\itemize{
+\item "1 week"
+\item "3 years"
+\item "30 minutes"
+}}
 
 \item{.color_var}{A categorical column that can be used to change the
 line color}
@@ -193,7 +196,7 @@ FANG \%>\%
     filter(symbol == "FB") \%>\%
     plot_time_series_boxplot(
         date, adjusted,
-        .period      = "3 months",
+        .period      = "3 month",
         .interactive = FALSE)
 
 # Works with groups

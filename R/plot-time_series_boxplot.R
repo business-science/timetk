@@ -7,9 +7,12 @@
 #' @param .data A `tibble` or `data.frame` with a time-based column
 #' @param .date_var A column containing either date or date-time values
 #' @param .value A column containing numeric values
-#' @param .period A time series unit for the boxplot.
-#'  Set to "auto" by default, which uses `tk_get_trend()`.
-#'  to determine a logical trend cycle.
+#' @param .period A time series unit of aggregation for the boxplot. Examples include:
+#'
+#'  - "1 week"
+#'  - "3 years"
+#'  - "30 minutes"
+#'
 #' @param .color_var A categorical column that can be used to change the
 #'  line color
 #' @param .facet_vars One or more grouping columns that broken out into `ggplot2` facets.
@@ -117,7 +120,7 @@
 #'     filter(symbol == "FB") %>%
 #'     plot_time_series_boxplot(
 #'         date, adjusted,
-#'         .period      = "3 months",
+#'         .period      = "3 month",
 #'         .interactive = FALSE)
 #'
 #' # Works with groups
@@ -170,7 +173,7 @@
 #' @export
 plot_time_series_boxplot <- function(
     .data, .date_var, .value,
-    .period = "day",
+    .period,
 
     .color_var = NULL,
 
@@ -213,6 +216,10 @@ plot_time_series_boxplot <- function(
     if (rlang::quo_is_missing(value_expr)) {
         stop(call. = FALSE, "plot_time_series_boxplot(.value) is missing. Please a numeric column.")
     }
+    if (rlang::is_missing(.period)) {
+        stop(call. = FALSE, "plot_time_series_boxplot(.period) is missing. Please use an value like '1 month', '30 minute', etc.")
+    }
+
 
 
     UseMethod("plot_time_series_boxplot", .data)
@@ -221,7 +228,8 @@ plot_time_series_boxplot <- function(
 #' @export
 plot_time_series_boxplot.data.frame <- function(
     .data, .date_var, .value,
-    .period = "day",
+    .period,
+
     .color_var = NULL,
     .facet_vars = NULL,
     .facet_ncol = 1,  .facet_scales = "free_y",
@@ -448,7 +456,8 @@ plot_time_series_boxplot.data.frame <- function(
 #' @export
 plot_time_series_boxplot.grouped_df <- function(
     .data, .date_var, .value,
-    .period = "day",
+    .period,
+
     .color_var = NULL,
     .facet_vars = NULL,
     .facet_ncol = 1,  .facet_scales = "free_y", .facet_dir = "h",
@@ -493,7 +502,8 @@ plot_time_series_boxplot.grouped_df <- function(
         .data              = data_formatted,
         .date_var          = !! rlang::enquo(.date_var),
         .value             = !! rlang::enquo(.value),
-        .period              = .period,
+        .period            = .period,
+
         .color_var         = !! rlang::enquo(.color_var),
 
         # ...

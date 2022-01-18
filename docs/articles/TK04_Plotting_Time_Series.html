@@ -15,9 +15,7 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.1.0/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.1.0/bootstrap.bundle.min.js"></script><link href="../deps/_Roboto-0.4.0/font.css" rel="stylesheet">
-<link href="../deps/_Montserrat-0.4.0/font.css" rel="stylesheet">
-<!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<script src="../deps/bootstrap-5.1.0/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
 <meta property="og:title" content="Visualizing Time Series">
@@ -173,7 +171,7 @@
 <span class="va">interactive</span> <span class="op">&lt;-</span> <span class="cn">FALSE</span></code></pre></div>
 </div>
 <div class="section level1">
-<h1 id="plotting-single-time-series">Plotting Single Time Series<a class="anchor" aria-label="anchor" href="#plotting-single-time-series"></a>
+<h1 id="plotting-time-series">Plotting Time Series<a class="anchor" aria-label="anchor" href="#plotting-time-series"></a>
 </h1>
 <p>Let’s start with a popular time series, <code>taylor_30_min</code>, which includes energy demand in megawatts at a sampling interval of 30-minutes. This is a single time series.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
@@ -203,10 +201,9 @@
                    .interactive <span class="op">=</span> <span class="va">interactive</span>,
                    .plotly_slider <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p><img src="TK04_Plotting_Time_Series_files/figure-html/unnamed-chunk-4-1.png" width="95%" style="display: block; margin: auto;"></p>
-</div>
-<div class="section level1">
-<h1 id="plotting-groups">Plotting Groups<a class="anchor" aria-label="anchor" href="#plotting-groups"></a>
-</h1>
+<div class="section level2">
+<h2 id="plotting-groups">Plotting Groups<a class="anchor" aria-label="anchor" href="#plotting-groups"></a>
+</h2>
 <p>Next, let’s move on to a dataset with time series groups, <code>m4_daily</code>, which is a sample of 4 time series from the M4 competition that are sampled at a daily frequency.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">m4_daily</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span>
@@ -242,9 +239,9 @@
                    .interactive <span class="op">=</span> <span class="va">interactive</span><span class="op">)</span></code></pre></div>
 <p><img src="TK04_Plotting_Time_Series_files/figure-html/unnamed-chunk-6-1.png" width="95%" style="display: block; margin: auto;"></p>
 </div>
-<div class="section level1">
-<h1 id="visualizing-transformations-sub-groups">Visualizing Transformations &amp; Sub-Groups<a class="anchor" aria-label="anchor" href="#visualizing-transformations-sub-groups"></a>
-</h1>
+<div class="section level2">
+<h2 id="visualizing-transformations-sub-groups">Visualizing Transformations &amp; Sub-Groups<a class="anchor" aria-label="anchor" href="#visualizing-transformations-sub-groups"></a>
+</h2>
 <p>Let’s switch to an hourly dataset with multiple groups. We can showcase:</p>
 <ol style="list-style-type: decimal">
 <li>Log transformation to the <code>.value</code>
@@ -286,9 +283,9 @@
                    .interactive <span class="op">=</span> <span class="va">interactive</span><span class="op">)</span></code></pre></div>
 <p><img src="TK04_Plotting_Time_Series_files/figure-html/unnamed-chunk-8-1.png" width="95%" style="display: block; margin: auto;"></p>
 </div>
-<div class="section level1">
-<h1 id="static-ggplot2-visualizations-customizations">Static ggplot2 Visualizations &amp; Customizations<a class="anchor" aria-label="anchor" href="#static-ggplot2-visualizations-customizations"></a>
-</h1>
+<div class="section level2">
+<h2 id="static-ggplot2-visualizations-customizations">Static ggplot2 Visualizations &amp; Customizations<a class="anchor" aria-label="anchor" href="#static-ggplot2-visualizations-customizations"></a>
+</h2>
 <p>All of the visualizations can be converted from interactive <code>plotly</code> (great for exploring and shiny apps) to static <code>ggplot2</code> visualizations (great for reports).</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">taylor_30_min</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
@@ -305,6 +302,44 @@
                    .color_lab <span class="op">=</span> <span class="st">"Month"</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_y_continuous</a></span><span class="op">(</span>labels <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/label_number.html" class="external-link">comma_format</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p><img src="TK04_Plotting_Time_Series_files/figure-html/unnamed-chunk-9-1.png" width="95%" style="display: block; margin: auto;"></p>
+</div>
+</div>
+<div class="section level1">
+<h1 id="box-plots-time-series">Box Plots (Time Series)<a class="anchor" aria-label="anchor" href="#box-plots-time-series"></a>
+</h1>
+<p>The <code><a href="../reference/plot_time_series_boxplot.html">plot_time_series_boxplot()</a></code> function can be used to make box plots.</p>
+<ul>
+<li>Box plots use an aggregation, which is a key parameter defined by the <code>.period</code> argument.</li>
+</ul>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">m4_monthly</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
+    <span class="fu"><a href="../reference/plot_time_series_boxplot.html">plot_time_series_boxplot</a></span><span class="op">(</span>
+        <span class="va">date</span>, <span class="va">value</span>,
+        .period      <span class="op">=</span> <span class="st">"1 year"</span>,
+        .facet_ncol  <span class="op">=</span> <span class="fl">2</span>,
+        .interactive <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+<p><img src="TK04_Plotting_Time_Series_files/figure-html/unnamed-chunk-10-1.png" width="95%" style="display: block; margin: auto;"></p>
+</div>
+<div class="section level1">
+<h1 id="regression-plots-time-series">Regression Plots (Time Series)<a class="anchor" aria-label="anchor" href="#regression-plots-time-series"></a>
+</h1>
+<p>A time series regression plot, <code><a href="../reference/plot_time_series_regression.html">plot_time_series_regression()</a></code>, can be useful to quickly assess key features that are correlated to a time series.</p>
+<ul>
+<li>Internally the function passes a <code>formula</code> to the <code><a href="https://rdrr.io/r/stats/lm.html" class="external-link">stats::lm()</a></code> function.</li>
+<li>A linear regression summary can be output by toggling <code>show_summary = TRUE</code>.</li>
+</ul>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">m4_monthly</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
+    <span class="fu"><a href="../reference/plot_time_series_regression.html">plot_time_series_regression</a></span><span class="op">(</span>
+        .date_var     <span class="op">=</span> <span class="va">date</span>,
+        .formula      <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">value</span><span class="op">)</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">date</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/month.html" class="external-link">month</a></span><span class="op">(</span><span class="va">date</span>, label <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,
+        .facet_ncol   <span class="op">=</span> <span class="fl">2</span>,
+        .interactive  <span class="op">=</span> <span class="cn">FALSE</span>,
+        .show_summary <span class="op">=</span> <span class="cn">FALSE</span>
+    <span class="op">)</span></code></pre></div>
+<p><img src="TK04_Plotting_Time_Series_files/figure-html/unnamed-chunk-11-1.png" width="95%" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level1">
 <h1 id="summary">Summary<a class="anchor" aria-label="anchor" href="#summary"></a>
