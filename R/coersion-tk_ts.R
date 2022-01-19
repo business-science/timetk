@@ -147,14 +147,21 @@ tk_ts_ <- function(data, select = NULL, start = 1, end = numeric(), frequency = 
 
 }
 
-
+#' S3 methods for ts method dispatch
+#'
+#' Method dispatch for ts
+#' @inheritParams tk_ts
+#' @return A character vector
+#' @name tk_ts_dispatch_
+#' @keywords internal
+#' @export
 tk_ts_dispatch_ <- function(data, select, start, end, frequency, deltat, ts.eps, silent) {
     UseMethod("tk_ts_", data)
 }
 
 
 
-
+#' @rdname tk_ts_dispatch_
 #' @export
 tk_ts_.data.frame <- function(data, select, start, end, frequency, deltat, ts.eps, silent) {
 
@@ -170,7 +177,7 @@ tk_ts_.data.frame <- function(data, select, start, end, frequency, deltat, ts.ep
 
 }
 
-
+#' @rdname tk_ts_dispatch_
 #' @export
 tk_ts_.default <- function(data, select, start, end, frequency, deltat, ts.eps, silent) {
 

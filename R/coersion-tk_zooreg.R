@@ -164,14 +164,21 @@ tk_zooreg_ <- function(data, select = NULL, date_var = NULL, start = 1, end = nu
 
 }
 
-
+#' S3 methods for zooreg method dispatch
+#'
+#' Method dispatch for Zooreg
+#' @inheritParams tk_zooreg
+#' @return A character vector
+#' @name tk_zooreg_dispatch_
+#' @keywords internal
+#' @export
 tk_zooreg_dispatch_ <- function(data, select, date_var, start, end, frequency, deltat, ts.eps, order.by, silent) {
     UseMethod("tk_zooreg_", data)
 }
 
 
 
-
+#' @rdname tk_zooreg_dispatch_
 #' @export
 tk_zooreg_.data.frame <- function(data, select, date_var, start, end, frequency, deltat, ts.eps, order.by, silent) {
 
@@ -187,7 +194,7 @@ tk_zooreg_.data.frame <- function(data, select, date_var, start, end, frequency,
 
 }
 
-
+#' @rdname tk_zooreg_dispatch_
 #' @export
 tk_zooreg_.default <- function(data, select, date_var, start, end, frequency, deltat, ts.eps, order.by, silent) {
 
