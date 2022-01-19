@@ -132,6 +132,7 @@
 #'         .facet_ncol  = 2,     # 2-column layout
 #'         .interactive = FALSE)
 #'
+#' \dontrun{
 #' # Can also group inside & use .color_var
 #' FANG %>%
 #'     mutate(year = year(date)) %>%
@@ -143,6 +144,7 @@
 #'         .facet_ncol   = 4,
 #'         .facet_scales = "free",
 #'         .interactive  = FALSE)
+#' }
 #'
 #' # Can apply transformations to .value or .color_var
 #' # - .value = log(adjusted)
@@ -165,9 +167,9 @@
 #'         date, adjusted,
 #'         .period           = "3 months",
 #'         .smooth           = TRUE,
-#'         .smooth_func      = median,
-#'         .smooth_period    = "5 years",
-#'         .facet_ncol       = 2,     # 2-column layout
+#'         .smooth_func      = median,    # Smoother function
+#'         .smooth_period    = "5 years", # Smoother Period
+#'         .facet_ncol       = 2,
 #'         .interactive      = FALSE)
 #'
 #' @export
