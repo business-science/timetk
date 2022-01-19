@@ -234,4 +234,7 @@ reference:
   contents:
   - parse_date2
   - is_date_class
+- title: Package Information
+  contents:
+  - timetk
 
