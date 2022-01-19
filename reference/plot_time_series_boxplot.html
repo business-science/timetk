@@ -308,6 +308,7 @@ or a numeric value (e.g. <code>smooth_period = 365</code>).</p>
 <span class="r-in">        .interactive <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span class="r-plt img"><img src="plot_time_series_boxplot-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"></span>
+<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
 <span class="r-in"><span class="co"># Can also group inside &amp; use .color_var</span></span>
 <span class="r-in"><span class="va">FANG</span> <span class="op"><a href="https://rdrr.io/pkg/tidyquant/man/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span class="r-in">    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>year <span class="op">=</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/year.html" class="external-link">year</a></span><span class="op">(</span><span class="va">date</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/tidyquant/man/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -319,7 +320,7 @@ or a numeric value (e.g. <code>smooth_period = 365</code>).</p>
 <span class="r-in">        .facet_ncol   <span class="op">=</span> <span class="fl">4</span>,</span>
 <span class="r-in">        .facet_scales <span class="op">=</span> <span class="st">"free"</span>,</span>
 <span class="r-in">        .interactive  <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-plt img"><img src="plot_time_series_boxplot-3.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span class="op">}</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># Can apply transformations to .value or .color_var</span></span>
 <span class="r-in"><span class="co"># - .value = log(adjusted)</span></span>
@@ -334,7 +335,7 @@ or a numeric value (e.g. <code>smooth_period = 365</code>).</p>
 <span class="r-in">        .facet_scales <span class="op">=</span> <span class="st">"free"</span>,</span>
 <span class="r-in">        .y_lab        <span class="op">=</span> <span class="st">"Log Scale"</span>,</span>
 <span class="r-in">        .interactive  <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-plt img"><img src="plot_time_series_boxplot-4.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="plot_time_series_boxplot-3.png" alt="" width="700" height="433"></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># Can adjust the smoother</span></span>
 <span class="r-in"><span class="va">FANG</span> <span class="op"><a href="https://rdrr.io/pkg/tidyquant/man/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -343,11 +344,11 @@ or a numeric value (e.g. <code>smooth_period = 365</code>).</p>
 <span class="r-in">        <span class="va">date</span>, <span class="va">adjusted</span>,</span>
 <span class="r-in">        .period           <span class="op">=</span> <span class="st">"3 months"</span>,</span>
 <span class="r-in">        .smooth           <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span class="r-in">        .smooth_func      <span class="op">=</span> <span class="va">median</span>,</span>
-<span class="r-in">        .smooth_period    <span class="op">=</span> <span class="st">"5 years"</span>,</span>
-<span class="r-in">        .facet_ncol       <span class="op">=</span> <span class="fl">2</span>,     <span class="co"># 2-column layout</span></span>
+<span class="r-in">        .smooth_func      <span class="op">=</span> <span class="va">median</span>,    <span class="co"># Smoother function</span></span>
+<span class="r-in">        .smooth_period    <span class="op">=</span> <span class="st">"5 years"</span>, <span class="co"># Smoother Period</span></span>
+<span class="r-in">        .facet_ncol       <span class="op">=</span> <span class="fl">2</span>,</span>
 <span class="r-in">        .interactive      <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-plt img"><img src="plot_time_series_boxplot-5.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="plot_time_series_boxplot-4.png" alt="" width="700" height="433"></span>
 <span class="r-in"></span>
 </code></pre></div>
     </div>
