@@ -1,5 +1,5 @@
 pandoc: 2.7.3
-pkgdown: 1.6.1
+pkgdown: 2.0.2
 pkgdown_sha: ~
 articles:
   TK00_Time_Series_Coercion: TK00_Time_Series_Coercion.html
@@ -12,5 +12,8 @@ articles:
   TK07_Time_Series_Data_Wrangling: TK07_Time_Series_Data_Wrangling.html
   TK08_Automatic_Anomaly_Detection: TK08_Automatic_Anomaly_Detection.html
   TK09_Clustering: TK09_Clustering.html
-last_built: 2021-11-30T14:19Z
+last_built: 2022-01-19T01:33Z
+urls:
+  reference: https://business-science.github.io/timetk/reference
+  article: https://business-science.github.io/timetk/articles
 
