@@ -289,6 +289,9 @@
     <loc>https://business-science.github.io/timetk/reference/tk_ts.html</loc>
   </url>
   <url>
+    <loc>https://business-science.github.io/timetk/reference/tk_ts_dispatch_.html</loc>
+  </url>
+  <url>
     <loc>https://business-science.github.io/timetk/reference/tk_tsfeatures.html</loc>
   </url>
   <url>
@@ -299,6 +302,9 @@
   </url>
   <url>
     <loc>https://business-science.github.io/timetk/reference/tk_zooreg.html</loc>
+  </url>
+  <url>
+    <loc>https://business-science.github.io/timetk/reference/tk_zooreg_dispatch_.html</loc>
   </url>
   <url>
     <loc>https://business-science.github.io/timetk/reference/ts_clean_vec.html</loc>

@@ -158,9 +158,9 @@
 <li>Scales well to many time series</li>
 <li>Can be converted from interactive <code>plotly</code> to static <code>ggplot2</code> plots</li>
 </ul>
-<div class="section level1">
-<h1 id="libraries">Libraries<a class="anchor" aria-label="anchor" href="#libraries"></a>
-</h1>
+<div class="section level2">
+<h2 id="libraries">Libraries<a class="anchor" aria-label="anchor" href="#libraries"></a>
+</h2>
 <p>Run the following code to setup for this tutorial.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span>
@@ -170,9 +170,9 @@
 <span class="co"># Setup for the plotly charts (# FALSE returns ggplots)</span>
 <span class="va">interactive</span> <span class="op">&lt;-</span> <span class="cn">FALSE</span></code></pre></div>
 </div>
-<div class="section level1">
-<h1 id="plotting-time-series">Plotting Time Series<a class="anchor" aria-label="anchor" href="#plotting-time-series"></a>
-</h1>
+<div class="section level2">
+<h2 id="plotting-time-series">Plotting Time Series<a class="anchor" aria-label="anchor" href="#plotting-time-series"></a>
+</h2>
 <p>Let’s start with a popular time series, <code>taylor_30_min</code>, which includes energy demand in megawatts at a sampling interval of 30-minutes. This is a single time series.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">taylor_30_min</span>
@@ -201,9 +201,9 @@
                    .interactive <span class="op">=</span> <span class="va">interactive</span>,
                    .plotly_slider <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p><img src="TK04_Plotting_Time_Series_files/figure-html/unnamed-chunk-4-1.png" width="95%" style="display: block; margin: auto;"></p>
-<div class="section level2">
-<h2 id="plotting-groups">Plotting Groups<a class="anchor" aria-label="anchor" href="#plotting-groups"></a>
-</h2>
+<div class="section level3">
+<h3 id="plotting-groups">Plotting Groups<a class="anchor" aria-label="anchor" href="#plotting-groups"></a>
+</h3>
 <p>Next, let’s move on to a dataset with time series groups, <code>m4_daily</code>, which is a sample of 4 time series from the M4 competition that are sampled at a daily frequency.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">m4_daily</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span>
@@ -239,9 +239,9 @@
                    .interactive <span class="op">=</span> <span class="va">interactive</span><span class="op">)</span></code></pre></div>
 <p><img src="TK04_Plotting_Time_Series_files/figure-html/unnamed-chunk-6-1.png" width="95%" style="display: block; margin: auto;"></p>
 </div>
-<div class="section level2">
-<h2 id="visualizing-transformations-sub-groups">Visualizing Transformations &amp; Sub-Groups<a class="anchor" aria-label="anchor" href="#visualizing-transformations-sub-groups"></a>
-</h2>
+<div class="section level3">
+<h3 id="visualizing-transformations-sub-groups">Visualizing Transformations &amp; Sub-Groups<a class="anchor" aria-label="anchor" href="#visualizing-transformations-sub-groups"></a>
+</h3>
 <p>Let’s switch to an hourly dataset with multiple groups. We can showcase:</p>
 <ol style="list-style-type: decimal">
 <li>Log transformation to the <code>.value</code>
@@ -283,9 +283,9 @@
                    .interactive <span class="op">=</span> <span class="va">interactive</span><span class="op">)</span></code></pre></div>
 <p><img src="TK04_Plotting_Time_Series_files/figure-html/unnamed-chunk-8-1.png" width="95%" style="display: block; margin: auto;"></p>
 </div>
-<div class="section level2">
-<h2 id="static-ggplot2-visualizations-customizations">Static ggplot2 Visualizations &amp; Customizations<a class="anchor" aria-label="anchor" href="#static-ggplot2-visualizations-customizations"></a>
-</h2>
+<div class="section level3">
+<h3 id="static-ggplot2-visualizations-customizations">Static ggplot2 Visualizations &amp; Customizations<a class="anchor" aria-label="anchor" href="#static-ggplot2-visualizations-customizations"></a>
+</h3>
 <p>All of the visualizations can be converted from interactive <code>plotly</code> (great for exploring and shiny apps) to static <code>ggplot2</code> visualizations (great for reports).</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">taylor_30_min</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
@@ -304,9 +304,9 @@
 <p><img src="TK04_Plotting_Time_Series_files/figure-html/unnamed-chunk-9-1.png" width="95%" style="display: block; margin: auto;"></p>
 </div>
 </div>
-<div class="section level1">
-<h1 id="box-plots-time-series">Box Plots (Time Series)<a class="anchor" aria-label="anchor" href="#box-plots-time-series"></a>
-</h1>
+<div class="section level2">
+<h2 id="box-plots-time-series">Box Plots (Time Series)<a class="anchor" aria-label="anchor" href="#box-plots-time-series"></a>
+</h2>
 <p>The <code><a href="../reference/plot_time_series_boxplot.html">plot_time_series_boxplot()</a></code> function can be used to make box plots.</p>
 <ul>
 <li>Box plots use an aggregation, which is a key parameter defined by the <code>.period</code> argument.</li>
@@ -321,9 +321,9 @@
         .interactive <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
 <p><img src="TK04_Plotting_Time_Series_files/figure-html/unnamed-chunk-10-1.png" width="95%" style="display: block; margin: auto;"></p>
 </div>
-<div class="section level1">
-<h1 id="regression-plots-time-series">Regression Plots (Time Series)<a class="anchor" aria-label="anchor" href="#regression-plots-time-series"></a>
-</h1>
+<div class="section level2">
+<h2 id="regression-plots-time-series">Regression Plots (Time Series)<a class="anchor" aria-label="anchor" href="#regression-plots-time-series"></a>
+</h2>
 <p>A time series regression plot, <code><a href="../reference/plot_time_series_regression.html">plot_time_series_regression()</a></code>, can be useful to quickly assess key features that are correlated to a time series.</p>
 <ul>
 <li>Internally the function passes a <code>formula</code> to the <code><a href="https://rdrr.io/r/stats/lm.html" class="external-link">stats::lm()</a></code> function.</li>
@@ -341,9 +341,9 @@
     <span class="op">)</span></code></pre></div>
 <p><img src="TK04_Plotting_Time_Series_files/figure-html/unnamed-chunk-11-1.png" width="95%" style="display: block; margin: auto;"></p>
 </div>
-<div class="section level1">
-<h1 id="summary">Summary<a class="anchor" aria-label="anchor" href="#summary"></a>
-</h1>
+<div class="section level2">
+<h2 id="summary">Summary<a class="anchor" aria-label="anchor" href="#summary"></a>
+</h2>
 <p>Timetk is part of the amazing Modeltime Ecosystem for time series forecasting. But it can take a long time to learn:</p>
 <ul>
 <li>Many algorithms</li>
