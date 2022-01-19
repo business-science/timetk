@@ -10,6 +10,8 @@ __New Vignettes__
 
 - [Time Series Clustering:](https://business-science.github.io/timetk/articles/TK09_Clustering.html) Uses the new `tk_tsfeatures()` function to perform time series clustering. #95 #84
 
+- [Time Series Visualization:](https://business-science.github.io/timetk/articles/TK04_Plotting_Time_Series.html) Updated to include `plot_time_series_boxplot()` and `plot_time_series_regression()`.
+
 __Improvements__
 
 Improvements for __point forecasting__ when the target is n-periods into the future.

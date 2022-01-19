@@ -16,7 +16,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">timetk</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.6.2.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.7.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -115,13 +115,13 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="2.6.2.9000" id="timetk-2629000">timetk 2.6.2.9000<a class="anchor" aria-label="anchor" href="#timetk-2629000"></a></h2>
+<h2 class="pkg-version" data-toc-text="2.7.0" id="timetk-270">timetk 2.7.0<a class="anchor" aria-label="anchor" href="#timetk-270"></a></h2>
 <p><strong>New Features</strong></p>
 <ul><li><p><code><a href="../reference/tk_tsfeatures.html">tk_tsfeatures()</a></code>: A new function that makes it easy to generate time series feature matrix using <code>tsfeatures</code>. The main benefit is that you can pipe time series data in <code>tibbles</code> with <code>dplyr</code> groups. The features will be produced by group. <a href="https://github.com/business-science/timetk/issues/95" class="external-link">#95</a> <a href="https://github.com/business-science/timetk/issues/84" class="external-link">#84</a></p></li>
 <li><p><code><a href="../reference/plot_time_series_boxplot.html">plot_time_series_boxplot()</a></code>: A new function that makes plotting time series boxplots simple using a <code>.period</code> argument for time series aggregation.</p></li>
 </ul><p><strong>New Vignettes</strong></p>
-<ul><li>
-<a href="https://business-science.github.io/timetk/articles/TK09_Clustering.html">Time Series Clustering:</a> Uses the new <code><a href="../reference/tk_tsfeatures.html">tk_tsfeatures()</a></code> function to perform time series clustering. <a href="https://github.com/business-science/timetk/issues/95" class="external-link">#95</a> <a href="https://github.com/business-science/timetk/issues/84" class="external-link">#84</a></li>
+<ul><li><p><a href="https://business-science.github.io/timetk/articles/TK09_Clustering.html">Time Series Clustering:</a> Uses the new <code><a href="../reference/tk_tsfeatures.html">tk_tsfeatures()</a></code> function to perform time series clustering. <a href="https://github.com/business-science/timetk/issues/95" class="external-link">#95</a> <a href="https://github.com/business-science/timetk/issues/84" class="external-link">#84</a></p></li>
+<li><p><a href="https://business-science.github.io/timetk/articles/TK04_Plotting_Time_Series.html">Time Series Visualization:</a> Updated to include <code><a href="../reference/plot_time_series_boxplot.html">plot_time_series_boxplot()</a></code> and <code><a href="../reference/plot_time_series_regression.html">plot_time_series_regression()</a></code>.</p></li>
 </ul><p><strong>Improvements</strong></p>
 <p>Improvements for <strong>point forecasting</strong> when the target is n-periods into the future.</p>
 <ul><li>
@@ -154,13 +154,13 @@
 <h2 class="pkg-version" data-toc-text="2.6.1" id="timetk-261">timetk 2.6.1<a class="anchor" aria-label="anchor" href="#timetk-261"></a></h2><p class="text-muted">CRAN release: 2021-01-18</p>
 <p><strong>Improvements</strong></p>
 <ul><li>
-<code><a href="../reference/tk_augment_slidify.html">tk_augment_slidify()</a></code>, <code><a href="../reference/tk_augment_lags.html">tk_augment_lags()</a></code>, <code><a href="../reference/tk_augment_lags.html">tk_augment_leads()</a></code>, <code><a href="../reference/tk_augment_differences.html">tk_augment_differences()</a></code>: Now works with multiple columns (passed via <code>.value</code>) and <code>tidyselect</code> (e.g. <code><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">contains()</a></code>).</li>
+<code><a href="../reference/tk_augment_slidify.html">tk_augment_slidify()</a></code>, <code><a href="../reference/tk_augment_lags.html">tk_augment_lags()</a></code>, <code><a href="../reference/tk_augment_lags.html">tk_augment_leads()</a></code>, <code><a href="../reference/tk_augment_differences.html">tk_augment_differences()</a></code>: Now works with multiple columns (passed via <code>.value</code>) and <code>tidyselect</code> (e.g. <code>contains()</code>).</li>
 </ul><p><strong>Fixes</strong></p>
 <ul><li>Reduce “New names” messages.</li>
 </ul><pre><code><span class="co">#&gt; New names: </span>
 <span class="co">#&gt; * NA -&gt; ...1 </span></code></pre>
 <ul><li>Remove dependency on <code>lazyeval</code>. <a href="https://github.com/business-science/timetk/issues/24" class="external-link">#24</a></li>
-<li>Fix deprecated functions: <code><a href="https://dplyr.tidyverse.org/reference/se-deprecated.html" class="external-link">select_()</a></code> used with <code><a href="../reference/tk_xts.html">tk_xts_()</a></code>. <a href="https://github.com/business-science/timetk/issues/52" class="external-link">#52</a></li>
+<li>Fix deprecated functions: <code>select_()</code> used with <code><a href="../reference/tk_xts.html">tk_xts_()</a></code>. <a href="https://github.com/business-science/timetk/issues/52" class="external-link">#52</a></li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="2.6.0" id="timetk-260">timetk 2.6.0<a class="anchor" aria-label="anchor" href="#timetk-260"></a></h2><p class="text-muted">CRAN release: 2020-11-21</p>
@@ -203,7 +203,7 @@
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="2.3.0" id="timetk-230">timetk 2.3.0<a class="anchor" aria-label="anchor" href="#timetk-230"></a></h2><p class="text-muted">CRAN release: 2020-09-29</p>
 <p><strong>New Functionality</strong></p>
-<ul><li><p><code><a href="../reference/tk_time_series_cv_plan.html">tk_time_series_cv_plan()</a></code> - Now works with k-fold cross validation objects from <code><a href="https://rsample.tidymodels.org/reference/vfold_cv.html" class="external-link">vfold_cv()</a></code> function.</p></li>
+<ul><li><p><code><a href="../reference/tk_time_series_cv_plan.html">tk_time_series_cv_plan()</a></code> - Now works with k-fold cross validation objects from <code>vfold_cv()</code> function.</p></li>
 <li><p><code><a href="../reference/pad_by_time.html">pad_by_time()</a></code> - Added new argument <code>.fill_na_direction</code> to specify a <code><a href="https://tidyr.tidyverse.org/reference/fill.html" class="external-link">tidyr::fill()</a></code> strategy for filling missing data.</p></li>
 </ul><p><strong>Bug Fixes</strong></p>
 <ul><li>Augment functions (e.g. <code><a href="../reference/tk_augment_lags.html">tk_augment_lags()</a></code>) - Fix bug with grouped functions not being exported</li>
@@ -331,7 +331,7 @@
 </ul></li>
 <li>
 <code><a href="../reference/tk_make_future_timeseries.html">tk_make_future_timeseries()</a></code>:
-<ul><li>Fix bug when day of month doesn’t exist. Lubridate <code><a href="https://lubridate.tidyverse.org/reference/period.html" class="external-link">period()</a></code> returns <code>NA</code>. Fix implemented with <code><a href="https://lubridate.tidyverse.org/reference/round_date.html" class="external-link">ceiling_date()</a></code>.</li>
+<ul><li>Fix bug when day of month doesn’t exist. Lubridate <code>period()</code> returns <code>NA</code>. Fix implemented with <code>ceiling_date()</code>.</li>
 </ul></li>
 <li>
 <code><a href="../reference/pad_by_time.html">pad_by_time()</a></code>:
@@ -392,14 +392,14 @@
 <li>
 <code><a href="../reference/step_diff.html">step_diff()</a></code> - New recipe for adding multiple differenced columns. Similar to <code><a href="https://recipes.tidymodels.org/reference/step_lag.html" class="external-link">recipes::step_lag()</a></code>.</li>
 <li>
-<code><a href="../reference/step_box_cox.html">step_box_cox()</a></code> - New recipe for transforming predictors. Similar to <code><a href="https://recipes.tidymodels.org/reference/step_BoxCox.html" class="external-link">step_BoxCox()</a></code> with improvements for forecasting including “guerrero” method for lambda selection and handling of negative data.</li>
+<code><a href="../reference/step_box_cox.html">step_box_cox()</a></code> - New recipe for transforming predictors. Similar to <code>step_BoxCox()</code> with improvements for forecasting including “guerrero” method for lambda selection and handling of negative data.</li>
 <li>
 <code>step_impute_ts()</code> - New recipe for imputing a time series.</li>
 </ul><p><strong>New Rsample Functions</strong></p>
 <ul><li>
 <code><a href="../reference/time_series_cv.html">time_series_cv()</a></code> - Create <code>rsample</code> cross validation sets for time series. This function produces a sampling plan starting with the most recent time series observations, rolling backwards.</li>
 </ul><p><strong>New Vector Functions:</strong></p>
-<p>These functions are useful on their own inside of <code><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate()</a></code> and power many of the new plotting and recipes functions.</p>
+<p>These functions are useful on their own inside of <code>mutate()</code> and power many of the new plotting and recipes functions.</p>
 <ul><li>
 <code>roll_apply_vec()</code> - Vectorized rolling apply function - wraps <code><a href="https://rdrr.io/pkg/slider/man/slide.html" class="external-link">slider::slide_vec()</a></code>
 </li>
