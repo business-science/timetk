@@ -126,10 +126,11 @@ test_that("tk_index(ets) test returns correct format.", {
 
 })
 
-fit_robets <- USAccDeaths %>%
-    robets::robets()
-
 test_that("tk_index(robets) test returns correct format.", {
+    skip_if_not_installed("robets")
+
+    fit_robets <- USAccDeaths %>%
+        robets::robets()
 
     # Test if object has timetk index
     expect_false(has_timetk_idx(fit_robets))
