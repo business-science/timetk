@@ -12,6 +12,7 @@
 #' @param .facet_vars One or more grouping columns that broken out into `ggplot2` facets.
 #'  These can be selected using `tidyselect()` helpers (e.g `contains()`).
 #' @param .facet_ncol Number of facet columns.
+#' @param .facet_nrow Number of facet rows (only used for `.trelliscope = TRUE`)
 #' @param .facet_scales Control facet x & y-axis ranges.
 #'  Options include "fixed", "free", "free_y", "free_x"
 #' @param .facet_dir The direction of faceting ("h" for horizontal, "v" for vertical). Default is "h".
@@ -45,6 +46,8 @@
 #' @param .y_lab Y-axis label for the plot
 #' @param .color_lab Legend label if a `color_var` is used.
 #' @param .interactive Returns either a static (`ggplot2`) visualization or an interactive (`plotly`) visualization
+#' @param .trelliscope Returns either a normal plot or a trelliscopejs plot (great for many time series)
+#'  Must have `trelliscopejs` installed.
 #' @param .plotly_slider If TRUE, returns a plotly date range slider.
 #'
 #' @return A static `ggplot2` plot or an interactive `plotly` plot
@@ -141,7 +144,9 @@
 plot_time_series <- function(.data, .date_var, .value, .color_var = NULL,
 
                              .facet_vars = NULL,
-                             .facet_ncol = 1, .facet_scales = "free_y",
+                             .facet_ncol = 1,
+                             .facet_nrow = 1,
+                             .facet_scales = "free_y",
                              .facet_dir = "h",
                              .facet_collapse = TRUE, .facet_collapse_sep = " ",
 
@@ -159,7 +164,9 @@ plot_time_series <- function(.data, .date_var, .value, .color_var = NULL,
                              .title = "Time Series Plot", .x_lab = "", .y_lab = "",
                              .color_lab = "Legend",
 
-                             .interactive = TRUE, .plotly_slider = FALSE) {
+                             .interactive = TRUE,
+                             .trelliscope = FALSE,
+                             .plotly_slider = FALSE) {
 
     # Tidyeval Setup
     date_var_expr  <- rlang::enquo(.date_var)
@@ -184,7 +191,9 @@ plot_time_series <- function(.data, .date_var, .value, .color_var = NULL,
 #' @export
 plot_time_series.data.frame <- function(.data, .date_var, .value, .color_var = NULL,
                                         .facet_vars = NULL,
-                                        .facet_ncol = 1,  .facet_scales = "free_y",
+                                        .facet_ncol = 1,
+                                        .facet_nrow = 1,
+                                        .facet_scales = "free_y",
                                         .facet_dir = "h",
                                         .facet_collapse = TRUE, .facet_collapse_sep = " ",
                                         .line_color = "#2c3e50", .line_size = 0.5,
@@ -201,7 +210,9 @@ plot_time_series.data.frame <- function(.data, .date_var, .value, .color_var = N
                                         .title = "Time Series Plot", .x_lab = "", .y_lab = "",
                                         .color_lab = "Legend",
 
-                                        .interactive = TRUE, .plotly_slider = FALSE) {
+                                        .interactive = TRUE,
+                                        .trelliscope = FALSE,
+                                        .plotly_slider = FALSE) {
 
 
     # Tidyeval Setup
@@ -368,29 +379,47 @@ plot_time_series.data.frame <- function(.data, .date_var, .value, .color_var = N
             ggplot2::theme(legend.position = "none")
     }
 
-    if (.interactive) {
+    # Convert to plotly?
+    if (!.trelliscope) {
 
-        p <- plotly::ggplotly(g, dynamicTicks = TRUE)
+        if (.interactive) {
 
-        if (.plotly_slider) {
-            p <- p %>%
-                plotly::layout(
-                    xaxis = list(
-                        rangeslider = list(type = "date")
+            g <- plotly::ggplotly(g, dynamicTicks = TRUE)
+
+            if (.plotly_slider) {
+                g <- g %>%
+                    plotly::layout(
+                        xaxis = list(
+                            rangeslider = list(type = "date")
+                        )
                     )
-                )
+            }
+
         }
 
-        return(p)
     } else {
-        return(g)
+
+        g <- g +
+            trelliscopejs::facet_trelliscope(
+                facets    = ggplot2::vars(!!! rlang::syms(facet_names)),
+                ncol      = .facet_ncol,
+                nrow      = .facet_nrow,
+                scales    = .facet_scales,
+                as_plotly = .interactive
+            )
+
     }
+
+    return(g)
+
 }
 
 #' @export
 plot_time_series.grouped_df <- function(.data, .date_var, .value, .color_var = NULL,
                                         .facet_vars = NULL,
-                                        .facet_ncol = 1,  .facet_scales = "free_y", .facet_dir = "h",
+                                        .facet_ncol = 1,
+                                        .facet_nrow = 1,
+                                        .facet_scales = "free_y", .facet_dir = "h",
                                         .facet_collapse = TRUE, .facet_collapse_sep = " ",
                                         .line_color = "#2c3e50", .line_size = 0.5,
                                         .line_type = 1, .line_alpha = 1,
@@ -406,7 +435,9 @@ plot_time_series.grouped_df <- function(.data, .date_var, .value, .color_var = N
                                         .title = "Time Series Plot", .x_lab = "", .y_lab = "",
                                         .color_lab = "Legend",
 
-                                        .interactive = TRUE, .plotly_slider = FALSE) {
+                                        .interactive = TRUE,
+                                        .trelliscope = FALSE,
+                                        .plotly_slider = FALSE) {
 
     # Tidy Eval Setup
     group_names   <- dplyr::group_vars(.data)
@@ -435,6 +466,7 @@ plot_time_series.grouped_df <- function(.data, .date_var, .value, .color_var = N
         .facet_vars        = !! enquo(group_names),
 
         .facet_ncol            = .facet_ncol,
+        .facet_nrow            = .facet_nrow,
         .facet_scales          = .facet_scales,
         .facet_dir             = .facet_dir,
         .facet_collapse        = .facet_collapse,
@@ -461,6 +493,7 @@ plot_time_series.grouped_df <- function(.data, .date_var, .value, .color_var = N
         .x_lab                 = .x_lab,
         .y_lab                 = .y_lab,
         .interactive           = .interactive,
+        .trelliscope           = .trelliscope,
         .plotly_slider         = .plotly_slider
     )
 

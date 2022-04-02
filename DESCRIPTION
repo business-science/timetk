@@ -63,6 +63,7 @@ Suggests:
     fracdiff,
     timeSeries,
     tseries,
+    trelliscopejs,
     roxygen2,
     covr
 RoxygenNote: 7.1.2

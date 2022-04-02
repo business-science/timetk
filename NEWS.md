@@ -1,3 +1,10 @@
+# timetk 2.7.0.9000
+
+__New Features__
+
+- `trelliscopejs`: Used for visualizing many time series. 
+  - `plot_time_series()`
+
 # timetk 2.7.0
 
 __New Features__

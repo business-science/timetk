@@ -11,6 +11,7 @@ plot_time_series(
   .color_var = NULL,
   .facet_vars = NULL,
   .facet_ncol = 1,
+  .facet_nrow = 1,
   .facet_scales = "free_y",
   .facet_dir = "h",
   .facet_collapse = TRUE,
@@ -35,6 +36,7 @@ plot_time_series(
   .y_lab = "",
   .color_lab = "Legend",
   .interactive = TRUE,
+  .trelliscope = FALSE,
   .plotly_slider = FALSE
 )
 }
@@ -52,6 +54,8 @@ line color}
 These can be selected using \code{tidyselect()} helpers (e.g \code{contains()}).}
 
 \item{.facet_ncol}{Number of facet columns.}
+
+\item{.facet_nrow}{Number of facet rows (only used for \code{.trelliscope = TRUE})}
 
 \item{.facet_scales}{Control facet x & y-axis ranges.
 Options include "fixed", "free", "free_y", "free_x"}
@@ -109,6 +113,9 @@ Either 0, 1, 2 (0 = lest flexible, 2 = more flexible).}
 \item{.color_lab}{Legend label if a \code{color_var} is used.}
 
 \item{.interactive}{Returns either a static (\code{ggplot2}) visualization or an interactive (\code{plotly}) visualization}
+
+\item{.trelliscope}{Returns either a normal plot or a trelliscopejs plot (great for many time series)
+Must have \code{trelliscopejs} installed.}
 
 \item{.plotly_slider}{If TRUE, returns a plotly date range slider.}
 }
