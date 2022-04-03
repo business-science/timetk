@@ -117,15 +117,30 @@
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="2.7.0.9000" id="timetk-2709000">timetk 2.7.0.9000<a class="anchor" aria-label="anchor" href="#timetk-2709000"></a></h2>
 <p><strong>New Features</strong></p>
+<p>Many of the plotting functions have been upgraded for use with <code>trelliscopejs</code> for easier visualization of many time series.</p>
 <ul><li>
-<code>plot_timeseries()</code>:
-<ul><li>
-<code>trelliscopejs</code>: Used for visualizing many time series.</li>
-<li>Gets a new argument <code>.facet_strip_remove</code> to remove facet strips.</li>
+<code><a href="../reference/plot_time_series.html">plot_time_series()</a></code>:
+<ul><li>Gets a new argument <code>trelliscope</code>: Used for visualizing many time series.</li>
+<li>Gets a new argument <code>.facet_strip_remove</code> to remove facet strips since trelliscope is automatically labeled.</li>
+<li>Gets a new argument <code>.facet_nrow</code> to adjust grid with trelliscope.</li>
+<li>The default argument for <code>facet_collapse = TRUE</code> was changed to <code>FALSE</code> for better compatibility with Trelliscope JS. This may cause some plots to have multiple groups take up extra space in the strip.</li>
+</ul></li>
+<li>
+<code><a href="../reference/plot_time_series_boxplot.html">plot_time_series_boxplot()</a></code>:
+<ul><li>Gets a new argument <code>trelliscope</code>: Used for visualizing many time series.</li>
+<li>Gets a new argument <code>.facet_strip_remove</code> to remove facet strips since trelliscope is automatically labeled.</li>
+<li>Gets a new argument <code>.facet_nrow</code> to adjust grid with trelliscope.</li>
+<li>The default argument for <code>.facet_collapse = TRUE</code> was changed to <code>FALSE</code> for better compatibility with Trelliscope JS. This may cause some plots to have multiple groups take up extra space in the strip.</li>
+</ul></li>
+<li>
+<code><a href="../reference/plot_anomaly_diagnostics.html">plot_anomaly_diagnostics()</a></code>:
+<ul><li>Gets a new argument <code>trelliscope</code>: Used for visualizing many time series.</li>
+<li>Gets a new argument <code>.facet_strip_remove</code> to remove facet strips since trelliscope is automatically labeled.</li>
+<li>Gets a new argument <code>.facet_nrow</code> to adjust grid with trelliscope.</li>
+<li>The default argument for <code>.facet_collapse = TRUE</code> was changed to <code>FALSE</code> for better compatibility with Trelliscope JS. This may cause some plots to have multiple groups take up extra space in the strip.</li>
 </ul></li>
 </ul><p><strong>Potential Breaking Changes</strong></p>
-<ul><li>
-<code><a href="../reference/plot_time_series.html">plot_time_series()</a></code>: The default argument for <code>facet_collapse = TRUE</code> was changed to <code>FALSE</code> for better compatibility with Trelliscope JS. This may cause some plots to have multiple groups take up extra space in the strip.</li>
+<ul><li>The default argument for <code>.facet_collapse = TRUE</code> was changed to <code>FALSE</code> for better compatibility with Trelliscope JS. This may cause some plots to have multiple groups take up extra space in the strip.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="2.7.0" id="timetk-270">timetk 2.7.0<a class="anchor" aria-label="anchor" href="#timetk-270"></a></h2><p class="text-muted">CRAN release: 2022-01-19</p>

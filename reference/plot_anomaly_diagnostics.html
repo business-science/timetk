@@ -135,8 +135,10 @@ Plots are available in interactive <code>plotly</code> (default) and static <cod
   .max_anomalies <span class="op">=</span> <span class="fl">0.2</span>,
   .message <span class="op">=</span> <span class="cn">TRUE</span>,
   .facet_ncol <span class="op">=</span> <span class="fl">1</span>,
+  .facet_nrow <span class="op">=</span> <span class="fl">1</span>,
   .facet_scales <span class="op">=</span> <span class="st">"free"</span>,
   .facet_dir <span class="op">=</span> <span class="st">"h"</span>,
+  .facet_strip_remove <span class="op">=</span> <span class="cn">FALSE</span>,
   .line_color <span class="op">=</span> <span class="st">"#2c3e50"</span>,
   .line_size <span class="op">=</span> <span class="fl">0.5</span>,
   .line_type <span class="op">=</span> <span class="fl">1</span>,
@@ -151,7 +153,8 @@ Plots are available in interactive <code>plotly</code> (default) and static <cod
   .x_lab <span class="op">=</span> <span class="st">""</span>,
   .y_lab <span class="op">=</span> <span class="st">""</span>,
   .color_lab <span class="op">=</span> <span class="st">"Anomaly"</span>,
-  .interactive <span class="op">=</span> <span class="cn">TRUE</span>
+  .interactive <span class="op">=</span> <span class="cn">TRUE</span>,
+  .trelliscope <span class="op">=</span> <span class="cn">FALSE</span>
 <span class="op">)</span></code></pre></div>
     </div>
 
@@ -185,10 +188,14 @@ while higher values are less prone to incorrectly classifying "normal" observati
 and trend selection (if applicable).</p></dd>
 <dt>.facet_ncol</dt>
 <dd><p>Number of facet columns.</p></dd>
+<dt>.facet_nrow</dt>
+<dd><p>Number of facet rows (only used for <code>.trelliscope = TRUE</code>)</p></dd>
 <dt>.facet_scales</dt>
 <dd><p>Control facet x &amp; y-axis ranges. Options include "fixed", "free", "free_y", "free_x"</p></dd>
 <dt>.facet_dir</dt>
 <dd><p>The direction of faceting ("h" for horizontal, "v" for vertical). Default is "h".</p></dd>
+<dt>.facet_strip_remove</dt>
+<dd><p>Whether or not to remove the strip and text label for each facet.</p></dd>
 <dt>.line_color</dt>
 <dd><p>Line color.</p></dd>
 <dt>.line_size</dt>
@@ -220,6 +227,9 @@ and trend selection (if applicable).</p></dd>
 <dt>.interactive</dt>
 <dd><p>If TRUE, returns a <code>plotly</code> interactive plot.
 If FALSE, returns a static <code>ggplot2</code> plot.</p></dd>
+<dt>.trelliscope</dt>
+<dd><p>Returns either a normal plot or a trelliscopejs plot (great for many time series)
+Must have <code>trelliscopejs</code> installed.</p></dd>
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -227,7 +237,7 @@ If FALSE, returns a static <code>ggplot2</code> plot.</p></dd>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>The <code>plot_anomaly_diagnostics()</code> is a visualtion wrapper for <code><a href="tk_anomaly_diagnostics.html">tk_anomaly_diagnostics()</a></code>
+    <p>The <code>plot_anomaly_diagnostics()</code> is a visualization wrapper for <code><a href="tk_anomaly_diagnostics.html">tk_anomaly_diagnostics()</a></code>
 group-wise anomaly detection, implements a 2-step process to
 detect outliers in time series.</p>
 <p><strong>Step 1: Detrend &amp; Remove Seasonality using STL Decomposition</strong></p>
