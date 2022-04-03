@@ -18,6 +18,8 @@ plot_anomaly_diagnostics(
   .facet_nrow = 1,
   .facet_scales = "free",
   .facet_dir = "h",
+  .facet_collapse = TRUE,
+  .facet_collapse_sep = " ",
   .facet_strip_remove = FALSE,
   .line_color = "#2c3e50",
   .line_size = 0.5,
@@ -71,6 +73,11 @@ and trend selection (if applicable).}
 \item{.facet_scales}{Control facet x & y-axis ranges. Options include "fixed", "free", "free_y", "free_x"}
 
 \item{.facet_dir}{The direction of faceting ("h" for horizontal, "v" for vertical). Default is "h".}
+
+\item{.facet_collapse}{Multiple facets included on one facet strip instead of
+multiple facet strips.}
+
+\item{.facet_collapse_sep}{The separator used for collapsing facets.}
 
 \item{.facet_strip_remove}{Whether or not to remove the strip and text label for each facet.}
 

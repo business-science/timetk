@@ -13,6 +13,9 @@
 #' @param .facet_nrow Number of facet rows (only used for `.trelliscope = TRUE`)
 #' @param .facet_scales Control facet x & y-axis ranges. Options include "fixed", "free", "free_y", "free_x"
 #' @param .facet_dir The direction of faceting ("h" for horizontal, "v" for vertical). Default is "h".
+#' @param .facet_collapse Multiple facets included on one facet strip instead of
+#'  multiple facet strips.
+#' @param .facet_collapse_sep The separator used for collapsing facets.
 #' @param .facet_strip_remove Whether or not to remove the strip and text label for each facet.
 #' @param .line_color Line color.
 #' @param .line_size Line size.
@@ -124,6 +127,8 @@ plot_anomaly_diagnostics <- function(
     .facet_nrow = 1,
     .facet_scales = "free",
     .facet_dir = "h",
+    .facet_collapse = TRUE,
+    .facet_collapse_sep = " ",
     .facet_strip_remove = FALSE,
 
     .line_color = "#2c3e50",
@@ -183,6 +188,8 @@ plot_anomaly_diagnostics.data.frame <- function(
     .facet_nrow = 1,
     .facet_scales = "free",
     .facet_dir = "h",
+    .facet_collapse = TRUE,
+    .facet_collapse_sep = " ",
     .facet_strip_remove = FALSE,
 
     .line_color = "#2c3e50",
@@ -224,16 +231,21 @@ plot_anomaly_diagnostics.data.frame <- function(
     facet_names <- data_formatted %>% dplyr::select(!!! facets_expr) %>% colnames()
 
     if (length(facet_names) > 0) {
-        # Handle facets
-        data_formatted <- data_formatted %>%
-            dplyr::ungroup() %>%
-            dplyr::mutate(.facets_collapsed = stringr::str_c(!!! rlang::syms(facet_names),
-                                                             sep = .facet_collapse_sep)) %>%
-            dplyr::mutate(.facets_collapsed = forcats::as_factor(.facets_collapsed)) %>%
-            dplyr::select(-(!!! rlang::syms(facet_names))) %>%
-            dplyr::group_by(.facets_collapsed)
+        if (.facet_collapse) {
 
-        facet_names <- ".facets_collapsed"
+            data_formatted <- data_formatted %>%
+                dplyr::ungroup() %>%
+                dplyr::mutate(.facets_collapsed = stringr::str_c(!!! rlang::syms(facet_names),
+                                                                 sep = .facet_collapse_sep)) %>%
+                dplyr::mutate(.facets_collapsed = forcats::as_factor(.facets_collapsed)) %>%
+                dplyr::group_by(.facets_collapsed)
+
+            facet_names <- ".facets_collapsed"
+
+        } else {
+            data_formatted <- data_formatted %>%
+                dplyr::group_by(!!! rlang::syms(facet_names))
+        }
     }
 
     # data_formatted
@@ -349,6 +361,8 @@ plot_anomaly_diagnostics.grouped_df <- function(
     .facet_nrow = 1,
     .facet_scales = "free",
     .facet_dir = "h",
+    .facet_collapse = TRUE,
+    .facet_collapse_sep = " ",
     .facet_strip_remove = FALSE,
 
     .line_color = "#2c3e50",
