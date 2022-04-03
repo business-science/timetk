@@ -2,8 +2,14 @@
 
 __New Features__
 
-- `trelliscopejs`: Used for visualizing many time series. 
-  - `plot_time_series()`
+- `plot_timeseries()`: 
+    - `trelliscopejs`: Used for visualizing many time series.
+    - Gets a new argument `.facet_strip_remove` to remove facet strips.
+  
+  
+__Potential Breaking Changes__
+
+- `plot_time_series()`: The default argument for `facet_collapse = TRUE` was changed to `FALSE` for better compatibility with Trelliscope JS. This may cause some plots to have multiple groups take up extra space in the strip. 
 
 # timetk 2.7.0
 

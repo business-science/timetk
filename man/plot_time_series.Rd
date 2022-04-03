@@ -14,8 +14,9 @@ plot_time_series(
   .facet_nrow = 1,
   .facet_scales = "free_y",
   .facet_dir = "h",
-  .facet_collapse = TRUE,
+  .facet_collapse = FALSE,
   .facet_collapse_sep = " ",
+  .facet_strip_remove = FALSE,
   .line_color = "#2c3e50",
   .line_size = 0.5,
   .line_type = 1,
@@ -66,6 +67,8 @@ Options include "fixed", "free", "free_y", "free_x"}
 multiple facet strips.}
 
 \item{.facet_collapse_sep}{The separator used for collapsing facets.}
+
+\item{.facet_strip_remove}{Whether or not to remove the strip and text label for each facet.}
 
 \item{.line_color}{Line color. Overrided if \code{.color_var} is specified.}
 

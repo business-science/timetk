@@ -19,6 +19,7 @@
 #' @param .facet_collapse Multiple facets included on one facet strip instead of
 #'  multiple facet strips.
 #' @param .facet_collapse_sep The separator used for collapsing facets.
+#' @param .facet_strip_remove Whether or not to remove the strip and text label for each facet.
 #' @param .line_color Line color. Overrided if `.color_var` is specified.
 #' @param .line_size Line size.
 #' @param .line_type Line type.
@@ -148,7 +149,9 @@ plot_time_series <- function(.data, .date_var, .value, .color_var = NULL,
                              .facet_nrow = 1,
                              .facet_scales = "free_y",
                              .facet_dir = "h",
-                             .facet_collapse = TRUE, .facet_collapse_sep = " ",
+                             .facet_collapse = FALSE,
+                             .facet_collapse_sep = " ",
+                             .facet_strip_remove = FALSE,
 
                              .line_color = "#2c3e50", .line_size = 0.5,
                              .line_type = 1, .line_alpha = 1,
@@ -189,13 +192,18 @@ plot_time_series <- function(.data, .date_var, .value, .color_var = NULL,
 }
 
 #' @export
-plot_time_series.data.frame <- function(.data, .date_var, .value, .color_var = NULL,
+plot_time_series.data.frame <- function(.data, .date_var, .value,
+                                        .color_var = NULL,
+
                                         .facet_vars = NULL,
                                         .facet_ncol = 1,
                                         .facet_nrow = 1,
                                         .facet_scales = "free_y",
                                         .facet_dir = "h",
-                                        .facet_collapse = TRUE, .facet_collapse_sep = " ",
+                                        .facet_collapse = FALSE,
+                                        .facet_collapse_sep = " ",
+                                        .facet_strip_remove = FALSE,
+
                                         .line_color = "#2c3e50", .line_size = 0.5,
                                         .line_type = 1, .line_alpha = 1,
                                         .y_intercept = NULL, .y_intercept_color = "#2c3e50",
@@ -379,6 +387,14 @@ plot_time_series.data.frame <- function(.data, .date_var, .value, .color_var = N
             ggplot2::theme(legend.position = "none")
     }
 
+    if (.facet_strip_remove) {
+        g <- g +
+            ggplot2::theme(
+                strip.background = ggplot2::element_blank(),
+                strip.text.x     = ggplot2::element_blank()
+            )
+    }
+
     # Convert to plotly?
     if (!.trelliscope) {
 
@@ -416,11 +432,16 @@ plot_time_series.data.frame <- function(.data, .date_var, .value, .color_var = N
 
 #' @export
 plot_time_series.grouped_df <- function(.data, .date_var, .value, .color_var = NULL,
+
                                         .facet_vars = NULL,
                                         .facet_ncol = 1,
                                         .facet_nrow = 1,
-                                        .facet_scales = "free_y", .facet_dir = "h",
-                                        .facet_collapse = TRUE, .facet_collapse_sep = " ",
+                                        .facet_scales = "free_y",
+                                        .facet_dir = "h",
+                                        .facet_collapse = FALSE,
+                                        .facet_collapse_sep = " ",
+                                        .facet_strip_remove = FALSE,
+
                                         .line_color = "#2c3e50", .line_size = 0.5,
                                         .line_type = 1, .line_alpha = 1,
                                         .y_intercept = NULL, .y_intercept_color = "#2c3e50",
@@ -471,6 +492,8 @@ plot_time_series.grouped_df <- function(.data, .date_var, .value, .color_var = N
         .facet_dir             = .facet_dir,
         .facet_collapse        = .facet_collapse,
         .facet_collapse_sep    = .facet_collapse_sep,
+        .facet_strip_remove    = .facet_strip_remove,
+
         .line_color            = .line_color,
         .line_size             = .line_size,
         .line_type             = .line_type,
