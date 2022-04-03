@@ -10,8 +10,10 @@
 #' @param .facet_vars One or more grouping columns that broken out into `ggplot2` facets.
 #'  These can be selected using `tidyselect()` helpers (e.g `contains()`).
 #' @param .facet_ncol Number of facet columns.
+#' @param .facet_nrow Number of facet rows (only used for `.trelliscope = TRUE`)
 #' @param .facet_scales Control facet x & y-axis ranges. Options include "fixed", "free", "free_y", "free_x"
 #' @param .facet_dir The direction of faceting ("h" for horizontal, "v" for vertical). Default is "h".
+#' @param .facet_strip_remove Whether or not to remove the strip and text label for each facet.
 #' @param .line_color Line color.
 #' @param .line_size Line size.
 #' @param .line_type Line type.
@@ -28,13 +30,15 @@
 #' @param .color_lab Plot label for the color legend
 #' @param .interactive If TRUE, returns a `plotly` interactive plot.
 #'  If FALSE, returns a static `ggplot2` plot.
+#' @param .trelliscope Returns either a normal plot or a trelliscopejs plot (great for many time series)
+#'  Must have `trelliscopejs` installed.
 #'
 #'
 #' @return A `plotly` or `ggplot2` visualization
 #'
 #' @details
 #'
-#' The `plot_anomaly_diagnostics()` is a visualtion wrapper for `tk_anomaly_diagnostics()`
+#' The `plot_anomaly_diagnostics()` is a visualization wrapper for `tk_anomaly_diagnostics()`
 #' group-wise anomaly detection, implements a 2-step process to
 #' detect outliers in time series.
 #'
@@ -105,30 +109,45 @@
 #'
 #' @name plot_anomaly_diagnostics
 #' @export
-plot_anomaly_diagnostics <- function(.data, .date_var, .value, .facet_vars = NULL,
+plot_anomaly_diagnostics <- function(
+    .data, .date_var, .value,
 
-                                     .frequency = "auto", .trend = "auto",
-                                     .alpha = 0.05, .max_anomalies = 0.2,
-                                     .message = TRUE,
+    .facet_vars = NULL,
 
-                                     .facet_ncol = 1, .facet_scales = "free",
-                                     .facet_dir = "h",
+    .frequency = "auto",
+    .trend = "auto",
+    .alpha = 0.05,
+    .max_anomalies = 0.2,
+    .message = TRUE,
 
-                                     .line_color = "#2c3e50", .line_size = 0.5,
-                                     .line_type = 1, .line_alpha = 1,
+    .facet_ncol = 1,
+    .facet_nrow = 1,
+    .facet_scales = "free",
+    .facet_dir = "h",
+    .facet_strip_remove = FALSE,
 
-                                     .anom_color = "#e31a1c",
-                                     .anom_alpha = 1, .anom_size = 1.5,
+    .line_color = "#2c3e50",
+    .line_size = 0.5,
+    .line_type = 1,
+    .line_alpha = 1,
 
-                                     .ribbon_fill = "grey20", .ribbon_alpha = 0.20,
+    .anom_color = "#e31a1c",
+    .anom_alpha = 1,
+    .anom_size = 1.5,
 
-                                     .legend_show = TRUE,
+    .ribbon_fill = "grey20",
+    .ribbon_alpha = 0.20,
 
-                                     .title = "Anomaly Diagnostics",
-                                     .x_lab = "", .y_lab = "",
-                                     .color_lab = "Anomaly",
+    .legend_show = TRUE,
 
-                                     .interactive = TRUE) {
+    .title = "Anomaly Diagnostics",
+    .x_lab = "",
+    .y_lab = "",
+    .color_lab = "Anomaly",
+
+    .interactive = TRUE,
+    .trelliscope = FALSE
+) {
 
     # Checks
     value_expr <- rlang::enquo(.value)
@@ -149,30 +168,45 @@ plot_anomaly_diagnostics <- function(.data, .date_var, .value, .facet_vars = NUL
 }
 
 #' @export
-plot_anomaly_diagnostics.data.frame <- function(.data, .date_var, .value, .facet_vars = NULL,
+plot_anomaly_diagnostics.data.frame <- function(
+    .data, .date_var, .value,
 
-                                                .frequency = "auto", .trend = "auto",
-                                                .alpha = 0.05, .max_anomalies = 0.2,
-                                                .message = TRUE,
+    .facet_vars = NULL,
 
-                                                .facet_ncol = 1, .facet_scales = "free",
-                                                .facet_dir = "h",
+    .frequency = "auto",
+    .trend = "auto",
+    .alpha = 0.05,
+    .max_anomalies = 0.2,
+    .message = TRUE,
 
-                                                .line_color = "#2c3e50", .line_size = 0.5,
-                                                .line_type = 1, .line_alpha = 1,
+    .facet_ncol = 1,
+    .facet_nrow = 1,
+    .facet_scales = "free",
+    .facet_dir = "h",
+    .facet_strip_remove = FALSE,
 
-                                                .anom_color = "#e31a1c",
-                                                .anom_alpha = 1, .anom_size = 1.5,
+    .line_color = "#2c3e50",
+    .line_size = 0.5,
+    .line_type = 1,
+    .line_alpha = 1,
 
-                                                .ribbon_fill = "grey20", .ribbon_alpha = 0.20,
+    .anom_color = "#e31a1c",
+    .anom_alpha = 1,
+    .anom_size = 1.5,
 
-                                                .legend_show = TRUE,
+    .ribbon_fill = "grey20",
+    .ribbon_alpha = 0.20,
 
-                                                .title = "Anomaly Diagnostics",
-                                                .x_lab = "", .y_lab = "",
-                                                .color_lab = "Anomaly",
+    .legend_show = TRUE,
 
-                                                .interactive = TRUE) {
+    .title = "Anomaly Diagnostics",
+    .x_lab = "",
+    .y_lab = "",
+    .color_lab = "Anomaly",
+
+    .interactive = TRUE,
+    .trelliscope = FALSE
+) {
 
     # Tidy Eval Setup
     value_expr    <- rlang::enquo(.value)
@@ -265,40 +299,80 @@ plot_anomaly_diagnostics.data.frame <- function(.data, .date_var, .value, .facet
             ggplot2::theme(legend.position = "none")
     }
 
-    # Convert to interactive if selected
-    if (.interactive) {
-        p <- plotly::ggplotly(g, dynamicTicks = TRUE)
-        return(p)
-    } else {
-        return(g)
+    # Remove the facet strip?
+    if (.facet_strip_remove) {
+        g <- g +
+            ggplot2::theme(
+                strip.background = ggplot2::element_blank(),
+                strip.text.x     = ggplot2::element_blank()
+            )
     }
+
+    # Convert to trelliscope and/or plotly?
+    if (!.trelliscope) {
+
+        if (.interactive) {
+
+            g <- plotly::ggplotly(g)
+
+        }
+
+    } else {
+
+        g <- g +
+            trelliscopejs::facet_trelliscope(
+                facets    = ggplot2::vars(!!! rlang::syms(facet_names)),
+                ncol      = .facet_ncol,
+                nrow      = .facet_nrow,
+                scales    = .facet_scales,
+                as_plotly = .interactive
+            )
+
+    }
+
+    return(g)
 }
 
 #' @export
-plot_anomaly_diagnostics.grouped_df <- function(.data, .date_var, .value, .facet_vars = NULL,
+plot_anomaly_diagnostics.grouped_df <- function(
+    .data, .date_var, .value,
 
-                                                .frequency = "auto", .trend = "auto",
-                                                .alpha = 0.05, .max_anomalies = 0.2,
-                                                .message = TRUE,
+    .facet_vars = NULL,
 
-                                                .facet_ncol = 1, .facet_scales = "free",
-                                                .facet_dir = "h",
+    .frequency = "auto",
+    .trend = "auto",
+    .alpha = 0.05,
+    .max_anomalies = 0.2,
+    .message = TRUE,
 
-                                                .line_color = "#2c3e50", .line_size = 0.5,
-                                                .line_type = 1, .line_alpha = 1,
+    .facet_ncol = 1,
+    .facet_nrow = 1,
+    .facet_scales = "free",
+    .facet_dir = "h",
+    .facet_strip_remove = FALSE,
 
-                                                .anom_color = "#e31a1c",
-                                                .anom_alpha = 1, .anom_size = 1.5,
+    .line_color = "#2c3e50",
+    .line_size = 0.5,
+    .line_type = 1,
+    .line_alpha = 1,
 
-                                                .ribbon_fill = "grey20", .ribbon_alpha = 0.20,
+    .anom_color = "#e31a1c",
+    .anom_alpha = 1,
+    .anom_size = 1.5,
 
-                                                .legend_show = TRUE,
+    .ribbon_fill = "grey20",
+    .ribbon_alpha = 0.20,
 
-                                                .title = "Anomaly Diagnostics",
-                                                .x_lab = "", .y_lab = "",
-                                                .color_lab = "Anomaly",
+    .legend_show = TRUE,
 
-                                                .interactive = TRUE) {
+    .title = "Anomaly Diagnostics",
+    .x_lab = "",
+    .y_lab = "",
+    .color_lab = "Anomaly",
+
+    .interactive = TRUE,
+    .trelliscope = FALSE
+) {
 
 
     # Tidy Eval Setup
@@ -332,8 +406,10 @@ plot_anomaly_diagnostics.grouped_df <- function(.data, .date_var, .value, .facet
         .message            = .message,
 
         .facet_ncol         = .facet_ncol,
+        .facet_nrow         = .facet_nrow,
         .facet_scales       = .facet_scales,
         .facet_dir          = .facet_dir,
+        .facet_strip_remove = .facet_strip_remove,
 
         .line_color         = .line_color,
         .line_size          = .line_size,
@@ -354,7 +430,8 @@ plot_anomaly_diagnostics.grouped_df <- function(.data, .date_var, .value, .facet
         .y_lab              = .y_lab,
         .color_lab          = .color_lab,
 
-        .interactive        = .interactive
+        .interactive        = .interactive,
+        .trelliscope        = .trelliscope
     )
 
 }

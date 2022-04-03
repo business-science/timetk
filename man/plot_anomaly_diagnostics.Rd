@@ -15,8 +15,10 @@ plot_anomaly_diagnostics(
   .max_anomalies = 0.2,
   .message = TRUE,
   .facet_ncol = 1,
+  .facet_nrow = 1,
   .facet_scales = "free",
   .facet_dir = "h",
+  .facet_strip_remove = FALSE,
   .line_color = "#2c3e50",
   .line_size = 0.5,
   .line_type = 1,
@@ -31,7 +33,8 @@ plot_anomaly_diagnostics(
   .x_lab = "",
   .y_lab = "",
   .color_lab = "Anomaly",
-  .interactive = TRUE
+  .interactive = TRUE,
+  .trelliscope = FALSE
 )
 }
 \arguments{
@@ -63,9 +66,13 @@ and trend selection (if applicable).}
 
 \item{.facet_ncol}{Number of facet columns.}
 
+\item{.facet_nrow}{Number of facet rows (only used for \code{.trelliscope = TRUE})}
+
 \item{.facet_scales}{Control facet x & y-axis ranges. Options include "fixed", "free", "free_y", "free_x"}
 
 \item{.facet_dir}{The direction of faceting ("h" for horizontal, "v" for vertical). Default is "h".}
+
+\item{.facet_strip_remove}{Whether or not to remove the strip and text label for each facet.}
 
 \item{.line_color}{Line color.}
 
@@ -97,6 +104,9 @@ and trend selection (if applicable).}
 
 \item{.interactive}{If TRUE, returns a \code{plotly} interactive plot.
 If FALSE, returns a static \code{ggplot2} plot.}
+
+\item{.trelliscope}{Returns either a normal plot or a trelliscopejs plot (great for many time series)
+Must have \code{trelliscopejs} installed.}
 }
 \value{
 A \code{plotly} or \code{ggplot2} visualization
@@ -106,7 +116,7 @@ An interactive and scalable function for visualizing anomalies in time series da
 Plots are available in interactive \code{plotly} (default) and static \code{ggplot2} format.
 }
 \details{
-The \code{plot_anomaly_diagnostics()} is a visualtion wrapper for \code{tk_anomaly_diagnostics()}
+The \code{plot_anomaly_diagnostics()} is a visualization wrapper for \code{tk_anomaly_diagnostics()}
 group-wise anomaly detection, implements a 2-step process to
 detect outliers in time series.
 

@@ -2,14 +2,31 @@
 
 __New Features__
 
-- `plot_timeseries()`: 
-    - `trelliscopejs`: Used for visualizing many time series.
-    - Gets a new argument `.facet_strip_remove` to remove facet strips.
+Many of the plotting functions have been upgraded for use with `trelliscopejs` for 
+easier visualization of many time series. 
+
+- `plot_time_series()`: 
+    - Gets a new argument `trelliscope`: Used for visualizing many time series.
+    - Gets a new argument `.facet_strip_remove` to remove facet strips since trelliscope is automatically labeled.
+    - Gets a new argument `.facet_nrow` to adjust grid with trelliscope.
+    - The default argument for `facet_collapse = TRUE` was changed to `FALSE` for better compatibility with Trelliscope JS. This may cause some plots to have multiple groups take up extra space in the strip.
+    
+- `plot_time_series_boxplot()`: 
+    - Gets a new argument `trelliscope`: Used for visualizing many time series.
+    - Gets a new argument `.facet_strip_remove` to remove facet strips since trelliscope is automatically labeled.
+    - Gets a new argument `.facet_nrow` to adjust grid with trelliscope.
+    - The default argument for `.facet_collapse = TRUE` was changed to `FALSE` for better compatibility with Trelliscope JS. This may cause some plots to have multiple groups take up extra space in the strip.
   
+- `plot_anomaly_diagnostics()`: 
+    - Gets a new argument `trelliscope`: Used for visualizing many time series.
+    - Gets a new argument `.facet_strip_remove` to remove facet strips since trelliscope is automatically labeled.
+    - Gets a new argument `.facet_nrow` to adjust grid with trelliscope.
+    - The default argument for `.facet_collapse = TRUE` was changed to `FALSE` for better compatibility with Trelliscope JS. This may cause some plots to have multiple groups take up extra space in the strip.
+
   
 __Potential Breaking Changes__
 
-- `plot_time_series()`: The default argument for `facet_collapse = TRUE` was changed to `FALSE` for better compatibility with Trelliscope JS. This may cause some plots to have multiple groups take up extra space in the strip. 
+- The default argument for `.facet_collapse = TRUE` was changed to `FALSE` for better compatibility with Trelliscope JS. This may cause some plots to have multiple groups take up extra space in the strip. 
 
 # timetk 2.7.0
 
