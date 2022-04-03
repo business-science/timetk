@@ -18,7 +18,7 @@ plot_anomaly_diagnostics(
   .facet_nrow = 1,
   .facet_scales = "free",
   .facet_dir = "h",
-  .facet_collapse = TRUE,
+  .facet_collapse = FALSE,
   .facet_collapse_sep = " ",
   .facet_strip_remove = FALSE,
   .line_color = "#2c3e50",

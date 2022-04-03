@@ -127,7 +127,7 @@ plot_anomaly_diagnostics <- function(
     .facet_nrow = 1,
     .facet_scales = "free",
     .facet_dir = "h",
-    .facet_collapse = TRUE,
+    .facet_collapse = FALSE,
     .facet_collapse_sep = " ",
     .facet_strip_remove = FALSE,
 
@@ -188,7 +188,7 @@ plot_anomaly_diagnostics.data.frame <- function(
     .facet_nrow = 1,
     .facet_scales = "free",
     .facet_dir = "h",
-    .facet_collapse = TRUE,
+    .facet_collapse = FALSE,
     .facet_collapse_sep = " ",
     .facet_strip_remove = FALSE,
 
@@ -224,8 +224,8 @@ plot_anomaly_diagnostics.data.frame <- function(
     facets_expr <- rlang::syms(names(tidyselect::eval_select(facets_expr, .data)))
 
     data_formatted      <- tibble::as_tibble(.data)
-    .facet_collapse     <- TRUE
-    .facet_collapse_sep <- " "
+    # .facet_collapse     <- TRUE
+    # .facet_collapse_sep <- " "
 
     # FACET SETUP ----
     facet_names <- data_formatted %>% dplyr::select(!!! facets_expr) %>% colnames()
@@ -361,7 +361,7 @@ plot_anomaly_diagnostics.grouped_df <- function(
     .facet_nrow = 1,
     .facet_scales = "free",
     .facet_dir = "h",
-    .facet_collapse = TRUE,
+    .facet_collapse = FALSE,
     .facet_collapse_sep = " ",
     .facet_strip_remove = FALSE,
 
