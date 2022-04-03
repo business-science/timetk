@@ -138,6 +138,8 @@ Plots are available in interactive <code>plotly</code> (default) and static <cod
   .facet_nrow <span class="op">=</span> <span class="fl">1</span>,
   .facet_scales <span class="op">=</span> <span class="st">"free"</span>,
   .facet_dir <span class="op">=</span> <span class="st">"h"</span>,
+  .facet_collapse <span class="op">=</span> <span class="cn">TRUE</span>,
+  .facet_collapse_sep <span class="op">=</span> <span class="st">" "</span>,
   .facet_strip_remove <span class="op">=</span> <span class="cn">FALSE</span>,
   .line_color <span class="op">=</span> <span class="st">"#2c3e50"</span>,
   .line_size <span class="op">=</span> <span class="fl">0.5</span>,
@@ -194,6 +196,11 @@ and trend selection (if applicable).</p></dd>
 <dd><p>Control facet x &amp; y-axis ranges. Options include "fixed", "free", "free_y", "free_x"</p></dd>
 <dt>.facet_dir</dt>
 <dd><p>The direction of faceting ("h" for horizontal, "v" for vertical). Default is "h".</p></dd>
+<dt>.facet_collapse</dt>
+<dd><p>Multiple facets included on one facet strip instead of
+multiple facet strips.</p></dd>
+<dt>.facet_collapse_sep</dt>
+<dd><p>The separator used for collapsing facets.</p></dd>
 <dt>.facet_strip_remove</dt>
 <dd><p>Whether or not to remove the strip and text label for each facet.</p></dd>
 <dt>.line_color</dt>
