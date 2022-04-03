@@ -47,9 +47,9 @@
 #' @param .y_lab Y-axis label for the plot
 #' @param .color_lab Legend label if a `color_var` is used.
 #' @param .interactive Returns either a static (`ggplot2`) visualization or an interactive (`plotly`) visualization
+#' @param .plotly_slider If TRUE, returns a plotly date range slider.
 #' @param .trelliscope Returns either a normal plot or a trelliscopejs plot (great for many time series)
 #'  Must have `trelliscopejs` installed.
-#' @param .plotly_slider If TRUE, returns a plotly date range slider.
 #'
 #' @return A static `ggplot2` plot or an interactive `plotly` plot
 #'
@@ -143,34 +143,47 @@
 #'
 #'
 #' @export
-plot_time_series <- function(.data, .date_var, .value, .color_var = NULL,
+plot_time_series <- function(
+    .data, .date_var, .value,
 
-                             .facet_vars = NULL,
-                             .facet_ncol = 1,
-                             .facet_nrow = 1,
-                             .facet_scales = "free_y",
-                             .facet_dir = "h",
-                             .facet_collapse = FALSE,
-                             .facet_collapse_sep = " ",
-                             .facet_strip_remove = FALSE,
+    .color_var = NULL,
 
-                             .line_color = "#2c3e50", .line_size = 0.5,
-                             .line_type = 1, .line_alpha = 1,
-                             .y_intercept = NULL, .y_intercept_color = "#2c3e50",
+    .facet_vars = NULL,
+    .facet_ncol = 1,
+    .facet_nrow = 1,
+    .facet_scales = "free_y",
+    .facet_dir = "h",
+    .facet_collapse = FALSE,
+    .facet_collapse_sep = " ",
+    .facet_strip_remove = FALSE,
 
-                             .smooth = TRUE, .smooth_period = "auto",
-                             .smooth_message = FALSE,
-                             .smooth_span = NULL, .smooth_degree = 2,
-                             .smooth_color = "#3366FF", .smooth_size = 1, .smooth_alpha = 1,
+    .line_color = "#2c3e50",
+    .line_size = 0.5,
+    .line_type = 1,
+    .line_alpha = 1,
+    .y_intercept = NULL,
+    .y_intercept_color = "#2c3e50",
 
-                             .legend_show = TRUE,
+    .smooth = TRUE,
+    .smooth_period = "auto",
+    .smooth_message = FALSE,
+    .smooth_span = NULL,
+    .smooth_degree = 2,
+    .smooth_color = "#3366FF",
+    .smooth_size = 1,
+    .smooth_alpha = 1,
 
-                             .title = "Time Series Plot", .x_lab = "", .y_lab = "",
-                             .color_lab = "Legend",
+    .legend_show = TRUE,
 
-                             .interactive = TRUE,
-                             .trelliscope = FALSE,
-                             .plotly_slider = FALSE) {
+    .title = "Time Series Plot",
+    .x_lab = "",
+    .y_lab = "",
+    .color_lab = "Legend",
+
+    .interactive = TRUE,
+    .plotly_slider = FALSE,
+    .trelliscope = FALSE
+) {
 
     # Tidyeval Setup
     date_var_expr  <- rlang::enquo(.date_var)
@@ -193,35 +206,47 @@ plot_time_series <- function(.data, .date_var, .value, .color_var = NULL,
 }
 
 #' @export
-plot_time_series.data.frame <- function(.data, .date_var, .value,
-                                        .color_var = NULL,
+plot_time_series.data.frame <- function(
+    .data, .date_var, .value,
 
-                                        .facet_vars = NULL,
-                                        .facet_ncol = 1,
-                                        .facet_nrow = 1,
-                                        .facet_scales = "free_y",
-                                        .facet_dir = "h",
-                                        .facet_collapse = FALSE,
-                                        .facet_collapse_sep = " ",
-                                        .facet_strip_remove = FALSE,
+    .color_var = NULL,
 
-                                        .line_color = "#2c3e50", .line_size = 0.5,
-                                        .line_type = 1, .line_alpha = 1,
-                                        .y_intercept = NULL, .y_intercept_color = "#2c3e50",
+    .facet_vars = NULL,
+    .facet_ncol = 1,
+    .facet_nrow = 1,
+    .facet_scales = "free_y",
+    .facet_dir = "h",
+    .facet_collapse = FALSE,
+    .facet_collapse_sep = " ",
+    .facet_strip_remove = FALSE,
 
-                                        .smooth = TRUE, .smooth_period = "auto",
-                                        .smooth_message = FALSE,
-                                        .smooth_span = NULL, .smooth_degree = 2,
-                                        .smooth_color = "#3366FF", .smooth_size = 1, .smooth_alpha = 1,
+    .line_color = "#2c3e50",
+    .line_size = 0.5,
+    .line_type = 1,
+    .line_alpha = 1,
+    .y_intercept = NULL,
+    .y_intercept_color = "#2c3e50",
 
-                                        .legend_show = TRUE,
+    .smooth = TRUE,
+    .smooth_period = "auto",
+    .smooth_message = FALSE,
+    .smooth_span = NULL,
+    .smooth_degree = 2,
+    .smooth_color = "#3366FF",
+    .smooth_size = 1,
+    .smooth_alpha = 1,
 
-                                        .title = "Time Series Plot", .x_lab = "", .y_lab = "",
-                                        .color_lab = "Legend",
+    .legend_show = TRUE,
 
-                                        .interactive = TRUE,
-                                        .trelliscope = FALSE,
-                                        .plotly_slider = FALSE) {
+    .title = "Time Series Plot",
+    .x_lab = "",
+    .y_lab = "",
+    .color_lab = "Legend",
+
+    .interactive = TRUE,
+    .plotly_slider = FALSE,
+    .trelliscope = FALSE
+) {
 
 
     # Tidyeval Setup
@@ -388,6 +413,7 @@ plot_time_series.data.frame <- function(.data, .date_var, .value,
             ggplot2::theme(legend.position = "none")
     }
 
+    # Remove the facet strip?
     if (.facet_strip_remove) {
         g <- g +
             ggplot2::theme(
@@ -396,7 +422,7 @@ plot_time_series.data.frame <- function(.data, .date_var, .value,
             )
     }
 
-    # Convert to plotly?
+    # Convert to trelliscope and/or plotly?
     if (!.trelliscope) {
 
         if (.interactive) {
@@ -432,34 +458,47 @@ plot_time_series.data.frame <- function(.data, .date_var, .value,
 }
 
 #' @export
-plot_time_series.grouped_df <- function(.data, .date_var, .value, .color_var = NULL,
+plot_time_series.grouped_df <- function(
+    .data, .date_var, .value,
 
-                                        .facet_vars = NULL,
-                                        .facet_ncol = 1,
-                                        .facet_nrow = 1,
-                                        .facet_scales = "free_y",
-                                        .facet_dir = "h",
-                                        .facet_collapse = FALSE,
-                                        .facet_collapse_sep = " ",
-                                        .facet_strip_remove = FALSE,
+    .color_var = NULL,
 
-                                        .line_color = "#2c3e50", .line_size = 0.5,
-                                        .line_type = 1, .line_alpha = 1,
-                                        .y_intercept = NULL, .y_intercept_color = "#2c3e50",
+    .facet_vars = NULL,
+    .facet_ncol = 1,
+    .facet_nrow = 1,
+    .facet_scales = "free_y",
+    .facet_dir = "h",
+    .facet_collapse = FALSE,
+    .facet_collapse_sep = " ",
+    .facet_strip_remove = FALSE,
 
-                                        .smooth = TRUE, .smooth_period = "auto",
-                                        .smooth_message = FALSE,
-                                        .smooth_span = NULL, .smooth_degree = 2,
-                                        .smooth_color = "#3366FF", .smooth_size = 1, .smooth_alpha = 1,
+    .line_color = "#2c3e50",
+    .line_size = 0.5,
+    .line_type = 1,
+    .line_alpha = 1,
+    .y_intercept = NULL,
+    .y_intercept_color = "#2c3e50",
 
-                                        .legend_show = TRUE,
+    .smooth = TRUE,
+    .smooth_period = "auto",
+    .smooth_message = FALSE,
+    .smooth_span = NULL,
+    .smooth_degree = 2,
+    .smooth_color = "#3366FF",
+    .smooth_size = 1,
+    .smooth_alpha = 1,
 
-                                        .title = "Time Series Plot", .x_lab = "", .y_lab = "",
-                                        .color_lab = "Legend",
+    .legend_show = TRUE,
 
-                                        .interactive = TRUE,
-                                        .trelliscope = FALSE,
-                                        .plotly_slider = FALSE) {
+    .title = "Time Series Plot",
+    .x_lab = "",
+    .y_lab = "",
+    .color_lab = "Legend",
+
+    .interactive = TRUE,
+    .plotly_slider = FALSE,
+    .trelliscope = FALSE
+) {
 
     # Tidy Eval Setup
     group_names   <- dplyr::group_vars(.data)

@@ -37,8 +37,8 @@ plot_time_series(
   .y_lab = "",
   .color_lab = "Legend",
   .interactive = TRUE,
-  .trelliscope = FALSE,
-  .plotly_slider = FALSE
+  .plotly_slider = FALSE,
+  .trelliscope = FALSE
 )
 }
 \arguments{
@@ -117,10 +117,10 @@ Either 0, 1, 2 (0 = lest flexible, 2 = more flexible).}
 
 \item{.interactive}{Returns either a static (\code{ggplot2}) visualization or an interactive (\code{plotly}) visualization}
 
+\item{.plotly_slider}{If TRUE, returns a plotly date range slider.}
+
 \item{.trelliscope}{Returns either a normal plot or a trelliscopejs plot (great for many time series)
 Must have \code{trelliscopejs} installed.}
-
-\item{.plotly_slider}{If TRUE, returns a plotly date range slider.}
 }
 \value{
 A static \code{ggplot2} plot or an interactive \code{plotly} plot
