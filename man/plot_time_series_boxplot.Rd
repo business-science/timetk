@@ -12,10 +12,12 @@ plot_time_series_boxplot(
   .color_var = NULL,
   .facet_vars = NULL,
   .facet_ncol = 1,
+  .facet_nrow = 1,
   .facet_scales = "free_y",
   .facet_dir = "h",
-  .facet_collapse = TRUE,
+  .facet_collapse = FALSE,
   .facet_collapse_sep = " ",
+  .facet_strip_remove = FALSE,
   .line_color = "#2c3e50",
   .line_size = 0.5,
   .line_type = 1,
@@ -37,7 +39,8 @@ plot_time_series_boxplot(
   .y_lab = "",
   .color_lab = "Legend",
   .interactive = TRUE,
-  .plotly_slider = FALSE
+  .plotly_slider = FALSE,
+  .trelliscope = FALSE
 )
 }
 \arguments{
@@ -62,6 +65,8 @@ These can be selected using \code{tidyselect()} helpers (e.g \code{contains()}).
 
 \item{.facet_ncol}{Number of facet columns.}
 
+\item{.facet_nrow}{Number of facet rows (only used for \code{.trelliscope = TRUE})}
+
 \item{.facet_scales}{Control facet x & y-axis ranges.
 Options include "fixed", "free", "free_y", "free_x"}
 
@@ -71,6 +76,8 @@ Options include "fixed", "free", "free_y", "free_x"}
 multiple facet strips.}
 
 \item{.facet_collapse_sep}{The separator used for collapsing facets.}
+
+\item{.facet_strip_remove}{Whether or not to remove the strip and text label for each facet.}
 
 \item{.line_color}{Line color. Overrided if \code{.color_var} is specified.}
 
@@ -128,6 +135,9 @@ Either 0, 1, 2 (0 = lest flexible, 2 = more flexible).}
 \item{.interactive}{Returns either a static (\code{ggplot2}) visualization or an interactive (\code{plotly}) visualization}
 
 \item{.plotly_slider}{If TRUE, returns a plotly date range slider.}
+
+\item{.trelliscope}{Returns either a normal plot or a trelliscopejs plot (great for many time series)
+Must have \code{trelliscopejs} installed.}
 }
 \value{
 A static \code{ggplot2} plot or an interactive \code{plotly} plot

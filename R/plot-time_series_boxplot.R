@@ -18,12 +18,14 @@
 #' @param .facet_vars One or more grouping columns that broken out into `ggplot2` facets.
 #'  These can be selected using `tidyselect()` helpers (e.g `contains()`).
 #' @param .facet_ncol Number of facet columns.
+#' @param .facet_nrow Number of facet rows (only used for `.trelliscope = TRUE`)
 #' @param .facet_scales Control facet x & y-axis ranges.
 #'  Options include "fixed", "free", "free_y", "free_x"
 #' @param .facet_dir The direction of faceting ("h" for horizontal, "v" for vertical). Default is "h".
 #' @param .facet_collapse Multiple facets included on one facet strip instead of
 #'  multiple facet strips.
 #' @param .facet_collapse_sep The separator used for collapsing facets.
+#' @param .facet_strip_remove Whether or not to remove the strip and text label for each facet.
 #' @param .line_color Line color. Overrided if `.color_var` is specified.
 #' @param .line_size Line size.
 #' @param .line_type Line type.
@@ -57,6 +59,8 @@
 #' @param .color_lab Legend label if a `color_var` is used.
 #' @param .interactive Returns either a static (`ggplot2`) visualization or an interactive (`plotly`) visualization
 #' @param .plotly_slider If TRUE, returns a plotly date range slider.
+#' @param .trelliscope Returns either a normal plot or a trelliscopejs plot (great for many time series)
+#'  Must have `trelliscopejs` installed.
 #'
 #' @return A static `ggplot2` plot or an interactive `plotly` plot
 #'
@@ -178,29 +182,40 @@ plot_time_series_boxplot <- function(
     .period,
 
     .color_var = NULL,
-
     .facet_vars = NULL,
-    .facet_ncol = 1, .facet_scales = "free_y",
+    .facet_ncol = 1,
+    .facet_nrow = 1,
+    .facet_scales = "free_y",
     .facet_dir = "h",
-    .facet_collapse = TRUE, .facet_collapse_sep = " ",
+    .facet_collapse = FALSE,
+    .facet_collapse_sep = " ",
+    .facet_strip_remove = FALSE,
 
-    .line_color = "#2c3e50", .line_size = 0.5,
-    .line_type = 1, .line_alpha = 1,
-    .y_intercept = NULL, .y_intercept_color = "#2c3e50",
+    .line_color = "#2c3e50",
+    .line_size = 0.5,
+    .line_type = 1,
+    .line_alpha = 1,
+    .y_intercept = NULL,
+    .y_intercept_color = "#2c3e50",
 
     .smooth = TRUE,
     .smooth_func = ~ mean(.x, na.rm = TRUE),
     .smooth_period = "auto",
     .smooth_message = FALSE,
-    .smooth_span = NULL, .smooth_degree = 2,
-    .smooth_color = "#3366FF", .smooth_size = 1, .smooth_alpha = 1,
+    .smooth_span = NULL,
+    .smooth_degree = 2,
+    .smooth_color = "#3366FF",
+    .smooth_size = 1,
+    .smooth_alpha = 1,
 
     .legend_show = TRUE,
 
     .title = "Time Series Plot", .x_lab = "", .y_lab = "",
     .color_lab = "Legend",
 
-    .interactive = TRUE, .plotly_slider = FALSE
+    .interactive = TRUE,
+    .plotly_slider = FALSE,
+    .trelliscope = FALSE
 ) {
 
     # Tidyeval Setup
@@ -234,19 +249,30 @@ plot_time_series_boxplot.data.frame <- function(
 
     .color_var = NULL,
     .facet_vars = NULL,
-    .facet_ncol = 1,  .facet_scales = "free_y",
+    .facet_ncol = 1,
+    .facet_nrow = 1,
+    .facet_scales = "free_y",
     .facet_dir = "h",
-    .facet_collapse = TRUE, .facet_collapse_sep = " ",
-    .line_color = "#2c3e50", .line_size = 0.5,
-    .line_type = 1, .line_alpha = 1,
-    .y_intercept = NULL, .y_intercept_color = "#2c3e50",
+    .facet_collapse = FALSE,
+    .facet_collapse_sep = " ",
+    .facet_strip_remove = FALSE,
+
+    .line_color = "#2c3e50",
+    .line_size = 0.5,
+    .line_type = 1,
+    .line_alpha = 1,
+    .y_intercept = NULL,
+    .y_intercept_color = "#2c3e50",
 
     .smooth = TRUE,
     .smooth_func = ~ mean(.x, na.rm = TRUE),
     .smooth_period = "auto",
     .smooth_message = FALSE,
-    .smooth_span = NULL, .smooth_degree = 2,
-    .smooth_color = "#3366FF", .smooth_size = 1, .smooth_alpha = 1,
+    .smooth_span = NULL,
+    .smooth_degree = 2,
+    .smooth_color = "#3366FF",
+    .smooth_size = 1,
+    .smooth_alpha = 1,
 
     .legend_show = TRUE,
 
@@ -254,8 +280,8 @@ plot_time_series_boxplot.data.frame <- function(
     .color_lab = "Legend",
 
     .interactive = TRUE,
-
-    .plotly_slider = FALSE
+    .plotly_slider = FALSE,
+    .trelliscope = FALSE
 ) {
 
 
@@ -383,6 +409,40 @@ plot_time_series_boxplot.data.frame <- function(
             scale_color_tq()
     }
 
+    # Add a smoother
+    if (.smooth) {
+
+        if (!.trelliscope) {
+
+            if (rlang::quo_is_null(color_var_expr)) {
+                g <- g +
+                    ggplot2::geom_line(
+                        ggplot2::aes(y = .value_smooth),
+                        color = .smooth_color,
+                        size  = .smooth_size,
+                        alpha = .smooth_alpha,
+                        data  = data_formatted_smooth
+                    )
+
+            } else {
+                g <- g +
+                    ggplot2::geom_line(
+                        ggplot2::aes(y = .value_smooth, group = .color_mod),
+                        color = .smooth_color,
+                        size  = .smooth_size,
+                        alpha = .smooth_alpha,
+                        data  = data_formatted_smooth
+                    )
+            }
+
+        } else {
+            rlang::warn("smoother cannot be applied for box plot with trelliscope.")
+        }
+
+
+
+    }
+
     # Add facets
     if (length(facet_names) > 0) {
         g <- g +
@@ -392,31 +452,6 @@ plot_time_series_boxplot.data.frame <- function(
                 scales = .facet_scales,
                 dir    = .facet_dir
             )
-    }
-
-    # Add a smoother
-    if (.smooth) {
-        if (rlang::quo_is_null(color_var_expr)) {
-            g <- g +
-                ggplot2::geom_line(
-                    ggplot2::aes(y = .value_smooth),
-                    color = .smooth_color,
-                    size  = .smooth_size,
-                    alpha = .smooth_alpha,
-                    data  = data_formatted_smooth
-                )
-
-        } else {
-            g <- g +
-                ggplot2::geom_line(
-                    ggplot2::aes(y = .value_smooth, group = .color_mod),
-                    color = .smooth_color,
-                    size  = .smooth_size,
-                    alpha = .smooth_alpha,
-                    data  = data_formatted_smooth
-                )
-        }
-
     }
 
     # Add a Y-Intercept if desired
@@ -436,23 +471,47 @@ plot_time_series_boxplot.data.frame <- function(
             ggplot2::theme(legend.position = "none")
     }
 
-    if (.interactive) {
+    # Remove the facet strip?
+    if (.facet_strip_remove) {
+        g <- g +
+            ggplot2::theme(
+                strip.background = ggplot2::element_blank(),
+                strip.text.x     = ggplot2::element_blank()
+            )
+    }
 
-        p <- plotly::ggplotly(g, dynamicTicks = TRUE)
+    # Convert to trelliscope and/or plotly?
+    if (!.trelliscope) {
 
-        if (.plotly_slider) {
-            p <- p %>%
-                plotly::layout(
-                    xaxis = list(
-                        rangeslider = list(type = "date")
+        if (.interactive) {
+
+            g <- plotly::ggplotly(g, dynamicTicks = TRUE)
+
+            if (.plotly_slider) {
+                g <- g %>%
+                    plotly::layout(
+                        xaxis = list(
+                            rangeslider = list(type = "date")
+                        )
                     )
-                )
+            }
+
         }
 
-        return(p)
     } else {
-        return(g)
+
+        g <- g +
+            trelliscopejs::facet_trelliscope(
+                facets    = ggplot2::vars(!!! rlang::syms(facet_names)),
+                ncol      = .facet_ncol,
+                nrow      = .facet_nrow,
+                scales    = .facet_scales,
+                as_plotly = .interactive
+            )
+
     }
+
+    return(g)
 }
 
 #' @export
@@ -462,25 +521,39 @@ plot_time_series_boxplot.grouped_df <- function(
 
     .color_var = NULL,
     .facet_vars = NULL,
-    .facet_ncol = 1,  .facet_scales = "free_y", .facet_dir = "h",
-    .facet_collapse = TRUE, .facet_collapse_sep = " ",
-    .line_color = "#2c3e50", .line_size = 0.5,
-    .line_type = 1, .line_alpha = 1,
-    .y_intercept = NULL, .y_intercept_color = "#2c3e50",
+    .facet_ncol = 1,
+    .facet_nrow = 1,
+    .facet_scales = "free_y",
+    .facet_dir = "h",
+    .facet_collapse = FALSE,
+    .facet_collapse_sep = " ",
+    .facet_strip_remove = FALSE,
+
+    .line_color = "#2c3e50",
+    .line_size = 0.5,
+    .line_type = 1,
+    .line_alpha = 1,
+    .y_intercept = NULL,
+    .y_intercept_color = "#2c3e50",
 
     .smooth = TRUE,
     .smooth_func = ~ mean(.x, na.rm = TRUE),
     .smooth_period = "auto",
     .smooth_message = FALSE,
-    .smooth_span = NULL, .smooth_degree = 2,
-    .smooth_color = "#3366FF", .smooth_size = 1, .smooth_alpha = 1,
+    .smooth_span = NULL,
+    .smooth_degree = 2,
+    .smooth_color = "#3366FF",
+    .smooth_size = 1,
+    .smooth_alpha = 1,
 
     .legend_show = TRUE,
 
     .title = "Time Series Plot", .x_lab = "", .y_lab = "",
     .color_lab = "Legend",
 
-    .interactive = TRUE, .plotly_slider = FALSE
+    .interactive = TRUE,
+    .plotly_slider = FALSE,
+    .trelliscope = FALSE
 ) {
 
     # Tidy Eval Setup
@@ -512,10 +585,13 @@ plot_time_series_boxplot.grouped_df <- function(
         .facet_vars        = !! enquo(group_names),
 
         .facet_ncol            = .facet_ncol,
+        .facet_nrow            = .facet_nrow,
         .facet_scales          = .facet_scales,
         .facet_dir             = .facet_dir,
         .facet_collapse        = .facet_collapse,
         .facet_collapse_sep    = .facet_collapse_sep,
+        .facet_strip_remove    = .facet_strip_remove,
+
         .line_color            = .line_color,
         .line_size             = .line_size,
         .line_type             = .line_type,
@@ -539,7 +615,8 @@ plot_time_series_boxplot.grouped_df <- function(
         .x_lab                 = .x_lab,
         .y_lab                 = .y_lab,
         .interactive           = .interactive,
-        .plotly_slider         = .plotly_slider
+        .plotly_slider         = .plotly_slider,
+        .trelliscope           = .trelliscope
     )
 
 
