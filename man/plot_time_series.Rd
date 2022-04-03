@@ -197,11 +197,12 @@ FANG \%>\%
 FANG \%>\%
     mutate(year = year(date)) \%>\%
     plot_time_series(date, adjusted,
-                     .facet_vars   = c(symbol, year), # add groups/facets
-                     .color_var    = year,            # color by year
-                     .facet_ncol   = 4,
-                     .facet_scales = "free",
-                     .interactive  = FALSE)
+                     .facet_vars     = c(symbol, year), # add groups/facets
+                     .color_var      = year,            # color by year
+                     .facet_ncol     = 4,
+                     .facet_scales   = "free",
+                     .facet_collapse = TRUE,  # combine group strip text into 1 line
+                     .interactive    = FALSE)
 
 # Can apply transformations to .value or .color_var
 # - .value = log(adjusted)
