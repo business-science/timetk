@@ -134,8 +134,9 @@ consolidates 20+ lines of <code>ggplot2</code> code, and scales well to many tim
   .facet_nrow <span class="op">=</span> <span class="fl">1</span>,
   .facet_scales <span class="op">=</span> <span class="st">"free_y"</span>,
   .facet_dir <span class="op">=</span> <span class="st">"h"</span>,
-  .facet_collapse <span class="op">=</span> <span class="cn">TRUE</span>,
+  .facet_collapse <span class="op">=</span> <span class="cn">FALSE</span>,
   .facet_collapse_sep <span class="op">=</span> <span class="st">" "</span>,
+  .facet_strip_remove <span class="op">=</span> <span class="cn">FALSE</span>,
   .line_color <span class="op">=</span> <span class="st">"#2c3e50"</span>,
   .line_size <span class="op">=</span> <span class="fl">0.5</span>,
   .line_type <span class="op">=</span> <span class="fl">1</span>,
@@ -189,6 +190,8 @@ Options include "fixed", "free", "free_y", "free_x"</p></dd>
 multiple facet strips.</p></dd>
 <dt>.facet_collapse_sep</dt>
 <dd><p>The separator used for collapsing facets.</p></dd>
+<dt>.facet_strip_remove</dt>
+<dd><p>Whether or not to remove the strip and text label for each facet.</p></dd>
 <dt>.line_color</dt>
 <dd><p>Line color. Overrided if <code>.color_var</code> is specified.</p></dd>
 <dt>.line_size</dt>
