@@ -284,7 +284,7 @@ bake.step_smooth <- function(object, new_data, ...) {
 print.step_smooth <-
     function(x, width = max(20, options()$width - 35), ...) {
         cat("Smoother: Local Polynomial Regression Fitting (Loess) on ")
-        printer(x$columns, x$terms, x$trained, width = width)
+        recipes::print_step(x$columns, x$terms, x$trained, width = width)
         invisible(x)
     }
 

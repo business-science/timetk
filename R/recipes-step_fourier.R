@@ -275,7 +275,7 @@ bake.step_fourier <- function(object, new_data, ...) {
 print.step_fourier <-
     function(x, width = max(20, options()$width - 29), ...) {
         cat("Fourier series features from ")
-        recipes::printer(x$columns, x$terms, x$trained, width = width)
+        recipes::print_step(x$columns, x$terms, x$trained, width = width)
         invisible(x)
     }
 

@@ -210,7 +210,7 @@ bake.step_log_interval <- function(object, new_data, ...) {
 print.step_log_interval <-
     function(x, width = max(20, options()$width - 35), ...) {
         cat("Log-interval transformation on ", sep = "")
-        printer(names(x$limit_lower_trained), x$terms, x$trained, width = width)
+        recipes::print_step(names(x$limit_lower_trained), x$terms, x$trained, width = width)
         invisible(x)
     }
 

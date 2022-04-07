@@ -191,7 +191,7 @@ bake.step_box_cox <- function(object, new_data, ...) {
 print.step_box_cox <-
     function(x, width = max(20, options()$width - 35), ...) {
         cat("Box-Cox transformation on ", sep = "")
-        printer(names(x$lambdas_trained), x$terms, x$trained, width = width)
+        recipes::print_step(names(x$lambdas_trained), x$terms, x$trained, width = width)
         invisible(x)
     }
 

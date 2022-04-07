@@ -270,7 +270,7 @@ bake.step_holiday_signature <- function(object, new_data, ...) {
 print.step_holiday_signature <-
     function(x, width = max(20, options()$width - 29), ...) {
         cat("Holiday signature features from ")
-        recipes::printer(x$columns, x$terms, x$trained, width = width)
+        recipes::print_step(x$columns, x$terms, x$trained, width = width)
         invisible(x)
     }
 
