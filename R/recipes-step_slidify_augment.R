@@ -213,8 +213,8 @@ bake.step_slidify_augment <- function(object, new_data, ...) {
 #' @export
 print.step_slidify_augment <-
     function(x, width = max(20, options()$width - 35), ...) {
-        cat("Sliding Augmentation applied to: ")
-        recipes::print_step(x$columns, x$terms, x$trained, width = width)
+        title <- "Sliding Augmentation applied to: "
+        recipes::print_step(x$columns, x$terms, x$trained, width = width, title = title)
         invisible(x)
     }
 

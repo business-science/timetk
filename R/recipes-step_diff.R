@@ -183,8 +183,8 @@ bake.step_diff <- function(object, new_data, ...) {
 #' @export
 print.step_diff <-
     function(x, width = max(20, options()$width - 30), ...) {
-        cat("Differencing ",  sep = "")
-        recipes::print_step(x$columns, x$terms, x$trained, width = width)
+        title <- "Differencing "
+        recipes::print_step(x$columns, x$terms, x$trained, width = width, title = title)
         invisible(x)
     }
 

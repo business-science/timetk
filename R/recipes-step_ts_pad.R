@@ -217,8 +217,8 @@ bake.step_ts_pad <- function(object, new_data, ...) {
 
 #' @export
 print.step_ts_pad <- function(x, width = max(20, options()$width - 29), ...) {
-    cat("Padded time series features from ")
-    recipes::print_step(x$columns, x$terms, x$trained, width = width)
+    title <- "Padded time series features from "
+    recipes::print_step(x$columns, x$terms, x$trained, width = width, title = title)
     invisible(x)
 }
 

@@ -269,8 +269,8 @@ bake.step_holiday_signature <- function(object, new_data, ...) {
 #' @export
 print.step_holiday_signature <-
     function(x, width = max(20, options()$width - 29), ...) {
-        cat("Holiday signature features from ")
-        recipes::print_step(x$columns, x$terms, x$trained, width = width)
+        title <- "Holiday signature features from "
+        recipes::print_step(x$columns, x$terms, x$trained, width = width, title = title)
         invisible(x)
     }
 

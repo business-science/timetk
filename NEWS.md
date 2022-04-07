@@ -23,7 +23,11 @@ easier visualization of many time series.
     - Gets a new argument `.facet_nrow` to adjust grid with trelliscope.
     - The default argument for `.facet_collapse = TRUE` was changed to `FALSE` for better compatibility with Trelliscope JS. This may cause some plots to have multiple groups take up extra space in the strip.
 
-  
+
+__Updates__
+
+- Recipes steps (e.g. `step_timeseries_signature()`) use the new `recipes::print_step()` function. Requires `recipes >= 0.2.0`. #110
+
 __Potential Breaking Changes__
 
 - The default argument for `.facet_collapse = TRUE` was changed to `FALSE` for better compatibility with Trelliscope JS. This may cause some plots to have multiple groups take up extra space in the strip. 

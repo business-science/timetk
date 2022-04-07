@@ -282,8 +282,8 @@ bake.step_slidify <- function(object, new_data, ...) {
 #' @export
 print.step_slidify <-
     function(x, width = max(20, options()$width - 35), ...) {
-        cat("Slidify Function Applied on ")
-        recipes::print_step(x$columns, x$terms, x$trained, width = width)
+        title <- "Slidify Function Applied on "
+        recipes::print_step(x$columns, x$terms, x$trained, width = width, title = title)
         invisible(x)
     }
 

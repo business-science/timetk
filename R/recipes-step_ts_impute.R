@@ -192,8 +192,8 @@ bake.step_ts_impute <- function(object, new_data, ...) {
 
 #' @export
 print.step_ts_impute <- function(x, width = max(20, options()$width - 35), ...) {
-    cat("Time Series Imputation on ", sep = "")
-    recipes::print_step(names(x$lambdas_trained), x$terms, x$trained, width = width)
+    title <- "Time Series Imputation on "
+    recipes::print_step(names(x$lambdas_trained), x$terms, x$trained, width = width, title = title)
     invisible(x)
 }
 

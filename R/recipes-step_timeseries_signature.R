@@ -214,8 +214,8 @@ bake.step_timeseries_signature <- function(object, new_data, ...) {
 #' @export
 print.step_timeseries_signature <-
     function(x, width = max(20, options()$width - 29), ...) {
-        cat("Timeseries signature features from ")
-        recipes::print_step(x$columns, x$terms, x$trained, width = width)
+        title <- "Timeseries signature features from "
+        recipes::print_step(x$columns, x$terms, x$trained, width = width, title = title)
         invisible(x)
     }
 
