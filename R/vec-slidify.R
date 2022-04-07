@@ -145,7 +145,7 @@
 #' @export
 slidify_vec <- function(.x, .f, ..., .period = 1, .align = c("center", "left", "right"), .partial = FALSE) {
 
-    if (!is.numeric(.x)) rlang::abort("Non-numeric data detected. 'x' must be numeric.")
+    # if (!is.numeric(.x)) rlang::abort("Non-numeric data detected. 'x' must be numeric.")
 
     roll_to_slide(
         .slider_fun = slider::slide_vec,
