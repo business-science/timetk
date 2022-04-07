@@ -24,9 +24,12 @@ easier visualization of many time series.
     - The default argument for `.facet_collapse = TRUE` was changed to `FALSE` for better compatibility with Trelliscope JS. This may cause some plots to have multiple groups take up extra space in the strip.
 
 
-__Updates__
+__Updates & Bug Fixes__
 
 - Recipes steps (e.g. `step_timeseries_signature()`) use the new `recipes::print_step()` function. Requires `recipes >= 0.2.0`. #110
+
+- Offset parameter in `step_log_interval()` was not working properly. Now works. #103
+
 
 __Potential Breaking Changes__
 
