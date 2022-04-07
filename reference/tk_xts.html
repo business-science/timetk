@@ -185,35 +185,35 @@ using <code><a href="https://rdrr.io/pkg/xts/man/xts.html" class="external-link"
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># xts: Character columns cause coercion issues; order.by must be passed a vector of dates</span></span>
 <span class="r-in"><span class="fu">xts</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/xts/man/xts.html" class="external-link">xts</a></span><span class="op">(</span><span class="va">data_tbl</span><span class="op">[</span>,<span class="op">-</span><span class="fl">1</span><span class="op">]</span>, order.by <span class="op">=</span> <span class="va">data_tbl</span><span class="op">$</span><span class="va">date</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            x            y    z          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-01 "chr values" " 1" "0.4806145"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-02 "chr values" " 3" "1.0049213"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-03 "chr values" " 6" "1.5729203"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-04 "chr values" "10" "2.1846116"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-05 "chr values" "15" "2.8399950"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            x            y    z           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-01 "chr values" " 1" " -23.64727"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-02 "chr values" " 3" " -49.44430"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-03 "chr values" " 6" " -77.39107"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-04 "chr values" "10" "-107.48760"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-05 "chr values" "15" "-139.73388"</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># tk_xts: Non-numeric columns automatically dropped; No need to specify date column</span></span>
 <span class="r-in"><span class="fu">tk_xts</span><span class="op">(</span><span class="va">data_tbl</span><span class="op">)</span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Non-numeric columns being dropped: date, x</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Using column `date` for date_var.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>             y         z</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-01  1 0.4806145</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-02  3 1.0049213</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-03  6 1.5729203</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-04 10 2.1846116</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-05 15 2.8399950</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             y          z</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-01  1  -23.64727</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-02  3  -49.44430</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-03  6  -77.39107</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-04 10 -107.48760</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-05 15 -139.73388</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># ts can be coerced back to xts</span></span>
 <span class="r-in"><span class="va">data_tbl</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span class="r-in">    <span class="fu"><a href="tk_ts.html">tk_ts</a></span><span class="op">(</span>start <span class="op">=</span> <span class="fl">2016</span>, freq <span class="op">=</span> <span class="fl">365</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span class="r-in">    <span class="fu">tk_xts</span><span class="op">(</span><span class="op">)</span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Non-numeric columns being dropped: date, x</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>             y         z</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-01  1 0.4806145</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-02  3 1.0049213</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-03  6 1.5729203</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-04 10 2.1846116</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-05 15 2.8399950</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             y          z</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-01  1  -23.64727</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-02  3  -49.44430</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-03  6  -77.39107</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-04 10 -107.48760</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-05 15 -139.73388</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">### Using select and date_var</span></span>
 <span class="r-in"><span class="fu">tk_xts</span><span class="op">(</span><span class="va">data_tbl</span>, select <span class="op">=</span> <span class="va">y</span>, date_var <span class="op">=</span> <span class="va">date</span><span class="op">)</span></span>
