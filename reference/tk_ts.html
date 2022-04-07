@@ -16,7 +16,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">timetk</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.8.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.8.0.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -216,11 +216,11 @@ using <code><a href="https://rdrr.io/r/stats/ts.html" class="external-link">stat
 <span class="r-out co"><span class="r-pr">#&gt;</span> End = 2020 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Frequency = 1 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      x  y          z</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2016 1  1  -5.732389</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2017 1  3 -11.985903</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2018 1  6 -18.760545</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2019 1 10 -26.056312</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2020 1 15 -33.873205</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2016 1  1  -3.187763</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2017 1  3  -6.665323</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2018 1  6 -10.432680</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2019 1 10 -14.489833</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2020 1 15 -18.836783</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># tk_ts: Only numeric columns get coerced; Result retains index in numeric format</span></span>
 <span class="r-in"><span class="va">data_ts</span> <span class="op">&lt;-</span> <span class="fu">tk_ts</span><span class="op">(</span><span class="va">data_tbl</span>, start <span class="op">=</span> <span class="fl">2016</span><span class="op">)</span></span>
@@ -231,11 +231,11 @@ using <code><a href="https://rdrr.io/r/stats/ts.html" class="external-link">stat
 <span class="r-out co"><span class="r-pr">#&gt;</span> End = 2020 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Frequency = 1 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       y          z</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2016  1  -5.732389</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2017  3 -11.985903</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2018  6 -18.760545</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2019 10 -26.056312</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2020 15 -33.873205</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2016  1  -3.187763</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2017  3  -6.665323</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2018  6 -10.432680</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2019 10 -14.489833</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2020 15 -18.836783</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"index")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1451606400 1451692800 1451779200 1451865600 1451952000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"index")attr(,"tzone")</span>
@@ -254,11 +254,11 @@ using <code><a href="https://rdrr.io/r/stats/ts.html" class="external-link">stat
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 5 × 3</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   index          y      z</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> 2016-01-01     1  -<span style="color: #BB0000;">5.73</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> 2016-01-02     3 -<span style="color: #BB0000;">12.0</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> 2016-01-03     6 -<span style="color: #BB0000;">18.8</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> 2016-01-04    10 -<span style="color: #BB0000;">26.1</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> 2016-01-05    15 -<span style="color: #BB0000;">33.9</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> 2016-01-01     1  -<span style="color: #BB0000;">3.19</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> 2016-01-02     3  -<span style="color: #BB0000;">6.67</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> 2016-01-03     6 -<span style="color: #BB0000;">10.4</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> 2016-01-04    10 -<span style="color: #BB0000;">14.5</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> 2016-01-05    15 -<span style="color: #BB0000;">18.8</span> </span>
 <span class="r-in"></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">### Using select</span></span>
