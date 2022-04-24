@@ -61,6 +61,12 @@
 #' @param .plotly_slider If TRUE, returns a plotly date range slider.
 #' @param .trelliscope Returns either a normal plot or a trelliscopejs plot (great for many time series)
 #'  Must have `trelliscopejs` installed.
+#' @param .trelliscope_params Pass parameters to the `trelliscopejs::facet_trelliscope()` function as a `list()`.
+#'  The only parameters that cannot be passed are:
+#'  - `ncol`: use `.facet_ncol`
+#'  - `nrow`: use `.facet_nrow`
+#'  - `scales`: use `facet_scales`
+#'  - `as_plotly`: use `.interactive`
 #'
 #' @return A static `ggplot2` plot or an interactive `plotly` plot
 #'
@@ -215,7 +221,8 @@ plot_time_series_boxplot <- function(
 
     .interactive = TRUE,
     .plotly_slider = FALSE,
-    .trelliscope = FALSE
+    .trelliscope = FALSE,
+    .trelliscope_params = list()
 ) {
 
     # Tidyeval Setup
@@ -281,7 +288,8 @@ plot_time_series_boxplot.data.frame <- function(
 
     .interactive = TRUE,
     .plotly_slider = FALSE,
-    .trelliscope = FALSE
+    .trelliscope = FALSE,
+    .trelliscope_params = list()
 ) {
 
 
@@ -500,14 +508,27 @@ plot_time_series_boxplot.data.frame <- function(
 
     } else {
 
-        g <- g +
-            trelliscopejs::facet_trelliscope(
-                facets    = ggplot2::vars(!!! rlang::syms(facet_names)),
+        # g <- g +
+        #     trelliscopejs::facet_trelliscope(
+        #         facets    = ggplot2::vars(!!! rlang::syms(facet_names)),
+        #         ncol      = .facet_ncol,
+        #         nrow      = .facet_nrow,
+        #         scales    = .facet_scales,
+        #         as_plotly = .interactive
+        #     )
+
+        trell <- do.call(trelliscopejs::facet_trelliscope, c(
+            list(
+                facets    = ggplot2::vars(!!! rlang::syms(group_names)),
                 ncol      = .facet_ncol,
                 nrow      = .facet_nrow,
                 scales    = .facet_scales,
                 as_plotly = .interactive
-            )
+            ),
+            .trelliscope_params
+        ))
+
+        g <- g + trell
 
     }
 
@@ -553,7 +574,8 @@ plot_time_series_boxplot.grouped_df <- function(
 
     .interactive = TRUE,
     .plotly_slider = FALSE,
-    .trelliscope = FALSE
+    .trelliscope = FALSE,
+    .trelliscope_params = list()
 ) {
 
     # Tidy Eval Setup
@@ -616,7 +638,8 @@ plot_time_series_boxplot.grouped_df <- function(
         .y_lab                 = .y_lab,
         .interactive           = .interactive,
         .plotly_slider         = .plotly_slider,
-        .trelliscope           = .trelliscope
+        .trelliscope           = .trelliscope,
+        .trelliscope_params    = .trelliscope_params
     )
 
 

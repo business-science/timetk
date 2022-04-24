@@ -36,7 +36,8 @@ plot_anomaly_diagnostics(
   .y_lab = "",
   .color_lab = "Anomaly",
   .interactive = TRUE,
-  .trelliscope = FALSE
+  .trelliscope = FALSE,
+  .trelliscope_params = list()
 )
 }
 \arguments{
@@ -114,6 +115,15 @@ If FALSE, returns a static \code{ggplot2} plot.}
 
 \item{.trelliscope}{Returns either a normal plot or a trelliscopejs plot (great for many time series)
 Must have \code{trelliscopejs} installed.}
+
+\item{.trelliscope_params}{Pass parameters to the \code{trelliscopejs::facet_trelliscope()} function as a \code{list()}.
+The only parameters that cannot be passed are:
+\itemize{
+\item \code{ncol}: use \code{.facet_ncol}
+\item \code{nrow}: use \code{.facet_nrow}
+\item \code{scales}: use \code{facet_scales}
+\item \code{as_plotly}: use \code{.interactive}
+}}
 }
 \value{
 A \code{plotly} or \code{ggplot2} visualization

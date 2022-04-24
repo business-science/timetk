@@ -47,9 +47,15 @@
 #' @param .y_lab Y-axis label for the plot
 #' @param .color_lab Legend label if a `color_var` is used.
 #' @param .interactive Returns either a static (`ggplot2`) visualization or an interactive (`plotly`) visualization
-#' @param .plotly_slider If TRUE, returns a plotly date range slider.
+#' @param .plotly_slider If `TRUE`, returns a plotly date range slider.
 #' @param .trelliscope Returns either a normal plot or a trelliscopejs plot (great for many time series)
 #'  Must have `trelliscopejs` installed.
+#' @param .trelliscope_params Pass parameters to the `trelliscopejs::facet_trelliscope()` function as a `list()`.
+#'  The only parameters that cannot be passed are:
+#'  - `ncol`: use `.facet_ncol`
+#'  - `nrow`: use `.facet_nrow`
+#'  - `scales`: use `facet_scales`
+#'  - `as_plotly`: use `.interactive`
 #'
 #' @return A static `ggplot2` plot or an interactive `plotly` plot
 #'
@@ -182,7 +188,8 @@ plot_time_series <- function(
 
     .interactive = TRUE,
     .plotly_slider = FALSE,
-    .trelliscope = FALSE
+    .trelliscope = FALSE,
+    .trelliscope_params = list()
 ) {
 
     # Tidyeval Setup
@@ -245,7 +252,9 @@ plot_time_series.data.frame <- function(
 
     .interactive = TRUE,
     .plotly_slider = FALSE,
-    .trelliscope = FALSE
+
+    .trelliscope = FALSE,
+    .trelliscope_params = list()
 ) {
 
 
@@ -442,14 +451,27 @@ plot_time_series.data.frame <- function(
 
     } else {
 
-        g <- g +
-            trelliscopejs::facet_trelliscope(
-                facets    = ggplot2::vars(!!! rlang::syms(facet_names)),
+        # g <- g +
+        #     trelliscopejs::facet_trelliscope(
+        #         facets    = ggplot2::vars(!!! rlang::syms(facet_names)),
+        #         ncol      = .facet_ncol,
+        #         nrow      = .facet_nrow,
+        #         scales    = .facet_scales,
+        #         as_plotly = .interactive
+        #     )
+
+        trell <- do.call(trelliscopejs::facet_trelliscope, c(
+            list(
+                facets    = ggplot2::vars(!!! rlang::syms(group_names)),
                 ncol      = .facet_ncol,
                 nrow      = .facet_nrow,
                 scales    = .facet_scales,
                 as_plotly = .interactive
-            )
+            ),
+            .trelliscope_params
+        ))
+
+        g <- g + trell
 
     }
 
@@ -497,7 +519,8 @@ plot_time_series.grouped_df <- function(
 
     .interactive = TRUE,
     .plotly_slider = FALSE,
-    .trelliscope = FALSE
+    .trelliscope = FALSE,
+    .trelliscope_params = list()
 ) {
 
     # Tidy Eval Setup
@@ -555,9 +578,12 @@ plot_time_series.grouped_df <- function(
         .title                 = .title,
         .x_lab                 = .x_lab,
         .y_lab                 = .y_lab,
+
         .interactive           = .interactive,
+        .plotly_slider         = .plotly_slider,
+
         .trelliscope           = .trelliscope,
-        .plotly_slider         = .plotly_slider
+        .trelliscope_params    = .trelliscope_params
     )
 
 

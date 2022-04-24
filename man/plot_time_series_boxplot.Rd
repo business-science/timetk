@@ -40,7 +40,8 @@ plot_time_series_boxplot(
   .color_lab = "Legend",
   .interactive = TRUE,
   .plotly_slider = FALSE,
-  .trelliscope = FALSE
+  .trelliscope = FALSE,
+  .trelliscope_params = list()
 )
 }
 \arguments{
@@ -138,6 +139,15 @@ Either 0, 1, 2 (0 = lest flexible, 2 = more flexible).}
 
 \item{.trelliscope}{Returns either a normal plot or a trelliscopejs plot (great for many time series)
 Must have \code{trelliscopejs} installed.}
+
+\item{.trelliscope_params}{Pass parameters to the \code{trelliscopejs::facet_trelliscope()} function as a \code{list()}.
+The only parameters that cannot be passed are:
+\itemize{
+\item \code{ncol}: use \code{.facet_ncol}
+\item \code{nrow}: use \code{.facet_nrow}
+\item \code{scales}: use \code{facet_scales}
+\item \code{as_plotly}: use \code{.interactive}
+}}
 }
 \value{
 A static \code{ggplot2} plot or an interactive \code{plotly} plot

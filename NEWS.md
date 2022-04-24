@@ -1,5 +1,12 @@
 # timetk 2.8.0.9000 (Development Version)
 
+### Trelliscope Plotting
+
+- Expose the `facet_trelliscope()` plotting parameters. 
+  - `plot_time_series()`
+  - `plot_time_series_boxplot()`
+  - `plot_anomaly_diagnostics()`
+
 # timetk 2.8.0
 
 __New Features__
