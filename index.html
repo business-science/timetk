@@ -150,9 +150,7 @@
 </h1>
 </div>
 
-<blockquote>
-<p>Time series analysis in the <code>tidyverse</code></p>
-</blockquote>
+<blockquote><p>Time series analysis in the <code>tidyverse</code></p></blockquote>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
@@ -167,8 +165,7 @@
 <h2 id="package-functionality">Package Functionality<a class="anchor" aria-label="anchor" href="#package-functionality"></a>
 </h2>
 <p>There are <em>many</em> R packages for working with Time Series data. Here’s how <code>timetk</code> compares to the “tidy” time series R packages for data visualization, wrangling, and feature engineeering (those that leverage data frames or tibbles).</p>
-<div class="comparison">
-<table class="table">
+<div class="comparison"><table class="table">
 <colgroup>
 <col width="38%">
 <col width="15%">
@@ -416,8 +413,7 @@
 <td><span class="emoji" data-emoji="x">❌</span></td>
 </tr>
 </tbody>
-</table>
-</div>
+</table></div>
 </div>
 <div class="section level2">
 <h2 id="getting-started">Getting Started<a class="anchor" aria-label="anchor" href="#getting-started"></a>
@@ -445,9 +441,7 @@
 <div class="section level2">
 <h2 id="take-the-high-performance-forecasting-course">Take the High-Performance Forecasting Course<a class="anchor" aria-label="anchor" href="#take-the-high-performance-forecasting-course"></a>
 </h2>
-<blockquote>
-<p>Become the forecasting expert for your organization</p>
-</blockquote>
+<blockquote><p>Become the forecasting expert for your organization</p></blockquote>
 <p><a href="https://university.business-science.io/p/ds4b-203-r-high-performance-time-series-forecasting/" target="_blank" class="external-link"><img src="https://www.filepicker.io/api/file/bKyqVAi5Qi64sS05QYLk" alt="High-Performance Time Series Forecasting Course" width="100%" style="box-shadow: 0 0 5px 2px rgba(0, 0, 0, .5);"></a></p>
 <p><a href="https://university.business-science.io/p/ds4b-203-r-high-performance-time-series-forecasting/" class="external-link"><em>High-Performance Time Series Course</em></a></p>
 <div class="section level3">
@@ -477,12 +471,8 @@
 <strong>Scalable Forecasting</strong> - Forecast 1000+ time series in parallel</li>
 <li>and more.</li>
 </ul>
-<p class="text-center" style="font-size:24px;">
-Become the Time Series Expert for your organization.
-</p>
-<br><p class="text-center" style="font-size:30px;">
-<a href="https://university.business-science.io/p/ds4b-203-r-high-performance-time-series-forecasting" class="external-link">Take the High-Performance Time Series Forecasting Course</a>
-</p>
+<p class="text-center" style="font-size:24px;">Become the Time Series Expert for your organization.</p>
+<br><p class="text-center" style="font-size:30px;"><a href="https://university.business-science.io/p/ds4b-203-r-high-performance-time-series-forecasting" class="external-link">Take the High-Performance Time Series Forecasting Course</a></p>
 </div>
 </div>
 <div class="section level2">
@@ -491,8 +481,7 @@ Become the Time Series Expert for your organization.
 <p>The <code>timetk</code> package wouldn’t be possible without other amazing time series packages.</p>
 <ul>
 <li>
-<a href="https://rdrr.io/r/stats/stats-package.html" class="external-link">stats</a> - Basically every <code>timetk</code> function that uses a period (frequency) argument owes it to <code><a href="https://rdrr.io/r/stats/ts.html" class="external-link">ts()</a></code>.
-<ul>
+<a href="https://rdrr.io/r/stats/stats-package.html" class="external-link">stats</a> - Basically every <code>timetk</code> function that uses a period (frequency) argument owes it to <code><a href="https://rdrr.io/r/stats/ts.html" class="external-link">ts()</a></code>.<ul>
 <li>
 <code><a href="reference/plot_acf_diagnostics.html">plot_acf_diagnostics()</a></code>: Leverages <code><a href="https://rdrr.io/r/stats/acf.html" class="external-link">stats::acf()</a></code>, <code><a href="https://rdrr.io/r/stats/acf.html" class="external-link">stats::pacf()</a></code> &amp; <code><a href="https://rdrr.io/r/stats/acf.html" class="external-link">stats::ccf()</a></code>
 </li>
@@ -502,16 +491,12 @@ Become the Time Series Expert for your organization.
 </ul>
 </li>
 <li>
-<a href="https://lubridate.tidyverse.org/" class="external-link">lubridate</a>: <code>timetk</code> makes heavy use of <code>floor_date()</code>, <code>ceiling_date()</code>, and <code>duration()</code> for “time-based phrases”.
-<ul>
-<li>Add and Subtract Time (<code>%+time%</code> &amp; <code>%-time%</code>): <code>"2012-01-01" %+time% "1 month 4 days"</code> uses <code>lubridate</code> to intelligently offset the day</li>
-</ul>
+<a href="https://lubridate.tidyverse.org/" class="external-link">lubridate</a>: <code>timetk</code> makes heavy use of <code>floor_date()</code>, <code>ceiling_date()</code>, and <code>duration()</code> for “time-based phrases”.<ul><li>Add and Subtract Time (<code>%+time%</code> &amp; <code>%-time%</code>): <code>"2012-01-01" %+time% "1 month 4 days"</code> uses <code>lubridate</code> to intelligently offset the day</li></ul>
 </li>
 <li>
 <a href="https://github.com/joshuaulrich/xts" class="external-link">xts</a>: Used to calculate periodicity and fast lag automation.</li>
 <li>
-<a href="https://pkg.robjhyndman.com/forecast/" class="external-link">forecast (retired)</a>: Possibly my favorite R package of all time. It’s based on <code>ts</code>, and it’s predecessor is the <code>tidyverts</code> (<code>fable</code>, <code>tsibble</code>, <code>feasts</code>, and <code>fabletools</code>).
-<ul>
+<a href="https://pkg.robjhyndman.com/forecast/" class="external-link">forecast (retired)</a>: Possibly my favorite R package of all time. It’s based on <code>ts</code>, and it’s predecessor is the <code>tidyverts</code> (<code>fable</code>, <code>tsibble</code>, <code>feasts</code>, and <code>fabletools</code>).<ul>
 <li>The <code><a href="reference/ts_impute_vec.html">ts_impute_vec()</a></code> function for low-level vectorized imputation using STL + Linear Interpolation uses <code>na.interp()</code> under the hood.</li>
 <li>The <code><a href="reference/ts_clean_vec.html">ts_clean_vec()</a></code> function for low-level vectorized imputation using STL + Linear Interpolation uses <code>tsclean()</code> under the hood.</li>
 <li>Box Cox transformation <code><a href="reference/box_cox_vec.html">auto_lambda()</a></code> uses <code>BoxCox.Lambda()</code>.<br>
@@ -519,8 +504,7 @@ Become the Time Series Expert for your organization.
 </ul>
 </li>
 <li>
-<a href="https://business-science.github.io/tibbletime/" class="external-link">tibbletime (retired)</a>: While <code>timetk</code> does not import <code>tibbletime</code>, it uses much of the innovative functionality to interpret time-based phrases:
-<ul>
+<a href="https://business-science.github.io/tibbletime/" class="external-link">tibbletime (retired)</a>: While <code>timetk</code> does not import <code>tibbletime</code>, it uses much of the innovative functionality to interpret time-based phrases:<ul>
 <li>
 <code><a href="reference/tk_make_timeseries.html">tk_make_timeseries()</a></code> - Extends <code><a href="https://rdrr.io/r/base/seq.Date.html" class="external-link">seq.Date()</a></code> and <code><a href="https://rdrr.io/r/base/seq.POSIXt.html" class="external-link">seq.POSIXt()</a></code> using a simple phase like “2012-02” to populate the entire time series from start to finish in February 2012.</li>
 <li>
@@ -530,8 +514,7 @@ Become the Time Series Expert for your organization.
 </ul>
 </li>
 <li>
-<a href="https://davisvaughan.github.io/slider/" class="external-link">slider</a>: A powerful R package that provides a <code>purrr</code>-syntax for complex rolling (sliding) calculations.
-<ul>
+<a href="https://davisvaughan.github.io/slider/" class="external-link">slider</a>: A powerful R package that provides a <code>purrr</code>-syntax for complex rolling (sliding) calculations.<ul>
 <li>
 <code><a href="reference/slidify.html">slidify()</a></code> uses <code><a href="https://rdrr.io/pkg/slider/man/slide2.html" class="external-link">slider::pslide</a></code> under the hood.</li>
 <li>
@@ -539,8 +522,7 @@ Become the Time Series Expert for your organization.
 </ul>
 </li>
 <li>
-<a href="https://edwinth.github.io/padr/" class="external-link">padr</a>: Used for padding time series from low frequency to high frequency and filling in gaps.
-<ul>
+<a href="https://edwinth.github.io/padr/" class="external-link">padr</a>: Used for padding time series from low frequency to high frequency and filling in gaps.<ul>
 <li>The <code><a href="reference/pad_by_time.html">pad_by_time()</a></code> function is a wrapper for <code><a href="https://rdrr.io/pkg/padr/man/pad.html" class="external-link">padr::pad()</a></code>.</li>
 <li>See the <code><a href="reference/step_ts_pad.html">step_ts_pad()</a></code> to apply padding as a preprocessing recipe!</li>
 </ul>
@@ -602,7 +584,7 @@ Become the Time Series Expert for your organization.
 
 <div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
 </div>
 
     </footer>

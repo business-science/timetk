@@ -116,28 +116,31 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="2.8.0.9000" id="timetk-2809000-development-version">timetk 2.8.0.9000 (Development Version)<a class="anchor" aria-label="anchor" href="#timetk-2809000-development-version"></a></h2>
+<div class="section level4">
+<h4 id="trelliscope-plotting-2-8-0-9000">Trelliscope Plotting<a class="anchor" aria-label="anchor" href="#trelliscope-plotting-2-8-0-9000"></a></h4>
+<ul><li>Expose the <code>facet_trelliscope()</code> plotting parameters.<ul><li><code><a href="../reference/plot_time_series.html">plot_time_series()</a></code></li>
+<li><code><a href="../reference/plot_time_series_boxplot.html">plot_time_series_boxplot()</a></code></li>
+<li><code><a href="../reference/plot_anomaly_diagnostics.html">plot_anomaly_diagnostics()</a></code></li>
+</ul></li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="2.8.0" id="timetk-280">timetk 2.8.0<a class="anchor" aria-label="anchor" href="#timetk-280"></a></h2><p class="text-muted">CRAN release: 2022-04-07</p>
 <p><strong>New Features</strong></p>
 <p>Many of the plotting functions have been upgraded for use with <code>trelliscopejs</code> for easier visualization of many time series.</p>
 <ul><li>
-<code><a href="../reference/plot_time_series.html">plot_time_series()</a></code>:
-<ul><li>Gets a new argument <code>trelliscope</code>: Used for visualizing many time series.</li>
+<code><a href="../reference/plot_time_series.html">plot_time_series()</a></code>:<ul><li>Gets a new argument <code>trelliscope</code>: Used for visualizing many time series.</li>
 <li>Gets a new argument <code>.facet_strip_remove</code> to remove facet strips since trelliscope is automatically labeled.</li>
 <li>Gets a new argument <code>.facet_nrow</code> to adjust grid with trelliscope.</li>
 <li>The default argument for <code>facet_collapse = TRUE</code> was changed to <code>FALSE</code> for better compatibility with Trelliscope JS. This may cause some plots to have multiple groups take up extra space in the strip.</li>
 </ul></li>
 <li>
-<code><a href="../reference/plot_time_series_boxplot.html">plot_time_series_boxplot()</a></code>:
-<ul><li>Gets a new argument <code>trelliscope</code>: Used for visualizing many time series.</li>
+<code><a href="../reference/plot_time_series_boxplot.html">plot_time_series_boxplot()</a></code>:<ul><li>Gets a new argument <code>trelliscope</code>: Used for visualizing many time series.</li>
 <li>Gets a new argument <code>.facet_strip_remove</code> to remove facet strips since trelliscope is automatically labeled.</li>
 <li>Gets a new argument <code>.facet_nrow</code> to adjust grid with trelliscope.</li>
 <li>The default argument for <code>.facet_collapse = TRUE</code> was changed to <code>FALSE</code> for better compatibility with Trelliscope JS. This may cause some plots to have multiple groups take up extra space in the strip.</li>
 </ul></li>
 <li>
-<code><a href="../reference/plot_anomaly_diagnostics.html">plot_anomaly_diagnostics()</a></code>:
-<ul><li>Gets a new argument <code>trelliscope</code>: Used for visualizing many time series.</li>
+<code><a href="../reference/plot_anomaly_diagnostics.html">plot_anomaly_diagnostics()</a></code>:<ul><li>Gets a new argument <code>trelliscope</code>: Used for visualizing many time series.</li>
 <li>Gets a new argument <code>.facet_strip_remove</code> to remove facet strips since trelliscope is automatically labeled.</li>
 <li>Gets a new argument <code>.facet_nrow</code> to adjust grid with trelliscope.</li>
 <li>The default argument for <code>.facet_collapse = TRUE</code> was changed to <code>FALSE</code> for better compatibility with Trelliscope JS. This may cause some plots to have multiple groups take up extra space in the strip.</li>
@@ -146,8 +149,7 @@
 <ul><li><p>Recipes steps (e.g. <code><a href="../reference/step_timeseries_signature.html">step_timeseries_signature()</a></code>) use the new <code><a href="https://recipes.tidymodels.org/reference/recipes-internal.html" class="external-link">recipes::print_step()</a></code> function. Requires <code>recipes &gt;= 0.2.0</code>. <a href="https://github.com/business-science/timetk/issues/110" class="external-link">#110</a></p></li>
 <li><p>Offset parameter in <code><a href="../reference/step_log_interval.html">step_log_interval()</a></code> was not working properly. Now works. <a href="https://github.com/business-science/timetk/issues/103" class="external-link">#103</a></p></li>
 </ul><p><strong>Potential Breaking Changes</strong></p>
-<ul><li>The default argument for <code>.facet_collapse = TRUE</code> was changed to <code>FALSE</code> for better compatibility with Trelliscope JS. This may cause some plots to have multiple groups take up extra space in the strip.</li>
-</ul></div>
+<ul><li>The default argument for <code>.facet_collapse = TRUE</code> was changed to <code>FALSE</code> for better compatibility with Trelliscope JS. This may cause some plots to have multiple groups take up extra space in the strip.</li></ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="2.7.0" id="timetk-270">timetk 2.7.0<a class="anchor" aria-label="anchor" href="#timetk-270"></a></h2><p class="text-muted">CRAN release: 2022-01-19</p>
 <p><strong>New Features</strong></p>
@@ -159,8 +161,7 @@
 </ul><p><strong>Improvements</strong></p>
 <p>Improvements for <strong>point forecasting</strong> when the target is n-periods into the future.</p>
 <ul><li>
-<code><a href="../reference/time_series_cv.html">time_series_cv()</a></code>, <code><a href="../reference/time_series_split.html">time_series_split()</a></code>: New parameter <code>point_forecast</code>. This is useful for testing / assessing the n-th prediction in the future. When set to <code>TRUE</code>, will return a single point that returns on the last value in <code>assess</code>.</li>
-</ul><p><strong>Fixes</strong></p>
+<code><a href="../reference/time_series_cv.html">time_series_cv()</a></code>, <code><a href="../reference/time_series_split.html">time_series_split()</a></code>: New parameter <code>point_forecast</code>. This is useful for testing / assessing the n-th prediction in the future. When set to <code>TRUE</code>, will return a single point that returns on the last value in <code>assess</code>.</li></ul><p><strong>Fixes</strong></p>
 <ul><li>Updates for rlang &gt; 0.4.11 (dev version) <a href="https://github.com/business-science/timetk/issues/98" class="external-link">#98</a></li>
 <li>
 <code><a href="../reference/plot_time_series.html">plot_time_series()</a></code>: Smoother no longer fails when time series has 1 observation <a href="https://github.com/business-science/timetk/issues/106" class="external-link">#106</a></li>
@@ -188,10 +189,8 @@
 <h2 class="pkg-version" data-toc-text="2.6.1" id="timetk-261">timetk 2.6.1<a class="anchor" aria-label="anchor" href="#timetk-261"></a></h2><p class="text-muted">CRAN release: 2021-01-18</p>
 <p><strong>Improvements</strong></p>
 <ul><li>
-<code><a href="../reference/tk_augment_slidify.html">tk_augment_slidify()</a></code>, <code><a href="../reference/tk_augment_lags.html">tk_augment_lags()</a></code>, <code><a href="../reference/tk_augment_lags.html">tk_augment_leads()</a></code>, <code><a href="../reference/tk_augment_differences.html">tk_augment_differences()</a></code>: Now works with multiple columns (passed via <code>.value</code>) and <code>tidyselect</code> (e.g. <code><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">contains()</a></code>).</li>
-</ul><p><strong>Fixes</strong></p>
-<ul><li>Reduce “New names” messages.</li>
-</ul><pre><code><span class="co">#&gt; New names: </span>
+<code><a href="../reference/tk_augment_slidify.html">tk_augment_slidify()</a></code>, <code><a href="../reference/tk_augment_lags.html">tk_augment_lags()</a></code>, <code><a href="../reference/tk_augment_lags.html">tk_augment_leads()</a></code>, <code><a href="../reference/tk_augment_differences.html">tk_augment_differences()</a></code>: Now works with multiple columns (passed via <code>.value</code>) and <code>tidyselect</code> (e.g. <code><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">contains()</a></code>).</li></ul><p><strong>Fixes</strong></p>
+<ul><li>Reduce “New names” messages.</li></ul><pre><code><span class="co">#&gt; New names: </span>
 <span class="co">#&gt; * NA -&gt; ...1 </span></code></pre>
 <ul><li>Remove dependency on <code>lazyeval</code>. <a href="https://github.com/business-science/timetk/issues/24" class="external-link">#24</a></li>
 <li>Fix deprecated functions: <code><a href="https://dplyr.tidyverse.org/reference/se-deprecated.html" class="external-link">select_()</a></code> used with <code><a href="../reference/tk_xts.html">tk_xts_()</a></code>. <a href="https://github.com/business-science/timetk/issues/52" class="external-link">#52</a></li>
@@ -223,13 +222,11 @@
 <li>
 <code><a href="../reference/future_frame.html">future_frame()</a></code>: Gets a new argument called <code>.bind_data</code>. When set to <code>TRUE</code>, it performs a data binding operation with the incoming data and the future frame.</li>
 </ul><p><strong>Miscellaneous</strong></p>
-<ul><li>Tune startup messages (<a href="https://github.com/business-science/timetk/issues/63" class="external-link">#63</a>)</li>
-</ul></div>
+<ul><li>Tune startup messages (<a href="https://github.com/business-science/timetk/issues/63" class="external-link">#63</a>)</li></ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="2.4.0" id="timetk-240">timetk 2.4.0<a class="anchor" aria-label="anchor" href="#timetk-240"></a></h2><p class="text-muted">CRAN release: 2020-10-08</p>
 <ul><li>
-<code><a href="../reference/step_slidify_augment.html">step_slidify_augment()</a></code> - A variant of step slidify that adds multiple rolling columns inside of a recipe.</li>
-</ul><p><strong>Bug Fixes</strong></p>
+<code><a href="../reference/step_slidify_augment.html">step_slidify_augment()</a></code> - A variant of step slidify that adds multiple rolling columns inside of a recipe.</li></ul><p><strong>Bug Fixes</strong></p>
 <ul><li>Add warning when <code>%+time%</code> and <code>%-time%</code> return missing values</li>
 <li>Fix issues with <code><a href="../reference/tk_make_timeseries.html">tk_make_timeseries()</a></code> and <code><a href="../reference/tk_make_future_timeseries.html">tk_make_future_timeseries()</a></code> providing odd results for regular time series. <a href="https://github.com/business-science/timetk/issues/60" class="external-link">GitHub Issue 60</a>
 </li>
@@ -247,11 +244,9 @@
 <h2 class="pkg-version" data-toc-text="2.2.1" id="timetk-221">timetk 2.2.1<a class="anchor" aria-label="anchor" href="#timetk-221"></a></h2><p class="text-muted">CRAN release: 2020-09-01</p>
 <p><strong>New Functions</strong></p>
 <ul><li>
-<code>step_log_interval_vec()</code> - Extends the <code><a href="../reference/log_interval_vec.html">log_interval_vec()</a></code> for <code>recipes</code> preprocessing.</li>
-</ul><p><strong>Parallel Processing</strong></p>
+<code>step_log_interval_vec()</code> - Extends the <code><a href="../reference/log_interval_vec.html">log_interval_vec()</a></code> for <code>recipes</code> preprocessing.</li></ul><p><strong>Parallel Processing</strong></p>
 <ul><li>Parallel backend for use with <code>tune</code> and <code>recipes</code>
-</li>
-</ul><p><strong>Bug Fixes</strong></p>
+</li></ul><p><strong>Bug Fixes</strong></p>
 <ul><li>
 <code><a href="../reference/log_interval_vec.html">log_interval_vec()</a></code> - Correct the messaging</li>
 <li>
@@ -290,36 +285,29 @@
 <ul><li>
 <strong>All plotting functions now support Tab Completion</strong> (a minor breaking change was needed to do so, see breaking changes below)</li>
 <li>
-<code><a href="../reference/plot_time_series.html">plot_time_series()</a></code>:
-<ul><li>Add <code>.legend_show</code> to toggle on/off legends.</li>
+<code><a href="../reference/plot_time_series.html">plot_time_series()</a></code>:<ul><li>Add <code>.legend_show</code> to toggle on/off legends.</li>
 <li>Permit numeric index (fix issue with smoother failing)</li>
 </ul></li>
 </ul><p><strong>Breaking Changes</strong></p>
 <ul><li>
-<strong>Tab Completion</strong>: Replace <code>...</code> with <code>.facet_vars</code> or <code>.ccf_vars</code>. This change is needed to improve tab-completion. It affects :
-<ul><li><code><a href="../reference/plot_time_series.html">plot_time_series()</a></code></li>
+<strong>Tab Completion</strong>: Replace <code>...</code> with <code>.facet_vars</code> or <code>.ccf_vars</code>. This change is needed to improve tab-completion. It affects :<ul><li><code><a href="../reference/plot_time_series.html">plot_time_series()</a></code></li>
 <li><code><a href="../reference/plot_acf_diagnostics.html">plot_acf_diagnostics()</a></code></li>
 <li><code><a href="../reference/plot_anomaly_diagnostics.html">plot_anomaly_diagnostics()</a></code></li>
 <li><code><a href="../reference/plot_seasonal_diagnostics.html">plot_seasonal_diagnostics()</a></code></li>
 <li><code><a href="../reference/plot_stl_diagnostics.html">plot_stl_diagnostics()</a></code></li>
-</ul></li>
-</ul><p><strong>Bug Fixes</strong></p>
+</ul></li></ul><p><strong>Bug Fixes</strong></p>
 <ul><li>
 <code><a href="../reference/fourier_vec.html">fourier_vec()</a></code> and <code>step_fourier_vec()</code>: Add error if observations have zero difference. <a href="https://github.com/business-science/timetk/issues/40" class="external-link">Issue </a><a href="https://github.com/business-science/timetk/issues/40" class="external-link">#40</a>.
-</li>
-</ul></div>
+</li></ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="2.0.0" id="timetk-200">timetk 2.0.0<a class="anchor" aria-label="anchor" href="#timetk-200"></a></h2><p class="text-muted">CRAN release: 2020-05-31</p>
 <p><strong>New Interactive Plotting Functions</strong></p>
 <ul><li>
-<code><a href="../reference/plot_anomaly_diagnostics.html">plot_anomaly_diagnostics()</a></code>: Visualize Anomalies for One or More Time Series</li>
-</ul><p><strong>New Data Wrangling Functions</strong></p>
+<code><a href="../reference/plot_anomaly_diagnostics.html">plot_anomaly_diagnostics()</a></code>: Visualize Anomalies for One or More Time Series</li></ul><p><strong>New Data Wrangling Functions</strong></p>
 <ul><li>
-<code><a href="../reference/future_frame.html">future_frame()</a></code>: Make a future tibble from an existing time-based tibble.</li>
-</ul><p><strong>New Diagnostic / Data Processing Functions</strong></p>
+<code><a href="../reference/future_frame.html">future_frame()</a></code>: Make a future tibble from an existing time-based tibble.</li></ul><p><strong>New Diagnostic / Data Processing Functions</strong></p>
 <ul><li>
-<code><a href="../reference/tk_anomaly_diagnostics.html">tk_anomaly_diagnostics()</a></code> - Group-wise anomaly detection and diagnostics. A wrapper for the <code>anomalize</code> R package functions without importing <code>anomalize</code>.</li>
-</ul><p><strong>New Vectorized Functions</strong>:</p>
+<code><a href="../reference/tk_anomaly_diagnostics.html">tk_anomaly_diagnostics()</a></code> - Group-wise anomaly detection and diagnostics. A wrapper for the <code>anomalize</code> R package functions without importing <code>anomalize</code>.</li></ul><p><strong>New Vectorized Functions</strong>:</p>
 <ul><li>
 <code><a href="../reference/ts_clean_vec.html">ts_clean_vec()</a></code> - Replace Outliers &amp; Missing Values in a Time Series</li>
 <li>
@@ -333,8 +321,7 @@
 <code><a href="../reference/step_ts_clean.html">step_ts_clean()</a></code> - Preprocessing step for cleaning outliers and imputing missing values in a time series.</li>
 </ul><p><strong>New Parsing Functions</strong></p>
 <ul><li>
-<code><a href="../reference/parse_date2.html">parse_date2()</a></code> and <code><a href="../reference/parse_date2.html">parse_datetime2()</a></code>: These are similar to <code><a href="https://readr.tidyverse.org/reference/parse_datetime.html" class="external-link">readr::parse_date()</a></code> and <code><a href="https://lubridate.tidyverse.org/reference/as_date.html" class="external-link">lubridate::as_date()</a></code> in that they parse character vectors to date and datetimes. The key advantage is SPEED. <code><a href="../reference/parse_date2.html">parse_date2()</a></code> uses <code>anytime</code> package to process using C++ <code>Boost.Date_Time</code> library.</li>
-</ul><p><strong>Improvements</strong>:</p>
+<code><a href="../reference/parse_date2.html">parse_date2()</a></code> and <code><a href="../reference/parse_date2.html">parse_datetime2()</a></code>: These are similar to <code><a href="https://readr.tidyverse.org/reference/parse_datetime.html" class="external-link">readr::parse_date()</a></code> and <code><a href="https://lubridate.tidyverse.org/reference/as_date.html" class="external-link">lubridate::as_date()</a></code> in that they parse character vectors to date and datetimes. The key advantage is SPEED. <code><a href="../reference/parse_date2.html">parse_date2()</a></code> uses <code>anytime</code> package to process using C++ <code>Boost.Date_Time</code> library.</li></ul><p><strong>Improvements</strong>:</p>
 <ul><li>
 <code><a href="../reference/plot_acf_diagnostics.html">plot_acf_diagnostics()</a></code>: The <code>.lags</code> argument now handles time-based phrases (e.g. <code>.lags = "1 month"</code>).</li>
 <li>
@@ -345,37 +332,24 @@
 <code>diff_vec</code>: Now reports the initial values used in the differencing calculation.</li>
 </ul><p><strong>Bug Fixes</strong>:</p>
 <ul><li>
-<code><a href="../reference/plot_time_series.html">plot_time_series()</a></code>:
-<ul><li>Fix name collision when <code>.value = .value</code>.</li>
-</ul></li>
+<code><a href="../reference/plot_time_series.html">plot_time_series()</a></code>:<ul><li>Fix name collision when <code>.value = .value</code>.</li></ul></li>
 <li>
-<code><a href="../reference/tk_make_future_timeseries.html">tk_make_future_timeseries()</a></code>:
-<ul><li>Respect timezones</li>
-</ul></li>
+<code><a href="../reference/tk_make_future_timeseries.html">tk_make_future_timeseries()</a></code>:<ul><li>Respect timezones</li></ul></li>
 <li>
-<code><a href="../reference/time_series_cv.html">time_series_cv()</a></code>:
-<ul><li>Fix incorrect calculation of starts/stops</li>
+<code><a href="../reference/time_series_cv.html">time_series_cv()</a></code>:<ul><li>Fix incorrect calculation of starts/stops</li>
 <li>Make <code>skip = 1</code> default. <code>skip = 0</code> does not make sense.</li>
 <li>Fix issue with <code>skip</code> adding 1 to stops.</li>
 <li>Fix printing method</li>
 </ul></li>
 <li>
-<code><a href="../reference/plot_time_series_cv_plan.html">plot_time_series_cv_plan()</a></code> &amp; <code><a href="../reference/tk_time_series_cv_plan.html">tk_time_series_cv_plan()</a></code>:
-<ul><li>Prevent name collisions when underlying data has column “id” or “splits”</li>
-</ul></li>
+<code><a href="../reference/plot_time_series_cv_plan.html">plot_time_series_cv_plan()</a></code> &amp; <code><a href="../reference/tk_time_series_cv_plan.html">tk_time_series_cv_plan()</a></code>:<ul><li>Prevent name collisions when underlying data has column “id” or “splits”</li></ul></li>
 <li>
-<code><a href="../reference/tk_make_future_timeseries.html">tk_make_future_timeseries()</a></code>:
-<ul><li>Fix bug when day of month doesn’t exist. Lubridate <code><a href="https://lubridate.tidyverse.org/reference/period.html" class="external-link">period()</a></code> returns <code>NA</code>. Fix implemented with <code><a href="https://lubridate.tidyverse.org/reference/round_date.html" class="external-link">ceiling_date()</a></code>.</li>
-</ul></li>
+<code><a href="../reference/tk_make_future_timeseries.html">tk_make_future_timeseries()</a></code>:<ul><li>Fix bug when day of month doesn’t exist. Lubridate <code><a href="https://lubridate.tidyverse.org/reference/period.html" class="external-link">period()</a></code> returns <code>NA</code>. Fix implemented with <code><a href="https://lubridate.tidyverse.org/reference/round_date.html" class="external-link">ceiling_date()</a></code>.</li></ul></li>
 <li>
-<code><a href="../reference/pad_by_time.html">pad_by_time()</a></code>:
-<ul><li>Fix <code>pad_value</code> so only inserts pad values where new row was inserted.</li>
-</ul></li>
+<code><a href="../reference/pad_by_time.html">pad_by_time()</a></code>:<ul><li>Fix <code>pad_value</code> so only inserts pad values where new row was inserted.</li></ul></li>
 <li>
-<code><a href="../reference/step_ts_clean.html">step_ts_clean()</a></code>, <code><a href="../reference/step_ts_impute.html">step_ts_impute()</a></code>:
-<ul><li>Fix issue with <code>lambda = NULL</code>
-</li>
-</ul></li>
+<code><a href="../reference/step_ts_clean.html">step_ts_clean()</a></code>, <code><a href="../reference/step_ts_impute.html">step_ts_impute()</a></code>:<ul><li>Fix issue with <code>lambda = NULL</code>
+</li></ul></li>
 </ul><p><strong>Breaking Changes</strong>:</p>
 <p>These should not be of major impact since the 1.0.0 version was just released.</p>
 <ul><li>Renamed <code>impute_ts_vec()</code> to <code><a href="../reference/ts_impute_vec.html">ts_impute_vec()</a></code> for consistency with <code><a href="../reference/ts_clean_vec.html">ts_clean_vec()</a></code>
@@ -431,8 +405,7 @@
 <code>step_impute_ts()</code> - New recipe for imputing a time series.</li>
 </ul><p><strong>New Rsample Functions</strong></p>
 <ul><li>
-<code><a href="../reference/time_series_cv.html">time_series_cv()</a></code> - Create <code>rsample</code> cross validation sets for time series. This function produces a sampling plan starting with the most recent time series observations, rolling backwards.</li>
-</ul><p><strong>New Vector Functions:</strong></p>
+<code><a href="../reference/time_series_cv.html">time_series_cv()</a></code> - Create <code>rsample</code> cross validation sets for time series. This function produces a sampling plan starting with the most recent time series observations, rolling backwards.</li></ul><p><strong>New Vector Functions:</strong></p>
 <p>These functions are useful on their own inside of <code><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate()</a></code> and power many of the new plotting and recipes functions.</p>
 <ul><li>
 <code>roll_apply_vec()</code> - Vectorized rolling apply function - wraps <code><a href="https://rdrr.io/pkg/slider/man/slide.html" class="external-link">slider::slide_vec()</a></code>
@@ -505,19 +478,15 @@
 </ul><p><strong>Improvements:</strong> * <code><a href="../reference/tk_make_future_timeseries.html">tk_make_future_timeseries()</a></code> - Now accepts <code>n_future</code> as a time-based phrase like “12 seconds” or “1 year”.</p>
 <p><strong>Bug Fixes:</strong></p>
 <ul><li>
-<a href="https://github.com/business-science/timetk/pull/32" class="external-link">Don’t set timezone on date</a> - Accommodate recent changes to <code>lubridate::tz&lt;-</code> which now returns POSIXct when used Date objects. Fixed in PR32 by <a href="https://github.com/vspinu" class="external-link">@vspinu</a>.</li>
-</ul><p><strong>Potential Breaking Changes:</strong></p>
+<a href="https://github.com/business-science/timetk/pull/32" class="external-link">Don’t set timezone on date</a> - Accommodate recent changes to <code>lubridate::tz&lt;-</code> which now returns POSIXct when used Date objects. Fixed in PR32 by <a href="https://github.com/vspinu" class="external-link">@vspinu</a>.</li></ul><p><strong>Potential Breaking Changes:</strong></p>
 <ul><li>
-<code><a href="../reference/tk_augment_timeseries.html">tk_augment_timeseries_signature()</a></code> - Changed from <code>data</code> to <code>.data</code> to prevent name collisions when piping.</li>
-</ul></div>
+<code><a href="../reference/tk_augment_timeseries.html">tk_augment_timeseries_signature()</a></code> - Changed from <code>data</code> to <code>.data</code> to prevent name collisions when piping.</li></ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.1.3" id="timetk-013">timetk 0.1.3<a class="anchor" aria-label="anchor" href="#timetk-013"></a></h2><p class="text-muted">CRAN release: 2020-03-18</p>
 <p><strong>New Features:</strong></p>
 <ul><li>
-<code>recipes</code> Integration - Ability to apply <strong><em>time series feature engineering</em></strong> in the <code>tidymodels</code> machine learning workflow.
-<ul><li>
-<code><a href="../reference/step_timeseries_signature.html">step_timeseries_signature()</a></code> - New <code><a href="../reference/step_timeseries_signature.html">step_timeseries_signature()</a></code> for adding date and date-time features.</li>
-</ul></li>
+<code>recipes</code> Integration - Ability to apply <strong><em>time series feature engineering</em></strong> in the <code>tidymodels</code> machine learning workflow.<ul><li>
+<code><a href="../reference/step_timeseries_signature.html">step_timeseries_signature()</a></code> - New <code><a href="../reference/step_timeseries_signature.html">step_timeseries_signature()</a></code> for adding date and date-time features.</li></ul></li>
 <li>New Vignette - <em>“Time Series Machine Learning”</em> (previously forecasting using the time series signature)</li>
 </ul><p><strong>Bug Fixes:</strong></p>
 <ul><li>
@@ -533,13 +502,11 @@
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.1.1" id="timetk-011">timetk 0.1.1<a class="anchor" aria-label="anchor" href="#timetk-011"></a></h2><p class="text-muted">CRAN release: 2018-05-14</p>
-<ul><li>Added <code>timeSeries</code> to Suggests to satisfy a CRAN issue.</li>
-</ul></div>
+<ul><li>Added <code>timeSeries</code> to Suggests to satisfy a CRAN issue.</li></ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.1.0" id="timetk-010">timetk 0.1.0<a class="anchor" aria-label="anchor" href="#timetk-010"></a></h2><p class="text-muted">CRAN release: 2017-07-25</p>
 <ul><li>Renamed package <code>timetk</code>. Was formerly <code>timekit</code>.</li>
-<li>Improvements:
-<ul><li>Fixed issue with back-ticked date columns</li>
+<li>Improvements:<ul><li>Fixed issue with back-ticked date columns</li>
 <li>Update pkgdown</li>
 <li>support for <code>robets</code>
 </li>
@@ -598,7 +565,7 @@ The information below is kept for historical reasons since this package was conv
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
 </div>
 
     </footer></div>

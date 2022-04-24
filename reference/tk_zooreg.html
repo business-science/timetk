@@ -222,12 +222,12 @@ using <code><a href="https://rdrr.io/pkg/zoo/man/zooreg.html" class="external-li
 <span class="r-in"><span class="co"># zoo::zooreg: Values coerced to character; Result does not retain index</span></span>
 <span class="r-in"><span class="va">data_zooreg</span> <span class="op">&lt;-</span> <span class="fu">zoo</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/zoo/man/zooreg.html" class="external-link">zooreg</a></span><span class="op">(</span><span class="va">data_tbl</span><span class="op">[</span>,<span class="op">-</span><span class="fl">1</span><span class="op">]</span>, start <span class="op">=</span> <span class="fl">2016</span>, freq <span class="op">=</span> <span class="fl">365</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">data_zooreg</span>                <span class="co"># Numeric values coerced to character</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         x          y  z         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2016(1) chr values  1  -8.919553</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2016(2) chr values  3 -18.649975</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2016(3) chr values  6 -29.191265</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2016(4) chr values 10 -40.543423</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2016(5) chr values 15 -52.706450</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         x          y  z       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2016(1) chr values  1 11.35135</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2016(2) chr values  3 23.73463</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2016(3) chr values  6 37.14986</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2016(4) chr values 10 51.59703</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2016(5) chr values 15 67.07614</span>
 <span class="r-in"><span class="fu"><a href="https://tibble.tidyverse.org/reference/rownames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">data_zooreg</span><span class="op">)</span>      <span class="co"># NULL, no dates retained</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
 <span class="r-in"></span>
@@ -235,12 +235,12 @@ using <code><a href="https://rdrr.io/pkg/zoo/man/zooreg.html" class="external-li
 <span class="r-in"><span class="va">data_tk_zooreg</span> <span class="op">&lt;-</span> <span class="fu">tk_zooreg</span><span class="op">(</span><span class="va">data_tbl</span>, start <span class="op">=</span> <span class="fl">2016</span>, freq <span class="op">=</span> <span class="fl">365</span><span class="op">)</span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Non-numeric columns being dropped: date, x</span>
 <span class="r-in"><span class="va">data_tk_zooreg</span>             <span class="co"># No inadvertent coercion to character class</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          y          z</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2016(1)  1  -8.919553</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2016(2)  3 -18.649975</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2016(3)  6 -29.191265</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2016(4) 10 -40.543423</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2016(5) 15 -52.706450</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          y        z</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2016(1)  1 11.35135</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2016(2)  3 23.73463</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2016(3)  6 37.14986</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2016(4) 10 51.59703</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2016(5) 15 67.07614</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># timetk index</span></span>
 <span class="r-in"><span class="fu"><a href="tk_index.html">tk_index</a></span><span class="op">(</span><span class="va">data_tk_zooreg</span>, timetk_idx <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>   <span class="co"># Regularized index returned</span></span>
@@ -280,7 +280,7 @@ using <code><a href="https://rdrr.io/pkg/zoo/man/zooreg.html" class="external-li
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
 </div>
 
     </footer></div>
