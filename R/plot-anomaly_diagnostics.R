@@ -350,7 +350,7 @@ plot_anomaly_diagnostics.data.frame <- function(
 
         trell <- do.call(trelliscopejs::facet_trelliscope, c(
             list(
-                facets    = ggplot2::vars(!!! rlang::syms(group_names)),
+                facets    = ggplot2::vars(!!! rlang::syms(facet_names)),
                 ncol      = .facet_ncol,
                 nrow      = .facet_nrow,
                 scales    = .facet_scales,
