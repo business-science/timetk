@@ -1,4 +1,4 @@
-# timetk 2.8.0.9000 (Development Version)
+# timetk 2.8.1
 
 ### Trelliscope Plotting
 
