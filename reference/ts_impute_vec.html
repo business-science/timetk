@@ -20,7 +20,7 @@ seasonality to numeric vector (non-ts) via the period argument."><meta property=
     
     <a class="navbar-brand me-2" href="../index.html">timetk</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.8.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.8.1.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -134,13 +134,18 @@ seasonality to numeric vector (non-<code>ts</code>) via the <code>period</code> 
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>x</dt>
 <dd><p>A numeric vector.</p></dd>
+
+
 <dt>period</dt>
 <dd><p>A seasonal period to use during the transformation. If <code>period = 1</code>,
 linear interpolation is performed. If <code>period &gt; 1</code>, a robust STL decomposition is
 first performed and a linear interpolation is applied to the seasonally adjusted data.</p></dd>
+
+
 <dt>lambda</dt>
 <dd><p>A box cox transformation parameter. If set to <code>"auto"</code>, performs
 automated lambda selection.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -213,7 +218,7 @@ or can be specified by setting <code>lambda = numeric value</code>.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer></div>

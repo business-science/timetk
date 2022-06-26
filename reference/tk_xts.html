@@ -16,7 +16,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">timetk</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.8.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.8.1.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -130,21 +130,32 @@
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>data</dt>
 <dd><p>A time-based tibble or time-series object.</p></dd>
+
+
 <dt>select</dt>
 <dd><p><strong>Applicable to tibbles and data frames only</strong>.
 The column or set of columns to be coerced to <code>ts</code> class.</p></dd>
+
+
 <dt>date_var</dt>
 <dd><p><strong>Applicable to tibbles and data frames only</strong>.
 Column name to be used to <code>order.by</code>.
 <code>NULL</code> by default. If <code>NULL</code>, function will find the date or date-time column.</p></dd>
+
+
 <dt>silent</dt>
 <dd><p>Used to toggle printing of messages and warnings.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Additional parameters to be passed to <code><a href="https://rdrr.io/pkg/xts/man/xts.html" class="external-link">xts::xts()</a></code>. Refer to <code><a href="https://rdrr.io/pkg/xts/man/xts.html" class="external-link">xts::xts()</a></code>.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>Returns a <code>xts</code> object.</p>
+    
+
+<p>Returns a <code>xts</code> object.</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -186,22 +197,22 @@ using <code><a href="https://rdrr.io/pkg/xts/man/xts.html" class="external-link"
 <span class="r-in"><span class="co"># xts: Character columns cause coercion issues; order.by must be passed a vector of dates</span></span>
 <span class="r-in"><span class="fu">xts</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/xts/man/xts.html" class="external-link">xts</a></span><span class="op">(</span><span class="va">data_tbl</span><span class="op">[</span>,<span class="op">-</span><span class="fl">1</span><span class="op">]</span>, order.by <span class="op">=</span> <span class="va">data_tbl</span><span class="op">$</span><span class="va">date</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            x            y    z          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-01 "chr values" " 1" " 7.585949"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-02 "chr values" " 3" "15.861529"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-03 "chr values" " 6" "24.826741"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-04 "chr values" "10" "34.481585"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-05 "chr values" "15" "44.826060"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-01 "chr values" " 1" "-13.24109"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-02 "chr values" " 3" "-27.68592"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-03 "chr values" " 6" "-43.33449"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-04 "chr values" "10" "-60.18679"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-05 "chr values" "15" "-78.24283"</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># tk_xts: Non-numeric columns automatically dropped; No need to specify date column</span></span>
 <span class="r-in"><span class="fu">tk_xts</span><span class="op">(</span><span class="va">data_tbl</span><span class="op">)</span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Non-numeric columns being dropped: date, x</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Using column `date` for date_var.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             y         z</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-01  1  7.585949</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-02  3 15.861529</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-03  6 24.826741</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-04 10 34.481585</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-05 15 44.826060</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-01  1 -13.24109</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-02  3 -27.68592</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-03  6 -43.33449</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-04 10 -60.18679</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-05 15 -78.24283</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># ts can be coerced back to xts</span></span>
 <span class="r-in"><span class="va">data_tbl</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -209,11 +220,11 @@ using <code><a href="https://rdrr.io/pkg/xts/man/xts.html" class="external-link"
 <span class="r-in">    <span class="fu">tk_xts</span><span class="op">(</span><span class="op">)</span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Non-numeric columns being dropped: date, x</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             y         z</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-01  1  7.585949</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-02  3 15.861529</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-03  6 24.826741</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-04 10 34.481585</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-05 15 44.826060</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-01  1 -13.24109</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-02  3 -27.68592</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-03  6 -43.33449</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-04 10 -60.18679</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-05 15 -78.24283</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">### Using select and date_var</span></span>
 <span class="r-in"><span class="fu">tk_xts</span><span class="op">(</span><span class="va">data_tbl</span>, select <span class="op">=</span> <span class="va">y</span>, date_var <span class="op">=</span> <span class="va">date</span><span class="op">)</span></span>
@@ -247,7 +258,7 @@ using <code><a href="https://rdrr.io/pkg/xts/man/xts.html" class="external-link"
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer></div>

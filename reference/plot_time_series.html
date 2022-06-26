@@ -18,7 +18,7 @@ consolidates 20+ lines of ggplot2 code, and scales well to many time series."><m
     
     <a class="navbar-brand me-2" href="../index.html">timetk</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.8.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.8.1.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -167,84 +167,152 @@ consolidates 20+ lines of <code>ggplot2</code> code, and scales well to many tim
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>.data</dt>
 <dd><p>A <code>tibble</code> or <code>data.frame</code> with a time-based column</p></dd>
+
+
 <dt>.date_var</dt>
 <dd><p>A column containing either date or date-time values</p></dd>
+
+
 <dt>.value</dt>
 <dd><p>A column containing numeric values</p></dd>
+
+
 <dt>.color_var</dt>
 <dd><p>A categorical column that can be used to change the
 line color</p></dd>
+
+
 <dt>.facet_vars</dt>
 <dd><p>One or more grouping columns that broken out into <code>ggplot2</code> facets.
 These can be selected using <code>tidyselect()</code> helpers (e.g <code><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">contains()</a></code>).</p></dd>
+
+
 <dt>.facet_ncol</dt>
 <dd><p>Number of facet columns.</p></dd>
+
+
 <dt>.facet_nrow</dt>
 <dd><p>Number of facet rows (only used for <code>.trelliscope = TRUE</code>)</p></dd>
+
+
 <dt>.facet_scales</dt>
 <dd><p>Control facet x &amp; y-axis ranges.
 Options include "fixed", "free", "free_y", "free_x"</p></dd>
+
+
 <dt>.facet_dir</dt>
 <dd><p>The direction of faceting ("h" for horizontal, "v" for vertical). Default is "h".</p></dd>
+
+
 <dt>.facet_collapse</dt>
 <dd><p>Multiple facets included on one facet strip instead of
 multiple facet strips.</p></dd>
+
+
 <dt>.facet_collapse_sep</dt>
 <dd><p>The separator used for collapsing facets.</p></dd>
+
+
 <dt>.facet_strip_remove</dt>
 <dd><p>Whether or not to remove the strip and text label for each facet.</p></dd>
+
+
 <dt>.line_color</dt>
 <dd><p>Line color. Overrided if <code>.color_var</code> is specified.</p></dd>
+
+
 <dt>.line_size</dt>
 <dd><p>Line size.</p></dd>
+
+
 <dt>.line_type</dt>
 <dd><p>Line type.</p></dd>
+
+
 <dt>.line_alpha</dt>
 <dd><p>Line alpha (opacity). Range: (0, 1).</p></dd>
+
+
 <dt>.y_intercept</dt>
 <dd><p>Value for a y-intercept on the plot</p></dd>
+
+
 <dt>.y_intercept_color</dt>
 <dd><p>Color for the y-intercept</p></dd>
+
+
 <dt>.smooth</dt>
 <dd><p>Logical - Whether or not to include a trendline smoother.
 Uses See <code><a href="smooth_vec.html">smooth_vec()</a></code> to apply a LOESS smoother.</p></dd>
+
+
 <dt>.smooth_period</dt>
 <dd><p>Number of observations to include in the Loess Smoother.
 Set to "auto" by default, which uses <code><a href="tk_get_frequency.html">tk_get_trend()</a></code>
 to determine a logical trend cycle.</p></dd>
+
+
 <dt>.smooth_message</dt>
 <dd><p>Logical.
 Whether or not to return the trend selected as a message.
 Useful for those that want to see what <code>.smooth_period</code> was selected.</p></dd>
+
+
 <dt>.smooth_span</dt>
 <dd><p>Percentage of observations to include in the Loess Smoother.
 You can use either period or span. See <code><a href="smooth_vec.html">smooth_vec()</a></code>.</p></dd>
+
+
 <dt>.smooth_degree</dt>
 <dd><p>Flexibility of Loess Polynomial.
 Either 0, 1, 2 (0 = lest flexible, 2 = more flexible).</p></dd>
+
+
 <dt>.smooth_color</dt>
 <dd><p>Smoother line color</p></dd>
+
+
 <dt>.smooth_size</dt>
 <dd><p>Smoother line size</p></dd>
+
+
 <dt>.smooth_alpha</dt>
 <dd><p>Smoother alpha (opacity). Range: (0, 1).</p></dd>
+
+
 <dt>.legend_show</dt>
 <dd><p>Toggles on/off the Legend</p></dd>
+
+
 <dt>.title</dt>
 <dd><p>Title for the plot</p></dd>
+
+
 <dt>.x_lab</dt>
 <dd><p>X-axis label for the plot</p></dd>
+
+
 <dt>.y_lab</dt>
 <dd><p>Y-axis label for the plot</p></dd>
+
+
 <dt>.color_lab</dt>
 <dd><p>Legend label if a <code>color_var</code> is used.</p></dd>
+
+
 <dt>.interactive</dt>
 <dd><p>Returns either a static (<code>ggplot2</code>) visualization or an interactive (<code>plotly</code>) visualization</p></dd>
+
+
 <dt>.plotly_slider</dt>
 <dd><p>If <code>TRUE</code>, returns a plotly date range slider.</p></dd>
+
+
 <dt>.trelliscope</dt>
 <dd><p>Returns either a normal plot or a trelliscopejs plot (great for many time series)
 Must have <code>trelliscopejs</code> installed.</p></dd>
+
+
 <dt>.trelliscope_params</dt>
 <dd><p>Pass parameters to the <code><a href="https://rdrr.io/pkg/trelliscopejs/man/facet_trelliscope.html" class="external-link">trelliscopejs::facet_trelliscope()</a></code> function as a <code><a href="https://rdrr.io/r/base/list.html" class="external-link">list()</a></code>.
 The only parameters that cannot be passed are:</p><ul><li><p><code>ncol</code>: use <code>.facet_ncol</code></p></li>
@@ -252,10 +320,13 @@ The only parameters that cannot be passed are:</p><ul><li><p><code>ncol</code>: 
 <li><p><code>scales</code>: use <code>facet_scales</code></p></li>
 <li><p><code>as_plotly</code>: use <code>.interactive</code></p></li>
 </ul></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A static <code>ggplot2</code> plot or an interactive <code>plotly</code> plot</p>
+    
+
+<p>A static <code>ggplot2</code> plot or an interactive <code>plotly</code> plot</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -343,7 +414,7 @@ or a numeric value (e.g. <code>smooth_period = 365</code>).</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer></div>

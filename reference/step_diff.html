@@ -22,7 +22,7 @@ These can be removed with step_naomit()."><meta property="og:image" content="htt
     
     <a class="navbar-brand me-2" href="../index.html">timetk</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.8.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.8.1.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -153,26 +153,44 @@ These can be removed with <code><a href="https://recipes.tidymodels.org/referenc
     <dl><dt>recipe</dt>
 <dd><p>A recipe object. The step will be added to the sequence of
 operations for this recipe.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>One or more selector functions to choose which variables are
 affected by the step. See <code><a href="https://recipes.tidymodels.org/reference/selections.html" class="external-link">selections()</a></code> for more details.</p></dd>
+
+
 <dt>role</dt>
 <dd><p>Defaults to "predictor"</p></dd>
+
+
 <dt>trained</dt>
 <dd><p>A logical to indicate if the quantities for preprocessing
 have been estimated.</p></dd>
+
+
 <dt>lag</dt>
 <dd><p>A vector of positive integers identifying which lags (how far back)
 to be included in the differencing calculation.</p></dd>
+
+
 <dt>difference</dt>
 <dd><p>The number of differences to perform.</p></dd>
+
+
 <dt>log</dt>
 <dd><p>Calculates log differences instead of differences.</p></dd>
+
+
 <dt>prefix</dt>
 <dd><p>A prefix for generated column names, default to "diff_".</p></dd>
+
+
 <dt>columns</dt>
 <dd><p>A character string of variable names that will
 be populated (eventually) by the <code>terms</code> argument.</p></dd>
+
+
 <dt>skip</dt>
 <dd><p>A logical. Should the step be skipped when the
 recipe is baked by <code><a href="https://recipes.tidymodels.org/reference/bake.html" class="external-link">bake.recipe()</a></code>? While all operations are baked
@@ -180,14 +198,21 @@ when <code><a href="https://recipes.tidymodels.org/reference/prep.html" class="e
 conducted on new data (e.g. processing the outcome variable(s)).
 Care should be taken when using <code>skip = TRUE</code> as it may affect
 the computations for subsequent operations</p></dd>
+
+
 <dt>id</dt>
 <dd><p>A character string that is unique to this step to identify it.</p></dd>
+
+
 <dt>x</dt>
 <dd><p>A <code>step_diff</code> object.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>An updated version of <code>recipe</code> with the
+    
+
+<p>An updated version of <code>recipe</code> with the
 new step added to the sequence of existing steps (if any).</p>
     </div>
     <div class="section level2">
@@ -255,24 +280,24 @@ order</em> for lagging.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 6</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   number operation type  trained skip  id        </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>      1 step      diff  TRUE    FALSE diff_P0vj4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>      1 step      diff  TRUE    FALSE diff_BMUa8</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="va">recipe_diff</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 12 × 5</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    terms           lag  diff log   id        </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> diff_FB_1_1       1     1 FALSE diff_P0vj4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> diff_AMZN_1_1     1     1 FALSE diff_P0vj4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> diff_NFLX_1_1     1     1 FALSE diff_P0vj4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> diff_GOOG_1_1     1     1 FALSE diff_P0vj4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> diff_FB_2_1       2     1 FALSE diff_P0vj4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> diff_AMZN_2_1     2     1 FALSE diff_P0vj4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> diff_NFLX_2_1     2     1 FALSE diff_P0vj4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> diff_GOOG_2_1     2     1 FALSE diff_P0vj4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> diff_FB_3_1       3     1 FALSE diff_P0vj4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> diff_AMZN_3_1     3     1 FALSE diff_P0vj4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> diff_NFLX_3_1     3     1 FALSE diff_P0vj4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span> diff_GOOG_3_1     3     1 FALSE diff_P0vj4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> diff_FB_1_1       1     1 FALSE diff_BMUa8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> diff_AMZN_1_1     1     1 FALSE diff_BMUa8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> diff_NFLX_1_1     1     1 FALSE diff_BMUa8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> diff_GOOG_1_1     1     1 FALSE diff_BMUa8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> diff_FB_2_1       2     1 FALSE diff_BMUa8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> diff_AMZN_2_1     2     1 FALSE diff_BMUa8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> diff_NFLX_2_1     2     1 FALSE diff_BMUa8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> diff_GOOG_2_1     2     1 FALSE diff_BMUa8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> diff_FB_3_1       3     1 FALSE diff_BMUa8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> diff_AMZN_3_1     3     1 FALSE diff_BMUa8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> diff_NFLX_3_1     3     1 FALSE diff_BMUa8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span> diff_GOOG_3_1     3     1 FALSE diff_BMUa8</span>
 <span class="r-in"></span>
 </code></pre></div>
     </div>
@@ -285,7 +310,7 @@ order</em> for lagging.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer></div>

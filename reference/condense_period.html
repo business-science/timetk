@@ -22,7 +22,7 @@ the beginning or end of the period."><meta property="og:image" content="https://
     
     <a class="navbar-brand me-2" href="../index.html">timetk</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.8.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.8.1.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -137,9 +137,13 @@ the beginning or end of the period.</p>
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>.data</dt>
 <dd><p>A <code>tbl</code> object or <code>data.frame</code></p></dd>
+
+
 <dt>.date_var</dt>
 <dd><p>A column containing date or date-time values.
 If missing, attempts to auto-detect date column.</p></dd>
+
+
 <dt>.period</dt>
 <dd><p>A period to condense the time series to.
 Time units are condensed using <code><a href="https://lubridate.tidyverse.org/reference/round_date.html" class="external-link">lubridate::floor_date()</a></code> or <code><a href="https://lubridate.tidyverse.org/reference/round_date.html" class="external-link">lubridate::ceiling_date()</a></code>.</p>
@@ -158,13 +162,20 @@ Time units are condensed using <code><a href="https://lubridate.tidyverse.org/re
 <li><p><code>"2 months"</code></p></li>
 <li><p><code>"30 seconds"</code></p></li>
 </ul></dd>
+
+
 <dt>.side</dt>
 <dd><p>One of "start" or "end". Determines if the first observation in the period should be returned
 or the last.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A <code>tibble</code> or <code>data.frame</code></p>
+    
+
+<p>A <code>tibble</code> or <code>data.frame</code></p>
+
+
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
@@ -241,7 +252,7 @@ or the last.</p></dd>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer></div>

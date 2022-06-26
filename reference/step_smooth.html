@@ -22,7 +22,7 @@ similar to a moving average without creating missing values or using partial smo
     
     <a class="navbar-brand me-2" href="../index.html">timetk</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.8.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.8.1.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -153,56 +153,84 @@ to one or more a Numeric column(s). The effect is smoothing the time series
     <dl><dt>recipe</dt>
 <dd><p>A recipe object. The step will be added to the
 sequence of operations for this recipe.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>One or more numeric columns to be smoothed.
 See <code><a href="https://recipes.tidymodels.org/reference/selections.html" class="external-link">recipes::selections()</a></code> for more details.
 For the <code>tidy</code> method, these are not currently used.</p></dd>
+
+
 <dt>period</dt>
 <dd><p>The number of periods to include in the local smoothing.
 Similar to window size for a moving average.
 See details for an explanation <code>period</code> vs <code>span</code> specification.</p></dd>
+
+
 <dt>span</dt>
 <dd><p>The span is a percentage of data to be included
 in the smoothing window. Period is preferred for shorter windows
 to fix the window size.
 See details for an explanation <code>period</code> vs <code>span</code> specification.</p></dd>
+
+
 <dt>degree</dt>
 <dd><p>The degree of the polynomials to be used.
 Set to 2 by default for 2nd order polynomial.</p></dd>
+
+
 <dt>names</dt>
 <dd><p>An optional character string that is the same
 length of the number of terms selected by <code>terms</code>. These will be
 the names of the <strong>new columns</strong> created by the step.</p><ul><li><p>If <code>NULL</code>, existing columns are transformed.</p></li>
 <li><p>If not <code>NULL</code>, new columns will be created.</p></li>
 </ul></dd>
+
+
 <dt>role</dt>
 <dd><p>For model terms created by this step, what analysis
 role should they be assigned?. By default, the function assumes
 that the new variable columns created by the original variables
 will be used as predictors in a model.</p></dd>
+
+
 <dt>trained</dt>
 <dd><p>A logical to indicate if the quantities for
 preprocessing have been estimated.</p></dd>
+
+
 <dt>columns</dt>
 <dd><p>A character string of variables that will be
 used as inputs. This field is a placeholder and will be
 populated once <code><a href="https://recipes.tidymodels.org/reference/prep.html" class="external-link">recipes::prep()</a></code> is used.</p></dd>
+
+
 <dt>skip</dt>
 <dd><p>A logical. Should the step be skipped when the recipe is
 baked by bake.recipe()? While all operations are baked when prep.recipe()
 is run, some operations may not be able to be conducted on new data
 (e.g. processing the outcome variable(s)). Care should be taken when
 using skip = TRUE as it may affect the computations for subsequent operations.</p></dd>
+
+
 <dt>id</dt>
 <dd><p>A character string that is unique to this step to identify it.</p></dd>
+
+
 <dt>x</dt>
 <dd><p>A <code>step_smooth</code> object.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>For <code>step_smooth</code>, an updated version of recipe with
+    
+
+<p>For <code>step_smooth</code>, an updated version of recipe with
 the new step added to the sequence of existing steps (if any).
-For the <code>tidy</code> method, a tibble with columns <code>terms</code>(the selectors or variables selected), <code>value</code> (the feature
+For the <code>tidy</code> method, a tibble with columns <code>terms</code></p>
+
+
+<p>(the selectors or variables selected), <code>value</code> (the feature
 names).</p>
     </div>
     <div class="section level2">
@@ -335,7 +363,7 @@ polynomial regression (loess) as the training data.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer></div>

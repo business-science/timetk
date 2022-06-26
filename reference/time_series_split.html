@@ -20,7 +20,7 @@ train/test split."><meta property="og:image" content="https://business-science.g
     
     <a class="navbar-brand me-2" href="../index.html">timetk</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.8.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.8.1.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -145,35 +145,59 @@ train/test split.</p>
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>data</dt>
 <dd><p>A data frame.</p></dd>
+
+
 <dt>date_var</dt>
 <dd><p>A date or date-time variable.</p></dd>
+
+
 <dt>initial</dt>
 <dd><p>The number of samples used for analysis/modeling in the
 initial resample.</p></dd>
+
+
 <dt>assess</dt>
 <dd><p>The number of samples used for each assessment resample.</p></dd>
+
+
 <dt>skip</dt>
 <dd><p>A integer indicating how many (if any) <em>additional</em> resamples
 to skip to thin the total amount of data points in the analysis resample.
 See the example below.</p></dd>
+
+
 <dt>lag</dt>
 <dd><p>A value to include an lag between the assessment
 and analysis set. This is useful if lagged predictors will be used
 during training and testing.</p></dd>
+
+
 <dt>cumulative</dt>
 <dd><p>A logical. Should the analysis resample grow beyond the
 size specified by <code>initial</code> at each resample?.</p></dd>
+
+
 <dt>slice</dt>
 <dd><p>Returns a single slice from <a href="time_series_cv.html">time_series_cv</a></p></dd>
+
+
 <dt>point_forecast</dt>
 <dd><p>Whether or not to have the testing set be a single point forecast or to be a forecast horizon.
 The default is to be a forecast horizon. Default: <code>FALSE</code></p></dd>
+
+
 <dt>...</dt>
 <dd><p>Not currently used.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>An <code>rsplit</code> object that can be used with the <code>training</code> and <code>testing</code>functions to extract the data in each split.</p>
+    
+
+<p>An <code>rsplit</code> object that can be used with the <code>training</code> and <code>testing</code></p>
+
+
+<p>functions to extract the data in each split.</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -265,7 +289,7 @@ time series resample specifications.</p></li>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer></div>

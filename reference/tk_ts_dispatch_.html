@@ -16,7 +16,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">timetk</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.8.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.8.1.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -132,34 +132,51 @@
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>data</dt>
 <dd><p>A time-based tibble or time-series object.</p></dd>
+
+
 <dt>select</dt>
 <dd><p><strong>Applicable to tibbles and data frames only</strong>.
 The column or set of columns to be coerced to <code>ts</code> class.</p></dd>
+
+
 <dt>start</dt>
 <dd><p>the time of the first observation.  Either a single
     number or a vector of two numbers (the second of which is an integer),
     which specify a natural time
     unit and a (1-based) number of samples into the time unit.  See
     the examples for the use of the second form.</p></dd>
+
+
 <dt>end</dt>
 <dd><p>the time of the last observation, specified in the same way
     as <code>start</code>.</p></dd>
+
+
 <dt>frequency</dt>
 <dd><p>the number of observations per unit of time.</p></dd>
+
+
 <dt>deltat</dt>
 <dd><p>the fraction of the sampling period between successive
     observations; e.g., 1/12 for monthly data.  Only one of
     <code>frequency</code> or <code>deltat</code> should be provided.</p></dd>
+
+
 <dt>ts.eps</dt>
 <dd><p>time series comparison tolerance.  Frequencies are
     considered equal if their absolute difference is less than
     <code>ts.eps</code>.</p></dd>
+
+
 <dt>silent</dt>
 <dd><p>Used to toggle printing of messages and warnings.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A character vector</p>
+    
+
+<p>A character vector</p>
     </div>
 
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
@@ -171,7 +188,7 @@ The column or set of columns to be coerced to <code>ts</code> class.</p></dd>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer></div>

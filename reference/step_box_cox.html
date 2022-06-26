@@ -26,7 +26,7 @@ negative data used in the Forecast R Package."><meta property="og:image" content
     
     <a class="navbar-brand me-2" href="../index.html">timetk</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.8.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.8.1.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -156,37 +156,58 @@ negative data used in the Forecast R Package.</p>
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>recipe</dt>
 <dd><p>A <code>recipe</code> object. The step will be added to the sequence of operations for this recipe.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>One or more selector functions to choose which
 variables are affected by the step. See <code><a href="https://recipes.tidymodels.org/reference/selections.html" class="external-link">selections()</a></code>
 for more details. For the <code>tidy</code> method, these are not
 currently used.</p></dd>
+
+
 <dt>method</dt>
 <dd><p>One of "guerrero" or "loglik"</p></dd>
+
+
 <dt>limits</dt>
 <dd><p>A length 2 numeric vector defining the range to
 compute the transformation parameter lambda.</p></dd>
+
+
 <dt>role</dt>
 <dd><p>Not used by this step since no new variables are
 created.</p></dd>
+
+
 <dt>trained</dt>
 <dd><p>A logical to indicate if the quantities for preprocessing have been estimated.</p></dd>
+
+
 <dt>lambdas_trained</dt>
 <dd><p>A numeric vector of transformation values. This
 is <code>NULL</code> until computed by <code><a href="https://recipes.tidymodels.org/reference/prep.html" class="external-link">prep()</a></code>.</p></dd>
+
+
 <dt>skip</dt>
 <dd><p>A logical. Should the step be skipped when the recipe
 is baked by <code><a href="https://recipes.tidymodels.org/reference/bake.html" class="external-link">bake.recipe()</a></code>? While all operations are baked when <code><a href="https://recipes.tidymodels.org/reference/prep.html" class="external-link">prep.recipe()</a></code> is run,
 some operations may not be able to be conducted on new data (e.g. processing the outcome variable(s)).
 Care should be taken when using <code>skip = TRUE</code> as it may affect the computations for subsequent operations.</p></dd>
+
+
 <dt>id</dt>
 <dd><p>A character string that is unique to this step to identify it.</p></dd>
+
+
 <dt>x</dt>
 <dd><p>A <code>step_box_cox</code> object.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>An updated version of <code>recipe</code> with the new step
+    
+
+<p>An updated version of <code>recipe</code> with the new step
 added to the sequence of existing steps (if any). For the
 <code>tidy</code> method, a tibble with columns <code>terms</code> (the
 selectors or variables selected) and <code>value</code> (the
@@ -272,10 +293,10 @@ with seasonal dummy variables is used.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 4 × 3</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   terms  lambda id           </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> FB     0.671  box_cox_hjUbL</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> AMZN   0.135  box_cox_hjUbL</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> NFLX   0.458  box_cox_hjUbL</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> GOOG  -<span style="color: #BB0000;">0.038</span><span style="color: #BB0000; text-decoration: underline;">8</span> box_cox_hjUbL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> FB     0.671  box_cox_fsIxF</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> AMZN   0.135  box_cox_fsIxF</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> NFLX   0.458  box_cox_fsIxF</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> GOOG  -<span style="color: #BB0000;">0.038</span><span style="color: #BB0000; text-decoration: underline;">8</span> box_cox_fsIxF</span>
 <span class="r-in"></span>
 </code></pre></div>
     </div>
@@ -288,7 +309,7 @@ with seasonal dummy variables is used.</p></li>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer></div>

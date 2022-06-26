@@ -20,7 +20,7 @@ at a specified interval."><meta property="og:image" content="https://business-sc
     
     <a class="navbar-brand me-2" href="../index.html">timetk</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.8.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.8.1.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -148,43 +148,67 @@ at a specified interval.</p>
     <dl><dt>recipe</dt>
 <dd><p>A recipe object. The step will be added to the
 sequence of operations for this recipe.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>A single column with class <code>Date</code> or
 <code>POSIXct</code>. See <code><a href="https://recipes.tidymodels.org/reference/selections.html" class="external-link">recipes::selections()</a></code> for more details.
 For the <code>tidy</code> method, these are not currently used.</p></dd>
+
+
 <dt>by</dt>
 <dd><p>Either "auto", a time-based frequency like "year", "month", "day", "hour", etc,
 or a time expression like "5 min", or "7 days". See Details.</p></dd>
+
+
 <dt>pad_value</dt>
 <dd><p>Fills in padded values. Default is <code>NA</code>.</p></dd>
+
+
 <dt>role</dt>
 <dd><p>For model terms created by this step, what analysis
 role should they be assigned?. By default, the function assumes
 that the new variable columns created by the original variables
 will be used as predictors in a model.</p></dd>
+
+
 <dt>trained</dt>
 <dd><p>A logical to indicate if the quantities for
 preprocessing have been estimated.</p></dd>
+
+
 <dt>columns</dt>
 <dd><p>A character string of variables that will be
 used as inputs. This field is a placeholder and will be
 populated once <code><a href="https://recipes.tidymodels.org/reference/prep.html" class="external-link">recipes::prep()</a></code> is used.</p></dd>
+
+
 <dt>skip</dt>
 <dd><p>A logical. Should the step be skipped when the recipe is
 baked by bake.recipe()? While all operations are baked when prep.recipe()
 is run, some operations may not be able to be conducted on new data
 (e.g. processing the outcome variable(s)). Care should be taken when
 using skip = TRUE as it may affect the computations for subsequent operations.</p></dd>
+
+
 <dt>id</dt>
 <dd><p>A character string that is unique to this step to identify it.</p></dd>
+
+
 <dt>x</dt>
 <dd><p>A <code>step_ts_pad</code> object.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>For <code>step_ts_pad</code>, an updated version of recipe with
+    
+
+<p>For <code>step_ts_pad</code>, an updated version of recipe with
 the new step added to the sequence of existing steps (if any).
-For the <code>tidy</code> method, a tibble with columns <code>terms</code>(the selectors or variables selected), <code>value</code> (the feature
+For the <code>tidy</code> method, a tibble with columns <code>terms</code></p>
+
+
+<p>(the selectors or variables selected), <code>value</code> (the feature
 names).</p>
     </div>
     <div class="section level2">
@@ -283,12 +307,12 @@ missing values with the most common value.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 6</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   number operation type   trained skip  id              </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>      1 step      ts_pad TRUE    FALSE ts_padding_zoX5Z</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>      1 step      ts_pad TRUE    FALSE ts_padding_oZihh</span>
 <span class="r-in"><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy</a></span><span class="op">(</span><span class="fu"><a href="https://recipes.tidymodels.org/reference/prep.html" class="external-link">prep</a></span><span class="op">(</span><span class="va">rec_obj</span><span class="op">)</span>, number <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 4</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   terms by    pad_value id              </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> date  day   <span style="color: #BB0000;">NA</span>        ts_padding_zoX5Z</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> date  day   <span style="color: #BB0000;">NA</span>        ts_padding_oZihh</span>
 <span class="r-in"></span>
 </code></pre></div>
     </div>
@@ -301,7 +325,7 @@ missing values with the most common value.</p></li>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer></div>

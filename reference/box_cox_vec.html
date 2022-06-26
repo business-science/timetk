@@ -22,7 +22,7 @@ The auto_lambda() helps in selecting the optimal lambda value."><meta property="
     
     <a class="navbar-brand me-2" href="../index.html">timetk</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.8.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.8.1.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -146,18 +146,29 @@ The <code>auto_lambda()</code> helps in selecting the optimal <code>lambda</code
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>x</dt>
 <dd><p>A numeric vector.</p></dd>
+
+
 <dt>lambda</dt>
 <dd><p>The box cox transformation parameter.
 If set to "auto", performs automated lambda selection using <code>auto_lambda()</code>.</p></dd>
+
+
 <dt>silent</dt>
 <dd><p>Whether or not to report the automated <code>lambda</code> selection as a message.</p></dd>
+
+
 <dt>method</dt>
 <dd><p>The method used for automatic <code>lambda</code> selection.
 Either "guerrero" or "loglik".</p></dd>
+
+
 <dt>lambda_lower</dt>
 <dd><p>A lower limit for automatic <code>lambda</code> selection</p></dd>
+
+
 <dt>lambda_upper</dt>
 <dd><p>An upper limit for automatic <code>lambda</code> selection</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -238,7 +249,7 @@ Use either of 2 methods:</p><ol><li><p>"guerrero" - Minimizes the non-seasonal v
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer></div>

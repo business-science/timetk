@@ -20,7 +20,7 @@ to multiple time series with group_by()."><meta property="og:image" content="htt
     
     <a class="navbar-brand me-2" href="../index.html">timetk</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.8.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.8.1.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -161,61 +161,112 @@ to multiple time series with <code><a href="https://dplyr.tidyverse.org/referenc
     <dl><dt>.data</dt>
 <dd><p>A data frame or tibble with numeric features (values) in descending
 chronological order</p></dd>
+
+
 <dt>.date_var</dt>
 <dd><p>A column containing either date or date-time values</p></dd>
+
+
 <dt>.value</dt>
 <dd><p>A numeric column with a value to have ACF and PACF calculations
 performed.</p></dd>
+
+
 <dt>.ccf_vars</dt>
 <dd><p>Additional features to perform Lag Cross Correlations (CCFs)
 versus the <code>.value</code>. Useful for evaluating external lagged regressors.</p></dd>
+
+
 <dt>.lags</dt>
 <dd><p>A sequence of one or more lags to evaluate.</p></dd>
+
+
 <dt>.show_ccf_vars_only</dt>
 <dd><p>Hides the ACF and PACF plots so you can focus on only CCFs.</p></dd>
+
+
 <dt>.show_white_noise_bars</dt>
 <dd><p>Shows the white noise significance bounds.</p></dd>
+
+
 <dt>.facet_ncol</dt>
 <dd><p>Facets: Number of facet columns. Has no effect if using <code>grouped_df</code>.</p></dd>
+
+
 <dt>.facet_scales</dt>
 <dd><p>Facets: Options include "fixed", "free", "free_y", "free_x"</p></dd>
+
+
 <dt>.line_color</dt>
 <dd><p>Line color. Use keyword: "scale_color" to change the color by the facet.</p></dd>
+
+
 <dt>.line_size</dt>
 <dd><p>Line size</p></dd>
+
+
 <dt>.line_alpha</dt>
 <dd><p>Line opacity. Adjust the transparency of the line. Range: (0, 1)</p></dd>
+
+
 <dt>.point_color</dt>
 <dd><p>Point color. Use keyword: "scale_color" to change the color by the facet.</p></dd>
+
+
 <dt>.point_size</dt>
 <dd><p>Point size</p></dd>
+
+
 <dt>.point_alpha</dt>
 <dd><p>Opacity. Adjust the transparency of the points. Range: (0, 1)</p></dd>
+
+
 <dt>.x_intercept</dt>
 <dd><p>Numeric lag. Adds a vertical line.</p></dd>
+
+
 <dt>.x_intercept_color</dt>
 <dd><p>Color for the x-intercept line.</p></dd>
+
+
 <dt>.hline_color</dt>
 <dd><p>Color for the y-intercept = 0 line.</p></dd>
+
+
 <dt>.white_noise_line_type</dt>
 <dd><p>Line type for white noise bars. Set to 2 for "dashed" by default.</p></dd>
+
+
 <dt>.white_noise_line_color</dt>
 <dd><p>Line color for white noise bars.
 Set to <code><a href="https://rdrr.io/pkg/tidyquant/man/palette_tq.html" class="external-link">tidyquant::palette_light()</a></code> "steel blue" by default.</p></dd>
+
+
 <dt>.title</dt>
 <dd><p>Title for the plot</p></dd>
+
+
 <dt>.x_lab</dt>
 <dd><p>X-axis label for the plot</p></dd>
+
+
 <dt>.y_lab</dt>
 <dd><p>Y-axis label for the plot</p></dd>
+
+
 <dt>.interactive</dt>
 <dd><p>Returns either a static (<code>ggplot2</code>) visualization or an interactive (<code>plotly</code>) visualization</p></dd>
+
+
 <dt>.plotly_slider</dt>
 <dd><p>If TRUE, returns a plotly x-axis range slider.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A static <code>ggplot2</code> plot or an interactive <code>plotly</code> plot</p>
+    
+
+<p>A static <code>ggplot2</code> plot or an interactive <code>plotly</code> plot</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -308,7 +359,7 @@ within this range. Those that don't may be significant autocorrelations.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer></div>
