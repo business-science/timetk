@@ -345,13 +345,13 @@ plot_time_series_boxplot.data.frame <- function(
         }
     }
 
+    group_names   <- dplyr::group_vars(data_formatted)
+    group_names   <- c(group_names, ".box_group")
+
     # Smooth calculation
     if (.smooth) {
 
         # Handle Groups
-        group_names   <- dplyr::group_vars(data_formatted)
-
-        group_names   <- c(group_names, ".box_group")
 
         if (!rlang::quo_is_null(color_var_expr)) {
             # If color applied, add as group variable

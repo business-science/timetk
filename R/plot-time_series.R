@@ -309,11 +309,12 @@ plot_time_series.data.frame <- function(
         }
     }
 
+    group_names   <- dplyr::group_vars(data_formatted)
+
     # Smooth calculation
     if (.smooth) {
 
         # Handle Groups
-        group_names   <- dplyr::group_vars(data_formatted)
         if (!rlang::quo_is_null(color_var_expr)) {
             # If color applied, add as group variable
             group_names <- c(group_names, ".color_mod")
