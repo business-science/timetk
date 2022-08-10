@@ -84,16 +84,7 @@ tk_augment_lags.data.frame <- function(.data,
                                        .names = "auto") {
 
     # column_expr <- enquo(.value)
-    col_nms   <- names(tidyselect::eval_select(rlang::enquo(.value), .data))
-
-    make_call <- function(col, lag_val) {
-        rlang::call2(
-            "lag_vec",
-            x          = rlang::sym(col),
-            lag        = lag_val,
-            .ns        = "timetk"
-        )
-    }
+    col_nms <- names(tidyselect::eval_select(rlang::enquo(.value), .data))
 
     grid <- expand.grid(
         col      = col_nms,
@@ -101,7 +92,7 @@ tk_augment_lags.data.frame <- function(.data,
         stringsAsFactors = FALSE
     )
 
-    calls   <- purrr::pmap(.l = list(grid$col, grid$lag_val), make_call)
+    res <- data.table::shift(.data %>% dplyr::select(col_nms), n = .lags, type = c("lag"))
 
     if (any(.names == "auto")) {
         newname <- paste0(grid$col, "_lag", grid$lag_val)
@@ -109,13 +100,16 @@ tk_augment_lags.data.frame <- function(.data,
         newname <- as.list(.names)
     }
 
-    calls   <- purrr::set_names(calls, newname)
+    res   <- purrr::set_names(res, newname)
 
-    ret <- tibble::as_tibble(dplyr::mutate(.data, !!!calls))
+    data.table::setDT(res)
+
+    ret <- .data %>% dplyr::bind_cols(res)
 
     return(ret)
 
 }
+
 
 #' @export
 tk_augment_lags.grouped_df <- function(.data,
@@ -128,18 +122,19 @@ tk_augment_lags.grouped_df <- function(.data,
     group_names <- dplyr::group_vars(.data)
 
     .data %>%
-        tidyr::nest() %>%
-        dplyr::mutate(nested.col = purrr::map(
+        tidytable::as_tidytable() %>%
+        tidytable::nest.(data = tidytable::everything()) %>%
+        tidytable::mutate.(nested.col = tidytable::map.(
             .x         = data,
             .f         = function(df) tk_augment_lags(
                 .data       = df,
-                .value     = !! enquo(.value),
+                .value      = {{.value}},
                 .lags       = .lags,
                 .names      = .names
             )
         )) %>%
-        dplyr::select(-data) %>%
-        tidyr::unnest(cols = nested.col) %>%
+        tidytable::select.(-data) %>%
+        tidytable::unnest.(nested.col) %>%
         dplyr::group_by_at(.vars = group_names)
 }
 
@@ -176,17 +171,7 @@ tk_augment_leads.data.frame <- function(.data,
                                         .lags = -1,
                                         .names = "auto") {
 
-    # column_expr <- enquo(.value)
-    col_nms   <- names(tidyselect::eval_select(rlang::enquo(.value), .data))
-
-    make_call <- function(col, lag_val) {
-        rlang::call2(
-            "lag_vec",
-            x          = rlang::sym(col),
-            lag        = lag_val,
-            .ns        = "timetk"
-        )
-    }
+    col_nms <- names(tidyselect::eval_select(rlang::enquo(.value), .data))
 
     grid <- expand.grid(
         col      = col_nms,
@@ -194,7 +179,7 @@ tk_augment_leads.data.frame <- function(.data,
         stringsAsFactors = FALSE
     )
 
-    calls   <- purrr::pmap(.l = list(grid$col, grid$lag_val), make_call)
+    res <- data.table::shift(.data %>% dplyr::select(col_nms), n = .lags, type = c("lag"))
 
     if (any(.names == "auto")) {
         newname <- paste0(grid$col, "_lag", grid$lag_val) %>%
@@ -203,9 +188,11 @@ tk_augment_leads.data.frame <- function(.data,
         newname <- as.list(.names)
     }
 
-    calls   <- purrr::set_names(calls, newname)
+    res   <- purrr::set_names(res, newname)
 
-    ret <- tibble::as_tibble(dplyr::mutate(.data, !!!calls))
+    data.table::setDT(res)
+
+    ret <- .data %>% dplyr::bind_cols(res)
 
     return(ret)
 
@@ -222,18 +209,19 @@ tk_augment_leads.grouped_df <- function(.data,
     group_names <- dplyr::group_vars(.data)
 
     .data %>%
-        tidyr::nest() %>%
-        dplyr::mutate(nested.col = purrr::map(
+        tidytable::as_tidytable() %>%
+        tidytable::nest.(data = tidytable::everything()) %>%
+        tidytable::mutate.(nested.col = tidytable::map.(
             .x         = data,
             .f         = function(df) tk_augment_leads(
                 .data       = df,
-                .value      = !! enquo(.value),
+                .value      = {{.value}},
                 .lags       = .lags,
                 .names      = .names
             )
         )) %>%
-        dplyr::select(-data) %>%
-        tidyr::unnest(cols = nested.col) %>%
+        tidytable::select.(-data) %>%
+        tidytable::unnest.(nested.col) %>%
         dplyr::group_by_at(.vars = group_names)
 }
 
@@ -245,3 +233,6 @@ tk_augment_leads.default <- function(.data,
                                      .names = "auto") {
     stop(paste0("`tk_augment_leads` has no method for class ", class(data)[[1]]))
 }
+
+
+.datatable.aware <- TRUE
