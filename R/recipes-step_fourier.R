@@ -190,7 +190,7 @@ step_fourier_new <-
 #' @export
 prep.step_fourier <- function(x, training, info = NULL, ...) {
 
-    col_names <- recipes::terms_select(x$terms, info = info)
+    col_names <- recipes::recipes_eval_select(x$terms, data = training, info = info)
 
     date_data <- info[info$variable %in% col_names, ]
 

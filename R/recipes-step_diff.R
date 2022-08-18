@@ -140,7 +140,7 @@ prep.step_diff <- function(x, training, info = NULL, ...) {
         difference  = x$difference,
         log         = x$log,
         prefix      = x$prefix,
-        columns     = terms_select(x$terms, info = info),
+        columns     = recipes_eval_select(x$terms, data = training, info = info),
         skip        = x$skip,
         id          = x$id
     )

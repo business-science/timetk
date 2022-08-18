@@ -146,7 +146,7 @@ step_log_interval_new <-
 #' @export
 prep.step_log_interval <- function(x, training, info = NULL, ...) {
 
-    col_names <- terms_select(x$terms, info = info)
+    col_names <- recipes_eval_select(x$terms, data = training, info = info)
     recipes::check_type(training[, col_names])
 
     limit_lower_trained <- training[, col_names] %>%
