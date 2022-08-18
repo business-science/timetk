@@ -138,7 +138,7 @@ step_ts_impute_new <-
 #' @export
 prep.step_ts_impute <- function(x, training, info = NULL, ...) {
 
-    col_names <- terms_select(x$terms, info = info)
+    col_names <- recipes_eval_select(x$terms, data = training, info = info)
     recipes::check_type(training[, col_names])
 
     # Lambda Calculation
