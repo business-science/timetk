@@ -14,8 +14,8 @@
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.1.0/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.1.0/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link href="../deps/bootstrap-5.1.3/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.1.3/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
 <meta property="og:title" content="Frequency and Trend Selection">
@@ -157,9 +157,9 @@
 </h2>
 <p>Before we get started, load the following packages.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/business-science/tidyquant" class="external-link">tidyquant</a></span><span class="op">)</span> <span class="co"># Used for FANG dataset</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/business-science/timetk" class="external-link">timetk</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/business-science/tidyquant" class="external-link">tidyquant</a></span><span class="op">)</span> <span class="co"># Used for FANG dataset</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/business-science/timetk" class="external-link">timetk</a></span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="data">Data<a class="anchor" aria-label="anchor" href="#data"></a>
@@ -167,54 +167,56 @@
 <p><strong>Daily Irregular Data</strong></p>
 <p>The daily stock prices of Facebook from 2013 to 2016 (courtesy of <code>tidyquant</code>). Note that trading days only occur on “business days” (non-weekends and non-business-holidays).</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">FANG</span><span class="op">)</span>
-
-<span class="va">FB_tbl</span> <span class="op">&lt;-</span> <span class="va">FANG</span> <span class="op"><a href="https://rdrr.io/pkg/tidyquant/man/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">symbol</span> <span class="op">==</span> <span class="st">"FB"</span><span class="op">)</span>
-<span class="va">FB_tbl</span></code></pre></div>
-<pre><code><span class="co">## <span style="color: #949494;"># A tibble: 1,008 × 8</span></span>
-<span class="co">##    symbol date        open  high   low close    volume adjusted</span>
-<span class="co">##    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="co">## <span style="color: #BCBCBC;"> 1</span> FB     2013-01-02  27.4  28.2  27.4  28    69<span style="text-decoration: underline;">846</span>400     28  </span>
-<span class="co">## <span style="color: #BCBCBC;"> 2</span> FB     2013-01-03  27.9  28.5  27.6  27.8  63<span style="text-decoration: underline;">140</span>600     27.8</span>
-<span class="co">## <span style="color: #BCBCBC;"> 3</span> FB     2013-01-04  28.0  28.9  27.8  28.8  72<span style="text-decoration: underline;">715</span>400     28.8</span>
-<span class="co">## <span style="color: #BCBCBC;"> 4</span> FB     2013-01-07  28.7  29.8  28.6  29.4  83<span style="text-decoration: underline;">781</span>800     29.4</span>
-<span class="co">## <span style="color: #BCBCBC;"> 5</span> FB     2013-01-08  29.5  29.6  28.9  29.1  45<span style="text-decoration: underline;">871</span>300     29.1</span>
-<span class="co">## <span style="color: #BCBCBC;"> 6</span> FB     2013-01-09  29.7  30.6  29.5  30.6 104<span style="text-decoration: underline;">787</span>700     30.6</span>
-<span class="co">## <span style="color: #BCBCBC;"> 7</span> FB     2013-01-10  30.6  31.5  30.3  31.3  95<span style="text-decoration: underline;">316</span>400     31.3</span>
-<span class="co">## <span style="color: #BCBCBC;"> 8</span> FB     2013-01-11  31.3  32.0  31.1  31.7  89<span style="text-decoration: underline;">598</span>000     31.7</span>
-<span class="co">## <span style="color: #BCBCBC;"> 9</span> FB     2013-01-14  32.1  32.2  30.6  31.0  98<span style="text-decoration: underline;">892</span>800     31.0</span>
-<span class="co">## <span style="color: #BCBCBC;">10</span> FB     2013-01-15  30.6  31.7  29.9  30.1 173<span style="text-decoration: underline;">242</span>600     30.1</span>
-<span class="co">## <span style="color: #949494;"># … with 998 more rows</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">FANG</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">FB_tbl</span> <span class="op">&lt;-</span> <span class="va">FANG</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">symbol</span> <span class="op">==</span> <span class="st">"FB"</span><span class="op">)</span></span>
+<span><span class="va">FB_tbl</span></span></code></pre></div>
+<pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 1,008 × 8</span></span></span>
+<span><span class="co">##    symbol date        open  high   low close    volume adjusted</span></span>
+<span><span class="co">##    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 1</span> FB     2013-01-02  27.4  28.2  27.4  28    69<span style="text-decoration: underline;">846</span>400     28  </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 2</span> FB     2013-01-03  27.9  28.5  27.6  27.8  63<span style="text-decoration: underline;">140</span>600     27.8</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 3</span> FB     2013-01-04  28.0  28.9  27.8  28.8  72<span style="text-decoration: underline;">715</span>400     28.8</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 4</span> FB     2013-01-07  28.7  29.8  28.6  29.4  83<span style="text-decoration: underline;">781</span>800     29.4</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 5</span> FB     2013-01-08  29.5  29.6  28.9  29.1  45<span style="text-decoration: underline;">871</span>300     29.1</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 6</span> FB     2013-01-09  29.7  30.6  29.5  30.6 104<span style="text-decoration: underline;">787</span>700     30.6</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 7</span> FB     2013-01-10  30.6  31.5  30.3  31.3  95<span style="text-decoration: underline;">316</span>400     31.3</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 8</span> FB     2013-01-11  31.3  32.0  31.1  31.7  89<span style="text-decoration: underline;">598</span>000     31.7</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 9</span> FB     2013-01-14  32.1  32.2  30.6  31.0  98<span style="text-decoration: underline;">892</span>800     31.0</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">10</span> FB     2013-01-15  30.6  31.7  29.9  30.1 173<span style="text-decoration: underline;">242</span>600     30.1</span></span>
+<span><span class="co">## <span style="color: #949494;"># … with 998 more rows</span></span></span>
+<span><span class="co">## <span style="color: #949494;"># ℹ Use `print(n = ...)` to see more rows</span></span></span></code></pre>
 <p><strong>Sub-Daily Data</strong></p>
 <p>Taylor’s Energy Demand data at a 30-minute timestamp interval.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">taylor_30_min</span></code></pre></div>
-<pre><code><span class="co">## <span style="color: #949494;"># A tibble: 4,032 × 2</span></span>
-<span class="co">##    date                value</span>
-<span class="co">##    <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="co">## <span style="color: #BCBCBC;"> 1</span> 2000-06-05 <span style="color: #949494;">00:00:00</span> <span style="text-decoration: underline;">22</span>262</span>
-<span class="co">## <span style="color: #BCBCBC;"> 2</span> 2000-06-05 <span style="color: #949494;">00:30:00</span> <span style="text-decoration: underline;">21</span>756</span>
-<span class="co">## <span style="color: #BCBCBC;"> 3</span> 2000-06-05 <span style="color: #949494;">01:00:00</span> <span style="text-decoration: underline;">22</span>247</span>
-<span class="co">## <span style="color: #BCBCBC;"> 4</span> 2000-06-05 <span style="color: #949494;">01:30:00</span> <span style="text-decoration: underline;">22</span>759</span>
-<span class="co">## <span style="color: #BCBCBC;"> 5</span> 2000-06-05 <span style="color: #949494;">02:00:00</span> <span style="text-decoration: underline;">22</span>549</span>
-<span class="co">## <span style="color: #BCBCBC;"> 6</span> 2000-06-05 <span style="color: #949494;">02:30:00</span> <span style="text-decoration: underline;">22</span>313</span>
-<span class="co">## <span style="color: #BCBCBC;"> 7</span> 2000-06-05 <span style="color: #949494;">03:00:00</span> <span style="text-decoration: underline;">22</span>128</span>
-<span class="co">## <span style="color: #BCBCBC;"> 8</span> 2000-06-05 <span style="color: #949494;">03:30:00</span> <span style="text-decoration: underline;">21</span>860</span>
-<span class="co">## <span style="color: #BCBCBC;"> 9</span> 2000-06-05 <span style="color: #949494;">04:00:00</span> <span style="text-decoration: underline;">21</span>751</span>
-<span class="co">## <span style="color: #BCBCBC;">10</span> 2000-06-05 <span style="color: #949494;">04:30:00</span> <span style="text-decoration: underline;">21</span>336</span>
-<span class="co">## <span style="color: #949494;"># … with 4,022 more rows</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">taylor_30_min</span></span></code></pre></div>
+<pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 4,032 × 2</span></span></span>
+<span><span class="co">##    date                value</span></span>
+<span><span class="co">##    <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 1</span> 2000-06-05 <span style="color: #949494;">00:00:00</span> <span style="text-decoration: underline;">22</span>262</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 2</span> 2000-06-05 <span style="color: #949494;">00:30:00</span> <span style="text-decoration: underline;">21</span>756</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 3</span> 2000-06-05 <span style="color: #949494;">01:00:00</span> <span style="text-decoration: underline;">22</span>247</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 4</span> 2000-06-05 <span style="color: #949494;">01:30:00</span> <span style="text-decoration: underline;">22</span>759</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 5</span> 2000-06-05 <span style="color: #949494;">02:00:00</span> <span style="text-decoration: underline;">22</span>549</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 6</span> 2000-06-05 <span style="color: #949494;">02:30:00</span> <span style="text-decoration: underline;">22</span>313</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 7</span> 2000-06-05 <span style="color: #949494;">03:00:00</span> <span style="text-decoration: underline;">22</span>128</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 8</span> 2000-06-05 <span style="color: #949494;">03:30:00</span> <span style="text-decoration: underline;">21</span>860</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 9</span> 2000-06-05 <span style="color: #949494;">04:00:00</span> <span style="text-decoration: underline;">21</span>751</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">10</span> 2000-06-05 <span style="color: #949494;">04:30:00</span> <span style="text-decoration: underline;">21</span>336</span></span>
+<span><span class="co">## <span style="color: #949494;"># … with 4,022 more rows</span></span></span>
+<span><span class="co">## <span style="color: #949494;"># ℹ Use `print(n = ...)` to see more rows</span></span></span></code></pre>
 </div>
 <div class="section level2">
 <h2 id="applications">Applications<a class="anchor" aria-label="anchor" href="#applications"></a>
 </h2>
 <p>An example of where automatic frequency detection occurs is in the <code><a href="../reference/plot_stl_diagnostics.html">plot_stl_diagnostics()</a></code> function.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">taylor_30_min</span> <span class="op"><a href="https://rdrr.io/pkg/tidyquant/man/pipe.html" class="external-link">%&gt;%</a></span>
-    <span class="fu"><a href="../reference/plot_stl_diagnostics.html">plot_stl_diagnostics</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">value</span>, 
-                         .frequency <span class="op">=</span> <span class="st">"auto"</span>, .trend <span class="op">=</span> <span class="st">"auto"</span>,
-                         .interactive <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## frequency = 48 observations per 1 day</span></code></pre>
-<pre><code><span class="co">## trend = 672 observations per 14 days</span></code></pre>
+<code class="sourceCode R"><span><span class="va">taylor_30_min</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="../reference/plot_stl_diagnostics.html">plot_stl_diagnostics</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">value</span>, </span>
+<span>                         .frequency <span class="op">=</span> <span class="st">"auto"</span>, .trend <span class="op">=</span> <span class="st">"auto"</span>,</span>
+<span>                         .interactive <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## frequency = 48 observations per 1 day</span></span></code></pre>
+<pre><code><span><span class="co">## trend = 672 observations per 14 days</span></span></code></pre>
 <p><img src="TK06_Automatic_Frequency_And_Trend_Selection_files/figure-html/unnamed-chunk-5-1.png" width="95%" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level2">
@@ -238,15 +240,15 @@
 <p><strong>Daily Irregular Data</strong></p>
 <p>Because <code>FB_tbl</code> is irregular (weekends and holidays are not present), the frequency selected is weekly but each week is only 5-days typically. So 5 is selected.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">FB_tbl</span> <span class="op"><a href="https://rdrr.io/pkg/tidyquant/man/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="../reference/tk_index.html">tk_index</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/tidyquant/man/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="../reference/tk_get_frequency.html">tk_get_frequency</a></span><span class="op">(</span>period <span class="op">=</span> <span class="st">"auto"</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## frequency = 5 observations per 1 week</span></code></pre>
-<pre><code><span class="co">## [1] 5</span></code></pre>
+<code class="sourceCode R"><span><span class="va">FB_tbl</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="../reference/tk_index.html">tk_index</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="../reference/tk_get_frequency.html">tk_get_frequency</a></span><span class="op">(</span>period <span class="op">=</span> <span class="st">"auto"</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## frequency = 5 observations per 1 week</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 5</span></span></code></pre>
 <p><strong>Sub-Daily Data</strong></p>
 <p>This works as well for a sub-daily time series. Here we’ll use <code>taylor_30_min</code> for a 30-minute timestamp series. The frequency selected is 48 because there are 48 timestamps (observations) in 1 day for the 30-minute cycle.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">taylor_30_min</span> <span class="op"><a href="https://rdrr.io/pkg/tidyquant/man/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="../reference/tk_index.html">tk_index</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/tidyquant/man/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="../reference/tk_get_frequency.html">tk_get_frequency</a></span><span class="op">(</span><span class="st">"1 day"</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## frequency = 48 observations per 1 day</span></code></pre>
-<pre><code><span class="co">## [1] 48</span></code></pre>
+<code class="sourceCode R"><span><span class="va">taylor_30_min</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="../reference/tk_index.html">tk_index</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="../reference/tk_get_frequency.html">tk_get_frequency</a></span><span class="op">(</span><span class="st">"1 day"</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## frequency = 48 observations per 1 day</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 48</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="trend">Trend<a class="anchor" aria-label="anchor" href="#trend"></a>
@@ -256,15 +258,15 @@
 <p><strong>Daily Irregular Data</strong></p>
 <p>Because <code>FB_tbl</code> is irregular (weekends and holidays are not present), the trend selected is 3 months but each week is only 5-days typically. So 64 observations is selected.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">FB_tbl</span> <span class="op"><a href="https://rdrr.io/pkg/tidyquant/man/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="../reference/tk_index.html">tk_index</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/tidyquant/man/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="../reference/tk_get_frequency.html">tk_get_trend</a></span><span class="op">(</span>period <span class="op">=</span> <span class="st">"auto"</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## trend = 64 observations per 3 months</span></code></pre>
-<pre><code><span class="co">## [1] 64</span></code></pre>
+<code class="sourceCode R"><span><span class="va">FB_tbl</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="../reference/tk_index.html">tk_index</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="../reference/tk_get_frequency.html">tk_get_trend</a></span><span class="op">(</span>period <span class="op">=</span> <span class="st">"auto"</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## trend = 64 observations per 3 months</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 64</span></span></code></pre>
 <p><strong>Sub-Daily Data</strong></p>
 <p>A 14-day (2 week) interval is selected for the “30-minute” interval data.</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">taylor_30_min</span> <span class="op"><a href="https://rdrr.io/pkg/tidyquant/man/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="../reference/tk_index.html">tk_index</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/tidyquant/man/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="../reference/tk_get_frequency.html">tk_get_trend</a></span><span class="op">(</span><span class="st">"auto"</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## trend = 672 observations per 14 days</span></code></pre>
-<pre><code><span class="co">## [1] 672</span></code></pre>
+<code class="sourceCode R"><span><span class="va">taylor_30_min</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="../reference/tk_index.html">tk_index</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="../reference/tk_get_frequency.html">tk_get_trend</a></span><span class="op">(</span><span class="st">"auto"</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## trend = 672 observations per 14 days</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 672</span></span></code></pre>
 </div>
 </div>
 <div class="section level2">
@@ -275,18 +277,18 @@
 <p><strong>Accessing the Default Template</strong></p>
 <p>You can access the current template with <code><a href="../reference/tk_time_scale_template.html">get_tk_time_scale_template()</a></code>.</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/tk_time_scale_template.html">get_tk_time_scale_template</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## <span style="color: #949494;"># A tibble: 8 × 3</span></span>
-<span class="co">##   time_scale frequency trend   </span>
-<span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   </span>
-<span class="co">## <span style="color: #BCBCBC;">1</span> second     1 hour    12 hours</span>
-<span class="co">## <span style="color: #BCBCBC;">2</span> minute     1 day     14 days </span>
-<span class="co">## <span style="color: #BCBCBC;">3</span> hour       1 day     1 month </span>
-<span class="co">## <span style="color: #BCBCBC;">4</span> day        1 week    3 months</span>
-<span class="co">## <span style="color: #BCBCBC;">5</span> week       1 quarter 1 year  </span>
-<span class="co">## <span style="color: #BCBCBC;">6</span> month      1 year    5 years </span>
-<span class="co">## <span style="color: #BCBCBC;">7</span> quarter    1 year    10 years</span>
-<span class="co">## <span style="color: #BCBCBC;">8</span> year       5 years   30 years</span></code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/tk_time_scale_template.html">get_tk_time_scale_template</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 8 × 3</span></span></span>
+<span><span class="co">##   time_scale frequency trend   </span></span>
+<span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span> second     1 hour    12 hours</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">2</span> minute     1 day     14 days </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">3</span> hour       1 day     1 month </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">4</span> day        1 week    3 months</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">5</span> week       1 quarter 1 year  </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">6</span> month      1 year    5 years </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">7</span> quarter    1 year    10 years</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">8</span> year       5 years   30 years</span></span></code></pre>
 <p><strong>Changing the Default Template</strong></p>
 <p>You can modify the current template with <code><a href="../reference/tk_time_scale_template.html">set_tk_time_scale_template()</a></code>.</p>
 </div>
@@ -330,7 +332,7 @@
 
 <div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
     </footer>

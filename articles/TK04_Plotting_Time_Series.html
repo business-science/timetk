@@ -14,8 +14,8 @@
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.1.0/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.1.0/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link href="../deps/bootstrap-5.1.3/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.1.3/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
 <meta property="og:title" content="Visualizing Time Series">
@@ -165,65 +165,67 @@
 </h3>
 <p>Run the following code to setup for this tutorial.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://lubridate.tidyverse.org" class="external-link">lubridate</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/business-science/timetk" class="external-link">timetk</a></span><span class="op">)</span>
-
-<span class="co"># Setup for the plotly charts (# FALSE returns ggplots)</span>
-<span class="va">interactive</span> <span class="op">&lt;-</span> <span class="cn">FALSE</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://lubridate.tidyverse.org" class="external-link">lubridate</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/business-science/timetk" class="external-link">timetk</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Setup for the plotly charts (# FALSE returns ggplots)</span></span>
+<span><span class="va">interactive</span> <span class="op">&lt;-</span> <span class="cn">FALSE</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="plotting-time-series">Plotting Time Series<a class="anchor" aria-label="anchor" href="#plotting-time-series"></a>
 </h3>
 <p>Let’s start with a popular time series, <code>taylor_30_min</code>, which includes energy demand in megawatts at a sampling interval of 30-minutes. This is a single time series.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">taylor_30_min</span>
-<span class="co">#&gt; <span style="color: #949494;"># A tibble: 4,032 × 2</span></span>
-<span class="co">#&gt;    date                value</span>
-<span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 2000-06-05 <span style="color: #949494;">00:00:00</span> <span style="text-decoration: underline;">22</span>262</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 2000-06-05 <span style="color: #949494;">00:30:00</span> <span style="text-decoration: underline;">21</span>756</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 2000-06-05 <span style="color: #949494;">01:00:00</span> <span style="text-decoration: underline;">22</span>247</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 2000-06-05 <span style="color: #949494;">01:30:00</span> <span style="text-decoration: underline;">22</span>759</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 2000-06-05 <span style="color: #949494;">02:00:00</span> <span style="text-decoration: underline;">22</span>549</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 2000-06-05 <span style="color: #949494;">02:30:00</span> <span style="text-decoration: underline;">22</span>313</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 2000-06-05 <span style="color: #949494;">03:00:00</span> <span style="text-decoration: underline;">22</span>128</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 2000-06-05 <span style="color: #949494;">03:30:00</span> <span style="text-decoration: underline;">21</span>860</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 2000-06-05 <span style="color: #949494;">04:00:00</span> <span style="text-decoration: underline;">21</span>751</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 2000-06-05 <span style="color: #949494;">04:30:00</span> <span style="text-decoration: underline;">21</span>336</span>
-<span class="co">#&gt; <span style="color: #949494;"># … with 4,022 more rows</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">taylor_30_min</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 4,032 × 2</span></span></span>
+<span><span class="co">#&gt;    date                value</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 2000-06-05 <span style="color: #949494;">00:00:00</span> <span style="text-decoration: underline;">22</span>262</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 2000-06-05 <span style="color: #949494;">00:30:00</span> <span style="text-decoration: underline;">21</span>756</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 2000-06-05 <span style="color: #949494;">01:00:00</span> <span style="text-decoration: underline;">22</span>247</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 2000-06-05 <span style="color: #949494;">01:30:00</span> <span style="text-decoration: underline;">22</span>759</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 2000-06-05 <span style="color: #949494;">02:00:00</span> <span style="text-decoration: underline;">22</span>549</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 2000-06-05 <span style="color: #949494;">02:30:00</span> <span style="text-decoration: underline;">22</span>313</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 2000-06-05 <span style="color: #949494;">03:00:00</span> <span style="text-decoration: underline;">22</span>128</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 2000-06-05 <span style="color: #949494;">03:30:00</span> <span style="text-decoration: underline;">21</span>860</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 2000-06-05 <span style="color: #949494;">04:00:00</span> <span style="text-decoration: underline;">21</span>751</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 2000-06-05 <span style="color: #949494;">04:30:00</span> <span style="text-decoration: underline;">21</span>336</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># … with 4,022 more rows</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ Use `print(n = ...)` to see more rows</span></span></span></code></pre></div>
 <p>The <code><a href="../reference/plot_time_series.html">plot_time_series()</a></code> function generates an interactive <code>plotly</code> chart by default.</p>
 <ul>
 <li>Simply provide the date variable (time-based column, <code>.date_var</code>) and the numeric variable (<code>.value</code>) that changes over time as the first 2 arguments</li>
 <li>When <code>.interactive = TRUE</code>, the <code>.plotly_slider = TRUE</code> adds a date slider to the bottom of the chart.</li>
 </ul>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">taylor_30_min</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu"><a href="../reference/plot_time_series.html">plot_time_series</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">value</span>, 
-                   .interactive <span class="op">=</span> <span class="va">interactive</span>,
-                   .plotly_slider <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">taylor_30_min</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="../reference/plot_time_series.html">plot_time_series</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">value</span>, </span>
+<span>                   .interactive <span class="op">=</span> <span class="va">interactive</span>,</span>
+<span>                   .plotly_slider <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="TK04_Plotting_Time_Series_files/figure-html/unnamed-chunk-4-1.png" width="95%" style="display: block; margin: auto;"></p>
 <div class="section level4">
 <h4 id="plotting-groups">Plotting Groups<a class="anchor" aria-label="anchor" href="#plotting-groups"></a>
 </h4>
 <p>Next, let’s move on to a dataset with time series groups, <code>m4_daily</code>, which is a sample of 4 time series from the M4 competition that are sampled at a daily frequency.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">m4_daily</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span>
-<span class="co">#&gt; <span style="color: #949494;"># A tibble: 9,743 × 3</span></span>
-<span class="co">#&gt; <span style="color: #949494;"># Groups:   id [4]</span></span>
-<span class="co">#&gt;    id    date       value</span>
-<span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> D10   2014-07-03 <span style="text-decoration: underline;">2</span>076.</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> D10   2014-07-04 <span style="text-decoration: underline;">2</span>073.</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> D10   2014-07-05 <span style="text-decoration: underline;">2</span>049.</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> D10   2014-07-06 <span style="text-decoration: underline;">2</span>049.</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> D10   2014-07-07 <span style="text-decoration: underline;">2</span>006.</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> D10   2014-07-08 <span style="text-decoration: underline;">2</span>018.</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> D10   2014-07-09 <span style="text-decoration: underline;">2</span>019.</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> D10   2014-07-10 <span style="text-decoration: underline;">2</span>007.</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> D10   2014-07-11 <span style="text-decoration: underline;">2</span>010 </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">10</span> D10   2014-07-12 <span style="text-decoration: underline;">2</span>002.</span>
-<span class="co">#&gt; <span style="color: #949494;"># … with 9,733 more rows</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">m4_daily</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 9,743 × 3</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># Groups:   id [4]</span></span></span>
+<span><span class="co">#&gt;    id    date       value</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> D10   2014-07-03 <span style="text-decoration: underline;">2</span>076.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> D10   2014-07-04 <span style="text-decoration: underline;">2</span>073.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> D10   2014-07-05 <span style="text-decoration: underline;">2</span>049.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> D10   2014-07-06 <span style="text-decoration: underline;">2</span>049.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> D10   2014-07-07 <span style="text-decoration: underline;">2</span>006.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> D10   2014-07-08 <span style="text-decoration: underline;">2</span>018.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> D10   2014-07-09 <span style="text-decoration: underline;">2</span>019.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> D10   2014-07-10 <span style="text-decoration: underline;">2</span>007.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> D10   2014-07-11 <span style="text-decoration: underline;">2</span>010 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> D10   2014-07-12 <span style="text-decoration: underline;">2</span>002.</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># … with 9,733 more rows</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ Use `print(n = ...)` to see more rows</span></span></span></code></pre></div>
 <p>Visualizing grouped data is as simple as grouping the data set with <code><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by()</a></code> prior to piping into the <code><a href="../reference/plot_time_series.html">plot_time_series()</a></code> function. Key points:</p>
 <ul>
 <li>Groups can be added in 2 ways: by <code><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by()</a></code> or by using the <code>...</code> to add groups.</li>
@@ -234,11 +236,11 @@
 <code>.facet_scales = "free"</code> allows the x and y-axis of each plot to scale independently of the other plots</li>
 </ul>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">m4_daily</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="../reference/plot_time_series.html">plot_time_series</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">value</span>, 
-                   .facet_ncol <span class="op">=</span> <span class="fl">2</span>, .facet_scales <span class="op">=</span> <span class="st">"free"</span>,
-                   .interactive <span class="op">=</span> <span class="va">interactive</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">m4_daily</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/plot_time_series.html">plot_time_series</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">value</span>, </span>
+<span>                   .facet_ncol <span class="op">=</span> <span class="fl">2</span>, .facet_scales <span class="op">=</span> <span class="st">"free"</span>,</span>
+<span>                   .interactive <span class="op">=</span> <span class="va">interactive</span><span class="op">)</span></span></code></pre></div>
 <p><img src="TK04_Plotting_Time_Series_files/figure-html/unnamed-chunk-6-1.png" width="95%" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level4">
@@ -251,22 +253,23 @@
 <li>Use of <code>.color_var</code> to highlight sub-groups.</li>
 </ol>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">m4_hourly</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span>
-<span class="co">#&gt; <span style="color: #949494;"># A tibble: 3,060 × 3</span></span>
-<span class="co">#&gt; <span style="color: #949494;"># Groups:   id [4]</span></span>
-<span class="co">#&gt;    id    date                value</span>
-<span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> H10   2015-07-01 <span style="color: #949494;">12:00:00</span>   513</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> H10   2015-07-01 <span style="color: #949494;">13:00:00</span>   512</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> H10   2015-07-01 <span style="color: #949494;">14:00:00</span>   506</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> H10   2015-07-01 <span style="color: #949494;">15:00:00</span>   500</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> H10   2015-07-01 <span style="color: #949494;">16:00:00</span>   490</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> H10   2015-07-01 <span style="color: #949494;">17:00:00</span>   484</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> H10   2015-07-01 <span style="color: #949494;">18:00:00</span>   467</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> H10   2015-07-01 <span style="color: #949494;">19:00:00</span>   446</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> H10   2015-07-01 <span style="color: #949494;">20:00:00</span>   434</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">10</span> H10   2015-07-01 <span style="color: #949494;">21:00:00</span>   422</span>
-<span class="co">#&gt; <span style="color: #949494;"># … with 3,050 more rows</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">m4_hourly</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 3,060 × 3</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># Groups:   id [4]</span></span></span>
+<span><span class="co">#&gt;    id    date                value</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> H10   2015-07-01 <span style="color: #949494;">12:00:00</span>   513</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> H10   2015-07-01 <span style="color: #949494;">13:00:00</span>   512</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> H10   2015-07-01 <span style="color: #949494;">14:00:00</span>   506</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> H10   2015-07-01 <span style="color: #949494;">15:00:00</span>   500</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> H10   2015-07-01 <span style="color: #949494;">16:00:00</span>   490</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> H10   2015-07-01 <span style="color: #949494;">17:00:00</span>   484</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> H10   2015-07-01 <span style="color: #949494;">18:00:00</span>   467</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> H10   2015-07-01 <span style="color: #949494;">19:00:00</span>   446</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> H10   2015-07-01 <span style="color: #949494;">20:00:00</span>   434</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> H10   2015-07-01 <span style="color: #949494;">21:00:00</span>   422</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># … with 3,050 more rows</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ Use `print(n = ...)` to see more rows</span></span></span></code></pre></div>
 <p>The intent is to showcase the groups in faceted plots, but to highlight weekly windows (sub-groups) within the data while simultaneously doing a <code><a href="https://rdrr.io/r/base/Log.html" class="external-link">log()</a></code> transformation to the value. This is simple to do:</p>
 <ol style="list-style-type: decimal">
 <li>
@@ -275,14 +278,14 @@
 <code>.color_var = week(date)</code> The date column is transformed to a <code><a href="https://lubridate.tidyverse.org/reference/week.html" class="external-link">lubridate::week()</a></code> number. The color is applied to each of the week numbers.</li>
 </ol>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">m4_hourly</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="../reference/plot_time_series.html">plot_time_series</a></span><span class="op">(</span><span class="va">date</span>, <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">value</span><span class="op">)</span>,             <span class="co"># Apply a Log Transformation</span>
-                   .color_var <span class="op">=</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/week.html" class="external-link">week</a></span><span class="op">(</span><span class="va">date</span><span class="op">)</span>,      <span class="co"># Color applied to Week transformation</span>
-                   <span class="co"># Facet formatting</span>
-                   .facet_ncol <span class="op">=</span> <span class="fl">2</span>, 
-                   .facet_scales <span class="op">=</span> <span class="st">"free"</span>, 
-                   .interactive <span class="op">=</span> <span class="va">interactive</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">m4_hourly</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/plot_time_series.html">plot_time_series</a></span><span class="op">(</span><span class="va">date</span>, <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">value</span><span class="op">)</span>,             <span class="co"># Apply a Log Transformation</span></span>
+<span>                   .color_var <span class="op">=</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/week.html" class="external-link">week</a></span><span class="op">(</span><span class="va">date</span><span class="op">)</span>,      <span class="co"># Color applied to Week transformation</span></span>
+<span>                   <span class="co"># Facet formatting</span></span>
+<span>                   .facet_ncol <span class="op">=</span> <span class="fl">2</span>, </span>
+<span>                   .facet_scales <span class="op">=</span> <span class="st">"free"</span>, </span>
+<span>                   .interactive <span class="op">=</span> <span class="va">interactive</span><span class="op">)</span></span></code></pre></div>
 <p><img src="TK04_Plotting_Time_Series_files/figure-html/unnamed-chunk-8-1.png" width="95%" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level4">
@@ -290,19 +293,19 @@
 </h4>
 <p>All of the visualizations can be converted from interactive <code>plotly</code> (great for exploring and shiny apps) to static <code>ggplot2</code> visualizations (great for reports).</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">taylor_30_min</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="../reference/plot_time_series.html">plot_time_series</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">value</span>, 
-                   .color_var <span class="op">=</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/month.html" class="external-link">month</a></span><span class="op">(</span><span class="va">date</span>, label <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,
-                   
-                   <span class="co"># Returns static ggplot</span>
-                   .interactive <span class="op">=</span> <span class="cn">FALSE</span>,  
-                   
-                   <span class="co"># Customization</span>
-                   .title <span class="op">=</span> <span class="st">"Taylor's MegaWatt Data"</span>,
-                   .x_lab <span class="op">=</span> <span class="st">"Date (30-min intervals)"</span>,
-                   .y_lab <span class="op">=</span> <span class="st">"Energy Demand (MW)"</span>,
-                   .color_lab <span class="op">=</span> <span class="st">"Month"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_y_continuous</a></span><span class="op">(</span>labels <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/comma.html" class="external-link">comma_format</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">taylor_30_min</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/plot_time_series.html">plot_time_series</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">value</span>, </span>
+<span>                   .color_var <span class="op">=</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/month.html" class="external-link">month</a></span><span class="op">(</span><span class="va">date</span>, label <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>                   </span>
+<span>                   <span class="co"># Returns static ggplot</span></span>
+<span>                   .interactive <span class="op">=</span> <span class="cn">FALSE</span>,  </span>
+<span>                   </span>
+<span>                   <span class="co"># Customization</span></span>
+<span>                   .title <span class="op">=</span> <span class="st">"Taylor's MegaWatt Data"</span>,</span>
+<span>                   .x_lab <span class="op">=</span> <span class="st">"Date (30-min intervals)"</span>,</span>
+<span>                   .y_lab <span class="op">=</span> <span class="st">"Energy Demand (MW)"</span>,</span>
+<span>                   .color_lab <span class="op">=</span> <span class="st">"Month"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_y_continuous</a></span><span class="op">(</span>labels <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/comma.html" class="external-link">comma_format</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="TK04_Plotting_Time_Series_files/figure-html/unnamed-chunk-9-1.png" width="95%" style="display: block; margin: auto;"></p>
 </div>
 </div>
@@ -314,13 +317,13 @@
 <li>Box plots use an aggregation, which is a key parameter defined by the <code>.period</code> argument.</li>
 </ul>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">m4_monthly</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-    <span class="fu"><a href="../reference/plot_time_series_boxplot.html">plot_time_series_boxplot</a></span><span class="op">(</span>
-        <span class="va">date</span>, <span class="va">value</span>,
-        .period      <span class="op">=</span> <span class="st">"1 year"</span>,
-        .facet_ncol  <span class="op">=</span> <span class="fl">2</span>,
-        .interactive <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">m4_monthly</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="../reference/plot_time_series_boxplot.html">plot_time_series_boxplot</a></span><span class="op">(</span></span>
+<span>        <span class="va">date</span>, <span class="va">value</span>,</span>
+<span>        .period      <span class="op">=</span> <span class="st">"1 year"</span>,</span>
+<span>        .facet_ncol  <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>        .interactive <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="TK04_Plotting_Time_Series_files/figure-html/unnamed-chunk-10-1.png" width="95%" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level3">
@@ -332,15 +335,15 @@
 <li>A linear regression summary can be output by toggling <code>show_summary = TRUE</code>.</li>
 </ul>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">m4_monthly</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-    <span class="fu"><a href="../reference/plot_time_series_regression.html">plot_time_series_regression</a></span><span class="op">(</span>
-        .date_var     <span class="op">=</span> <span class="va">date</span>,
-        .formula      <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">value</span><span class="op">)</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">date</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/month.html" class="external-link">month</a></span><span class="op">(</span><span class="va">date</span>, label <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,
-        .facet_ncol   <span class="op">=</span> <span class="fl">2</span>,
-        .interactive  <span class="op">=</span> <span class="cn">FALSE</span>,
-        .show_summary <span class="op">=</span> <span class="cn">FALSE</span>
-    <span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">m4_monthly</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="../reference/plot_time_series_regression.html">plot_time_series_regression</a></span><span class="op">(</span></span>
+<span>        .date_var     <span class="op">=</span> <span class="va">date</span>,</span>
+<span>        .formula      <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">value</span><span class="op">)</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">date</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/month.html" class="external-link">month</a></span><span class="op">(</span><span class="va">date</span>, label <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>        .facet_ncol   <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>        .interactive  <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>        .show_summary <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>    <span class="op">)</span></span></code></pre></div>
 <p><img src="TK04_Plotting_Time_Series_files/figure-html/unnamed-chunk-11-1.png" width="95%" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level3">
@@ -412,7 +415,7 @@ Become the Time Series Expert for your organization.
 
 <div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
     </footer>

@@ -14,8 +14,8 @@
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.1.0/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.1.0/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link href="../deps/bootstrap-5.1.3/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.1.3/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
 <meta property="og:title" content="Time Series Class Conversion">
@@ -146,7 +146,7 @@
             <h3 data-toc-skip class="subtitle">Between ts, xts, zoo, and tbl</h3>
                         <h4 data-toc-skip class="author">Matt Dancho</h4>
             
-            <h4 data-toc-skip class="date">2022-06-26</h4>
+            <h4 data-toc-skip class="date">2022-08-18</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/business-science/timetk/blob/HEAD/vignettes/TK00_Time_Series_Coercion.Rmd" class="external-link"><code>vignettes/TK00_Time_Series_Coercion.Rmd</code></a></small>
       <div class="d-none name"><code>TK00_Time_Series_Coercion.Rmd</code></div>
@@ -171,30 +171,31 @@
 </h2>
 <p>Before we get started, load the following packages.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/business-science/timetk" class="external-link">timetk</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/business-science/timetk" class="external-link">timetk</a></span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="data">Data<a class="anchor" aria-label="anchor" href="#data"></a>
 </h2>
 <p>We’ll use the “Q10” dataset - The first ID from a sample a quarterly datasets (see <code>m4_quarterly</code>) from the <a href="https://mofc.unic.ac.cy/m4/" class="external-link">M4 Competition</a>. The return structure is a <code>tibble</code>, which is not conducive to many of the popular time series analysis packages including <code>quantmod</code>, <code>TTR</code>, <code>forecast</code> and many others.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">q10_quarterly</span> <span class="op">&lt;-</span> <span class="va">m4_quarterly</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">id</span> <span class="op">==</span> <span class="st">"Q10"</span><span class="op">)</span>
-<span class="va">q10_quarterly</span></code></pre></div>
-<pre><code><span class="co">## <span style="color: #949494;"># A tibble: 59 × 3</span></span>
-<span class="co">##    id    date       value</span>
-<span class="co">##    <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="co">## <span style="color: #BCBCBC;"> 1</span> Q10   2000-01-01 <span style="text-decoration: underline;">2</span>329 </span>
-<span class="co">## <span style="color: #BCBCBC;"> 2</span> Q10   2000-04-01 <span style="text-decoration: underline;">2</span>350.</span>
-<span class="co">## <span style="color: #BCBCBC;"> 3</span> Q10   2000-07-01 <span style="text-decoration: underline;">2</span>333.</span>
-<span class="co">## <span style="color: #BCBCBC;"> 4</span> Q10   2000-10-01 <span style="text-decoration: underline;">2</span>382.</span>
-<span class="co">## <span style="color: #BCBCBC;"> 5</span> Q10   2001-01-01 <span style="text-decoration: underline;">2</span>383.</span>
-<span class="co">## <span style="color: #BCBCBC;"> 6</span> Q10   2001-04-01 <span style="text-decoration: underline;">2</span>405 </span>
-<span class="co">## <span style="color: #BCBCBC;"> 7</span> Q10   2001-07-01 <span style="text-decoration: underline;">2</span>411 </span>
-<span class="co">## <span style="color: #BCBCBC;"> 8</span> Q10   2001-10-01 <span style="text-decoration: underline;">2</span>428.</span>
-<span class="co">## <span style="color: #BCBCBC;"> 9</span> Q10   2002-01-01 <span style="text-decoration: underline;">2</span>392.</span>
-<span class="co">## <span style="color: #BCBCBC;">10</span> Q10   2002-04-01 <span style="text-decoration: underline;">2</span>418.</span>
-<span class="co">## <span style="color: #949494;"># … with 49 more rows</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">q10_quarterly</span> <span class="op">&lt;-</span> <span class="va">m4_quarterly</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">id</span> <span class="op">==</span> <span class="st">"Q10"</span><span class="op">)</span></span>
+<span><span class="va">q10_quarterly</span></span></code></pre></div>
+<pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 59 × 3</span></span></span>
+<span><span class="co">##    id    date       value</span></span>
+<span><span class="co">##    <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 1</span> Q10   2000-01-01 <span style="text-decoration: underline;">2</span>329 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 2</span> Q10   2000-04-01 <span style="text-decoration: underline;">2</span>350.</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 3</span> Q10   2000-07-01 <span style="text-decoration: underline;">2</span>333.</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 4</span> Q10   2000-10-01 <span style="text-decoration: underline;">2</span>382.</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 5</span> Q10   2001-01-01 <span style="text-decoration: underline;">2</span>383.</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 6</span> Q10   2001-04-01 <span style="text-decoration: underline;">2</span>405 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 7</span> Q10   2001-07-01 <span style="text-decoration: underline;">2</span>411 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 8</span> Q10   2001-10-01 <span style="text-decoration: underline;">2</span>428.</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 9</span> Q10   2002-01-01 <span style="text-decoration: underline;">2</span>392.</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">10</span> Q10   2002-04-01 <span style="text-decoration: underline;">2</span>418.</span></span>
+<span><span class="co">## <span style="color: #949494;"># … with 49 more rows</span></span></span>
+<span><span class="co">## <span style="color: #949494;"># ℹ Use `print(n = ...)` to see more rows</span></span></span></code></pre>
 </div>
 <div class="section level2">
 <h2 id="case-study-conversion-issues-with-ts">Case Study: Conversion issues with ts()<a class="anchor" aria-label="anchor" href="#case-study-conversion-issues-with-ts"></a>
@@ -205,52 +206,52 @@
 </h3>
 <p>First, only numeric columns get coerced. If the user forgets to add the <code>[,"pct"]</code> to drop the “date” column, <code><a href="https://rdrr.io/r/stats/ts.html" class="external-link">ts()</a></code> returns dates in numeric format which is not what the user wants.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># date column gets coerced to numeric</span>
-<span class="fu"><a href="https://rdrr.io/r/stats/ts.html" class="external-link">ts</a></span><span class="op">(</span><span class="va">q10_quarterly</span>, start <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2000</span>, <span class="fl">1</span><span class="op">)</span>, freq <span class="op">=</span> <span class="fl">4</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-    <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">##      id  date  value</span>
-<span class="co">## [1,]  1 10957 2329.0</span>
-<span class="co">## [2,]  1 11048 2349.9</span>
-<span class="co">## [3,]  1 11139 2332.9</span>
-<span class="co">## [4,]  1 11231 2381.5</span>
-<span class="co">## [5,]  1 11323 2382.6</span>
-<span class="co">## [6,]  1 11413 2405.0</span></code></pre>
+<code class="sourceCode R"><span><span class="co"># date column gets coerced to numeric</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/ts.html" class="external-link">ts</a></span><span class="op">(</span><span class="va">q10_quarterly</span>, start <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2000</span>, <span class="fl">1</span><span class="op">)</span>, freq <span class="op">=</span> <span class="fl">4</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##      id  date  value</span></span>
+<span><span class="co">## [1,]  1 10957 2329.0</span></span>
+<span><span class="co">## [2,]  1 11048 2349.9</span></span>
+<span><span class="co">## [3,]  1 11139 2332.9</span></span>
+<span><span class="co">## [4,]  1 11231 2381.5</span></span>
+<span><span class="co">## [5,]  1 11323 2382.6</span></span>
+<span><span class="co">## [6,]  1 11413 2405.0</span></span></code></pre>
 <p>The correct method is to call the specific column desired. However, this presents a new issue. The date index is lost, and a different “regularized” index is built using the <code>start</code> and <code>frequency</code> attributes.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">q10_quarterly_ts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/ts.html" class="external-link">ts</a></span><span class="op">(</span><span class="va">q10_quarterly</span><span class="op">$</span><span class="va">value</span>, start <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2000</span>, <span class="fl">1</span><span class="op">)</span>, freq  <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
-<span class="va">q10_quarterly_ts</span></code></pre></div>
-<pre><code><span class="co">##        Qtr1   Qtr2   Qtr3   Qtr4</span>
-<span class="co">## 2000 2329.0 2349.9 2332.9 2381.5</span>
-<span class="co">## 2001 2382.6 2405.0 2411.0 2428.5</span>
-<span class="co">## 2002 2391.6 2418.5 2406.5 2418.5</span>
-<span class="co">## 2003 2420.4 2438.6 2448.7 2470.6</span>
-<span class="co">## 2004 2484.5 2495.9 2492.5 2521.6</span>
-<span class="co">## 2005 2538.1 2549.7 2587.2 2585.0</span>
-<span class="co">## 2006 2602.6 2615.3 2654.0 2680.8</span>
-<span class="co">## 2007 2665.4 2645.1 2647.5 2719.2</span>
-<span class="co">## 2008 2677.0 2650.9 2667.8 2660.2</span>
-<span class="co">## 2009 2554.7 2522.7 2510.0 2541.7</span>
-<span class="co">## 2010 2499.1 2527.9 2519.0 2536.3</span>
-<span class="co">## 2011 2493.2 2542.1 2501.6 2516.3</span>
-<span class="co">## 2012 2510.5 2548.4 2548.6 2530.7</span>
-<span class="co">## 2013 2497.1 2520.4 2516.9 2505.5</span>
-<span class="co">## 2014 2513.9 2549.9 2555.3</span></code></pre>
+<code class="sourceCode R"><span><span class="va">q10_quarterly_ts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/ts.html" class="external-link">ts</a></span><span class="op">(</span><span class="va">q10_quarterly</span><span class="op">$</span><span class="va">value</span>, start <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2000</span>, <span class="fl">1</span><span class="op">)</span>, freq  <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
+<span><span class="va">q10_quarterly_ts</span></span></code></pre></div>
+<pre><code><span><span class="co">##        Qtr1   Qtr2   Qtr3   Qtr4</span></span>
+<span><span class="co">## 2000 2329.0 2349.9 2332.9 2381.5</span></span>
+<span><span class="co">## 2001 2382.6 2405.0 2411.0 2428.5</span></span>
+<span><span class="co">## 2002 2391.6 2418.5 2406.5 2418.5</span></span>
+<span><span class="co">## 2003 2420.4 2438.6 2448.7 2470.6</span></span>
+<span><span class="co">## 2004 2484.5 2495.9 2492.5 2521.6</span></span>
+<span><span class="co">## 2005 2538.1 2549.7 2587.2 2585.0</span></span>
+<span><span class="co">## 2006 2602.6 2615.3 2654.0 2680.8</span></span>
+<span><span class="co">## 2007 2665.4 2645.1 2647.5 2719.2</span></span>
+<span><span class="co">## 2008 2677.0 2650.9 2667.8 2660.2</span></span>
+<span><span class="co">## 2009 2554.7 2522.7 2510.0 2541.7</span></span>
+<span><span class="co">## 2010 2499.1 2527.9 2519.0 2536.3</span></span>
+<span><span class="co">## 2011 2493.2 2542.1 2501.6 2516.3</span></span>
+<span><span class="co">## 2012 2510.5 2548.4 2548.6 2530.7</span></span>
+<span><span class="co">## 2013 2497.1 2520.4 2516.9 2505.5</span></span>
+<span><span class="co">## 2014 2513.9 2549.9 2555.3</span></span></code></pre>
 <p>We can see from the structure (using the <code><a href="https://rdrr.io/r/utils/str.html" class="external-link">str()</a></code> function) that the regularized time series is present, but there is no date index retained.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># No date index attribute</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">q10_quarterly_ts</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">##  Time-Series [1:59] from 2000 to 2014: 2329 2350 2333 2382 2383 ...</span></code></pre>
+<code class="sourceCode R"><span><span class="co"># No date index attribute</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">q10_quarterly_ts</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##  Time-Series [1:59] from 2000 to 2014: 2329 2350 2333 2382 2383 ...</span></span></code></pre>
 <p>We can get the index using the <code>index()</code> function from the <code>zoo</code> package. The index retained is a regular sequence of numeric values. In many cases, the regularized values cannot be coerced back to the original time-base because the date and date time data contains significantly more information (i.e. year-month-day, hour-minute-second, and timezone attributes) and the data may not be on a regularized interval (frequency).</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Regularized numeric sequence</span>
-<span class="fu">zoo</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/zoo/man/index.html" class="external-link">index</a></span><span class="op">(</span><span class="va">q10_quarterly_ts</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">##  [1] 2000.00 2000.25 2000.50 2000.75 2001.00 2001.25 2001.50 2001.75 2002.00</span>
-<span class="co">## [10] 2002.25 2002.50 2002.75 2003.00 2003.25 2003.50 2003.75 2004.00 2004.25</span>
-<span class="co">## [19] 2004.50 2004.75 2005.00 2005.25 2005.50 2005.75 2006.00 2006.25 2006.50</span>
-<span class="co">## [28] 2006.75 2007.00 2007.25 2007.50 2007.75 2008.00 2008.25 2008.50 2008.75</span>
-<span class="co">## [37] 2009.00 2009.25 2009.50 2009.75 2010.00 2010.25 2010.50 2010.75 2011.00</span>
-<span class="co">## [46] 2011.25 2011.50 2011.75 2012.00 2012.25 2012.50 2012.75 2013.00 2013.25</span>
-<span class="co">## [55] 2013.50 2013.75 2014.00 2014.25 2014.50</span></code></pre>
+<code class="sourceCode R"><span><span class="co"># Regularized numeric sequence</span></span>
+<span><span class="fu">zoo</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/zoo/man/index.html" class="external-link">index</a></span><span class="op">(</span><span class="va">q10_quarterly_ts</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##  [1] 2000.00 2000.25 2000.50 2000.75 2001.00 2001.25 2001.50 2001.75 2002.00</span></span>
+<span><span class="co">## [10] 2002.25 2002.50 2002.75 2003.00 2003.25 2003.50 2003.75 2004.00 2004.25</span></span>
+<span><span class="co">## [19] 2004.50 2004.75 2005.00 2005.25 2005.50 2005.75 2006.00 2006.25 2006.50</span></span>
+<span><span class="co">## [28] 2006.75 2007.00 2007.25 2007.50 2007.75 2008.00 2008.25 2008.50 2008.75</span></span>
+<span><span class="co">## [37] 2009.00 2009.25 2009.50 2009.75 2010.00 2010.25 2010.50 2010.75 2011.00</span></span>
+<span><span class="co">## [46] 2011.25 2011.50 2011.75 2012.00 2012.25 2012.50 2012.75 2013.00 2013.25</span></span>
+<span><span class="co">## [55] 2013.50 2013.75 2014.00 2014.25 2014.50</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="solution">Solution<a class="anchor" aria-label="anchor" href="#solution"></a>
@@ -258,98 +259,100 @@
 <p>The <code>timetk</code> package contains a new function, <code><a href="../reference/tk_ts.html">tk_ts()</a></code>, that enables maintaining the original date index as an attribute. When we repeat the <code>tbl</code> to <code>ts</code> conversion process using the new function, <code><a href="../reference/tk_ts.html">tk_ts()</a></code>, we can see a few differences.</p>
 <p>First, only numeric columns get coerced, which prevents unintended consequences due to R conversion rules (e.g. dates getting unintentionally converted or characters causing the homogeneous data structure converting all numeric values to character). If a column is dropped, the user gets a warning.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># date automatically dropped and user is warned</span>
-<span class="va">q10_quarterly_ts_timetk</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tk_ts.html">tk_ts</a></span><span class="op">(</span><span class="va">q10_quarterly</span>, start <span class="op">=</span> <span class="fl">2000</span>, freq  <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## Warning: Non-numeric columns being dropped: id, date</span></code></pre>
+<code class="sourceCode R"><span><span class="co"># date automatically dropped and user is warned</span></span>
+<span><span class="va">q10_quarterly_ts_timetk</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tk_ts.html">tk_ts</a></span><span class="op">(</span><span class="va">q10_quarterly</span>, start <span class="op">=</span> <span class="fl">2000</span>, freq  <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Warning: Non-numeric columns being dropped: id, date</span></span></code></pre>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">q10_quarterly_ts_timetk</span></code></pre></div>
-<pre><code><span class="co">##        Qtr1   Qtr2   Qtr3   Qtr4</span>
-<span class="co">## 2000 2329.0 2349.9 2332.9 2381.5</span>
-<span class="co">## 2001 2382.6 2405.0 2411.0 2428.5</span>
-<span class="co">## 2002 2391.6 2418.5 2406.5 2418.5</span>
-<span class="co">## 2003 2420.4 2438.6 2448.7 2470.6</span>
-<span class="co">## 2004 2484.5 2495.9 2492.5 2521.6</span>
-<span class="co">## 2005 2538.1 2549.7 2587.2 2585.0</span>
-<span class="co">## 2006 2602.6 2615.3 2654.0 2680.8</span>
-<span class="co">## 2007 2665.4 2645.1 2647.5 2719.2</span>
-<span class="co">## 2008 2677.0 2650.9 2667.8 2660.2</span>
-<span class="co">## 2009 2554.7 2522.7 2510.0 2541.7</span>
-<span class="co">## 2010 2499.1 2527.9 2519.0 2536.3</span>
-<span class="co">## 2011 2493.2 2542.1 2501.6 2516.3</span>
-<span class="co">## 2012 2510.5 2548.4 2548.6 2530.7</span>
-<span class="co">## 2013 2497.1 2520.4 2516.9 2505.5</span>
-<span class="co">## 2014 2513.9 2549.9 2555.3</span></code></pre>
+<code class="sourceCode R"><span><span class="va">q10_quarterly_ts_timetk</span></span></code></pre></div>
+<pre><code><span><span class="co">##        Qtr1   Qtr2   Qtr3   Qtr4</span></span>
+<span><span class="co">## 2000 2329.0 2349.9 2332.9 2381.5</span></span>
+<span><span class="co">## 2001 2382.6 2405.0 2411.0 2428.5</span></span>
+<span><span class="co">## 2002 2391.6 2418.5 2406.5 2418.5</span></span>
+<span><span class="co">## 2003 2420.4 2438.6 2448.7 2470.6</span></span>
+<span><span class="co">## 2004 2484.5 2495.9 2492.5 2521.6</span></span>
+<span><span class="co">## 2005 2538.1 2549.7 2587.2 2585.0</span></span>
+<span><span class="co">## 2006 2602.6 2615.3 2654.0 2680.8</span></span>
+<span><span class="co">## 2007 2665.4 2645.1 2647.5 2719.2</span></span>
+<span><span class="co">## 2008 2677.0 2650.9 2667.8 2660.2</span></span>
+<span><span class="co">## 2009 2554.7 2522.7 2510.0 2541.7</span></span>
+<span><span class="co">## 2010 2499.1 2527.9 2519.0 2536.3</span></span>
+<span><span class="co">## 2011 2493.2 2542.1 2501.6 2516.3</span></span>
+<span><span class="co">## 2012 2510.5 2548.4 2548.6 2530.7</span></span>
+<span><span class="co">## 2013 2497.1 2520.4 2516.9 2505.5</span></span>
+<span><span class="co">## 2014 2513.9 2549.9 2555.3</span></span></code></pre>
 <p>Second, the data returned has a few additional attributes. The most important of which is a numeric attribute, “index”, which contains the original date information as a number. The <code><a href="https://rdrr.io/r/stats/ts.html" class="external-link">ts()</a></code> function will not preserve this index while <code><a href="../reference/tk_ts.html">tk_ts()</a></code> will preserve the index in numeric form along with the time zone and class.</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># More attributes including time index, time class, time zone</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">q10_quarterly_ts_timetk</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">##  Time-Series [1:59, 1] from 2000 to 2014: 2329 2350 2333 2382 2383 ...</span>
-<span class="co">##  - attr(*, "dimnames")=List of 2</span>
-<span class="co">##   ..$ : NULL</span>
-<span class="co">##   ..$ : chr "value"</span>
-<span class="co">##  - attr(*, "index")= num [1:59] 9.47e+08 9.55e+08 9.62e+08 9.70e+08 9.78e+08 ...</span>
-<span class="co">##   ..- attr(*, "tzone")= chr "UTC"</span>
-<span class="co">##   ..- attr(*, "tclass")= chr "Date"</span></code></pre>
+<code class="sourceCode R"><span><span class="co"># More attributes including time index, time class, time zone</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">q10_quarterly_ts_timetk</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##  Time-Series [1:59, 1] from 2000 to 2014: 2329 2350 2333 2382 2383 ...</span></span>
+<span><span class="co">##  - attr(*, "dimnames")=List of 2</span></span>
+<span><span class="co">##   ..$ : NULL</span></span>
+<span><span class="co">##   ..$ : chr "value"</span></span>
+<span><span class="co">##  - attr(*, "index")= num [1:59] 9.47e+08 9.55e+08 9.62e+08 9.70e+08 9.78e+08 ...</span></span>
+<span><span class="co">##   ..- attr(*, "tzone")= chr "UTC"</span></span>
+<span><span class="co">##   ..- attr(*, "tclass")= chr "Date"</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="advantages-of-conversion-with-tk_tbl">Advantages of conversion with tk_tbl()<a class="anchor" aria-label="anchor" href="#advantages-of-conversion-with-tk_tbl"></a>
 </h3>
 <p>Since we used the <code><a href="../reference/tk_ts.html">tk_ts()</a></code> during conversion, we can extract the original index in date format using <code>tk_index(timetk_idx = TRUE)</code> (the default is <code>timetk_idx = FALSE</code> which returns the default regularized index).</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Can now retrieve the original date index</span>
-<span class="va">timetk_index</span> <span class="op">&lt;-</span> <span class="va">q10_quarterly_ts_timetk</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-    <span class="fu"><a href="../reference/tk_index.html">tk_index</a></span><span class="op">(</span>timetk_idx <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">timetk_index</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## [1] "2000-01-01" "2000-04-01" "2000-07-01" "2000-10-01" "2001-01-01"</span>
-<span class="co">## [6] "2001-04-01"</span></code></pre>
+<code class="sourceCode R"><span><span class="co"># Can now retrieve the original date index</span></span>
+<span><span class="va">timetk_index</span> <span class="op">&lt;-</span> <span class="va">q10_quarterly_ts_timetk</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="../reference/tk_index.html">tk_index</a></span><span class="op">(</span>timetk_idx <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">timetk_index</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] "2000-01-01" "2000-04-01" "2000-07-01" "2000-10-01" "2001-01-01"</span></span>
+<span><span class="co">## [6] "2001-04-01"</span></span></code></pre>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">timetk_index</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## [1] "Date"</span></code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">timetk_index</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] "Date"</span></span></code></pre>
 <p>Next, the <code><a href="../reference/tk_tbl.html">tk_tbl()</a></code> function has an argument <code>timetk_idx</code> also which can be used to select which index to return. First, we show conversion using the default index. Notice that the index returned is “regularized” meaning its actually a numeric index rather than a time-based index.</p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Conversion back to tibble using the default index (regularized)</span>
-<span class="va">q10_quarterly_ts_timetk</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-    <span class="fu"><a href="../reference/tk_tbl.html">tk_tbl</a></span><span class="op">(</span>index_rename <span class="op">=</span> <span class="st">"date"</span>, timetk_idx <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## <span style="color: #949494;"># A tibble: 59 × 2</span></span>
-<span class="co">##    index     value</span>
-<span class="co">##    <span style="color: #949494; font-style: italic;">&lt;yearqtr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="co">## <span style="color: #BCBCBC;"> 1</span> 2000 Q1   <span style="text-decoration: underline;">2</span>329 </span>
-<span class="co">## <span style="color: #BCBCBC;"> 2</span> 2000 Q2   <span style="text-decoration: underline;">2</span>350.</span>
-<span class="co">## <span style="color: #BCBCBC;"> 3</span> 2000 Q3   <span style="text-decoration: underline;">2</span>333.</span>
-<span class="co">## <span style="color: #BCBCBC;"> 4</span> 2000 Q4   <span style="text-decoration: underline;">2</span>382.</span>
-<span class="co">## <span style="color: #BCBCBC;"> 5</span> 2001 Q1   <span style="text-decoration: underline;">2</span>383.</span>
-<span class="co">## <span style="color: #BCBCBC;"> 6</span> 2001 Q2   <span style="text-decoration: underline;">2</span>405 </span>
-<span class="co">## <span style="color: #BCBCBC;"> 7</span> 2001 Q3   <span style="text-decoration: underline;">2</span>411 </span>
-<span class="co">## <span style="color: #BCBCBC;"> 8</span> 2001 Q4   <span style="text-decoration: underline;">2</span>428.</span>
-<span class="co">## <span style="color: #BCBCBC;"> 9</span> 2002 Q1   <span style="text-decoration: underline;">2</span>392.</span>
-<span class="co">## <span style="color: #BCBCBC;">10</span> 2002 Q2   <span style="text-decoration: underline;">2</span>418.</span>
-<span class="co">## <span style="color: #949494;"># … with 49 more rows</span></span></code></pre>
+<code class="sourceCode R"><span><span class="co"># Conversion back to tibble using the default index (regularized)</span></span>
+<span><span class="va">q10_quarterly_ts_timetk</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="../reference/tk_tbl.html">tk_tbl</a></span><span class="op">(</span>index_rename <span class="op">=</span> <span class="st">"date"</span>, timetk_idx <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 59 × 2</span></span></span>
+<span><span class="co">##    index     value</span></span>
+<span><span class="co">##    <span style="color: #949494; font-style: italic;">&lt;yearqtr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 1</span> 2000 Q1   <span style="text-decoration: underline;">2</span>329 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 2</span> 2000 Q2   <span style="text-decoration: underline;">2</span>350.</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 3</span> 2000 Q3   <span style="text-decoration: underline;">2</span>333.</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 4</span> 2000 Q4   <span style="text-decoration: underline;">2</span>382.</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 5</span> 2001 Q1   <span style="text-decoration: underline;">2</span>383.</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 6</span> 2001 Q2   <span style="text-decoration: underline;">2</span>405 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 7</span> 2001 Q3   <span style="text-decoration: underline;">2</span>411 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 8</span> 2001 Q4   <span style="text-decoration: underline;">2</span>428.</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 9</span> 2002 Q1   <span style="text-decoration: underline;">2</span>392.</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">10</span> 2002 Q2   <span style="text-decoration: underline;">2</span>418.</span></span>
+<span><span class="co">## <span style="color: #949494;"># … with 49 more rows</span></span></span>
+<span><span class="co">## <span style="color: #949494;"># ℹ Use `print(n = ...)` to see more rows</span></span></span></code></pre>
 <p>We can now get the original date index using the <code><a href="../reference/tk_tbl.html">tk_tbl()</a></code> argument <code>timetk_idx = TRUE</code>.</p>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Conversion back to tibble now using the timetk index (date / date-time)</span>
-<span class="va">q10_quarterly_timetk</span> <span class="op">&lt;-</span> <span class="va">q10_quarterly_ts_timetk</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-    <span class="fu"><a href="../reference/tk_tbl.html">tk_tbl</a></span><span class="op">(</span>timetk_idx <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html" class="external-link">rename</a></span><span class="op">(</span>date <span class="op">=</span> <span class="va">index</span><span class="op">)</span>
-<span class="va">q10_quarterly_timetk</span></code></pre></div>
-<pre><code><span class="co">## <span style="color: #949494;"># A tibble: 59 × 2</span></span>
-<span class="co">##    date       value</span>
-<span class="co">##    <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="co">## <span style="color: #BCBCBC;"> 1</span> 2000-01-01 <span style="text-decoration: underline;">2</span>329 </span>
-<span class="co">## <span style="color: #BCBCBC;"> 2</span> 2000-04-01 <span style="text-decoration: underline;">2</span>350.</span>
-<span class="co">## <span style="color: #BCBCBC;"> 3</span> 2000-07-01 <span style="text-decoration: underline;">2</span>333.</span>
-<span class="co">## <span style="color: #BCBCBC;"> 4</span> 2000-10-01 <span style="text-decoration: underline;">2</span>382.</span>
-<span class="co">## <span style="color: #BCBCBC;"> 5</span> 2001-01-01 <span style="text-decoration: underline;">2</span>383.</span>
-<span class="co">## <span style="color: #BCBCBC;"> 6</span> 2001-04-01 <span style="text-decoration: underline;">2</span>405 </span>
-<span class="co">## <span style="color: #BCBCBC;"> 7</span> 2001-07-01 <span style="text-decoration: underline;">2</span>411 </span>
-<span class="co">## <span style="color: #BCBCBC;"> 8</span> 2001-10-01 <span style="text-decoration: underline;">2</span>428.</span>
-<span class="co">## <span style="color: #BCBCBC;"> 9</span> 2002-01-01 <span style="text-decoration: underline;">2</span>392.</span>
-<span class="co">## <span style="color: #BCBCBC;">10</span> 2002-04-01 <span style="text-decoration: underline;">2</span>418.</span>
-<span class="co">## <span style="color: #949494;"># … with 49 more rows</span></span></code></pre>
+<code class="sourceCode R"><span><span class="co"># Conversion back to tibble now using the timetk index (date / date-time)</span></span>
+<span><span class="va">q10_quarterly_timetk</span> <span class="op">&lt;-</span> <span class="va">q10_quarterly_ts_timetk</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="../reference/tk_tbl.html">tk_tbl</a></span><span class="op">(</span>timetk_idx <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html" class="external-link">rename</a></span><span class="op">(</span>date <span class="op">=</span> <span class="va">index</span><span class="op">)</span></span>
+<span><span class="va">q10_quarterly_timetk</span></span></code></pre></div>
+<pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 59 × 2</span></span></span>
+<span><span class="co">##    date       value</span></span>
+<span><span class="co">##    <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 1</span> 2000-01-01 <span style="text-decoration: underline;">2</span>329 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 2</span> 2000-04-01 <span style="text-decoration: underline;">2</span>350.</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 3</span> 2000-07-01 <span style="text-decoration: underline;">2</span>333.</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 4</span> 2000-10-01 <span style="text-decoration: underline;">2</span>382.</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 5</span> 2001-01-01 <span style="text-decoration: underline;">2</span>383.</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 6</span> 2001-04-01 <span style="text-decoration: underline;">2</span>405 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 7</span> 2001-07-01 <span style="text-decoration: underline;">2</span>411 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 8</span> 2001-10-01 <span style="text-decoration: underline;">2</span>428.</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 9</span> 2002-01-01 <span style="text-decoration: underline;">2</span>392.</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">10</span> 2002-04-01 <span style="text-decoration: underline;">2</span>418.</span></span>
+<span><span class="co">## <span style="color: #949494;"># … with 49 more rows</span></span></span>
+<span><span class="co">## <span style="color: #949494;"># ℹ Use `print(n = ...)` to see more rows</span></span></span></code></pre>
 <p>We can see that in this case (and in most cases) you can get the same data frame you began with.</p>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Comparing the coerced tibble with the original tibble</span>
-<span class="fu"><a href="https://rdrr.io/r/base/identical.html" class="external-link">identical</a></span><span class="op">(</span><span class="va">q10_quarterly_timetk</span>, <span class="va">q10_quarterly</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">id</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## [1] TRUE</span></code></pre>
+<code class="sourceCode R"><span><span class="co"># Comparing the coerced tibble with the original tibble</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/identical.html" class="external-link">identical</a></span><span class="op">(</span><span class="va">q10_quarterly_timetk</span>, <span class="va">q10_quarterly</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">id</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] TRUE</span></span></code></pre>
 </div>
 </div>
 <div class="section level2">
@@ -361,133 +364,134 @@
 </h3>
 <p>The starting point is the <code>q10_quarterly</code>. We will coerce this into <code>xts</code>, <code>zoo</code>, <code>zooreg</code> and <code>ts</code> classes.</p>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Start:</span>
-<span class="va">q10_quarterly</span></code></pre></div>
-<pre><code><span class="co">## <span style="color: #949494;"># A tibble: 59 × 3</span></span>
-<span class="co">##    id    date       value</span>
-<span class="co">##    <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="co">## <span style="color: #BCBCBC;"> 1</span> Q10   2000-01-01 <span style="text-decoration: underline;">2</span>329 </span>
-<span class="co">## <span style="color: #BCBCBC;"> 2</span> Q10   2000-04-01 <span style="text-decoration: underline;">2</span>350.</span>
-<span class="co">## <span style="color: #BCBCBC;"> 3</span> Q10   2000-07-01 <span style="text-decoration: underline;">2</span>333.</span>
-<span class="co">## <span style="color: #BCBCBC;"> 4</span> Q10   2000-10-01 <span style="text-decoration: underline;">2</span>382.</span>
-<span class="co">## <span style="color: #BCBCBC;"> 5</span> Q10   2001-01-01 <span style="text-decoration: underline;">2</span>383.</span>
-<span class="co">## <span style="color: #BCBCBC;"> 6</span> Q10   2001-04-01 <span style="text-decoration: underline;">2</span>405 </span>
-<span class="co">## <span style="color: #BCBCBC;"> 7</span> Q10   2001-07-01 <span style="text-decoration: underline;">2</span>411 </span>
-<span class="co">## <span style="color: #BCBCBC;"> 8</span> Q10   2001-10-01 <span style="text-decoration: underline;">2</span>428.</span>
-<span class="co">## <span style="color: #BCBCBC;"> 9</span> Q10   2002-01-01 <span style="text-decoration: underline;">2</span>392.</span>
-<span class="co">## <span style="color: #BCBCBC;">10</span> Q10   2002-04-01 <span style="text-decoration: underline;">2</span>418.</span>
-<span class="co">## <span style="color: #949494;"># … with 49 more rows</span></span></code></pre>
+<code class="sourceCode R"><span><span class="co"># Start:</span></span>
+<span><span class="va">q10_quarterly</span></span></code></pre></div>
+<pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 59 × 3</span></span></span>
+<span><span class="co">##    id    date       value</span></span>
+<span><span class="co">##    <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 1</span> Q10   2000-01-01 <span style="text-decoration: underline;">2</span>329 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 2</span> Q10   2000-04-01 <span style="text-decoration: underline;">2</span>350.</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 3</span> Q10   2000-07-01 <span style="text-decoration: underline;">2</span>333.</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 4</span> Q10   2000-10-01 <span style="text-decoration: underline;">2</span>382.</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 5</span> Q10   2001-01-01 <span style="text-decoration: underline;">2</span>383.</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 6</span> Q10   2001-04-01 <span style="text-decoration: underline;">2</span>405 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 7</span> Q10   2001-07-01 <span style="text-decoration: underline;">2</span>411 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 8</span> Q10   2001-10-01 <span style="text-decoration: underline;">2</span>428.</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 9</span> Q10   2002-01-01 <span style="text-decoration: underline;">2</span>392.</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">10</span> Q10   2002-04-01 <span style="text-decoration: underline;">2</span>418.</span></span>
+<span><span class="co">## <span style="color: #949494;"># … with 49 more rows</span></span></span>
+<span><span class="co">## <span style="color: #949494;"># ℹ Use `print(n = ...)` to see more rows</span></span></span></code></pre>
 <div class="section level4">
 <h4 id="to-xts">to xts<a class="anchor" aria-label="anchor" href="#to-xts"></a>
 </h4>
 <p>Use <code><a href="../reference/tk_xts.html">tk_xts()</a></code>. By default “date” is used as the date index and the “date” column is dropped from the output. Only numeric columns are coerced to avoid unintentional conversion issues.</p>
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># End</span>
-<span class="va">q10_quarterly_xts</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tk_xts.html">tk_xts</a></span><span class="op">(</span><span class="va">q10_quarterly</span><span class="op">)</span> </code></pre></div>
-<pre><code><span class="co">## Warning: Non-numeric columns being dropped: id, date</span></code></pre>
-<pre><code><span class="co">## Using column `date` for date_var.</span></code></pre>
+<code class="sourceCode R"><span><span class="co"># End</span></span>
+<span><span class="va">q10_quarterly_xts</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tk_xts.html">tk_xts</a></span><span class="op">(</span><span class="va">q10_quarterly</span><span class="op">)</span> </span></code></pre></div>
+<pre><code><span><span class="co">## Warning: Non-numeric columns being dropped: id, date</span></span></code></pre>
+<pre><code><span><span class="co">## Using column `date` for date_var.</span></span></code></pre>
 <div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">q10_quarterly_xts</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">##             value</span>
-<span class="co">## 2000-01-01 2329.0</span>
-<span class="co">## 2000-04-01 2349.9</span>
-<span class="co">## 2000-07-01 2332.9</span>
-<span class="co">## 2000-10-01 2381.5</span>
-<span class="co">## 2001-01-01 2382.6</span>
-<span class="co">## 2001-04-01 2405.0</span></code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">q10_quarterly_xts</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##             value</span></span>
+<span><span class="co">## 2000-01-01 2329.0</span></span>
+<span><span class="co">## 2000-04-01 2349.9</span></span>
+<span><span class="co">## 2000-07-01 2332.9</span></span>
+<span><span class="co">## 2000-10-01 2381.5</span></span>
+<span><span class="co">## 2001-01-01 2382.6</span></span>
+<span><span class="co">## 2001-04-01 2405.0</span></span></code></pre>
 <p>Use the <code>select</code> argument to specify which columns to drop. Use the <code>date_var</code> argument to specify which column to use as the date index. Notice the message and warning are no longer present.</p>
 <div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># End - Using `select` and `date_var` args</span>
-<span class="fu"><a href="../reference/tk_xts.html">tk_xts</a></span><span class="op">(</span><span class="va">q10_quarterly</span>, select <span class="op">=</span> <span class="op">-</span><span class="op">(</span><span class="va">id</span><span class="op">:</span><span class="va">date</span><span class="op">)</span>, date_var <span class="op">=</span> <span class="va">date</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-    <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">##             value</span>
-<span class="co">## 2000-01-01 2329.0</span>
-<span class="co">## 2000-04-01 2349.9</span>
-<span class="co">## 2000-07-01 2332.9</span>
-<span class="co">## 2000-10-01 2381.5</span>
-<span class="co">## 2001-01-01 2382.6</span>
-<span class="co">## 2001-04-01 2405.0</span></code></pre>
+<code class="sourceCode R"><span><span class="co"># End - Using `select` and `date_var` args</span></span>
+<span><span class="fu"><a href="../reference/tk_xts.html">tk_xts</a></span><span class="op">(</span><span class="va">q10_quarterly</span>, select <span class="op">=</span> <span class="op">-</span><span class="op">(</span><span class="va">id</span><span class="op">:</span><span class="va">date</span><span class="op">)</span>, date_var <span class="op">=</span> <span class="va">date</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##             value</span></span>
+<span><span class="co">## 2000-01-01 2329.0</span></span>
+<span><span class="co">## 2000-04-01 2349.9</span></span>
+<span><span class="co">## 2000-07-01 2332.9</span></span>
+<span><span class="co">## 2000-10-01 2381.5</span></span>
+<span><span class="co">## 2001-01-01 2382.6</span></span>
+<span><span class="co">## 2001-04-01 2405.0</span></span></code></pre>
 <p>Also, as an alternative, we can set <code>silent = TRUE</code> to bypass the warnings since the default dropping of the “date” column is what is desired. Notice no warnings or messages.</p>
 <div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># End - Using `silent` to silence warnings</span>
-<span class="fu"><a href="../reference/tk_xts.html">tk_xts</a></span><span class="op">(</span><span class="va">q10_quarterly</span>, silent <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-    <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">##             value</span>
-<span class="co">## 2000-01-01 2329.0</span>
-<span class="co">## 2000-04-01 2349.9</span>
-<span class="co">## 2000-07-01 2332.9</span>
-<span class="co">## 2000-10-01 2381.5</span>
-<span class="co">## 2001-01-01 2382.6</span>
-<span class="co">## 2001-04-01 2405.0</span></code></pre>
+<code class="sourceCode R"><span><span class="co"># End - Using `silent` to silence warnings</span></span>
+<span><span class="fu"><a href="../reference/tk_xts.html">tk_xts</a></span><span class="op">(</span><span class="va">q10_quarterly</span>, silent <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##             value</span></span>
+<span><span class="co">## 2000-01-01 2329.0</span></span>
+<span><span class="co">## 2000-04-01 2349.9</span></span>
+<span><span class="co">## 2000-07-01 2332.9</span></span>
+<span><span class="co">## 2000-10-01 2381.5</span></span>
+<span><span class="co">## 2001-01-01 2382.6</span></span>
+<span><span class="co">## 2001-04-01 2405.0</span></span></code></pre>
 </div>
 <div class="section level4">
 <h4 id="to-zoo">to zoo<a class="anchor" aria-label="anchor" href="#to-zoo"></a>
 </h4>
 <p>Use <code><a href="../reference/tk_zoo.html">tk_zoo()</a></code>. Same as when coercing to xts, the non-numeric “date” column is automatically dropped and the index is automatically selected as the date column.</p>
 <div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># End</span>
-<span class="va">q10_quarterly_zoo</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tk_zoo.html">tk_zoo</a></span><span class="op">(</span><span class="va">q10_quarterly</span>, silent <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> 
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">q10_quarterly_zoo</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">##             value</span>
-<span class="co">## 2000-01-01 2329.0</span>
-<span class="co">## 2000-04-01 2349.9</span>
-<span class="co">## 2000-07-01 2332.9</span>
-<span class="co">## 2000-10-01 2381.5</span>
-<span class="co">## 2001-01-01 2382.6</span>
-<span class="co">## 2001-04-01 2405.0</span></code></pre>
+<code class="sourceCode R"><span><span class="co"># End</span></span>
+<span><span class="va">q10_quarterly_zoo</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tk_zoo.html">tk_zoo</a></span><span class="op">(</span><span class="va">q10_quarterly</span>, silent <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> </span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">q10_quarterly_zoo</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##             value</span></span>
+<span><span class="co">## 2000-01-01 2329.0</span></span>
+<span><span class="co">## 2000-04-01 2349.9</span></span>
+<span><span class="co">## 2000-07-01 2332.9</span></span>
+<span><span class="co">## 2000-10-01 2381.5</span></span>
+<span><span class="co">## 2001-01-01 2382.6</span></span>
+<span><span class="co">## 2001-04-01 2405.0</span></span></code></pre>
 </div>
 <div class="section level4">
 <h4 id="to-zooreg">to zooreg<a class="anchor" aria-label="anchor" href="#to-zooreg"></a>
 </h4>
 <p>Use <code><a href="../reference/tk_zooreg.html">tk_zooreg()</a></code>. Same as when coercing to xts, the non-numeric “date” column is automatically dropped. The regularized index is built from the function arguments <code>start</code> and <code>freq</code>.</p>
 <div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># End</span>
-<span class="va">q10_quarterly_zooreg</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tk_zooreg.html">tk_zooreg</a></span><span class="op">(</span><span class="va">q10_quarterly</span>, start <span class="op">=</span> <span class="fl">2000</span>, freq <span class="op">=</span> <span class="fl">4</span>, silent <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> 
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">q10_quarterly_zooreg</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">##          value</span>
-<span class="co">## 2000 Q1 2329.0</span>
-<span class="co">## 2000 Q2 2349.9</span>
-<span class="co">## 2000 Q3 2332.9</span>
-<span class="co">## 2000 Q4 2381.5</span>
-<span class="co">## 2001 Q1 2382.6</span>
-<span class="co">## 2001 Q2 2405.0</span></code></pre>
+<code class="sourceCode R"><span><span class="co"># End</span></span>
+<span><span class="va">q10_quarterly_zooreg</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tk_zooreg.html">tk_zooreg</a></span><span class="op">(</span><span class="va">q10_quarterly</span>, start <span class="op">=</span> <span class="fl">2000</span>, freq <span class="op">=</span> <span class="fl">4</span>, silent <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> </span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">q10_quarterly_zooreg</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##          value</span></span>
+<span><span class="co">## 2000 Q1 2329.0</span></span>
+<span><span class="co">## 2000 Q2 2349.9</span></span>
+<span><span class="co">## 2000 Q3 2332.9</span></span>
+<span><span class="co">## 2000 Q4 2381.5</span></span>
+<span><span class="co">## 2001 Q1 2382.6</span></span>
+<span><span class="co">## 2001 Q2 2405.0</span></span></code></pre>
 <p>The original time-based index is retained and can be accessed using <code>tk_index(timetk_idx = TRUE)</code>.</p>
 <div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Retrieve original time-based index</span>
-<span class="fu"><a href="../reference/tk_index.html">tk_index</a></span><span class="op">(</span><span class="va">q10_quarterly_zooreg</span>, timetk_idx <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-    <span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">##  Date[1:59], format: "2000-01-01" "2000-04-01" "2000-07-01" "2000-10-01" "2001-01-01" ...</span></code></pre>
+<code class="sourceCode R"><span><span class="co"># Retrieve original time-based index</span></span>
+<span><span class="fu"><a href="../reference/tk_index.html">tk_index</a></span><span class="op">(</span><span class="va">q10_quarterly_zooreg</span>, timetk_idx <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##  Date[1:59], format: "2000-01-01" "2000-04-01" "2000-07-01" "2000-10-01" "2001-01-01" ...</span></span></code></pre>
 </div>
 <div class="section level4">
 <h4 id="to-ts">to ts<a class="anchor" aria-label="anchor" href="#to-ts"></a>
 </h4>
 <p>Use <code><a href="../reference/tk_ts.html">tk_ts()</a></code>. The non-numeric “date” column is automatically dropped. The regularized index is built from the function arguments.</p>
 <div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># End</span>
-<span class="va">q10_quarterly_ts</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tk_ts.html">tk_ts</a></span><span class="op">(</span><span class="va">q10_quarterly</span>, start <span class="op">=</span> <span class="fl">2000</span>, freq <span class="op">=</span> <span class="fl">4</span>, silent <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> 
-<span class="va">q10_quarterly_ts</span></code></pre></div>
-<pre><code><span class="co">##        Qtr1   Qtr2   Qtr3   Qtr4</span>
-<span class="co">## 2000 2329.0 2349.9 2332.9 2381.5</span>
-<span class="co">## 2001 2382.6 2405.0 2411.0 2428.5</span>
-<span class="co">## 2002 2391.6 2418.5 2406.5 2418.5</span>
-<span class="co">## 2003 2420.4 2438.6 2448.7 2470.6</span>
-<span class="co">## 2004 2484.5 2495.9 2492.5 2521.6</span>
-<span class="co">## 2005 2538.1 2549.7 2587.2 2585.0</span>
-<span class="co">## 2006 2602.6 2615.3 2654.0 2680.8</span>
-<span class="co">## 2007 2665.4 2645.1 2647.5 2719.2</span>
-<span class="co">## 2008 2677.0 2650.9 2667.8 2660.2</span>
-<span class="co">## 2009 2554.7 2522.7 2510.0 2541.7</span>
-<span class="co">## 2010 2499.1 2527.9 2519.0 2536.3</span>
-<span class="co">## 2011 2493.2 2542.1 2501.6 2516.3</span>
-<span class="co">## 2012 2510.5 2548.4 2548.6 2530.7</span>
-<span class="co">## 2013 2497.1 2520.4 2516.9 2505.5</span>
-<span class="co">## 2014 2513.9 2549.9 2555.3</span></code></pre>
+<code class="sourceCode R"><span><span class="co"># End</span></span>
+<span><span class="va">q10_quarterly_ts</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tk_ts.html">tk_ts</a></span><span class="op">(</span><span class="va">q10_quarterly</span>, start <span class="op">=</span> <span class="fl">2000</span>, freq <span class="op">=</span> <span class="fl">4</span>, silent <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> </span>
+<span><span class="va">q10_quarterly_ts</span></span></code></pre></div>
+<pre><code><span><span class="co">##        Qtr1   Qtr2   Qtr3   Qtr4</span></span>
+<span><span class="co">## 2000 2329.0 2349.9 2332.9 2381.5</span></span>
+<span><span class="co">## 2001 2382.6 2405.0 2411.0 2428.5</span></span>
+<span><span class="co">## 2002 2391.6 2418.5 2406.5 2418.5</span></span>
+<span><span class="co">## 2003 2420.4 2438.6 2448.7 2470.6</span></span>
+<span><span class="co">## 2004 2484.5 2495.9 2492.5 2521.6</span></span>
+<span><span class="co">## 2005 2538.1 2549.7 2587.2 2585.0</span></span>
+<span><span class="co">## 2006 2602.6 2615.3 2654.0 2680.8</span></span>
+<span><span class="co">## 2007 2665.4 2645.1 2647.5 2719.2</span></span>
+<span><span class="co">## 2008 2677.0 2650.9 2667.8 2660.2</span></span>
+<span><span class="co">## 2009 2554.7 2522.7 2510.0 2541.7</span></span>
+<span><span class="co">## 2010 2499.1 2527.9 2519.0 2536.3</span></span>
+<span><span class="co">## 2011 2493.2 2542.1 2501.6 2516.3</span></span>
+<span><span class="co">## 2012 2510.5 2548.4 2548.6 2530.7</span></span>
+<span><span class="co">## 2013 2497.1 2520.4 2516.9 2505.5</span></span>
+<span><span class="co">## 2014 2513.9 2549.9 2555.3</span></span></code></pre>
 <p>The original time-based index is retained and can be accessed using <code>tk_index(timetk_idx = TRUE)</code>.</p>
 <div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Retrieve original time-based index</span>
-<span class="fu"><a href="../reference/tk_index.html">tk_index</a></span><span class="op">(</span><span class="va">q10_quarterly_ts</span>, timetk_idx <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-    <span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">##  Date[1:59], format: "2000-01-01" "2000-04-01" "2000-07-01" "2000-10-01" "2001-01-01" ...</span></code></pre>
+<code class="sourceCode R"><span><span class="co"># Retrieve original time-based index</span></span>
+<span><span class="fu"><a href="../reference/tk_index.html">tk_index</a></span><span class="op">(</span><span class="va">q10_quarterly_ts</span>, timetk_idx <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##  Date[1:59], format: "2000-01-01" "2000-04-01" "2000-07-01" "2000-10-01" "2001-01-01" ...</span></span></code></pre>
 </div>
 </div>
 <div class="section level3">
@@ -498,174 +502,180 @@
 <h4 id="from-xts">From xts<a class="anchor" aria-label="anchor" href="#from-xts"></a>
 </h4>
 <div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Start</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">q10_quarterly_xts</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">##             value</span>
-<span class="co">## 2000-01-01 2329.0</span>
-<span class="co">## 2000-04-01 2349.9</span>
-<span class="co">## 2000-07-01 2332.9</span>
-<span class="co">## 2000-10-01 2381.5</span>
-<span class="co">## 2001-01-01 2382.6</span>
-<span class="co">## 2001-04-01 2405.0</span></code></pre>
+<code class="sourceCode R"><span><span class="co"># Start</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">q10_quarterly_xts</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##             value</span></span>
+<span><span class="co">## 2000-01-01 2329.0</span></span>
+<span><span class="co">## 2000-04-01 2349.9</span></span>
+<span><span class="co">## 2000-07-01 2332.9</span></span>
+<span><span class="co">## 2000-10-01 2381.5</span></span>
+<span><span class="co">## 2001-01-01 2382.6</span></span>
+<span><span class="co">## 2001-04-01 2405.0</span></span></code></pre>
 <p>Notice no loss of data going back to <code>tbl</code>.</p>
 <div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># End</span>
-<span class="fu"><a href="../reference/tk_tbl.html">tk_tbl</a></span><span class="op">(</span><span class="va">q10_quarterly_xts</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## <span style="color: #949494;"># A tibble: 59 × 2</span></span>
-<span class="co">##    index      value</span>
-<span class="co">##    <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="co">## <span style="color: #BCBCBC;"> 1</span> 2000-01-01 <span style="text-decoration: underline;">2</span>329 </span>
-<span class="co">## <span style="color: #BCBCBC;"> 2</span> 2000-04-01 <span style="text-decoration: underline;">2</span>350.</span>
-<span class="co">## <span style="color: #BCBCBC;"> 3</span> 2000-07-01 <span style="text-decoration: underline;">2</span>333.</span>
-<span class="co">## <span style="color: #BCBCBC;"> 4</span> 2000-10-01 <span style="text-decoration: underline;">2</span>382.</span>
-<span class="co">## <span style="color: #BCBCBC;"> 5</span> 2001-01-01 <span style="text-decoration: underline;">2</span>383.</span>
-<span class="co">## <span style="color: #BCBCBC;"> 6</span> 2001-04-01 <span style="text-decoration: underline;">2</span>405 </span>
-<span class="co">## <span style="color: #BCBCBC;"> 7</span> 2001-07-01 <span style="text-decoration: underline;">2</span>411 </span>
-<span class="co">## <span style="color: #BCBCBC;"> 8</span> 2001-10-01 <span style="text-decoration: underline;">2</span>428.</span>
-<span class="co">## <span style="color: #BCBCBC;"> 9</span> 2002-01-01 <span style="text-decoration: underline;">2</span>392.</span>
-<span class="co">## <span style="color: #BCBCBC;">10</span> 2002-04-01 <span style="text-decoration: underline;">2</span>418.</span>
-<span class="co">## <span style="color: #949494;"># … with 49 more rows</span></span></code></pre>
+<code class="sourceCode R"><span><span class="co"># End</span></span>
+<span><span class="fu"><a href="../reference/tk_tbl.html">tk_tbl</a></span><span class="op">(</span><span class="va">q10_quarterly_xts</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 59 × 2</span></span></span>
+<span><span class="co">##    index      value</span></span>
+<span><span class="co">##    <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 1</span> 2000-01-01 <span style="text-decoration: underline;">2</span>329 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 2</span> 2000-04-01 <span style="text-decoration: underline;">2</span>350.</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 3</span> 2000-07-01 <span style="text-decoration: underline;">2</span>333.</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 4</span> 2000-10-01 <span style="text-decoration: underline;">2</span>382.</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 5</span> 2001-01-01 <span style="text-decoration: underline;">2</span>383.</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 6</span> 2001-04-01 <span style="text-decoration: underline;">2</span>405 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 7</span> 2001-07-01 <span style="text-decoration: underline;">2</span>411 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 8</span> 2001-10-01 <span style="text-decoration: underline;">2</span>428.</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 9</span> 2002-01-01 <span style="text-decoration: underline;">2</span>392.</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">10</span> 2002-04-01 <span style="text-decoration: underline;">2</span>418.</span></span>
+<span><span class="co">## <span style="color: #949494;"># … with 49 more rows</span></span></span>
+<span><span class="co">## <span style="color: #949494;"># ℹ Use `print(n = ...)` to see more rows</span></span></span></code></pre>
 </div>
 <div class="section level4">
 <h4 id="from-zoo">From zoo<a class="anchor" aria-label="anchor" href="#from-zoo"></a>
 </h4>
 <div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Start</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">q10_quarterly_zoo</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">##             value</span>
-<span class="co">## 2000-01-01 2329.0</span>
-<span class="co">## 2000-04-01 2349.9</span>
-<span class="co">## 2000-07-01 2332.9</span>
-<span class="co">## 2000-10-01 2381.5</span>
-<span class="co">## 2001-01-01 2382.6</span>
-<span class="co">## 2001-04-01 2405.0</span></code></pre>
+<code class="sourceCode R"><span><span class="co"># Start</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">q10_quarterly_zoo</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##             value</span></span>
+<span><span class="co">## 2000-01-01 2329.0</span></span>
+<span><span class="co">## 2000-04-01 2349.9</span></span>
+<span><span class="co">## 2000-07-01 2332.9</span></span>
+<span><span class="co">## 2000-10-01 2381.5</span></span>
+<span><span class="co">## 2001-01-01 2382.6</span></span>
+<span><span class="co">## 2001-04-01 2405.0</span></span></code></pre>
 <p>Notice no loss of data going back to <code>tbl</code>.</p>
 <div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># End</span>
-<span class="fu"><a href="../reference/tk_tbl.html">tk_tbl</a></span><span class="op">(</span><span class="va">q10_quarterly_zoo</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## <span style="color: #949494;"># A tibble: 59 × 2</span></span>
-<span class="co">##    index      value</span>
-<span class="co">##    <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="co">## <span style="color: #BCBCBC;"> 1</span> 2000-01-01 <span style="text-decoration: underline;">2</span>329 </span>
-<span class="co">## <span style="color: #BCBCBC;"> 2</span> 2000-04-01 <span style="text-decoration: underline;">2</span>350.</span>
-<span class="co">## <span style="color: #BCBCBC;"> 3</span> 2000-07-01 <span style="text-decoration: underline;">2</span>333.</span>
-<span class="co">## <span style="color: #BCBCBC;"> 4</span> 2000-10-01 <span style="text-decoration: underline;">2</span>382.</span>
-<span class="co">## <span style="color: #BCBCBC;"> 5</span> 2001-01-01 <span style="text-decoration: underline;">2</span>383.</span>
-<span class="co">## <span style="color: #BCBCBC;"> 6</span> 2001-04-01 <span style="text-decoration: underline;">2</span>405 </span>
-<span class="co">## <span style="color: #BCBCBC;"> 7</span> 2001-07-01 <span style="text-decoration: underline;">2</span>411 </span>
-<span class="co">## <span style="color: #BCBCBC;"> 8</span> 2001-10-01 <span style="text-decoration: underline;">2</span>428.</span>
-<span class="co">## <span style="color: #BCBCBC;"> 9</span> 2002-01-01 <span style="text-decoration: underline;">2</span>392.</span>
-<span class="co">## <span style="color: #BCBCBC;">10</span> 2002-04-01 <span style="text-decoration: underline;">2</span>418.</span>
-<span class="co">## <span style="color: #949494;"># … with 49 more rows</span></span></code></pre>
+<code class="sourceCode R"><span><span class="co"># End</span></span>
+<span><span class="fu"><a href="../reference/tk_tbl.html">tk_tbl</a></span><span class="op">(</span><span class="va">q10_quarterly_zoo</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 59 × 2</span></span></span>
+<span><span class="co">##    index      value</span></span>
+<span><span class="co">##    <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 1</span> 2000-01-01 <span style="text-decoration: underline;">2</span>329 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 2</span> 2000-04-01 <span style="text-decoration: underline;">2</span>350.</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 3</span> 2000-07-01 <span style="text-decoration: underline;">2</span>333.</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 4</span> 2000-10-01 <span style="text-decoration: underline;">2</span>382.</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 5</span> 2001-01-01 <span style="text-decoration: underline;">2</span>383.</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 6</span> 2001-04-01 <span style="text-decoration: underline;">2</span>405 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 7</span> 2001-07-01 <span style="text-decoration: underline;">2</span>411 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 8</span> 2001-10-01 <span style="text-decoration: underline;">2</span>428.</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 9</span> 2002-01-01 <span style="text-decoration: underline;">2</span>392.</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">10</span> 2002-04-01 <span style="text-decoration: underline;">2</span>418.</span></span>
+<span><span class="co">## <span style="color: #949494;"># … with 49 more rows</span></span></span>
+<span><span class="co">## <span style="color: #949494;"># ℹ Use `print(n = ...)` to see more rows</span></span></span></code></pre>
 </div>
 <div class="section level4">
 <h4 id="from-zooreg">From zooreg<a class="anchor" aria-label="anchor" href="#from-zooreg"></a>
 </h4>
 <div class="sourceCode" id="cb57"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Start</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">q10_quarterly_zooreg</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">##          value</span>
-<span class="co">## 2000 Q1 2329.0</span>
-<span class="co">## 2000 Q2 2349.9</span>
-<span class="co">## 2000 Q3 2332.9</span>
-<span class="co">## 2000 Q4 2381.5</span>
-<span class="co">## 2001 Q1 2382.6</span>
-<span class="co">## 2001 Q2 2405.0</span></code></pre>
+<code class="sourceCode R"><span><span class="co"># Start</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">q10_quarterly_zooreg</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##          value</span></span>
+<span><span class="co">## 2000 Q1 2329.0</span></span>
+<span><span class="co">## 2000 Q2 2349.9</span></span>
+<span><span class="co">## 2000 Q3 2332.9</span></span>
+<span><span class="co">## 2000 Q4 2381.5</span></span>
+<span><span class="co">## 2001 Q1 2382.6</span></span>
+<span><span class="co">## 2001 Q2 2405.0</span></span></code></pre>
 <p>Notice that the index is a regularized numeric sequence by default.</p>
 <div class="sourceCode" id="cb59"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># End - with default regularized index</span>
-<span class="fu"><a href="../reference/tk_tbl.html">tk_tbl</a></span><span class="op">(</span><span class="va">q10_quarterly_zooreg</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## <span style="color: #949494;"># A tibble: 59 × 2</span></span>
-<span class="co">##    index     value</span>
-<span class="co">##    <span style="color: #949494; font-style: italic;">&lt;yearqtr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="co">## <span style="color: #BCBCBC;"> 1</span> 2000 Q1   <span style="text-decoration: underline;">2</span>329 </span>
-<span class="co">## <span style="color: #BCBCBC;"> 2</span> 2000 Q2   <span style="text-decoration: underline;">2</span>350.</span>
-<span class="co">## <span style="color: #BCBCBC;"> 3</span> 2000 Q3   <span style="text-decoration: underline;">2</span>333.</span>
-<span class="co">## <span style="color: #BCBCBC;"> 4</span> 2000 Q4   <span style="text-decoration: underline;">2</span>382.</span>
-<span class="co">## <span style="color: #BCBCBC;"> 5</span> 2001 Q1   <span style="text-decoration: underline;">2</span>383.</span>
-<span class="co">## <span style="color: #BCBCBC;"> 6</span> 2001 Q2   <span style="text-decoration: underline;">2</span>405 </span>
-<span class="co">## <span style="color: #BCBCBC;"> 7</span> 2001 Q3   <span style="text-decoration: underline;">2</span>411 </span>
-<span class="co">## <span style="color: #BCBCBC;"> 8</span> 2001 Q4   <span style="text-decoration: underline;">2</span>428.</span>
-<span class="co">## <span style="color: #BCBCBC;"> 9</span> 2002 Q1   <span style="text-decoration: underline;">2</span>392.</span>
-<span class="co">## <span style="color: #BCBCBC;">10</span> 2002 Q2   <span style="text-decoration: underline;">2</span>418.</span>
-<span class="co">## <span style="color: #949494;"># … with 49 more rows</span></span></code></pre>
+<code class="sourceCode R"><span><span class="co"># End - with default regularized index</span></span>
+<span><span class="fu"><a href="../reference/tk_tbl.html">tk_tbl</a></span><span class="op">(</span><span class="va">q10_quarterly_zooreg</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 59 × 2</span></span></span>
+<span><span class="co">##    index     value</span></span>
+<span><span class="co">##    <span style="color: #949494; font-style: italic;">&lt;yearqtr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 1</span> 2000 Q1   <span style="text-decoration: underline;">2</span>329 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 2</span> 2000 Q2   <span style="text-decoration: underline;">2</span>350.</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 3</span> 2000 Q3   <span style="text-decoration: underline;">2</span>333.</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 4</span> 2000 Q4   <span style="text-decoration: underline;">2</span>382.</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 5</span> 2001 Q1   <span style="text-decoration: underline;">2</span>383.</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 6</span> 2001 Q2   <span style="text-decoration: underline;">2</span>405 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 7</span> 2001 Q3   <span style="text-decoration: underline;">2</span>411 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 8</span> 2001 Q4   <span style="text-decoration: underline;">2</span>428.</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 9</span> 2002 Q1   <span style="text-decoration: underline;">2</span>392.</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">10</span> 2002 Q2   <span style="text-decoration: underline;">2</span>418.</span></span>
+<span><span class="co">## <span style="color: #949494;"># … with 49 more rows</span></span></span>
+<span><span class="co">## <span style="color: #949494;"># ℹ Use `print(n = ...)` to see more rows</span></span></span></code></pre>
 <p>With <code>timetk_idx = TRUE</code> the index is the original date sequence. The result is the original <code>tbl</code> that we started with!</p>
 <div class="sourceCode" id="cb61"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># End - with timetk index that is the same as original time-based index</span>
-<span class="fu"><a href="../reference/tk_tbl.html">tk_tbl</a></span><span class="op">(</span><span class="va">q10_quarterly_zooreg</span>, timetk_idx <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## <span style="color: #949494;"># A tibble: 59 × 2</span></span>
-<span class="co">##    index      value</span>
-<span class="co">##    <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="co">## <span style="color: #BCBCBC;"> 1</span> 2000-01-01 <span style="text-decoration: underline;">2</span>329 </span>
-<span class="co">## <span style="color: #BCBCBC;"> 2</span> 2000-04-01 <span style="text-decoration: underline;">2</span>350.</span>
-<span class="co">## <span style="color: #BCBCBC;"> 3</span> 2000-07-01 <span style="text-decoration: underline;">2</span>333.</span>
-<span class="co">## <span style="color: #BCBCBC;"> 4</span> 2000-10-01 <span style="text-decoration: underline;">2</span>382.</span>
-<span class="co">## <span style="color: #BCBCBC;"> 5</span> 2001-01-01 <span style="text-decoration: underline;">2</span>383.</span>
-<span class="co">## <span style="color: #BCBCBC;"> 6</span> 2001-04-01 <span style="text-decoration: underline;">2</span>405 </span>
-<span class="co">## <span style="color: #BCBCBC;"> 7</span> 2001-07-01 <span style="text-decoration: underline;">2</span>411 </span>
-<span class="co">## <span style="color: #BCBCBC;"> 8</span> 2001-10-01 <span style="text-decoration: underline;">2</span>428.</span>
-<span class="co">## <span style="color: #BCBCBC;"> 9</span> 2002-01-01 <span style="text-decoration: underline;">2</span>392.</span>
-<span class="co">## <span style="color: #BCBCBC;">10</span> 2002-04-01 <span style="text-decoration: underline;">2</span>418.</span>
-<span class="co">## <span style="color: #949494;"># … with 49 more rows</span></span></code></pre>
+<code class="sourceCode R"><span><span class="co"># End - with timetk index that is the same as original time-based index</span></span>
+<span><span class="fu"><a href="../reference/tk_tbl.html">tk_tbl</a></span><span class="op">(</span><span class="va">q10_quarterly_zooreg</span>, timetk_idx <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 59 × 2</span></span></span>
+<span><span class="co">##    index      value</span></span>
+<span><span class="co">##    <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 1</span> 2000-01-01 <span style="text-decoration: underline;">2</span>329 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 2</span> 2000-04-01 <span style="text-decoration: underline;">2</span>350.</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 3</span> 2000-07-01 <span style="text-decoration: underline;">2</span>333.</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 4</span> 2000-10-01 <span style="text-decoration: underline;">2</span>382.</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 5</span> 2001-01-01 <span style="text-decoration: underline;">2</span>383.</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 6</span> 2001-04-01 <span style="text-decoration: underline;">2</span>405 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 7</span> 2001-07-01 <span style="text-decoration: underline;">2</span>411 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 8</span> 2001-10-01 <span style="text-decoration: underline;">2</span>428.</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 9</span> 2002-01-01 <span style="text-decoration: underline;">2</span>392.</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">10</span> 2002-04-01 <span style="text-decoration: underline;">2</span>418.</span></span>
+<span><span class="co">## <span style="color: #949494;"># … with 49 more rows</span></span></span>
+<span><span class="co">## <span style="color: #949494;"># ℹ Use `print(n = ...)` to see more rows</span></span></span></code></pre>
 </div>
 <div class="section level4">
 <h4 id="from-ts">From ts<a class="anchor" aria-label="anchor" href="#from-ts"></a>
 </h4>
 <div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Start</span>
-<span class="va">q10_quarterly_ts</span></code></pre></div>
-<pre><code><span class="co">##        Qtr1   Qtr2   Qtr3   Qtr4</span>
-<span class="co">## 2000 2329.0 2349.9 2332.9 2381.5</span>
-<span class="co">## 2001 2382.6 2405.0 2411.0 2428.5</span>
-<span class="co">## 2002 2391.6 2418.5 2406.5 2418.5</span>
-<span class="co">## 2003 2420.4 2438.6 2448.7 2470.6</span>
-<span class="co">## 2004 2484.5 2495.9 2492.5 2521.6</span>
-<span class="co">## 2005 2538.1 2549.7 2587.2 2585.0</span>
-<span class="co">## 2006 2602.6 2615.3 2654.0 2680.8</span>
-<span class="co">## 2007 2665.4 2645.1 2647.5 2719.2</span>
-<span class="co">## 2008 2677.0 2650.9 2667.8 2660.2</span>
-<span class="co">## 2009 2554.7 2522.7 2510.0 2541.7</span>
-<span class="co">## 2010 2499.1 2527.9 2519.0 2536.3</span>
-<span class="co">## 2011 2493.2 2542.1 2501.6 2516.3</span>
-<span class="co">## 2012 2510.5 2548.4 2548.6 2530.7</span>
-<span class="co">## 2013 2497.1 2520.4 2516.9 2505.5</span>
-<span class="co">## 2014 2513.9 2549.9 2555.3</span></code></pre>
+<code class="sourceCode R"><span><span class="co"># Start</span></span>
+<span><span class="va">q10_quarterly_ts</span></span></code></pre></div>
+<pre><code><span><span class="co">##        Qtr1   Qtr2   Qtr3   Qtr4</span></span>
+<span><span class="co">## 2000 2329.0 2349.9 2332.9 2381.5</span></span>
+<span><span class="co">## 2001 2382.6 2405.0 2411.0 2428.5</span></span>
+<span><span class="co">## 2002 2391.6 2418.5 2406.5 2418.5</span></span>
+<span><span class="co">## 2003 2420.4 2438.6 2448.7 2470.6</span></span>
+<span><span class="co">## 2004 2484.5 2495.9 2492.5 2521.6</span></span>
+<span><span class="co">## 2005 2538.1 2549.7 2587.2 2585.0</span></span>
+<span><span class="co">## 2006 2602.6 2615.3 2654.0 2680.8</span></span>
+<span><span class="co">## 2007 2665.4 2645.1 2647.5 2719.2</span></span>
+<span><span class="co">## 2008 2677.0 2650.9 2667.8 2660.2</span></span>
+<span><span class="co">## 2009 2554.7 2522.7 2510.0 2541.7</span></span>
+<span><span class="co">## 2010 2499.1 2527.9 2519.0 2536.3</span></span>
+<span><span class="co">## 2011 2493.2 2542.1 2501.6 2516.3</span></span>
+<span><span class="co">## 2012 2510.5 2548.4 2548.6 2530.7</span></span>
+<span><span class="co">## 2013 2497.1 2520.4 2516.9 2505.5</span></span>
+<span><span class="co">## 2014 2513.9 2549.9 2555.3</span></span></code></pre>
 <p>Notice that the index is a regularized numeric sequence by default.</p>
 <div class="sourceCode" id="cb65"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># End - with default regularized index</span>
-<span class="fu"><a href="../reference/tk_tbl.html">tk_tbl</a></span><span class="op">(</span><span class="va">q10_quarterly_ts</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## <span style="color: #949494;"># A tibble: 59 × 2</span></span>
-<span class="co">##    index     value</span>
-<span class="co">##    <span style="color: #949494; font-style: italic;">&lt;yearqtr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="co">## <span style="color: #BCBCBC;"> 1</span> 2000 Q1   <span style="text-decoration: underline;">2</span>329 </span>
-<span class="co">## <span style="color: #BCBCBC;"> 2</span> 2000 Q2   <span style="text-decoration: underline;">2</span>350.</span>
-<span class="co">## <span style="color: #BCBCBC;"> 3</span> 2000 Q3   <span style="text-decoration: underline;">2</span>333.</span>
-<span class="co">## <span style="color: #BCBCBC;"> 4</span> 2000 Q4   <span style="text-decoration: underline;">2</span>382.</span>
-<span class="co">## <span style="color: #BCBCBC;"> 5</span> 2001 Q1   <span style="text-decoration: underline;">2</span>383.</span>
-<span class="co">## <span style="color: #BCBCBC;"> 6</span> 2001 Q2   <span style="text-decoration: underline;">2</span>405 </span>
-<span class="co">## <span style="color: #BCBCBC;"> 7</span> 2001 Q3   <span style="text-decoration: underline;">2</span>411 </span>
-<span class="co">## <span style="color: #BCBCBC;"> 8</span> 2001 Q4   <span style="text-decoration: underline;">2</span>428.</span>
-<span class="co">## <span style="color: #BCBCBC;"> 9</span> 2002 Q1   <span style="text-decoration: underline;">2</span>392.</span>
-<span class="co">## <span style="color: #BCBCBC;">10</span> 2002 Q2   <span style="text-decoration: underline;">2</span>418.</span>
-<span class="co">## <span style="color: #949494;"># … with 49 more rows</span></span></code></pre>
+<code class="sourceCode R"><span><span class="co"># End - with default regularized index</span></span>
+<span><span class="fu"><a href="../reference/tk_tbl.html">tk_tbl</a></span><span class="op">(</span><span class="va">q10_quarterly_ts</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 59 × 2</span></span></span>
+<span><span class="co">##    index     value</span></span>
+<span><span class="co">##    <span style="color: #949494; font-style: italic;">&lt;yearqtr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 1</span> 2000 Q1   <span style="text-decoration: underline;">2</span>329 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 2</span> 2000 Q2   <span style="text-decoration: underline;">2</span>350.</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 3</span> 2000 Q3   <span style="text-decoration: underline;">2</span>333.</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 4</span> 2000 Q4   <span style="text-decoration: underline;">2</span>382.</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 5</span> 2001 Q1   <span style="text-decoration: underline;">2</span>383.</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 6</span> 2001 Q2   <span style="text-decoration: underline;">2</span>405 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 7</span> 2001 Q3   <span style="text-decoration: underline;">2</span>411 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 8</span> 2001 Q4   <span style="text-decoration: underline;">2</span>428.</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 9</span> 2002 Q1   <span style="text-decoration: underline;">2</span>392.</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">10</span> 2002 Q2   <span style="text-decoration: underline;">2</span>418.</span></span>
+<span><span class="co">## <span style="color: #949494;"># … with 49 more rows</span></span></span>
+<span><span class="co">## <span style="color: #949494;"># ℹ Use `print(n = ...)` to see more rows</span></span></span></code></pre>
 <p>With <code>timetk_idx = TRUE</code> the index is the original date sequence. The result is the original <code>tbl</code> that we started with!</p>
 <div class="sourceCode" id="cb67"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># End - with timetk index </span>
-<span class="fu"><a href="../reference/tk_tbl.html">tk_tbl</a></span><span class="op">(</span><span class="va">q10_quarterly_ts</span>, timetk_idx <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## <span style="color: #949494;"># A tibble: 59 × 2</span></span>
-<span class="co">##    index      value</span>
-<span class="co">##    <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="co">## <span style="color: #BCBCBC;"> 1</span> 2000-01-01 <span style="text-decoration: underline;">2</span>329 </span>
-<span class="co">## <span style="color: #BCBCBC;"> 2</span> 2000-04-01 <span style="text-decoration: underline;">2</span>350.</span>
-<span class="co">## <span style="color: #BCBCBC;"> 3</span> 2000-07-01 <span style="text-decoration: underline;">2</span>333.</span>
-<span class="co">## <span style="color: #BCBCBC;"> 4</span> 2000-10-01 <span style="text-decoration: underline;">2</span>382.</span>
-<span class="co">## <span style="color: #BCBCBC;"> 5</span> 2001-01-01 <span style="text-decoration: underline;">2</span>383.</span>
-<span class="co">## <span style="color: #BCBCBC;"> 6</span> 2001-04-01 <span style="text-decoration: underline;">2</span>405 </span>
-<span class="co">## <span style="color: #BCBCBC;"> 7</span> 2001-07-01 <span style="text-decoration: underline;">2</span>411 </span>
-<span class="co">## <span style="color: #BCBCBC;"> 8</span> 2001-10-01 <span style="text-decoration: underline;">2</span>428.</span>
-<span class="co">## <span style="color: #BCBCBC;"> 9</span> 2002-01-01 <span style="text-decoration: underline;">2</span>392.</span>
-<span class="co">## <span style="color: #BCBCBC;">10</span> 2002-04-01 <span style="text-decoration: underline;">2</span>418.</span>
-<span class="co">## <span style="color: #949494;"># … with 49 more rows</span></span></code></pre>
+<code class="sourceCode R"><span><span class="co"># End - with timetk index </span></span>
+<span><span class="fu"><a href="../reference/tk_tbl.html">tk_tbl</a></span><span class="op">(</span><span class="va">q10_quarterly_ts</span>, timetk_idx <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 59 × 2</span></span></span>
+<span><span class="co">##    index      value</span></span>
+<span><span class="co">##    <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 1</span> 2000-01-01 <span style="text-decoration: underline;">2</span>329 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 2</span> 2000-04-01 <span style="text-decoration: underline;">2</span>350.</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 3</span> 2000-07-01 <span style="text-decoration: underline;">2</span>333.</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 4</span> 2000-10-01 <span style="text-decoration: underline;">2</span>382.</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 5</span> 2001-01-01 <span style="text-decoration: underline;">2</span>383.</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 6</span> 2001-04-01 <span style="text-decoration: underline;">2</span>405 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 7</span> 2001-07-01 <span style="text-decoration: underline;">2</span>411 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 8</span> 2001-10-01 <span style="text-decoration: underline;">2</span>428.</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 9</span> 2002-01-01 <span style="text-decoration: underline;">2</span>392.</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">10</span> 2002-04-01 <span style="text-decoration: underline;">2</span>418.</span></span>
+<span><span class="co">## <span style="color: #949494;"># … with 49 more rows</span></span></span>
+<span><span class="co">## <span style="color: #949494;"># ℹ Use `print(n = ...)` to see more rows</span></span></span></code></pre>
 </div>
 </div>
 </div>
@@ -678,64 +688,65 @@
 </h3>
 <p>The <code><a href="../reference/tk_ts.html">tk_ts()</a></code> function returns an object with the “timetk index” attribute.</p>
 <div class="sourceCode" id="cb69"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Data coerced with tk_ts() has timetk index</span>
-<span class="fu"><a href="../reference/tk_index.html">has_timetk_idx</a></span><span class="op">(</span><span class="va">q10_quarterly_ts</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## [1] TRUE</span></code></pre>
+<code class="sourceCode R"><span><span class="co"># Data coerced with tk_ts() has timetk index</span></span>
+<span><span class="fu"><a href="../reference/tk_index.html">has_timetk_idx</a></span><span class="op">(</span><span class="va">q10_quarterly_ts</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] TRUE</span></span></code></pre>
 <p>If we toggle <code>timetk_idx = TRUE</code> when retrieving the index with <code><a href="../reference/tk_index.html">tk_index()</a></code>, we get the index of dates rather than the regularized time series.</p>
 <div class="sourceCode" id="cb71"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/tk_index.html">tk_index</a></span><span class="op">(</span><span class="va">q10_quarterly_ts</span>, timetk_idx <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">##  [1] "2000-01-01" "2000-04-01" "2000-07-01" "2000-10-01" "2001-01-01"</span>
-<span class="co">##  [6] "2001-04-01" "2001-07-01" "2001-10-01" "2002-01-01" "2002-04-01"</span>
-<span class="co">## [11] "2002-07-01" "2002-10-01" "2003-01-01" "2003-04-01" "2003-07-01"</span>
-<span class="co">## [16] "2003-10-01" "2004-01-01" "2004-04-01" "2004-07-01" "2004-10-01"</span>
-<span class="co">## [21] "2005-01-01" "2005-04-01" "2005-07-01" "2005-10-01" "2006-01-01"</span>
-<span class="co">## [26] "2006-04-01" "2006-07-01" "2006-10-01" "2007-01-01" "2007-04-01"</span>
-<span class="co">## [31] "2007-07-01" "2007-10-01" "2008-01-01" "2008-04-01" "2008-07-01"</span>
-<span class="co">## [36] "2008-10-01" "2009-01-01" "2009-04-01" "2009-07-01" "2009-10-01"</span>
-<span class="co">## [41] "2010-01-01" "2010-04-01" "2010-07-01" "2010-10-01" "2011-01-01"</span>
-<span class="co">## [46] "2011-04-01" "2011-07-01" "2011-10-01" "2012-01-01" "2012-04-01"</span>
-<span class="co">## [51] "2012-07-01" "2012-10-01" "2013-01-01" "2013-04-01" "2013-07-01"</span>
-<span class="co">## [56] "2013-10-01" "2014-01-01" "2014-04-01" "2014-07-01"</span></code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/tk_index.html">tk_index</a></span><span class="op">(</span><span class="va">q10_quarterly_ts</span>, timetk_idx <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##  [1] "2000-01-01" "2000-04-01" "2000-07-01" "2000-10-01" "2001-01-01"</span></span>
+<span><span class="co">##  [6] "2001-04-01" "2001-07-01" "2001-10-01" "2002-01-01" "2002-04-01"</span></span>
+<span><span class="co">## [11] "2002-07-01" "2002-10-01" "2003-01-01" "2003-04-01" "2003-07-01"</span></span>
+<span><span class="co">## [16] "2003-10-01" "2004-01-01" "2004-04-01" "2004-07-01" "2004-10-01"</span></span>
+<span><span class="co">## [21] "2005-01-01" "2005-04-01" "2005-07-01" "2005-10-01" "2006-01-01"</span></span>
+<span><span class="co">## [26] "2006-04-01" "2006-07-01" "2006-10-01" "2007-01-01" "2007-04-01"</span></span>
+<span><span class="co">## [31] "2007-07-01" "2007-10-01" "2008-01-01" "2008-04-01" "2008-07-01"</span></span>
+<span><span class="co">## [36] "2008-10-01" "2009-01-01" "2009-04-01" "2009-07-01" "2009-10-01"</span></span>
+<span><span class="co">## [41] "2010-01-01" "2010-04-01" "2010-07-01" "2010-10-01" "2011-01-01"</span></span>
+<span><span class="co">## [46] "2011-04-01" "2011-07-01" "2011-10-01" "2012-01-01" "2012-04-01"</span></span>
+<span><span class="co">## [51] "2012-07-01" "2012-10-01" "2013-01-01" "2013-04-01" "2013-07-01"</span></span>
+<span><span class="co">## [56] "2013-10-01" "2014-01-01" "2014-04-01" "2014-07-01"</span></span></code></pre>
 <p>If we toggle <code>timetk_idx = TRUE</code> during conversion to <code>tbl</code> using <code><a href="../reference/tk_tbl.html">tk_tbl()</a></code>, we get the index of dates rather than the regularized index in the returned <code>tbl</code>.</p>
 <div class="sourceCode" id="cb73"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/tk_tbl.html">tk_tbl</a></span><span class="op">(</span><span class="va">q10_quarterly_ts</span>, timetk_idx <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## <span style="color: #949494;"># A tibble: 59 × 2</span></span>
-<span class="co">##    index      value</span>
-<span class="co">##    <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="co">## <span style="color: #BCBCBC;"> 1</span> 2000-01-01 <span style="text-decoration: underline;">2</span>329 </span>
-<span class="co">## <span style="color: #BCBCBC;"> 2</span> 2000-04-01 <span style="text-decoration: underline;">2</span>350.</span>
-<span class="co">## <span style="color: #BCBCBC;"> 3</span> 2000-07-01 <span style="text-decoration: underline;">2</span>333.</span>
-<span class="co">## <span style="color: #BCBCBC;"> 4</span> 2000-10-01 <span style="text-decoration: underline;">2</span>382.</span>
-<span class="co">## <span style="color: #BCBCBC;"> 5</span> 2001-01-01 <span style="text-decoration: underline;">2</span>383.</span>
-<span class="co">## <span style="color: #BCBCBC;"> 6</span> 2001-04-01 <span style="text-decoration: underline;">2</span>405 </span>
-<span class="co">## <span style="color: #BCBCBC;"> 7</span> 2001-07-01 <span style="text-decoration: underline;">2</span>411 </span>
-<span class="co">## <span style="color: #BCBCBC;"> 8</span> 2001-10-01 <span style="text-decoration: underline;">2</span>428.</span>
-<span class="co">## <span style="color: #BCBCBC;"> 9</span> 2002-01-01 <span style="text-decoration: underline;">2</span>392.</span>
-<span class="co">## <span style="color: #BCBCBC;">10</span> 2002-04-01 <span style="text-decoration: underline;">2</span>418.</span>
-<span class="co">## <span style="color: #949494;"># … with 49 more rows</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/tk_tbl.html">tk_tbl</a></span><span class="op">(</span><span class="va">q10_quarterly_ts</span>, timetk_idx <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 59 × 2</span></span></span>
+<span><span class="co">##    index      value</span></span>
+<span><span class="co">##    <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 1</span> 2000-01-01 <span style="text-decoration: underline;">2</span>329 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 2</span> 2000-04-01 <span style="text-decoration: underline;">2</span>350.</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 3</span> 2000-07-01 <span style="text-decoration: underline;">2</span>333.</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 4</span> 2000-10-01 <span style="text-decoration: underline;">2</span>382.</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 5</span> 2001-01-01 <span style="text-decoration: underline;">2</span>383.</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 6</span> 2001-04-01 <span style="text-decoration: underline;">2</span>405 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 7</span> 2001-07-01 <span style="text-decoration: underline;">2</span>411 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 8</span> 2001-10-01 <span style="text-decoration: underline;">2</span>428.</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 9</span> 2002-01-01 <span style="text-decoration: underline;">2</span>392.</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">10</span> 2002-04-01 <span style="text-decoration: underline;">2</span>418.</span></span>
+<span><span class="co">## <span style="color: #949494;"># … with 49 more rows</span></span></span>
+<span><span class="co">## <span style="color: #949494;"># ℹ Use `print(n = ...)` to see more rows</span></span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="testing-other-data-types">Testing other data types<a class="anchor" aria-label="anchor" href="#testing-other-data-types"></a>
 </h3>
 <p>The <code>timetk_idx</code> argument will only have an effect on objects that use regularized time series. Therefore, <code><a href="../reference/tk_index.html">has_timetk_idx()</a></code> returns <code>FALSE</code> for other object types (e.g. <code>tbl</code>, <code>xts</code>, <code>zoo</code>) since toggling the argument has no effect on these classes.</p>
 <div class="sourceCode" id="cb75"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/tk_index.html">has_timetk_idx</a></span><span class="op">(</span><span class="va">q10_quarterly_xts</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## [1] FALSE</span></code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/tk_index.html">has_timetk_idx</a></span><span class="op">(</span><span class="va">q10_quarterly_xts</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] FALSE</span></span></code></pre>
 <p>Toggling the <code>timetk_idx</code> argument has no effect on the output. Output with <code>timetk_idx = TRUE</code> is the same as with <code>timetk_idx = FALSE</code>.</p>
 <div class="sourceCode" id="cb77"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/tk_index.html">tk_index</a></span><span class="op">(</span><span class="va">q10_quarterly_xts</span>, timetk_idx <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">##  [1] "2000-01-01" "2000-04-01" "2000-07-01" "2000-10-01" "2001-01-01"</span>
-<span class="co">##  [6] "2001-04-01" "2001-07-01" "2001-10-01" "2002-01-01" "2002-04-01"</span>
-<span class="co">## [11] "2002-07-01" "2002-10-01" "2003-01-01" "2003-04-01" "2003-07-01"</span>
-<span class="co">## [16] "2003-10-01" "2004-01-01" "2004-04-01" "2004-07-01" "2004-10-01"</span>
-<span class="co">## [21] "2005-01-01" "2005-04-01" "2005-07-01" "2005-10-01" "2006-01-01"</span>
-<span class="co">## [26] "2006-04-01" "2006-07-01" "2006-10-01" "2007-01-01" "2007-04-01"</span>
-<span class="co">## [31] "2007-07-01" "2007-10-01" "2008-01-01" "2008-04-01" "2008-07-01"</span>
-<span class="co">## [36] "2008-10-01" "2009-01-01" "2009-04-01" "2009-07-01" "2009-10-01"</span>
-<span class="co">## [41] "2010-01-01" "2010-04-01" "2010-07-01" "2010-10-01" "2011-01-01"</span>
-<span class="co">## [46] "2011-04-01" "2011-07-01" "2011-10-01" "2012-01-01" "2012-04-01"</span>
-<span class="co">## [51] "2012-07-01" "2012-10-01" "2013-01-01" "2013-04-01" "2013-07-01"</span>
-<span class="co">## [56] "2013-10-01" "2014-01-01" "2014-04-01" "2014-07-01"</span></code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/tk_index.html">tk_index</a></span><span class="op">(</span><span class="va">q10_quarterly_xts</span>, timetk_idx <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##  [1] "2000-01-01" "2000-04-01" "2000-07-01" "2000-10-01" "2001-01-01"</span></span>
+<span><span class="co">##  [6] "2001-04-01" "2001-07-01" "2001-10-01" "2002-01-01" "2002-04-01"</span></span>
+<span><span class="co">## [11] "2002-07-01" "2002-10-01" "2003-01-01" "2003-04-01" "2003-07-01"</span></span>
+<span><span class="co">## [16] "2003-10-01" "2004-01-01" "2004-04-01" "2004-07-01" "2004-10-01"</span></span>
+<span><span class="co">## [21] "2005-01-01" "2005-04-01" "2005-07-01" "2005-10-01" "2006-01-01"</span></span>
+<span><span class="co">## [26] "2006-04-01" "2006-07-01" "2006-10-01" "2007-01-01" "2007-04-01"</span></span>
+<span><span class="co">## [31] "2007-07-01" "2007-10-01" "2008-01-01" "2008-04-01" "2008-07-01"</span></span>
+<span><span class="co">## [36] "2008-10-01" "2009-01-01" "2009-04-01" "2009-07-01" "2009-10-01"</span></span>
+<span><span class="co">## [41] "2010-01-01" "2010-04-01" "2010-07-01" "2010-10-01" "2011-01-01"</span></span>
+<span><span class="co">## [46] "2011-04-01" "2011-07-01" "2011-10-01" "2012-01-01" "2012-04-01"</span></span>
+<span><span class="co">## [51] "2012-07-01" "2012-10-01" "2013-01-01" "2013-04-01" "2013-07-01"</span></span>
+<span><span class="co">## [56] "2013-10-01" "2014-01-01" "2014-04-01" "2014-07-01"</span></span></code></pre>
 </div>
 </div>
 <div class="section level2">
@@ -743,65 +754,67 @@
 </h2>
 <p>The <code>zoo</code> package has the <code>yearmon</code> and <code>yearqtr</code> classes for working with regularized monthly and quarterly data, respectively. The “timetk index” tracks the format during conversion. Here’s and example with <code>yearqtr</code>.</p>
 <div class="sourceCode" id="cb79"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">yearqtr_tbl</span> <span class="op">&lt;-</span> <span class="va">q10_quarterly</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>date <span class="op">=</span> <span class="fu">zoo</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/zoo/man/yearqtr.html" class="external-link">as.yearqtr</a></span><span class="op">(</span><span class="va">date</span><span class="op">)</span><span class="op">)</span>
-<span class="va">yearqtr_tbl</span></code></pre></div>
-<pre><code><span class="co">## <span style="color: #949494;"># A tibble: 59 × 3</span></span>
-<span class="co">##    id    date      value</span>
-<span class="co">##    <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;yearqtr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="co">## <span style="color: #BCBCBC;"> 1</span> Q10   2000 Q1   <span style="text-decoration: underline;">2</span>329 </span>
-<span class="co">## <span style="color: #BCBCBC;"> 2</span> Q10   2000 Q2   <span style="text-decoration: underline;">2</span>350.</span>
-<span class="co">## <span style="color: #BCBCBC;"> 3</span> Q10   2000 Q3   <span style="text-decoration: underline;">2</span>333.</span>
-<span class="co">## <span style="color: #BCBCBC;"> 4</span> Q10   2000 Q4   <span style="text-decoration: underline;">2</span>382.</span>
-<span class="co">## <span style="color: #BCBCBC;"> 5</span> Q10   2001 Q1   <span style="text-decoration: underline;">2</span>383.</span>
-<span class="co">## <span style="color: #BCBCBC;"> 6</span> Q10   2001 Q2   <span style="text-decoration: underline;">2</span>405 </span>
-<span class="co">## <span style="color: #BCBCBC;"> 7</span> Q10   2001 Q3   <span style="text-decoration: underline;">2</span>411 </span>
-<span class="co">## <span style="color: #BCBCBC;"> 8</span> Q10   2001 Q4   <span style="text-decoration: underline;">2</span>428.</span>
-<span class="co">## <span style="color: #BCBCBC;"> 9</span> Q10   2002 Q1   <span style="text-decoration: underline;">2</span>392.</span>
-<span class="co">## <span style="color: #BCBCBC;">10</span> Q10   2002 Q2   <span style="text-decoration: underline;">2</span>418.</span>
-<span class="co">## <span style="color: #949494;"># … with 49 more rows</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">yearqtr_tbl</span> <span class="op">&lt;-</span> <span class="va">q10_quarterly</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>date <span class="op">=</span> <span class="fu">zoo</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/zoo/man/yearqtr.html" class="external-link">as.yearqtr</a></span><span class="op">(</span><span class="va">date</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">yearqtr_tbl</span></span></code></pre></div>
+<pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 59 × 3</span></span></span>
+<span><span class="co">##    id    date      value</span></span>
+<span><span class="co">##    <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;yearqtr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 1</span> Q10   2000 Q1   <span style="text-decoration: underline;">2</span>329 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 2</span> Q10   2000 Q2   <span style="text-decoration: underline;">2</span>350.</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 3</span> Q10   2000 Q3   <span style="text-decoration: underline;">2</span>333.</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 4</span> Q10   2000 Q4   <span style="text-decoration: underline;">2</span>382.</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 5</span> Q10   2001 Q1   <span style="text-decoration: underline;">2</span>383.</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 6</span> Q10   2001 Q2   <span style="text-decoration: underline;">2</span>405 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 7</span> Q10   2001 Q3   <span style="text-decoration: underline;">2</span>411 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 8</span> Q10   2001 Q4   <span style="text-decoration: underline;">2</span>428.</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 9</span> Q10   2002 Q1   <span style="text-decoration: underline;">2</span>392.</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">10</span> Q10   2002 Q2   <span style="text-decoration: underline;">2</span>418.</span></span>
+<span><span class="co">## <span style="color: #949494;"># … with 49 more rows</span></span></span>
+<span><span class="co">## <span style="color: #949494;"># ℹ Use `print(n = ...)` to see more rows</span></span></span></code></pre>
 <p>We can coerce to <code>xts</code> and the <code>yearqtr</code> class is intact.</p>
 <div class="sourceCode" id="cb81"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">yearqtr_xts</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tk_xts.html">tk_xts</a></span><span class="op">(</span><span class="va">yearqtr_tbl</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## Warning: Non-numeric columns being dropped: id, date</span></code></pre>
-<pre><code><span class="co">## Using column `date` for date_var.</span></code></pre>
+<code class="sourceCode R"><span><span class="va">yearqtr_xts</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tk_xts.html">tk_xts</a></span><span class="op">(</span><span class="va">yearqtr_tbl</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Warning: Non-numeric columns being dropped: id, date</span></span></code></pre>
+<pre><code><span><span class="co">## Using column `date` for date_var.</span></span></code></pre>
 <div class="sourceCode" id="cb84"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">yearqtr_xts</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">##          value</span>
-<span class="co">## 2000 Q1 2329.0</span>
-<span class="co">## 2000 Q2 2349.9</span>
-<span class="co">## 2000 Q3 2332.9</span>
-<span class="co">## 2000 Q4 2381.5</span>
-<span class="co">## 2001 Q1 2382.6</span>
-<span class="co">## 2001 Q2 2405.0</span></code></pre>
+<code class="sourceCode R"><span><span class="va">yearqtr_xts</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##          value</span></span>
+<span><span class="co">## 2000 Q1 2329.0</span></span>
+<span><span class="co">## 2000 Q2 2349.9</span></span>
+<span><span class="co">## 2000 Q3 2332.9</span></span>
+<span><span class="co">## 2000 Q4 2381.5</span></span>
+<span><span class="co">## 2001 Q1 2382.6</span></span>
+<span><span class="co">## 2001 Q2 2405.0</span></span></code></pre>
 <p>We can coerce to <code>ts</code> and, although the “timetk index” is hidden, the <code>yearqtr</code> class is intact.</p>
 <div class="sourceCode" id="cb86"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">yearqtr_ts</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tk_ts.html">tk_ts</a></span><span class="op">(</span><span class="va">yearqtr_xts</span>, start <span class="op">=</span> <span class="fl">1997</span>, freq <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
-<span class="va">yearqtr_ts</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">##       value</span>
-<span class="co">## [1,] 2329.0</span>
-<span class="co">## [2,] 2349.9</span>
-<span class="co">## [3,] 2332.9</span>
-<span class="co">## [4,] 2381.5</span>
-<span class="co">## [5,] 2382.6</span>
-<span class="co">## [6,] 2405.0</span></code></pre>
+<code class="sourceCode R"><span><span class="va">yearqtr_ts</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tk_ts.html">tk_ts</a></span><span class="op">(</span><span class="va">yearqtr_xts</span>, start <span class="op">=</span> <span class="fl">1997</span>, freq <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
+<span><span class="va">yearqtr_ts</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##       value</span></span>
+<span><span class="co">## [1,] 2329.0</span></span>
+<span><span class="co">## [2,] 2349.9</span></span>
+<span><span class="co">## [3,] 2332.9</span></span>
+<span><span class="co">## [4,] 2381.5</span></span>
+<span><span class="co">## [5,] 2382.6</span></span>
+<span><span class="co">## [6,] 2405.0</span></span></code></pre>
 <p>Coercing from <code>ts</code> to <code>tbl</code> using <code>timetk_idx = TRUE</code> shows that the original index was maintained through each of the conversion steps.</p>
 <div class="sourceCode" id="cb88"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">yearqtr_ts</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="../reference/tk_tbl.html">tk_tbl</a></span><span class="op">(</span>timetk_idx <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## <span style="color: #949494;"># A tibble: 59 × 2</span></span>
-<span class="co">##    index     value</span>
-<span class="co">##    <span style="color: #949494; font-style: italic;">&lt;yearqtr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="co">## <span style="color: #BCBCBC;"> 1</span> 2000 Q1   <span style="text-decoration: underline;">2</span>329 </span>
-<span class="co">## <span style="color: #BCBCBC;"> 2</span> 2000 Q2   <span style="text-decoration: underline;">2</span>350.</span>
-<span class="co">## <span style="color: #BCBCBC;"> 3</span> 2000 Q3   <span style="text-decoration: underline;">2</span>333.</span>
-<span class="co">## <span style="color: #BCBCBC;"> 4</span> 2000 Q4   <span style="text-decoration: underline;">2</span>382.</span>
-<span class="co">## <span style="color: #BCBCBC;"> 5</span> 2001 Q1   <span style="text-decoration: underline;">2</span>383.</span>
-<span class="co">## <span style="color: #BCBCBC;"> 6</span> 2001 Q2   <span style="text-decoration: underline;">2</span>405 </span>
-<span class="co">## <span style="color: #BCBCBC;"> 7</span> 2001 Q3   <span style="text-decoration: underline;">2</span>411 </span>
-<span class="co">## <span style="color: #BCBCBC;"> 8</span> 2001 Q4   <span style="text-decoration: underline;">2</span>428.</span>
-<span class="co">## <span style="color: #BCBCBC;"> 9</span> 2002 Q1   <span style="text-decoration: underline;">2</span>392.</span>
-<span class="co">## <span style="color: #BCBCBC;">10</span> 2002 Q2   <span style="text-decoration: underline;">2</span>418.</span>
-<span class="co">## <span style="color: #949494;"># … with 49 more rows</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">yearqtr_ts</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="../reference/tk_tbl.html">tk_tbl</a></span><span class="op">(</span>timetk_idx <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 59 × 2</span></span></span>
+<span><span class="co">##    index     value</span></span>
+<span><span class="co">##    <span style="color: #949494; font-style: italic;">&lt;yearqtr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 1</span> 2000 Q1   <span style="text-decoration: underline;">2</span>329 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 2</span> 2000 Q2   <span style="text-decoration: underline;">2</span>350.</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 3</span> 2000 Q3   <span style="text-decoration: underline;">2</span>333.</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 4</span> 2000 Q4   <span style="text-decoration: underline;">2</span>382.</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 5</span> 2001 Q1   <span style="text-decoration: underline;">2</span>383.</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 6</span> 2001 Q2   <span style="text-decoration: underline;">2</span>405 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 7</span> 2001 Q3   <span style="text-decoration: underline;">2</span>411 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 8</span> 2001 Q4   <span style="text-decoration: underline;">2</span>428.</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 9</span> 2002 Q1   <span style="text-decoration: underline;">2</span>392.</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">10</span> 2002 Q2   <span style="text-decoration: underline;">2</span>418.</span></span>
+<span><span class="co">## <span style="color: #949494;"># … with 49 more rows</span></span></span>
+<span><span class="co">## <span style="color: #949494;"># ℹ Use `print(n = ...)` to see more rows</span></span></span></code></pre>
 </div>
 <div class="section level2">
 <h2 id="learning-more">Learning More<a class="anchor" aria-label="anchor" href="#learning-more"></a>
@@ -843,7 +856,7 @@
 
 <div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
     </footer>
