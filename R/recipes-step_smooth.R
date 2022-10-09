@@ -222,8 +222,7 @@ prep.step_smooth <- function(x, training, info = NULL, ...) {
 
     col_names <- recipes::recipes_eval_select(x$terms, data = training, info = info)
 
-    if (any(info$type[info$variable %in% col_names] != "numeric"))
-        rlang::abort("The selected variables should be numeric")
+    check_type(training[, col_names])
 
     if (!is.null(x$names)) {
         if (length(x$names) != length(col_names))
