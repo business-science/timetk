@@ -191,8 +191,7 @@
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 2000-06-05 <span style="color: #949494;">03:30:00</span> <span style="text-decoration: underline;">21</span>860</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 2000-06-05 <span style="color: #949494;">04:00:00</span> <span style="text-decoration: underline;">21</span>751</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 2000-06-05 <span style="color: #949494;">04:30:00</span> <span style="text-decoration: underline;">21</span>336</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with 4,022 more rows</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># ℹ Use `print(n = ...)` to see more rows</span></span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #949494;"># … with 4,022 more rows</span></span></span></code></pre></div>
 <p>The <code><a href="../reference/plot_time_series.html">plot_time_series()</a></code> function generates an interactive <code>plotly</code> chart by default.</p>
 <ul>
 <li>Simply provide the date variable (time-based column, <code>.date_var</code>) and the numeric variable (<code>.value</code>) that changes over time as the first 2 arguments</li>
@@ -224,8 +223,7 @@
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> D10   2014-07-10 <span style="text-decoration: underline;">2</span>007.</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> D10   2014-07-11 <span style="text-decoration: underline;">2</span>010 </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> D10   2014-07-12 <span style="text-decoration: underline;">2</span>002.</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with 9,733 more rows</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># ℹ Use `print(n = ...)` to see more rows</span></span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #949494;"># … with 9,733 more rows</span></span></span></code></pre></div>
 <p>Visualizing grouped data is as simple as grouping the data set with <code><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by()</a></code> prior to piping into the <code><a href="../reference/plot_time_series.html">plot_time_series()</a></code> function. Key points:</p>
 <ul>
 <li>Groups can be added in 2 ways: by <code><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by()</a></code> or by using the <code>...</code> to add groups.</li>
@@ -268,8 +266,7 @@
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> H10   2015-07-01 <span style="color: #949494;">19:00:00</span>   446</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> H10   2015-07-01 <span style="color: #949494;">20:00:00</span>   434</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> H10   2015-07-01 <span style="color: #949494;">21:00:00</span>   422</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with 3,050 more rows</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># ℹ Use `print(n = ...)` to see more rows</span></span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #949494;"># … with 3,050 more rows</span></span></span></code></pre></div>
 <p>The intent is to showcase the groups in faceted plots, but to highlight weekly windows (sub-groups) within the data while simultaneously doing a <code><a href="https://rdrr.io/r/base/Log.html" class="external-link">log()</a></code> transformation to the value. This is simple to do:</p>
 <ol style="list-style-type: decimal">
 <li>

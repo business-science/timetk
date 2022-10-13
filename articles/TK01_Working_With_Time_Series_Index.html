@@ -145,7 +145,7 @@
       <img src="../logo.png" class="logo" alt=""><h1>Calendar Features</h1>
                         <h4 data-toc-skip class="author">Matt Dancho</h4>
             
-            <h4 data-toc-skip class="date">2022-08-18</h4>
+            <h4 data-toc-skip class="date">2022-10-13</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/business-science/timetk/blob/HEAD/vignettes/TK01_Working_With_Time_Series_Index.Rmd" class="external-link"><code>vignettes/TK01_Working_With_Time_Series_Index.Rmd</code></a></small>
       <div class="d-none name"><code>TK01_Working_With_Time_Series_Index.Rmd</code></div>
@@ -198,8 +198,7 @@
 <span><span class="co">## <span style="color: #BCBCBC;"> 8</span> FB     2013-01-11  31.3  32.0  31.1  31.7  89<span style="text-decoration: underline;">598</span>000     31.7</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;"> 9</span> FB     2013-01-14  32.1  32.2  30.6  31.0  98<span style="text-decoration: underline;">892</span>800     31.0</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">10</span> FB     2013-01-15  30.6  31.7  29.9  30.1 173<span style="text-decoration: underline;">242</span>600     30.1</span></span>
-<span><span class="co">## <span style="color: #949494;"># … with 998 more rows</span></span></span>
-<span><span class="co">## <span style="color: #949494;"># ℹ Use `print(n = ...)` to see more rows</span></span></span></code></pre>
+<span><span class="co">## <span style="color: #949494;"># … with 998 more rows</span></span></span></code></pre>
 <p>To simplify the tutorial, we will select only the “date” and “volume” columns. For the <code>FB_vol_date</code> data frame, we can see from the “date” column that the observations are <em>daily</em> beginning on the second day of 2013.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">FB_vol_date</span> <span class="op">&lt;-</span> <span class="va">FB_tbl</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">volume</span><span class="op">)</span></span>
@@ -217,8 +216,7 @@
 <span><span class="co">## <span style="color: #BCBCBC;"> 8</span> 2013-01-11  89<span style="text-decoration: underline;">598</span>000</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;"> 9</span> 2013-01-14  98<span style="text-decoration: underline;">892</span>800</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">10</span> 2013-01-15 173<span style="text-decoration: underline;">242</span>600</span></span>
-<span><span class="co">## <span style="color: #949494;"># … with 998 more rows</span></span></span>
-<span><span class="co">## <span style="color: #949494;"># ℹ Use `print(n = ...)` to see more rows</span></span></span></code></pre>
+<span><span class="co">## <span style="color: #949494;"># … with 998 more rows</span></span></span></code></pre>
 </div>
 <div class="section level2">
 <h2 id="time-series-index">Time Series Index<a class="anchor" aria-label="anchor" href="#time-series-index"></a>
@@ -328,8 +326,7 @@
 <span><span class="co">## <span style="color: #949494;">#   wday.lbl &lt;ord&gt;, mday &lt;int&gt;, qday &lt;int&gt;, yday &lt;int&gt;, mweek &lt;int&gt;,</span></span></span>
 <span><span class="co">## <span style="color: #949494;">#   week &lt;int&gt;, week.iso &lt;int&gt;, week2 &lt;int&gt;, week3 &lt;int&gt;, week4 &lt;int&gt;,</span></span></span>
 <span><span class="co">## <span style="color: #949494;">#   mday7 &lt;int&gt;, and abbreviated variable names ¹​year.iso, ²​month.xts,</span></span></span>
-<span><span class="co">## <span style="color: #949494;">#   ³​month.lbl</span></span></span>
-<span><span class="co">## <span style="color: #949494;"># ℹ Use `print(n = ...)` to see more rows, and `colnames()` to see all variable names</span></span></span></code></pre>
+<span><span class="co">## <span style="color: #949494;">#   ³​month.lbl</span></span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="augment-functions-adding-many-features-to-a-data-frame">Augment Functions (Adding Many Features to a Data Frame)<a class="anchor" aria-label="anchor" href="#augment-functions-adding-many-features-to-a-data-frame"></a>
@@ -357,8 +354,7 @@
 <span><span class="co">## <span style="color: #949494;">#   wday &lt;int&gt;, wday.xts &lt;int&gt;, wday.lbl &lt;ord&gt;, mday &lt;int&gt;, qday &lt;int&gt;,</span></span></span>
 <span><span class="co">## <span style="color: #949494;">#   yday &lt;int&gt;, mweek &lt;int&gt;, week &lt;int&gt;, week.iso &lt;int&gt;, week2 &lt;int&gt;,</span></span></span>
 <span><span class="co">## <span style="color: #949494;">#   week3 &lt;int&gt;, week4 &lt;int&gt;, mday7 &lt;int&gt;, and abbreviated variable names</span></span></span>
-<span><span class="co">## <span style="color: #949494;">#   ¹​index.num, ²​year.iso, ³​month.xts</span></span></span>
-<span><span class="co">## <span style="color: #949494;"># ℹ Use `print(n = ...)` to see more rows, and `colnames()` to see all variable names</span></span></span></code></pre>
+<span><span class="co">## <span style="color: #949494;">#   ¹​index.num, ²​year.iso, ³​month.xts</span></span></span></code></pre>
 <p>Modeling is now much easier. As an example, we can use linear regression model using the <code><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm()</a></code> function with the month and year as a predictor of volume.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Example Benefit 2: Modeling is easier</span></span>

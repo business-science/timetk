@@ -146,7 +146,7 @@
             <h3 data-toc-skip class="subtitle">Between ts, xts, zoo, and tbl</h3>
                         <h4 data-toc-skip class="author">Matt Dancho</h4>
             
-            <h4 data-toc-skip class="date">2022-08-18</h4>
+            <h4 data-toc-skip class="date">2022-10-13</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/business-science/timetk/blob/HEAD/vignettes/TK00_Time_Series_Coercion.Rmd" class="external-link"><code>vignettes/TK00_Time_Series_Coercion.Rmd</code></a></small>
       <div class="d-none name"><code>TK00_Time_Series_Coercion.Rmd</code></div>
@@ -194,8 +194,7 @@
 <span><span class="co">## <span style="color: #BCBCBC;"> 8</span> Q10   2001-10-01 <span style="text-decoration: underline;">2</span>428.</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;"> 9</span> Q10   2002-01-01 <span style="text-decoration: underline;">2</span>392.</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">10</span> Q10   2002-04-01 <span style="text-decoration: underline;">2</span>418.</span></span>
-<span><span class="co">## <span style="color: #949494;"># … with 49 more rows</span></span></span>
-<span><span class="co">## <span style="color: #949494;"># ℹ Use `print(n = ...)` to see more rows</span></span></span></code></pre>
+<span><span class="co">## <span style="color: #949494;"># … with 49 more rows</span></span></span></code></pre>
 </div>
 <div class="section level2">
 <h2 id="case-study-conversion-issues-with-ts">Case Study: Conversion issues with ts()<a class="anchor" aria-label="anchor" href="#case-study-conversion-issues-with-ts"></a>
@@ -324,8 +323,7 @@
 <span><span class="co">## <span style="color: #BCBCBC;"> 8</span> 2001 Q4   <span style="text-decoration: underline;">2</span>428.</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;"> 9</span> 2002 Q1   <span style="text-decoration: underline;">2</span>392.</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">10</span> 2002 Q2   <span style="text-decoration: underline;">2</span>418.</span></span>
-<span><span class="co">## <span style="color: #949494;"># … with 49 more rows</span></span></span>
-<span><span class="co">## <span style="color: #949494;"># ℹ Use `print(n = ...)` to see more rows</span></span></span></code></pre>
+<span><span class="co">## <span style="color: #949494;"># … with 49 more rows</span></span></span></code></pre>
 <p>We can now get the original date index using the <code><a href="../reference/tk_tbl.html">tk_tbl()</a></code> argument <code>timetk_idx = TRUE</code>.</p>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Conversion back to tibble now using the timetk index (date / date-time)</span></span>
@@ -346,8 +344,7 @@
 <span><span class="co">## <span style="color: #BCBCBC;"> 8</span> 2001-10-01 <span style="text-decoration: underline;">2</span>428.</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;"> 9</span> 2002-01-01 <span style="text-decoration: underline;">2</span>392.</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">10</span> 2002-04-01 <span style="text-decoration: underline;">2</span>418.</span></span>
-<span><span class="co">## <span style="color: #949494;"># … with 49 more rows</span></span></span>
-<span><span class="co">## <span style="color: #949494;"># ℹ Use `print(n = ...)` to see more rows</span></span></span></code></pre>
+<span><span class="co">## <span style="color: #949494;"># … with 49 more rows</span></span></span></code></pre>
 <p>We can see that in this case (and in most cases) you can get the same data frame you began with.</p>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Comparing the coerced tibble with the original tibble</span></span>
@@ -379,8 +376,7 @@
 <span><span class="co">## <span style="color: #BCBCBC;"> 8</span> Q10   2001-10-01 <span style="text-decoration: underline;">2</span>428.</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;"> 9</span> Q10   2002-01-01 <span style="text-decoration: underline;">2</span>392.</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">10</span> Q10   2002-04-01 <span style="text-decoration: underline;">2</span>418.</span></span>
-<span><span class="co">## <span style="color: #949494;"># … with 49 more rows</span></span></span>
-<span><span class="co">## <span style="color: #949494;"># ℹ Use `print(n = ...)` to see more rows</span></span></span></code></pre>
+<span><span class="co">## <span style="color: #949494;"># … with 49 more rows</span></span></span></code></pre>
 <div class="section level4">
 <h4 id="to-xts">to xts<a class="anchor" aria-label="anchor" href="#to-xts"></a>
 </h4>
@@ -528,8 +524,7 @@
 <span><span class="co">## <span style="color: #BCBCBC;"> 8</span> 2001-10-01 <span style="text-decoration: underline;">2</span>428.</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;"> 9</span> 2002-01-01 <span style="text-decoration: underline;">2</span>392.</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">10</span> 2002-04-01 <span style="text-decoration: underline;">2</span>418.</span></span>
-<span><span class="co">## <span style="color: #949494;"># … with 49 more rows</span></span></span>
-<span><span class="co">## <span style="color: #949494;"># ℹ Use `print(n = ...)` to see more rows</span></span></span></code></pre>
+<span><span class="co">## <span style="color: #949494;"># … with 49 more rows</span></span></span></code></pre>
 </div>
 <div class="section level4">
 <h4 id="from-zoo">From zoo<a class="anchor" aria-label="anchor" href="#from-zoo"></a>
@@ -561,8 +556,7 @@
 <span><span class="co">## <span style="color: #BCBCBC;"> 8</span> 2001-10-01 <span style="text-decoration: underline;">2</span>428.</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;"> 9</span> 2002-01-01 <span style="text-decoration: underline;">2</span>392.</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">10</span> 2002-04-01 <span style="text-decoration: underline;">2</span>418.</span></span>
-<span><span class="co">## <span style="color: #949494;"># … with 49 more rows</span></span></span>
-<span><span class="co">## <span style="color: #949494;"># ℹ Use `print(n = ...)` to see more rows</span></span></span></code></pre>
+<span><span class="co">## <span style="color: #949494;"># … with 49 more rows</span></span></span></code></pre>
 </div>
 <div class="section level4">
 <h4 id="from-zooreg">From zooreg<a class="anchor" aria-label="anchor" href="#from-zooreg"></a>
@@ -594,8 +588,7 @@
 <span><span class="co">## <span style="color: #BCBCBC;"> 8</span> 2001 Q4   <span style="text-decoration: underline;">2</span>428.</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;"> 9</span> 2002 Q1   <span style="text-decoration: underline;">2</span>392.</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">10</span> 2002 Q2   <span style="text-decoration: underline;">2</span>418.</span></span>
-<span><span class="co">## <span style="color: #949494;"># … with 49 more rows</span></span></span>
-<span><span class="co">## <span style="color: #949494;"># ℹ Use `print(n = ...)` to see more rows</span></span></span></code></pre>
+<span><span class="co">## <span style="color: #949494;"># … with 49 more rows</span></span></span></code></pre>
 <p>With <code>timetk_idx = TRUE</code> the index is the original date sequence. The result is the original <code>tbl</code> that we started with!</p>
 <div class="sourceCode" id="cb61"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># End - with timetk index that is the same as original time-based index</span></span>
@@ -613,8 +606,7 @@
 <span><span class="co">## <span style="color: #BCBCBC;"> 8</span> 2001-10-01 <span style="text-decoration: underline;">2</span>428.</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;"> 9</span> 2002-01-01 <span style="text-decoration: underline;">2</span>392.</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">10</span> 2002-04-01 <span style="text-decoration: underline;">2</span>418.</span></span>
-<span><span class="co">## <span style="color: #949494;"># … with 49 more rows</span></span></span>
-<span><span class="co">## <span style="color: #949494;"># ℹ Use `print(n = ...)` to see more rows</span></span></span></code></pre>
+<span><span class="co">## <span style="color: #949494;"># … with 49 more rows</span></span></span></code></pre>
 </div>
 <div class="section level4">
 <h4 id="from-ts">From ts<a class="anchor" aria-label="anchor" href="#from-ts"></a>
@@ -655,8 +647,7 @@
 <span><span class="co">## <span style="color: #BCBCBC;"> 8</span> 2001 Q4   <span style="text-decoration: underline;">2</span>428.</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;"> 9</span> 2002 Q1   <span style="text-decoration: underline;">2</span>392.</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">10</span> 2002 Q2   <span style="text-decoration: underline;">2</span>418.</span></span>
-<span><span class="co">## <span style="color: #949494;"># … with 49 more rows</span></span></span>
-<span><span class="co">## <span style="color: #949494;"># ℹ Use `print(n = ...)` to see more rows</span></span></span></code></pre>
+<span><span class="co">## <span style="color: #949494;"># … with 49 more rows</span></span></span></code></pre>
 <p>With <code>timetk_idx = TRUE</code> the index is the original date sequence. The result is the original <code>tbl</code> that we started with!</p>
 <div class="sourceCode" id="cb67"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># End - with timetk index </span></span>
@@ -674,8 +665,7 @@
 <span><span class="co">## <span style="color: #BCBCBC;"> 8</span> 2001-10-01 <span style="text-decoration: underline;">2</span>428.</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;"> 9</span> 2002-01-01 <span style="text-decoration: underline;">2</span>392.</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">10</span> 2002-04-01 <span style="text-decoration: underline;">2</span>418.</span></span>
-<span><span class="co">## <span style="color: #949494;"># … with 49 more rows</span></span></span>
-<span><span class="co">## <span style="color: #949494;"># ℹ Use `print(n = ...)` to see more rows</span></span></span></code></pre>
+<span><span class="co">## <span style="color: #949494;"># … with 49 more rows</span></span></span></code></pre>
 </div>
 </div>
 </div>
@@ -722,8 +712,7 @@
 <span><span class="co">## <span style="color: #BCBCBC;"> 8</span> 2001-10-01 <span style="text-decoration: underline;">2</span>428.</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;"> 9</span> 2002-01-01 <span style="text-decoration: underline;">2</span>392.</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">10</span> 2002-04-01 <span style="text-decoration: underline;">2</span>418.</span></span>
-<span><span class="co">## <span style="color: #949494;"># … with 49 more rows</span></span></span>
-<span><span class="co">## <span style="color: #949494;"># ℹ Use `print(n = ...)` to see more rows</span></span></span></code></pre>
+<span><span class="co">## <span style="color: #949494;"># … with 49 more rows</span></span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="testing-other-data-types">Testing other data types<a class="anchor" aria-label="anchor" href="#testing-other-data-types"></a>
@@ -770,8 +759,7 @@
 <span><span class="co">## <span style="color: #BCBCBC;"> 8</span> Q10   2001 Q4   <span style="text-decoration: underline;">2</span>428.</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;"> 9</span> Q10   2002 Q1   <span style="text-decoration: underline;">2</span>392.</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">10</span> Q10   2002 Q2   <span style="text-decoration: underline;">2</span>418.</span></span>
-<span><span class="co">## <span style="color: #949494;"># … with 49 more rows</span></span></span>
-<span><span class="co">## <span style="color: #949494;"># ℹ Use `print(n = ...)` to see more rows</span></span></span></code></pre>
+<span><span class="co">## <span style="color: #949494;"># … with 49 more rows</span></span></span></code></pre>
 <p>We can coerce to <code>xts</code> and the <code>yearqtr</code> class is intact.</p>
 <div class="sourceCode" id="cb81"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">yearqtr_xts</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tk_xts.html">tk_xts</a></span><span class="op">(</span><span class="va">yearqtr_tbl</span><span class="op">)</span></span></code></pre></div>
@@ -813,8 +801,7 @@
 <span><span class="co">## <span style="color: #BCBCBC;"> 8</span> 2001 Q4   <span style="text-decoration: underline;">2</span>428.</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;"> 9</span> 2002 Q1   <span style="text-decoration: underline;">2</span>392.</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">10</span> 2002 Q2   <span style="text-decoration: underline;">2</span>418.</span></span>
-<span><span class="co">## <span style="color: #949494;"># … with 49 more rows</span></span></span>
-<span><span class="co">## <span style="color: #949494;"># ℹ Use `print(n = ...)` to see more rows</span></span></span></code></pre>
+<span><span class="co">## <span style="color: #949494;"># … with 49 more rows</span></span></span></code></pre>
 </div>
 <div class="section level2">
 <h2 id="learning-more">Learning More<a class="anchor" aria-label="anchor" href="#learning-more"></a>
