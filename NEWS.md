@@ -1,8 +1,9 @@
-# timetk 2.8.1.9000
+# timetk 2.8.2
 
 __Fixes__
 
 - Fix error in `plot_time_series()` when `.group_names` is not found. #121
+- Merge variable checking update needed for `recipes >= 1.0.3` #132
 
 # timetk 2.8.1
 
