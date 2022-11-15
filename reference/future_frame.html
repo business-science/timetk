@@ -16,7 +16,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">timetk</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.8.1.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.8.2</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -213,13 +213,13 @@ excluded.</p></li>
 <p>Rowwise binding with the original is so common that
 I've added an argument <code>.bind_data</code> to perform a row-wise
 bind of the future data and the incoming data.</p>
-<p>This <em>replaces</em> the need to do:</p><div class="sourceCode"><pre><code><span><span class="va">df</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>   <span class="fu"><a href="../reference/future_frame.html">future_frame</a></span><span class="op">(</span>.length_out <span class="op">=</span> <span class="st">"6 months"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html" class="external-link">bind_rows</a></span><span class="op">(</span><span class="va">df</span>, <span class="va">.</span><span class="op">)</span></span></code></pre></div>
-
-<p>Now you can just do:</p><div class="sourceCode"><pre><code><span><span class="va">df</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>    <span class="fu"><a href="../reference/future_frame.html">future_frame</a></span><span class="op">(</span>.length_out <span class="op">=</span> <span class="st">"6 months"</span>, .bind_data <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-
+<p>This <em>replaces</em> the need to do:</p>
+<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1"></a>df <span class="op">%&gt;%</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="st">   </span><span class="kw">future_frame</span>(<span class="dt">.length_out =</span> <span class="st">"6 months"</span>) <span class="op">%&gt;%</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="st">   </span><span class="kw">bind_rows</span>(df, .)</span></code></pre><p></p></div>
+<p>Now you can just do:</p>
+<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1"></a>df <span class="op">%&gt;%</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="st">    </span><span class="kw">future_frame</span>(<span class="dt">.length_out =</span> <span class="st">"6 months"</span>, <span class="dt">.bind_data =</span> <span class="ot">TRUE</span>)</span></code></pre><p></p></div>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
