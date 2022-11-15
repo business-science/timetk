@@ -173,7 +173,7 @@ prep.step_ts_pad <- function(x, training, info = NULL, ...) {
         rlang::abort("Only one column permitted")
     }
 
-    if (any(date_data$type != "date")) {
+    if (any(!date_data$type %in% c("date", "datetime"))) {
         rlang::abort(
             paste0("All variables for `step_ts_pad` should be either `Date` or",
                    " `POSIXct` classes."

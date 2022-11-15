@@ -176,7 +176,7 @@ prep.step_holiday_signature <- function(x, training, info = NULL, ...) {
 
     date_data <- info[info$variable %in% col_names, ]
 
-    if (any(date_data$type != "date"))
+    if (any(!date_data$type %in% c("date", "datetime")))
         rlang::abort(
             paste0("All variables for `step_holiday_signature` should be either `Date` or",
                    "`POSIXct` classes."

@@ -198,7 +198,7 @@ prep.step_fourier <- function(x, training, info = NULL, ...) {
         rlang::abort("Only one column permitted")
     }
 
-    if (any(date_data$type != "date"))
+    if (any(!date_data$type %in% c("date", "datetime")))
         rlang::abort(
             paste0("All variables for `step_fourier` should be either `Date` or",
                    " `POSIXct` classes."
