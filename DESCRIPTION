@@ -66,6 +66,6 @@ Suggests:
     trelliscopejs,
     roxygen2,
     covr
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.1
 Roxygen: list(markdown = TRUE)
 VignetteBuilder: knitr

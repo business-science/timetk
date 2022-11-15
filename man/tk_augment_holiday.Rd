@@ -9,8 +9,7 @@ tk_augment_holiday_signature(
   .data,
   .date_var = NULL,
   .holiday_pattern = ".",
-  .locale_set = c("all", "none", "World", "US", "CA", "GB", "FR", "IT", "JP", "CH",
-    "DE"),
+  .locale_set = c("all", "none", "World", "US", "CA", "GB", "FR", "IT", "JP", "CH", "DE"),
   .exchange_set = c("all", "none", "NYSE", "LONDON", "NERC", "TSX", "ZURICH")
 )
 }

@@ -99,14 +99,18 @@ Rowwise binding with the original is so common that
 I've added an argument \code{.bind_data} to perform a row-wise
 bind of the future data and the incoming data.
 
-This \emph{replaces} the need to do:\preformatted{df \%>\%
+This \emph{replaces} the need to do:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{df \%>\%
    future_frame(.length_out = "6 months") \%>\%
    bind_rows(df, .)
-}
+}\if{html}{\out{</div>}}
 
-Now you can just do:\preformatted{df \%>\%
+Now you can just do:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{df \%>\%
     future_frame(.length_out = "6 months", .bind_data = TRUE)
-}
+}\if{html}{\out{</div>}}
 }
 \examples{
 library(tidyverse)
