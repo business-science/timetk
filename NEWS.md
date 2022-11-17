@@ -1,9 +1,14 @@
 # timetk 2.8.2
 
+__New Features__
+
+- `plot_time_series()`: Gets new arguments to specify `.x_intercept` and `.x_intercept_color`. #131
+
 __Fixes__
 
 - Fix error in `plot_time_series()` when `.group_names` is not found. #121
 - Merge variable checking update needed for `recipes >= 1.0.3` #132
+
 
 # timetk 2.8.1
 
