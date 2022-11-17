@@ -26,6 +26,8 @@
 #' @param .line_alpha Line alpha (opacity). Range: (0, 1).
 #' @param .y_intercept Value for a y-intercept on the plot
 #' @param .y_intercept_color Color for the y-intercept
+#' @param .x_intercept Value for a x-intercept on the plot
+#' @param .x_intercept_color Color for the x-intercept
 #' @param .smooth Logical - Whether or not to include a trendline smoother.
 #'  Uses See [smooth_vec()] to apply a LOESS smoother.
 #' @param .smooth_period Number of observations to include in the Loess Smoother.
@@ -169,6 +171,8 @@ plot_time_series <- function(
     .line_alpha = 1,
     .y_intercept = NULL,
     .y_intercept_color = "#2c3e50",
+    .x_intercept = NULL,
+    .x_intercept_color = "#2c3e50",
 
     .smooth = TRUE,
     .smooth_period = "auto",
@@ -233,6 +237,8 @@ plot_time_series.data.frame <- function(
     .line_alpha = 1,
     .y_intercept = NULL,
     .y_intercept_color = "#2c3e50",
+    .x_intercept = NULL,
+    .x_intercept_color = "#2c3e50",
 
     .smooth = TRUE,
     .smooth_period = "auto",
@@ -412,6 +418,12 @@ plot_time_series.data.frame <- function(
             ggplot2::geom_hline(yintercept = .y_intercept, color = .y_intercept_color)
     }
 
+    # Add a X-Intercept if desired
+    if (!is.null(.x_intercept)) {
+        g <- g +
+            ggplot2::geom_vline(xintercept = .x_intercept, color = .x_intercept_color)
+    }
+
     # Add theme & labs
     g <- g +
         theme_tq() +
@@ -501,6 +513,8 @@ plot_time_series.grouped_df <- function(
     .line_alpha = 1,
     .y_intercept = NULL,
     .y_intercept_color = "#2c3e50",
+    .x_intercept = NULL,
+    .x_intercept_color = "#2c3e50",
 
     .smooth = TRUE,
     .smooth_period = "auto",
@@ -564,6 +578,8 @@ plot_time_series.grouped_df <- function(
         .line_alpha            = .line_alpha,
         .y_intercept           = .y_intercept,
         .y_intercept_color     = .y_intercept_color,
+        .x_intercept           = .x_intercept,
+        .x_intercept_color     = .x_intercept_color,
 
         .smooth                = .smooth,
         .smooth_period         = .smooth_period,

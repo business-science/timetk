@@ -23,6 +23,8 @@ plot_time_series(
   .line_alpha = 1,
   .y_intercept = NULL,
   .y_intercept_color = "#2c3e50",
+  .x_intercept = NULL,
+  .x_intercept_color = "#2c3e50",
   .smooth = TRUE,
   .smooth_period = "auto",
   .smooth_message = FALSE,
@@ -82,6 +84,10 @@ multiple facet strips.}
 \item{.y_intercept}{Value for a y-intercept on the plot}
 
 \item{.y_intercept_color}{Color for the y-intercept}
+
+\item{.x_intercept}{Value for a x-intercept on the plot}
+
+\item{.x_intercept_color}{Color for the x-intercept}
 
 \item{.smooth}{Logical - Whether or not to include a trendline smoother.
 Uses See \code{\link[=smooth_vec]{smooth_vec()}} to apply a LOESS smoother.}
