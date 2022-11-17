@@ -143,7 +143,7 @@ FB_tbl \%>\%
 }
 \references{
 \itemize{
-\item \href{https://davisvaughan.github.io/slider/}{Slider R Package} by Davis Vaughan
+\item \href{https://slider.r-lib.org/}{Slider R Package} by Davis Vaughan
 }
 }
 \seealso{

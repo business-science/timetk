@@ -75,7 +75,7 @@
 #'
 #' @references
 #'
-#' - [Slider R Package](https://davisvaughan.github.io/slider/) by Davis Vaughan
+#' - [Slider R Package](https://slider.r-lib.org/) by Davis Vaughan
 #'
 #' @examples
 #' library(tidyverse)
