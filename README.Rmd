@@ -4,7 +4,7 @@ output: github_document
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-```{r, echo = FALSE, message = FALSE}
+```{r, echo = FALSE, message = FALSE, warning=FALSE}
 knitr::opts_chunk$set(
     message = F, 
     warning = F,
@@ -167,7 +167,7 @@ The `timetk` package wouldn't be possible without other amazing time series pack
     - `tk_make_timeseries()` - Extends `seq.Date()` and `seq.POSIXt()` using a simple phase like "2012-02" to populate the entire time series from start to finish in February 2012.
     - `filter_by_time()`, `between_time()` - Uses innovative endpoint detection from phrases like "2012"
     - `slidify()` is basically `rollify()` using `slider` (see below).
-* [slider](https://davisvaughan.github.io/slider/): A powerful R package that provides a `purrr`-syntax for complex rolling (sliding) calculations. 
+* [slider](https://slider.r-lib.org/): A powerful R package that provides a `purrr`-syntax for complex rolling (sliding) calculations. 
     - `slidify()` uses `slider::pslide` under the hood. 
     - `slidify_vec()` uses `slider::slide_vec()` for simple vectorized rolls (slides).
 * [padr](https://edwinth.github.io/padr/): Used for padding time series from low frequency to high frequency and filling in gaps. 
