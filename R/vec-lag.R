@@ -2,7 +2,7 @@
 #'
 #' `lag_vec()` applies a Lag Transformation.
 #'
-#' @param x A numeric vector to be lagged.
+#' @param x A vector to be lagged.
 #' @param lag Which lag (how far back) to be included in the differencing calculation.
 #'  Negative lags are leads.
 #'
@@ -63,7 +63,6 @@
 #' @export
 lag_vec <- function(x, lag = 1) {
     # Checks
-    if (!is.numeric(x)) rlang::abort("Non-numeric data detected. 'x' must be numeric.")
     if (length(lag) > 1) stop(call. = FALSE, "lag_vec(length(lag) > 1): Multiple lags detected. Use tk_augment_lags().")
 
     if(length(x) < lag) {
