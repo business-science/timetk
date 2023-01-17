@@ -147,7 +147,7 @@ step_log_interval_new <-
 prep.step_log_interval <- function(x, training, info = NULL, ...) {
 
     col_names <- recipes_eval_select(x$terms, data = training, info = info)
-    recipes::check_type(training[, col_names])
+    recipes::check_type(training[, col_names], types = c("double", "integer"))
 
     limit_lower_trained <- training[, col_names] %>%
         purrr::map(.f = function(vals) {

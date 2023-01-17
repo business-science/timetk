@@ -135,14 +135,7 @@ prep.step_timeseries_signature <- function(x, training, info = NULL, ...) {
 
     col_names <- recipes::recipes_eval_select(x$terms, data = training, info = info)
 
-    date_data <- info[info$variable %in% col_names, ]
-
-    if (any(!date_data$type %in% c("date", "datetime")))
-        rlang::abort(
-            paste0("All variables for `step_timeseries_signature` should be either `Date` or",
-                   "`POSIXct` classes."
-            )
-        )
+    recipes::check_type(training[, col_names], types = c("date", "datetime"))
 
     step_timeseries_signature_new(
         terms = x$terms,
