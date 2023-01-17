@@ -192,18 +192,11 @@ prep.step_fourier <- function(x, training, info = NULL, ...) {
 
     col_names <- recipes::recipes_eval_select(x$terms, data = training, info = info)
 
-    date_data <- info[info$variable %in% col_names, ]
-
     if (length(col_names) > 1) {
         rlang::abort("Only one column permitted")
     }
 
-    if (any(!date_data$type %in% c("date", "datetime")))
-        rlang::abort(
-            paste0("All variables for `step_fourier` should be either `Date` or",
-                   " `POSIXct` classes."
-            )
-        )
+    recipes::check_type(training[, col_names], types = c("date", "datetime"))
 
     scale_factor_calculated <- training[,col_names[1]] %>%
         tk_index() %>%
