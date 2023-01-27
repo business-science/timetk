@@ -144,8 +144,8 @@ tk_make_weekend_sequence <- function(start_date, end_date) {
         by         = "day")
 
     ret_tbl <- tibble::tibble(date_sequence = date_sequence) %>%
-        dplyr::mutate(weekday = lubridate::wday(date_sequence, label = TRUE)) %>%
-        dplyr::filter((weekday == "Sat" | weekday == "Sun"))
+        dplyr::mutate(weekday = lubridate::wday(date_sequence, week_start = 7)) %>%
+        dplyr::filter((weekday == 1 | weekday == 7))
 
     ret_tbl %>% dplyr::pull(date_sequence)
 }
