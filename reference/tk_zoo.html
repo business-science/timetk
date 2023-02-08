@@ -198,35 +198,35 @@ using <code><a href="https://rdrr.io/pkg/zoo/man/zoo.html" class="external-link"
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># zoo: Characters will cause error; order.by must be passed a vector of dates</span></span></span>
 <span class="r-in"><span><span class="fu">zoo</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/zoo/man/zoo.html" class="external-link">zoo</a></span><span class="op">(</span><span class="va">data_tbl</span><span class="op">[</span>,<span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span><span class="op">]</span>, order.by <span class="op">=</span> <span class="va">data_tbl</span><span class="op">$</span><span class="va">date</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>             y         z</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-01  1  4.438165</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-02  3  9.279801</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-03  6 14.524905</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-04 10 20.173479</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-05 15 26.225523</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             y        z</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-01  1 12.28619</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-02  3 25.68931</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-03  6 40.20936</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-04 10 55.84633</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-05 15 72.60023</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># tk_zoo: Character columns dropped with a warning; No need to specify dates (auto detected)</span></span></span>
 <span class="r-in"><span><span class="fu">tk_zoo</span><span class="op">(</span><span class="va">data_tbl</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Non-numeric columns being dropped: date, x</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Using column `date` for date_var.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>             y         z</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-01  1  4.438165</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-02  3  9.279801</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-03  6 14.524905</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-04 10 20.173479</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-05 15 26.225523</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             y        z</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-01  1 12.28619</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-02  3 25.68931</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-03  6 40.20936</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-04 10 55.84633</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-05 15 72.60023</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># ts can be coerced back to zoo</span></span></span>
 <span class="r-in"><span><span class="va">data_tbl</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
 <span class="r-in"><span>    <span class="fu"><a href="tk_ts.html">tk_ts</a></span><span class="op">(</span>start <span class="op">=</span> <span class="fl">2016</span>, freq <span class="op">=</span> <span class="fl">365</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
 <span class="r-in"><span>    <span class="fu">tk_zoo</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Non-numeric columns being dropped: date, x</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>             y         z</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-01  1  4.438165</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-02  3  9.279801</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-03  6 14.524905</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-04 10 20.173479</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-05 15 26.225523</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             y        z</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-01  1 12.28619</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-02  3 25.68931</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-03  6 40.20936</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-04 10 55.84633</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-05 15 72.60023</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">### Using select and date_var</span></span></span>
