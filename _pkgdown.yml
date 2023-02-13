@@ -10,7 +10,7 @@ template:
     #   google: JetBrains Mono
   params:
     bootswatch: flatly
-    ganalytics: UA-76139189-2
+    ganalytics: G-20GDZ5LL77
 navbar:
   title: timetk
   left:
