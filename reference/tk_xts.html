@@ -16,7 +16,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">timetk</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.8.2.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.8.3</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -196,23 +196,23 @@ using <code><a href="https://rdrr.io/pkg/xts/man/xts.html" class="external-link"
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># xts: Character columns cause coercion issues; order.by must be passed a vector of dates</span></span></span>
 <span class="r-in"><span><span class="fu">xts</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/xts/man/xts.html" class="external-link">xts</a></span><span class="op">(</span><span class="va">data_tbl</span><span class="op">[</span>,<span class="op">-</span><span class="fl">1</span><span class="op">]</span>, order.by <span class="op">=</span> <span class="va">data_tbl</span><span class="op">$</span><span class="va">date</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            x            y    z          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-01 "chr values" " 1" "-1.286219"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-02 "chr values" " 3" "-2.689368"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-03 "chr values" " 6" "-4.209445"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-04 "chr values" "10" "-5.846452"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-05 "chr values" "15" "-7.600388"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                     x  y         z</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-01 chr values  1  9.661054</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-02 chr values  3 20.200385</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-03 chr values  6 31.617994</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-04 chr values 10 43.913880</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-05 chr values 15 57.088044</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># tk_xts: Non-numeric columns automatically dropped; No need to specify date column</span></span></span>
 <span class="r-in"><span><span class="fu">tk_xts</span><span class="op">(</span><span class="va">data_tbl</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Non-numeric columns being dropped: date, x</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Using column `date` for date_var.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             y         z</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-01  1 -1.286219</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-02  3 -2.689368</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-03  6 -4.209445</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-04 10 -5.846452</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-05 15 -7.600388</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-01  1  9.661054</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-02  3 20.200385</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-03  6 31.617994</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-04 10 43.913880</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-05 15 57.088044</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># ts can be coerced back to xts</span></span></span>
 <span class="r-in"><span><span class="va">data_tbl</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
@@ -220,11 +220,11 @@ using <code><a href="https://rdrr.io/pkg/xts/man/xts.html" class="external-link"
 <span class="r-in"><span>    <span class="fu">tk_xts</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Non-numeric columns being dropped: date, x</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             y         z</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-01  1 -1.286219</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-02  3 -2.689368</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-03  6 -4.209445</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-04 10 -5.846452</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-05 15 -7.600388</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-01  1  9.661054</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-02  3 20.200385</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-03  6 31.617994</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-04 10 43.913880</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2016-01-05 15 57.088044</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">### Using select and date_var</span></span></span>
 <span class="r-in"><span><span class="fu">tk_xts</span><span class="op">(</span><span class="va">data_tbl</span>, select <span class="op">=</span> <span class="va">y</span>, date_var <span class="op">=</span> <span class="va">date</span><span class="op">)</span></span></span>
