@@ -235,11 +235,6 @@ tk_index.stl <- function(data, timetk_idx = FALSE, silent = FALSE) {
 }
 
 #' @export
-tk_index.robets <- function(data, timetk_idx = FALSE, silent = FALSE) {
-    tk_index(data$x, timetk_idx, silent)
-}
-
-#' @export
 tk_index.stlm <- function(data, timetk_idx = FALSE, silent = FALSE) {
     tk_index(data$x, timetk_idx, silent)
 }
@@ -340,11 +335,6 @@ has_timetk_idx.ets <- function(data) {
 #' @export
 has_timetk_idx.stl <- function(data) {
     has_timetk_idx(data$time.series)
-}
-
-#' @export
-has_timetk_idx.robets <- function(data) {
-    has_timetk_idx(data$x)
 }
 
 #' @export

@@ -126,21 +126,6 @@ test_that("tk_index(ets) test returns correct format.", {
 
 })
 
-fit_robets <- USAccDeaths %>%
-    robets::robets()
-
-test_that("tk_index(robets) test returns correct format.", {
-
-    # Test if object has timetk index
-    expect_false(has_timetk_idx(fit_robets))
-
-    # Return vector of numeric regularized dates
-    test_index_7 <- fit_robets %>%
-        tk_index(timetk_idx = FALSE)
-    expect_equal(class(test_index_7), "numeric")
-    expect_equal(length(test_index_7), 72)
-
-})
 
 test_that("tk_index(forecast) test returns correct format.", {
 

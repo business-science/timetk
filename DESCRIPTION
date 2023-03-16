@@ -56,7 +56,6 @@ Suggests:
     tidyverse,
     knitr,
     rmarkdown,
-    robets,
     broom,
     scales,
     testthat,
@@ -66,6 +65,6 @@ Suggests:
     trelliscopejs,
     roxygen2,
     covr
-RoxygenNote: 7.2.1
+RoxygenNote: 7.2.3
 Roxygen: list(markdown = TRUE)
 VignetteBuilder: knitr

@@ -10,7 +10,7 @@ lag_vec(x, lag = 1)
 lead_vec(x, lag = -1)
 }
 \arguments{
-\item{x}{A numeric vector to be lagged.}
+\item{x}{A vector to be lagged.}
 
 \item{lag}{Which lag (how far back) to be included in the differencing calculation.
 Negative lags are leads.}

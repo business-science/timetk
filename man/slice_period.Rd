@@ -16,7 +16,7 @@ Provide either positive values to keep, or negative values to drop.
 The values provided must be either all positive or all negative.
 Indices beyond the number of rows in the input are silently ignored.
 
-For \code{slice_helpers()}, these arguments are passed on to methods.}
+For \verb{slice_*()}, these arguments are passed on to methods.}
 
 \item{.date_var}{A column containing date or date-time values.
 If missing, attempts to auto-detect date column.}
