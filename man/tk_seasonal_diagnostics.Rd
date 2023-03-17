@@ -60,6 +60,7 @@ they may be meaningless for some of the groups.
 The \code{.value} parameter respects transformations (e.g. \code{.value = log(sales)}).
 }
 \examples{
+\dontrun{
 library(dplyr)
 library(timetk)
 
@@ -86,5 +87,7 @@ m4_weekly \%>\%
 m4_hourly \%>\%
     group_by(id) \%>\%
     tk_seasonal_diagnostics(date, value, .feature_set = c("hour", "week"))
+
+}
 
 }

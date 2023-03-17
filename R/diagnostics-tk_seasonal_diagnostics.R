@@ -46,6 +46,7 @@
 #' The `.value` parameter respects transformations (e.g. `.value = log(sales)`).
 #'
 #' @examples
+#' \dontrun{
 #' library(dplyr)
 #' library(timetk)
 #'
@@ -72,6 +73,8 @@
 #' m4_hourly %>%
 #'     group_by(id) %>%
 #'     tk_seasonal_diagnostics(date, value, .feature_set = c("hour", "week"))
+#'
+#' }
 #'
 #' @name tk_seasonal_diagnostics
 #' @export

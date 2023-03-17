@@ -113,6 +113,7 @@ Now you can just do:
 }\if{html}{\out{</div>}}
 }
 \examples{
+\dontrun{
 library(tidyverse)
 library(tidyquant)
 library(timetk)
@@ -152,7 +153,7 @@ FANG \%>\%
         .length_out       = "1 year",
         .skip_values      = c(holidays, weekends)
     )
-
+}
 
 }
 \seealso{

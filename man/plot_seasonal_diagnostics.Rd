@@ -92,6 +92,7 @@ they may be meaningless for some of the groups.
 The \code{.value} parameter respects transformations (e.g. \code{.value = log(sales)}).
 }
 \examples{
+dontrun{
 library(dplyr)
 library(timetk)
 
@@ -121,6 +122,6 @@ m4_hourly \%>\%
     group_by(id) \%>\%
     plot_seasonal_diagnostics(date, value, .interactive = FALSE)
 
-
+}
 
 }

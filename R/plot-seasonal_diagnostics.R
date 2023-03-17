@@ -58,6 +58,7 @@
 #' The `.value` parameter respects transformations (e.g. `.value = log(sales)`).
 #'
 #' @examples
+#' dontrun{
 #' library(dplyr)
 #' library(timetk)
 #'
@@ -87,7 +88,7 @@
 #'     group_by(id) %>%
 #'     plot_seasonal_diagnostics(date, value, .interactive = FALSE)
 #'
-#'
+#' }
 #'
 #' @name plot_seasonal_diagnostics
 #' @export
