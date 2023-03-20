@@ -42,6 +42,7 @@
 #'
 #' @examples
 #' library(dplyr)
+#' library(stringr)
 #' library(tidyquant)
 #' library(timetk)
 #'
