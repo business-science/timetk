@@ -117,7 +117,7 @@ This returns 8 Fouriers series:
 }
 \examples{
 library(recipes)
-library(tidyverse)
+library(dplyr)
 library(tidyquant)
 library(timetk)
 

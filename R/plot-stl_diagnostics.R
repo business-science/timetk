@@ -52,7 +52,7 @@
 #' based on the scale of the time series.
 #'
 #' @examples
-#' library(tidyverse)
+#' library(dplyr)
 #' library(timetk)
 #'
 #' # ---- SINGLE TIME SERIES DECOMPOSITION ----

@@ -48,7 +48,7 @@ time series \code{.periods}. See \code{\link[=slidify_vec]{slidify_vec()}} for e
 arguments.
 }
 \examples{
-library(tidyverse)
+library(dplyr)
 library(tidyquant)
 library(timetk)
 

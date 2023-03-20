@@ -36,7 +36,8 @@ In this short tutorial, we will cover the `plot_anomaly_diagnostics()` and `tk_a
 
 
 ```{r}
-library(tidyverse)
+library(dplyr)
+library(purrr)
 library(timetk)
 ```
 

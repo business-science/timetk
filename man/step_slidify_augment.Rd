@@ -120,7 +120,7 @@ is \code{\link[=step_smooth]{step_smooth()}}, which implements local polynomial 
 }
 \examples{
 library(tidymodels)
-library(tidyverse)
+library(dplyr)
 library(timetk)
 
 m750 <- m4_monthly \%>\%

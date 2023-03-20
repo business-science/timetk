@@ -114,7 +114,7 @@ Now you can just do:
 }
 \examples{
 \dontrun{
-library(tidyverse)
+library(dplyr)
 library(tidyquant)
 library(timetk)
 

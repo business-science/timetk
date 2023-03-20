@@ -36,7 +36,7 @@ This tutorial focuses on 3 functions for visualizing time series diagnostics:
 Run the following code to set up for this tutorial.
 
 ```{r setup}
-library(tidyverse)
+library(dplyr)
 library(timetk)
 
 # Setup for the plotly charts (# FALSE returns ggplots)

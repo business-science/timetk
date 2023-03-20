@@ -1,6 +1,8 @@
 library(testthat)
 library(timetk)
-library(tidyverse)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
 library(tidyquant)
 
 # Forecast objects

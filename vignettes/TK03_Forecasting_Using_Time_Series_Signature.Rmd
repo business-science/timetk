@@ -42,7 +42,7 @@ Before we get started, load the following packages.
 ```{r, message = FALSE}
 library(tidymodels)
 library(modeltime)
-library(tidyverse)
+library(dplyr)
 library(timetk)
 
 # Used to convert plots from interactive to static

@@ -103,7 +103,7 @@
 #'
 #'
 #' @examples
-#' library(tidyverse)
+#' library(dplyr)
 #' library(timetk)
 #'
 #' walmart_sales_weekly %>%

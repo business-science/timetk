@@ -98,7 +98,8 @@
 #'
 #' @examples
 #' library(recipes)
-#' library(tidyverse)
+#' library(dplyr)
+#' library(ggplot2)
 #' library(tidyquant)
 #' library(timetk)
 #'

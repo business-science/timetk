@@ -60,7 +60,8 @@
 #' 2. Box, G. E. P. and Cox, D. R. (1964) An analysis of transformations. _JRSS_ B __26__ 211–246.
 #'
 #' @examples
-#' library(tidyverse)
+#' library(dplyr)
+#' library(tidyr)
 #' library(tidyquant)
 #' library(recipes)
 #' library(timetk)

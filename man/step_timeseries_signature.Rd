@@ -77,7 +77,7 @@ be removed using \code{\link[recipes:step_rm]{recipes::step_rm()}}.
 }
 \examples{
 library(recipes)
-library(tidyverse)
+library(dplyr)
 library(tidyquant)
 library(timetk)
 

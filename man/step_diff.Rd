@@ -71,7 +71,8 @@ The step assumes that the data are already \emph{in the proper sequential
 order} for lagging.
 }
 \examples{
-library(tidyverse)
+library(dplyr)
+library(tidyr)
 library(tidyquant)
 library(recipes)
 library(timetk)

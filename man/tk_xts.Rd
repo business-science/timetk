@@ -55,7 +55,8 @@ using \code{xts::xts()}.
 \code{tk_xts_} is a nonstandard evaluation method.
 }
 \examples{
-library(tidyverse)
+library(tibble)
+library(dplyr)
 library(timetk)
 
 ### tibble to xts: Comparison between tk_xts() and xts::xts()

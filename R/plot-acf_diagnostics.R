@@ -83,7 +83,8 @@
 #' - __Visualizing Time Series:__ [plot_time_series()]
 #'
 #' @examples
-#' library(tidyverse)
+#' library(dplyr)
+#' library(ggplot2)
 #' library(timetk)
 #'
 #'

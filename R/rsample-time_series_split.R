@@ -63,7 +63,7 @@
 #'   time series resample specifications.
 #'
 #' @examples
-#' library(tidyverse)
+#' library(dplyr)
 #' library(timetk)
 #'
 #' # DATA ----

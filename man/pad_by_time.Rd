@@ -69,7 +69,8 @@ A pad value can be supplied that fills in missing numeric data. Note that this i
 Uses \code{tidyr::fill()} to fill missing observations using a fill strategy.
 }
 \examples{
-library(tidyverse)
+library(tibble)
+library(dplyr)
 library(tidyquant)
 library(timetk)
 

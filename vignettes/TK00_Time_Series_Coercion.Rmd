@@ -46,7 +46,7 @@ This vignette includes a brief case study on conversion issues and then a detail
 Before we get started, load the following packages.
 
 ```{r, message=FALSE, warning = FALSE}
-library(tidyverse)
+library(dplyr)
 library(timetk)
 ```
 

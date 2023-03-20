@@ -57,7 +57,8 @@ using \code{zoo::zoo()}.
 \code{tk_zoo_} is a nonstandard evaluation method.
 }
 \examples{
-library(tidyverse)
+library(tibble)
+library(dplyr)
 library(timetk)
 
 ### tibble to zoo: Comparison between tk_zoo() and zoo::zoo()

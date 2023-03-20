@@ -206,7 +206,7 @@ Time-based windows return the median number of observations in a window using \c
 }
 \examples{
 
-library(tidyverse)
+library(dplyr)
 library(tidyquant)
 library(lubridate)
 library(timetk)

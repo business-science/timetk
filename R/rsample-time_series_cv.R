@@ -97,7 +97,7 @@
 #'   split containing a training/testing sample.
 #'
 #' @examples
-#' library(tidyverse)
+#' library(dplyr)
 #' library(timetk)
 #'
 #' # DATA ----

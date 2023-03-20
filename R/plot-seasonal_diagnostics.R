@@ -58,7 +58,7 @@
 #' The `.value` parameter respects transformations (e.g. `.value = log(sales)`).
 #'
 #' @examples
-#' dontrun{
+#' \dontrun{
 #' library(dplyr)
 #' library(timetk)
 #'

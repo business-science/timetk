@@ -135,7 +135,8 @@ time series. For a white noise time series, 95\% of the data points should fall
 within this range. Those that don't may be significant autocorrelations.
 }
 \examples{
-library(tidyverse)
+library(dplyr)
+library(ggplot2)
 library(timetk)
 
 

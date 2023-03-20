@@ -66,7 +66,7 @@
 #'
 #' @examples
 #' library(tidymodels)
-#' library(tidyverse)
+#' library(dplyr)
 #' library(timetk)
 #'
 #' m750 <- m4_monthly %>%

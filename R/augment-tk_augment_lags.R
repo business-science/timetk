@@ -45,7 +45,7 @@
 #' - [lag_vec()] - Underlying function that powers `tk_augment_lags()`
 #'
 #' @examples
-#' library(tidyverse)
+#' library(dplyr)
 #' library(timetk)
 #'
 #' # Lags

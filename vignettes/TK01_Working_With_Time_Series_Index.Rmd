@@ -49,7 +49,7 @@ In this vignette the user will be exposed to:
 Before we get started, load the following packages.
 
 ```{r, message = F, warning=FALSE}
-library(tidyverse)
+library(dplyr)
 library(tidyquant) # Used for FANG dataset
 library(timetk)
 ```

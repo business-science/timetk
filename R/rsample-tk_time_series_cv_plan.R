@@ -21,7 +21,7 @@
 #'   time series resample plan.
 #'
 #' @examples
-#' library(tidyverse)
+#' library(dplyr)
 #' library(tidyquant)
 #' library(rsample)
 #' library(timetk)

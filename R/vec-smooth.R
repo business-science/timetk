@@ -58,7 +58,8 @@
 #'   - Missing Value Imputation for Time Series: [ts_impute_vec()]
 #'
 #' @examples
-#' library(tidyverse)
+#' library(dplyr)
+#' library(ggplot2)
 #' library(tidyquant)
 #' library(timetk)
 #'

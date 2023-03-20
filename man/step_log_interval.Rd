@@ -84,7 +84,8 @@ If data includes values of zero, use \code{offset} to adjust the series to make 
 Refer to the \code{\link[=log_interval_vec]{log_interval_vec()}} function for the transformation implementation details.
 }
 \examples{
-library(tidyverse)
+library(dplyr)
+library(tidyr)
 library(tidyquant)
 library(recipes)
 library(timetk)

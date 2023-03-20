@@ -36,7 +36,7 @@ the \code{.periods} argument (e.g. \code{lags = 1:20})
 }
 }
 \examples{
-library(tidyverse)
+library(dplyr)
 library(timetk)
 
 m4_monthly \%>\%

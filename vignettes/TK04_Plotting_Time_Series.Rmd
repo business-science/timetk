@@ -43,7 +43,8 @@ This tutorial focuses on, `plot_time_series()`, a workhorse time-series plotting
 Run the following code to setup for this tutorial. 
 
 ```{r setup}
-library(tidyverse)
+library(dplyr)
+library(ggplot2)
 library(lubridate)
 library(timetk)
 

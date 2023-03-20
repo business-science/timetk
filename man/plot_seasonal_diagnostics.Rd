@@ -92,7 +92,7 @@ they may be meaningless for some of the groups.
 The \code{.value} parameter respects transformations (e.g. \code{.value = log(sales)}).
 }
 \examples{
-dontrun{
+\dontrun{
 library(dplyr)
 library(timetk)
 

@@ -40,7 +40,7 @@
 #' - [`fourier_vec()`] - Underlying function that powers `tk_augment_fourier()`
 #'
 #' @examples
-#' library(tidyverse)
+#' library(dplyr)
 #' library(timetk)
 #'
 #' m4_monthly %>%

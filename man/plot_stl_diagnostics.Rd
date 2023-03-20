@@ -102,7 +102,7 @@ and \code{.trend} as time-based durations (e.g. "6 weeks") or numeric values
 based on the scale of the time series.
 }
 \examples{
-library(tidyverse)
+library(dplyr)
 library(timetk)
 
 # ---- SINGLE TIME SERIES DECOMPOSITION ----

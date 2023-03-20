@@ -62,7 +62,7 @@ group-wise analysis. Rather, it's used for processing Cross Correlations (CCFs).
 Use \code{dplyr::group_by()} for processing multiple time series groups.
 }
 \examples{
-library(tidyverse)
+library(dplyr)
 library(tidyquant)
 library(timetk)
 

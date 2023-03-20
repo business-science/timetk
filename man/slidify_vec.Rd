@@ -76,7 +76,8 @@ If instability is not desirable for de-noising operations, a suitable alternativ
 is \code{\link[=smooth_vec]{smooth_vec()}}, which implements local polynomial regression.
 }
 \examples{
-library(tidyverse)
+library(dplyr)
+library(ggplot2)
 library(tidyquant)
 library(timetk)
 

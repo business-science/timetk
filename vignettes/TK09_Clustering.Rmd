@@ -34,7 +34,7 @@ __Clustering__ is an important part of time series analysis that allows us to or
 To get started, load the following libraries. 
 
 ```{r}
-library(tidyverse)
+library(dplyr)
 library(timetk)
 ```
 

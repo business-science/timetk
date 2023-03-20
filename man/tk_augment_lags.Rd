@@ -44,7 +44,7 @@ the \code{.lags} argument (e.g. \code{.lags = 1:20})
 }
 }
 \examples{
-library(tidyverse)
+library(dplyr)
 library(timetk)
 
 # Lags

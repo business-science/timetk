@@ -75,7 +75,7 @@ You can modify the template with \code{set_tk_time_scale_template()}.
 }
 \examples{
 
-library(tidyverse)
+library(dplyr)
 library(tidyquant)
 library(timetk)
 

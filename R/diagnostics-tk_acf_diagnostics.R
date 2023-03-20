@@ -56,7 +56,7 @@
 #' - __Visualizing Time Series:__ [plot_time_series()]
 #'
 #' @examples
-#' library(tidyverse)
+#' library(dplyr)
 #' library(tidyquant)
 #' library(timetk)
 #'

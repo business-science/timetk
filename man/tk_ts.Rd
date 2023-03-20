@@ -81,7 +81,8 @@ using \code{stats::ts()}.
 \code{tk_ts_} is a nonstandard evaluation method.
 }
 \examples{
-library(tidyverse)
+library(tibble)
+library(dplyr)
 library(timetk)
 
 ### tibble to ts: Comparison between tk_ts() and stats::ts()

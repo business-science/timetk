@@ -78,7 +78,8 @@
 #' - [Slider R Package](https://slider.r-lib.org/) by Davis Vaughan
 #'
 #' @examples
-#' library(tidyverse)
+#' library(dplyr)
+#' library(ggplot2)
 #' library(tidyquant)
 #' library(timetk)
 #'

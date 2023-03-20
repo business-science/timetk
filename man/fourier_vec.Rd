@@ -60,7 +60,9 @@ The type of the fourier series can be either \code{sin} or \code{cos}. It's comm
 to add both sin and cos series.
 }
 \examples{
-library(tidyverse)
+library(tibble)
+library(dplyr)
+library(tidyr)
 library(timetk)
 
 options(max.print = 50)

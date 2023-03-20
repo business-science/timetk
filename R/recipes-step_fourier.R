@@ -87,7 +87,7 @@
 #'
 #' @examples
 #' library(recipes)
-#' library(tidyverse)
+#' library(dplyr)
 #' library(tidyquant)
 #' library(timetk)
 #'

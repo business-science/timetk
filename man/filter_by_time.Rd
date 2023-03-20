@@ -61,7 +61,7 @@ index is a POSIXct):
 }
 }
 \examples{
-library(tidyverse)
+library(dplyr)
 library(tidyquant)
 library(timetk)
 

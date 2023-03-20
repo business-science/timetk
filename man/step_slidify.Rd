@@ -127,7 +127,8 @@ is \code{\link[=step_smooth]{step_smooth()}}, which implements local polynomial 
 }
 \examples{
 library(recipes)
-library(tidyverse)
+library(dplyr)
+library(ggplot2)
 library(tidyquant)
 library(timetk)
 

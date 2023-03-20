@@ -88,7 +88,8 @@
 #' @examples
 #' library(recipes)
 #' library(timetk)
-#' library(tidyverse)
+#' library(tibble)
+#' library(dplyr)
 #'
 #' # Sample Data
 #' dates_in_2017_tbl <- tibble(

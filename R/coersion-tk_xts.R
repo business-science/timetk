@@ -38,7 +38,8 @@
 #' @seealso [tk_tbl()], [tk_zoo()], [tk_zooreg()], [tk_ts()]
 #'
 #' @examples
-#' library(tidyverse)
+#' library(tibble)
+#' library(dplyr)
 #' library(timetk)
 #'
 #' ### tibble to xts: Comparison between tk_xts() and xts::xts()

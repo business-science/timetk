@@ -41,7 +41,7 @@ A resample set is an output of the \code{timetk::time_series_cv()} function or t
 \code{rsample::rolling_origin()} function.
 }
 \examples{
-library(tidyverse)
+library(dplyr)
 library(tidyquant)
 library(rsample)
 library(timetk)

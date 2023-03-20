@@ -66,7 +66,8 @@
 #' - This function wraps the `padr::pad()` function developed by Edwin Thoen.
 #'
 #' @examples
-#' library(tidyverse)
+#' library(tibble)
+#' library(dplyr)
 #' library(tidyquant)
 #' library(timetk)
 #'

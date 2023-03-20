@@ -31,7 +31,8 @@
 #' @seealso [tk_xts()], [tk_zoo()], [tk_zooreg()], [tk_ts()]
 #'
 #' @examples
-#' library(tidyverse)
+#' library(tibble)
+#' library(dplyr)
 #' library(timetk)
 #'
 #' data_tbl <- tibble(

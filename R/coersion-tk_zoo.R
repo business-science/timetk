@@ -40,7 +40,8 @@
 #' @seealso [tk_tbl()], [tk_xts()], [tk_zooreg()], [tk_ts()]
 #'
 #' @examples
-#' library(tidyverse)
+#' library(tibble)
+#' library(dplyr)
 #' library(timetk)
 #'
 #' ### tibble to zoo: Comparison between tk_zoo() and zoo::zoo()

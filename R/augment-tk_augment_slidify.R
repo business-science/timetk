@@ -41,7 +41,7 @@
 #' - [`slidify_vec()`] - The underlying function that powers `tk_augment_slidify()`
 #'
 #' @examples
-#' library(tidyverse)
+#' library(dplyr)
 #' library(tidyquant)
 #' library(timetk)
 #'

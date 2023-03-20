@@ -124,7 +124,7 @@ fixed length to the dataset. See the example using \code{walmart_sales_weekly}
 dataset below.
 }
 \examples{
-library(tidyverse)
+library(dplyr)
 library(timetk)
 
 # DATA ----

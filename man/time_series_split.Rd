@@ -100,7 +100,7 @@ This controls which slice is returned. If \code{slice = 1}, only the most recent
 slice will be returned.
 }
 \examples{
-library(tidyverse)
+library(dplyr)
 library(timetk)
 
 # DATA ----

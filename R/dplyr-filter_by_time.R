@@ -61,7 +61,7 @@
 #' - This function is based on the `tibbletime::filter_time()` function developed by Davis Vaughan.
 #'
 #' @examples
-#' library(tidyverse)
+#' library(dplyr)
 #' library(tidyquant)
 #' library(timetk)
 #'

@@ -58,7 +58,7 @@ Exchange-based holdiay sets are useful for identifying \strong{non-working days.
 Filter on an index to identify all holidays that are commonly non-working.
 }
 \examples{
-library(tidyverse)
+library(dplyr)
 library(tidyquant)
 library(timetk)
 

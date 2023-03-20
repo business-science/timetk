@@ -64,7 +64,9 @@
 #'   - Missing Value Imputation for Time Series: [ts_impute_vec()], [ts_clean_vec()]
 #'
 #' @examples
-#' library(tidyverse)
+#' library(tibble)
+#' library(dplyr)
+#' library(tidyr)
 #' library(timetk)
 #'
 #' options(max.print = 50)

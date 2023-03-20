@@ -56,7 +56,8 @@ window size is unknown. You can specify \code{span = 0.75} to locally regress
 using a window of 75\% of the data.
 }
 \examples{
-library(tidyverse)
+library(dplyr)
+library(ggplot2)
 library(tidyquant)
 library(timetk)
 

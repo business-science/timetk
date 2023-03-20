@@ -53,7 +53,8 @@ Setting \code{timetk_idx = TRUE} enables returning the timetk "index" attribute 
 which is the original (non-regularized) time-based index.
 }
 \examples{
-library(tidyverse)
+library(tibble)
+library(dplyr)
 library(timetk)
 
 data_tbl <- tibble(

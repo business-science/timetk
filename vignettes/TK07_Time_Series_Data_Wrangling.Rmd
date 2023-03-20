@@ -44,7 +44,8 @@ Additional concepts covered:
 Load the following libraries. 
 
 ```{r}
-library(tidyverse)
+library(dplyr)
+library(tidyr)
 library(tidyquant) 
 library(timetk)
 ```
