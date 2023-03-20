@@ -35,6 +35,7 @@ To get started, load the following libraries.
 
 ```{r}
 library(dplyr)
+library(purrr)
 library(timetk)
 ```
 

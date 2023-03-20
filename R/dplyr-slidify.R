@@ -74,6 +74,7 @@
 #' library(dplyr)
 #' library(tidyquant)
 #' library(tidyr)
+#' library(stringr)
 #' library(timetk)
 #'
 #' FB <- FANG %>% filter(symbol == "FB")

@@ -90,6 +90,7 @@ A key improvement over \code{tibbletime::slidify()} is that \code{timetk::slidif
 library(dplyr)
 library(tidyquant)
 library(tidyr)
+library(stringr)
 library(timetk)
 
 FB <- FANG \%>\% filter(symbol == "FB")
