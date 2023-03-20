@@ -140,7 +140,8 @@
 
 
 
-<script src="TK06_Automatic_Frequency_And_Trend_Selection_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+
+<div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Frequency and Trend Selection</h1>
             
@@ -151,13 +152,18 @@
 
     
     
-<p><strong>Frequency and trend cycles</strong> are used in many time series applications including Seasonal ARIMA (SARIMA) forecasting and STL Decomposition. <code>timetk</code> includes functionality for <strong>Automatic Frequency and Trend Selection.</strong> These tools use only the the timestamp information to make logical guesses about the frequency and trend.</p>
+<p><strong>Frequency and trend cycles</strong> are used in many time
+series applications including Seasonal ARIMA (SARIMA) forecasting and
+STL Decomposition. <code>timetk</code> includes functionality for
+<strong>Automatic Frequency and Trend Selection.</strong> These tools
+use only the the timestamp information to make logical guesses about the
+frequency and trend.</p>
 <div class="section level2">
 <h2 id="prerequisites">Prerequisites<a class="anchor" aria-label="anchor" href="#prerequisites"></a>
 </h2>
 <p>Before we get started, load the following packages.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/business-science/tidyquant" class="external-link">tidyquant</a></span><span class="op">)</span> <span class="co"># Used for FANG dataset</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/business-science/timetk" class="external-link">timetk</a></span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -165,7 +171,9 @@
 <h2 id="data">Data<a class="anchor" aria-label="anchor" href="#data"></a>
 </h2>
 <p><strong>Daily Irregular Data</strong></p>
-<p>The daily stock prices of Facebook from 2013 to 2016 (courtesy of <code>tidyquant</code>). Note that trading days only occur on “business days” (non-weekends and non-business-holidays).</p>
+<p>The daily stock prices of Facebook from 2013 to 2016 (courtesy of
+<code>tidyquant</code>). Note that trading days only occur on “business
+days” (non-weekends and non-business-holidays).</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">FANG</span><span class="op">)</span></span>
 <span></span>
@@ -207,7 +215,8 @@
 <div class="section level2">
 <h2 id="applications">Applications<a class="anchor" aria-label="anchor" href="#applications"></a>
 </h2>
-<p>An example of where automatic frequency detection occurs is in the <code><a href="../reference/plot_stl_diagnostics.html">plot_stl_diagnostics()</a></code> function.</p>
+<p>An example of where automatic frequency detection occurs is in the
+<code><a href="../reference/plot_stl_diagnostics.html">plot_stl_diagnostics()</a></code> function.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">taylor_30_min</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="../reference/plot_stl_diagnostics.html">plot_stl_diagnostics</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">value</span>, </span>
@@ -223,26 +232,36 @@
 <div class="section level3">
 <h3 id="specifying-a-frequency-or-trend">Specifying a Frequency or Trend<a class="anchor" aria-label="anchor" href="#specifying-a-frequency-or-trend"></a>
 </h3>
-<p>The <code>period</code> argument has three basic options for returning a frequency. Options include:</p>
+<p>The <code>period</code> argument has three basic options for
+returning a frequency. Options include:</p>
 <ul>
-<li>“auto”: A target frequency is determined using a pre-defined <strong><em>Time Scale Template</em></strong> (see below).</li>
+<li>“auto”: A target frequency is determined using a pre-defined
+<strong><em>Time Scale Template</em></strong> (see below).</li>
 <li>time-based duration: (e.g. “7 days” or “2 quarters” per cycle)</li>
-<li>numeric number of observations: (e.g. 5 for 5 observations per cycle)</li>
+<li>numeric number of observations: (e.g. 5 for 5 observations per
+cycle)</li>
 </ul>
 </div>
 <div class="section level3">
 <h3 id="frequency">Frequency<a class="anchor" aria-label="anchor" href="#frequency"></a>
 </h3>
-<p>A <em>frequency</em> is loosely defined as the number of observations that comprise a cycle in a data set.</p>
-<p>Using <code><a href="../reference/tk_get_frequency.html">tk_get_frequency()</a></code>, we can pick a number of observations that will roughly define a frequency for the series.</p>
+<p>A <em>frequency</em> is loosely defined as the number of observations
+that comprise a cycle in a data set.</p>
+<p>Using <code><a href="../reference/tk_get_frequency.html">tk_get_frequency()</a></code>, we can pick a number of
+observations that will roughly define a frequency for the series.</p>
 <p><strong>Daily Irregular Data</strong></p>
-<p>Because <code>FB_tbl</code> is irregular (weekends and holidays are not present), the frequency selected is weekly but each week is only 5-days typically. So 5 is selected.</p>
+<p>Because <code>FB_tbl</code> is irregular (weekends and holidays are
+not present), the frequency selected is weekly but each week is only
+5-days typically. So 5 is selected.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">FB_tbl</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="../reference/tk_index.html">tk_index</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="../reference/tk_get_frequency.html">tk_get_frequency</a></span><span class="op">(</span>period <span class="op">=</span> <span class="st">"auto"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## frequency = 5 observations per 1 week</span></span></code></pre>
 <pre><code><span><span class="co">## [1] 5</span></span></code></pre>
 <p><strong>Sub-Daily Data</strong></p>
-<p>This works as well for a sub-daily time series. Here we’ll use <code>taylor_30_min</code> for a 30-minute timestamp series. The frequency selected is 48 because there are 48 timestamps (observations) in 1 day for the 30-minute cycle.</p>
+<p>This works as well for a sub-daily time series. Here we’ll use
+<code>taylor_30_min</code> for a 30-minute timestamp series. The
+frequency selected is 48 because there are 48 timestamps (observations)
+in 1 day for the 30-minute cycle.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">taylor_30_min</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="../reference/tk_index.html">tk_index</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="../reference/tk_get_frequency.html">tk_get_frequency</a></span><span class="op">(</span><span class="st">"1 day"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## frequency = 48 observations per 1 day</span></span></code></pre>
@@ -251,16 +270,21 @@
 <div class="section level3">
 <h3 id="trend">Trend<a class="anchor" aria-label="anchor" href="#trend"></a>
 </h3>
-<p>The trend is loosely defined as time span that can be aggregated across to visualize the central tendency of the data.</p>
-<p>Using <code><a href="../reference/tk_get_frequency.html">tk_get_trend()</a></code>, we can pick a number of observations that will help describe a trend for the data.</p>
+<p>The trend is loosely defined as time span that can be aggregated
+across to visualize the central tendency of the data.</p>
+<p>Using <code><a href="../reference/tk_get_frequency.html">tk_get_trend()</a></code>, we can pick a number of
+observations that will help describe a trend for the data.</p>
 <p><strong>Daily Irregular Data</strong></p>
-<p>Because <code>FB_tbl</code> is irregular (weekends and holidays are not present), the trend selected is 3 months but each week is only 5-days typically. So 64 observations is selected.</p>
+<p>Because <code>FB_tbl</code> is irregular (weekends and holidays are
+not present), the trend selected is 3 months but each week is only
+5-days typically. So 64 observations is selected.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">FB_tbl</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="../reference/tk_index.html">tk_index</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="../reference/tk_get_frequency.html">tk_get_trend</a></span><span class="op">(</span>period <span class="op">=</span> <span class="st">"auto"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## trend = 64 observations per 3 months</span></span></code></pre>
 <pre><code><span><span class="co">## [1] 64</span></span></code></pre>
 <p><strong>Sub-Daily Data</strong></p>
-<p>A 14-day (2 week) interval is selected for the “30-minute” interval data.</p>
+<p>A 14-day (2 week) interval is selected for the “30-minute” interval
+data.</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">taylor_30_min</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="../reference/tk_index.html">tk_index</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="../reference/tk_get_frequency.html">tk_get_trend</a></span><span class="op">(</span><span class="st">"auto"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## trend = 672 observations per 14 days</span></span></code></pre>
@@ -270,10 +294,16 @@
 <div class="section level2">
 <h2 id="time-scale-template">Time Scale Template<a class="anchor" aria-label="anchor" href="#time-scale-template"></a>
 </h2>
-<p>A <strong><em>Time-Scale Template</em></strong> is used to get and set the time scale template, which is used by <code><a href="../reference/tk_get_frequency.html">tk_get_frequency()</a></code> and <code><a href="../reference/tk_get_frequency.html">tk_get_trend()</a></code> when <code>period = "auto"</code>.</p>
-<p>The predefined template is stored in a function <code><a href="../reference/tk_time_scale_template.html">tk_time_scale_template()</a></code>. This is the default used by <code>timetk</code>.</p>
+<p>A <strong><em>Time-Scale Template</em></strong> is used to get and
+set the time scale template, which is used by
+<code><a href="../reference/tk_get_frequency.html">tk_get_frequency()</a></code> and <code><a href="../reference/tk_get_frequency.html">tk_get_trend()</a></code> when
+<code>period = "auto"</code>.</p>
+<p>The predefined template is stored in a function
+<code><a href="../reference/tk_time_scale_template.html">tk_time_scale_template()</a></code>. This is the default used by
+<code>timetk</code>.</p>
 <p><strong>Accessing the Default Template</strong></p>
-<p>You can access the current template with <code><a href="../reference/tk_time_scale_template.html">get_tk_time_scale_template()</a></code>.</p>
+<p>You can access the current template with
+<code><a href="../reference/tk_time_scale_template.html">get_tk_time_scale_template()</a></code>.</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/tk_time_scale_template.html">get_tk_time_scale_template</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 8 × 3</span></span></span>
@@ -288,7 +318,8 @@
 <span><span class="co">## <span style="color: #BCBCBC;">7</span> quarter    1 year    10 years</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">8</span> year       5 years   30 years</span></span></code></pre>
 <p><strong>Changing the Default Template</strong></p>
-<p>You can modify the current template with <code><a href="../reference/tk_time_scale_template.html">set_tk_time_scale_template()</a></code>.</p>
+<p>You can modify the current template with
+<code><a href="../reference/tk_time_scale_template.html">set_tk_time_scale_template()</a></code>.</p>
 </div>
 <div class="section level2">
 <h2 id="learning-more">Learning More<a class="anchor" aria-label="anchor" href="#learning-more"></a>
@@ -299,22 +330,36 @@
 </iframe>
 </p>
 <p><em>My Talk on High-Performance Time Series Forecasting</em></p>
-<p>Time series is changing. <strong>Businesses now need 10,000+ time series forecasts every day.</strong></p>
-<p><strong>High-Performance Forecasting Systems will save companies MILLIONS of dollars.</strong> Imagine what will happen to your career if you can provide your organization a “High-Performance Time Series Forecasting System” (HPTSF System).</p>
-<p>I teach how to build a HPTFS System in my <strong>High-Performance Time Series Forecasting Course</strong>. If interested in learning Scalable High-Performance Forecasting Strategies then <a href="https://university.business-science.io/p/ds4b-203-r-high-performance-time-series-forecasting" class="external-link">take my course</a>. You will learn:</p>
+<p>Time series is changing. <strong>Businesses now need 10,000+ time
+series forecasts every day.</strong></p>
+<p><strong>High-Performance Forecasting Systems will save companies
+MILLIONS of dollars.</strong> Imagine what will happen to your career if
+you can provide your organization a “High-Performance Time Series
+Forecasting System” (HPTSF System).</p>
+<p>I teach how to build a HPTFS System in my <strong>High-Performance
+Time Series Forecasting Course</strong>. If interested in learning
+Scalable High-Performance Forecasting Strategies then <a href="https://university.business-science.io/p/ds4b-203-r-high-performance-time-series-forecasting" class="external-link">take
+my course</a>. You will learn:</p>
 <ul>
-<li>Time Series Machine Learning (cutting-edge) with <code>Modeltime</code> - 30+ Models (Prophet, ARIMA, XGBoost, Random Forest, &amp; many more)</li>
-<li>NEW - Deep Learning with <code>GluonTS</code> (Competition Winners)</li>
-<li>Time Series Preprocessing, Noise Reduction, &amp; Anomaly Detection</li>
-<li>Feature engineering using lagged variables &amp; external regressors</li>
+<li>Time Series Machine Learning (cutting-edge) with
+<code>Modeltime</code> - 30+ Models (Prophet, ARIMA, XGBoost, Random
+Forest, &amp; many more)</li>
+<li>NEW - Deep Learning with <code>GluonTS</code> (Competition
+Winners)</li>
+<li>Time Series Preprocessing, Noise Reduction, &amp; Anomaly
+Detection</li>
+<li>Feature engineering using lagged variables &amp; external
+regressors</li>
 <li>Hyperparameter Tuning</li>
 <li>Time series cross-validation</li>
-<li>Ensembling Multiple Machine Learning &amp; Univariate Modeling Techniques (Competition Winner)</li>
+<li>Ensembling Multiple Machine Learning &amp; Univariate Modeling
+Techniques (Competition Winner)</li>
 <li>Scalable Forecasting - Forecast 1000+ time series in parallel</li>
 <li>and more.</li>
 </ul>
 <p class="text-center" style="font-size:30px;">
-<a href="https://university.business-science.io/p/ds4b-203-r-high-performance-time-series-forecasting" class="external-link">Unlock the High-Performance Time Series Forecasting Course</a>
+<a href="https://university.business-science.io/p/ds4b-203-r-high-performance-time-series-forecasting" class="external-link">Unlock
+the High-Performance Time Series Forecasting Course</a>
 </p>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

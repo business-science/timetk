@@ -140,12 +140,14 @@
 
 
 
-<script src="TK02_Time_Series_Date_Sequences_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+
+<div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Intelligent Date &amp; Time Sequences</h1>
-                        <h4 data-toc-skip class="author">Matt Dancho</h4>
+                        <h4 data-toc-skip class="author">Matt
+Dancho</h4>
             
-            <h4 data-toc-skip class="date">2023-03-17</h4>
+            <h4 data-toc-skip class="date">2023-03-20</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/business-science/timetk/blob/HEAD/vignettes/TK02_Time_Series_Date_Sequences.Rmd" class="external-link"><code>vignettes/TK02_Time_Series_Date_Sequences.Rmd</code></a></small>
       <div class="d-none name"><code>TK02_Time_Series_Date_Sequences.Rmd</code></div>
@@ -153,11 +155,14 @@
 
     
     
-<p><strong>Creating and modifying date sequences</strong> is critical to machine learning projects. We discuss:</p>
+<p><strong>Creating and modifying date sequences</strong> is critical to
+machine learning projects. We discuss:</p>
 <ul>
-<li>Making a Time Series Sequence: <code><a href="../reference/tk_make_timeseries.html">tk_make_timeseries()</a></code>
+<li>Making a Time Series Sequence:
+<code><a href="../reference/tk_make_timeseries.html">tk_make_timeseries()</a></code>
 </li>
-<li>Making a Future Sequence: <code><a href="../reference/tk_make_future_timeseries.html">tk_make_future_timeseries()</a></code>
+<li>Making a Future Sequence:
+<code><a href="../reference/tk_make_future_timeseries.html">tk_make_future_timeseries()</a></code>
 </li>
 <li>Holiday &amp; Weekday/Weekend Sequences</li>
 </ul>
@@ -172,12 +177,16 @@
 <div class="section level2">
 <h2 id="making-a-time-series-sequence">Making a Time Series Sequence<a class="anchor" aria-label="anchor" href="#making-a-time-series-sequence"></a>
 </h2>
-<p><code><a href="../reference/tk_make_timeseries.html">tk_make_timeseries()</a></code> improves on the <code><a href="https://rdrr.io/r/base/seq.Date.html" class="external-link">seq.Date()</a></code> and <code><a href="https://rdrr.io/r/base/seq.POSIXt.html" class="external-link">seq.POSIXt()</a></code> functions by simplifying into 1 function. Intelligently handles character dates and logical assumptions based on user inputs.</p>
+<p><code><a href="../reference/tk_make_timeseries.html">tk_make_timeseries()</a></code> improves on the
+<code><a href="https://rdrr.io/r/base/seq.Date.html" class="external-link">seq.Date()</a></code> and <code><a href="https://rdrr.io/r/base/seq.POSIXt.html" class="external-link">seq.POSIXt()</a></code> functions by
+simplifying into 1 function. Intelligently handles character dates and
+logical assumptions based on user inputs.</p>
 <p><strong>By Day</strong></p>
 <ul>
 <li>Can use <code>by = "day"</code> or leave blank.</li>
 <li>
-<code>include_endpoints = FALSE</code> removes the last value so your series is only 7 observations.</li>
+<code>include_endpoints = FALSE</code> removes the last value so
+your series is only 7 observations.</li>
 </ul>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Selects by day automatically</span></span>
@@ -188,7 +197,8 @@
 <ul>
 <li>Can use <code>by = "2 sec"</code> to adjust the interval width.</li>
 <li>
-<code>include_endpoints = TRUE</code> keeps the last value the series ends on the 6th second.</li>
+<code>include_endpoints = TRUE</code> keeps the last value the
+series ends on the 6th second.</li>
 </ul>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Guesses by second</span></span>
@@ -198,7 +208,8 @@
 <p><strong>Length Out = 1 year 6 months</strong></p>
 <ul>
 <li>
-<code>length_out = "1 year 6 months"</code> - Can include complex expressions like “1 year 4 months 6 days”.</li>
+<code>length_out = "1 year 6 months"</code> - Can include complex
+expressions like “1 year 4 months 6 days”.</li>
 </ul>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/tk_make_timeseries.html">tk_make_timeseries</a></span><span class="op">(</span><span class="st">"2012-07"</span>, </span>
@@ -211,7 +222,8 @@
 <span><span class="co">## [16] "2013-10-01" "2013-11-01" "2013-12-01"</span></span></code></pre>
 <p><strong>Go In Reverse</strong></p>
 <ul>
-<li>To go in reverse, just use <code>end_date</code> as where you want the series to end.</li>
+<li>To go in reverse, just use <code>end_date</code> as where you want
+the series to end.</li>
 </ul>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/tk_make_timeseries.html">tk_make_timeseries</a></span><span class="op">(</span>end_date <span class="op">=</span> <span class="st">"2012-07-01"</span>, </span>
@@ -225,7 +237,9 @@
 <div class="section level2">
 <h2 id="future-time-series-sequence">Future Time Series Sequence<a class="anchor" aria-label="anchor" href="#future-time-series-sequence"></a>
 </h2>
-<p>A common operation is to make a future time series sequence that mimics an existing. This is what <code><a href="../reference/tk_make_future_timeseries.html">tk_make_future_timeseries()</a></code> is for.</p>
+<p>A common operation is to make a future time series sequence that
+mimics an existing. This is what
+<code><a href="../reference/tk_make_future_timeseries.html">tk_make_future_timeseries()</a></code> is for.</p>
 <p>Suppose we have an existing time index.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">idx</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tk_make_timeseries.html">tk_make_timeseries</a></span><span class="op">(</span><span class="st">"2012"</span>, by <span class="op">=</span> <span class="st">"3 months"</span>, </span>
@@ -235,7 +249,8 @@
 <pre><code><span><span class="co">## [1] "2012-01-01" "2012-04-01" "2012-07-01" "2012-10-01" "2013-01-01"</span></span>
 <span><span class="co">## [6] "2013-04-01" "2013-07-01" "2013-10-01"</span></span></code></pre>
 <p><strong>Make a Future Time Series from an Existing</strong></p>
-<p>We can create a future time sequence from the existing sequence using <code><a href="../reference/tk_make_future_timeseries.html">tk_make_future_timeseries()</a></code>.</p>
+<p>We can create a future time sequence from the existing sequence using
+<code><a href="../reference/tk_make_future_timeseries.html">tk_make_future_timeseries()</a></code>.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/tk_make_future_timeseries.html">tk_make_future_timeseries</a></span><span class="op">(</span><span class="va">idx</span>, length_out <span class="op">=</span> <span class="st">"2 years"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] "2014-01-01" "2014-04-01" "2014-07-01" "2014-10-01" "2015-01-01"</span></span>
@@ -298,22 +313,36 @@
 </iframe>
 </p>
 <p><em>My Talk on High-Performance Time Series Forecasting</em></p>
-<p>Time series is changing. <strong>Businesses now need 10,000+ time series forecasts every day.</strong></p>
-<p><strong>High-Performance Forecasting Systems will save companies MILLIONS of dollars.</strong> Imagine what will happen to your career if you can provide your organization a “High-Performance Time Series Forecasting System” (HPTSF System).</p>
-<p>I teach how to build a HPTFS System in my <strong>High-Performance Time Series Forecasting Course</strong>. If interested in learning Scalable High-Performance Forecasting Strategies then <a href="https://university.business-science.io/p/ds4b-203-r-high-performance-time-series-forecasting" class="external-link">take my course</a>. You will learn:</p>
+<p>Time series is changing. <strong>Businesses now need 10,000+ time
+series forecasts every day.</strong></p>
+<p><strong>High-Performance Forecasting Systems will save companies
+MILLIONS of dollars.</strong> Imagine what will happen to your career if
+you can provide your organization a “High-Performance Time Series
+Forecasting System” (HPTSF System).</p>
+<p>I teach how to build a HPTFS System in my <strong>High-Performance
+Time Series Forecasting Course</strong>. If interested in learning
+Scalable High-Performance Forecasting Strategies then <a href="https://university.business-science.io/p/ds4b-203-r-high-performance-time-series-forecasting" class="external-link">take
+my course</a>. You will learn:</p>
 <ul>
-<li>Time Series Machine Learning (cutting-edge) with <code>Modeltime</code> - 30+ Models (Prophet, ARIMA, XGBoost, Random Forest, &amp; many more)</li>
-<li>NEW - Deep Learning with <code>GluonTS</code> (Competition Winners)</li>
-<li>Time Series Preprocessing, Noise Reduction, &amp; Anomaly Detection</li>
-<li>Feature engineering using lagged variables &amp; external regressors</li>
+<li>Time Series Machine Learning (cutting-edge) with
+<code>Modeltime</code> - 30+ Models (Prophet, ARIMA, XGBoost, Random
+Forest, &amp; many more)</li>
+<li>NEW - Deep Learning with <code>GluonTS</code> (Competition
+Winners)</li>
+<li>Time Series Preprocessing, Noise Reduction, &amp; Anomaly
+Detection</li>
+<li>Feature engineering using lagged variables &amp; external
+regressors</li>
 <li>Hyperparameter Tuning</li>
 <li>Time series cross-validation</li>
-<li>Ensembling Multiple Machine Learning &amp; Univariate Modeling Techniques (Competition Winner)</li>
+<li>Ensembling Multiple Machine Learning &amp; Univariate Modeling
+Techniques (Competition Winner)</li>
 <li>Scalable Forecasting - Forecast 1000+ time series in parallel</li>
 <li>and more.</li>
 </ul>
 <p class="text-center" style="font-size:30px;">
-<a href="https://university.business-science.io/p/ds4b-203-r-high-performance-time-series-forecasting" class="external-link">Unlock the High-Performance Time Series Forecasting Course</a>
+<a href="https://university.business-science.io/p/ds4b-203-r-high-performance-time-series-forecasting" class="external-link">Unlock
+the High-Performance Time Series Forecasting Course</a>
 </p>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

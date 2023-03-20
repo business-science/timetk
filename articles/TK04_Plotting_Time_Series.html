@@ -140,10 +140,12 @@
 
 
 
-<script src="TK04_Plotting_Time_Series_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+
+<div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Visualizing Time Series</h1>
-                        <h4 data-toc-skip class="author">Matt Dancho</h4>
+                        <h4 data-toc-skip class="author">Matt
+Dancho</h4>
             
       
       <small class="dont-index">Source: <a href="https://github.com/business-science/timetk/blob/HEAD/vignettes/TK04_Plotting_Time_Series.Rmd" class="external-link"><code>vignettes/TK04_Plotting_Time_Series.Rmd</code></a></small>
@@ -153,19 +155,24 @@
     
     
 <p><img src="timetk_version_2.jpg" width="95%" style="display: block; margin: auto;"></p>
-<p>This tutorial focuses on, <code><a href="../reference/plot_time_series.html">plot_time_series()</a></code>, a workhorse time-series plotting function that:</p>
+<p>This tutorial focuses on, <code><a href="../reference/plot_time_series.html">plot_time_series()</a></code>, a
+workhorse time-series plotting function that:</p>
 <ul>
-<li>Generates interactive <code>plotly</code> plots (great for exploring &amp; shiny apps)</li>
-<li>Consolidates 20+ lines of <code>ggplot2</code> &amp; <code>plotly</code> code</li>
+<li>Generates interactive <code>plotly</code> plots (great for exploring
+&amp; shiny apps)</li>
+<li>Consolidates 20+ lines of <code>ggplot2</code> &amp;
+<code>plotly</code> code</li>
 <li>Scales well to many time series</li>
-<li>Can be converted from interactive <code>plotly</code> to static <code>ggplot2</code> plots</li>
+<li>Can be converted from interactive <code>plotly</code> to static
+<code>ggplot2</code> plots</li>
 </ul>
 <div class="section level3">
 <h3 id="libraries">Libraries<a class="anchor" aria-label="anchor" href="#libraries"></a>
 </h3>
 <p>Run the following code to setup for this tutorial.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://lubridate.tidyverse.org" class="external-link">lubridate</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/business-science/timetk" class="external-link">timetk</a></span><span class="op">)</span></span>
 <span></span>
@@ -175,7 +182,9 @@
 <div class="section level3">
 <h3 id="plotting-time-series">Plotting Time Series<a class="anchor" aria-label="anchor" href="#plotting-time-series"></a>
 </h3>
-<p>Let’s start with a popular time series, <code>taylor_30_min</code>, which includes energy demand in megawatts at a sampling interval of 30-minutes. This is a single time series.</p>
+<p>Let’s start with a popular time series, <code>taylor_30_min</code>,
+which includes energy demand in megawatts at a sampling interval of
+30-minutes. This is a single time series.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">taylor_30_min</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 4,032 × 2</span></span></span>
@@ -192,10 +201,15 @@
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 2000-06-05 <span style="color: #949494;">04:00:00</span> <span style="text-decoration: underline;">21</span>751</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 2000-06-05 <span style="color: #949494;">04:30:00</span> <span style="text-decoration: underline;">21</span>336</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># … with 4,022 more rows</span></span></span></code></pre></div>
-<p>The <code><a href="../reference/plot_time_series.html">plot_time_series()</a></code> function generates an interactive <code>plotly</code> chart by default.</p>
+<p>The <code><a href="../reference/plot_time_series.html">plot_time_series()</a></code> function generates an interactive
+<code>plotly</code> chart by default.</p>
 <ul>
-<li>Simply provide the date variable (time-based column, <code>.date_var</code>) and the numeric variable (<code>.value</code>) that changes over time as the first 2 arguments</li>
-<li>When <code>.interactive = TRUE</code>, the <code>.plotly_slider = TRUE</code> adds a date slider to the bottom of the chart.</li>
+<li>Simply provide the date variable (time-based column,
+<code>.date_var</code>) and the numeric variable (<code>.value</code>)
+that changes over time as the first 2 arguments</li>
+<li>When <code>.interactive = TRUE</code>, the
+<code>.plotly_slider = TRUE</code> adds a date slider to the bottom of
+the chart.</li>
 </ul>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">taylor_30_min</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
@@ -206,7 +220,9 @@
 <div class="section level4">
 <h4 id="plotting-groups">Plotting Groups<a class="anchor" aria-label="anchor" href="#plotting-groups"></a>
 </h4>
-<p>Next, let’s move on to a dataset with time series groups, <code>m4_daily</code>, which is a sample of 4 time series from the M4 competition that are sampled at a daily frequency.</p>
+<p>Next, let’s move on to a dataset with time series groups,
+<code>m4_daily</code>, which is a sample of 4 time series from the M4
+competition that are sampled at a daily frequency.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">m4_daily</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 9,743 × 3</span></span></span>
@@ -224,14 +240,18 @@
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> D10   2014-07-11 <span style="text-decoration: underline;">2</span>010 </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> D10   2014-07-12 <span style="text-decoration: underline;">2</span>002.</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># … with 9,733 more rows</span></span></span></code></pre></div>
-<p>Visualizing grouped data is as simple as grouping the data set with <code><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by()</a></code> prior to piping into the <code><a href="../reference/plot_time_series.html">plot_time_series()</a></code> function. Key points:</p>
+<p>Visualizing grouped data is as simple as grouping the data set with
+<code><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by()</a></code> prior to piping into the
+<code><a href="../reference/plot_time_series.html">plot_time_series()</a></code> function. Key points:</p>
 <ul>
-<li>Groups can be added in 2 ways: by <code><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by()</a></code> or by using the <code>...</code> to add groups.</li>
+<li>Groups can be added in 2 ways: by <code><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by()</a></code> or by
+using the <code>...</code> to add groups.</li>
 <li>Groups are then converted to facets.</li>
 <li>
 <code>.facet_ncol = 2</code> returns a 2-column faceted plot</li>
 <li>
-<code>.facet_scales = "free"</code> allows the x and y-axis of each plot to scale independently of the other plots</li>
+<code>.facet_scales = "free"</code> allows the x and y-axis of each
+plot to scale independently of the other plots</li>
 </ul>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">m4_daily</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -244,7 +264,8 @@
 <div class="section level4">
 <h4 id="visualizing-transformations-sub-groups">Visualizing Transformations &amp; Sub-Groups<a class="anchor" aria-label="anchor" href="#visualizing-transformations-sub-groups"></a>
 </h4>
-<p>Let’s switch to an hourly dataset with multiple groups. We can showcase:</p>
+<p>Let’s switch to an hourly dataset with multiple groups. We can
+showcase:</p>
 <ol style="list-style-type: decimal">
 <li>Log transformation to the <code>.value</code>
 </li>
@@ -267,12 +288,17 @@
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> H10   2015-07-01 <span style="color: #949494;">20:00:00</span>   434</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> H10   2015-07-01 <span style="color: #949494;">21:00:00</span>   422</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># … with 3,050 more rows</span></span></span></code></pre></div>
-<p>The intent is to showcase the groups in faceted plots, but to highlight weekly windows (sub-groups) within the data while simultaneously doing a <code><a href="https://rdrr.io/r/base/Log.html" class="external-link">log()</a></code> transformation to the value. This is simple to do:</p>
+<p>The intent is to showcase the groups in faceted plots, but to
+highlight weekly windows (sub-groups) within the data while
+simultaneously doing a <code><a href="https://rdrr.io/r/base/Log.html" class="external-link">log()</a></code> transformation to the value.
+This is simple to do:</p>
 <ol style="list-style-type: decimal">
 <li>
 <code>.value = log(value)</code> Applies the Log Transformation</li>
 <li>
-<code>.color_var = week(date)</code> The date column is transformed to a <code><a href="https://lubridate.tidyverse.org/reference/week.html" class="external-link">lubridate::week()</a></code> number. The color is applied to each of the week numbers.</li>
+<code>.color_var = week(date)</code> The date column is transformed
+to a <code><a href="https://lubridate.tidyverse.org/reference/week.html" class="external-link">lubridate::week()</a></code> number. The color is applied to each
+of the week numbers.</li>
 </ol>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">m4_hourly</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -288,7 +314,9 @@
 <div class="section level4">
 <h4 id="static-ggplot2-visualizations-customizations">Static ggplot2 Visualizations &amp; Customizations<a class="anchor" aria-label="anchor" href="#static-ggplot2-visualizations-customizations"></a>
 </h4>
-<p>All of the visualizations can be converted from interactive <code>plotly</code> (great for exploring and shiny apps) to static <code>ggplot2</code> visualizations (great for reports).</p>
+<p>All of the visualizations can be converted from interactive
+<code>plotly</code> (great for exploring and shiny apps) to static
+<code>ggplot2</code> visualizations (great for reports).</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">taylor_30_min</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/plot_time_series.html">plot_time_series</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">value</span>, </span>
@@ -309,9 +337,11 @@
 <div class="section level3">
 <h3 id="box-plots-time-series">Box Plots (Time Series)<a class="anchor" aria-label="anchor" href="#box-plots-time-series"></a>
 </h3>
-<p>The <code><a href="../reference/plot_time_series_boxplot.html">plot_time_series_boxplot()</a></code> function can be used to make box plots.</p>
+<p>The <code><a href="../reference/plot_time_series_boxplot.html">plot_time_series_boxplot()</a></code> function can be used to
+make box plots.</p>
 <ul>
-<li>Box plots use an aggregation, which is a key parameter defined by the <code>.period</code> argument.</li>
+<li>Box plots use an aggregation, which is a key parameter defined by
+the <code>.period</code> argument.</li>
 </ul>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">m4_monthly</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -326,10 +356,14 @@
 <div class="section level3">
 <h3 id="regression-plots-time-series">Regression Plots (Time Series)<a class="anchor" aria-label="anchor" href="#regression-plots-time-series"></a>
 </h3>
-<p>A time series regression plot, <code><a href="../reference/plot_time_series_regression.html">plot_time_series_regression()</a></code>, can be useful to quickly assess key features that are correlated to a time series.</p>
+<p>A time series regression plot,
+<code><a href="../reference/plot_time_series_regression.html">plot_time_series_regression()</a></code>, can be useful to quickly
+assess key features that are correlated to a time series.</p>
 <ul>
-<li>Internally the function passes a <code>formula</code> to the <code><a href="https://rdrr.io/r/stats/lm.html" class="external-link">stats::lm()</a></code> function.</li>
-<li>A linear regression summary can be output by toggling <code>show_summary = TRUE</code>.</li>
+<li>Internally the function passes a <code>formula</code> to the
+<code><a href="https://rdrr.io/r/stats/lm.html" class="external-link">stats::lm()</a></code> function.</li>
+<li>A linear regression summary can be output by toggling
+<code>show_summary = TRUE</code>.</li>
 </ul>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">m4_monthly</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -346,7 +380,8 @@
 <div class="section level3">
 <h3 id="summary">Summary<a class="anchor" aria-label="anchor" href="#summary"></a>
 </h3>
-<p>Timetk is part of the amazing Modeltime Ecosystem for time series forecasting. But it can take a long time to learn:</p>
+<p>Timetk is part of the amazing Modeltime Ecosystem for time series
+forecasting. But it can take a long time to learn:</p>
 <ul>
 <li>Many algorithms</li>
 <li>Ensembling and Resampling</li>
@@ -354,7 +389,9 @@
 <li>Deep Learning</li>
 <li>Scalable Modeling: 10,000+ time series</li>
 </ul>
-<p>Your probably thinking how am I ever going to learn time series forecasting. Here’s the solution that will save you years of struggling.</p>
+<p>Your probably thinking how am I ever going to learn time series
+forecasting. Here’s the solution that will save you years of
+struggling.</p>
 </div>
 <div class="section level2">
 <h2 id="take-the-high-performance-forecasting-course">Take the High-Performance Forecasting Course<a class="anchor" aria-label="anchor" href="#take-the-high-performance-forecasting-course"></a>
@@ -363,39 +400,55 @@
 <p>Become the forecasting expert for your organization</p>
 </blockquote>
 <p><a href="https://university.business-science.io/p/ds4b-203-r-high-performance-time-series-forecasting/" target="_blank" class="external-link"><img src="https://www.filepicker.io/api/file/bKyqVAi5Qi64sS05QYLk" alt="High-Performance Time Series Forecasting Course" width="100%" style="box-shadow: 0 0 5px 2px rgba(0, 0, 0, .5);"></a></p>
-<p><a href="https://university.business-science.io/p/ds4b-203-r-high-performance-time-series-forecasting/" class="external-link"><em>High-Performance Time Series Course</em></a></p>
+<p><a href="https://university.business-science.io/p/ds4b-203-r-high-performance-time-series-forecasting/" class="external-link"><em>High-Performance
+Time Series Course</em></a></p>
 <div class="section level4">
 <h4 id="time-series-is-changing">Time Series is Changing<a class="anchor" aria-label="anchor" href="#time-series-is-changing"></a>
 </h4>
-<p>Time series is changing. <strong>Businesses now need 10,000+ time series forecasts every day.</strong> This is what I call a <em>High-Performance Time Series Forecasting System (HPTSF)</em> - Accurate, Robust, and Scalable Forecasting.</p>
-<p><strong>High-Performance Forecasting Systems will save companies by improving accuracy and scalability.</strong> Imagine what will happen to your career if you can provide your organization a “High-Performance Time Series Forecasting System” (HPTSF System).</p>
+<p>Time series is changing. <strong>Businesses now need 10,000+ time
+series forecasts every day.</strong> This is what I call a
+<em>High-Performance Time Series Forecasting System (HPTSF)</em> -
+Accurate, Robust, and Scalable Forecasting.</p>
+<p><strong>High-Performance Forecasting Systems will save companies by
+improving accuracy and scalability.</strong> Imagine what will happen to
+your career if you can provide your organization a “High-Performance
+Time Series Forecasting System” (HPTSF System).</p>
 </div>
 <div class="section level4">
 <h4 id="how-to-learn-high-performance-time-series-forecasting">How to Learn High-Performance Time Series Forecasting<a class="anchor" aria-label="anchor" href="#how-to-learn-high-performance-time-series-forecasting"></a>
 </h4>
-<p>I teach how to build a HPTFS System in my <a href="https://university.business-science.io/p/ds4b-203-r-high-performance-time-series-forecasting" class="external-link"><strong>High-Performance Time Series Forecasting Course</strong></a>. You will learn:</p>
+<p>I teach how to build a HPTFS System in my <a href="https://university.business-science.io/p/ds4b-203-r-high-performance-time-series-forecasting" class="external-link"><strong>High-Performance
+Time Series Forecasting Course</strong></a>. You will learn:</p>
 <ul>
 <li>
-<strong>Time Series Machine Learning</strong> (cutting-edge) with <code>Modeltime</code> - 30+ Models (Prophet, ARIMA, XGBoost, Random Forest, &amp; many more)</li>
+<strong>Time Series Machine Learning</strong> (cutting-edge) with
+<code>Modeltime</code> - 30+ Models (Prophet, ARIMA, XGBoost, Random
+Forest, &amp; many more)</li>
 <li>
-<strong>Deep Learning</strong> with <code>GluonTS</code> (Competition Winners)</li>
+<strong>Deep Learning</strong> with <code>GluonTS</code>
+(Competition Winners)</li>
 <li>
-<strong>Time Series Preprocessing</strong>, Noise Reduction, &amp; Anomaly Detection</li>
+<strong>Time Series Preprocessing</strong>, Noise Reduction, &amp;
+Anomaly Detection</li>
 <li>
-<strong>Feature engineering</strong> using lagged variables &amp; external regressors</li>
+<strong>Feature engineering</strong> using lagged variables &amp;
+external regressors</li>
 <li><strong>Hyperparameter Tuning</strong></li>
 <li><strong>Time series cross-validation</strong></li>
 <li>
-<strong>Ensembling</strong> Multiple Machine Learning &amp; Univariate Modeling Techniques (Competition Winner)</li>
+<strong>Ensembling</strong> Multiple Machine Learning &amp;
+Univariate Modeling Techniques (Competition Winner)</li>
 <li>
-<strong>Scalable Forecasting</strong> - Forecast 1000+ time series in parallel</li>
+<strong>Scalable Forecasting</strong> - Forecast 1000+ time series
+in parallel</li>
 <li>and more.</li>
 </ul>
 <p class="text-center" style="font-size:24px;">
 Become the Time Series Expert for your organization.
 </p>
 <br><p class="text-center" style="font-size:30px;">
-<a href="https://university.business-science.io/p/ds4b-203-r-high-performance-time-series-forecasting" class="external-link">Take the High-Performance Time Series Forecasting Course</a>
+<a href="https://university.business-science.io/p/ds4b-203-r-high-performance-time-series-forecasting" class="external-link">Take
+the High-Performance Time Series Forecasting Course</a>
 </p>
 </div>
 </div>
