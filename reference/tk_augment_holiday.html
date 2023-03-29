@@ -221,7 +221,7 @@ Filter on an index to identify all holidays that are commonly non-working.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> 2017-01-08         0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> 2017-01-09         0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> 2017-01-10         0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 355 more rows</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 355 more rows</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># All holidays in US</span></span></span>
 <span class="r-in"><span><span class="va">dates_in_2017_tbl</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
@@ -231,25 +231,25 @@ Filter on an index to identify all holidays that are commonly non-working.</p>
 <span class="r-in"><span>        .locale_set      <span class="op">=</span> <span class="st">"US"</span>,</span></span>
 <span class="r-in"><span>        .exchange_set    <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 365 × 20</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    index      locale_US US_New…¹ US_ML…² US_In…³ US_Li…⁴ US_Pr…⁵ US_Wa…⁶ US_CP…⁷</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> 2017-01-01         1        1       0       0       0       0       0       0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> 2017-01-02         0        0       0       0       0       0       0       0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> 2017-01-03         0        0       0       0       0       0       0       0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> 2017-01-04         0        0       0       0       0       0       0       0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> 2017-01-05         0        0       0       0       0       0       0       0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> 2017-01-06         0        0       0       0       0       0       0       0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> 2017-01-07         0        0       0       0       0       0       0       0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> 2017-01-08         0        0       0       0       0       0       0       0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> 2017-01-09         0        0       0       0       0       0       0       0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> 2017-01-10         0        0       0       0       0       0       0       0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 355 more rows, 11 more variables: US_GoodFriday &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   US_MemorialDay &lt;dbl&gt;, US_DecorationMemorialDay &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    index      locale_US US_NewYearsDay US_MLKingsBirthday US_InaugurationDay</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> 2017-01-01         1              1                  0                  0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> 2017-01-02         0              0                  0                  0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> 2017-01-03         0              0                  0                  0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> 2017-01-04         0              0                  0                  0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> 2017-01-05         0              0                  0                  0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> 2017-01-06         0              0                  0                  0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> 2017-01-07         0              0                  0                  0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> 2017-01-08         0              0                  0                  0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> 2017-01-09         0              0                  0                  0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> 2017-01-10         0              0                  0                  0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 355 more rows</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 15 more variables: US_LincolnsBirthday &lt;dbl&gt;, US_PresidentsDay &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   US_WashingtonsBirthday &lt;dbl&gt;, US_CPulaskisBirthday &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   US_GoodFriday &lt;dbl&gt;, US_MemorialDay &lt;dbl&gt;, US_DecorationMemorialDay &lt;dbl&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   US_JuneteenthNationalIndependenceDay &lt;dbl&gt;, US_IndependenceDay &lt;dbl&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   US_LaborDay &lt;dbl&gt;, US_ColumbusDay &lt;dbl&gt;, US_ElectionDay &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   US_VeteransDay &lt;dbl&gt;, US_ThanksgivingDay &lt;dbl&gt;, US_ChristmasDay &lt;dbl&gt;, and</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   abbreviated variable names ¹​US_NewYearsDay, ²​US_MLKingsBirthday,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   ³​US_InaugurationDay, ⁴​US_LincolnsBirthday, ⁵​US_PresidentsDay, …</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   US_VeteransDay &lt;dbl&gt;, US_ThanksgivingDay &lt;dbl&gt;, US_ChristmasDay &lt;dbl&gt;</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># All holidays for World and Italy-specific Holidays</span></span></span>
 <span class="r-in"><span><span class="co"># - Note that Italy celebrates specific holidays in addition to many World Holidays</span></span></span>
@@ -260,25 +260,25 @@ Filter on an index to identify all holidays that are commonly non-working.</p>
 <span class="r-in"><span>        .locale_set      <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"World"</span>, <span class="st">"IT"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>        .exchange_set    <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 365 × 45</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    index      locale_W…¹ local…² World…³ World…⁴ World…⁵ IT_Ep…⁶ World…⁷ World…⁸</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> 2017-01-01          1       0       1       1       0       0       0       0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> 2017-01-02          0       0       0       0       0       0       0       0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> 2017-01-03          0       0       0       0       0       0       0       0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> 2017-01-04          0       0       0       0       0       0       0       0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> 2017-01-05          0       0       0       0       0       0       0       0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> 2017-01-06          1       1       0       0       1       1       0       0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> 2017-01-07          0       0       0       0       0       0       0       0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> 2017-01-08          0       0       0       0       0       0       0       0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> 2017-01-09          0       0       0       0       0       0       0       0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> 2017-01-10          0       0       0       0       0       0       0       0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 355 more rows, 36 more variables: World_Quinquagesima &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   World_AshWednesday &lt;dbl&gt;, World_Annunciation &lt;dbl&gt;, World_PalmSunday &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   World_GoodFriday &lt;dbl&gt;, World_Easter &lt;dbl&gt;, World_EasterSunday &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   World_EasterMonday &lt;dbl&gt;, IT_LiberationDay &lt;dbl&gt;, World_LaborDay &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   World_RogationSunday &lt;dbl&gt;, World_Ascension &lt;dbl&gt;, World_Pentecost &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   World_PentecostMonday &lt;dbl&gt;, World_TrinitySunday &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   World_CorpusChristi &lt;dbl&gt;, World_TransfigurationOfLord &lt;dbl&gt;, …</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    index      locale_World locale_IT World_NewYearsDay World_SolemnityOfMary</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>                 <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> 2017-01-01            1         0                 1                     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> 2017-01-02            0         0                 0                     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> 2017-01-03            0         0                 0                     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> 2017-01-04            0         0                 0                     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> 2017-01-05            0         0                 0                     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> 2017-01-06            1         1                 0                     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> 2017-01-07            0         0                 0                     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> 2017-01-08            0         0                 0                     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> 2017-01-09            0         0                 0                     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> 2017-01-10            0         0                 0                     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 355 more rows</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 40 more variables: World_Epiphany &lt;dbl&gt;, IT_Epiphany &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   World_PresentationOfLord &lt;dbl&gt;, World_Septuagesima &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   World_Quinquagesima &lt;dbl&gt;, World_AshWednesday &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   World_Annunciation &lt;dbl&gt;, World_PalmSunday &lt;dbl&gt;, World_GoodFriday &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   World_Easter &lt;dbl&gt;, World_EasterSunday &lt;dbl&gt;, World_EasterMonday &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   IT_LiberationDay &lt;dbl&gt;, World_LaborDay &lt;dbl&gt;, World_RogationSunday &lt;dbl&gt;, …</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>

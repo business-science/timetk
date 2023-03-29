@@ -152,6 +152,12 @@ automated lambda selection.</p></dd>
 
 </dl></div>
     <div class="section level2">
+    <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
+    
+
+<p>A <code>numeric</code> vector with the missing values and/or anomalies transformed to imputed values.</p>
+    </div>
+    <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p><strong>Cleaning Outliers</strong></p><ol><li><p>Non-Seasonal (<code>period = 1</code>): Uses <code><a href="https://rdrr.io/r/stats/supsmu.html" class="external-link">stats::supsmu()</a></code></p></li>
 <li><p>Seasonal (<code>period &gt; 1</code>): Uses <code><a href="https://pkg.robjhyndman.com/forecast/reference/mstl.html" class="external-link">forecast::mstl()</a></code> with <code>robust = TRUE</code> (robust STL decomposition)

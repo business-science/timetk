@@ -203,53 +203,6 @@ index is a POSIXct):</p><ul><li><p><code>start_date = '2015'</code> is equivalen
 <span class="r-msg co"><span class="r-pr">#&gt;</span> The following objects are masked from ‘package:base’:</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>     intersect, setdiff, setequal, union</span>
-<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/business-science/tidyquant" class="external-link">tidyquant</a></span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: lubridate</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Attaching package: ‘lubridate’</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> The following objects are masked from ‘package:base’:</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>     date, intersect, setdiff, union</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: PerformanceAnalytics</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: xts</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: zoo</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Attaching package: ‘zoo’</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> The following objects are masked from ‘package:base’:</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>     as.Date, as.Date.numeric</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> ################################### WARNING ###################################</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> # We noticed you have dplyr installed. The dplyr lag() function breaks how    #</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> # base R's lag() function is supposed to work, which breaks lag(my_xts).      #</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> #                                                                             #</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> # Calls to lag(my_xts) that you enter or source() into this session won't     #</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> # work correctly.                                                             #</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> #                                                                             #</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> # All package code is unaffected because it is protected by the R namespace   #</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> # mechanism.                                                                  #</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> #                                                                             #</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> # Set `options(xts.warn_dplyr_breaks_lag = FALSE)` to suppress this warning.  #</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> #                                                                             #</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> # You can use stats::lag() to make sure you're not using dplyr::lag(), or you #</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> # can add conflictRules('dplyr', exclude = 'lag') to your .Rprofile to stop   #</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> # dplyr from breaking base R's lag() function.                                #</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> ################################### WARNING ###################################</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Attaching package: ‘xts’</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> The following objects are masked from ‘package:dplyr’:</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>     first, last</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Attaching package: ‘PerformanceAnalytics’</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> The following object is masked from ‘package:graphics’:</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>     legend</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: quantmod</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: TTR</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Registered S3 method overwritten by 'quantmod':</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>   method            from</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>   as.zoo.data.frame zoo </span>
 <span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/business-science/timetk" class="external-link">timetk</a></span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">index_daily</span> <span class="op">&lt;-</span> <span class="fu"><a href="tk_make_timeseries.html">tk_make_timeseries</a></span><span class="op">(</span><span class="st">"2016-01-01"</span>, <span class="st">"2017-01-01"</span>, by <span class="op">=</span> <span class="st">"day"</span><span class="op">)</span></span></span>
@@ -350,7 +303,7 @@ index is a POSIXct):</p><ul><li><p><code>start_date = '2015'</code> is equivalen
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> FB     2016-01-13 101.  101.   95.2  95.4 33<span style="text-decoration: underline;">410</span>600     95.4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> FB     2016-01-14  95.8  98.9  92.4  98.4 48<span style="text-decoration: underline;">658</span>600     98.4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> FB     2016-01-15  94.0  96.4  93.5  95.0 45<span style="text-decoration: underline;">935</span>600     95.0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 66 more rows</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 66 more rows</span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

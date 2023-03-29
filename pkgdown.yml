@@ -12,7 +12,17 @@ articles:
   TK07_Time_Series_Data_Wrangling: TK07_Time_Series_Data_Wrangling.html
   TK08_Automatic_Anomaly_Detection: TK08_Automatic_Anomaly_Detection.html
   TK09_Clustering: TK09_Clustering.html
-last_built: 2023-03-20T15:23Z
+  TK00_Time_Series_Coercion: temp_archive/TK00_Time_Series_Coercion.html
+  TK01_Working_With_Time_Series_Index: temp_archive/TK01_Working_With_Time_Series_Index.html
+  TK02_Time_Series_Date_Sequences: temp_archive/TK02_Time_Series_Date_Sequences.html
+  TK03_Forecasting_Using_Time_Series_Signature: temp_archive/TK03_Forecasting_Using_Time_Series_Signature.html
+  TK04_Plotting_Time_Series: temp_archive/TK04_Plotting_Time_Series.html
+  TK05_Plotting_Seasonality_and_Correlation: temp_archive/TK05_Plotting_Seasonality_and_Correlation.html
+  TK06_Automatic_Frequency_And_Trend_Selection: temp_archive/TK06_Automatic_Frequency_And_Trend_Selection.html
+  TK07_Time_Series_Data_Wrangling: temp_archive/TK07_Time_Series_Data_Wrangling.html
+  TK08_Automatic_Anomaly_Detection: temp_archive/TK08_Automatic_Anomaly_Detection.html
+  TK09_Clustering: temp_archive/TK09_Clustering.html
+last_built: 2023-03-29T20:33Z
 urls:
   reference: https://business-science.github.io/timetk/reference
   article: https://business-science.github.io/timetk/articles

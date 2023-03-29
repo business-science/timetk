@@ -142,7 +142,10 @@ rolling (sliding) <code>.period</code> specified by the user.</p>
 are three ways to refer to the arguments:</p><ul><li><p>For a single argument function, use <code>.</code></p></li>
 <li><p>For a two argument function, use <code>.x</code> and <code>.y</code></p></li>
 <li><p>For more arguments, use <code>..1</code>, <code>..2</code>, <code>..3</code> etc</p></li>
-</ul><p>This syntax allows you to create very compact anonymous functions.</p>
+</ul><p>This syntax allows you to create very compact anonymous
+functions. Note that formula functions conceptually take dots
+(that's why you can use <code>..1</code> etc). They silently ignore
+additional arguments that are not used in the formula expression.</p>
 <p>If <strong>character vector</strong>, <strong>numeric vector</strong>, or <strong>list</strong>, it is
 converted to an extractor function. Character vectors index by
 name and numeric vectors index by position; use a list to index
@@ -170,6 +173,12 @@ complicated object (like a linear model), use <code>.unlist = FALSE</code> to cr
 a list-column of the rolling results.</p></dd>
 
 </dl></div>
+    <div class="section level2">
+    <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
+    
+
+<p>A <code>function</code> with the rolling/sliding conversion applied.</p>
+    </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>The <code>slidify()</code> function is almost identical to <code>tibbletime::rollify()</code>
@@ -214,7 +223,6 @@ to rolling windows.</p></li>
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/business-science/tidyquant" class="external-link">tidyquant</a></span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org" class="external-link">tidyr</a></span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://stringr.tidyverse.org" class="external-link">stringr</a></span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/business-science/timetk" class="external-link">timetk</a></span><span class="op">)</span></span></span>
@@ -242,7 +250,7 @@ to rolling windows.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> FB     2013-01-11  31.3  32.0  31.1  31.7  89<span style="text-decoration: underline;">598</span>000     31.7           30.4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> FB     2013-01-14  32.1  32.2  30.6  31.0  98<span style="text-decoration: underline;">892</span>800     31.0           30.7</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> FB     2013-01-15  30.6  31.7  29.9  30.1 173<span style="text-decoration: underline;">242</span>600     30.1           30.9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 998 more rows</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 998 more rows</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Use `partial = TRUE` to allow partial windows (those with less than the full .period)</span></span></span>
 <span class="r-in"><span><span class="va">mean_roll_5_partial</span> <span class="op">&lt;-</span> <span class="fu">slidify</span><span class="op">(</span><span class="va">mean</span>, .period <span class="op">=</span> <span class="fl">5</span>, .align <span class="op">=</span> <span class="st">"right"</span>, .partial <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
@@ -262,7 +270,7 @@ to rolling windows.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> FB     2013-01-11  31.3  32.0  31.1  31.7  89<span style="text-decoration: underline;">598</span>000     31.7           30.4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> FB     2013-01-14  32.1  32.2  30.6  31.0  98<span style="text-decoration: underline;">892</span>800     31.0           30.7</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> FB     2013-01-15  30.6  31.7  29.9  30.1 173<span style="text-decoration: underline;">242</span>600     30.1           30.9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 998 more rows</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 998 more rows</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># There's nothing stopping you from combining multiple rolling functions with</span></span></span>
 <span class="r-in"><span><span class="co"># different .period sizes in the same mutate call</span></span></span>
@@ -288,7 +296,7 @@ to rolling windows.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> FB     2013-01-11     31.7           30.4            <span style="color: #BB0000;">NA</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> FB     2013-01-14     31.0           30.7            <span style="color: #BB0000;">NA</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> FB     2013-01-15     30.1           30.9            29.8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 998 more rows</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 998 more rows</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># For summary operations like rolling means, we can accomplish large-scale</span></span></span>
 <span class="r-in"><span><span class="co"># multi-rolls with tk_augment_slidify()</span></span></span>
@@ -312,7 +320,7 @@ to rolling windows.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> FB     2013-01-11     31.7  30.4  30.1  29.8  29.6  <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> FB     2013-01-14     31.0  30.7  30.5  30.3  29.9  29.7  <span style="color: #BB0000;">NA</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> FB     2013-01-15     30.1  30.9  30.6  30.4  30.2  30.0  29.8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 998 more rows</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 998 more rows</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># --- GROUPS AND ROLLING ----</span></span></span>
 <span class="r-in"><span></span></span>
@@ -373,7 +381,7 @@ to rolling windows.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> FB     2013-01-11  31.3  32.0  31.1  31.7  89<span style="text-decoration: underline;">598</span>000     31.7       0.884</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> FB     2013-01-14  32.1  32.2  30.6  31.0  98<span style="text-decoration: underline;">892</span>800     31.0       0.667</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> FB     2013-01-15  30.6  31.7  29.9  30.1 173<span style="text-decoration: underline;">242</span>600     30.1       0.379</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 998 more rows</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 998 more rows</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># With &gt;2 args, create an anonymous function with &gt;2 args or use</span></span></span>
 <span class="r-in"><span><span class="co"># the purrr convention of ..1, ..2, ..3 to refer to the arguments</span></span></span>
@@ -405,7 +413,7 @@ to rolling windows.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> FB     2013-01-11  31.3  32.0  31.1  31.7  89<span style="text-decoration: underline;">598</span>000     31.7        <span style="color: #BB0000;">NA</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> FB     2013-01-14  32.1  32.2  30.6  31.0  98<span style="text-decoration: underline;">892</span>800     31.0        <span style="color: #BB0000;">NA</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> FB     2013-01-15  30.6  31.7  29.9  30.1 173<span style="text-decoration: underline;">242</span>600     30.1        29.7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 998 more rows</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 998 more rows</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Optional arguments MUST be passed at the creation of the rolling function</span></span></span>
 <span class="r-in"><span><span class="co"># Only data arguments that are "rolled over" are allowed when calling the</span></span></span>
@@ -429,7 +437,7 @@ to rolling windows.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> FB     2013-01-11  31.3  32.0  31.1  31.7  89<span style="text-decoration: underline;">598</span>000     31.7      30.4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> FB     2013-01-14  32.1  32.2  30.6  31.0  98<span style="text-decoration: underline;">892</span>800     31.0      30.7</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> FB     2013-01-15  30.6  31.7  29.9  30.1 173<span style="text-decoration: underline;">242</span>600     30.1      30.9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 998 more rows</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 998 more rows</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># --- ROLLING REGRESSIONS ----</span></span></span>
@@ -443,20 +451,20 @@ to rolling windows.</p></li>
 <span class="r-in"><span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>rolling_lm <span class="op">=</span> <span class="fu">lm_roll</span><span class="op">(</span><span class="va">adjusted</span>, <span class="va">numeric_date</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
 <span class="r-in"><span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">rolling_lm</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 918 × 10</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    symbol date        open  high   low close   volume adjusted numeric…¹ rolli…²</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;list&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> FB     2013-05-13  26.6  27.3  26.5  26.8 29<span style="text-decoration: underline;">068</span>800     26.8     <span style="text-decoration: underline;">15</span>838 <span style="color: #949494;">&lt;lm&gt;</span>   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> FB     2013-05-14  26.9  27.3  26.8  27.1 24<span style="text-decoration: underline;">930</span>300     27.1     <span style="text-decoration: underline;">15</span>839 <span style="color: #949494;">&lt;lm&gt;</span>   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> FB     2013-05-15  26.9  27.0  26.4  26.6 30<span style="text-decoration: underline;">299</span>800     26.6     <span style="text-decoration: underline;">15</span>840 <span style="color: #949494;">&lt;lm&gt;</span>   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> FB     2013-05-16  26.5  26.5  25.9  26.1 35<span style="text-decoration: underline;">499</span>100     26.1     <span style="text-decoration: underline;">15</span>841 <span style="color: #949494;">&lt;lm&gt;</span>   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> FB     2013-05-17  26.4  26.6  26.2  26.2 29<span style="text-decoration: underline;">462</span>700     26.2     <span style="text-decoration: underline;">15</span>842 <span style="color: #949494;">&lt;lm&gt;</span>   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> FB     2013-05-20  26.2  26.2  25.7  25.8 42<span style="text-decoration: underline;">402</span>900     25.8     <span style="text-decoration: underline;">15</span>845 <span style="color: #949494;">&lt;lm&gt;</span>   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> FB     2013-05-21  25.9  26.1  25.6  25.7 26<span style="text-decoration: underline;">261</span>300     25.7     <span style="text-decoration: underline;">15</span>846 <span style="color: #949494;">&lt;lm&gt;</span>   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> FB     2013-05-22  25.6  25.8  24.9  25.2 45<span style="text-decoration: underline;">314</span>500     25.2     <span style="text-decoration: underline;">15</span>847 <span style="color: #949494;">&lt;lm&gt;</span>   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> FB     2013-05-23  24.8  25.5  24.8  25.1 37<span style="text-decoration: underline;">663</span>100     25.1     <span style="text-decoration: underline;">15</span>848 <span style="color: #949494;">&lt;lm&gt;</span>   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> FB     2013-05-24  25.0  25.0  24.1  24.3 58<span style="text-decoration: underline;">727</span>900     24.3     <span style="text-decoration: underline;">15</span>849 <span style="color: #949494;">&lt;lm&gt;</span>   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 908 more rows, and abbreviated variable names ¹​numeric_date,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   ²​rolling_lm</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    symbol date        open  high   low close   volume adjusted numeric_date</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> FB     2013-05-13  26.6  27.3  26.5  26.8 29<span style="text-decoration: underline;">068</span>800     26.8        <span style="text-decoration: underline;">15</span>838</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> FB     2013-05-14  26.9  27.3  26.8  27.1 24<span style="text-decoration: underline;">930</span>300     27.1        <span style="text-decoration: underline;">15</span>839</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> FB     2013-05-15  26.9  27.0  26.4  26.6 30<span style="text-decoration: underline;">299</span>800     26.6        <span style="text-decoration: underline;">15</span>840</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> FB     2013-05-16  26.5  26.5  25.9  26.1 35<span style="text-decoration: underline;">499</span>100     26.1        <span style="text-decoration: underline;">15</span>841</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> FB     2013-05-17  26.4  26.6  26.2  26.2 29<span style="text-decoration: underline;">462</span>700     26.2        <span style="text-decoration: underline;">15</span>842</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> FB     2013-05-20  26.2  26.2  25.7  25.8 42<span style="text-decoration: underline;">402</span>900     25.8        <span style="text-decoration: underline;">15</span>845</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> FB     2013-05-21  25.9  26.1  25.6  25.7 26<span style="text-decoration: underline;">261</span>300     25.7        <span style="text-decoration: underline;">15</span>846</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> FB     2013-05-22  25.6  25.8  24.9  25.2 45<span style="text-decoration: underline;">314</span>500     25.2        <span style="text-decoration: underline;">15</span>847</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> FB     2013-05-23  24.8  25.5  24.8  25.1 37<span style="text-decoration: underline;">663</span>100     25.1        <span style="text-decoration: underline;">15</span>848</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> FB     2013-05-24  25.0  25.0  24.1  24.3 58<span style="text-decoration: underline;">727</span>900     24.3        <span style="text-decoration: underline;">15</span>849</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 908 more rows</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 1 more variable: rolling_lm &lt;list&gt;</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>

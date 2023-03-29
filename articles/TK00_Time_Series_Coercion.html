@@ -149,7 +149,7 @@ tbl</h3>
                         <h4 data-toc-skip class="author">Matt
 Dancho</h4>
             
-            <h4 data-toc-skip class="date">2023-03-20</h4>
+            <h4 data-toc-skip class="date">2023-03-29</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/business-science/timetk/blob/HEAD/vignettes/TK00_Time_Series_Coercion.Rmd" class="external-link"><code>vignettes/TK00_Time_Series_Coercion.Rmd</code></a></small>
       <div class="d-none name"><code>TK00_Time_Series_Coercion.Rmd</code></div>
@@ -232,7 +232,7 @@ others.</p>
 <span><span class="co">## <span style="color: #BCBCBC;"> 8</span> Q10   2001-10-01 <span style="text-decoration: underline;">2</span>428.</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;"> 9</span> Q10   2002-01-01 <span style="text-decoration: underline;">2</span>392.</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">10</span> Q10   2002-04-01 <span style="text-decoration: underline;">2</span>418.</span></span>
-<span><span class="co">## <span style="color: #949494;"># … with 49 more rows</span></span></span></code></pre>
+<span><span class="co">## <span style="color: #949494;"># ℹ 49 more rows</span></span></span></code></pre>
 </div>
 <div class="section level2">
 <h2 id="case-study-conversion-issues-with-ts">Case Study: Conversion issues with ts()<a class="anchor" aria-label="anchor" href="#case-study-conversion-issues-with-ts"></a>
@@ -293,7 +293,7 @@ retained.</p>
 <code class="sourceCode R"><span><span class="co"># No date index attribute</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">q10_quarterly_ts</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##  Time-Series [1:59] from 2000 to 2014: 2329 2350 2333 2382 2383 ...</span></span></code></pre>
-<p>We can get the index using the <code>index()</code> function from the
+<p>We can get the index using the <code><a href="https://rdrr.io/pkg/zoo/man/index.html" class="external-link">index()</a></code> function from the
 <code>zoo</code> package. The index retained is a regular sequence of
 numeric values. In many cases, the regularized values cannot be coerced
 back to the original time-base because the date and date time data
@@ -402,7 +402,7 @@ rather than a time-based index.</p>
 <span><span class="co">## <span style="color: #BCBCBC;"> 8</span> 2001 Q4   <span style="text-decoration: underline;">2</span>428.</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;"> 9</span> 2002 Q1   <span style="text-decoration: underline;">2</span>392.</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">10</span> 2002 Q2   <span style="text-decoration: underline;">2</span>418.</span></span>
-<span><span class="co">## <span style="color: #949494;"># … with 49 more rows</span></span></span></code></pre>
+<span><span class="co">## <span style="color: #949494;"># ℹ 49 more rows</span></span></span></code></pre>
 <p>We can now get the original date index using the
 <code><a href="../reference/tk_tbl.html">tk_tbl()</a></code> argument <code>timetk_idx = TRUE</code>.</p>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
@@ -424,7 +424,7 @@ rather than a time-based index.</p>
 <span><span class="co">## <span style="color: #BCBCBC;"> 8</span> 2001-10-01 <span style="text-decoration: underline;">2</span>428.</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;"> 9</span> 2002-01-01 <span style="text-decoration: underline;">2</span>392.</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">10</span> 2002-04-01 <span style="text-decoration: underline;">2</span>418.</span></span>
-<span><span class="co">## <span style="color: #949494;"># … with 49 more rows</span></span></span></code></pre>
+<span><span class="co">## <span style="color: #949494;"># ℹ 49 more rows</span></span></span></code></pre>
 <p>We can see that in this case (and in most cases) you can get the same
 data frame you began with.</p>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
@@ -461,7 +461,7 @@ this into <code>xts</code>, <code>zoo</code>, <code>zooreg</code> and
 <span><span class="co">## <span style="color: #BCBCBC;"> 8</span> Q10   2001-10-01 <span style="text-decoration: underline;">2</span>428.</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;"> 9</span> Q10   2002-01-01 <span style="text-decoration: underline;">2</span>392.</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">10</span> Q10   2002-04-01 <span style="text-decoration: underline;">2</span>418.</span></span>
-<span><span class="co">## <span style="color: #949494;"># … with 49 more rows</span></span></span></code></pre>
+<span><span class="co">## <span style="color: #949494;"># ℹ 49 more rows</span></span></span></code></pre>
 <div class="section level4">
 <h4 id="to-xts">to xts<a class="anchor" aria-label="anchor" href="#to-xts"></a>
 </h4>
@@ -625,7 +625,7 @@ arguments.</p>
 <span><span class="co">## <span style="color: #BCBCBC;"> 8</span> 2001-10-01 <span style="text-decoration: underline;">2</span>428.</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;"> 9</span> 2002-01-01 <span style="text-decoration: underline;">2</span>392.</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">10</span> 2002-04-01 <span style="text-decoration: underline;">2</span>418.</span></span>
-<span><span class="co">## <span style="color: #949494;"># … with 49 more rows</span></span></span></code></pre>
+<span><span class="co">## <span style="color: #949494;"># ℹ 49 more rows</span></span></span></code></pre>
 </div>
 <div class="section level4">
 <h4 id="from-zoo">From zoo<a class="anchor" aria-label="anchor" href="#from-zoo"></a>
@@ -657,7 +657,7 @@ arguments.</p>
 <span><span class="co">## <span style="color: #BCBCBC;"> 8</span> 2001-10-01 <span style="text-decoration: underline;">2</span>428.</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;"> 9</span> 2002-01-01 <span style="text-decoration: underline;">2</span>392.</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">10</span> 2002-04-01 <span style="text-decoration: underline;">2</span>418.</span></span>
-<span><span class="co">## <span style="color: #949494;"># … with 49 more rows</span></span></span></code></pre>
+<span><span class="co">## <span style="color: #949494;"># ℹ 49 more rows</span></span></span></code></pre>
 </div>
 <div class="section level4">
 <h4 id="from-zooreg">From zooreg<a class="anchor" aria-label="anchor" href="#from-zooreg"></a>
@@ -690,7 +690,7 @@ default.</p>
 <span><span class="co">## <span style="color: #BCBCBC;"> 8</span> 2001 Q4   <span style="text-decoration: underline;">2</span>428.</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;"> 9</span> 2002 Q1   <span style="text-decoration: underline;">2</span>392.</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">10</span> 2002 Q2   <span style="text-decoration: underline;">2</span>418.</span></span>
-<span><span class="co">## <span style="color: #949494;"># … with 49 more rows</span></span></span></code></pre>
+<span><span class="co">## <span style="color: #949494;"># ℹ 49 more rows</span></span></span></code></pre>
 <p>With <code>timetk_idx = TRUE</code> the index is the original date
 sequence. The result is the original <code>tbl</code> that we started
 with!</p>
@@ -710,7 +710,7 @@ with!</p>
 <span><span class="co">## <span style="color: #BCBCBC;"> 8</span> 2001-10-01 <span style="text-decoration: underline;">2</span>428.</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;"> 9</span> 2002-01-01 <span style="text-decoration: underline;">2</span>392.</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">10</span> 2002-04-01 <span style="text-decoration: underline;">2</span>418.</span></span>
-<span><span class="co">## <span style="color: #949494;"># … with 49 more rows</span></span></span></code></pre>
+<span><span class="co">## <span style="color: #949494;"># ℹ 49 more rows</span></span></span></code></pre>
 </div>
 <div class="section level4">
 <h4 id="from-ts">From ts<a class="anchor" aria-label="anchor" href="#from-ts"></a>
@@ -752,7 +752,7 @@ default.</p>
 <span><span class="co">## <span style="color: #BCBCBC;"> 8</span> 2001 Q4   <span style="text-decoration: underline;">2</span>428.</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;"> 9</span> 2002 Q1   <span style="text-decoration: underline;">2</span>392.</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">10</span> 2002 Q2   <span style="text-decoration: underline;">2</span>418.</span></span>
-<span><span class="co">## <span style="color: #949494;"># … with 49 more rows</span></span></span></code></pre>
+<span><span class="co">## <span style="color: #949494;"># ℹ 49 more rows</span></span></span></code></pre>
 <p>With <code>timetk_idx = TRUE</code> the index is the original date
 sequence. The result is the original <code>tbl</code> that we started
 with!</p>
@@ -772,7 +772,7 @@ with!</p>
 <span><span class="co">## <span style="color: #BCBCBC;"> 8</span> 2001-10-01 <span style="text-decoration: underline;">2</span>428.</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;"> 9</span> 2002-01-01 <span style="text-decoration: underline;">2</span>392.</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">10</span> 2002-04-01 <span style="text-decoration: underline;">2</span>418.</span></span>
-<span><span class="co">## <span style="color: #949494;"># … with 49 more rows</span></span></span></code></pre>
+<span><span class="co">## <span style="color: #949494;"># ℹ 49 more rows</span></span></span></code></pre>
 </div>
 </div>
 </div>
@@ -828,7 +828,7 @@ rather than the regularized index in the returned <code>tbl</code>.</p>
 <span><span class="co">## <span style="color: #BCBCBC;"> 8</span> 2001-10-01 <span style="text-decoration: underline;">2</span>428.</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;"> 9</span> 2002-01-01 <span style="text-decoration: underline;">2</span>392.</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">10</span> 2002-04-01 <span style="text-decoration: underline;">2</span>418.</span></span>
-<span><span class="co">## <span style="color: #949494;"># … with 49 more rows</span></span></span></code></pre>
+<span><span class="co">## <span style="color: #949494;"># ℹ 49 more rows</span></span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="testing-other-data-types">Testing other data types<a class="anchor" aria-label="anchor" href="#testing-other-data-types"></a>
@@ -884,7 +884,7 @@ during conversion. Here’s and example with <code>yearqtr</code>.</p>
 <span><span class="co">## <span style="color: #BCBCBC;"> 8</span> Q10   2001 Q4   <span style="text-decoration: underline;">2</span>428.</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;"> 9</span> Q10   2002 Q1   <span style="text-decoration: underline;">2</span>392.</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">10</span> Q10   2002 Q2   <span style="text-decoration: underline;">2</span>418.</span></span>
-<span><span class="co">## <span style="color: #949494;"># … with 49 more rows</span></span></span></code></pre>
+<span><span class="co">## <span style="color: #949494;"># ℹ 49 more rows</span></span></span></code></pre>
 <p>We can coerce to <code>xts</code> and the <code>yearqtr</code> class
 is intact.</p>
 <div class="sourceCode" id="cb81"><pre class="downlit sourceCode r">
@@ -930,7 +930,7 @@ maintained through each of the conversion steps.</p>
 <span><span class="co">## <span style="color: #BCBCBC;"> 8</span> 2001 Q4   <span style="text-decoration: underline;">2</span>428.</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;"> 9</span> 2002 Q1   <span style="text-decoration: underline;">2</span>392.</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">10</span> 2002 Q2   <span style="text-decoration: underline;">2</span>418.</span></span>
-<span><span class="co">## <span style="color: #949494;"># … with 49 more rows</span></span></span></code></pre>
+<span><span class="co">## <span style="color: #949494;"># ℹ 49 more rows</span></span></span></code></pre>
 </div>
 <div class="section level2">
 <h2 id="learning-more">Learning More<a class="anchor" aria-label="anchor" href="#learning-more"></a>

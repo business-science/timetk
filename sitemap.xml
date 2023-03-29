@@ -37,6 +37,36 @@
     <loc>https://business-science.github.io/timetk/articles/index.html</loc>
   </url>
   <url>
+    <loc>https://business-science.github.io/timetk/articles/temp_archive/TK00_Time_Series_Coercion.html</loc>
+  </url>
+  <url>
+    <loc>https://business-science.github.io/timetk/articles/temp_archive/TK01_Working_With_Time_Series_Index.html</loc>
+  </url>
+  <url>
+    <loc>https://business-science.github.io/timetk/articles/temp_archive/TK02_Time_Series_Date_Sequences.html</loc>
+  </url>
+  <url>
+    <loc>https://business-science.github.io/timetk/articles/temp_archive/TK03_Forecasting_Using_Time_Series_Signature.html</loc>
+  </url>
+  <url>
+    <loc>https://business-science.github.io/timetk/articles/temp_archive/TK04_Plotting_Time_Series.html</loc>
+  </url>
+  <url>
+    <loc>https://business-science.github.io/timetk/articles/temp_archive/TK05_Plotting_Seasonality_and_Correlation.html</loc>
+  </url>
+  <url>
+    <loc>https://business-science.github.io/timetk/articles/temp_archive/TK06_Automatic_Frequency_And_Trend_Selection.html</loc>
+  </url>
+  <url>
+    <loc>https://business-science.github.io/timetk/articles/temp_archive/TK07_Time_Series_Data_Wrangling.html</loc>
+  </url>
+  <url>
+    <loc>https://business-science.github.io/timetk/articles/temp_archive/TK08_Automatic_Anomaly_Detection.html</loc>
+  </url>
+  <url>
+    <loc>https://business-science.github.io/timetk/articles/temp_archive/TK09_Clustering.html</loc>
+  </url>
+  <url>
     <loc>https://business-science.github.io/timetk/authors.html</loc>
   </url>
   <url>
@@ -44,6 +74,9 @@
   </url>
   <url>
     <loc>https://business-science.github.io/timetk/news/index.html</loc>
+  </url>
+  <url>
+    <loc>https://business-science.github.io/timetk/reference/FANG.html</loc>
   </url>
   <url>
     <loc>https://business-science.github.io/timetk/reference/between_time.html</loc>

@@ -154,7 +154,6 @@ Dancho</h4>
 
     
     
-<p><img src="timetk_version_2.jpg" width="95%" style="display: block; margin: auto;"></p>
 <p>This tutorial focuses on, <code><a href="../reference/plot_time_series.html">plot_time_series()</a></code>, a
 workhorse time-series plotting function that:</p>
 <ul>
@@ -200,7 +199,7 @@ which includes energy demand in megawatts at a sampling interval of
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 2000-06-05 <span style="color: #949494;">03:30:00</span> <span style="text-decoration: underline;">21</span>860</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 2000-06-05 <span style="color: #949494;">04:00:00</span> <span style="text-decoration: underline;">21</span>751</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 2000-06-05 <span style="color: #949494;">04:30:00</span> <span style="text-decoration: underline;">21</span>336</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with 4,022 more rows</span></span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 4,022 more rows</span></span></span></code></pre></div>
 <p>The <code><a href="../reference/plot_time_series.html">plot_time_series()</a></code> function generates an interactive
 <code>plotly</code> chart by default.</p>
 <ul>
@@ -216,7 +215,7 @@ the chart.</li>
 <span>  <span class="fu"><a href="../reference/plot_time_series.html">plot_time_series</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">value</span>, </span>
 <span>                   .interactive <span class="op">=</span> <span class="va">interactive</span>,</span>
 <span>                   .plotly_slider <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<p><img src="TK04_Plotting_Time_Series_files/figure-html/unnamed-chunk-4-1.png" width="95%" style="display: block; margin: auto;"></p>
+<p><img src="TK04_Plotting_Time_Series_files/figure-html/unnamed-chunk-3-1.png" width="95%" style="display: block; margin: auto;"></p>
 <div class="section level4">
 <h4 id="plotting-groups">Plotting Groups<a class="anchor" aria-label="anchor" href="#plotting-groups"></a>
 </h4>
@@ -239,7 +238,7 @@ competition that are sampled at a daily frequency.</p>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> D10   2014-07-10 <span style="text-decoration: underline;">2</span>007.</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> D10   2014-07-11 <span style="text-decoration: underline;">2</span>010 </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> D10   2014-07-12 <span style="text-decoration: underline;">2</span>002.</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with 9,733 more rows</span></span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 9,733 more rows</span></span></span></code></pre></div>
 <p>Visualizing grouped data is as simple as grouping the data set with
 <code><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by()</a></code> prior to piping into the
 <code><a href="../reference/plot_time_series.html">plot_time_series()</a></code> function. Key points:</p>
@@ -259,7 +258,7 @@ plot to scale independently of the other plots</li>
 <span>  <span class="fu"><a href="../reference/plot_time_series.html">plot_time_series</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">value</span>, </span>
 <span>                   .facet_ncol <span class="op">=</span> <span class="fl">2</span>, .facet_scales <span class="op">=</span> <span class="st">"free"</span>,</span>
 <span>                   .interactive <span class="op">=</span> <span class="va">interactive</span><span class="op">)</span></span></code></pre></div>
-<p><img src="TK04_Plotting_Time_Series_files/figure-html/unnamed-chunk-6-1.png" width="95%" style="display: block; margin: auto;"></p>
+<p><img src="TK04_Plotting_Time_Series_files/figure-html/unnamed-chunk-5-1.png" width="95%" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level4">
 <h4 id="visualizing-transformations-sub-groups">Visualizing Transformations &amp; Sub-Groups<a class="anchor" aria-label="anchor" href="#visualizing-transformations-sub-groups"></a>
@@ -287,7 +286,7 @@ showcase:</p>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> H10   2015-07-01 <span style="color: #949494;">19:00:00</span>   446</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> H10   2015-07-01 <span style="color: #949494;">20:00:00</span>   434</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> H10   2015-07-01 <span style="color: #949494;">21:00:00</span>   422</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with 3,050 more rows</span></span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 3,050 more rows</span></span></span></code></pre></div>
 <p>The intent is to showcase the groups in faceted plots, but to
 highlight weekly windows (sub-groups) within the data while
 simultaneously doing a <code><a href="https://rdrr.io/r/base/Log.html" class="external-link">log()</a></code> transformation to the value.
@@ -309,7 +308,7 @@ of the week numbers.</li>
 <span>                   .facet_ncol <span class="op">=</span> <span class="fl">2</span>, </span>
 <span>                   .facet_scales <span class="op">=</span> <span class="st">"free"</span>, </span>
 <span>                   .interactive <span class="op">=</span> <span class="va">interactive</span><span class="op">)</span></span></code></pre></div>
-<p><img src="TK04_Plotting_Time_Series_files/figure-html/unnamed-chunk-8-1.png" width="95%" style="display: block; margin: auto;"></p>
+<p><img src="TK04_Plotting_Time_Series_files/figure-html/unnamed-chunk-7-1.png" width="95%" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level4">
 <h4 id="static-ggplot2-visualizations-customizations">Static ggplot2 Visualizations &amp; Customizations<a class="anchor" aria-label="anchor" href="#static-ggplot2-visualizations-customizations"></a>
@@ -331,7 +330,7 @@ of the week numbers.</li>
 <span>                   .y_lab <span class="op">=</span> <span class="st">"Energy Demand (MW)"</span>,</span>
 <span>                   .color_lab <span class="op">=</span> <span class="st">"Month"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_y_continuous</a></span><span class="op">(</span>labels <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/comma.html" class="external-link">comma_format</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="TK04_Plotting_Time_Series_files/figure-html/unnamed-chunk-9-1.png" width="95%" style="display: block; margin: auto;"></p>
+<p><img src="TK04_Plotting_Time_Series_files/figure-html/unnamed-chunk-8-1.png" width="95%" style="display: block; margin: auto;"></p>
 </div>
 </div>
 <div class="section level3">
@@ -351,7 +350,7 @@ the <code>.period</code> argument.</li>
 <span>        .period      <span class="op">=</span> <span class="st">"1 year"</span>,</span>
 <span>        .facet_ncol  <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>        .interactive <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
-<p><img src="TK04_Plotting_Time_Series_files/figure-html/unnamed-chunk-10-1.png" width="95%" style="display: block; margin: auto;"></p>
+<p><img src="TK04_Plotting_Time_Series_files/figure-html/unnamed-chunk-9-1.png" width="95%" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level3">
 <h3 id="regression-plots-time-series">Regression Plots (Time Series)<a class="anchor" aria-label="anchor" href="#regression-plots-time-series"></a>
@@ -375,7 +374,7 @@ assess key features that are correlated to a time series.</p>
 <span>        .interactive  <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>        .show_summary <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span>    <span class="op">)</span></span></code></pre></div>
-<p><img src="TK04_Plotting_Time_Series_files/figure-html/unnamed-chunk-11-1.png" width="95%" style="display: block; margin: auto;"></p>
+<p><img src="TK04_Plotting_Time_Series_files/figure-html/unnamed-chunk-10-1.png" width="95%" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level3">
 <h3 id="summary">Summary<a class="anchor" aria-label="anchor" href="#summary"></a>

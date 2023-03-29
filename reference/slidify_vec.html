@@ -217,7 +217,6 @@ rolling cor, rolling regression, etc.</p></li>
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/business-science/tidyquant" class="external-link">tidyquant</a></span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/business-science/timetk" class="external-link">timetk</a></span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Training Data</span></span></span>
@@ -269,12 +268,12 @@ rolling cor, rolling regression, etc.</p></li>
 <span class="r-plt img"><img src="slidify_vec-3.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># ---- Loess vs Moving Average ----</span></span></span>
-<span class="r-in"><span><span class="co"># - Loess: Using `.degree = 0` to make less flexible. Comperable to a moving average.</span></span></span>
+<span class="r-in"><span><span class="co"># - Loess: Using `.degree = 0` to make less flexible. Comparable to a moving average.</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">FB_tbl</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
 <span class="r-in"><span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>        adjusted_loess_30 <span class="op">=</span> <span class="fu"><a href="smooth_vec.html">smooth_vec</a></span><span class="op">(</span><span class="va">adjusted</span>, period <span class="op">=</span> <span class="fl">30</span>, degree <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>        adjusted_ma_30    <span class="op">=</span> <span class="fu">slidify_vec</span><span class="op">(</span><span class="va">adjusted</span>, .f <span class="op">=</span> <span class="va">AVERAGE</span>,</span></span>
+<span class="r-in"><span>        adjusted_ma_30    <span class="op">=</span> <span class="fu">slidify_vec</span><span class="op">(</span><span class="va">adjusted</span>, .f <span class="op">=</span> <span class="va">mean</span>,</span></span>
 <span class="r-in"><span>                                           .period <span class="op">=</span> <span class="fl">30</span>, .partial <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-in"><span>    <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
 <span class="r-in"><span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">adjusted</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
