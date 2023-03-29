@@ -119,7 +119,7 @@
 #'
 #'
 #' @examples
-#'
+#' \donttest{
 #' library(dplyr)
 #' library(lubridate)
 #' library(timetk)
@@ -180,7 +180,7 @@
 #'         .smooth_period    = "5 years", # Smoother Period
 #'         .facet_ncol       = 2,
 #'         .interactive      = FALSE)
-#'
+#' }
 #' @export
 plot_time_series_boxplot <- function(
     .data, .date_var, .value,

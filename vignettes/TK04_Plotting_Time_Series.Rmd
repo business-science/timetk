@@ -26,11 +26,6 @@ knitr::opts_chunk$set(
 ```
 
 
-```{r, echo=FALSE}
-knitr::include_graphics("timetk_version_2.jpg")
-```
-
-
 This tutorial focuses on, `plot_time_series()`, a workhorse time-series plotting function that:
 
 - Generates interactive `plotly` plots (great for exploring & shiny apps)
