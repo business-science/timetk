@@ -230,6 +230,7 @@ reference:
   - contains("wikipedia")
   - bike_sharing_daily
   - taylor_30_min
+  - FANG
 - title: Date Utilities
   contents:
   - parse_date2
