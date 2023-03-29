@@ -4,6 +4,7 @@
 - remove `tidyquant` from examples 
 - remove `tidyverse` from examples
 - add `FANG` dataset to `timetk` (port from `tidyquant`)
+- cran: fix return, dontrun -> donttest, options(max.print)
 
 # timetk 2.8.2
 
