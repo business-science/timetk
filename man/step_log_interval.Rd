@@ -86,7 +86,6 @@ Refer to the \code{\link[=log_interval_vec]{log_interval_vec()}} function for th
 \examples{
 library(dplyr)
 library(tidyr)
-library(tidyquant)
 library(recipes)
 library(timetk)
 

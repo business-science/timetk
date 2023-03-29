@@ -68,7 +68,6 @@
 #' @examples
 #' library(tibble)
 #' library(dplyr)
-#' library(tidyquant)
 #' library(timetk)
 #'
 #' # Create a quarterly series with 1 missing value

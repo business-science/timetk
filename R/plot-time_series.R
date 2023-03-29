@@ -109,7 +109,6 @@
 #' @examples
 #'
 #' library(dplyr)
-#' library(tidyquant)
 #' library(lubridate)
 #' library(timetk)
 #'

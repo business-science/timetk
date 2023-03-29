@@ -95,7 +95,6 @@ excluded.
 }
 \examples{
 library(dplyr)
-library(tidyquant)
 library(timetk)
 
 # Basic example - By 3 seconds

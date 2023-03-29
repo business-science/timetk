@@ -66,7 +66,6 @@
 #' @examples
 #' library(recipes)
 #' library(dplyr)
-#' library(tidyquant)
 #' library(timetk)
 #'
 #' FB_tbl <- FANG %>% filter(symbol == "FB")

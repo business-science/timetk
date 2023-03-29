@@ -1,7 +1,5 @@
 context("TEST TIME SERIES CV")
 
-library(tidyverse)
-library(timetk)
 
 # SINGLE TIME SERIES ----
 

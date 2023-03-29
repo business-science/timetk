@@ -1,0 +1,131 @@
+---
+title: "Plotting Seasonality and Correlation"
+author: "Matt Dancho"
+output: 
+  rmarkdown::html_vignette:
+    toc: true
+    toc_depth: 2
+vignette: >
+  %\VignetteIndexEntry{Plotting Seasonality and Correlation}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  message = FALSE,
+  warning = FALSE,
+  fig.width = 8, 
+  fig.height = 4.5,
+  fig.align = 'center',
+  out.width='95%', 
+  dpi = 100,
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+This tutorial focuses on 3 functions for visualizing time series diagnostics:
+
+- __ACF Diagnostics:__ `plot_acf_diagnostics()`
+- __Seasonality Diagnostics:__ `plot_seasonal_diagnostics()`
+- __STL Diagnostics:__ `plot_stl_diagnostics()`
+
+# Libraries
+
+Run the following code to set up for this tutorial.
+
+```{r setup}
+library(dplyr)
+library(timetk)
+
+# Setup for the plotly charts (# FALSE returns ggplots)
+interactive <- TRUE
+```
+
+# Correlation Plots
+
+## Grouped ACF Diagnostics
+
+```{r, fig.height=6}
+m4_hourly %>%
+    group_by(id) %>%
+    plot_acf_diagnostics(
+        date, value,               # ACF & PACF
+        .lags = "7 days",          # 7-Days of hourly lags
+        .interactive = interactive
+    )
+```
+
+## Grouped CCF Plots
+
+```{r, fig.height=8}
+walmart_sales_weekly %>%
+    select(id, Date, Weekly_Sales, Temperature, Fuel_Price) %>%
+    group_by(id) %>%
+    plot_acf_diagnostics(
+        Date, Weekly_Sales,        # ACF & PACF
+        .ccf_vars    = c(Temperature, Fuel_Price),   # CCFs
+        .lags        = "3 months",    # 3 months of weekly lags
+        .interactive = interactive
+    )
+```
+
+# Seasonality
+
+## Seasonal Visualizations
+
+```{r, fig.height=8}
+taylor_30_min %>%
+    plot_seasonal_diagnostics(date, value, .interactive = interactive)
+```
+
+## Grouped Seasonal Visualizations
+
+```{r, fig.height=8}
+m4_hourly %>%
+    group_by(id) %>%
+    plot_seasonal_diagnostics(date, value, .interactive = interactive)
+```
+
+
+# STL Diagnostics
+
+```{r, fig.height=8}
+m4_hourly %>%
+    group_by(id) %>%
+    plot_stl_diagnostics(
+        date, value,
+        .frequency = "auto", .trend = "auto",
+        .feature_set = c("observed", "season", "trend", "remainder"),
+        .interactive = interactive)
+```
+
+# Learning More
+
+<p>
+	<iframe width="100%" height="450" src="https://www.youtube.com/embed/elQb4VzRINg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" style="box-shadow: 0 0 5px 2px rgba(0, 0, 0, .5);"><span id="selection-marker-1" class="redactor-selection-marker"></span><span id="selection-marker-1" class="redactor-selection-marker"></span><span id="selection-marker-1" class="redactor-selection-marker"></span><span id="selection-marker-1" class="redactor-selection-marker"></span>
+	</iframe>
+</p>
+
+_My Talk on High-Performance Time Series Forecasting_
+
+Time series is changing. __Businesses now need 10,000+ time series forecasts every day.__ 
+
+ __High-Performance Forecasting Systems will save companies MILLIONS of dollars.__ Imagine what will happen to your career if you can provide your organization a "High-Performance Time Series Forecasting System" (HPTSF System).
+
+I teach how to build a HPTFS System in my __High-Performance Time Series Forecasting Course__. If interested in learning Scalable High-Performance Forecasting Strategies then [take my course](https://university.business-science.io/p/ds4b-203-r-high-performance-time-series-forecasting). You will learn:
+
+- Time Series Machine Learning (cutting-edge) with `Modeltime` - 30+ Models (Prophet, ARIMA, XGBoost, Random Forest, & many more)
+- NEW - Deep Learning with `GluonTS` (Competition Winners)
+- Time Series Preprocessing, Noise Reduction, & Anomaly Detection
+- Feature engineering using lagged variables & external regressors
+- Hyperparameter Tuning
+- Time series cross-validation
+- Ensembling Multiple Machine Learning & Univariate Modeling Techniques (Competition Winner)
+- Scalable Forecasting - Forecast 1000+ time series in parallel
+- and more.
+
+<p class="text-center" style="font-size:30px;">
+<a href="https://university.business-science.io/p/ds4b-203-r-high-performance-time-series-forecasting">Unlock the High-Performance Time Series Forecasting Course</a>
+</p>

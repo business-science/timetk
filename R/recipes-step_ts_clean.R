@@ -62,7 +62,6 @@
 #'
 #' library(dplyr)
 #' library(tidyr)
-#' library(tidyquant)
 #' library(recipes)
 #' library(timetk)
 #'

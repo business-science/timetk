@@ -22,7 +22,6 @@
 #'
 #' @examples
 #' library(dplyr)
-#' library(tidyquant)
 #' library(rsample)
 #' library(timetk)
 #'

@@ -42,7 +42,6 @@
 #' @examples
 #' library(dplyr)
 #' library(stringr)
-#' library(tidyquant)
 #' library(timetk)
 #'
 #' # Works with time-based tibbles

@@ -1,0 +1,152 @@
+---
+title: "Time Series Clustering"
+author: "Matt Dancho"
+date: "`r Sys.Date()`"
+output: 
+  rmarkdown::html_vignette:
+    toc: true
+    toc_depth: 2
+vignette: >
+  %\VignetteIndexEntry{Time Series Clustering}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+knitr::opts_chunk$set(
+    message = FALSE,
+    warning = FALSE,
+    fig.width = 8, 
+    fig.height = 4.5,
+    fig.align = 'center',
+    out.width='95%', 
+    dpi = 100
+)
+
+# devtools::load_all() # Travis CI fails on load_all()
+```
+
+
+__Clustering__ is an important part of time series analysis that allows us to organize time series into groups by combining "tsfeatures" (summary matricies) with unsupervised techniques such as K-Means Clustering. In this short tutorial, we will cover the `tk_tsfeatures()` functions that computes a time series feature matrix of summarized information on one or more time series. 
+
+# Libraries
+
+To get started, load the following libraries. 
+
+```{r}
+library(dplyr)
+library(purrr)
+library(timetk)
+```
+
+# Data
+
+This tutorial will use the `walmart_sales_weekly` dataset: 
+
+- Weekly
+- Sales spikes at various events 
+
+```{r}
+walmart_sales_weekly
+```
+
+# TS Features
+
+Using the `tk_tsfeatures()` function, we can quickly get the "tsfeatures" for each of the time series. A few important points:
+
+- The `features` parameter come from the `tsfeatures` R package. Use one of the function names from `tsfeatures` R package e.g.("lumpiness", "stl_features").
+
+- We can supply any function that returns an aggregation (e.g. "mean" will apply the `base::mean()` function).
+
+- You can supply custom functions by creating a function and providing it (e.g. `my_mean()` defined below)
+
+```{r, fig.height=7}
+# Custom Function
+my_mean <- function(x, na.rm=TRUE) {
+  mean(x, na.rm = na.rm)
+}
+
+tsfeature_tbl <- walmart_sales_weekly %>%
+    group_by(id) %>%
+    tk_tsfeatures(
+      .date_var = Date,
+      .value    = Weekly_Sales,
+      .period   = 52,
+      .features = c("frequency", "stl_features", "entropy", "acf_features", "my_mean"),
+      .scale    = TRUE,
+      .prefix   = "ts_"
+    ) %>%
+    ungroup()
+
+tsfeature_tbl
+```
+
+
+# Clustering with K-Means
+
+We can quickly add cluster assignments with the `kmeans()` function and some tidyverse data wrangling. 
+
+```{r}
+set.seed(123)
+
+
+cluster_tbl <- tibble(
+    cluster = tsfeature_tbl %>% 
+        select(-id) %>%
+        as.matrix() %>%
+        kmeans(centers = 3, nstart = 100) %>%
+        pluck("cluster")
+) %>%
+    bind_cols(
+        tsfeature_tbl
+    )
+
+cluster_tbl
+```
+
+# Visualize the Cluster Assignments
+
+Finally, we can visualize the cluster assignments by joining the `cluster_tbl` with the original `walmart_sales_weekly` and then plotting with `plot_time_series()`. 
+
+```{r}
+cluster_tbl %>%
+    select(cluster, id) %>%
+    right_join(walmart_sales_weekly, by = "id") %>%
+    group_by(id) %>%
+    plot_time_series(
+      Date, Weekly_Sales, 
+      .color_var   = cluster, 
+      .facet_ncol  = 2, 
+      .interactive = FALSE
+    )
+```
+
+
+# Learning More
+
+<p>
+	<iframe width="100%" height="450" src="https://www.youtube.com/embed/elQb4VzRINg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" style="box-shadow: 0 0 5px 2px rgba(0, 0, 0, .5);"><span id="selection-marker-1" class="redactor-selection-marker"></span><span id="selection-marker-1" class="redactor-selection-marker"></span><span id="selection-marker-1" class="redactor-selection-marker"></span><span id="selection-marker-1" class="redactor-selection-marker"></span>
+	</iframe>
+</p>
+
+_My Talk on High-Performance Time Series Forecasting_
+
+Time series is changing. __Businesses now need 10,000+ time series forecasts every day.__ This is what I call a _High-Performance Time Series Forecasting System (HPTSF)_ - Accurate, Robust, and Scalable Forecasting. 
+
+ __High-Performance Forecasting Systems will save companies MILLIONS of dollars.__ Imagine what will happen to your career if you can provide your organization a "High-Performance Time Series Forecasting System" (HPTSF System).
+
+I teach how to build a HPTFS System in my __High-Performance Time Series Forecasting Course__. If interested in learning Scalable High-Performance Forecasting Strategies then [take my course](https://university.business-science.io/p/ds4b-203-r-high-performance-time-series-forecasting). You will learn:
+
+- Time Series Machine Learning (cutting-edge) with `Modeltime` - 30+ Models (Prophet, ARIMA, XGBoost, Random Forest, & many more)
+- NEW - Deep Learning with `GluonTS` (Competition Winners)
+- Time Series Preprocessing, Noise Reduction, & Anomaly Detection
+- Feature engineering using lagged variables & external regressors
+- Hyperparameter Tuning
+- Time series cross-validation
+- Ensembling Multiple Machine Learning & Univariate Modeling Techniques (Competition Winner)
+- Scalable Forecasting - Forecast 1000+ time series in parallel
+- and more.
+
+<p class="text-center" style="font-size:30px;">
+<a href="https://university.business-science.io/p/ds4b-203-r-high-performance-time-series-forecasting">Unlock the High-Performance Time Series Forecasting Course</a>
+</p>

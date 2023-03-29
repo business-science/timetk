@@ -42,7 +42,6 @@ A resample set is an output of the \code{timetk::time_series_cv()} function or t
 }
 \examples{
 library(dplyr)
-library(tidyquant)
 library(rsample)
 library(timetk)
 

@@ -60,7 +60,6 @@ Filter on an index to identify all holidays that are commonly non-working.
 \examples{
 library(dplyr)
 library(stringr)
-library(tidyquant)
 library(timetk)
 
 # Works with time-based tibbles

@@ -92,7 +92,6 @@
 #'
 #' @examples
 #' library(dplyr)
-#' library(tidyquant)
 #' library(timetk)
 #'
 #' options(max.print = 50)

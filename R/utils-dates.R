@@ -17,8 +17,8 @@
 #' See [padr helpers.R](https://github.com/EdwinTh/padr/blob/master/R/helpers.R)
 #'
 #' @examples
-#' library(tidyquant)
 #' library(timetk)
+#' library(dplyr)
 #'
 #' FANG %>%
 #'     tk_get_timeseries_variables()

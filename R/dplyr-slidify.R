@@ -72,7 +72,6 @@
 #'
 #' @examples
 #' library(dplyr)
-#' library(tidyquant)
 #' library(tidyr)
 #' library(stringr)
 #' library(timetk)

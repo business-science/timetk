@@ -60,7 +60,6 @@
 #' @examples
 #' library(dplyr)
 #' library(ggplot2)
-#' library(tidyquant)
 #' library(timetk)
 #'
 #' # Training Data
@@ -91,7 +90,7 @@
 #'     mutate(
 #'         adjusted_loess_30 = smooth_vec(adjusted, period = 30, degree = 0),
 #'         adjusted_ma_30    = slidify_vec(adjusted, .period = 30,
-#'                                         .f = AVERAGE, .partial = TRUE)
+#'                                         .f = mean, .partial = TRUE)
 #'     ) %>%
 #'     ggplot(aes(date, adjusted)) +
 #'     geom_line() +

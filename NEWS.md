@@ -1,6 +1,9 @@
 # timetk 2.8.3
 
 - remove support for `robets`
+- remove `tidyquant` from examples 
+- add `FANG` dataset to `timetk` (port from `tidyquant`)
+- remove `tidyverse` from examples
 
 # timetk 2.8.2
 

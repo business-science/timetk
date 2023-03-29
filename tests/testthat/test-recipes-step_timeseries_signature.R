@@ -1,9 +1,5 @@
 context("Test recipe: step_timeseries_signature()")
 
-library(recipes)
-library(tidyverse)
-library(tidyquant)
-library(timetk)
 
 FB_tbl <- FANG %>% filter(symbol == "FB") %>%
     mutate(date_2 = date + dyears(1))

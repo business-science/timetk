@@ -46,14 +46,12 @@ Imports:
     assertthat,
     generics
 Suggests:
-    tidyquant,
     tidymodels,
     modeltime,
     workflows,
     parsnip,
     tune,
     yardstick,
-    tidyverse,
     knitr,
     rmarkdown,
     broom,

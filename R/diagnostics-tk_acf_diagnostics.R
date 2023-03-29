@@ -57,7 +57,6 @@
 #'
 #' @examples
 #' library(dplyr)
-#' library(tidyquant)
 #' library(timetk)
 #'
 #' # ACF, PACF, & CCF in 1 Data Frame

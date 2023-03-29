@@ -207,7 +207,6 @@ Time-based windows return the median number of observations in a window using \c
 \examples{
 
 library(dplyr)
-library(tidyquant)
 library(lubridate)
 library(timetk)
 
@@ -228,7 +227,7 @@ FANG \%>\%
         .facet_ncol  = 2,     # 2-column layout
         .interactive = FALSE)
 
-\dontrun{
+
 # Can also group inside & use .color_var
 FANG \%>\%
     mutate(year = year(date)) \%>\%
@@ -240,7 +239,7 @@ FANG \%>\%
         .facet_ncol   = 4,
         .facet_scales = "free",
         .interactive  = FALSE)
-}
+
 
 # Can apply transformations to .value or .color_var
 # - .value = log(adjusted)

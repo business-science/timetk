@@ -100,7 +100,6 @@
 #' library(recipes)
 #' library(dplyr)
 #' library(ggplot2)
-#' library(tidyquant)
 #' library(timetk)
 #'
 #' # Training Data

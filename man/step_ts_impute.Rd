@@ -91,7 +91,6 @@ or can be specified by setting \verb{lambda = numeric value}.
 
 library(dplyr)
 library(tidyr)
-library(tidyquant)
 library(recipes)
 library(timetk)
 

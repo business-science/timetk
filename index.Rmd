@@ -15,7 +15,6 @@ knitr::opts_chunk$set(
 ```
 
 ```{r, echo=FALSE}
-library(tidyquant)
 library(timetk)
 ```
 
@@ -72,7 +71,7 @@ Load libraries and start with some time series data
 
 ```{r}
 library(timetk)
-library(tidyquant)
+library(lubridate)
 ```
 
 Use the FB time series.

@@ -61,7 +61,6 @@
 #' @examples
 #'
 #' library(dplyr)
-#' library(tidyquant)
 #' library(timetk)
 #'
 #' idx_FB <- FANG %>%

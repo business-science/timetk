@@ -41,8 +41,9 @@ datetime, date, yearmon, and yearqtr values. Regularized dates cannot be decompo
 }
 \examples{
 library(dplyr)
-library(tidyquant)
 library(timetk)
+library(lubridate)
+library(zoo)
 
 # Works with time-based tibbles
 FB_tbl <- FANG \%>\% filter(symbol == "FB")

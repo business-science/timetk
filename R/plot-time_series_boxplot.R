@@ -121,7 +121,6 @@
 #' @examples
 #'
 #' library(dplyr)
-#' library(tidyquant)
 #' library(lubridate)
 #' library(timetk)
 #'
@@ -142,7 +141,7 @@
 #'         .facet_ncol  = 2,     # 2-column layout
 #'         .interactive = FALSE)
 #'
-#' \dontrun{
+#'
 #' # Can also group inside & use .color_var
 #' FANG %>%
 #'     mutate(year = year(date)) %>%
@@ -154,7 +153,7 @@
 #'         .facet_ncol   = 4,
 #'         .facet_scales = "free",
 #'         .interactive  = FALSE)
-#' }
+#'
 #'
 #' # Can apply transformations to .value or .color_var
 #' # - .value = log(adjusted)

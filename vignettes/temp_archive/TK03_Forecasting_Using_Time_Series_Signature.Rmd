@@ -1,0 +1,302 @@
+---
+title: "Time Series Machine Learning"
+author: "Matt Dancho"
+date: "`r Sys.Date()`"
+output: 
+  rmarkdown::html_vignette:
+    toc: true
+    toc_depth: 2
+vignette: >
+  %\VignetteIndexEntry{Time Series Machine Learning}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+knitr::opts_chunk$set(
+    message = FALSE,
+    warning = FALSE,
+    fig.width = 8, 
+    fig.height = 4.5,
+    fig.align = 'center',
+    out.width='95%', 
+    dpi = 100
+)
+
+# devtools::load_all() # Travis CI fails on load_all()
+```
+
+This vignette covers __Machine Learning for Forecasting__ using the _time-series signature_, a collection calendar features derived from the timestamps in the time series. 
+
+# Introduction
+
+The time series signature is a collection of useful features that describe the time series index of a time-based data set. It contains a wealth of features that can be used to forecast time series that contain patterns.
+
+In this vignette, the user will learn methods to implement machine learning to predict future outcomes in a time-based data set. The vignette example uses a well known time series dataset, the Bike Sharing Dataset, from the UCI Machine Learning Repository. The vignette follows an example where we'll use `timetk` to build a basic Machine Learning model to predict future values using the time series signature. The objective is to build a model and predict the next six months of Bike Sharing daily counts.  
+
+
+# Prerequisites
+
+Before we get started, load the following packages.
+
+```{r, message = FALSE}
+library(tidymodels)
+library(modeltime)
+library(dplyr)
+library(timetk)
+
+# Used to convert plots from interactive to static
+interactive = TRUE
+```
+
+# Data
+
+We'll be using the [Bike Sharing Dataset](https://archive.ics.uci.edu/ml/datasets/bike+sharing+dataset) from the UCI Machine Learning Repository.
+
+_Source: Fanaee-T, Hadi, and Gama, Joao, 'Event labeling combining ensemble detectors and background knowledge', Progress in Artificial Intelligence (2013): pp. 1-15, Springer Berlin Heidelberg_
+
+```{r}
+# Read data
+bike_transactions_tbl <- bike_sharing_daily %>%
+  select(dteday, cnt) %>%
+  set_names(c("date", "value")) 
+
+bike_transactions_tbl
+```
+
+Next, visualize the dataset with the `plot_time_series()` function. Toggle `.interactive = TRUE` to get a plotly interactive plot. `FALSE` returns a ggplot2 static plot. 
+
+```{r}
+bike_transactions_tbl %>%
+  plot_time_series(date, value, .interactive = interactive)
+```
+
+# Train / Test 
+
+Next, use `time_series_split()` to make a train/test set. 
+
+- Setting `assess = "3 months"` tells the function to use the last 3-months of data as the testing set. 
+- Setting `cumulative = TRUE` tells the sampling to use all of the prior data as the training set. 
+
+```{r}
+splits <- bike_transactions_tbl %>%
+  time_series_split(assess = "3 months", cumulative = TRUE)
+```
+
+Next, visualize the train/test split. 
+
+- `tk_time_series_cv_plan()`: Converts the splits object to a data frame 
+- `plot_time_series_cv_plan()`: Plots the time series sampling data using the "date" and "value" columns. 
+
+```{r}
+splits %>%
+  tk_time_series_cv_plan() %>%
+  plot_time_series_cv_plan(date, value, .interactive = interactive)
+```
+
+# Modeling
+
+Machine learning models are more complex than univariate models (e.g. ARIMA, Exponential Smoothing). This complexity typically requires a ___workflow___ (sometimes called a _pipeline_ in other languages). The general process goes like this:
+
+- __Create Preprocessing Recipe__
+- __Create Model Specifications__
+- __Use Workflow to combine Model Spec and Preprocessing, and Fit Model__
+
+## Recipe Preprocessing Specification
+
+The first step is to add the _time series signature_ to the training set, which will be used this to learn the patterns. New in `timetk` 0.1.3 is integration with the `recipes` R package:
+
+- The `recipes` package allows us to add preprocessing steps that are applied sequentially as part of a data transformation pipeline. 
+
+- The `timetk` has `step_timeseries_signature()`, which is used to add a number of features that can help machine learning models. 
+
+```{r}
+# Add time series signature
+recipe_spec_timeseries <- recipe(value ~ ., data = training(splits)) %>%
+    step_timeseries_signature(date) 
+```
+
+We can see what happens when we apply a prepared recipe `prep()` using the `bake()` function. Many new columns were added from the timestamp "date" feature. These are features we can use in our machine learning models. 
+
+```{r}
+bake(prep(recipe_spec_timeseries), new_data = training(splits))
+```
+
+Next, I apply various preprocessing steps to improve the modeling behavior. If you wish to learn more, I have an [Advanced Time Series course](https://mailchi.mp/business-science/time-series-forecasting-course-coming-soon) that will help you learn these techniques.  
+
+```{r}
+recipe_spec_final <- recipe_spec_timeseries %>%
+    step_fourier(date, period = 365, K = 5) %>%
+    step_rm(date) %>%
+    step_rm(contains("iso"), contains("minute"), contains("hour"),
+            contains("am.pm"), contains("xts")) %>%
+    step_normalize(contains("index.num"), date_year) %>%
+    step_dummy(contains("lbl"), one_hot = TRUE) 
+
+juice(prep(recipe_spec_final))
+```
+
+
+## Model Specification
+
+Next, let's create a model specification. We'll use a `lm`. 
+
+```{r}
+model_spec_lm <- linear_reg(mode = "regression") %>%
+    set_engine("lm")
+```
+
+## Workflow
+
+We can mary up the preprocessing recipe and the model using a `workflow()`.
+
+```{r}
+workflow_lm <- workflow() %>%
+    add_recipe(recipe_spec_final) %>%
+    add_model(model_spec_lm)
+
+workflow_lm
+```
+
+## Training
+
+The workflow can be trained with the `fit()` function. 
+
+```{r}
+workflow_fit_lm <- workflow_lm %>% fit(data = training(splits))
+```
+
+
+## Hyperparameter Tuning
+
+Linear regression has no parameters. Therefore, this step is not needed. More complex models have hyperparameters that require tuning. Algorithms include:
+
+- Elastic Net
+- XGBoost
+- Random Forest
+- Support Vector Machine (SVM)
+- K-Nearest Neighbors
+- Multivariate Adaptive Regression Spines (MARS)
+
+If you would like to learn how to tune these models for time series, then join the waitlist for my advanced [__Time Series Analysis & Forecasting Course__](https://mailchi.mp/business-science/time-series-forecasting-course-coming-soon).
+
+# Forecasting with Modeltime
+
+__The Modeltime Workflow__ is designed to speed up model evaluation and selection. Now that we have several time series models, let's analyze them and forecast the future with the `modeltime` package. 
+
+## Modeltime Table
+
+__The Modeltime Table__ organizes the models with IDs and creates generic descriptions to help us keep track of our models. Let's add the models to a `modeltime_table()`.  
+
+```{r, paged.print = F}
+model_table <- modeltime_table(
+  workflow_fit_lm
+) 
+
+model_table
+```
+
+## Calibration
+
+__Model Calibration__ is used to quantify error and estimate confidence intervals. We'll perform model calibration on the out-of-sample data (aka. the Testing Set) with the `modeltime_calibrate()` function. Two new columns are generated (".type" and ".calibration_data"), the most important of which is the ".calibration_data". This includes the actual values, fitted values, and residuals for the testing set. 
+
+```{r, paged.print = F}
+calibration_table <- model_table %>%
+  modeltime_calibrate(testing(splits))
+
+calibration_table
+```
+
+### Forecast (Testing Set)
+
+With calibrated data, we can visualize the testing predictions (forecast). 
+
+- Use `modeltime_forecast()` to generate the forecast data for the testing set as a tibble. 
+- Use `plot_modeltime_forecast()` to visualize the results in interactive and static plot formats.
+
+
+```{r}
+calibration_table %>%
+  modeltime_forecast(actual_data = bike_transactions_tbl) %>%
+  plot_modeltime_forecast(.interactive = interactive)
+```
+
+### Accuracy (Testing Set)
+
+Next, calculate the testing accuracy to compare the models. 
+
+- Use `modeltime_accuracy()` to generate the out-of-sample accuracy metrics as a tibble.
+- Use `table_modeltime_accuracy()` to generate interactive and static 
+
+```{r}
+calibration_table %>%
+  modeltime_accuracy() %>%
+  table_modeltime_accuracy(.interactive = interactive)
+```
+
+
+## Refit and Forecast Forward
+
+__Refitting__ is a best-practice before forecasting the future. 
+
+- `modeltime_refit()`: We re-train on full data (`bike_transactions_tbl`)
+- `modeltime_forecast()`: For models that only depend on the "date" feature, we can use `h` (horizon) to forecast forward. Setting `h = "12 months"` forecasts then next 12-months of data. 
+
+```{r}
+calibration_table %>%
+  modeltime_refit(bike_transactions_tbl) %>%
+  modeltime_forecast(h = "12 months", actual_data = bike_transactions_tbl) %>%
+  plot_modeltime_forecast(.interactive = interactive)
+```
+
+
+
+# Summary
+
+Timetk is part of the amazing Modeltime Ecosystem for time series forecasting. But it can take a long time to learn: 
+
+- Many algorithms
+- Ensembling and Resampling
+- Feature Engineering
+- Machine Learning
+- Deep Learning
+- Scalable Modeling: 10,000+ time series
+
+Your probably thinking how am I ever going to learn time series forecasting. Here's the solution that will save you years of struggling. 
+
+# Take the High-Performance Forecasting Course
+
+> Become the forecasting expert for your organization
+
+<a href="https://university.business-science.io/p/ds4b-203-r-high-performance-time-series-forecasting/" target="_blank"><img src="https://www.filepicker.io/api/file/bKyqVAi5Qi64sS05QYLk" alt="High-Performance Time Series Forecasting Course" width="100%" style="box-shadow: 0 0 5px 2px rgba(0, 0, 0, .5);"/></a>
+
+[_High-Performance Time Series Course_](https://university.business-science.io/p/ds4b-203-r-high-performance-time-series-forecasting/)
+
+### Time Series is Changing
+
+Time series is changing. __Businesses now need 10,000+ time series forecasts every day.__ This is what I call a _High-Performance Time Series Forecasting System (HPTSF)_ - Accurate, Robust, and Scalable Forecasting. 
+
+ __High-Performance Forecasting Systems will save companies by improving accuracy and scalability.__ Imagine what will happen to your career if you can provide your organization a "High-Performance Time Series Forecasting System" (HPTSF System).
+
+### How to Learn High-Performance Time Series Forecasting
+
+I teach how to build a HPTFS System in my [__High-Performance Time Series Forecasting Course__](https://university.business-science.io/p/ds4b-203-r-high-performance-time-series-forecasting). You will learn:
+
+- __Time Series Machine Learning__ (cutting-edge) with `Modeltime` - 30+ Models (Prophet, ARIMA, XGBoost, Random Forest, & many more)
+- __Deep Learning__ with `GluonTS` (Competition Winners)
+- __Time Series Preprocessing__, Noise Reduction, & Anomaly Detection
+- __Feature engineering__ using lagged variables & external regressors
+- __Hyperparameter Tuning__
+- __Time series cross-validation__
+- __Ensembling__ Multiple Machine Learning & Univariate Modeling Techniques (Competition Winner)
+- __Scalable Forecasting__ - Forecast 1000+ time series in parallel
+- and more.
+
+<p class="text-center" style="font-size:24px;">
+Become the Time Series Expert for your organization.
+</p>
+<br>
+<p class="text-center" style="font-size:30px;">
+<a href="https://university.business-science.io/p/ds4b-203-r-high-performance-time-series-forecasting">Take the High-Performance Time Series Forecasting Course</a>
+</p>
+

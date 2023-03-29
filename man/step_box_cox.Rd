@@ -88,7 +88,6 @@ with seasonal dummy variables is used.
 \examples{
 library(dplyr)
 library(tidyr)
-library(tidyquant)
 library(recipes)
 library(timetk)
 

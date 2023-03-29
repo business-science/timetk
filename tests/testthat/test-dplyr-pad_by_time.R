@@ -1,7 +1,5 @@
 testthat::context("Pad By Time")
 
-library(timetk)
-library(tidyverse)
 
 testthat::test_that("Single Pad By Time Works", {
     df <- tibble(

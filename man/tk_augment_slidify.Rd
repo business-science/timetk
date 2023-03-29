@@ -50,7 +50,6 @@ arguments.
 \examples{
 library(dplyr)
 library(stringr)
-library(tidyquant)
 library(timetk)
 
 # Single Column | Multiple Rolling Windows
@@ -61,7 +60,7 @@ FANG \%>\%
         .value   = contains("adjust"),
         # Multiple rolling windows
         .period  = c(10, 30, 60, 90),
-        .f       = AVERAGE,
+        .f       = mean,
         .partial = TRUE,
         .names   = str_c("MA_", c(10, 30, 60, 90))
     ) \%>\%
@@ -74,7 +73,7 @@ FANG \%>\%
     tk_augment_slidify(
         .value  = c(adjusted, volume),
         .period  = c(10, 30, 60, 90),
-        .f       = AVERAGE,
+        .f       = mean,
         .partial = TRUE
     ) \%>\%
     ungroup()

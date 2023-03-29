@@ -62,7 +62,6 @@
 #'
 #' @examples
 #' library(dplyr)
-#' library(tidyquant)
 #' library(timetk)
 #'
 #' # Filter values in January 1st through end of February, 2013
