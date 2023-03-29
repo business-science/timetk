@@ -113,7 +113,7 @@ Now you can just do:
 }\if{html}{\out{</div>}}
 }
 \examples{
-
+\donttest{
 library(dplyr)
 library(timetk)
 
@@ -146,7 +146,6 @@ weekends <- tk_make_weekend_sequence(
     end_date   = "2017-12-31"
 )
 
-\dontrun{
 FANG \%>\%
     group_by(symbol) \%>\%
     future_frame(

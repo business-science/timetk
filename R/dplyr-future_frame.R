@@ -87,7 +87,7 @@
 #' - Making Future Time Series: [tk_make_future_timeseries()] (Underlying function)
 #'
 #' @examples
-#'
+#' \donttest{
 #' library(dplyr)
 #' library(timetk)
 #'
@@ -121,7 +121,6 @@
 #'     end_date   = "2017-12-31"
 #' )
 #'
-#' \dontrun{
 #' FANG %>%
 #'     group_by(symbol) %>%
 #'     future_frame(
