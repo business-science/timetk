@@ -20,6 +20,10 @@ versus the \code{.value}. Useful for evaluating external lagged regressors.}
 
 \item{.lags}{A seqence of one or more lags to evaluate.}
 }
+\value{
+A \code{tibble} or \code{data.frame} containing the autocorrelation, partial autocorrelation
+and cross correlation data.
+}
 \description{
 The \code{tk_acf_diagnostics()} function provides a simple interface to
 detect Autocorrelation (ACF), Partial Autocorrelation (PACF), and Cross Correlation (CCF) of Lagged

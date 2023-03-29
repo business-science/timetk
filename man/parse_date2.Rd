@@ -21,6 +21,9 @@ parse_datetime2(x, tz = "UTC", tz_shift = FALSE, ..., silent = FALSE)
 \item{tz_shift}{Datetime only. If FALSE, forces the datetime into the time zone.
 If TRUE, offsets the datetime from UTC to the new time zone.}
 }
+\value{
+Returns a \code{date} or \code{datatime} vector from the transformation applied to character timestamp vector.
+}
 \description{
 Significantly faster time series parsing than \code{readr::parse_date}, \code{readr::parse_datetime},
 \code{lubridate::as_date()}, and \code{lubridate::as_datetime()}. Uses \code{anytime} package, which relies on

@@ -16,6 +16,9 @@ first performed and a linear interpolation is applied to the seasonally adjusted
 \item{lambda}{A box cox transformation parameter. If set to \code{"auto"}, performs
 automated lambda selection.}
 }
+\value{
+A \code{numeric} vector with the missing values imputed.
+}
 \description{
 This is mainly a wrapper for the Seasonally Adjusted Missing Value using Linear Interpolation function,
 \code{na.interp()}, from the \code{forecast} R package. The \code{ts_impute_vec()} function includes arguments for applying

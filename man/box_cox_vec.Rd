@@ -32,6 +32,9 @@ Either "guerrero" or "loglik".}
 
 \item{lambda_upper}{An upper limit for automatic \code{lambda} selection}
 }
+\value{
+Returns a \code{numeric} vector that has been transformed.
+}
 \description{
 This is mainly a wrapper for the BoxCox transformation from the \code{forecast}
 R package. The \code{box_cox_vec()} function performs the transformation.

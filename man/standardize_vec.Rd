@@ -18,6 +18,9 @@ standardize_inv_vec(x, mean, sd)
 
 \item{silent}{Whether or not to report the automated \code{mean} and \code{sd} parameters as a message.}
 }
+\value{
+Returns a \code{numeric} vector with the standardization transformation applied.
+}
 \description{
 Standardization is commonly used to center and scale numeric features to prevent one from
 dominating in algorithms that require data to be on the same scale.

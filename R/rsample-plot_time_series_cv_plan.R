@@ -10,6 +10,10 @@
 #' using [tk_time_series_cv_plan()].
 #' @param ... Additional parameters passed to [plot_time_series()]
 #'
+#' @return
+#' Returns a static `ggplot` or interactive `plotly` object depending on
+#' whether or not `.interactive` is `FALSE` or `TRUE`, respectively.
+#'
 #' @details
 #'
 #' __Resample Set__

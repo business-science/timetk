@@ -13,6 +13,9 @@
 #' complicated object (like a linear model), use `.unlist = FALSE` to create
 #' a list-column of the rolling results.
 #'
+#' @return
+#' A `function` with the rolling/sliding conversion applied.
+#'
 #' @details
 #' The `slidify()` function is almost identical to `tibbletime::rollify()`
 #' with 3 improvements:

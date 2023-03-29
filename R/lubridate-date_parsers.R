@@ -11,6 +11,9 @@
 #' @param ... Additional parameters passed to [anytime()] and [`anydate()`]
 #' @param silent If `TRUE`, warns the user of parsing failures.
 #'
+#' @return
+#' Returns a `date` or `datatime` vector from the transformation applied to character timestamp vector.
+#'
 #' @details
 #'
 #' __Parsing Formats__

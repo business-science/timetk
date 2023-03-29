@@ -16,6 +16,8 @@
 #' @param .end_date  Specifies the end of the padded series.
 #'  If NULL it will use the highest value of the input variable.
 #'
+#' @returns A `tibble` or `data.frame` with rows containing missing timestamps added.
+#'
 #' @details
 #'
 #' __Padding Missing Observations__

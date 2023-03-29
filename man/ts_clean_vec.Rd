@@ -17,6 +17,9 @@ first performed and a linear interpolation is applied to the seasonally adjusted
 \item{lambda}{A box cox transformation parameter. If set to \code{"auto"}, performs
 automated lambda selection.}
 }
+\value{
+A \code{numeric} vector with the missing values and/or anomalies transformed to imputed values.
+}
 \description{
 This is mainly a wrapper for the outlier cleaning function,
 \code{tsclean()}, from the \code{forecast} R package.

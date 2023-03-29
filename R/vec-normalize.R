@@ -8,6 +8,8 @@
 #' @param max The population max value in the normalization process.
 #' @param silent Whether or not to report the automated `min` and `max` parameters as a message.
 #'
+#' @returns A `numeric` vector with the transformation applied.
+#'
 #' @details
 #' __Standardization vs Normalization__
 #'

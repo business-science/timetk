@@ -14,6 +14,8 @@
 #'  Useful when the data contains values less than or equal to zero.
 #' @param silent Whether or not to report the parameter selections as a message.
 #'
+#' @returns A `numeric` vector of the transformed series.
+#'
 #' @details
 #'
 #' __Log Interval Transformation__

@@ -15,6 +15,12 @@ tk_time_scale_template()
 \arguments{
 \item{.data}{A \code{tibble} with a "time_scale", "frequency", and "trend" columns.}
 }
+\value{
+\itemize{
+\item \code{get_tk_time_scale_template()}: Returns \code{tibble} containing the time scale template information.
+\item \code{set_tk_time_scale_template()}: Returns nothing.
+}
+}
 \description{
 Get and modify the Time Scale Template
 }

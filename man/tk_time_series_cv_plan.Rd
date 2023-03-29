@@ -10,6 +10,9 @@ tk_time_series_cv_plan(.data)
 \item{.data}{A time series resample specification of of either \code{rolling_origin}
 or \code{time_series_cv} class.}
 }
+\value{
+A \code{tibble} containing the time series crossvalidation plan.
+}
 \description{
 The \code{tk_time_series_cv_plan()} function provides a simple interface to
 prepare a time series resample specification (\code{rset}) of either \code{rolling_origin}

@@ -29,6 +29,9 @@ Useful when the data contains values less than or equal to zero.}
 
 \item{silent}{Whether or not to report the parameter selections as a message.}
 }
+\value{
+A \code{numeric} vector of the transformed series.
+}
 \description{
 The \code{log_interval_vec()} transformation constrains a forecast to an interval
 specified by an \code{upper_limit} and a \code{lower_limit}. The transformation provides

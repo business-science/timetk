@@ -11,6 +11,9 @@
 #' @param lambda A box cox transformation parameter. If set to `"auto"`, performs
 #'  automated lambda selection.
 #'
+#' @return
+#' A `numeric` vector with the missing values imputed.
+#'
 #' @details
 #'
 #' __Imputation using Linear Interpolation__

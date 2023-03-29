@@ -14,6 +14,8 @@
 #' @param lambda_lower A lower limit for automatic `lambda` selection
 #' @param lambda_upper An upper limit for automatic `lambda` selection
 #'
+#' @return Returns a `numeric` vector that has been transformed.
+#'
 #' @details
 #'
 #' The Box Cox transformation is a power transformation that is commonly

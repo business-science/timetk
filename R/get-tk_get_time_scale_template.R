@@ -2,6 +2,9 @@
 #'
 #' @param .data A `tibble` with a "time_scale", "frequency", and "trend" columns.
 #'
+#' @returns
+#' * `get_tk_time_scale_template()`: Returns `tibble` containing the time scale template information.
+#' * `set_tk_time_scale_template()`: Returns nothing.
 #'
 #' @details
 #'

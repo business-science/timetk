@@ -8,6 +8,9 @@
 #' @param sd The standard deviation used to invert the standardization process.
 #' @param silent Whether or not to report the automated `mean` and `sd` parameters as a message.
 #'
+#' @return
+#' Returns a `numeric` vector with the standardization transformation applied.
+#'
 #' @details
 #' __Standardization vs Normalization__
 #'

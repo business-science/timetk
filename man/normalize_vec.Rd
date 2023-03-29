@@ -18,6 +18,9 @@ normalize_inv_vec(x, min, max)
 
 \item{silent}{Whether or not to report the automated \code{min} and \code{max} parameters as a message.}
 }
+\value{
+A \code{numeric} vector with the transformation applied.
+}
 \description{
 Normalization is commonly used to center and scale numeric features to prevent one from
 dominating in algorithms that require data to be on the same scale.

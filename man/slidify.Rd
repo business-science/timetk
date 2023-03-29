@@ -48,6 +48,9 @@ use \code{.unlist = TRUE}. If the function returns more than one value, or a mor
 complicated object (like a linear model), use \code{.unlist = FALSE} to create
 a list-column of the rolling results.}
 }
+\value{
+A \code{function} with the rolling/sliding conversion applied.
+}
 \description{
 \code{slidify} returns a rolling (sliding) version of the input function, with a
 rolling (sliding) \code{.period} specified by the user.
