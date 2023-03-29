@@ -69,6 +69,8 @@
 #' library(tidyr)
 #' library(timetk)
 #'
+#' # Set max.print to 50
+#' options_old <- options()$max.print
 #' options(max.print = 50)
 #'
 #' date_sequence <- tk_make_timeseries("2016-01-01", "2016-01-31", by = "hour")
@@ -94,7 +96,7 @@
 #'         .title = "7-Day Fourier Terms"
 #'     )
 #'
-#'
+#' options(max.print = options_old)
 #'
 #' @name fourier_vec
 #' @export
