@@ -13,6 +13,10 @@
 \alias{as_label}
 \alias{\%||\%}
 \title{Tidy eval helpers}
+\value{
+Nothing returned.
+This is to document important functions from \code{rlang} that are used internal to this R package.
+}
 \description{
 \itemize{
 \item \code{sym} creates a symbol from a string and

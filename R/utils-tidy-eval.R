@@ -37,6 +37,10 @@
 #' \href{https://adv-r.hadley.nz/metaprogramming.html}{Metaprogramming
 #' section} of \href{https://adv-r.hadley.nz}{Advanced R}.
 #'
+#' @return
+#' Nothing returned.
+#' This is to document important functions from `rlang` that are used internal to this R package.
+#'
 #' @md
 #' @name tidyeval
 #' @keywords internal
