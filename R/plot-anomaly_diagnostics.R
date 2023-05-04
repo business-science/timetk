@@ -119,46 +119,52 @@
 #' @name plot_anomaly_diagnostics
 #' @export
 plot_anomaly_diagnostics <- function(
-    .data, .date_var, .value,
+        .data, .date_var, .value,
 
-    .facet_vars = NULL,
+        .facet_vars = NULL,
 
-    .frequency = "auto",
-    .trend = "auto",
-    .alpha = 0.05,
-    .max_anomalies = 0.2,
-    .message = TRUE,
+        .frequency = "auto",
+        .trend = "auto",
+        .alpha = 0.05,
+        .max_anomalies = 0.2,
+        .message = TRUE,
 
-    .facet_ncol = 1,
-    .facet_nrow = 1,
-    .facet_scales = "free",
-    .facet_dir = "h",
-    .facet_collapse = FALSE,
-    .facet_collapse_sep = " ",
-    .facet_strip_remove = FALSE,
+        .facet_ncol = 1,
+        .facet_nrow = 1,
+        .facet_scales = "free",
+        .facet_dir = "h",
+        .facet_collapse = FALSE,
+        .facet_collapse_sep = " ",
+        .facet_strip_remove = FALSE,
 
-    .line_color = "#2c3e50",
-    .line_size = 0.5,
-    .line_type = 1,
-    .line_alpha = 1,
+        .line_color = "#2c3e50",
+        .line_size = 0.5,
+        .line_type = 1,
+        .line_alpha = 1,
 
-    .anom_color = "#e31a1c",
-    .anom_alpha = 1,
-    .anom_size = 1.5,
+        .point_shape = 16,
+        .point_size = 0.001,
+        .point_alpha = 1,
+        .point_color = "black",
+        .point_fill = NA,
 
-    .ribbon_fill = "grey20",
-    .ribbon_alpha = 0.20,
+        .anom_color = "#e31a1c",
+        .anom_alpha = 1,
+        .anom_size = 1.5,
 
-    .legend_show = TRUE,
+        .ribbon_fill = "grey20",
+        .ribbon_alpha = 0.20,
 
-    .title = "Anomaly Diagnostics",
-    .x_lab = "",
-    .y_lab = "",
-    .color_lab = "Anomaly",
+        .legend_show = TRUE,
 
-    .interactive = TRUE,
-    .trelliscope = FALSE,
-    .trelliscope_params = list()
+        .title = "Anomaly Diagnostics",
+        .x_lab = "",
+        .y_lab = "",
+        .color_lab = "Anomaly",
+
+        .interactive = TRUE,
+        .trelliscope = FALSE,
+        .trelliscope_params = list()
 ) {
 
     # Checks
@@ -181,46 +187,52 @@ plot_anomaly_diagnostics <- function(
 
 #' @export
 plot_anomaly_diagnostics.data.frame <- function(
-    .data, .date_var, .value,
+        .data, .date_var, .value,
 
-    .facet_vars = NULL,
+        .facet_vars = NULL,
 
-    .frequency = "auto",
-    .trend = "auto",
-    .alpha = 0.05,
-    .max_anomalies = 0.2,
-    .message = TRUE,
+        .frequency = "auto",
+        .trend = "auto",
+        .alpha = 0.05,
+        .max_anomalies = 0.2,
+        .message = TRUE,
 
-    .facet_ncol = 1,
-    .facet_nrow = 1,
-    .facet_scales = "free",
-    .facet_dir = "h",
-    .facet_collapse = FALSE,
-    .facet_collapse_sep = " ",
-    .facet_strip_remove = FALSE,
+        .facet_ncol = 1,
+        .facet_nrow = 1,
+        .facet_scales = "free",
+        .facet_dir = "h",
+        .facet_collapse = FALSE,
+        .facet_collapse_sep = " ",
+        .facet_strip_remove = FALSE,
 
-    .line_color = "#2c3e50",
-    .line_size = 0.5,
-    .line_type = 1,
-    .line_alpha = 1,
+        .line_color = "#2c3e50",
+        .line_size = 0.5,
+        .line_type = 1,
+        .line_alpha = 1,
 
-    .anom_color = "#e31a1c",
-    .anom_alpha = 1,
-    .anom_size = 1.5,
+        .point_shape = 16,
+        .point_size = 0.001,
+        .point_alpha = 1,
+        .point_color = "black",
+        .point_fill = NA,
 
-    .ribbon_fill = "grey20",
-    .ribbon_alpha = 0.20,
+        .anom_color = "#e31a1c",
+        .anom_alpha = 1,
+        .anom_size = 1.5,
 
-    .legend_show = TRUE,
+        .ribbon_fill = "grey20",
+        .ribbon_alpha = 0.20,
 
-    .title = "Anomaly Diagnostics",
-    .x_lab = "",
-    .y_lab = "",
-    .color_lab = "Anomaly",
+        .legend_show = TRUE,
 
-    .interactive = TRUE,
-    .trelliscope = FALSE,
-    .trelliscope_params = list()
+        .title = "Anomaly Diagnostics",
+        .x_lab = "",
+        .y_lab = "",
+        .color_lab = "Anomaly",
+
+        .interactive = TRUE,
+        .trelliscope = FALSE,
+        .trelliscope_params = list()
 ) {
 
     # Tidy Eval Setup
@@ -279,7 +291,7 @@ plot_anomaly_diagnostics.data.frame <- function(
     g <- data_formatted %>%
         ggplot2::ggplot(ggplot2::aes(!! date_var_expr, observed)) +
         ggplot2::labs(x = .x_lab, y = .y_lab, title = .title, color = .color_lab) +
-        theme_tq()
+        tidyquant::theme_tq()
 
     # Add facets
     if (length(facet_names) > 0) {
@@ -306,6 +318,18 @@ plot_anomaly_diagnostics.data.frame <- function(
             linetype = .line_type,
             alpha    = .line_alpha
         )
+
+
+    # Add points
+    g <- g +
+        ggplot2::geom_point(
+            shape = .point_shape,
+            size = .point_size,
+            alpha = .point_alpha,
+            color = .point_color,
+            fill =  .point_fill
+        )
+
 
     # Add Outliers
     g <- g +
@@ -368,46 +392,52 @@ plot_anomaly_diagnostics.data.frame <- function(
 
 #' @export
 plot_anomaly_diagnostics.grouped_df <- function(
-    .data, .date_var, .value,
+        .data, .date_var, .value,
 
-    .facet_vars = NULL,
+        .facet_vars = NULL,
 
-    .frequency = "auto",
-    .trend = "auto",
-    .alpha = 0.05,
-    .max_anomalies = 0.2,
-    .message = TRUE,
+        .frequency = "auto",
+        .trend = "auto",
+        .alpha = 0.05,
+        .max_anomalies = 0.2,
+        .message = TRUE,
 
-    .facet_ncol = 1,
-    .facet_nrow = 1,
-    .facet_scales = "free",
-    .facet_dir = "h",
-    .facet_collapse = FALSE,
-    .facet_collapse_sep = " ",
-    .facet_strip_remove = FALSE,
+        .facet_ncol = 1,
+        .facet_nrow = 1,
+        .facet_scales = "free",
+        .facet_dir = "h",
+        .facet_collapse = FALSE,
+        .facet_collapse_sep = " ",
+        .facet_strip_remove = FALSE,
 
-    .line_color = "#2c3e50",
-    .line_size = 0.5,
-    .line_type = 1,
-    .line_alpha = 1,
+        .line_color = "#2c3e50",
+        .line_size = 0.5,
+        .line_type = 1,
+        .line_alpha = 1,
 
-    .anom_color = "#e31a1c",
-    .anom_alpha = 1,
-    .anom_size = 1.5,
+        .point_shape = 16,
+        .point_size = 0.001,
+        .point_alpha = 1,
+        .point_color = "black",
+        .point_fill = NA,
 
-    .ribbon_fill = "grey20",
-    .ribbon_alpha = 0.20,
+        .anom_color = "#e31a1c",
+        .anom_alpha = 1,
+        .anom_size = 1.5,
 
-    .legend_show = TRUE,
+        .ribbon_fill = "grey20",
+        .ribbon_alpha = 0.20,
 
-    .title = "Anomaly Diagnostics",
-    .x_lab = "",
-    .y_lab = "",
-    .color_lab = "Anomaly",
+        .legend_show = TRUE,
 
-    .interactive = TRUE,
-    .trelliscope = FALSE,
-    .trelliscope_params = list()
+        .title = "Anomaly Diagnostics",
+        .x_lab = "",
+        .y_lab = "",
+        .color_lab = "Anomaly",
+
+        .interactive = TRUE,
+        .trelliscope = FALSE,
+        .trelliscope_params = list()
 ) {
 
 
@@ -451,6 +481,12 @@ plot_anomaly_diagnostics.grouped_df <- function(
         .line_size          = .line_size,
         .line_type          = .line_type,
         .line_alpha         = .line_alpha,
+
+        .point_shape        = .point_shape,
+        .point_size         =  .point_size,
+        .point_alpha        = .point_alpha,
+        .point_color        = .point_color,
+        .point_fill         = .point_fill,
 
         .anom_color         = .anom_color,
         .anom_alpha         = .anom_alpha,
