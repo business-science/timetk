@@ -142,8 +142,9 @@ plot_anomaly_diagnostics <- function(
         .line_type = 1,
         .line_alpha = 1,
 
+        .show_points = FALSE,
         .point_shape = 16,
-        .point_size = 0.001,
+        .point_size = 1,
         .point_alpha = 1,
         .point_color = "black",
         .point_fill = NA,
@@ -210,8 +211,9 @@ plot_anomaly_diagnostics.data.frame <- function(
         .line_type = 1,
         .line_alpha = 1,
 
+        .show_points = FALSE,
         .point_shape = 16,
-        .point_size = 0.001,
+        .point_size = 1,
         .point_alpha = 1,
         .point_color = "black",
         .point_fill = NA,
@@ -291,7 +293,7 @@ plot_anomaly_diagnostics.data.frame <- function(
     g <- data_formatted %>%
         ggplot2::ggplot(ggplot2::aes(!! date_var_expr, observed)) +
         ggplot2::labs(x = .x_lab, y = .y_lab, title = .title, color = .color_lab) +
-        tidyquant::theme_tq()
+        theme_tq()
 
     # Add facets
     if (length(facet_names) > 0) {
@@ -321,14 +323,18 @@ plot_anomaly_diagnostics.data.frame <- function(
 
 
     # Add points
-    g <- g +
-        ggplot2::geom_point(
-            shape = .point_shape,
-            size = .point_size,
-            alpha = .point_alpha,
-            color = .point_color,
-            fill =  .point_fill
-        )
+    if (.show_points == TRUE) {
+
+        g <- g +
+            ggplot2::geom_point(
+                shape = .point_shape,
+                size = .point_size,
+                alpha = .point_alpha,
+                color = .point_color,
+                fill =  .point_fill
+            )
+
+    }
 
 
     # Add Outliers
@@ -415,8 +421,9 @@ plot_anomaly_diagnostics.grouped_df <- function(
         .line_type = 1,
         .line_alpha = 1,
 
+        .show_points = FALSE,
         .point_shape = 16,
-        .point_size = 0.001,
+        .point_size = 1,
         .point_alpha = 1,
         .point_color = "black",
         .point_fill = NA,
@@ -482,6 +489,7 @@ plot_anomaly_diagnostics.grouped_df <- function(
         .line_type          = .line_type,
         .line_alpha         = .line_alpha,
 
+        .show_points        = .show_points,
         .point_shape        = .point_shape,
         .point_size         =  .point_size,
         .point_alpha        = .point_alpha,
