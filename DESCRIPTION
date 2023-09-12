@@ -46,6 +46,7 @@ Imports:
     assertthat,
     generics
 Suggests:
+    modeltime,
     tidymodels,
     workflows,
     parsnip,
