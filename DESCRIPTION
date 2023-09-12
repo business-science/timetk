@@ -44,7 +44,9 @@ Imports:
     tsfeatures,
     hms,
     assertthat,
-    generics
+    generics,
+    data.table,
+    tidytable
 Suggests:
     modeltime,
     tidymodels,
