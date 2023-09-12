@@ -3,6 +3,7 @@
 \docType{package}
 \name{timetk}
 \alias{timetk}
+\alias{timetk-package}
 \title{timetk: Time Series Analysis in the Tidyverse}
 \description{
 The \code{timetk} package combines a collection of coercion tools for

@@ -16,6 +16,7 @@
 #' @docType package
 #' @name timetk
 #'
+#' @aliases timetk-package
 #' @importFrom dplyr %>%
 #' @importFrom xts xts
 #' @import recipes

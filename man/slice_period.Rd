@@ -9,8 +9,8 @@ slice_period(.data, ..., .date_var, .period = "1 day")
 \arguments{
 \item{.data}{A \code{tbl} object or \code{data.frame}}
 
-\item{...}{For \code{slice()}: <\code{\link[dplyr:dplyr_data_masking]{data-masking}}> Integer row
-values.
+\item{...}{For \code{slice()}: <\code{\link[rlang:args_data_masking]{data-masking}}>
+Integer row values.
 
 Provide either positive values to keep, or negative values to drop.
 The values provided must be either all positive or all negative.

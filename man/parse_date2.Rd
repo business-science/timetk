@@ -56,7 +56,7 @@ parse_datetime2("2011")
 parse_datetime2("2011 Jan 1 12:35:21")
 
 # Time Zones (datetime only)
-parse_datetime2("2011 Jan 1 12:35:21", tz = "GB")
+parse_datetime2("2011 Jan 1 12:35:21", tz = "Europe/London")
 
 }
 \references{

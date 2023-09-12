@@ -1,7 +1,7 @@
 Package: timetk
 Type: Package
 Title: A Tool Kit for Working with Time Series
-Version: 2.8.3
+Version: 2.8.3.9000
 Authors@R: c(
     person("Matt", "Dancho", email = "mdancho@business-science.io", role = c("aut", "cre")),
     person("Davis", "Vaughan", email = "dvaughan@business-science.io", role = c("aut"))
@@ -47,7 +47,6 @@ Imports:
     generics
 Suggests:
     tidymodels,
-    modeltime,
     workflows,
     parsnip,
     tune,
@@ -66,5 +65,4 @@ Suggests:
 RoxygenNote: 7.2.3
 Roxygen: list(markdown = TRUE)
 VignetteBuilder: knitr
-Remotes:
-    business-science/modeltime
+
