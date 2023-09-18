@@ -286,9 +286,9 @@ be removed using <code><a href="https://recipes.tidymodels.org/reference/step_rm
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 3 × 4</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   terms param           value id                     </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> index holiday_pattern ^US_  holiday_signature_nd12F</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> index locale_set      US    holiday_signature_nd12F</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> index exchange_set    NYSE  holiday_signature_nd12F</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> index holiday_pattern ^US_  holiday_signature_L26gp</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> index locale_set      US    holiday_signature_L26gp</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> index exchange_set    NYSE  holiday_signature_L26gp</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Prep the recipe</span></span></span>
 <span class="r-in"><span><span class="va">rec_holiday_prep</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://recipes.tidymodels.org/reference/prep.html" class="external-link">prep</a></span><span class="op">(</span><span class="va">rec_holiday</span><span class="op">)</span></span></span>
@@ -298,26 +298,26 @@ be removed using <code><a href="https://recipes.tidymodels.org/reference/step_rm
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 20 × 3</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    terms value                                id                     </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>                                <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> index exch_NYSE                            holiday_signature_nd12F</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> index locale_US                            holiday_signature_nd12F</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> index US_NewYearsDay                       holiday_signature_nd12F</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> index US_MLKingsBirthday                   holiday_signature_nd12F</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> index US_InaugurationDay                   holiday_signature_nd12F</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> index US_LincolnsBirthday                  holiday_signature_nd12F</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> index US_PresidentsDay                     holiday_signature_nd12F</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> index US_WashingtonsBirthday               holiday_signature_nd12F</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> index US_CPulaskisBirthday                 holiday_signature_nd12F</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> index US_GoodFriday                        holiday_signature_nd12F</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> index US_DecorationMemorialDay             holiday_signature_nd12F</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span> index US_MemorialDay                       holiday_signature_nd12F</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">13</span> index US_JuneteenthNationalIndependenceDay holiday_signature_nd12F</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">14</span> index US_IndependenceDay                   holiday_signature_nd12F</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">15</span> index US_LaborDay                          holiday_signature_nd12F</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">16</span> index US_ColumbusDay                       holiday_signature_nd12F</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">17</span> index US_ElectionDay                       holiday_signature_nd12F</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">18</span> index US_VeteransDay                       holiday_signature_nd12F</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">19</span> index US_ThanksgivingDay                   holiday_signature_nd12F</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">20</span> index US_ChristmasDay                      holiday_signature_nd12F</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> index exch_NYSE                            holiday_signature_L26gp</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> index locale_US                            holiday_signature_L26gp</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> index US_NewYearsDay                       holiday_signature_L26gp</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> index US_MLKingsBirthday                   holiday_signature_L26gp</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> index US_InaugurationDay                   holiday_signature_L26gp</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> index US_LincolnsBirthday                  holiday_signature_L26gp</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> index US_PresidentsDay                     holiday_signature_L26gp</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> index US_WashingtonsBirthday               holiday_signature_L26gp</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> index US_CPulaskisBirthday                 holiday_signature_L26gp</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> index US_GoodFriday                        holiday_signature_L26gp</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> index US_DecorationMemorialDay             holiday_signature_L26gp</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span> index US_MemorialDay                       holiday_signature_L26gp</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">13</span> index US_JuneteenthNationalIndependenceDay holiday_signature_L26gp</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">14</span> index US_IndependenceDay                   holiday_signature_L26gp</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">15</span> index US_LaborDay                          holiday_signature_L26gp</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">16</span> index US_ColumbusDay                       holiday_signature_L26gp</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">17</span> index US_ElectionDay                       holiday_signature_L26gp</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">18</span> index US_VeteransDay                       holiday_signature_L26gp</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">19</span> index US_ThanksgivingDay                   holiday_signature_L26gp</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">20</span> index US_ChristmasDay                      holiday_signature_L26gp</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Apply the recipe to add new holiday features!</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://recipes.tidymodels.org/reference/bake.html" class="external-link">bake</a></span><span class="op">(</span><span class="va">rec_holiday_prep</span>, <span class="va">dates_in_2017_tbl</span><span class="op">)</span></span></span>
