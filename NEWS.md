@@ -1,12 +1,14 @@
 # timetk 2.8.4
 
+Update forecasting vignette: Use `glmnet` for time series forecasting. 
+
 CRAN Fixes:
 - `tzdata` time zone fixes:
    - GB            -> Europe/London
    - NZ            -> Pacific/Auckland     
    - US/Eastern    -> America/New_York     
    - US/Pacific    -> America/Los_Angeles 
-- Add @aliases to timetk-package
+- Add `@aliases` to timetk-package
 
 # timetk 2.8.3
 

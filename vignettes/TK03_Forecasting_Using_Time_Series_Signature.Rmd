@@ -46,7 +46,7 @@ library(dplyr)
 library(timetk)
 
 # Used to convert plots from interactive to static
-interactive = TRUE
+interactive = FALSE
 ```
 
 # Data
@@ -139,11 +139,14 @@ juice(prep(recipe_spec_final))
 
 ## Model Specification
 
-Next, let's create a model specification. We'll use a `lm`. 
+Next, let's create a model specification. We'll use a Elastic Net penalized regression via the `glmnet` package. 
 
 ```{r}
-model_spec_lm <- linear_reg(mode = "regression") %>%
-    set_engine("lm")
+model_spec_lm <- linear_reg(
+    mode = "regression", 
+    penalty = 0.1
+) %>%
+    set_engine("glmnet")
 ```
 
 ## Workflow
