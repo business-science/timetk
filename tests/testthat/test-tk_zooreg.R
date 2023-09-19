@@ -1,7 +1,7 @@
 library(timetk)
 context("Test tk_zooreg")
 
-FB_tbl    <- FANG %>% filter(symbol == "FB")
+FB_tbl    <- FANG %>% dplyr::filter(symbol == "FB")
 FB_xts    <- FB_tbl %>% tk_xts(silent = TRUE)
 
 # FUNCTION: tk_zooreg -----

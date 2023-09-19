@@ -1,7 +1,7 @@
 context("Testing tk_augment_timeseries_signature function")
 
 FB_tbl <- FANG %>%
-    filter(symbol == "FB")
+    dplyr::filter(symbol == "FB")
 
 test_tbl <- FB_tbl
 

@@ -1,6 +1,6 @@
 context("Test tk_tbl")
 
-FB_tbl <- FANG %>% filter(symbol == "FB")
+FB_tbl <- FANG %>% dplyr::filter(symbol == "FB")
 
 # FUNCTION: tk_tbl -----
 

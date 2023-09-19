@@ -1,7 +1,8 @@
 context("Test recipe: step_timeseries_signature()")
 
 
-FB_tbl <- FANG %>% filter(symbol == "FB") %>%
+FB_tbl <- FANG %>%
+    dplyr::filter(symbol == "FB") %>%
     mutate(date_2 = date + dyears(1))
 
 rec_obj <- recipe(adjusted ~ ., data = FB_tbl) %>%

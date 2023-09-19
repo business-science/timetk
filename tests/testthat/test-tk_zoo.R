@@ -1,6 +1,6 @@
 context("Test tk_zoo")
 
-FB_tbl <- FANG %>% filter(symbol == "FB")
+FB_tbl <- FANG %>% dplyr::filter(symbol == "FB")
 FB_xts <- tk_xts(FB_tbl, silent = TRUE)
 
 # FUNCTION: tk_zoo -----

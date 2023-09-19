@@ -44,10 +44,10 @@ Imports:
     tsfeatures,
     hms,
     assertthat,
-    generics
+    generics,
+    tidymodels
 Suggests:
     modeltime,
-    tidymodels,
     glmnet,
     workflows,
     parsnip,

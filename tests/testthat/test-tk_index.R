@@ -1,6 +1,6 @@
 context("Testing tk_index")
 
-FB_tbl    <- FANG %>% filter(symbol == "FB")
+FB_tbl    <- FANG %>% dplyr::filter(symbol == "FB")
 FB_xts    <- FB_tbl %>% tk_xts(silent = TRUE)
 FB_zoo    <- FB_tbl %>% tk_zoo(silent = TRUE)
 FB_zooreg <- FB_tbl %>% tk_zooreg(start = 2015, freq = 252, silent = TRUE)

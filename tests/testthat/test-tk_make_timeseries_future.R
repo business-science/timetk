@@ -85,7 +85,7 @@ test_that("tk_make_future_timeseries(date) test returns correct format.", {
 
 
     test_date <- FANG %>%
-        filter(symbol == "FB") %>%
+        dplyr::filter(symbol == "FB") %>%
         tk_index()
 
     # DAILY SCALE ----
