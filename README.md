@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# timetk
+# timetk for R
 
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/timetk)](https://cran.r-project.org/package=timetk)
 ![](http://cranlogs.r-pkg.org/badges/timetk?color=brightgreen)

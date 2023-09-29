@@ -1,22 +1,16 @@
 url: https://business-science.github.io/timetk/
 template:
   bootstrap: 5
-  # bslib:
-  #   base_font:
-  #     google: Roboto
-  #   heading_font:
-  #     google: Montserrat
-    # code_font:
-    #   google: JetBrains Mono
+  bootswatch: lux
   params:
-    bootswatch: flatly
     ganalytics: G-20GDZ5LL77
 navbar:
+  bg: primary
   title: timetk
   left:
   - icon: fa-home
     href: index.html
-  - text: Getting Started
+  - text: Get Started
     href: articles/TK04_Plotting_Time_Series.html
   - text: Articles
     href: articles/index.html
@@ -61,7 +55,7 @@ navbar:
     - text: Change History
     - text: News
       href: news/index.html
-  - text: Ecosystem
+  - text: R Ecosystem
     menu:
     - text: Forecast
     - text: Modeltime (Forecasting)
@@ -80,6 +74,11 @@ navbar:
       href: https://business-science.github.io/modeltime.h2o/
     - text: Modeltime GluonTS (Deep Learning)
       href: https://business-science.github.io/modeltime.gluonts/
+  - text: Python
+    menu:
+    - text: Forecast
+    - text: Timetk for Python (Time Series Analysis)
+      href: https://business-science.github.io/pytimetk/
   - icon: fas fa-graduation-cap
     text: Learn
     href: https://university.business-science.io/p/ds4b-203-r-high-performance-time-series-forecasting/
