@@ -10,7 +10,7 @@ navbar:
   left:
   - icon: fa-home
     href: index.html
-  - text: Get Started
+  - text: Start
     href: articles/TK04_Plotting_Time_Series.html
   - text: Articles
     href: articles/index.html
