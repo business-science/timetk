@@ -31,7 +31,7 @@
   </a>
 </li>
 <li class="nav-item">
-  <a class="nav-link" href="../articles/TK04_Plotting_Time_Series.html">Getting Started</a>
+  <a class="nav-link" href="../articles/TK04_Plotting_Time_Series.html">Get Started</a>
 </li>
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
@@ -72,8 +72,8 @@
   </div>
 </li>
 <li class="nav-item dropdown">
-  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-ecosystem">Ecosystem</a>
-  <div class="dropdown-menu" aria-labelledby="dropdown-ecosystem">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-r-ecosystem">R Ecosystem</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-r-ecosystem">
     <h6 class="dropdown-header" data-toc-skip>Forecast</h6>
     <a class="external-link dropdown-item" href="https://business-science.github.io/modeltime/">Modeltime (Forecasting)</a>
     <a class="dropdown-item" href="https://business-science.github.io/timetk/">TimeTK (Time Series Analysis)</a>
@@ -85,6 +85,13 @@
     <h6 class="dropdown-header" data-toc-skip>Scale</h6>
     <a class="external-link dropdown-item" href="https://business-science.github.io/modeltime.h2o/">Modeltime H2O (AutoML)</a>
     <a class="external-link dropdown-item" href="https://business-science.github.io/modeltime.gluonts/">Modeltime GluonTS (Deep Learning)</a>
+  </div>
+</li>
+<li class="nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-python">Python</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-python">
+    <h6 class="dropdown-header" data-toc-skip>Forecast</h6>
+    <a class="external-link dropdown-item" href="https://business-science.github.io/pytimetk/">Timetk for Python (Time Series Analysis)</a>
   </div>
 </li>
 <li class="nav-item">
@@ -233,12 +240,12 @@ using <code><a href="https://rdrr.io/r/stats/ts.html" class="external-link">stat
 <span class="r-out co"><span class="r-pr">#&gt;</span> Start = 2016 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> End = 2020 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Frequency = 1 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      x  y          z</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2016 1  1  -25.32330</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2017 1  3  -52.94872</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2018 1  6  -82.87625</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2019 1 10 -115.10591</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2020 1 15 -149.63768</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      x  y         z</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2016 1  1  22.73133</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2017 1  3  47.52915</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2018 1  6  74.39346</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2019 1 10 103.32425</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2020 1 15 134.32152</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># tk_ts: Only numeric columns get coerced; Result retains index in numeric format</span></span></span>
 <span class="r-in"><span><span class="va">data_ts</span> <span class="op">&lt;-</span> <span class="fu">tk_ts</span><span class="op">(</span><span class="va">data_tbl</span>, start <span class="op">=</span> <span class="fl">2016</span><span class="op">)</span></span></span>
@@ -248,12 +255,12 @@ using <code><a href="https://rdrr.io/r/stats/ts.html" class="external-link">stat
 <span class="r-out co"><span class="r-pr">#&gt;</span> Start = 2016 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> End = 2020 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Frequency = 1 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       y          z</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2016  1  -25.32330</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2017  3  -52.94872</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2018  6  -82.87625</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2019 10 -115.10591</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2020 15 -149.63768</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       y         z</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2016  1  22.73133</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2017  3  47.52915</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2018  6  74.39346</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2019 10 103.32425</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2020 15 134.32152</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"index")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1451606400 1451692800 1451779200 1451865600 1451952000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"index")attr(,"tzone")</span>
@@ -272,13 +279,13 @@ using <code><a href="https://rdrr.io/r/stats/ts.html" class="external-link">stat
 <span class="r-in"><span><span class="va">data_ts</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="tk_tbl.html">tk_tbl</a></span><span class="op">(</span>timetk_idx <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'tzone' attributes are inconsistent</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 5 × 3</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   index          y      z</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> 2016-01-01     1  -<span style="color: #BB0000;">25.3</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> 2016-01-02     3  -<span style="color: #BB0000;">52.9</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> 2016-01-03     6  -<span style="color: #BB0000;">82.9</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> 2016-01-04    10 -<span style="color: #BB0000;">115.</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> 2016-01-05    15 -<span style="color: #BB0000;">150.</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   index          y     z</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> 2016-01-01     1  22.7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> 2016-01-02     3  47.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> 2016-01-03     6  74.4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> 2016-01-04    10 103. </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> 2016-01-05    15 134. </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">### Using select</span></span></span>
