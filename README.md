@@ -9,7 +9,10 @@
 [![R-CMD-check](https://github.com/business-science/timetk/workflows/R-CMD-check/badge.svg)](https://github.com/business-science/timetk/actions)
 [![codecov](https://codecov.io/gh/business-science/timetk/branch/master/graph/badge.svg)](https://app.codecov.io/gh/business-science/timetk)
 
-> Time series analysis in the `tidyverse`
+> Making time series analysis in R easier.
+
+Mission: To make time series analysis in R easier, faster, and more
+enjoyable.
 
 ## Installation
 
