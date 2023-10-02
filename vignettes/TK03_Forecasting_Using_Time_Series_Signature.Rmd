@@ -207,11 +207,11 @@ model_table
 
 ## Calibration
 
-__Model Calibration__ is used to quantify error and estimate confidence intervals. We'll perform model calibration on the out-of-sample data (aka. the Testing Set) with the `modeltime_calibrate()` function. Two new columns are generated (".type" and ".calibration_data"), the most important of which is the ".calibration_data". This includes the actual values, fitted values, and residuals for the testing set. 
+__Model Calibration__ is used to quantify error and estimate confidence intervals. We'll perform model calibration on the out-of-sample data (aka. the Testing Set) with the `modeltime::modeltime_calibrate()` function. Two new columns are generated (".type" and ".calibration_data"), the most important of which is the ".calibration_data". This includes the actual values, fitted values, and residuals for the testing set. 
 
 ```{r, paged.print = F, eval=rlang::is_installed("modeltime")}
 calibration_table <- model_table %>%
-  modeltime_calibrate(testing(splits))
+  modeltime::modeltime_calibrate(testing(splits))
 
 calibration_table
 ```
