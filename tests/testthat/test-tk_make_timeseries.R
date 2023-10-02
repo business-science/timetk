@@ -2,7 +2,7 @@ context("Testing tk_make_timeseries")
 
 
 test_that("Date Sequences", {
-
+    library(lubridate)
     # Daily
     seq_0 <- seq.Date(as.Date("2017-01-01"), as.Date("2017-12-31"), by = "day")
     seq_1 <- tk_make_timeseries("2017-01-01", "2017-12-31")
@@ -47,7 +47,7 @@ test_that("Date Sequences", {
 
 
 test_that("Time Sequences", {
-
+    library(lubridate)
     # Start + End, Guesses by second
     seq_0 <- seq.POSIXt(ymd_hms("2016-01-01 01:01:02"), ymd_hms("2016-01-01 01:01:04"), by = "sec")
     seq_1 <- tk_make_timeseries("2016-01-01 01:01:02", "2016-01-01 01:01:04")

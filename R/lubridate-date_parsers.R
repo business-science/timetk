@@ -31,7 +31,7 @@
 #' shifts datetimes to the specified timezone by default.
 #'
 #' @references
-#' - This function wraps the `anytime::anytime()` and `anytime::anydate` functions developed by Dirk Eddelbuettel.
+#' - This function wraps the `anytime::anytime()` and `anytime::anydate()` functions developed by Dirk Eddelbuettel.
 #'
 #' @examples
 #'

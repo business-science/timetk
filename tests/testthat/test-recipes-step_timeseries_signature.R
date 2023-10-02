@@ -1,5 +1,6 @@
 context("Test recipe: step_timeseries_signature()")
-
+library(dplyr)
+library(recipes)
 
 FB_tbl <- FANG %>%
     dplyr::filter(symbol == "FB") %>%

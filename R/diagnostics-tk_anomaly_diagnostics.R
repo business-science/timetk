@@ -234,7 +234,7 @@ iqr_vec <- function(x, alpha = 0.05, max_anoms = 0.2, verbose = FALSE) {
             abs_diff_upper = ifelse(value >= limit_upper, abs(value - limit_upper), 0),
             max_abs_diff = ifelse(abs_diff_lower > abs_diff_upper, abs_diff_lower, abs_diff_upper)
         ) %>%
-        dplyr::select(index, dplyr::everything()) %>%
+        dplyr::relocate(index) %>%
         dplyr::select(-c(abs_diff_lower, abs_diff_upper)) %>%
         # Sort by absolute distance from centerline of limits
         dplyr::mutate(
@@ -284,7 +284,7 @@ iqr_vec <- function(x, alpha = 0.05, max_anoms = 0.2, verbose = FALSE) {
     } else {
         # All outliers, pick last limits
         limit_tbl <- vals_tbl %>%
-            dplyr::slice(n())
+            dplyr::slice_tail(n = 1)
         limits_vec <- c(
             limit_lower = limit_tbl$limit_lower,
             limit_upper = limit_tbl$limit_upper

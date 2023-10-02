@@ -64,7 +64,7 @@ tk_get_timeseries_summary(idx_weekly)
 idx_yearmon <- seq.Date(from       = ymd("2016-01-01"),
                         by         = "month",
                         length.out = 12) \%>\%
-    as.yearmon()
+    zoo::as.yearmon()
 
 tk_get_timeseries_signature(idx_yearmon)
 tk_get_timeseries_summary(idx_yearmon)

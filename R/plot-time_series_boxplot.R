@@ -382,8 +382,7 @@ plot_time_series_boxplot.data.frame <- function(
 
     # If .value exists, remove it
     if (any(".value" %in% names(data_formatted))) {
-        data_formatted <- data_formatted %>%
-            dplyr::select(-.value)
+        data_formatted$`.value` <- NULL
     }
 
 
@@ -397,21 +396,20 @@ plot_time_series_boxplot.data.frame <- function(
     if (rlang::quo_is_null(color_var_expr)) {
         g <- g +
             ggplot2::geom_boxplot(
-                ggplot2::aes(group = .box_group)
-                ,
-                color    = .line_color,
-                size     = .line_size,
-                linetype = .line_type,
-                alpha    = .line_alpha
+                ggplot2::aes(group = .box_group),
+                color     = .line_color,
+                linewidth = .line_size,
+                linetype  = .line_type,
+                alpha     = .line_alpha
             )
 
     } else {
         g <- g +
             ggplot2::geom_boxplot(
                 ggplot2::aes(group = .box_group, color = .color_mod),
-                size     = .line_size,
-                linetype = .line_type,
-                alpha    = .line_alpha
+                linewidth = .line_size,
+                linetype  = .line_type,
+                alpha     = .line_alpha
             ) +
             scale_color_tq()
     }
@@ -426,7 +424,7 @@ plot_time_series_boxplot.data.frame <- function(
                     ggplot2::geom_line(
                         ggplot2::aes(y = .value_smooth),
                         color = .smooth_color,
-                        size  = .smooth_size,
+                        linewidth = .smooth_size,
                         alpha = .smooth_alpha,
                         data  = data_formatted_smooth
                     )
@@ -436,7 +434,7 @@ plot_time_series_boxplot.data.frame <- function(
                     ggplot2::geom_line(
                         ggplot2::aes(y = .value_smooth, group = .color_mod),
                         color = .smooth_color,
-                        size  = .smooth_size,
+                        linewidth = .smooth_size,
                         alpha = .smooth_alpha,
                         data  = data_formatted_smooth
                     )

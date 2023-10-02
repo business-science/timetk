@@ -151,7 +151,7 @@ tk_augment_fourier.grouped_df <- function(.data,
                 .names      = .names
             )
         )) %>%
-        dplyr::select(-data) %>%
+        dplyr::select(-"data") %>%
         tidyr::unnest(cols = nested.col) %>%
         dplyr::group_by_at(.vars = group_names)
 }

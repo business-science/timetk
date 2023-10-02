@@ -309,7 +309,7 @@ plot_acf_diagnostics.grouped_df <- function(.data, .date_var, .value, .ccf_vars 
         dplyr::mutate(.groups_consolidated = stringr::str_c(!!! rlang::syms(group_names), sep = "_")) %>%
         dplyr::mutate(.groups_consolidated = forcats::as_factor(.groups_consolidated)) %>%
         dplyr::select(-(!!! rlang::syms(group_names))) %>%
-        dplyr::select(.groups_consolidated, lag, dplyr::everything()) %>%
+        dplyr::relocate(.groups_consolidated, lag) %>%
         tidyr::pivot_longer(cols      = -c(.groups_consolidated, lag, .white_noise_upper, .white_noise_lower),
                             values_to = "value",
                             names_to  = "name") %>%

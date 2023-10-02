@@ -252,7 +252,7 @@ check_dots <- function(x, .period) {
 
 
     # The .period must be smaller than the length of the data
-    if (any(.period <= length(x[[1]]))) {
+    if (any(.period > length(x[[1]]))) {
         stop(call. = FALSE, "Cannot roll apply with a .period larger than the
                           length of the data")
     }

@@ -61,6 +61,6 @@ parse_datetime2("2011 Jan 1 12:35:21", tz = "Europe/London")
 }
 \references{
 \itemize{
-\item This function wraps the \code{anytime::anytime()} and \code{anytime::anydate} functions developed by Dirk Eddelbuettel.
+\item This function wraps the \code{anytime::anytime()} and \code{anytime::anydate()} functions developed by Dirk Eddelbuettel.
 }
 }

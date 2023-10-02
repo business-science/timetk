@@ -139,9 +139,9 @@ get_holiday_signature <- function(idx,
 
     # Setup
     idx          <- lubridate::as_date(idx)
-    years        <- lubridate::year(idx) %>% unique()
-    locale_set   <- locale_set %>% tolower()
-    exchange_set <- exchange_set %>% tolower()
+    years        <- unique(lubridate::year(idx))
+    locale_set   <- tolower(locale_set)
+    exchange_set <- tolower(exchange_set)
 
     if (any("all" %in% locale_set)) locale_set <- "all"
     if (any("all" %in% exchange_set)) exchange_set <- "all"
@@ -150,7 +150,7 @@ get_holiday_signature <- function(idx,
     if (any("none" %in% exchange_set)) exchange_set <- "none"
 
     initial_index_tbl <- tibble::tibble(index = idx)
-    unique_index_tbl  <- initial_index_tbl %>% dplyr::distinct()
+    unique_index_tbl  <- dplyr::distinct(initial_index_tbl)
 
     # HOLIDAY & LOCALE FEATURES ----
 

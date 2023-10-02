@@ -1,5 +1,5 @@
 context("Testing tk_get_timeseries functions")
-
+library(lubridate)
 n <- 29
 
 # tk_get_timeseries_signature -----
@@ -32,7 +32,7 @@ test_yearmon <- c("2016-01-01",
                   "2016-02-01",
                   "2016-03-01") %>%
     ymd() %>%
-    as.yearmon()
+    zoo::as.yearmon()
 
 test_that("tk_get_timeseries_signature(yearmon) test returns correct format.", {
     test <- tk_get_timeseries_signature(test_yearmon)
@@ -46,7 +46,7 @@ test_yearqtr <- c("2016-01-01",
                   "2016-07-01",
                   "2016-10-01") %>%
     ymd() %>%
-    as.yearqtr()
+    zoo::as.yearqtr()
 
 test_that("tk_get_timeseries_signature(yearqtr) test returns correct format.", {
     test <- tk_get_timeseries_signature(test_yearqtr)
@@ -97,7 +97,7 @@ test_that("tk_get_timeseries_summary(date) test returns correct format.", {
 test_yearmon <- c("2016-01",
                   "2016-02",
                   "2016-03") %>%
-    as.yearmon()
+    zoo::as.yearmon()
 
 test_that("tk_get_timeseries_summary(yearmon) test returns correct format.", {
     test <- tk_get_timeseries_summary(test_yearmon)
@@ -110,7 +110,7 @@ test_yearqtr <- c("2016 Q1",
                   "2016 Q2",
                   "2016 Q3",
                   "2016 Q4") %>%
-    as.yearqtr()
+    zoo::as.yearqtr()
 
 test_that("tk_get_timeseries_summary(yearqtr) test returns correct format.", {
     test <- tk_get_timeseries_summary(test_yearqtr)
@@ -138,9 +138,9 @@ test_date_vars <- tibble::tibble(
     my.date     = ymd(c("2016-01-01", "2016-01-02")),
     my.chr      = c("a", "b"),
     my.datetime = ymd_hms(c("2016-01-01 00:00:00", "2016-01-02 00:00:00")),
-    my.yearmon  = as.yearmon(c("2016-01", "2016-01")),
+    my.yearmon  = zoo::as.yearmon(c("2016-01", "2016-01")),
     more.chr    = c("x", "y"),
-    my.yearqtr  = as.yearqtr(c("2016 Q1", "2016 Q1"))
+    my.yearqtr  = zoo::as.yearqtr(c("2016 Q1", "2016 Q1"))
 )
 
 test_that("tk_get_timeseries_variables() test returns correct format.", {

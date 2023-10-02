@@ -166,7 +166,7 @@ plot_anomaly_diagnostics <- function(
     date_var_expr <- rlang::enquo(.date_var)
 
     if (!is.data.frame(.data)) {
-        rlang::abort(".data is not a data-frame or tibble. Please supply a data.frame or tibble.")
+        rlang::abort("`.data` must be a a data-frame or tibble. Please supply a data.frame or tibble.")
     }
     if (rlang::quo_is_missing(date_var_expr)) {
         rlang::abort(".date_var is missing. Please supply a date or date-time column.")

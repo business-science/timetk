@@ -46,7 +46,7 @@ test_that("tk_augment_timeseries_signature(default) test returns correct format.
 
 # Test back-ticked columns
 test_that("tk_augment_timeseries_signature() works with back ticked columns.", {
-    tib <- tibble(
+    tib <- dplyr::tibble(
         `date column` = seq.Date(from = as.Date("2017-01-01"), by = "day", length.out = 10),
         `my value` = 1:10
     )
