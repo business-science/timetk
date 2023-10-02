@@ -35,7 +35,7 @@ Imports:
     tidyr (>= 1.1.0),
     xts (>= 0.9-7),
     zoo (>= 1.7-14),
-    rlang (>= 0.4.11),
+    rlang (>= 1.1.1),
     tidyselect (>= 1.1.0),
     slider,
     anytime,
@@ -43,7 +43,6 @@ Imports:
     forecast,
     tsfeatures,
     hms,
-    assertthat,
     generics,
     tidymodels
 Suggests:
@@ -61,10 +60,7 @@ Suggests:
     fracdiff,
     timeSeries,
     tseries,
-    trelliscopejs,
-    roxygen2,
-    covr
+    trelliscopejs
 RoxygenNote: 7.2.3
 Roxygen: list(markdown = TRUE)
 VignetteBuilder: knitr
-

@@ -98,11 +98,13 @@ parse_letter_period <- function(period) {
 
 # Check that the freq can be coerced to numeric
 assert_freq_coerce_to_numeric <- function(freq) {
-    assertthat::assert_that(
-        # Coercing to numeric should give a number, not NA
-        suppressWarnings(!is.na(as.numeric(freq))),
-        msg = "Frequency must be coercible to numeric."
-    )
+
+    problem <- suppressWarnings(anyNA(as.numeric(freq)))
+
+    if (problem) {
+        stop("Frequency must be coercible to numeric.", call. = FALSE)
+    }
+    TRUE
 }
 
 # If sub-second resolution, change to correct second representation
