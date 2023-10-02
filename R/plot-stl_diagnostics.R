@@ -184,10 +184,10 @@ plot_stl_diagnostics.data.frame <- function(.data, .date_var, .value, .facet_var
     # Add line
     g <- g +
         ggplot2::geom_line(
-            color    = .line_color,
-            size     = .line_size,
-            linetype = .line_type,
-            alpha    = .line_alpha
+            color     = .line_color,
+            linewidth = .line_size,
+            linetype  = .line_type,
+            alpha     = .line_alpha
         )
 
     # Add facets
@@ -195,8 +195,7 @@ plot_stl_diagnostics.data.frame <- function(.data, .date_var, .value, .facet_var
         facet_ncol <- 1
     } else {
         facet_ncol <- data_formatted %>%
-            dplyr::select(facet_names) %>%
-            dplyr::distinct() %>%
+            dplyr::distinct(dplyr::pick(dplyr::all_of(facet_names))) %>%
             nrow()
     }
 

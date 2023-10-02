@@ -361,19 +361,19 @@ plot_time_series.data.frame <- function(
     if (rlang::quo_is_null(color_var_expr)) {
         g <- g +
             ggplot2::geom_line(
-                color    = .line_color,
-                size     = .line_size,
-                linetype = .line_type,
-                alpha    = .line_alpha
+                color     = .line_color,
+                linewidth = .line_size,
+                linetype  = .line_type,
+                alpha     = .line_alpha
             )
 
     } else {
         g <- g +
             ggplot2::geom_line(
                 ggplot2::aes(color = .color_mod, group = .color_mod),
-                size     = .line_size,
-                linetype = .line_type,
-                alpha    = .line_alpha
+                linewidth = .line_size,
+                linetype  = .line_type,
+                alpha     = .line_alpha
             ) +
             scale_color_tq()
     }

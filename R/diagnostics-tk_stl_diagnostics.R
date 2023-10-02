@@ -157,7 +157,7 @@ tk_stl_diagnostics.grouped_df <- function(.data, .date_var, .value,
                 .message      = .message
             )
         )) %>%
-        dplyr::select(-data) %>%
+        dplyr::select(-"data") %>%
         tidyr::unnest(cols = nested.col) %>%
         dplyr::group_by_at(.vars = group_names)
 

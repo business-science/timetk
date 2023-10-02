@@ -18,7 +18,7 @@
 #' @param .facet_ncol Facets: Number of facet columns. Has no effect if using `grouped_df`.
 #' @param .facet_scales Facets: Options include "fixed", "free", "free_y", "free_x"
 #' @param .line_color Line color. Use keyword: "scale_color" to change the color by the facet.
-#' @param .line_size Line size
+#' @param .line_size Line size (linewidth)
 #' @param .line_alpha Line opacity. Adjust the transparency of the line. Range: (0, 1)
 #' @param .point_color Point color. Use keyword: "scale_color" to change the color by the facet.
 #' @param .point_size Point size
@@ -215,11 +215,11 @@ plot_acf_diagnostics.data.frame <- function(.data, .date_var, .value, .ccf_vars 
     if (.line_color == "scale_color") {
         g <- g +
             ggplot2::geom_line(ggplot2::aes(color = name),
-                               size = .line_size, alpha = .line_alpha) +
+                               linewidth = .line_size, alpha = .line_alpha) +
             scale_color_tq()
     } else {
         g <- g +
-            ggplot2::geom_line(color = .line_color, size = .line_size, alpha = .line_alpha)
+            ggplot2::geom_line(color = .line_color, linewidth = .line_size, alpha = .line_alpha)
     }
 
     # Add points
@@ -309,7 +309,7 @@ plot_acf_diagnostics.grouped_df <- function(.data, .date_var, .value, .ccf_vars 
         dplyr::mutate(.groups_consolidated = stringr::str_c(!!! rlang::syms(group_names), sep = "_")) %>%
         dplyr::mutate(.groups_consolidated = forcats::as_factor(.groups_consolidated)) %>%
         dplyr::select(-(!!! rlang::syms(group_names))) %>%
-        dplyr::select(.groups_consolidated, lag, dplyr::everything()) %>%
+        dplyr::relocate(.groups_consolidated, lag) %>%
         tidyr::pivot_longer(cols      = -c(.groups_consolidated, lag, .white_noise_upper, .white_noise_lower),
                             values_to = "value",
                             names_to  = "name") %>%
@@ -335,11 +335,11 @@ plot_acf_diagnostics.grouped_df <- function(.data, .date_var, .value, .ccf_vars 
     if (.line_color == "scale_color") {
         g <- g +
             ggplot2::geom_line(ggplot2::aes(color = .groups_consolidated),
-                               size = .line_size, alpha = .line_alpha) +
+                               linewidth = .line_size, alpha = .line_alpha) +
             scale_color_tq()
     } else {
         g <- g +
-            ggplot2::geom_line(color = .line_color, size = .line_size, alpha = .line_alpha)
+            ggplot2::geom_line(color = .line_color, linewidth = .line_size, alpha = .line_alpha)
     }
 
     # Add points

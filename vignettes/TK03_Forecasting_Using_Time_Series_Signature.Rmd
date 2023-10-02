@@ -40,11 +40,12 @@ In this vignette, the user will learn methods to implement machine learning to p
 Before we get started, load the following packages.
 
 ```{r, message = FALSE}
-library(tidymodels)
-library(modeltime)
 library(dplyr)
 library(timetk)
-
+library(recipes)
+library(parsnip)
+library(workflows)
+library(rsample)
 # Used to convert plots from interactive to static
 interactive = FALSE
 ```
@@ -58,8 +59,7 @@ _Source: Fanaee-T, Hadi, and Gama, Joao, 'Event labeling combining ensemble dete
 ```{r}
 # Read data
 bike_transactions_tbl <- bike_sharing_daily %>%
-  select(dteday, cnt) %>%
-  set_names(c("date", "value")) 
+  select(date = dteday, value = cnt)
 
 bike_transactions_tbl
 ```
@@ -111,6 +111,7 @@ The first step is to add the _time series signature_ to the training set, which 
 - The `timetk` has `step_timeseries_signature()`, which is used to add a number of features that can help machine learning models. 
 
 ```{r}
+library(recipes)
 # Add time series signature
 recipe_spec_timeseries <- recipe(value ~ ., data = training(splits)) %>%
     step_timeseries_signature(date) 
@@ -166,7 +167,9 @@ workflow_lm
 The workflow can be trained with the `fit()` function. 
 
 ```{r}
-workflow_fit_lm <- workflow_lm %>% fit(data = training(splits))
+if (requireNamespace("glmnet")) {
+  workflow_fit_lm <- workflow_lm %>% fit(data = training(splits))
+}
 ```
 
 
@@ -192,20 +195,23 @@ __The Modeltime Workflow__ is designed to speed up model evaluation and selectio
 __The Modeltime Table__ organizes the models with IDs and creates generic descriptions to help us keep track of our models. Let's add the models to a `modeltime_table()`.  
 
 ```{r, paged.print = F}
-model_table <- modeltime_table(
+if (rlang::is_installed("modeltime")) {
+  model_table <- modeltime::modeltime_table(
   workflow_fit_lm
 ) 
 
 model_table
+}
+
 ```
 
 ## Calibration
 
-__Model Calibration__ is used to quantify error and estimate confidence intervals. We'll perform model calibration on the out-of-sample data (aka. the Testing Set) with the `modeltime_calibrate()` function. Two new columns are generated (".type" and ".calibration_data"), the most important of which is the ".calibration_data". This includes the actual values, fitted values, and residuals for the testing set. 
+__Model Calibration__ is used to quantify error and estimate confidence intervals. We'll perform model calibration on the out-of-sample data (aka. the Testing Set) with the `modeltime::modeltime_calibrate()` function. Two new columns are generated (".type" and ".calibration_data"), the most important of which is the ".calibration_data". This includes the actual values, fitted values, and residuals for the testing set. 
 
-```{r, paged.print = F}
+```{r, paged.print = F, eval=rlang::is_installed("modeltime")}
 calibration_table <- model_table %>%
-  modeltime_calibrate(testing(splits))
+  modeltime::modeltime_calibrate(testing(splits))
 
 calibration_table
 ```
@@ -214,27 +220,27 @@ calibration_table
 
 With calibrated data, we can visualize the testing predictions (forecast). 
 
-- Use `modeltime_forecast()` to generate the forecast data for the testing set as a tibble. 
-- Use `plot_modeltime_forecast()` to visualize the results in interactive and static plot formats.
+- Use `modeltime::modeltime_forecast()` to generate the forecast data for the testing set as a tibble. 
+- Use `modeltime::plot_modeltime_forecast()` to visualize the results in interactive and static plot formats.
 
 
-```{r}
+```{r, eval=rlang::is_installed("modeltime")}
 calibration_table %>%
-  modeltime_forecast(actual_data = bike_transactions_tbl) %>%
-  plot_modeltime_forecast(.interactive = interactive)
+  modeltime::modeltime_forecast(actual_data = bike_transactions_tbl) %>%
+  modeltime::plot_modeltime_forecast(.interactive = interactive)
 ```
 
 ### Accuracy (Testing Set)
 
 Next, calculate the testing accuracy to compare the models. 
 
-- Use `modeltime_accuracy()` to generate the out-of-sample accuracy metrics as a tibble.
-- Use `table_modeltime_accuracy()` to generate interactive and static 
+- Use `modeltime::modeltime_accuracy()` to generate the out-of-sample accuracy metrics as a tibble.
+- Use `modeltime::table_modeltime_accuracy()` to generate interactive and static 
 
-```{r}
+```{r, eval=rlang::is_installed("modeltime")}
 calibration_table %>%
-  modeltime_accuracy() %>%
-  table_modeltime_accuracy(.interactive = interactive)
+  modeltime::modeltime_accuracy() %>%
+  modeltime::table_modeltime_accuracy(.interactive = interactive)
 ```
 
 
@@ -242,14 +248,14 @@ calibration_table %>%
 
 __Refitting__ is a best-practice before forecasting the future. 
 
-- `modeltime_refit()`: We re-train on full data (`bike_transactions_tbl`)
-- `modeltime_forecast()`: For models that only depend on the "date" feature, we can use `h` (horizon) to forecast forward. Setting `h = "12 months"` forecasts then next 12-months of data. 
+- `modeltime::modeltime_refit()`: We re-train on full data (`bike_transactions_tbl`)
+- `modeltime::modeltime_forecast()`: For models that only depend on the "date" feature, we can use `h` (horizon) to forecast forward. Setting `h = "12 months"` forecasts then next 12-months of data. 
 
-```{r}
+```{r, eval=rlang::is_installed("modeltime")}
 calibration_table %>%
-  modeltime_refit(bike_transactions_tbl) %>%
-  modeltime_forecast(h = "12 months", actual_data = bike_transactions_tbl) %>%
-  plot_modeltime_forecast(.interactive = interactive)
+  modeltime::modeltime_refit(bike_transactions_tbl) %>%
+  modeltime::modeltime_forecast(h = "12 months", actual_data = bike_transactions_tbl) %>%
+  modeltime::plot_modeltime_forecast(.interactive = interactive)
 ```
 
 

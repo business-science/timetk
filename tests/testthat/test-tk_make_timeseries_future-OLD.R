@@ -225,24 +225,24 @@ test_that("tk_make_future_timeseries(date) test returns correct format.", {
 test_yearmon <- c("2016-01",
                   "2016-02",
                   "2016-03") %>%
-    as.yearmon()
+    zoo::as.yearmon()
 
 test_that("tk_make_future_timeseries(yearmon) test returns correct format.", {
     # No skip values
     expect_warning(test <- tk_make_future_timeseries(test_yearmon, n_future = 3))
     expectation <- c("2016-04", "2016-05", "2016-06") %>%
-        as.yearmon()
+        zoo::as.yearmon()
     expect_equal(test, expectation)
 
     # Skip values
-    skip <- as.yearmon("2016-05")
+    skip <- zoo::as.yearmon("2016-05")
     expect_warning(test <- tk_make_future_timeseries(test_yearmon, n_future = 3, skip_values = skip))
     expectation <- c("2016-04", "2016-06")  %>%
-        as.yearmon()
+        zoo::as.yearmon()
     expect_equal(test, expectation)
 
     # Test when skip values are not within future index
-    skip <- as.yearmon(c("2016-10", "2016-11"))
+    skip <- zoo::as.yearmon(c("2016-10", "2016-11"))
     expect_message(expect_warning(tk_make_future_timeseries(test_yearmon, n_future = 3, skip_values = skip)))
 
     # Inspect validation of skip_values
@@ -250,10 +250,10 @@ test_that("tk_make_future_timeseries(yearmon) test returns correct format.", {
     expect_equal(test, NA)
 
     # insert values
-    insert <- as.yearmon(c("2017-10", "2017-11"))
+    insert <- zoo::as.yearmon(c("2017-10", "2017-11"))
     expect_warning(test <- tk_make_future_timeseries(test_yearmon, n_future = 3, insert_values = insert))
     expectation <- c("2016-04", "2016-05", "2016-06", " 2017-10", "2017-11")  %>%
-        as.yearmon()
+        zoo::as.yearmon()
     expect_equal(test, expectation)
 
 })
@@ -262,27 +262,27 @@ test_yearqtr <- c("2016 Q1",
                   "2016 Q2",
                   "2016 Q3",
                   "2016 Q4") %>%
-    as.yearqtr()
+    zoo::as.yearqtr()
 
 test_that("tk_make_future_timeseries(yearqtr) test returns correct format.", {
     # No skip values
     expect_warning(test <- tk_make_future_timeseries(test_yearqtr, n_future = 4))
     expectation <- c("2017 Q1", "2017 Q2", "2017 Q3", "2017 Q4") %>%
-        as.yearqtr()
+        zoo::as.yearqtr()
     expect_equal(test, expectation)
 
     # Skip values
-    skip <- as.yearqtr("2017 Q1")
+    skip <- zoo::as.yearqtr("2017 Q1")
     expect_warning(test <- tk_make_future_timeseries(test_yearqtr, n_future = 4, skip_values = skip))
     expectation <- c("2017 Q2", "2017 Q3", "2017 Q4")  %>%
-        as.yearqtr()
+        zoo::as.yearqtr()
     expect_equal(test, expectation)
 
     # Test when skip values are not within future index
-    skip <- as.yearqtr(c("2017 Q1", "2018 Q2"))
+    skip <- zoo::as.yearqtr(c("2017 Q1", "2018 Q2"))
     expect_warning(expect_message(test <- tk_make_future_timeseries(test_yearqtr, n_future = 4, skip_values = skip)))
     expectation <- c("2017 Q2", "2017 Q3", "2017 Q4")  %>%
-        as.yearqtr()
+        zoo::as.yearqtr()
     expect_equal(test, expectation)
 
     # Inspect validation of skip_values

@@ -13,13 +13,9 @@
 #' To learn more about `timetk`, start with the documentation:
 #' [https://business-science.github.io/timetk/](https://business-science.github.io/timetk/)
 #'
-#' @docType package
-#' @name timetk
-#'
-#' @aliases timetk-package
+"_PACKAGE"
 #' @importFrom dplyr %>%
 #' @importFrom xts xts
 #' @import recipes
 #' @importFrom generics tidy
-
 NULL

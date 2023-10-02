@@ -119,9 +119,10 @@ If instability is not desirable for de-noising operations, a suitable alternativ
 is \code{\link[=step_smooth]{step_smooth()}}, which implements local polynomial regression.
 }
 \examples{
-library(tidymodels)
+# library(tidymodels)
 library(dplyr)
-library(timetk)
+library(recipes)
+library(parsnip)
 
 m750 <- m4_monthly \%>\%
     filter(id == "M750") \%>\%
@@ -130,7 +131,7 @@ m750 <- m4_monthly \%>\%
 m750_splits <- time_series_split(m750, assess = "2 years", cumulative = TRUE)
 
 # Make a recipe
-recipe_spec <- recipe(value ~ date + value_2, training(m750_splits)) \%>\%
+recipe_spec <- recipe(value ~ date + value_2, rsample::training(m750_splits)) \%>\%
     step_slidify_augment(
         value, value_2,
         period = c(6, 12, 24),
@@ -141,7 +142,7 @@ recipe_spec <- recipe(value ~ date + value_2, training(m750_splits)) \%>\%
 
 recipe_spec \%>\% prep() \%>\% juice()
 
-bake(prep(recipe_spec), testing(m750_splits))
+bake(prep(recipe_spec), rsample::testing(m750_splits))
 
 
 }

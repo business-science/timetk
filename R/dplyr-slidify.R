@@ -245,26 +245,30 @@ slider_2 <- function(..., .slider_fun, .f, .period, .align, .partial, .unlist) {
 check_dots <- function(x, .period) {
 
     # The user must have passed something to be passed on to .f
-    assertthat::assert_that(length(x) > 0,
-                            msg = "At least 1 data argument must be supplied to be
-                          passed on to the rolling function")
+    if (length(x) == 0) {
+        stop("At least 1 data argument must be supplied to be
+                          passed on to the rolling function", call. = FALSE)
+    }
 
 
     # The .period must be smaller than the length of the data
-    assertthat::assert_that(.period <= length(x[[1]]),
-                            msg = "Cannot roll apply with a .period larger than the
+    if (any(.period > length(x[[1]]))) {
+        stop(call. = FALSE, "Cannot roll apply with a .period larger than the
                           length of the data")
+    }
 
 
     # Length of every element of .dots should be the same
     # Only data used in the rolling should be in .dots
     # Optional args should be specified in the slidify call
-    for(i in 1:length(x)) {
-        assertthat::assert_that(length(x[[i]]) == length(x[[1]]),
-                                msg = "Arguments supplied to the rolling version
+    lens <- lengths(x)
+    n_distinct_length_x <- length(unique(lens))
+    if (n_distinct_length_x != 1) {
+        stop(call. = FALSE, "Arguments supplied to the rolling version
                             of the function should be data of the same length.
                             Optional arguments should be specified when creating
                             the rolling version with `slidify()`")
     }
+    TRUE
 }
 
