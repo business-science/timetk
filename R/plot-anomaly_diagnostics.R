@@ -301,10 +301,10 @@ plot_anomaly_diagnostics.data.frame <- function(
     # Add line
     g <- g +
         ggplot2::geom_line(
-            color    = .line_color,
-            size     = .line_size,
-            linetype = .line_type,
-            alpha    = .line_alpha
+            color     = .line_color,
+            linewidth = .line_size,
+            linetype  = .line_type,
+            alpha     = .line_alpha
         )
 
     # Add Outliers

@@ -22,7 +22,7 @@ Imports:
     recipes (>= 1.0.4),
     rsample,
     dplyr (>= 1.0.0),
-    ggplot2,
+    ggplot2 (>= 3.4.0),
     forcats,
     stringr,
     plotly,
