@@ -27,7 +27,7 @@ test_that("Date Sequences", {
         include_endpoints = FALSE)
     expect_identical(sort(seq_0), seq_1)
 
-    seq_0 <- c("2011-01-31", "2011-02-28", "2011-03-31") %>% ymd()
+    seq_0 <- c("2011-01-31", "2011-02-28", "2011-03-31") %>% lubridate::ymd()
     seq_1 <- tk_make_timeseries("2011-01-31", by = "month", length_out = 3)
     expect_identical(seq_0, seq_1)
 
@@ -69,7 +69,7 @@ test_that("Time Sequences", {
 
 test_that("Skip/Insert Values", {
 
-    seq_0 <- c("2011-01-01", "2011-01-02", "2011-01-03", "2011-01-04", "2011-01-06") %>% ymd()
+    seq_0 <- c("2011-01-01", "2011-01-02", "2011-01-03", "2011-01-04", "2011-01-06") %>% lubridate::ymd()
     seq_1 <- tk_make_timeseries(
         "2011-01-01", length_out = 5,
         skip_values   = "2011-01-05",
@@ -82,13 +82,13 @@ test_that("End of Month", {
 
     # Start Date
     test <- timetk::tk_make_timeseries(start_date = '2011-09-30', by = 'quarter', length_out = 4)
-    expectation <- c("2011-09-30", "2011-12-31", "2012-03-31", "2012-06-30") %>% ymd()
+    expectation <- c("2011-09-30", "2011-12-31", "2012-03-31", "2012-06-30") %>% lubridate::ymd()
 
     expect_equal(test, expectation)
 
     # End Date
     test <- timetk::tk_make_timeseries(start_date = '2011-09-30', end_date = "2012-06-30", by = 'quarter')
-    expectation <- c("2011-09-30", "2011-12-31", "2012-03-31", "2012-06-30") %>% ymd()
+    expectation <- c("2011-09-30", "2011-12-31", "2012-03-31", "2012-06-30") %>% lubridate::ymd()
 
     expect_equal(test, expectation)
 

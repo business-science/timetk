@@ -1,10 +1,11 @@
 context("Test recipe: step_timeseries_signature()")
 library(dplyr)
 library(recipes)
+library(lubridate)
 
 FB_tbl <- FANG %>%
     dplyr::filter(symbol == "FB") %>%
-    mutate(date_2 = date + dyears(1))
+    dplyr::mutate(date_2 = date + dyears(1))
 
 rec_obj <- recipe(adjusted ~ ., data = FB_tbl) %>%
     step_timeseries_signature(date, date_2)

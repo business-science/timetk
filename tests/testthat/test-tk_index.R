@@ -296,17 +296,15 @@ test_that("tk_index(decomposed.ts) test returns correct format.", {
 
     data_ts <- USAccDeaths %>%
         tk_tbl() %>%
-        mutate(index = as_date(index)) %>%
-        tk_ts(start = 1973, freq = 12, silent = T)
+        dplyr::mutate(index = lubridate::as_date(index)) %>%
+        tk_ts(start = 1973, frequency = 12, silent = TRUE)
 
-    fit <- decompose(data_ts)
+    fit <- stats::decompose(data_ts)
 
-    test <- has_timetk_idx(fit)
-    expect_true(test)
+    expect_true(has_timetk_idx(fit))
 
-    expect_equal(tk_index(fit) %>% class(), "numeric")
-
-    expect_equal(tk_index(fit, timetk_idx = T) %>% class(), "Date")
+    expect_type(tk_index(fit), "double")
+    expect_s3_class(tk_index(fit, timetk_idx = TRUE), "Date")
 
 
 })

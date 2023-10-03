@@ -46,7 +46,7 @@ test_that("zooreg to tbl test returns tibble with correct rows and columns.", {
     # zooreg reverse coercion test ----
     test_tbl_3b <- FB_zooreg %>%
         tk_tbl(rename_index = "date", timetk_idx = TRUE)
-    expect_identical(test_tbl_3b, FB_tbl %>% select(-symbol))
+    expect_identical(test_tbl_3b, FB_tbl %>% dplyr::select(-symbol))
 
     # Test different start/end types
 
@@ -85,7 +85,7 @@ test_that("mts to tbl test returns tibble with correct rows and columns.", {
     # ts reverse coercion test ----
     test_tbl_4b <- FB_mts %>%
         tk_tbl(rename_index = "date", timetk_idx = TRUE)
-    expect_identical(test_tbl_4b, FB_tbl %>% select(-symbol))
+    expect_identical(test_tbl_4b, FB_tbl %>% dplyr::select(-symbol))
 })
 
 # matrix to tbl -----

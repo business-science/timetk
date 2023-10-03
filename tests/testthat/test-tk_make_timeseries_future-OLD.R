@@ -76,7 +76,7 @@ test_that("tk_make_future_timeseries(date) test returns correct format.", {
     expect_equal(test, expectation)
 
     # Skip values, inspect_weekdays = TRUE
-    holidays <- c("2017-01-03", "2017-01-04") %>% ymd()
+    holidays <- c("2017-01-03", "2017-01-04") %>% lubridate::ymd()
     expect_warning(test <- tk_make_future_timeseries(test_date, n_future = 8, skip_values = holidays, inspect_weekdays = TRUE))
     expectation <- c("2017-01-02", "2017-01-05", "2017-01-06") %>%
         ymd()
@@ -113,28 +113,28 @@ test_that("tk_make_future_timeseries(date) test returns correct format.", {
     # WEEKLY SCALE
 
     # No skip
-    test_date   <- c("2017-01-01", "2017-01-08") %>% ymd()
-    expectation <- c("2017-01-15", "2017-01-22") %>% ymd()
+    test_date   <- c("2017-01-01", "2017-01-08") %>% lubridate::ymd()
+    expectation <- c("2017-01-15", "2017-01-22") %>% lubridate::ymd()
     expect_equal(expect_warning(tk_make_future_timeseries(test_date, n_future = 2)),
                  expectation)
 
     # With skip
-    test_date   <- c("2017-01-01", "2017-01-08") %>% ymd()
-    skip_values  <- c("2017-01-22") %>% ymd()
-    expectation <- c("2017-01-15") %>% ymd()
+    test_date   <- c("2017-01-01", "2017-01-08") %>% lubridate::ymd()
+    skip_values  <- c("2017-01-22") %>% lubridate::ymd()
+    expectation <- c("2017-01-15") %>% lubridate::ymd()
     expect_equal(expect_warning(tk_make_future_timeseries(test_date, n_future = 2, skip_values = skip_values)),
                  expectation)
 
     # With insert
-    test_date   <- c("2017-01-01", "2017-01-08") %>% ymd()
-    insert      <- c("2017-01-29") %>% ymd()
-    expectation <- c("2017-01-15", "2017-01-22", "2017-01-29") %>% ymd()
+    test_date   <- c("2017-01-01", "2017-01-08") %>% lubridate::ymd()
+    insert      <- c("2017-01-29") %>% lubridate::ymd()
+    expectation <- c("2017-01-15", "2017-01-22", "2017-01-29") %>% lubridate::ymd()
     expect_equal(expect_warning(tk_make_future_timeseries(test_date, n_future = 2, insert_values = insert)),
                  expectation)
 
     # With insert / Message
-    test_date   <- c("2017-01-01", "2017-01-08") %>% ymd()
-    insert      <- c("2017-01-22") %>% ymd()
+    test_date   <- c("2017-01-01", "2017-01-08") %>% lubridate::ymd()
+    insert      <- c("2017-01-22") %>% lubridate::ymd()
     expect_message(
       expect_warning(
         tk_make_future_timeseries(test_date, n_future = 2, insert_values = insert)
@@ -144,78 +144,78 @@ test_that("tk_make_future_timeseries(date) test returns correct format.", {
     # MONTHLY SCALE
 
     # No skip
-    test_date   <- c("2017-01-01", "2017-02-01") %>% ymd()
-    expectation <- c("2017-03-01", "2017-04-01") %>% ymd()
+    test_date   <- c("2017-01-01", "2017-02-01") %>% lubridate::ymd()
+    expectation <- c("2017-03-01", "2017-04-01") %>% lubridate::ymd()
     expect_equal(
       expect_warning(tk_make_future_timeseries(test_date, n_future = 2)),
       expectation
     )
 
     # With skip
-    test_date   <- c("2017-01-01", "2017-02-01") %>% ymd()
-    skip_values  <- c("2017-03-01") %>% ymd()
-    expectation <- c("2017-04-01") %>% ymd()
+    test_date   <- c("2017-01-01", "2017-02-01") %>% lubridate::ymd()
+    skip_values  <- c("2017-03-01") %>% lubridate::ymd()
+    expectation <- c("2017-04-01") %>% lubridate::ymd()
     expect_equal(
       expect_warning(tk_make_future_timeseries(test_date, n_future = 2, skip_values = skip_values)),
       expectation
     )
 
     # With insert
-    test_date   <- c("2017-01-01", "2017-02-01") %>% ymd()
-    insert      <- c("2017-06-01") %>% ymd()
-    expectation <- c("2017-03-01", "2017-04-01", "2017-06-01") %>% ymd()
+    test_date   <- c("2017-01-01", "2017-02-01") %>% lubridate::ymd()
+    insert      <- c("2017-06-01") %>% lubridate::ymd()
+    expectation <- c("2017-03-01", "2017-04-01", "2017-06-01") %>% lubridate::ymd()
     expect_equal(expect_warning(tk_make_future_timeseries(test_date, n_future = 2, insert_values = insert)),
                  expectation)
 
     # QUARTERLY SCALE
 
     # No skip
-    test_date   <- c("2017-01-01", "2017-04-01") %>% ymd()
-    expectation <- c("2017-07-01", "2017-10-01") %>% ymd()
+    test_date   <- c("2017-01-01", "2017-04-01") %>% lubridate::ymd()
+    expectation <- c("2017-07-01", "2017-10-01") %>% lubridate::ymd()
     expect_equal(expect_warning(tk_make_future_timeseries(test_date, n_future = 2)),
                  expectation)
 
     # With skip
-    test_date   <- c("2017-01-01", "2017-04-01") %>% ymd()
-    skip_values  <- c("2017-10-01") %>% ymd()
-    expectation <- c("2017-07-01") %>% ymd()
+    test_date   <- c("2017-01-01", "2017-04-01") %>% lubridate::ymd()
+    skip_values  <- c("2017-10-01") %>% lubridate::ymd()
+    expectation <- c("2017-07-01") %>% lubridate::ymd()
     expect_equal(expect_warning(tk_make_future_timeseries(test_date, n_future = 2, skip_values = skip_values)),
                  expectation)
 
     # With insert
-    test_date   <- c("2017-01-01", "2017-04-01") %>% ymd()
-    insert      <- c("2018-01-01") %>% ymd()
-    expectation <- c("2017-07-01", "2017-10-01", "2018-01-01") %>% ymd()
+    test_date   <- c("2017-01-01", "2017-04-01") %>% lubridate::ymd()
+    insert      <- c("2018-01-01") %>% lubridate::ymd()
+    expectation <- c("2017-07-01", "2017-10-01", "2018-01-01") %>% lubridate::ymd()
     expect_equal(expect_warning(tk_make_future_timeseries(test_date, n_future = 2, insert_values = insert)),
                  expectation)
 
     # YEARLY SCALE
 
     # No skip
-    test_date   <- c("2017-06-01", "2018-06-01") %>% ymd()
-    expectation <- c("2019-06-01", "2020-06-01") %>% ymd()
+    test_date   <- c("2017-06-01", "2018-06-01") %>% lubridate::ymd()
+    expectation <- c("2019-06-01", "2020-06-01") %>% lubridate::ymd()
     expect_equal(expect_warning(tk_make_future_timeseries(test_date, n_future = 2)),
                  expectation)
 
     # With skip
-    test_date   <- c("2017-04-01", "2018-04-01") %>% ymd()
-    skip_values  <- c("2019-04-01") %>% ymd()
-    expectation <- c("2020-04-01") %>% ymd()
+    test_date   <- c("2017-04-01", "2018-04-01") %>% lubridate::ymd()
+    skip_values  <- c("2019-04-01") %>% lubridate::ymd()
+    expectation <- c("2020-04-01") %>% lubridate::ymd()
     expect_equal(expect_warning(tk_make_future_timeseries(test_date, n_future = 2, skip_values = skip_values)),
                  expectation)
 
     # 1.5 YEARLY SCALE
 
     # No skip
-    test_date   <- c("2017-07-01", "2019-01-01") %>% ymd()
-    expectation <- c("2020-07-01", "2022-01-01") %>% ymd()
+    test_date   <- c("2017-07-01", "2019-01-01") %>% lubridate::ymd()
+    expectation <- c("2020-07-01", "2022-01-01") %>% lubridate::ymd()
     expect_equal(expect_warning(tk_make_future_timeseries(test_date, n_future = 2)),
                  expectation)
 
     # With skip
-    skip_values  <- c("2022-01-01") %>% ymd()
-    test_date   <- c("2017-07-01", "2019-01-01") %>% ymd()
-    expectation <- c("2020-07-01") %>% ymd()
+    skip_values  <- c("2022-01-01") %>% lubridate::ymd()
+    test_date   <- c("2017-07-01", "2019-01-01") %>% lubridate::ymd()
+    expectation <- c("2020-07-01") %>% lubridate::ymd()
     expect_equal(expect_warning(tk_make_future_timeseries(test_date, n_future = 2, skip_values = skip_values)),
                  expectation)
 

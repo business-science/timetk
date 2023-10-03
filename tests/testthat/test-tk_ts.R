@@ -16,7 +16,7 @@ test_that("tbl to ts test returns ts with correct rows and columns.", {
     # Reverse coercion
     test_ts_2 <- test_ts_1 %>%
         tk_tbl(rename_index = "date", timetk_idx = TRUE)
-    expect_identical(FB_tbl %>% select(-symbol), test_ts_2)
+    expect_identical(FB_tbl %>% dplyr::select(-symbol), test_ts_2)
 
     # Auto-drop columns
     expect_warning(tk_ts(FB_tbl, freq = 252, start = 2015)) # dropping date column
@@ -46,7 +46,7 @@ test_that("xts to ts test returns ts with correct rows and columns.", {
     expect_warning(tk_ts(FB_xts, select = -date,
                          freq = 252, start = 2015))  # only for use with data.frames
 
-    # Warning if using date_var field
+    # Error if using date_var field
     expect_error(tk_ts(FB_xts, date_var = date,
                        freq = 252, start = 2015)) # date_var not used
 
@@ -73,6 +73,3 @@ test_that("zoo to ts test returns ts with correct rows and columns.", {
                        freq = 252, start = 2015)) # date_var not used
 
 })
-
-
-
