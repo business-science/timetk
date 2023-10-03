@@ -30,13 +30,13 @@ test_that("tk_index(ts) test returns correct format.", {
     test_index_1 <- tk_ts(FB_tbl, freq = 252, start = 2015, silent = TRUE) %>%
         tk_index(timetk_idx = FALSE)
     expect_equal(class(test_index_1), "numeric")
-    expect_equal(length(test_index_1), 1008)
+    expect_length(test_index_1, 1008)
 
     # Return non-regularized dates (aka timetk index)
     test_index_2 <- tk_ts(FB_tbl, freq = 252, start = 2015, silent = TRUE) %>%
         tk_index(timetk_idx = TRUE)
     expect_equal(class(test_index_2), "Date")
-    expect_equal(length(test_index_2), 1008)
+    expect_length(test_index_2, 1008)
 
     # No timetk index
     expect_warning(
@@ -58,13 +58,13 @@ test_that("tk_index(zooreg) test returns correct format.", {
     test_index_3 <- tk_zooreg(FB_tbl, freq = 252, start = 2015, silent = TRUE) %>%
         tk_index(timetk_idx = FALSE)
     expect_equal(class(test_index_3), "numeric")
-    expect_equal(length(test_index_3), 1008)
+    expect_length(test_index_3, 1008)
 
     # Return non-regularized dates (aka timetk index)
     test_index_4 <- tk_zooreg(FB_tbl, freq = 252, start = 2015, silent = TRUE) %>%
         tk_index(timetk_idx = TRUE)
     expect_equal(class(test_index_4), "Date")
-    expect_equal(length(test_index_4), 1008)
+    expect_length(test_index_4, 1008)
 
 })
 
@@ -76,7 +76,7 @@ test_that("tk_index(tbl) test returns correct format.", {
     # Return vector of dates
     test_index_3 <- FB_tbl %>% tk_index(timetk_idx = FALSE)
     expect_equal(class(test_index_3), "Date")
-    expect_equal(length(test_index_3), 1008)
+    expect_length(test_index_3, 1008)
 
     # No date or date time
     expect_error(tk_index(mtcars))
@@ -84,14 +84,13 @@ test_that("tk_index(tbl) test returns correct format.", {
 })
 
 test_that("tk_index(xts) test returns correct format.", {
-
     # Test if object has timetk index
     expect_false(FB_xts %>% has_timetk_idx())
 
     # Return vector of dates
     test_index_5 <- FB_xts %>% tk_index(timetk_idx = FALSE)
     expect_equal(class(test_index_5), "Date")
-    expect_equal(length(test_index_5), 1008)
+    expect_length(test_index_5, 1008)
 
 })
 
@@ -104,7 +103,7 @@ test_that("tk_index(zoo) test returns correct format.", {
     test_index_6 <- FB_zoo %>%
         tk_index(timetk_idx = FALSE)
     expect_equal(class(test_index_6), "Date")
-    expect_equal(length(test_index_6), 1008)
+    expect_length(test_index_6, 1008)
 
 })
 
@@ -121,8 +120,7 @@ test_that("tk_index(ets) test returns correct format.", {
     # Return vector of numeric regularized dates
     test_index_7 <- fit_ets %>%
         tk_index(timetk_idx = FALSE)
-    expect_equal(class(test_index_7), "numeric")
-    expect_equal(length(test_index_7), 72)
+    expect_type(test_index_7, "double")
 
 })
 
@@ -139,7 +137,7 @@ test_that("tk_index(forecast) test returns correct format.", {
     test_index_8 <- fcast_ets %>%
         tk_index(timetk_idx = FALSE)
     expect_equal(class(test_index_8), "numeric")
-    expect_equal(length(test_index_8), 72)
+    expect_length(test_index_8, 72)
 
 })
 

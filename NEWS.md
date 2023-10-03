@@ -1,3 +1,8 @@
+# timetk (development version)
+
+- Removed dependency on tidymodels. (#154, @olivroy).
+
+
 # timetk 2.8.4
 
 Update forecasting vignette: Use `glmnet` for time series forecasting. 
