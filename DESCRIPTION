@@ -43,15 +43,13 @@ Imports:
     forecast,
     tsfeatures,
     hms,
-    generics,
-    tidymodels
+    generics
 Suggests:
     modeltime,
     glmnet,
     workflows,
     parsnip,
-    tune,
-    yardstick,
+    tune (>= 0.1.2),
     knitr,
     rmarkdown,
     broom,
