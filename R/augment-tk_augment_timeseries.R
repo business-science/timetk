@@ -32,7 +32,6 @@
 #'
 #' @examples
 #' library(dplyr)
-#' library(timetk)
 #'
 #' m4_daily %>%
 #'     group_by(id) %>%

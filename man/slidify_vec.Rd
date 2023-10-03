@@ -78,7 +78,6 @@ is \code{\link[=smooth_vec]{smooth_vec()}}, which implements local polynomial re
 \examples{
 library(dplyr)
 library(ggplot2)
-library(timetk)
 
 # Training Data
 FB_tbl <- FANG \%>\%
@@ -96,7 +95,7 @@ FB_tbl \%>\%
         .align  = "center")) \%>\%
         ggplot(aes(date, adjusted)) +
         geom_line() +
-        geom_line(aes(y = adjusted_30_ma), color = "blue")
+        geom_line(aes(y = adjusted_30_ma), color = "blue", na.rm = TRUE)
 
 # ---- FORMULA FORMAT ----
 # - Anonymous function `.f = ~ mean(., na.rm = TRUE)` is used
@@ -108,7 +107,7 @@ FB_tbl \%>\%
         .align  = "center")) \%>\%
         ggplot(aes(date, adjusted)) +
         geom_line() +
-        geom_line(aes(y = adjusted_30_ma), color = "blue")
+        geom_line(aes(y = adjusted_30_ma), color = "blue", na.rm = TRUE)
 
 # ---- PARTIAL VALUES ----
 # - set `.partial = TRUE`

@@ -36,7 +36,6 @@
 #'
 #'
 #' @examples
-#' library(timetk)
 #'
 #'
 #' # ---- LOCATING A DATE N-PERIODS IN FUTURE / PAST ----
@@ -67,7 +66,7 @@
 #'
 #'
 #' @name time_arithmetic
-#' @export
+NULL
 
 # ADD ----
 

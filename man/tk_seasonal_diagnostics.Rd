@@ -62,7 +62,6 @@ The \code{.value} parameter respects transformations (e.g. \code{.value = log(sa
 \examples{
 \donttest{
 library(dplyr)
-library(timetk)
 
 # ---- GROUPED EXAMPLES ----
 

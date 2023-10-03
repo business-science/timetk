@@ -72,12 +72,10 @@ A pad value can be supplied that fills in missing numeric data. Note that this i
 Uses \code{tidyr::fill()} to fill missing observations using a fill strategy.
 }
 \examples{
-library(tibble)
 library(dplyr)
-library(timetk)
 
 # Create a quarterly series with 1 missing value
-missing_data_tbl <- tibble(
+missing_data_tbl <- tibble::tibble(
     date = tk_make_timeseries("2014-01-01", "2015-01-01", by = "quarter"),
     value = 1:5
 ) \%>\%

@@ -63,7 +63,6 @@
 #' library(dplyr)
 #' library(tidyr)
 #' library(recipes)
-#' library(timetk)
 #'
 #' # Get missing values
 #' FANG_wide <- FANG %>%

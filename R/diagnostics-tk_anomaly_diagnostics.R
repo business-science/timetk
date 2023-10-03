@@ -78,7 +78,6 @@
 #'
 #' @examples
 #' library(dplyr)
-#' library(timetk)
 #'
 #' walmart_sales_weekly %>%
 #'     filter(id %in% c("1_1", "1_3")) %>%

@@ -54,15 +54,12 @@
 #' @rdname step_diff
 #'
 #' @examples
-#' library(dplyr)
-#' library(tidyr)
 #' library(recipes)
-#' library(timetk)
 #'
 #'
 #' FANG_wide <- FANG %>%
-#'     select(symbol, date, adjusted) %>%
-#'     pivot_wider(names_from = symbol, values_from = adjusted)
+#'     dplyr::select(symbol, date, adjusted) %>%
+#'     tidyr::pivot_wider(names_from = symbol, values_from = adjusted)
 #'
 #'
 #' # Make and apply recipe ----

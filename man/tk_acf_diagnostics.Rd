@@ -67,7 +67,6 @@ Use \code{dplyr::group_by()} for processing multiple time series groups.
 }
 \examples{
 library(dplyr)
-library(timetk)
 
 # ACF, PACF, & CCF in 1 Data Frame
 # - Get ACF & PACF for target (adjusted)

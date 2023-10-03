@@ -115,7 +115,6 @@ Now you can just do:
 \examples{
 \donttest{
 library(dplyr)
-library(timetk)
 
 # 30-min interval data
 taylor_30_min \%>\%

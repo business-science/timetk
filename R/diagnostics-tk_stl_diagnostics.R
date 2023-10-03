@@ -47,7 +47,6 @@
 #'
 #' @examples
 #' library(dplyr)
-#' library(timetk)
 #'
 #'
 #' # ---- GROUPS & TRANSFORMATION ----

@@ -60,7 +60,6 @@
 #' @examples
 #' library(dplyr)
 #' library(ggplot2)
-#' library(timetk)
 #'
 #' # Training Data
 #' FB_tbl <- FANG %>%

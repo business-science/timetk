@@ -31,9 +31,7 @@
 #' @seealso [tk_index()], [tk_tbl()], [tk_xts()], [tk_zoo()], [tk_zooreg()]
 #'
 #' @examples
-#' library(tibble)
 #' library(dplyr)
-#' library(timetk)
 #'
 #' ### tibble to ts: Comparison between tk_ts() and stats::ts()
 #' data_tbl <- tibble::tibble(

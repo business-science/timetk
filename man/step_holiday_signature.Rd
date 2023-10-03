@@ -101,12 +101,10 @@ be removed using \code{\link[recipes:step_rm]{recipes::step_rm()}} and \code{\li
 }
 \examples{
 library(recipes)
-library(timetk)
-library(tibble)
 library(dplyr)
 
 # Sample Data
-dates_in_2017_tbl <- tibble(
+dates_in_2017_tbl <- tibble::tibble(
     index = tk_make_timeseries("2017-01-01", "2017-12-31", by = "day")
 )
 

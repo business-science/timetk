@@ -23,7 +23,6 @@ Classes that meet criteria for return include those that inherit
 See \href{https://github.com/EdwinTh/padr/blob/master/R/helpers.R}{padr helpers.R}
 }
 \examples{
-library(timetk)
 library(dplyr)
 
 FANG \%>\%

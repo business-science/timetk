@@ -90,14 +90,12 @@ or can be specified by setting \verb{lambda = numeric value}.
 \examples{
 
 library(dplyr)
-library(tidyr)
 library(recipes)
-library(timetk)
 
 # Get missing values
 FANG_wide <- FANG \%>\%
     select(symbol, date, adjusted) \%>\%
-    pivot_wider(names_from = symbol, values_from = adjusted) \%>\%
+    tidyr::pivot_wider(names_from = symbol, values_from = adjusted) \%>\%
     pad_by_time()
 
 FANG_wide

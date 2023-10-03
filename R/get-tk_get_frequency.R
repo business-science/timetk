@@ -61,7 +61,6 @@
 #' @examples
 #'
 #' library(dplyr)
-#' library(timetk)
 #'
 #' idx_FB <- FANG %>%
 #'     filter(symbol == "FB") %>%

@@ -95,7 +95,6 @@ excluded.
 }
 \examples{
 library(dplyr)
-library(timetk)
 
 # Basic example - By 3 seconds
 idx <- tk_make_timeseries("2016-01-01 00:00:00", by = "3 sec", length_out = 3)

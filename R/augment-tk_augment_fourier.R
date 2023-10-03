@@ -41,7 +41,6 @@
 #'
 #' @examples
 #' library(dplyr)
-#' library(timetk)
 #'
 #' m4_monthly %>%
 #'     group_by(id) %>%

@@ -49,8 +49,6 @@ arguments.
 }
 \examples{
 library(dplyr)
-library(stringr)
-library(timetk)
 
 # Single Column | Multiple Rolling Windows
 FANG \%>\%
@@ -62,7 +60,7 @@ FANG \%>\%
         .period  = c(10, 30, 60, 90),
         .f       = mean,
         .partial = TRUE,
-        .names   = str_c("MA_", c(10, 30, 60, 90))
+        .names   = stringr::str_c("MA_", c(10, 30, 60, 90))
     ) \%>\%
     ungroup()
 

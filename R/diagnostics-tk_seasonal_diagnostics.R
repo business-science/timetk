@@ -48,7 +48,6 @@
 #' @examples
 #' \donttest{
 #' library(dplyr)
-#' library(timetk)
 #'
 #' # ---- GROUPED EXAMPLES ----
 #'

@@ -137,7 +137,6 @@ within this range. Those that don't may be significant autocorrelations.
 \examples{
 library(dplyr)
 library(ggplot2)
-library(timetk)
 
 
 # Apply Transformations

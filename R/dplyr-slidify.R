@@ -7,7 +7,7 @@
 #' @param .period The period size to roll over
 #' @param .align One of "center", "left" or "right".
 #' @param .partial Should the moving window be allowed to return partial (incomplete) windows
-#' instead of `NA` values. Set to FALSE by default, but can be switched to TRUE to remove `NA`'s.
+#' instead of `NA` values. Set to `FALSE` by default, but can be switched to `TRUE` to remove `NA`'s.
 #' @param .unlist If the function returns a single value each time it is called,
 #' use `.unlist = TRUE`. If the function returns more than one value, or a more
 #' complicated object (like a linear model), use `.unlist = FALSE` to create
@@ -75,9 +75,6 @@
 #'
 #' @examples
 #' library(dplyr)
-#' library(tidyr)
-#' library(stringr)
-#' library(timetk)
 #'
 #' FB <- FANG %>% dplyr::filter(symbol == "FB")
 #'
@@ -115,14 +112,13 @@
 #'     select(symbol, date, adjusted) %>%
 #'     tk_augment_slidify(
 #'         adjusted, .period = 5:10, .f = mean, .align = "right",
-#'         .names = str_c("MA_", 5:10)
+#'         .names = stringr::str_c("MA_", 5:10)
 #'     )
 #'
 #' # --- GROUPS AND ROLLING ----
 #'
 #' # One of the most powerful things about this is that it works with
 #' # groups since `mutate` is being used
-#' data(FANG)
 #'
 #' mean_roll_3 <- slidify(mean, .period = 3, .align = "right")
 #'
@@ -176,7 +172,7 @@
 #' lm_roll <- slidify(~lm(.x ~ .y), .period = 90, .unlist = FALSE, .align = "right")
 #'
 #' FB %>%
-#'     drop_na() %>%
+#'     tidyr::drop_na() %>%
 #'     mutate(numeric_date = as.numeric(date)) %>%
 #'     mutate(rolling_lm = lm_roll(adjusted, numeric_date)) %>%
 #'     filter(!is.na(rolling_lm))
@@ -185,7 +181,6 @@
 #'
 #'
 #' @export
-#'
 slidify <- function(.f, .period = 1,
                     .align = c("center", "left", "right"),
                     .partial = FALSE,

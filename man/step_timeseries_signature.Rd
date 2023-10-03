@@ -78,7 +78,6 @@ be removed using \code{\link[recipes:step_rm]{recipes::step_rm()}}.
 \examples{
 library(recipes)
 library(dplyr)
-library(timetk)
 
 FB_tbl <- FANG \%>\% dplyr::filter(symbol == "FB")
 

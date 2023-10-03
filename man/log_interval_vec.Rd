@@ -56,7 +56,6 @@ The inverse transformation:
 }
 \examples{
 library(dplyr)
-library(timetk)
 
 values_trans <- log_interval_vec(1:10, limit_lower = 0, limit_upper = 11)
 values_trans

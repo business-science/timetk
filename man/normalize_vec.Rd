@@ -35,7 +35,6 @@ mean 0, standard deviation 1
 }
 \examples{
 library(dplyr)
-library(timetk)
 
 d10_daily <- m4_daily \%>\% dplyr::filter(id == "D10")
 

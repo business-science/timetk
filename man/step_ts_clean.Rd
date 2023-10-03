@@ -102,7 +102,6 @@ or can be specified by setting \verb{lambda = numeric value}.
 library(dplyr)
 library(tidyr)
 library(recipes)
-library(timetk)
 
 # Get missing values
 FANG_wide <- FANG \%>\%

@@ -101,7 +101,6 @@ slice will be returned.
 }
 \examples{
 library(dplyr)
-library(timetk)
 
 # DATA ----
 m750 <- m4_monthly \%>\% dplyr::filter(id == "M750")

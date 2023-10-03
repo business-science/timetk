@@ -46,7 +46,6 @@
 #'
 #' @examples
 #' library(dplyr)
-#' library(timetk)
 #'
 #' # Lags
 #' m4_monthly %>%

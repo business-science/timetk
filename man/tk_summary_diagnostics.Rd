@@ -29,7 +29,6 @@ time series groups.
 }
 \examples{
 library(dplyr)
-library(timetk)
 
 # ---- NON-GROUPED EXAMPLES ----
 

@@ -54,7 +54,6 @@
 #'
 #' @examples
 #' # Libraries
-#' library(timetk)
 #' library(dplyr)
 #'
 #' # First value in each month

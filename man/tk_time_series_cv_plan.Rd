@@ -27,7 +27,6 @@ A resample set is an output of the \code{timetk::time_series_cv()} function or t
 \examples{
 library(dplyr)
 library(rsample)
-library(timetk)
 
 FB_tbl <- FANG \%>\%
     filter(symbol == "FB") \%>\%

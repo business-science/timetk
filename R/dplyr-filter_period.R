@@ -58,7 +58,6 @@
 #'
 #' @examples
 #' # Libraries
-#' library(timetk)
 #' library(dplyr)
 #'
 #' # Max value in each month

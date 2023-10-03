@@ -76,7 +76,6 @@ You can modify the template with \code{set_tk_time_scale_template()}.
 \examples{
 
 library(dplyr)
-library(timetk)
 
 idx_FB <- FANG \%>\%
     filter(symbol == "FB") \%>\%

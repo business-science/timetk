@@ -64,7 +64,6 @@ index is a POSIXct):
 }
 \examples{
 library(dplyr)
-library(timetk)
 
 index_daily <- tk_make_timeseries("2016-01-01", "2017-01-01", by = "day")
 index_min   <- tk_make_timeseries("2016-01-01", "2017-01-01", by = "min")

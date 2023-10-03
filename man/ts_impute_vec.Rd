@@ -48,7 +48,6 @@ or can be specified by setting \verb{lambda = numeric value}.
 }
 \examples{
 library(dplyr)
-library(timetk)
 
 
 # --- VECTOR ----

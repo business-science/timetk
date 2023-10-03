@@ -89,7 +89,6 @@ calculation by groups like "5 seconds", "week", or "3 months".
 
 \examples{
 # Libraries
-library(timetk)
 library(dplyr)
 
 # First value in each month

@@ -41,7 +41,7 @@ present, the value of \code{.default} will be returned.}
 \item{.align}{One of "center", "left" or "right".}
 
 \item{.partial}{Should the moving window be allowed to return partial (incomplete) windows
-instead of \code{NA} values. Set to FALSE by default, but can be switched to TRUE to remove \code{NA}'s.}
+instead of \code{NA} values. Set to \code{FALSE} by default, but can be switched to \code{TRUE} to remove \code{NA}'s.}
 
 \item{.unlist}{If the function returns a single value each time it is called,
 use \code{.unlist = TRUE}. If the function returns more than one value, or a more
@@ -94,9 +94,6 @@ A key improvement over \code{tibbletime::slidify()} is that \code{timetk::slidif
 }
 \examples{
 library(dplyr)
-library(tidyr)
-library(stringr)
-library(timetk)
 
 FB <- FANG \%>\% dplyr::filter(symbol == "FB")
 
@@ -134,14 +131,13 @@ FB \%>\%
     select(symbol, date, adjusted) \%>\%
     tk_augment_slidify(
         adjusted, .period = 5:10, .f = mean, .align = "right",
-        .names = str_c("MA_", 5:10)
+        .names = stringr::str_c("MA_", 5:10)
     )
 
 # --- GROUPS AND ROLLING ----
 
 # One of the most powerful things about this is that it works with
 # groups since `mutate` is being used
-data(FANG)
 
 mean_roll_3 <- slidify(mean, .period = 3, .align = "right")
 
@@ -195,7 +191,7 @@ FB \%>\%
 lm_roll <- slidify(~lm(.x ~ .y), .period = 90, .unlist = FALSE, .align = "right")
 
 FB \%>\%
-    drop_na() \%>\%
+    tidyr::drop_na() \%>\%
     mutate(numeric_date = as.numeric(date)) \%>\%
     mutate(rolling_lm = lm_roll(adjusted, numeric_date)) \%>\%
     filter(!is.na(rolling_lm))

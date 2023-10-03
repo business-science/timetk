@@ -61,7 +61,6 @@
 #'
 #' @examples
 #' library(dplyr)
-#' library(timetk)
 #'
 #' # ACF, PACF, & CCF in 1 Data Frame
 #' # - Get ACF & PACF for target (adjusted)

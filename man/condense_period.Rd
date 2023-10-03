@@ -51,7 +51,6 @@ the beginning or end of the period.
 }
 \examples{
 # Libraries
-library(timetk)
 library(dplyr)
 
 # First value in each month

@@ -40,12 +40,10 @@
 #' @seealso [tk_tbl()], [tk_xts()], [tk_zooreg()], [tk_ts()]
 #'
 #' @examples
-#' library(tibble)
 #' library(dplyr)
-#' library(timetk)
 #'
 #' ### tibble to zoo: Comparison between tk_zoo() and zoo::zoo()
-#' data_tbl <- tibble::tibble(
+#' data_tbl <- dplyr::tibble(
 #'     date = seq.Date(as.Date("2016-01-01"), by = 1, length.out = 5),
 #'     x    = rep("chr values", 5),
 #'     y    = cumsum(1:5),

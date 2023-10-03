@@ -65,7 +65,6 @@ index is a POSIXct):
 }
 \examples{
 library(dplyr)
-library(timetk)
 
 # Filter values in January 1st through end of February, 2013
 FANG \%>\%

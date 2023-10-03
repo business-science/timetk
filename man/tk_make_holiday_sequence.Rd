@@ -78,7 +78,6 @@ These simply populate
 }
 \examples{
 library(dplyr)
-library(timetk)
 
 # Set max.print to 50
 options_old <- options()$max.print

@@ -55,7 +55,6 @@
 #'
 #' @examples
 #' library(dplyr)
-#' library(timetk)
 #'
 #' dates_in_2017_tbl <- tibble(index = tk_make_timeseries("2017-01-01", "2017-12-31", by = "day"))
 #'
@@ -137,11 +136,10 @@ tk_augment_holiday_signature.data.frame <- function(.data,
     # .data <- .data %>% dplyr::arrange(!! sym(date_var))
 
     # Bind Time Series Signature
-    ret_1 <- .data %>% dplyr::ungroup()
+    ret_1 <- dplyr::ungroup(.data)
 
-    ret_2 <- .data %>%
-        dplyr::ungroup() %>%
-        dplyr::pull("date_var") %>%
+    ret_2 <- ret_1 %>%
+        dplyr::pull(dplyr::all_of(date_var)) %>%
         tk_get_holiday_signature(
             holiday_pattern = .holiday_pattern,
             locale_set      = .locale_set,

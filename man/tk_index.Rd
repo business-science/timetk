@@ -55,7 +55,6 @@ Refer to \code{\link[=tk_ts]{tk_ts()}} for creating persistent date / datetime i
 during coercion to \code{ts}.
 }
 \examples{
-library(timetk)
 
 # Create time-based tibble
 data_tbl <- tibble::tibble(
