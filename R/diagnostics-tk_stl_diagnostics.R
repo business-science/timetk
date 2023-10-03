@@ -112,7 +112,7 @@ tk_stl_diagnostics.data.frame <- function(.data, .date_var, .value,
 
     # STL Calculation
     stl_obj <- data_formatted %>%
-        dplyr::pull(.value_mod) %>%
+        dplyr::pull(".value_mod") %>%
         stats::ts(frequency = freq) %>%
         stats::stl(s.window = "periodic", t.window = trnd, robust = TRUE)
 

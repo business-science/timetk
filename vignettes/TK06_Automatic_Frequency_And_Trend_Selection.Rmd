@@ -28,7 +28,7 @@ __Frequency and trend cycles__ are used in many time series applications includi
 
 Before we get started, load the following packages.
 
-```{r, message = F, warning=FALSE}
+```{r, message = FALSE, warning=FALSE}
 library(dplyr)
 library(timetk)
 ```

@@ -274,7 +274,7 @@ test_that("tk_index(nnetar) test returns correct format.", {
 })
 
 test_that("tk_index(fracdiff) test returns correct format.", {
-
+    skip_if_not_installed("fracdiff")
     # ARFIMA model (class = "fracdiff")
     x <- fracdiff::fracdiff.sim( 100, ma=-.4, d=.3)$series
     fit_arfima <- forecast::arfima(x)

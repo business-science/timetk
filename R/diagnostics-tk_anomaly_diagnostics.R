@@ -178,7 +178,7 @@ tk_anomaly_diagnostics.grouped_df <- function(.data, .date_var, .value,
                 .message       = .message
             )
         )) %>%
-        dplyr::select(-data) %>%
+        dplyr::select(-"data") %>%
         tidyr::unnest(cols = nested.col) %>%
         dplyr::group_by_at(.vars = group_names)
 
@@ -294,15 +294,15 @@ iqr_vec <- function(x, alpha = 0.05, max_anoms = 0.2, verbose = FALSE) {
     # Return results
     if (verbose) {
         outlier_list <- list(
-            outlier = vals_tbl %>% dplyr::arrange(index) %>% dplyr::pull(outlier_reported),
-            outlier_idx = vals_tbl %>% dplyr::filter(outlier_reported == "Yes") %>% dplyr::pull(index),
-            outlier_vals = vals_tbl %>% dplyr::filter(outlier_reported == "Yes") %>% dplyr::pull(value),
-            outlier_direction = vals_tbl %>% dplyr::filter(outlier_reported == "Yes") %>% dplyr::pull(direction),
+            outlier = vals_tbl %>% dplyr::arrange(index) %>% dplyr::pull("outlier_reported"),
+            outlier_idx = vals_tbl %>% dplyr::filter(outlier_reported == "Yes") %>% dplyr::pull("index"),
+            outlier_vals = vals_tbl %>% dplyr::filter(outlier_reported == "Yes") %>% dplyr::pull("value"),
+            outlier_direction = vals_tbl %>% dplyr::filter(outlier_reported == "Yes") %>% dplyr::pull("direction"),
             critical_limits = limits_vec,
             outlier_report = vals_tbl_filtered
         )
         return(outlier_list)
     } else {
-        return(vals_tbl %>% dplyr::arrange(index) %>% dplyr::pull(outlier_reported))
+        return(vals_tbl %>% dplyr::arrange(index) %>% dplyr::pull("outlier_reported"))
     }
 }

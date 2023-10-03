@@ -109,7 +109,7 @@ tk_augment_timeseries_signature.grouped_df <- function(.data, .date_var = NULL) 
                     .date_var   = NULL
                 )
             )) %>%
-            dplyr::select(-data) %>%
+            dplyr::select(-"data") %>%
             tidyr::unnest(cols = nested.col) %>%
             dplyr::group_by_at(.vars = group_names)
     } else {
@@ -122,7 +122,7 @@ tk_augment_timeseries_signature.grouped_df <- function(.data, .date_var = NULL) 
                     .date_var   = !! date_var_expr
                 )
             )) %>%
-            dplyr::select(-data) %>%
+            dplyr::select(-"data") %>%
             tidyr::unnest(cols = nested.col) %>%
             dplyr::group_by_at(.vars = group_names)
     }

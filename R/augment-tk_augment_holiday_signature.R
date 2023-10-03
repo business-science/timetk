@@ -141,7 +141,7 @@ tk_augment_holiday_signature.data.frame <- function(.data,
 
     ret_2 <- .data %>%
         dplyr::ungroup() %>%
-        dplyr::pull(date_var) %>%
+        dplyr::pull("date_var") %>%
         tk_get_holiday_signature(
             holiday_pattern = .holiday_pattern,
             locale_set      = .locale_set,
