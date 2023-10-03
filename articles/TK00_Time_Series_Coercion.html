@@ -40,7 +40,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">timetk</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.8.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.8.4.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -156,7 +156,7 @@ tbl</h3>
                         <h4 data-toc-skip class="author">Matt
 Dancho</h4>
             
-            <h4 data-toc-skip class="date">2023-10-02</h4>
+            <h4 data-toc-skip class="date">2023-10-03</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/business-science/timetk/blob/HEAD/vignettes/TK00_Time_Series_Coercion.Rmd" class="external-link"><code>vignettes/TK00_Time_Series_Coercion.Rmd</code></a></small>
       <div class="d-none name"><code>TK00_Time_Series_Coercion.Rmd</code></div>
@@ -224,7 +224,7 @@ the popular time series analysis packages including
 <code>quantmod</code>, <code>TTR</code>, <code>forecast</code> and many
 others.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">q10_quarterly</span> <span class="op">&lt;-</span> <span class="va">m4_quarterly</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">id</span> <span class="op">==</span> <span class="st">"Q10"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">q10_quarterly</span> <span class="op">&lt;-</span> <span class="va">m4_quarterly</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">id</span> <span class="op">==</span> <span class="st">"Q10"</span><span class="op">)</span></span>
 <span><span class="va">q10_quarterly</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 59 × 3</span></span></span>
 <span><span class="co">##    id    date       value</span></span>
