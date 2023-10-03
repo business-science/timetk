@@ -75,7 +75,7 @@ test_that("zoo to xts test returns xts with correct rows and columns.", {
 # Default is xts::xts() for other objects; only test zoo
 test_that("ts to xts test returns xts with correct rows and columns.", {
     # Use date column to specify order
-    test_xts_6 <- tk_ts(FB_tbl, silent = TRUE) %>% tk_xts()
+    expect_tz_warning(test_xts_6 <- tk_ts(FB_tbl, silent = TRUE) %>% tk_xts())
     expect_equal(nrow(test_xts_6), 1008)
     expect_equal(ncol(test_xts_6), 6)
 

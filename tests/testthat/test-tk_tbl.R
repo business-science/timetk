@@ -83,8 +83,7 @@ test_that("mts to tbl test returns tibble with correct rows and columns.", {
         )
 
     # ts reverse coercion test ----
-    test_tbl_4b <- FB_mts %>%
-        tk_tbl(rename_index = "date", timetk_idx = TRUE)
+    expect_tz_warning(test_tbl_4b <- tk_tbl(FB_mts, rename_index = "date", timetk_idx = TRUE))
     expect_identical(test_tbl_4b, FB_tbl %>% dplyr::select(-symbol))
 })
 
