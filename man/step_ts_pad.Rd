@@ -95,7 +95,6 @@ missing values with the most common value.
 \examples{
 library(recipes)
 library(dplyr)
-library(timetk)
 
 FB_tbl <- FANG \%>\%
     filter(symbol == "FB") \%>\%

@@ -208,7 +208,6 @@ Time-based windows return the median number of observations in a window using \c
 \donttest{
 library(dplyr)
 library(lubridate)
-library(timetk)
 
 # Works with individual time series
 FANG \%>\%

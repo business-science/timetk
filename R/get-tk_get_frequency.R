@@ -61,7 +61,6 @@
 #' @examples
 #'
 #' library(dplyr)
-#' library(timetk)
 #'
 #' idx_FB <- FANG %>%
 #'     filter(symbol == "FB") %>%
@@ -245,8 +244,8 @@ get_period_statistic <- function(idx, period = "1 day", fn = stats::median) {
     ret <- data %>%
         dplyr::mutate(index = lubridate::floor_date(index, unit = period)) %>%
         dplyr::count(index) %>%
-        dplyr::pull(n) %>%
-        fn(na.rm = T)
+        dplyr::pull("n") %>%
+        fn(na.rm = TRUE)
 
     return(ret)
 

@@ -48,7 +48,7 @@ In this vignette the user will be exposed to:
 
 Before we get started, load the following packages.
 
-```{r, message = F, warning=FALSE}
+```{r, message = FALSE, warning=FALSE}
 library(dplyr)
 library(timetk)
 ```
@@ -60,7 +60,7 @@ We'll use the Facebook stock prices from the `FANG` data set. These are the hist
 ```{r}
 data("FANG")
 
-FB_tbl <- FANG %>% filter(symbol == "FB")
+FB_tbl <- FANG %>% dplyr::filter(symbol == "FB")
 FB_tbl
 ```
 

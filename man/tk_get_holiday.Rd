@@ -60,7 +60,6 @@ Filter on an index to identify all holidays that are commonly non-working.
 \examples{
 library(dplyr)
 library(stringr)
-library(timetk)
 
 # Works with time-based tibbles
 idx <- tk_make_timeseries("2017-01-01", "2017-12-31", by = "day")

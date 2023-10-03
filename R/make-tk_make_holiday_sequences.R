@@ -47,7 +47,6 @@
 #'
 #' @examples
 #' library(dplyr)
-#' library(timetk)
 #'
 #' # Set max.print to 50
 #' options_old <- options()$max.print
@@ -73,7 +72,7 @@
 #' #   from an existing
 #'
 #' # Create index of days that FB stock will be traded in 2017 based on 2016 + holidays
-#' FB_tbl <- FANG %>% filter(symbol == "FB")
+#' FB_tbl <- FANG %>% dplyr::filter(symbol == "FB")
 #'
 #' holidays <- tk_make_holiday_sequence(
 #'     start_date = "2016",

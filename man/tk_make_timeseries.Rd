@@ -111,7 +111,6 @@ the \code{length_out} parameter, the length may differ than the \code{length_out
 }
 \examples{
 library(dplyr)
-library(timetk)
 
 # Set max.print to 50
 options_old <- options()$max.print

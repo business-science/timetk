@@ -88,7 +88,6 @@
 #' @examples
 #' library(recipes)
 #' library(dplyr)
-#' library(timetk)
 #'
 #' FB_tbl <- FANG %>%
 #'     filter(symbol == "FB") %>%
@@ -200,7 +199,7 @@ prep.step_fourier <- function(x, training, info = NULL, ...) {
     scale_factor_calculated <- training[,col_names[1]] %>%
         tk_index() %>%
         tk_get_timeseries_summary() %>%
-        dplyr::pull(diff.median)
+        dplyr::pull("diff.median")
 
     step_fourier_new(
         terms = x$terms,

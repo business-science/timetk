@@ -48,13 +48,11 @@
 #'
 #' @examples
 #' library(dplyr)
-#' library(tidyr)
 #' library(recipes)
-#' library(timetk)
 #'
 #' FANG_wide <- FANG %>%
 #'     select(symbol, date, adjusted) %>%
-#'     pivot_wider(names_from = symbol, values_from = adjusted)
+#'     tidyr::pivot_wider(names_from = symbol, values_from = adjusted)
 #'
 #' recipe_log_interval <- recipe(~ ., data = FANG_wide) %>%
 #'     step_log_interval(FB, AMZN, NFLX, GOOG, offset = 1) %>%
@@ -62,7 +60,7 @@
 #'
 #' recipe_log_interval %>%
 #'     bake(FANG_wide) %>%
-#'     pivot_longer(-date) %>%
+#'     tidyr::pivot_longer(-date) %>%
 #'     plot_time_series(date, value, name, .smooth = FALSE, .interactive = FALSE)
 #'
 #' recipe_log_interval %>% tidy(1)

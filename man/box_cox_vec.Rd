@@ -38,8 +38,8 @@ Returns a \code{numeric} vector that has been transformed.
 \description{
 This is mainly a wrapper for the BoxCox transformation from the \code{forecast}
 R package. The \code{box_cox_vec()} function performs the transformation.
-The \code{box_cox_inv_vec()} inverts the transformation.
-The \code{auto_lambda()} helps in selecting the optimal \code{lambda} value.
+\code{box_cox_inv_vec()} inverts the transformation.
+\code{auto_lambda()} helps in selecting the optimal \code{lambda} value.
 }
 \details{
 The Box Cox transformation is a power transformation that is commonly
@@ -57,9 +57,7 @@ Use either of 2 methods:
 }
 \examples{
 library(dplyr)
-library(timetk)
-
-d10_daily <- m4_daily \%>\% filter(id == "D10")
+d10_daily <- m4_daily \%>\% dplyr::filter(id == "D10")
 
 # --- VECTOR ----
 
@@ -69,8 +67,8 @@ value    <- box_cox_inv_vec(value_bc, lambda = 1.25119350454964)
 # --- MUTATE ----
 
 m4_daily \%>\%
-    group_by(id) \%>\%
-    mutate(value_bc = box_cox_vec(value))
+    dplyr::group_by(id) \%>\%
+    dplyr::mutate(value_bc = box_cox_vec(value))
 
 }
 \references{

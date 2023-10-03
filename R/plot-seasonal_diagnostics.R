@@ -60,7 +60,6 @@
 #' @examples
 #' \donttest{
 #' library(dplyr)
-#' library(timetk)
 #'
 #' # ---- MULTIPLE FREQUENCY ----
 #' # Taylor 30-minute dataset from forecast package

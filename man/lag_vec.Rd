@@ -38,7 +38,6 @@ that the \code{lead_vec()} function contains a starting negative value.
 }
 \examples{
 library(dplyr)
-library(timetk)
 
 # --- VECTOR ----
 

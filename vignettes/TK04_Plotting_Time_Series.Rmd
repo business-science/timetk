@@ -142,7 +142,7 @@ taylor_30_min %>%
                    .x_lab = "Date (30-min intervals)",
                    .y_lab = "Energy Demand (MW)",
                    .color_lab = "Month") +
-  scale_y_continuous(labels = scales::comma_format())
+  scale_y_continuous(labels = scales::label_comma())
 ```
 
 ## Box Plots (Time Series)

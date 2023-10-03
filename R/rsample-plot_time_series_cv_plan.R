@@ -30,7 +30,6 @@
 #' @examples
 #' library(dplyr)
 #' library(rsample)
-#' library(timetk)
 #'
 #' FB_tbl <- FANG %>%
 #'     filter(symbol == "FB") %>%

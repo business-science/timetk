@@ -61,13 +61,11 @@
 #'
 #' @examples
 #' library(dplyr)
-#' library(tidyr)
 #' library(recipes)
-#' library(timetk)
 #'
 #' FANG_wide <- FANG %>%
-#' select(symbol, date, adjusted) %>%
-#'     pivot_wider(names_from = symbol, values_from = adjusted)
+#'     select(symbol, date, adjusted) %>%
+#'     tidyr::pivot_wider(names_from = symbol, values_from = adjusted)
 #'
 #' recipe_box_cox <- recipe(~ ., data = FANG_wide) %>%
 #'     step_box_cox(FB, AMZN, NFLX, GOOG) %>%

@@ -46,7 +46,6 @@ The \code{period} argument accepts complex strings like:
 }
 }
 \examples{
-library(timetk)
 
 
 # ---- LOCATING A DATE N-PERIODS IN FUTURE / PAST ----

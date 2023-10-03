@@ -129,7 +129,6 @@ is \code{\link[=step_smooth]{step_smooth()}}, which implements local polynomial 
 library(recipes)
 library(dplyr)
 library(ggplot2)
-library(timetk)
 
 # Training Data
 FB_tbl <- FANG \%>\%

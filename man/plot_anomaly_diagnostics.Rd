@@ -176,7 +176,6 @@ package.
 }
 \examples{
 library(dplyr)
-library(timetk)
 
 walmart_sales_weekly \%>\%
     group_by(id) \%>\%

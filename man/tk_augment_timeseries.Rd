@@ -31,7 +31,6 @@ Add many time series features to the data
 }
 \examples{
 library(dplyr)
-library(timetk)
 
 m4_daily \%>\%
     group_by(id) \%>\%

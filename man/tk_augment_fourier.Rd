@@ -37,7 +37,6 @@ the \code{.periods} argument (e.g. \code{lags = 1:20})
 }
 \examples{
 library(dplyr)
-library(timetk)
 
 m4_monthly \%>\%
     group_by(id) \%>\%

@@ -71,7 +71,6 @@ where \code{diff_vec(difference = 1, log = TRUE) \%>\% exp()} is approximately \
 }
 \examples{
 library(dplyr)
-library(timetk)
 
 # --- USAGE ----
 

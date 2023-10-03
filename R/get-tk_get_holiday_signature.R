@@ -42,7 +42,6 @@
 #' @examples
 #' library(dplyr)
 #' library(stringr)
-#' library(timetk)
 #'
 #' # Works with time-based tibbles
 #' idx <- tk_make_timeseries("2017-01-01", "2017-12-31", by = "day")
@@ -158,8 +157,8 @@ get_holiday_signature <- function(idx,
     holiday_table <- tk_get_holidays_by_year(years)
 
     # Separate into 2 sets
-    holiday_table_locale <- holiday_table %>% dplyr::select(date, locale)
-    holiday_table_name   <- holiday_table %>% dplyr::select(date, holiday_name)
+    holiday_table_locale <- holiday_table %>% dplyr::select("date", "locale")
+    holiday_table_name   <- holiday_table %>% dplyr::select("date", "holiday_name")
 
     # 1. HOLIDAY FEATURES ----
 
@@ -186,8 +185,7 @@ get_holiday_signature <- function(idx,
 
             dplyr::mutate(locale = stringr::str_c("locale_", locale)) %>%
             dplyr::group_by(date, locale) %>%
-            dplyr::summarize(value = min(value)) %>%
-            dplyr::ungroup() %>%
+            dplyr::summarize(value = min(value), .groups = "drop") %>%
             tidyr::pivot_wider(names_from = locale, values_from = value)
     } else if (tolower(locale_set) == "all") {
         # All selected - Just pivot
@@ -195,8 +193,7 @@ get_holiday_signature <- function(idx,
             dplyr::mutate(value = 1) %>%
             dplyr::mutate(locale = stringr::str_c("locale_", locale)) %>%
             dplyr::group_by(date, locale) %>%
-            dplyr::summarize(value = min(value)) %>%
-            dplyr::ungroup() %>%
+            dplyr::summarize(value = min(value), .groups = "drop") %>%
             tidyr::pivot_wider(names_from = locale, values_from = value)
     } else {
         # none selected - drop locale column
@@ -204,8 +201,7 @@ get_holiday_signature <- function(idx,
             dplyr::select(-locale) %>%
             dplyr::mutate(value = 1) %>%
             dplyr::group_by(date) %>%
-            dplyr::summarize(value = min(value)) %>%
-            dplyr::ungroup()
+            dplyr::summarize(value = min(value), .groups = "drop")
         holiday_table_locale[,"value"] <- NULL
     }
 
@@ -230,13 +226,13 @@ get_holiday_signature <- function(idx,
     if (any(tolower(exchange_set) %in% tolower(exchanges_needing_filtered))) {
         # Not all or none - must have a locale selected
         holiday_table_exchange <- holiday_table_exchange %>%
-            dplyr::select(index, dplyr::contains(toupper(exchange_set)))
+            dplyr::select("index", dplyr::contains(toupper(exchange_set)))
     } else if (tolower(exchange_set) == "all") {
         # All selected - Nothing to do
 
     } else {
         # none selected - drop locale column
-        holiday_table_exchange <- holiday_table_exchange %>% dplyr::select(index)
+        holiday_table_exchange <- holiday_table_exchange %>% dplyr::select("index")
     }
 
     # JOIN ALL TABLES
@@ -278,6 +274,6 @@ tk_get_holidays_by_year <- function(years = year(today())) {
         dplyr::mutate(holiday_name = holidays %>% stringr::str_replace(pattern = locale, "")) %>%
         dplyr::mutate(holiday_name = ifelse(is.na(holiday_name), holidays, holiday_name)) %>%
         dplyr::mutate(holiday_name = stringr::str_c(locale, "_", holiday_name)) %>%
-        dplyr::select(-holidays)
+        dplyr::select(-"holidays")
 }
 

@@ -1,24 +1,12 @@
-# Forecast objects
-library(forecast)
-library(fracdiff)
-library(timeDate)
-library(tseries)
-library(timeSeries)
-
-# Feature engineering
-library(recipes)
-
-# Time Series
-library(lubridate)
-library(zoo)
-library(timetk)
-
-# Other
-library(stringr)
-library(dplyr)
-library(tidyr)
-library(ggplot2)
+# This file is part of the standard setup for testthat.
+# It is recommended that you do not modify it.
+#
+# Where should you do additional test configuration?
+# Learn more about the roles of various files in:
+# * https://r-pkgs.org/testing-design.html#sec-tests-files-overview
+# * https://testthat.r-lib.org/articles/special-files.html
 
 library(testthat)
+library(timetk)
 
 test_check("timetk")

@@ -28,12 +28,11 @@
 #'
 #' @examples
 #' library(dplyr)
-#' library(timetk)
 #' library(lubridate)
 #' library(zoo)
 #'
 #' # Works with time-based tibbles
-#' FB_tbl <- FANG %>% filter(symbol == "FB")
+#' FB_tbl <- FANG %>% dplyr::filter(symbol == "FB")
 #' FB_idx <- tk_index(FB_tbl)
 #'
 #' tk_get_timeseries_signature(FB_idx)
@@ -41,14 +40,14 @@
 #'
 #'
 #' # Works with dates in any periodicity
-#' idx_weekly <- seq.Date(from = ymd("2016-01-01"), by = 'week', length.out = 6)
+#' idx_weekly <- seq.Date(from = lubridate::ymd("2016-01-01"), by = 'week', length.out = 6)
 #'
 #' tk_get_timeseries_signature(idx_weekly)
 #' tk_get_timeseries_summary(idx_weekly)
 #'
 #'
 #' # Works with zoo yearmon and yearqtr classes
-#' idx_yearmon <- seq.Date(from       = ymd("2016-01-01"),
+#' idx_yearmon <- seq.Date(from       = lubridate::ymd("2016-01-01"),
 #'                         by         = "month",
 #'                         length.out = 12) %>%
 #'     zoo::as.yearmon()

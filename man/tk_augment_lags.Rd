@@ -45,7 +45,6 @@ the \code{.lags} argument (e.g. \code{.lags = 1:20})
 }
 \examples{
 library(dplyr)
-library(timetk)
 
 # Lags
 m4_monthly \%>\%

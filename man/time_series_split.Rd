@@ -101,10 +101,9 @@ slice will be returned.
 }
 \examples{
 library(dplyr)
-library(timetk)
 
 # DATA ----
-m750 <- m4_monthly \%>\% filter(id == "M750")
+m750 <- m4_monthly \%>\% dplyr::filter(id == "M750")
 
 # Get the most recent 3 years as testing, and previous 10 years as training
 m750 \%>\%

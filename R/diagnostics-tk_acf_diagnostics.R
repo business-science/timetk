@@ -61,7 +61,6 @@
 #'
 #' @examples
 #' library(dplyr)
-#' library(timetk)
 #'
 #' # ACF, PACF, & CCF in 1 Data Frame
 #' # - Get ACF & PACF for target (adjusted)
@@ -139,7 +138,7 @@ tk_acf_diagnostics.data.frame <- function(.data, .date_var, .value, .ccf_vars = 
 
     # Calcs
     .lags   <- sort(.lags)
-    x       <- .data %>% dplyr::pull(.value_mod)
+    x       <- .data %>% dplyr::pull(".value_mod")
     lag_max <- max(.lags)
     lag_min <- min(.lags)
 
@@ -239,7 +238,7 @@ tk_acf_diagnostics.grouped_df <- function(.data, .date_var, .value, .ccf_vars = 
                 .lags      = .lags
             )
         )) %>%
-        dplyr::select(-data) %>%
+        dplyr::select(-"data") %>%
         tidyr::unnest(cols = nested.col) %>%
         dplyr::group_by_at(.vars = group_names)
 

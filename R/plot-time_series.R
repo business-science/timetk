@@ -110,7 +110,6 @@
 #'
 #' library(dplyr)
 #' library(lubridate)
-#' library(timetk)
 #'
 #' # Works with individual time series
 #' FANG %>%

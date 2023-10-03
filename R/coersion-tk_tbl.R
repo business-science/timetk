@@ -31,9 +31,7 @@
 #' @seealso [tk_xts()], [tk_zoo()], [tk_zooreg()], [tk_ts()]
 #'
 #' @examples
-#' library(tibble)
 #' library(dplyr)
-#' library(timetk)
 #'
 #' data_tbl <- tibble(
 #'     date = seq.Date(from = as.Date("2010-01-01"), by = 1, length.out = 5),
@@ -82,7 +80,6 @@
 #'
 #' # Dates are appropriate zoo yearmon class within the data frame
 #' tk_tbl(data_zoo)
-#'
 #'
 #'
 #'

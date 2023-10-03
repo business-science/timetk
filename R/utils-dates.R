@@ -17,7 +17,6 @@
 #' See [padr helpers.R](https://github.com/EdwinTh/padr/blob/master/R/helpers.R)
 #'
 #' @examples
-#' library(timetk)
 #' library(dplyr)
 #'
 #' FANG %>%

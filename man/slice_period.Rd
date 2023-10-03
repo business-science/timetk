@@ -54,7 +54,6 @@ Applies a dplyr slice inside a time-based period (window).
 }
 \examples{
 # Libraries
-library(timetk)
 library(dplyr)
 
 # First 5 observations in each month

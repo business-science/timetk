@@ -103,7 +103,6 @@ based on the scale of the time series.
 }
 \examples{
 library(dplyr)
-library(timetk)
 
 # ---- SINGLE TIME SERIES DECOMPOSITION ----
 m4_hourly \%>\%

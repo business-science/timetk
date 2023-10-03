@@ -56,7 +56,6 @@ See \code{\link[=filter_by_time]{filter_by_time()}} for filtering continuous ran
 }
 \examples{
 # Libraries
-library(timetk)
 library(dplyr)
 
 # Max value in each month

@@ -48,7 +48,6 @@
 #' @examples
 #' \donttest{
 #' library(dplyr)
-#' library(timetk)
 #'
 #' # ---- GROUPED EXAMPLES ----
 #'
@@ -170,7 +169,7 @@ tk_seasonal_diagnostics.grouped_df <- function(.data, .date_var, .value, .featur
                 .feature_set  = .feature_set
             )
         )) %>%
-        dplyr::select(-data) %>%
+        dplyr::select(-"data") %>%
         tidyr::unnest(cols = nested.col) %>%
         dplyr::group_by_at(.vars = group_names)
 
@@ -194,7 +193,7 @@ get_seasonal_auto_features <- function(.index) {
         dplyr::mutate(check = value %>% dplyr::between(max_min_list$min_period$value, max_min_list$max_period$value)) %>%
         dplyr::filter(check) %>%
         dplyr::left_join(time_series_signature_lookup_tbl(), by = "key") %>%
-        dplyr::pull(feature)
+        dplyr::pull("feature")
 
     return(features_to_get)
 }
@@ -219,7 +218,7 @@ get_max_min_list <- function(time_series_summary_tbl) {
         tidyr::gather() %>%
         dplyr::mutate(check = 2 * value < start_to_end) %>%
         dplyr::filter(check) %>%
-        dplyr::slice(dplyr::n())
+        dplyr::slice_tail(n = 1)
 
     # Max and min
     max_min_list <- list(min_period = min_period, max_period = max_period)

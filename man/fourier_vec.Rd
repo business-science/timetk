@@ -60,10 +60,7 @@ The type of the fourier series can be either \code{sin} or \code{cos}. It's comm
 to add both sin and cos series.
 }
 \examples{
-library(tibble)
 library(dplyr)
-library(tidyr)
-library(timetk)
 
 # Set max.print to 50
 options_old <- options()$max.print
@@ -84,7 +81,7 @@ tibble(date = date_sequence) \%>\%
         C2_7 = fourier_vec(date, period = 7*24, K = 2, type = "cos")
     ) \%>\%
     # Visualize
-    pivot_longer(cols = contains("_"), names_to = "name", values_to = "value") \%>\%
+    tidyr::pivot_longer(cols = contains("_"), names_to = "name", values_to = "value") \%>\%
     plot_time_series(
         date, value, .color_var = name,
         .smooth = FALSE,

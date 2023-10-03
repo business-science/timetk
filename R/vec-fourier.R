@@ -64,10 +64,7 @@
 #'   - Missing Value Imputation for Time Series: [ts_impute_vec()], [ts_clean_vec()]
 #'
 #' @examples
-#' library(tibble)
 #' library(dplyr)
-#' library(tidyr)
-#' library(timetk)
 #'
 #' # Set max.print to 50
 #' options_old <- options()$max.print
@@ -88,7 +85,7 @@
 #'         C2_7 = fourier_vec(date, period = 7*24, K = 2, type = "cos")
 #'     ) %>%
 #'     # Visualize
-#'     pivot_longer(cols = contains("_"), names_to = "name", values_to = "value") %>%
+#'     tidyr::pivot_longer(cols = contains("_"), names_to = "name", values_to = "value") %>%
 #'     plot_time_series(
 #'         date, value, .color_var = name,
 #'         .smooth = FALSE,

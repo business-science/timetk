@@ -62,7 +62,6 @@
 #'
 #' @examples
 #' library(dplyr)
-#' library(timetk)
 #'
 #' # --- USAGE ----
 #'

@@ -73,7 +73,6 @@
 #'
 #' @examples
 #' library(dplyr)
-#' library(timetk)
 #'
 #' # Basic example - By 3 seconds
 #' idx <- tk_make_timeseries("2016-01-01 00:00:00", by = "3 sec", length_out = 3)
@@ -100,7 +99,7 @@
 #' # - Combine holiday sequences with future sequences
 #'
 #' # Create index of days that FB stock will be traded in 2017 based on 2016 + holidays
-#' FB_tbl <- FANG %>% filter(symbol == "FB")
+#' FB_tbl <- FANG %>% dplyr::filter(symbol == "FB")
 #'
 #' holidays <- tk_make_holiday_sequence(
 #'     start_date = "2017-01-01",

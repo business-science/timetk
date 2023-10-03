@@ -51,7 +51,6 @@
 #'
 #' @examples
 #' library(dplyr)
-#' library(timetk)
 #'
 #'
 #' # --- VECTOR ----

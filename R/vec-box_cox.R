@@ -2,8 +2,8 @@
 #'
 #' This is mainly a wrapper for the BoxCox transformation from the `forecast`
 #' R package. The `box_cox_vec()` function performs the transformation.
-#' The `box_cox_inv_vec()` inverts the transformation.
-#' The `auto_lambda()` helps in selecting the optimal `lambda` value.
+#' `box_cox_inv_vec()` inverts the transformation.
+#' `auto_lambda()` helps in selecting the optimal `lambda` value.
 #'
 #' @param x A numeric vector.
 #' @param lambda The box cox transformation parameter.
@@ -48,9 +48,7 @@
 #'
 #' @examples
 #' library(dplyr)
-#' library(timetk)
-#'
-#' d10_daily <- m4_daily %>% filter(id == "D10")
+#' d10_daily <- m4_daily %>% dplyr::filter(id == "D10")
 #'
 #' # --- VECTOR ----
 #'
@@ -60,11 +58,10 @@
 #' # --- MUTATE ----
 #'
 #' m4_daily %>%
-#'     group_by(id) %>%
-#'     mutate(value_bc = box_cox_vec(value))
+#'     dplyr::group_by(id) %>%
+#'     dplyr::mutate(value_bc = box_cox_vec(value))
 #'
 #' @name box_cox_vec
-#' @export
 NULL
 
 #' @rdname box_cox_vec

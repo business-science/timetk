@@ -48,7 +48,6 @@
 #'
 #' @examples
 #' # Libraries
-#' library(timetk)
 #' library(dplyr)
 #'
 #' # First 5 observations in each month

@@ -1,4 +1,3 @@
-library(timetk)
 context("Test tk_zooreg")
 
 FB_tbl    <- FANG %>% dplyr::filter(symbol == "FB")

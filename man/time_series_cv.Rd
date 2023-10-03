@@ -125,10 +125,9 @@ dataset below.
 }
 \examples{
 library(dplyr)
-library(timetk)
 
 # DATA ----
-m750 <- m4_monthly \%>\% filter(id == "M750")
+m750 <- m4_monthly \%>\% dplyr::filter(id == "M750")
 
 
 # RESAMPLE SPEC ----

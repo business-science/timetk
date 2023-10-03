@@ -53,9 +53,7 @@ Setting \code{timetk_idx = TRUE} enables returning the timetk "index" attribute 
 which is the original (non-regularized) time-based index.
 }
 \examples{
-library(tibble)
 library(dplyr)
-library(timetk)
 
 data_tbl <- tibble(
     date = seq.Date(from = as.Date("2010-01-01"), by = 1, length.out = 5),
@@ -104,7 +102,6 @@ as.data.frame(data_zoo)
 
 # Dates are appropriate zoo yearmon class within the data frame
 tk_tbl(data_zoo)
-
 
 
 

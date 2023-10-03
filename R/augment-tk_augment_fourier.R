@@ -41,7 +41,6 @@
 #'
 #' @examples
 #' library(dplyr)
-#' library(timetk)
 #'
 #' m4_monthly %>%
 #'     group_by(id) %>%
@@ -65,7 +64,7 @@ tk_augment_fourier <- function(.data,
     # if (rlang::is_missing(.K)) stop(call. = FALSE, "tk_augment_fourier(.K) is missing.")
     if (!any(.names == "auto")) {
         if (length(.names) != length(.periods) * 2) {
-            rlang::abort(".names must be a vector of length ", length(.periods) * 2)
+            rlang::abort(c(".names must be a vector of length ", length(.periods) * 2))
         }
     }
     vals <- .data %>% dplyr::pull(!! rlang::enquo(.date_var))

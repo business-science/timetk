@@ -1,7 +1,7 @@
 Package: timetk
 Type: Package
 Title: A Tool Kit for Working with Time Series
-Version: 2.8.4
+Version: 2.8.4.9000
 Authors@R: c(
     person("Matt", "Dancho", email = "mdancho@business-science.io", role = c("aut", "cre")),
     person("Davis", "Vaughan", email = "dvaughan@business-science.io", role = c("aut"))
@@ -43,15 +43,13 @@ Imports:
     forecast,
     tsfeatures,
     hms,
-    generics,
-    tidymodels
+    generics
 Suggests:
     modeltime,
     glmnet,
     workflows,
     parsnip,
-    tune,
-    yardstick,
+    tune (>= 0.1.2),
     knitr,
     rmarkdown,
     broom,
