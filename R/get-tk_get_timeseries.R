@@ -33,7 +33,7 @@
 #' library(zoo)
 #'
 #' # Works with time-based tibbles
-#' FB_tbl <- FANG %>% filter(symbol == "FB")
+#' FB_tbl <- FANG %>% dplyr::filter(symbol == "FB")
 #' FB_idx <- tk_index(FB_tbl)
 #'
 #' tk_get_timeseries_signature(FB_idx)

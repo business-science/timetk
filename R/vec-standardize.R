@@ -35,7 +35,7 @@
 #' library(dplyr)
 #' library(timetk)
 #'
-#' d10_daily <- m4_daily %>% filter(id == "D10")
+#' d10_daily <- m4_daily %>% dplyr::filter(id == "D10")
 #'
 #' # --- VECTOR ----
 #'

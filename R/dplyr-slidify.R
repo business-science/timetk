@@ -79,7 +79,7 @@
 #' library(stringr)
 #' library(timetk)
 #'
-#' FB <- FANG %>% filter(symbol == "FB")
+#' FB <- FANG %>% dplyr::filter(symbol == "FB")
 #'
 #'
 #' # --- ROLLING MEAN (SINGLE ARG EXAMPLE) ---

@@ -68,7 +68,7 @@
 #' library(dplyr)
 #' library(timetk)
 #'
-#' FB_tbl <- FANG %>% filter(symbol == "FB")
+#' FB_tbl <- FANG %>% dplyr::filter(symbol == "FB")
 #'
 #' # Create a recipe object with a timeseries signature step
 #' rec_obj <- recipe(adjusted ~ ., data = FB_tbl) %>%

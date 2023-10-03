@@ -38,9 +38,7 @@
 #' @seealso [tk_tbl()], [tk_zoo()], [tk_zooreg()], [tk_ts()]
 #'
 #' @examples
-#' library(tibble)
 #' library(dplyr)
-#' library(timetk)
 #'
 #' ### tibble to xts: Comparison between tk_xts() and xts::xts()
 #' data_tbl <- tibble::tibble(
@@ -69,7 +67,6 @@
 #' select   <- "y"
 #' tk_xts_(data_tbl, select = select, date_var = date_var)
 #'
-#' @name tk_xts
 #' @export
 tk_xts <- function(data, select = NULL, date_var = NULL, silent = FALSE, ...) {
     select   <- rlang::quo_name(rlang::enquo(select))

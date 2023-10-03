@@ -55,7 +55,7 @@ library(timetk)
 We'll use the "Q10" dataset - The first ID from a sample a quarterly datasets (see `m4_quarterly`) from the [M4 Competition](https://mofc.unic.ac.cy/m4/). The return structure is a `tibble`, which is not conducive to many of the popular time series analysis packages including `quantmod`, `TTR`, `forecast` and many others. 
 
 ```{r}
-q10_quarterly <- m4_quarterly %>% filter(id == "Q10")
+q10_quarterly <- m4_quarterly %>% dplyr::filter(id == "Q10")
 q10_quarterly
 ```
 
