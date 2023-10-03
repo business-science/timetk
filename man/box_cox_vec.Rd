@@ -56,7 +56,7 @@ Use either of 2 methods:
 }
 }
 \examples{
-library(magrittr)
+library(dplyr)
 d10_daily <- m4_daily \%>\% dplyr::filter(id == "D10")
 
 # --- VECTOR ----

@@ -47,7 +47,7 @@
 #' - Guerrero, V.M. (1993) Time-series analysis supported by power transformations. _Journal of Forecasting_, 12,  37--48.
 #'
 #' @examples
-#' library(magrittr)
+#' library(dplyr)
 #' d10_daily <- m4_daily %>% dplyr::filter(id == "D10")
 #'
 #' # --- VECTOR ----
