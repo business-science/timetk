@@ -116,6 +116,4 @@ walmart_sales_weekly \%>\%
     anomalize(Date, Weekly_Sales) \%>\%
     plot_anomalies(Date, .facet_ncol = 2, .ribbon_alpha = 0.25, .interactive = FALSE)
 
-
-
 }

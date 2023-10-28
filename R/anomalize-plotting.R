@@ -266,7 +266,8 @@ plot_anomalies.data.frame <- function(
 
 #' @export
 plot_anomalies.grouped_df <- function(
-        .data, .date_var, .value,
+        .data,
+        .date_var,
 
         .facet_vars = NULL,
 
