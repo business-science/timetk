@@ -112,7 +112,9 @@ reference:
   - condense_period
   - future_frame
 - subtitle: Anomaly Detection
-  contents: anomalize
+  contents:
+  - anomalize
+  - plot_anomalies
 - subtitle: Function Operations
   contents: slidify
 - subtitle: Vector Operations
