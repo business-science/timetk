@@ -221,9 +221,6 @@ Use either of 2 methods:</p><ol><li><p>"guerrero" - Minimizes the non-seasonal v
 <span class="r-in"><span><span class="co"># --- VECTOR ----</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">value_bc</span> <span class="op">&lt;-</span> <span class="fu">box_cox_vec</span><span class="op">(</span><span class="va">d10_daily</span><span class="op">$</span><span class="va">value</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Registered S3 method overwritten by 'quantmod':</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>   method            from</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>   as.zoo.data.frame zoo </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> box_cox_vec(): Using value for lambda: 1.25119350454964</span>
 <span class="r-in"><span><span class="va">value</span>    <span class="op">&lt;-</span> <span class="fu">box_cox_inv_vec</span><span class="op">(</span><span class="va">value_bc</span>, lambda <span class="op">=</span> <span class="fl">1.25119350454964</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>

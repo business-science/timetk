@@ -22,7 +22,7 @@ articles:
   TK07_Time_Series_Data_Wrangling: temp_archive/TK07_Time_Series_Data_Wrangling.html
   TK08_Automatic_Anomaly_Detection: temp_archive/TK08_Automatic_Anomaly_Detection.html
   TK09_Clustering: temp_archive/TK09_Clustering.html
-last_built: 2023-10-03T16:10Z
+last_built: 2023-10-28T20:28Z
 urls:
   reference: https://business-science.github.io/timetk/reference
   article: https://business-science.github.io/timetk/articles
