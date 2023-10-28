@@ -2,6 +2,7 @@
 % Please edit documentation in R/anomalize-plotting.R
 \name{plot_anomalies}
 \alias{plot_anomalies}
+\alias{plot_anomalies_decomp}
 \title{Visualize Anomalies for One or More Time Series}
 \usage{
 plot_anomalies(
@@ -33,9 +34,24 @@ plot_anomalies(
   .trelliscope = FALSE,
   .trelliscope_params = list()
 )
+
+plot_anomalies_decomp(
+  .data,
+  .date_var,
+  .facet_vars = NULL,
+  .facet_scales = "free",
+  .line_color = "#2c3e50",
+  .line_size = 0.5,
+  .line_type = 1,
+  .line_alpha = 1,
+  .title = "Anomaly Decomposition Plot",
+  .x_lab = "",
+  .y_lab = "",
+  .interactive = TRUE
+)
 }
 \arguments{
-\item{.data}{A \code{tibble} or \code{data.frame} that has been anomalized by \code{anomalize}}
+\item{.data}{A \code{tibble} or \code{data.frame} that has been anomalized by \code{anomalize()}}
 
 \item{.date_var}{A column containing either date or date-time values}
 
@@ -102,9 +118,14 @@ The only parameters that cannot be passed are:
 }
 \value{
 A \code{plotly} or \code{ggplot2} visualization
+
+A \code{plotly} or \code{ggplot2} visualization
 }
 \description{
 An interactive and scalable function for visualizing anomalies in time series data.
+Plots are available in interactive \code{plotly} (default) and static \code{ggplot2} format.
+
+An interactive and scalable function for visualizing anomaly decomposition in time series data.
 Plots are available in interactive \code{plotly} (default) and static \code{ggplot2} format.
 }
 \examples{
@@ -115,5 +136,13 @@ walmart_sales_weekly \%>\%
     group_by(id) \%>\%
     anomalize(Date, Weekly_Sales) \%>\%
     plot_anomalies(Date, .facet_ncol = 2, .ribbon_alpha = 0.25, .interactive = FALSE)
+
+library(dplyr)
+
+walmart_sales_weekly \%>\%
+    filter(id \%in\% c("1_1", "1_3")) \%>\%
+    group_by(id) \%>\%
+    anomalize(Date, Weekly_Sales) \%>\%
+    plot_anomalies_decomp(Date, .interactive = FALSE)
 
 }
