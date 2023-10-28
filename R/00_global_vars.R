@@ -1,12 +1,14 @@
-globalVariables(c("index", "index.num", "y", "yhat", "week", "mday", "diff.median", ".",
-                  "data", "nested.col", "weekday", "locale", "holiday_name", "values", "value",
-                  "holidays", "lag", ".facets_collapsed", ".groups_consolidated", ".value_mod", ".value_smooth", "name",
-                  ".group", ".group_value", "feature", "id", "key", "splits",
-                  "observed", "remainder", "seasadj", "season", "trend", ".color_mod",
-                  ".id", ".key", ".splits", ".value", "abs_diff_lower", "abs_diff_upper", "below_max_anoms",
-                  "centerline", "direction", "limit_lower", "limit_upper", "max_abs_diff", "outlier", "outlier_reported",
-                  "sorting", "anomaly", "recomposed_l1", "recomposed_l2", "remainder_l1", "remainder_l2",
-                  ".metric", ".metrics", ".rank_metric", ".rank_std_err", "failure_rate", "std_err",
-                  ".rank_failure_rate", ".txt", "training", "testing", "fitted", "model", "..val", "..nm",
-                  ".white_noise_lower", ".white_noise_upper", ".date_var_collapsed", ".rowid", "..date_agg", "grp_names",
-                  "check_row_exists", ".box_group"))
+globalVariables(
+    c("index", "index.num", "y", "yhat", "week", "mday", "diff.median", ".",
+      "data", "nested.col", "weekday", "locale", "holiday_name", "values", "value",
+      "holidays", "lag", ".facets_collapsed", ".groups_consolidated", ".value_mod", ".value_smooth", "name",
+      ".group", ".group_value", "feature", "id", "key", "splits",
+      "observed", "remainder", "seasadj", "season", "trend", ".color_mod",
+      ".id", ".key", ".splits", ".value", "abs_diff_lower", "abs_diff_upper", "below_max_anoms",
+      "centerline", "direction", "limit_lower", "limit_upper", "max_abs_diff", "outlier", "outlier_reported",
+      "sorting", "anomaly", "recomposed_l1", "recomposed_l2", "remainder_l1", "remainder_l2",
+      ".metric", ".metrics", ".rank_metric", ".rank_std_err", "failure_rate", "std_err",
+      ".rank_failure_rate", ".txt", "training", "testing", "fitted", "model", "..val", "..nm",
+      ".white_noise_lower", ".white_noise_upper", ".date_var_collapsed", ".rowid", "..date_agg", "grp_names",
+      "check_row_exists", ".box_group", ".method")
+)
