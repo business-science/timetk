@@ -13,6 +13,8 @@
 #' @param .trend Controls the trend component.
 #'  For STL, trend controls the sensitivity of the LOESS smoother, which is used to remove the remainder.
 #'  Refer to [tk_get_trend()].
+#' @param .method The outlier detection method. Default: "stl". Currently
+#'  "stl" is the only method. "twitter" is planned.
 #' @param .iqr_alpha Controls the width of the "normal" range. Lower values are more conservative
 #'  while higher values are less prone to incorrectly classifying "normal" observations.
 #' @param .clean_alpha Controls the threshold for cleaning

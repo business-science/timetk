@@ -33,6 +33,9 @@ Refer to \code{\link[=tk_get_frequency]{tk_get_frequency()}}.}
 For STL, trend controls the sensitivity of the LOESS smoother, which is used to remove the remainder.
 Refer to \code{\link[=tk_get_trend]{tk_get_trend()}}.}
 
+\item{.method}{The outlier detection method. Default: "stl". Currently
+"stl" is the only method. "twitter" is planned.}
+
 \item{.iqr_alpha}{Controls the width of the "normal" range. Lower values are more conservative
 while higher values are less prone to incorrectly classifying "normal" observations.}
 
