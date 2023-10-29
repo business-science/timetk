@@ -10,5 +10,5 @@ globalVariables(
       ".metric", ".metrics", ".rank_metric", ".rank_std_err", "failure_rate", "std_err",
       ".rank_failure_rate", ".txt", "training", "testing", "fitted", "model", "..val", "..nm",
       ".white_noise_lower", ".white_noise_upper", ".date_var_collapsed", ".rowid", "..date_agg", "grp_names",
-      "check_row_exists", ".box_group", ".observed_cleaned")
+      "check_row_exists", ".box_group", ".observed_clean")
 )

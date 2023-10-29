@@ -713,7 +713,7 @@ plot_anomalies_cleaned <- function(
     }
 
     column_names <- names(.data)
-    check_names  <- c("observed", "observed_cleaned") %in% column_names
+    check_names  <- c("observed", "observed_clean") %in% column_names
     if (!all(check_names)) stop('Error in plot_anomalies_decomp(): column names are missing. Run `anomalize()` and make sure: observed, remainder, anomaly, recomposed_l1, and recomposed_l2 are present', call. = FALSE)
 
     UseMethod("plot_anomalies_cleaned", .data)
@@ -821,10 +821,10 @@ plot_anomalies_cleaned.data.frame <- function(
     g <- g +
         ggplot2::scale_color_manual(values = c(.line_color, .cleaned_line_color))
 
-    # Add line - observed_cleaned
+    # Add line - observed_clean
     g <- g +
         ggplot2::geom_line(
-            ggplot2::aes(y = observed_cleaned, color = "Observed Cleaned"),
+            ggplot2::aes(y = observed_clean, color = "Observed Cleaned"),
             # color     = .cleaned_line_color,
             linewidth = .cleaned_line_size,
             linetype  = .cleaned_line_type,
