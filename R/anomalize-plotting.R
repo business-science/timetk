@@ -810,7 +810,7 @@ plot_anomalies_cleaned.data.frame <- function(
     # Add line - observed
     g <- g +
         ggplot2::geom_line(
-            aes(color = "Observed"),
+            ggplot2::aes(color = "Observed"),
             # color     = .line_color,
             linewidth = .line_size,
             linetype  = .line_type,
@@ -819,12 +819,12 @@ plot_anomalies_cleaned.data.frame <- function(
 
     # Add color scale
     g <- g +
-        scale_color_manual(values = c(.line_color, .cleaned_line_color))
+        ggplot2::scale_color_manual(values = c(.line_color, .cleaned_line_color))
 
     # Add line - observed_cleaned
     g <- g +
         ggplot2::geom_line(
-            aes(y = observed_cleaned, color = "Observed Cleaned"),
+            ggplot2::aes(y = observed_cleaned, color = "Observed Cleaned"),
             # color     = .cleaned_line_color,
             linewidth = .cleaned_line_size,
             linetype  = .cleaned_line_type,
