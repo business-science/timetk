@@ -3,6 +3,7 @@
 \name{plot_anomalies}
 \alias{plot_anomalies}
 \alias{plot_anomalies_decomp}
+\alias{plot_anomalies_cleaned}
 \title{Visualize Anomalies for One or More Time Series}
 \usage{
 plot_anomalies(
@@ -48,6 +49,35 @@ plot_anomalies_decomp(
   .x_lab = "",
   .y_lab = "",
   .interactive = TRUE
+)
+
+plot_anomalies_cleaned(
+  .data,
+  .date_var,
+  .facet_vars = NULL,
+  .facet_ncol = 1,
+  .facet_nrow = 1,
+  .facet_scales = "free",
+  .facet_dir = "h",
+  .facet_collapse = FALSE,
+  .facet_collapse_sep = " ",
+  .facet_strip_remove = FALSE,
+  .line_color = "#2c3e50",
+  .line_size = 0.5,
+  .line_type = 1,
+  .line_alpha = 1,
+  .cleaned_line_color = "#e31a1c",
+  .cleaned_line_size = 0.5,
+  .cleaned_line_type = 1,
+  .cleaned_line_alpha = 1,
+  .legend_show = TRUE,
+  .title = "Anomalies Cleaned Plot",
+  .x_lab = "",
+  .y_lab = "",
+  .color_lab = "Legend",
+  .interactive = TRUE,
+  .trelliscope = FALSE,
+  .trelliscope_params = list()
 )
 }
 \arguments{
@@ -115,6 +145,14 @@ The only parameters that cannot be passed are:
 \item \code{scales}: use \code{facet_scales}
 \item \code{as_plotly}: use \code{.interactive}
 }}
+
+\item{.cleaned_line_color}{Line color.}
+
+\item{.cleaned_line_size}{Line size.}
+
+\item{.cleaned_line_type}{Line type.}
+
+\item{.cleaned_line_alpha}{Line alpha (opacity). Range: (0, 1).}
 }
 \value{
 A \code{plotly} or \code{ggplot2} visualization
@@ -123,11 +161,15 @@ A \code{plotly} or \code{ggplot2} visualization
 \code{plot_anomalies()} is an interactive and scalable function for visualizing anomalies in time series data.
 Plots are available in interactive \code{plotly} (default) and static \code{ggplot2} format.
 
-\code{plot_anomalies_decomp} function takes in data from the \code{anomalize()}
-function, and returns a plot of the anomaly decomposition.
+\code{plot_anomalies_decomp()}: Takes in data from the \code{anomalize()}
+function, and returns a plot of the anomaly decomposition. Useful for interpeting
+how the \code{anomalize()} function is determining outliers from "remainder".
+
+\code{plot_anomalies_cleaned()} helps users visualize the before/after of
+cleaning anomalies.
 }
 \examples{
-# Plot Anomaly
+# Plot Anomalies
 library(dplyr)
 
 walmart_sales_weekly \%>\%
@@ -136,7 +178,7 @@ walmart_sales_weekly \%>\%
     anomalize(Date, Weekly_Sales) \%>\%
     plot_anomalies(Date, .facet_ncol = 2, .ribbon_alpha = 0.25, .interactive = FALSE)
 
-# Plot Anomaly Decomposition
+# Plot Anomalies Decomposition
 library(dplyr)
 
 walmart_sales_weekly \%>\%
@@ -144,5 +186,14 @@ walmart_sales_weekly \%>\%
     group_by(id) \%>\%
     anomalize(Date, Weekly_Sales, .message = FALSE) \%>\%
     plot_anomalies_decomp(Date, .interactive = FALSE)
+
+# Plot Anomalies Cleaned
+library(dplyr)
+
+walmart_sales_weekly \%>\%
+    filter(id \%in\% c("1_1", "1_3")) \%>\%
+    group_by(id) \%>\%
+    anomalize(Date, Weekly_Sales, .message = FALSE) \%>\%
+    plot_anomalies_cleaned(Date, .facet_ncol = 2, .interactive = FALSE)
 
 }

@@ -1,4 +1,17 @@
-# timetk (development version)
+# timetk 2.8.4.9000
+
+### Anomalize Integration:
+
+`anomalize` R package is now available in `timetk`:
+
+1. `anomlize()`: 1 function that breaks down, identifies, and cleans anomalies
+2. `plot_anomalies()`: Visualize the anomalies and anomaly bands
+3. `plot_anomalies_decomp()`: Visualize the time series decomposition. Make adjustments as needed.
+4. `plot_anomalies_cleaned()`: Visualize the before/after of cleaning anomalies. 
+
+Note - `anomalize(.method)`: Only the `.method = "stl"` is supported at this time. The `"twitter"` method is also planned.
+
+### Other Changes:
 
 - Removed dependency on tidymodels. (#154, @olivroy).
 
