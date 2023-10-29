@@ -118,17 +118,16 @@ The only parameters that cannot be passed are:
 }
 \value{
 A \code{plotly} or \code{ggplot2} visualization
-
-A \code{plotly} or \code{ggplot2} visualization
 }
 \description{
-An interactive and scalable function for visualizing anomalies in time series data.
+\code{plot_anomalies()} is an interactive and scalable function for visualizing anomalies in time series data.
 Plots are available in interactive \code{plotly} (default) and static \code{ggplot2} format.
 
-An interactive and scalable function for visualizing anomaly decomposition in time series data.
-Plots are available in interactive \code{plotly} (default) and static \code{ggplot2} format.
+\code{plot_anomalies_decomp} function takes in data from the \code{anomalize()}
+function, and returns a plot of the anomaly decomposition.
 }
 \examples{
+# Plot Anomaly
 library(dplyr)
 
 walmart_sales_weekly \%>\%
@@ -137,12 +136,13 @@ walmart_sales_weekly \%>\%
     anomalize(Date, Weekly_Sales) \%>\%
     plot_anomalies(Date, .facet_ncol = 2, .ribbon_alpha = 0.25, .interactive = FALSE)
 
+# Plot Anomaly Decomposition
 library(dplyr)
 
 walmart_sales_weekly \%>\%
     filter(id \%in\% c("1_1", "1_3")) \%>\%
     group_by(id) \%>\%
-    anomalize(Date, Weekly_Sales) \%>\%
+    anomalize(Date, Weekly_Sales, .message = FALSE) \%>\%
     plot_anomalies_decomp(Date, .interactive = FALSE)
 
 }

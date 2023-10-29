@@ -114,7 +114,7 @@ reference:
 - subtitle: Anomaly Detection
   contents:
   - anomalize
-  - plot_anomalies
+  - contains("plot_anomalies")
 - subtitle: Function Operations
   contents: slidify
 - subtitle: Vector Operations

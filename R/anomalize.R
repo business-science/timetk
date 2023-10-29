@@ -101,11 +101,22 @@
 #' @name anomalize
 #' @export
 #'
-anomalize <- function(.data, .date_var, .value,
-                      .frequency = "auto", .trend = "auto",
-                      .method = "stl",
-                      .iqr_alpha = 0.05, .clean_alpha = 0.75, .max_anomalies = 0.2,
-                      .message = TRUE) {
+anomalize <- function(
+        .data,
+        .date_var,
+        .value,
+
+        .frequency = "auto",
+        .trend = "auto",
+
+        method = "stl",
+
+        .iqr_alpha = 0.05,
+        .clean_alpha = 0.75,
+        .max_anomalies = 0.2,
+
+        .message = TRUE
+) {
 
     # Tidyeval Setup
     date_var_expr <- rlang::enquo(.date_var)
@@ -132,11 +143,22 @@ anomalize <- function(.data, .date_var, .value,
 
 
 #' @export
-anomalize.data.frame <- function(.data, .date_var, .value,
-                                 .frequency = "auto", .trend = "auto",
-                                 .method = "stl",
-                                 .iqr_alpha = 0.05, .clean_alpha = 0.75, .max_anomalies = 0.2,
-                                 .message = TRUE) {
+anomalize.data.frame <- function(
+    .data,
+    .date_var,
+    .value,
+
+    .frequency = "auto",
+    .trend = "auto",
+
+    method = "stl",
+
+    .iqr_alpha = 0.05,
+    .clean_alpha = 0.75,
+    .max_anomalies = 0.2,
+
+    .message = TRUE
+) {
 
     # STL Decomposition (observed, season, trend, remainder, seasadj)
     ret <- .data %>%
@@ -181,12 +203,22 @@ anomalize.data.frame <- function(.data, .date_var, .value,
 }
 
 #' @export
-anomalize.grouped_df <- function(.data, .date_var, .value,
-                                 .frequency = "auto", .trend = "auto",
-                                 .method = "stl",
-                                 .iqr_alpha = 0.05, .clean_alpha = 0.75, .max_anomalies = 0.2,
-                                 .message = TRUE) {
+anomalize.grouped_df <- function(
+        .data,
+        .date_var,
+        .value,
 
+        .frequency = "auto",
+        .trend = "auto",
+
+        method = "stl",
+
+        .iqr_alpha = 0.05,
+        .clean_alpha = 0.75,
+        .max_anomalies = 0.2,
+
+        .message = TRUE
+) {
 
     # Tidy Eval Setup
     value_expr    <- rlang::enquo(.value)

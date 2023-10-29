@@ -2,7 +2,7 @@
 
 #' Visualize Anomalies for One or More Time Series
 #'
-#' An interactive and scalable function for visualizing anomalies in time series data.
+#' `plot_anomalies()` is an interactive and scalable function for visualizing anomalies in time series data.
 #' Plots are available in interactive `plotly` (default) and static `ggplot2` format.
 #'
 #' @param .data A `tibble` or `data.frame` that has been anomalized by `anomalize()`
@@ -47,6 +47,7 @@
 #'
 #'
 #' @examples
+#' # Plot Anomaly
 #' library(dplyr)
 #'
 #' walmart_sales_weekly %>%
@@ -360,8 +361,8 @@ plot_anomalies.grouped_df <- function(
 # 2.0 PLOT ANOMALIES DECOMP ----
 #' Visualize Anomaly Decomposition
 #'
-#' An interactive and scalable function for visualizing anomaly decomposition in time series data.
-#' Plots are available in interactive `plotly` (default) and static `ggplot2` format.
+#' `plot_anomalies_decomp` function takes in data from the `anomalize()`
+#' function, and returns a plot of the anomaly decomposition.
 #'
 #' @param .data A `tibble` or `data.frame` that has been anomalized by `anomalize()`
 #' @param .date_var A column containing either date or date-time values
@@ -400,11 +401,8 @@ plot_anomalies.grouped_df <- function(
 #'  - `scales`: use `facet_scales`
 #'  - `as_plotly`: use `.interactive`
 #'
-#'
-#' @return A `plotly` or `ggplot2` visualization
-#'
-#'
 #' @examples
+#' # Plot Anomaly Decomposition
 #' library(dplyr)
 #'
 #' walmart_sales_weekly %>%
@@ -610,6 +608,7 @@ plot_anomalies_decomp.grouped_df <- function(
 
     return(g)
 
-
 }
+
+
 
