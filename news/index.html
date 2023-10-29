@@ -122,9 +122,25 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="development version" id="timetk-development-version">timetk (development version)<a class="anchor" aria-label="anchor" href="#timetk-development-version"></a></h2>
+<h2 class="pkg-version" data-toc-text="2.8.4.9000" id="timetk-2849000">timetk 2.8.4.9000<a class="anchor" aria-label="anchor" href="#timetk-2849000"></a></h2>
+<div class="section level4">
+<h4 id="anomalize-integration-2-8-4-9000">Anomalize Integration:<a class="anchor" aria-label="anchor" href="#anomalize-integration-2-8-4-9000"></a></h4>
+<p><code>anomalize</code> R package is now available in <code>timetk</code>:</p>
+<ol style="list-style-type: decimal"><li>
+<code>anomlize()</code>: 1 function that breaks down, identifies, and cleans anomalies</li>
+<li>
+<code><a href="../reference/plot_anomalies.html">plot_anomalies()</a></code>: Visualize the anomalies and anomaly bands</li>
+<li>
+<code><a href="../reference/plot_anomalies.html">plot_anomalies_decomp()</a></code>: Visualize the time series decomposition. Make adjustments as needed.</li>
+<li>
+<code><a href="../reference/plot_anomalies.html">plot_anomalies_cleaned()</a></code>: Visualize the before/after of cleaning anomalies.</li>
+</ol><p>Note - <code>anomalize(.method)</code>: Only the <code>.method = "stl"</code> is supported at this time. The <code>"twitter"</code> method is also planned.</p>
+</div>
+<div class="section level4">
+<h4 id="other-changes-2-8-4-9000">Other Changes:<a class="anchor" aria-label="anchor" href="#other-changes-2-8-4-9000"></a></h4>
 <ul><li>Removed dependency on tidymodels. (<a href="https://github.com/business-science/timetk/issues/154" class="external-link">#154</a>, <a href="https://github.com/olivroy" class="external-link">@olivroy</a>).</li>
 </ul></div>
+</div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="2.8.4" id="timetk-284">timetk 2.8.4<a class="anchor" aria-label="anchor" href="#timetk-284"></a></h2><p class="text-muted">CRAN release: 2023-09-22</p>
 <p>Update forecasting vignette: Use <code>glmnet</code> for time series forecasting.</p>
