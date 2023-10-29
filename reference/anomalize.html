@@ -137,7 +137,7 @@ either for a single time series or for multiple time series grouped by a specifi
 <span>  <span class="va">.value</span>,</span>
 <span>  .frequency <span class="op">=</span> <span class="st">"auto"</span>,</span>
 <span>  .trend <span class="op">=</span> <span class="st">"auto"</span>,</span>
-<span>  method <span class="op">=</span> <span class="st">"stl"</span>,</span>
+<span>  .method <span class="op">=</span> <span class="st">"stl"</span>,</span>
 <span>  .iqr_alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
 <span>  .clean_alpha <span class="op">=</span> <span class="fl">0.75</span>,</span>
 <span>  .max_anomalies <span class="op">=</span> <span class="fl">0.2</span>,</span>
@@ -172,6 +172,11 @@ For STL, trend controls the sensitivity of the LOESS smoother, which is used to 
 Refer to <code><a href="tk_get_frequency.html">tk_get_trend()</a></code>.</p></dd>
 
 
+<dt>.method</dt>
+<dd><p>The outlier detection method. Default: "stl". Currently
+"stl" is the only method. "twitter" is planned.</p></dd>
+
+
 <dt>.iqr_alpha</dt>
 <dd><p>Controls the width of the "normal" range. Lower values are more conservative
 while higher values are less prone to incorrectly classifying "normal" observations.</p></dd>
@@ -191,11 +196,6 @@ depending on the direction of the anomaly.</p></dd>
 <dt>.message</dt>
 <dd><p>A boolean. If <code>TRUE</code>, will output information related to automatic frequency
 and trend selection (if applicable).</p></dd>
-
-
-<dt>.method</dt>
-<dd><p>The outlier detection method. Default: "stl". Currently
-"stl" is the only method. "twitter" is planned.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -267,7 +267,27 @@ A Novel Technique for Long-Term Anomaly Detection in the Cloud. Twitter Inc.</p>
 <span class="r-in"><span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">id</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1_1"</span>, <span class="st">"1_3"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
 <span class="r-in"><span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
 <span class="r-in"><span>    <span class="fu">anomalize</span><span class="op">(</span><span class="va">Date</span>, <span class="va">Weekly_Sales</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in anomalize(., Date, Weekly_Sales):</span> object '.method' not found</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> frequency = 13 observations per 1 quarter</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> trend = 52 observations per 1 year</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> frequency = 13 observations per 1 quarter</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> trend = 52 observations per 1 year</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 286 × 13</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># Groups:   id [2]</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    id    Date       observed season  trend remainder seasadj anomaly</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> 1_1   2010-02-05   <span style="text-decoration: underline;">24</span>924.   874. <span style="text-decoration: underline;">19</span>967.     <span style="text-decoration: underline;">4</span>083.  <span style="text-decoration: underline;">24</span>050. No     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> 1_1   2010-02-12   <span style="text-decoration: underline;">46</span>039.  -<span style="color: #BB0000;">698.</span> <span style="text-decoration: underline;">19</span>835.    <span style="text-decoration: underline;">26</span>902.  <span style="text-decoration: underline;">46</span>737. Yes    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> 1_1   2010-02-19   <span style="text-decoration: underline;">41</span>596. -<span style="color: #BB0000; text-decoration: underline;">1</span><span style="color: #BB0000;">216.</span> <span style="text-decoration: underline;">19</span>703.    <span style="text-decoration: underline;">23</span>108.  <span style="text-decoration: underline;">42</span>812. Yes    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> 1_1   2010-02-26   <span style="text-decoration: underline;">19</span>404.  -<span style="color: #BB0000;">821.</span> <span style="text-decoration: underline;">19</span>571.      653.  <span style="text-decoration: underline;">20</span>224. No     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> 1_1   2010-03-05   <span style="text-decoration: underline;">21</span>828.   324. <span style="text-decoration: underline;">19</span>439.     <span style="text-decoration: underline;">2</span>064.  <span style="text-decoration: underline;">21</span>504. No     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> 1_1   2010-03-12   <span style="text-decoration: underline;">21</span>043.   471. <span style="text-decoration: underline;">19</span>307.     <span style="text-decoration: underline;">1</span>265.  <span style="text-decoration: underline;">20</span>572. No     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> 1_1   2010-03-19   <span style="text-decoration: underline;">22</span>137.   920. <span style="text-decoration: underline;">19</span>175.     <span style="text-decoration: underline;">2</span>041.  <span style="text-decoration: underline;">21</span>217. No     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> 1_1   2010-03-26   <span style="text-decoration: underline;">26</span>229.   752. <span style="text-decoration: underline;">19</span>069.     <span style="text-decoration: underline;">6</span>409.  <span style="text-decoration: underline;">25</span>478. No     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> 1_1   2010-04-02   <span style="text-decoration: underline;">57</span>258.   503. <span style="text-decoration: underline;">18</span>962.    <span style="text-decoration: underline;">37</span>794.  <span style="text-decoration: underline;">56</span>755. Yes    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> 1_1   2010-04-09   <span style="text-decoration: underline;">42</span>961.  <span style="text-decoration: underline;">1</span>132. <span style="text-decoration: underline;">18</span>855.    <span style="text-decoration: underline;">22</span>974.  <span style="text-decoration: underline;">41</span>829. Yes    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 276 more rows</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 5 more variables: anomaly_direction &lt;dbl&gt;, anomaly_score &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   recomposed_l1 &lt;dbl&gt;, recomposed_l2 &lt;dbl&gt;, observed_cleaned &lt;dbl&gt;</span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

@@ -319,7 +319,11 @@ The only parameters that cannot be passed are:</p><ul><li><p><code>ncol</code>: 
 <span class="r-in"><span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
 <span class="r-in"><span>    <span class="fu"><a href="anomalize.html">anomalize</a></span><span class="op">(</span><span class="va">Date</span>, <span class="va">Weekly_Sales</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
 <span class="r-in"><span>    <span class="fu">plot_anomalies</span><span class="op">(</span><span class="va">Date</span>, .facet_ncol <span class="op">=</span> <span class="fl">2</span>, .ribbon_alpha <span class="op">=</span> <span class="fl">0.25</span>, .interactive <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in anomalize(., Date, Weekly_Sales):</span> object '.method' not found</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> frequency = 13 observations per 1 quarter</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> trend = 52 observations per 1 year</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> frequency = 13 observations per 1 quarter</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> trend = 52 observations per 1 year</span>
+<span class="r-plt img"><img src="plot_anomalies-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Plot Anomaly Decomposition</span></span></span>
 <span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span></span>
@@ -329,7 +333,7 @@ The only parameters that cannot be passed are:</p><ul><li><p><code>ncol</code>: 
 <span class="r-in"><span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
 <span class="r-in"><span>    <span class="fu"><a href="anomalize.html">anomalize</a></span><span class="op">(</span><span class="va">Date</span>, <span class="va">Weekly_Sales</span>, .message <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
 <span class="r-in"><span>    <span class="fu">plot_anomalies_decomp</span><span class="op">(</span><span class="va">Date</span>, .interactive <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in anomalize(., Date, Weekly_Sales, .message = FALSE):</span> object '.method' not found</span>
+<span class="r-plt img"><img src="plot_anomalies-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
