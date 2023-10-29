@@ -10,7 +10,7 @@ anomalize(
   .value,
   .frequency = "auto",
   .trend = "auto",
-  method = "stl",
+  .method = "stl",
   .iqr_alpha = 0.05,
   .clean_alpha = 0.75,
   .max_anomalies = 0.2,
@@ -33,6 +33,9 @@ Refer to \code{\link[=tk_get_frequency]{tk_get_frequency()}}.}
 For STL, trend controls the sensitivity of the LOESS smoother, which is used to remove the remainder.
 Refer to \code{\link[=tk_get_trend]{tk_get_trend()}}.}
 
+\item{.method}{The outlier detection method. Default: "stl". Currently
+"stl" is the only method. "twitter" is planned.}
+
 \item{.iqr_alpha}{Controls the width of the "normal" range. Lower values are more conservative
 while higher values are less prone to incorrectly classifying "normal" observations.}
 
@@ -45,9 +48,6 @@ depending on the direction of the anomaly.}
 
 \item{.message}{A boolean. If \code{TRUE}, will output information related to automatic frequency
 and trend selection (if applicable).}
-
-\item{.method}{The outlier detection method. Default: "stl". Currently
-"stl" is the only method. "twitter" is planned.}
 }
 \value{
 A \code{tibble} or \code{data.frame} with the following columns:

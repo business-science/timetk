@@ -109,7 +109,7 @@ anomalize <- function(
         .frequency = "auto",
         .trend = "auto",
 
-        method = "stl",
+        .method = "stl",
 
         .iqr_alpha = 0.05,
         .clean_alpha = 0.75,
@@ -151,7 +151,7 @@ anomalize.data.frame <- function(
     .frequency = "auto",
     .trend = "auto",
 
-    method = "stl",
+    .method = "stl",
 
     .iqr_alpha = 0.05,
     .clean_alpha = 0.75,
@@ -211,7 +211,7 @@ anomalize.grouped_df <- function(
         .frequency = "auto",
         .trend = "auto",
 
-        method = "stl",
+        .method = "stl",
 
         .iqr_alpha = 0.05,
         .clean_alpha = 0.75,
