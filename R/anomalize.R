@@ -191,8 +191,8 @@ anomalize.data.frame <- function(
     ret <- ret %>%
         dplyr::mutate(
             observed_clean = dplyr::case_when(
-                anomaly_direction == -1 ~ recomposed_l1 + (1-.clean_alpha)*anomaly_score,
-                anomaly_direction == 1 ~ recomposed_l2 - (1-.clean_alpha)*anomaly_score,
+                anomaly_direction == -1 ~ recomposed_l1 + (1-.clean_alpha)*(recomposed_l2-recomposed_l1)/2,
+                anomaly_direction == 1 ~ recomposed_l2 - (1-.clean_alpha)*(recomposed_l2-recomposed_l1)/2,
                 TRUE ~ observed
             )
         )
