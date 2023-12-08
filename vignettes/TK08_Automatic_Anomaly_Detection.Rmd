@@ -32,7 +32,12 @@ __Anomaly detection__ is an important part of time series analysis:
 1. Detecting anomalies can signify special events
 2. Cleaning anomalies can improve forecast error
 
-In this short tutorial, we will cover the `plot_anomaly_diagnostics()` and `tk_anomaly_diagnostics()` functions for visualizing and automatically detecting anomalies at scale. 
+This tutorial will cover:
+
+- `anomalize()`
+- `plot_anomalies()`
+- `plot_anomalies_decomp()`
+- `plot_anomalies_cleaned()`
 
 
 ```{r}
@@ -43,34 +48,94 @@ library(timetk)
 
 # Data
 
-This tutorial will use the `walmart_sales_weekly` dataset: 
+This tutorial will use the `wikipedia_traffic_daily` dataset: 
 
-- Weekly
-- Sales spikes at various events 
 
 ```{r}
-walmart_sales_weekly
+wikipedia_traffic_daily %>% glimpse()
 ```
 
-# Anomaly Visualization
+# Visualization
 
-Using the `plot_anomaly_diagnostics()` function, we can interactively detect anomalies at scale. 
+Using the `plot_time_series()` function, we can interactively detect anomalies at scale. 
 
 ```{r, fig.height=7}
-walmart_sales_weekly %>%
-  group_by(Store, Dept) %>%
-  plot_anomaly_diagnostics(Date, Weekly_Sales, .facet_ncol = 2)
+wikipedia_traffic_daily %>%
+  group_by(Page) %>%
+  plot_time_series(date, value, .facet_ncol = 2)
 ```
 
 
-# Automatic Anomaly Detection
+# Anomalize: breakdown, identify, and clean in 1 easy step
 
-To get the data on the anomalies, we use `tk_anomaly_diagnostics()`, the preprocessing function. 
+The anomalize() function is a feature rich tool for performing anomaly detection. Anomalize is group-aware, so we can use this as part of a normal pandas groupby chain. In one easy step:
+
+- We breakdown (decompose) the time series
+- Analyze it’s remainder (residuals) for spikes (anomalies)
+- Clean the anomalies if desired 
 
 ```{r}
-walmart_sales_weekly %>%
-  group_by(Store, Dept) %>%
-  tk_anomaly_diagnostics(Date, Weekly_Sales)
+anomalize_tbl <- wikipedia_traffic_daily %>%
+  group_by(Page) %>%
+  anomalize(
+      .date_var      = date, 
+      .value         = value,
+      .iqr_alpha     = 0.05,
+      .max_anomalies = 0.20,
+      .message       = FALSE
+  )
+
+anomalize_tbl %>% glimpse()
+```
+
+The `anomalize()` function returns:
+
+1. The original grouping and datetime columns.
+2. **The seasonal decomposition:** `observed`, `seasonal`, `seasadj`, `trend`, and `remainder`. The objective is to remove trend and seasonality such that the remainder is stationary and representative of normal variation and anomalous variations.
+3. **Anomaly identification and scoring:** `anomaly`, `anomaly_score`, `anomaly_direction`. These identify the anomaly decision (Yes/No), score the anomaly as a distance from the centerline, and label the direction (-1 (down), zero (not anomalous), +1 (up)).
+4. **Recomposition:** `recomposed_l1` and `recomposed_l2`. Think of these as the lower and upper bands. Any observed data that is below l1 or above l2 is anomalous.
+5. **Cleaned data:** `observed_clean`. Cleaned data is automatically provided, which has the outliers replaced with data that is within the recomposed l1/l2 boundaries. With that said, you should always first seek to understand why data is being considered anomalous before simply removing outliers and using the cleaned data.
+
+The most important aspect is that this data is ready to be visualized, inspected, and modifications can then be made to address any tweaks you would like to make.
+
+# Anomaly Visualization 1: Seasonal Decomposition Plot
+
+The first step in my normal process is to analyze the seasonal decomposition. I want to see what the remainders look like, and make sure that the trend and seasonality are being removed such that the remainder is centered around zero.
+
+```{r, fig.height=10, fig.width=20}
+anomalize_tbl %>%
+    group_by(Page) %>%
+    plot_anomalies_decomp(
+        .date_var = date, 
+        .interactive = FALSE
+    )
+```
+
+# Anomaly Visualization 2: Anomaly Detection Plot
+
+Once I’m satisfied with the remainders, my next step is to visualize the anomalies. Here I’m looking to see if I need to grow or shrink the remainder l1 and l2 bands, which classify anomalies.
+
+```{r}
+anomalize_tbl %>%
+    group_by(Page) %>%
+    plot_anomalies(
+        date,
+        .facet_ncol = 2
+    )
+```
+
+
+# Anomaly Visualization 3: Anomalies Cleaned Plot
+
+There are pros and cons to cleaning anomalies. I’ll leave that discussion for another time. But, should you be interested in seeing what your data looks like cleaned (with outliers removed), this plot will help you compare before and after.
+
+```{r}
+anomalize_tbl %>%
+    group_by(Page) %>%
+    plot_anomalies_cleaned(
+        date,
+        .facet_ncol = 2
+    )
 ```
 
 
