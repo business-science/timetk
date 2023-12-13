@@ -56,7 +56,7 @@ features that can aid in machine learning with time-series data"><meta property=
     <a class="dropdown-item" href="../articles/TK01_Working_With_Time_Series_Index.html">Calendar Features</a>
     <a class="dropdown-item" href="../articles/TK06_Automatic_Frequency_And_Trend_Selection.html">Frequency and Trend</a>
     <div class="dropdown-divider"></div>
-    <h6 class="dropdown-header" data-toc-skip>Sequences &amp; Data Structures</h6>
+    <h6 class="dropdown-header" data-toc-skip>Time Sequences &amp; Data Structures</h6>
     <a class="dropdown-item" href="../articles/TK02_Time_Series_Date_Sequences.html">Intelligent Date &amp; Time Sequences</a>
     <a class="dropdown-item" href="../articles/TK00_Time_Series_Coercion.html">Time Series Class Conversion (tbl, ts, zoo, &amp; xts)</a>
   </div>
@@ -305,21 +305,21 @@ be removed using <code><a href="https://recipes.tidymodels.org/reference/step_rm
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 6</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   number operation type                 trained skip  id                        </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>      1 step      timeseries_signature FALSE   FALSE timeseries_signature_6G77L</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>      1 step      timeseries_signature FALSE   FALSE timeseries_signature_yyP52</span>
 <span class="r-in"><span><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy</a></span><span class="op">(</span><span class="va">rec_obj</span>, number <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 27 × 3</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    terms value     id                        </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> date  index.num timeseries_signature_6G77L</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> date  year      timeseries_signature_6G77L</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> date  year.iso  timeseries_signature_6G77L</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> date  half      timeseries_signature_6G77L</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> date  quarter   timeseries_signature_6G77L</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> date  month     timeseries_signature_6G77L</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> date  month.xts timeseries_signature_6G77L</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> date  month.lbl timeseries_signature_6G77L</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> date  day       timeseries_signature_6G77L</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> date  hour      timeseries_signature_6G77L</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> date  index.num timeseries_signature_yyP52</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> date  year      timeseries_signature_yyP52</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> date  year.iso  timeseries_signature_yyP52</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> date  half      timeseries_signature_yyP52</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> date  quarter   timeseries_signature_yyP52</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> date  month     timeseries_signature_yyP52</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> date  month.xts timeseries_signature_yyP52</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> date  month.lbl timeseries_signature_yyP52</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> date  day       timeseries_signature_yyP52</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> date  hour      timeseries_signature_yyP52</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 17 more rows</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>

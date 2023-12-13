@@ -52,7 +52,7 @@
     <a class="dropdown-item" href="../articles/TK01_Working_With_Time_Series_Index.html">Calendar Features</a>
     <a class="dropdown-item" href="../articles/TK06_Automatic_Frequency_And_Trend_Selection.html">Frequency and Trend</a>
     <div class="dropdown-divider"></div>
-    <h6 class="dropdown-header" data-toc-skip>Sequences &amp; Data Structures</h6>
+    <h6 class="dropdown-header" data-toc-skip>Time Sequences &amp; Data Structures</h6>
     <a class="dropdown-item" href="../articles/TK02_Time_Series_Date_Sequences.html">Intelligent Date &amp; Time Sequences</a>
     <a class="dropdown-item" href="../articles/TK00_Time_Series_Coercion.html">Time Series Class Conversion (tbl, ts, zoo, &amp; xts)</a>
   </div>
@@ -215,21 +215,21 @@ during coercion to <code>ts</code>.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 5 × 2</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        x     y</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> -<span style="color: #BB0000;">4.46</span>      5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>  8.70      4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>  0.470     3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> -<span style="color: #BB0000;">5.27</span>      2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> -<span style="color: #BB0000;">4.55</span>      1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> -<span style="color: #BB0000;">17.5</span>      5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>  -<span style="color: #BB0000;">2.71</span>     4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>   7.72     3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> -<span style="color: #BB0000;">19.1</span>      2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span>  11.8      1</span>
 <span class="r-in"><span><span class="fu"><a href="tk_tbl.html">tk_tbl</a></span><span class="op">(</span><span class="va">data_ts</span>, timetk_idx <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>  <span class="co"># Returns time-based tbl</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'tzone' attributes are inconsistent</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 5 × 3</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   index           x     y</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> 2000-01-01 -<span style="color: #BB0000;">4.46</span>      5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> 2000-01-02  8.70      4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> 2000-01-03  0.470     3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> 2000-01-04 -<span style="color: #BB0000;">5.27</span>      2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> 2000-01-05 -<span style="color: #BB0000;">4.55</span>      1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> 2000-01-01 -<span style="color: #BB0000;">17.5</span>      5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> 2000-01-02  -<span style="color: #BB0000;">2.71</span>     4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> 2000-01-03   7.72     3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> 2000-01-04 -<span style="color: #BB0000;">19.1</span>      2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> 2000-01-05  11.8      1</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
