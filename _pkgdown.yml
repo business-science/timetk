@@ -39,7 +39,7 @@ navbar:
     - text: Frequency and Trend
       href: articles/TK06_Automatic_Frequency_And_Trend_Selection.html
     - text: '---'
-    - text: Sequences & Data Structures
+    - text: Time Sequences & Data Structures
     - text: Intelligent Date & Time Sequences
       href: articles/TK02_Time_Series_Date_Sequences.html
     - text: Time Series Class Conversion (tbl, ts, zoo, & xts)
