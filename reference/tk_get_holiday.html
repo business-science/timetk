@@ -210,26 +210,26 @@ Filter on an index to identify all holidays that are commonly non-working.</p>
 <span class="r-in"><span><span class="co"># --- BASIC USAGE ----</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">tk_get_holiday_signature</span><span class="op">(</span><span class="va">idx</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 365 × 133</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    index      exch_NYSE exch_LONDON exch_NERC exch_TSX exch_ZURICH locale_GB</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 365 × 134</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    index      exch_NYSE exch_LONDON exch_NERC exch_TSX exch_ZURICH locale_JP</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> 2017-01-01         0           0         0        0           0         0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> 2017-01-02         1           1         1        1           1         0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> 2017-01-03         0           0         0        0           0         0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> 2017-01-01         0           0         0        0           0         1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> 2017-01-02         1           1         1        1           1         1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> 2017-01-03         0           0         0        0           0         1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> 2017-01-04         0           0         0        0           0         0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> 2017-01-05         0           0         0        0           0         0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> 2017-01-06         0           0         0        0           0         0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> 2017-01-07         0           0         0        0           0         0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> 2017-01-08         0           0         0        0           0         0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> 2017-01-09         0           0         0        0           0         0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> 2017-01-09         0           0         0        0           0         1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> 2017-01-10         0           0         0        0           0         0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 355 more rows</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 126 more variables: locale_JP &lt;dbl&gt;, locale_US &lt;dbl&gt;, locale_World &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   locale_CH &lt;dbl&gt;, locale_IT &lt;dbl&gt;, locale_CA &lt;dbl&gt;, locale_FR &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   locale_DE &lt;dbl&gt;, GB_MilleniumDay &lt;dbl&gt;, JP_Gantan &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   JP_NewYearsDay &lt;dbl&gt;, World_NewYearsDay &lt;dbl&gt;, World_SolemnityOfMary &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   US_NewYearsDay &lt;dbl&gt;, CH_BerchtoldsDay &lt;dbl&gt;, JP_BankHolidayJan2 &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   JP_BankHolidayJan3 &lt;dbl&gt;, World_Epiphany &lt;dbl&gt;, IT_Epiphany &lt;dbl&gt;, …</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 127 more variables: locale_US &lt;dbl&gt;, locale_World &lt;dbl&gt;, locale_CH &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   locale_IT &lt;dbl&gt;, locale_CA &lt;dbl&gt;, locale_GB &lt;dbl&gt;, locale_FR &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   locale_DE &lt;dbl&gt;, JP_Gantan &lt;dbl&gt;, JP_NewYearsDay &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   World_NewYearsDay &lt;dbl&gt;, World_SolemnityOfMary &lt;dbl&gt;, US_NewYearsDay &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   CH_BerchtoldsDay &lt;dbl&gt;, JP_BankHolidayJan2 &lt;dbl&gt;, JP_BankHolidayJan3 &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   World_Epiphany &lt;dbl&gt;, IT_Epiphany &lt;dbl&gt;, JP_ComingOfAgeDay &lt;dbl&gt;, …</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># ---- FILTERING WITH PATTERNS &amp; SETS ----</span></span></span>
 <span class="r-in"><span></span></span>
@@ -249,14 +249,14 @@ Filter on an index to identify all holidays that are commonly non-working.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> 2020-04-10 US     US_GoodFriday                       </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> 2020-05-25 US     US_MemorialDay                      </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> 2020-05-30 US     US_DecorationMemorialDay            </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> 2020-06-19 US     US_JuneteenthNationalIndependenceDay</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span> 2020-07-04 US     US_IndependenceDay                  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">13</span> 2020-09-07 US     US_LaborDay                         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">14</span> 2020-10-12 US     US_ColumbusDay                      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">15</span> 2020-11-03 US     US_ElectionDay                      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">16</span> 2020-11-11 US     US_VeteransDay                      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">17</span> 2020-11-26 US     US_ThanksgivingDay                  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">18</span> 2020-12-25 US     US_ChristmasDay                     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> 2020-07-04 US     US_IndependenceDay                  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span> 2020-09-07 US     US_LaborDay                         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">13</span> 2020-10-12 US     US_ColumbusDay                      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">14</span> 2020-11-03 US     US_ElectionDay                      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">15</span> 2020-11-11 US     US_VeteransDay                      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">16</span> 2020-11-26 US     US_ThanksgivingDay                  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">17</span> 2020-12-25 US     US_ChristmasDay                     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">18</span> <span style="color: #BB0000;">NA</span>         US     US_JuneteenthNationalIndependenceDay</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Filter using holiday patterns</span></span></span>
 <span class="r-in"><span><span class="co"># - Get New Years, Christmas and Thanksgiving Features in US</span></span></span>
