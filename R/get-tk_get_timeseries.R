@@ -141,22 +141,22 @@ tk_get_timeseries_summary <- function(idx) {
 
 #' @export
 tk_get_timeseries_summary.POSIXt <- function(idx) {
-    get_timeseries_summary_date(idx)
+    get_timeseries_summary_date(idx, type = "POSIXt")
 }
 
 #' @export
 tk_get_timeseries_summary.Date <- function(idx) {
-    get_timeseries_summary_date(idx)
+    get_timeseries_summary_date(idx, type = "Date")
 }
 
 #' @export
 tk_get_timeseries_summary.yearmon <- function(idx) {
-    get_timeseries_summary_date(idx)
+    get_timeseries_summary_date(idx, type = "yearmon")
 }
 
 #' @export
 tk_get_timeseries_summary.yearqtr <- function(idx) {
-    get_timeseries_summary_date(idx)
+    get_timeseries_summary_date(idx, type = "yearqtr")
 }
 
 #' @export
@@ -169,7 +169,7 @@ tk_get_timeseries_summary.default <- function(idx) {
     stop(paste0("No method for class ", class(idx)[[1]], "."))
 }
 
-get_timeseries_summary_date <- function(idx) {
+get_timeseries_summary_date <- function(idx, type = NULL) {
 
 
 
@@ -183,15 +183,38 @@ get_timeseries_summary_date <- function(idx) {
         ) %>%
         purrr::map_df(~ .x)
 
-    suppressWarnings(idx_periodicity <- xts::periodicity(idx))
+    if (length(idx) == 1) {
+        units <- switch(
+            type,
+            "POSIXt" = "secs",
+            "Date" = "days",
+            "yearmon" = "days",
+            "yearqtr" = "days"
+        )
+        scale <- switch(
+            type,
+            "POSIXt" = "second",
+            "Date" = "day",
+            "yearmon" = "month",
+            "yearqtr" = "quarter"
+        )
+        idx_period_summary <- tibble::tibble(
+            start              = idx,
+            end                = idx,
+            units              = units,
+            scale              = scale
+        )
+    } else {
+        suppressWarnings(idx_periodicity <- xts::periodicity(idx))
 
-    idx_period_summary <- tibble::tibble(
-        start              = idx_periodicity$start,
-        end                = idx_periodicity$end,
-        units              = idx_periodicity$units,
-        scale              = idx_periodicity$label
-        # label              = idx_periodicity$label
-    )
+        idx_period_summary <- tibble::tibble(
+            start              = idx_periodicity$start,
+            end                = idx_periodicity$end,
+            units              = idx_periodicity$units,
+            scale              = idx_periodicity$label
+            # label              = idx_periodicity$label
+        )
+    }
 
     idx_nobs_summary <- tibble::tibble(
         n.obs      = length(idx)
