@@ -118,7 +118,7 @@ get_timeseries_signature_date <- function(idx) {
             mday      = lubridate::mday(index) %>% as.integer(),
             qday      = lubridate::qday(lubridate::as_date(index)) %>% as.integer(),
             yday      = lubridate::yday(index) %>% as.integer(),
-            mweek     = stringi::stri_datetime_fields(lubridate::as_date(index))$WeekOfMonth %>% as.integer(),
+            mweek     = stringi::stri_datetime_fields(lubridate::as_datetime(index))$WeekOfMonth %>% as.integer(),
             week      = lubridate::week(index) %>% as.integer(),
             week.iso  = lubridate::isoweek(index) %>% as.integer(),
             week2     = as.integer(week %% 2),
