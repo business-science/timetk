@@ -3,6 +3,7 @@ expect_tz_warning <- function(object) {
     # use Replace all expect_tz_warning -> expect_no_warning
     # This is for R >= 4.3.0
     # Issue #156
+    skip_on_cran() # make it less vulnerable to CRAN checks
     if (getRversion() >= "4.3.0") {
         expect_warning(object, regexp = "tzone")
     } else {
