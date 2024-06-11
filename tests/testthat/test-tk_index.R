@@ -3,8 +3,8 @@ library(dplyr)
 FB_tbl    <- FANG %>% dplyr::filter(symbol == "FB")
 FB_xts    <- FB_tbl %>% tk_xts(silent = TRUE)
 FB_zoo    <- FB_tbl %>% tk_zoo(silent = TRUE)
-FB_zooreg <- FB_tbl %>% tk_zooreg(start = 2015, freq = 252, silent = TRUE)
-FB_ts     <- FB_tbl %>% tk_ts(start = 2015, freq = 252, silent = TRUE)
+FB_zooreg <- FB_tbl %>% tk_zooreg(start = 2015, frequency = 252, silent = TRUE)
+FB_ts     <- FB_tbl %>% tk_ts(start = 2015, frequency = 252, silent = TRUE)
 
 # FUNCTION tk_index -----
 
