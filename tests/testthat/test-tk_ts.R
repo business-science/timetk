@@ -45,7 +45,7 @@ test_that("xts to ts test returns ts with correct rows and columns.", {
 
     # Error if using date_var field
     expect_error(tk_ts(FB_xts, date_var = date,
-                       freq = 252, start = 2015)) # date_var not used
+                       frequency = 252, start = 2015)) # date_var not used
 
 })
 
@@ -67,6 +67,6 @@ test_that("zoo to ts test returns ts with correct rows and columns.", {
 
     # Warning if using date_var field
     expect_error(tk_ts(FB_xts, date_var = date,
-                       freq = 252, start = 2015)) # date_var not used
+                       frequency = 252, start = 2015)) # date_var not used
 
 })
