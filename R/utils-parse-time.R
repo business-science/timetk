@@ -257,7 +257,7 @@ split_to_list.character <- function(x) {
 
 # Lookup Defaults ----
 #' @keywords internal
-#' @export
+#' @noRd
 lookup_defaults <- function(index, side = "lhs") {
     UseMethod("lookup_defaults")
 }

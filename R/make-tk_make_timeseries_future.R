@@ -872,7 +872,7 @@ make_daily_prediction_formula <- function(ts_signature_tbl_train, inspect_weekda
 
 
 #' @keywords internal
-#' @export
+#' @noRd
 convert_length_out_chr_to_num <- function(idx, length_out, include_endpoints) {
     UseMethod("convert_length_out_chr_to_num", idx)
 }
