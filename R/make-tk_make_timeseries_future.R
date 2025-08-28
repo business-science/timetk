@@ -871,27 +871,40 @@ make_daily_prediction_formula <- function(ts_signature_tbl_train, inspect_weekda
 
 
 
-
+#' @keywords internal
+#' @export
 convert_length_out_chr_to_num <- function(idx, length_out, include_endpoints) {
     UseMethod("convert_length_out_chr_to_num", idx)
 }
 
 # Sub-daily
+#' @keywords internal
+#' @export
+#' @method convert_length_out_chr_to_num POSIXt
 convert_length_out_chr_to_num.POSIXt <- function(idx, length_out, include_endpoints) {
     convert_length_out_chr_to_num_regular(idx, length_out, include_endpoints)
 }
 
 # Daily or Weekly
+#' @keywords internal
+#' @export
+#' @method convert_length_out_chr_to_num Date
 convert_length_out_chr_to_num.Date <- function(idx, length_out, include_endpoints) {
     convert_length_out_chr_to_num_regular(idx, length_out, include_endpoints)
 }
 
 # Month or Year
+#' @keywords internal
+#' @export
+#' @method convert_length_out_chr_to_num yearmon
 convert_length_out_chr_to_num.yearmon <- function(idx, length_out, include_endpoints) {
     convert_length_out_chr_to_num_zoo(idx, length_out, include_endpoints)
 }
 
 # Quarterly
+#' @keywords internal
+#' @export
+#' @method convert_length_out_chr_to_num yearqtr
 convert_length_out_chr_to_num.yearqtr <- function(idx, length_out, include_endpoints) {
     convert_length_out_chr_to_num_zoo(idx, length_out, include_endpoints)
 }

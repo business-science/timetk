@@ -6,25 +6,40 @@ list_to_datetime <- function(index, tf_side, ...) {
     UseMethod("list_to_datetime")
 }
 
+#' @keywords internal
+#' @export
+#' @method list_to_datetime POSIXct
 list_to_datetime.POSIXct <- function(index, tf_side, tz, ...) {
     lubridate::make_datetime(tf_side$y, tf_side$m, tf_side$d,
                              tf_side$h, tf_side$M, tf_side$s, tz = tz)
 }
 
+#' @keywords internal
+#' @export
+#' @method list_to_datetime Date
 list_to_datetime.Date <- function(index, tf_side, ...) {
     lubridate::make_date(tf_side$y, tf_side$m, tf_side$d)
 }
 
+#' @keywords internal
+#' @export
+#' @method list_to_datetime yearmon
 list_to_datetime.yearmon <- function(index, tf_side, ...) {
     tf_side$d <- 1
     zoo::as.yearmon(list_to_datetime.Date(index, tf_side))
 }
 
+#' @keywords internal
+#' @export
+#' @method list_to_datetime yearqtr
 list_to_datetime.yearqtr <- function(index, tf_side, ...) {
     yearqtr_string <- paste0(tf_side$y, "-", tf_side$q)
     zoo::as.yearqtr(yearqtr_string)
 }
 
+#' @keywords internal
+#' @export
+#' @method list_to_datetime hms
 list_to_datetime.hms <- function(index, tf_side, ...) {
     hms::hms(seconds = tf_side$s, minutes = tf_side$M, hours = tf_side$h)
 }
@@ -241,34 +256,51 @@ split_to_list.character <- function(x) {
 }
 
 # Lookup Defaults ----
+#' @keywords internal
+#' @export
 lookup_defaults <- function(index, side = "lhs") {
     UseMethod("lookup_defaults")
 }
 
+#' @keywords internal
+#' @export
+#' @method lookup_defaults POSIXct
 lookup_defaults.POSIXct <- function(index, side = "lhs") {
     switch(side,
            "lhs" = list(y = 1970, m = 01, d = 01, h = 00, M = 00, s = 00),
            "rhs" = list(y = 1970, m = 12, d = 00, h = 23, M = 59, s = 59))
 }
 
+#' @keywords internal
+#' @export
+#' @method lookup_defaults Date
 lookup_defaults.Date <- function(index, side = "lhs") {
     switch(side,
            "lhs" = list(y = 1970, m = 01, d = 01),
            "rhs" = list(y = 1970, m = 12, d = 00))
 }
 
+#' @keywords internal
+#' @export
+#' @method lookup_defaults yearmon
 lookup_defaults.yearmon <- function(index, side = "lhs") {
     switch(side,
            "lhs" = list(y = 1970, m = 01),
            "rhs" = list(y = 1970, m = 12))
 }
 
+#' @keywords internal
+#' @export
+#' @method lookup_defaults yearqtr
 lookup_defaults.yearqtr <- function(index, side = "lhs") {
     switch(side,
            "lhs" = list(y = 1970, q = 01),
            "rhs" = list(y = 1970, q = 04))
 }
 
+#' @keywords internal
+#' @export
+#' @method lookup_defaults hms
 lookup_defaults.hms <- function(index, side = "lhs") {
     switch(side,
            "lhs" = list(h = 00, M = 00, s = 00),
