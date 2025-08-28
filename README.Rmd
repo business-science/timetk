@@ -156,7 +156,7 @@ Become the Time Series Expert for your organization.
 
 The `timetk` package wouldn't be possible without other amazing time series packages. 
 
-* [stats](https://rdrr.io/r/stats/stats-package.html) - Basically every `timetk` function that uses a period (frequency) argument owes it to `ts()`. 
+* `stats` - Basically every `timetk` function that uses a period (frequency) argument owes it to `ts()`. 
     - `plot_acf_diagnostics()`: Leverages `stats::acf()`, `stats::pacf()` & `stats::ccf()`
     - `plot_stl_diagnostics()`: Leverages `stats::stl()`
 * [lubridate](https://lubridate.tidyverse.org/): `timetk` makes heavy use of `floor_date()`, `ceiling_date()`, and `duration()` for "time-based phrases". 

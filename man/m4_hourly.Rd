@@ -14,7 +14,7 @@ A tibble: 3,060 x 3
 }
 \source{
 \itemize{
-\item \href{https://mofc.unic.ac.cy/m4/}{M4 Competition Website}
+\item \href{https://www.unic.ac.cy/iff/research/forecasting/m-competitions/m4/}{M4 Competition Website}
 }
 }
 \usage{

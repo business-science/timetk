@@ -40,41 +40,41 @@ data frames or tibbles).
 
 <div class="comparison">
 
-| Task                                                                                                                                      | [timetk](https://business-science.github.io/timetk/) | [tsibble](https://tsibble.tidyverts.org/index.html) | [feasts](https://feasts.tidyverts.org/index.html) | [tibbletime (retired)](https://business-science.github.io/tibbletime/) |
-|-------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------|-----------------------------------------------------|---------------------------------------------------|------------------------------------------------------------------------|
-| **Structure**                                                                                                                             |                                                      |                                                     |                                                   |                                                                        |
-| Data Structure                                                                                                                            | tibble (tbl)                                         | tsibble (tbl_ts)                                    | tsibble (tbl_ts)                                  | tibbletime (tbl_time)                                                  |
-| [**Visualization**](https://business-science.github.io/timetk/articles/TK04_Plotting_Time_Series.html)                                    |                                                      |                                                     |                                                   |                                                                        |
-| Interactive Plots (plotly)                                                                                                                | ✅                                                   | :x:                                                 | :x:                                               | :x:                                                                    |
-| Static Plots (ggplot)                                                                                                                     | ✅                                                   | :x:                                                 | ✅                                                | :x:                                                                    |
-| [Time Series](https://business-science.github.io/timetk/articles/TK04_Plotting_Time_Series.html)                                          | ✅                                                   | :x:                                                 | ✅                                                | :x:                                                                    |
-| [Correlation, Seasonality](https://business-science.github.io/timetk/articles/TK05_Plotting_Seasonality_and_Correlation.html)             | ✅                                                   | :x:                                                 | ✅                                                | :x:                                                                    |
-| [**Data Wrangling**](https://business-science.github.io/timetk/articles/TK07_Time_Series_Data_Wrangling.html)                             |                                                      |                                                     |                                                   |                                                                        |
-| Time-Based Summarization                                                                                                                  | ✅                                                   | :x:                                                 | :x:                                               | ✅                                                                     |
-| Time-Based Filtering                                                                                                                      | ✅                                                   | :x:                                                 | :x:                                               | ✅                                                                     |
-| Padding Gaps                                                                                                                              | ✅                                                   | ✅                                                  | :x:                                               | :x:                                                                    |
-| Low to High Frequency                                                                                                                     | ✅                                                   | :x:                                                 | :x:                                               | :x:                                                                    |
-| Imputation                                                                                                                                | ✅                                                   | ✅                                                  | :x:                                               | :x:                                                                    |
-| Sliding / Rolling                                                                                                                         | ✅                                                   | ✅                                                  | :x:                                               | ✅                                                                     |
-| **Machine Learning**                                                                                                                      |                                                      |                                                     |                                                   |                                                                        |
-| [Time Series Machine Learning](https://business-science.github.io/timetk/articles/TK03_Forecasting_Using_Time_Series_Signature.html)      | ✅                                                   | :x:                                                 | :x:                                               | :x:                                                                    |
-| [Anomaly Detection](https://business-science.github.io/timetk/articles/TK08_Automatic_Anomaly_Detection.html)                             | ✅                                                   | :x:                                                 | :x:                                               | :x:                                                                    |
-| [Clustering](https://business-science.github.io/timetk/articles/TK09_Clustering.html)                                                     | ✅                                                   | :x:                                                 | :x:                                               | :x:                                                                    |
-| [**Feature Engineering (recipes)**](https://business-science.github.io/timetk/articles/TK03_Forecasting_Using_Time_Series_Signature.html) |                                                      |                                                     |                                                   |                                                                        |
-| Date Feature Engineering                                                                                                                  | ✅                                                   | :x:                                                 | :x:                                               | :x:                                                                    |
-| Holiday Feature Engineering                                                                                                               | ✅                                                   | :x:                                                 | :x:                                               | :x:                                                                    |
-| Fourier Series                                                                                                                            | ✅                                                   | :x:                                                 | :x:                                               | :x:                                                                    |
-| Smoothing & Rolling                                                                                                                       | ✅                                                   | :x:                                                 | :x:                                               | :x:                                                                    |
-| Padding                                                                                                                                   | ✅                                                   | :x:                                                 | :x:                                               | :x:                                                                    |
-| Imputation                                                                                                                                | ✅                                                   | :x:                                                 | :x:                                               | :x:                                                                    |
-| **Cross Validation (rsample)**                                                                                                            |                                                      |                                                     |                                                   |                                                                        |
-| [Time Series Cross Validation](https://business-science.github.io/timetk/reference/time_series_cv.html)                                   | ✅                                                   | :x:                                                 | :x:                                               | :x:                                                                    |
-| [Time Series CV Plan Visualization](https://business-science.github.io/timetk/reference/plot_time_series_cv_plan.html)                    | ✅                                                   | :x:                                                 | :x:                                               | :x:                                                                    |
-| **More Awesomeness**                                                                                                                      |                                                      |                                                     |                                                   |                                                                        |
-| [Making Time Series (Intelligently)](https://business-science.github.io/timetk/articles/TK02_Time_Series_Date_Sequences.html)             | ✅                                                   | ✅                                                  | :x:                                               | ✅                                                                     |
-| [Handling Holidays & Weekends](https://business-science.github.io/timetk/articles/TK02_Time_Series_Date_Sequences.html)                   | ✅                                                   | :x:                                                 | :x:                                               | :x:                                                                    |
-| [Class Conversion](https://business-science.github.io/timetk/articles/TK00_Time_Series_Coercion.html)                                     | ✅                                                   | ✅                                                  | :x:                                               | :x:                                                                    |
-| [Automatic Frequency & Trend](https://business-science.github.io/timetk/articles/TK06_Automatic_Frequency_And_Trend_Selection.html)       | ✅                                                   | :x:                                                 | :x:                                               | :x:                                                                    |
+| Task | [timetk](https://business-science.github.io/timetk/) | [tsibble](https://tsibble.tidyverts.org/index.html) | [feasts](https://feasts.tidyverts.org/index.html) | [tibbletime (retired)](https://business-science.github.io/tibbletime/) |
+|----|----|----|----|----|
+| **Structure** |  |  |  |  |
+| Data Structure | tibble (tbl) | tsibble (tbl_ts) | tsibble (tbl_ts) | tibbletime (tbl_time) |
+| [**Visualization**](https://business-science.github.io/timetk/articles/TK04_Plotting_Time_Series.html) |  |  |  |  |
+| Interactive Plots (plotly) | ✅ | :x: | :x: | :x: |
+| Static Plots (ggplot) | ✅ | :x: | ✅ | :x: |
+| [Time Series](https://business-science.github.io/timetk/articles/TK04_Plotting_Time_Series.html) | ✅ | :x: | ✅ | :x: |
+| [Correlation, Seasonality](https://business-science.github.io/timetk/articles/TK05_Plotting_Seasonality_and_Correlation.html) | ✅ | :x: | ✅ | :x: |
+| [**Data Wrangling**](https://business-science.github.io/timetk/articles/TK07_Time_Series_Data_Wrangling.html) |  |  |  |  |
+| Time-Based Summarization | ✅ | :x: | :x: | ✅ |
+| Time-Based Filtering | ✅ | :x: | :x: | ✅ |
+| Padding Gaps | ✅ | ✅ | :x: | :x: |
+| Low to High Frequency | ✅ | :x: | :x: | :x: |
+| Imputation | ✅ | ✅ | :x: | :x: |
+| Sliding / Rolling | ✅ | ✅ | :x: | ✅ |
+| **Machine Learning** |  |  |  |  |
+| [Time Series Machine Learning](https://business-science.github.io/timetk/articles/TK03_Forecasting_Using_Time_Series_Signature.html) | ✅ | :x: | :x: | :x: |
+| [Anomaly Detection](https://business-science.github.io/timetk/articles/TK08_Automatic_Anomaly_Detection.html) | ✅ | :x: | :x: | :x: |
+| [Clustering](https://business-science.github.io/timetk/articles/TK09_Clustering.html) | ✅ | :x: | :x: | :x: |
+| [**Feature Engineering (recipes)**](https://business-science.github.io/timetk/articles/TK03_Forecasting_Using_Time_Series_Signature.html) |  |  |  |  |
+| Date Feature Engineering | ✅ | :x: | :x: | :x: |
+| Holiday Feature Engineering | ✅ | :x: | :x: | :x: |
+| Fourier Series | ✅ | :x: | :x: | :x: |
+| Smoothing & Rolling | ✅ | :x: | :x: | :x: |
+| Padding | ✅ | :x: | :x: | :x: |
+| Imputation | ✅ | :x: | :x: | :x: |
+| **Cross Validation (rsample)** |  |  |  |  |
+| [Time Series Cross Validation](https://business-science.github.io/timetk/reference/time_series_cv.html) | ✅ | :x: | :x: | :x: |
+| [Time Series CV Plan Visualization](https://business-science.github.io/timetk/reference/plot_time_series_cv_plan.html) | ✅ | :x: | :x: | :x: |
+| **More Awesomeness** |  |  |  |  |
+| [Making Time Series (Intelligently)](https://business-science.github.io/timetk/articles/TK02_Time_Series_Date_Sequences.html) | ✅ | ✅ | :x: | ✅ |
+| [Handling Holidays & Weekends](https://business-science.github.io/timetk/articles/TK02_Time_Series_Date_Sequences.html) | ✅ | :x: | :x: | :x: |
+| [Class Conversion](https://business-science.github.io/timetk/articles/TK00_Time_Series_Coercion.html) | ✅ | ✅ | :x: | :x: |
+| [Automatic Frequency & Trend](https://business-science.github.io/timetk/articles/TK06_Automatic_Frequency_And_Trend_Selection.html) | ✅ | :x: | :x: | :x: |
 
 </div>
 
@@ -149,10 +149,13 @@ You will learn:
 - and more.
 
 <p class="text-center" style="font-size:24px;">
+
 Become the Time Series Expert for your organization.
 </p>
+
 <br>
 <p class="text-center" style="font-size:30px;">
+
 <a href="https://university.business-science.io/p/ds4b-203-r-high-performance-time-series-forecasting">Take
 the High-Performance Time Series Forecasting Course</a>
 </p>
@@ -162,9 +165,8 @@ the High-Performance Time Series Forecasting Course</a>
 The `timetk` package wouldn’t be possible without other amazing time
 series packages.
 
-- [stats](https://rdrr.io/r/stats/stats-package.html) - Basically every
-  `timetk` function that uses a period (frequency) argument owes it to
-  `ts()`.
+- `stats` - Basically every `timetk` function that uses a period
+  (frequency) argument owes it to `ts()`.
   - `plot_acf_diagnostics()`: Leverages `stats::acf()`, `stats::pacf()`
     & `stats::ccf()`
   - `plot_stl_diagnostics()`: Leverages `stats::stl()`
