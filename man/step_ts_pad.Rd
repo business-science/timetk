@@ -42,7 +42,7 @@ preprocessing have been estimated.}
 
 \item{columns}{A character string of variables that will be
 used as inputs. This field is a placeholder and will be
-populated once \code{recipes::prep()} is used.}
+populated once \code{\link[recipes:prep]{recipes::prep()}} is used.}
 
 \item{skip}{A logical. Should the step be skipped when the recipe is
 baked by bake.recipe()? While all operations are baked when prep.recipe()
@@ -129,16 +129,16 @@ Padding & Imputation:
 Time Series Analysis:
 \itemize{
 \item Engineered Features: \code{\link[=step_timeseries_signature]{step_timeseries_signature()}}, \code{\link[=step_holiday_signature]{step_holiday_signature()}}, \code{\link[=step_fourier]{step_fourier()}}
-\item Diffs & Lags \code{\link[=step_diff]{step_diff()}}, \code{recipes::step_lag()}
+\item Diffs & Lags \code{\link[=step_diff]{step_diff()}}, \code{\link[recipes:step_lag]{recipes::step_lag()}}
 \item Smoothing: \code{\link[=step_slidify]{step_slidify()}}, \code{\link[=step_smooth]{step_smooth()}}
 \item Variance Reduction: \code{\link[=step_box_cox]{step_box_cox()}}
 }
 
 Main Recipe Functions:
 \itemize{
-\item \code{recipes::recipe()}
-\item \code{recipes::prep}
-\item \code{recipes::bake}
+\item \code{\link[recipes:recipe]{recipes::recipe()}}
+\item \code{\link[recipes:prep]{recipes::prep()}}
+\item \code{\link[recipes:bake]{recipes::bake()}}
 }
 }
 \concept{dates}

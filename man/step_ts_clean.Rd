@@ -23,7 +23,7 @@ step_ts_clean(
 \item{recipe}{A \code{recipe} object. The step will be added to the sequence of operations for this recipe.}
 
 \item{...}{One or more selector functions to choose which
-variables are affected by the step. See \code{\link[=selections]{selections()}}
+variables are affected by the step. See \code{\link[recipes:selections]{recipes::selections()}}
 for more details. For the \code{tidy} method, these are not
 currently used.}
 
@@ -40,7 +40,7 @@ created.}
 \item{trained}{A logical to indicate if the quantities for preprocessing have been estimated.}
 
 \item{lambdas_trained}{A named numeric vector of lambdas. This is \code{NULL} until computed
-by \code{recipes::prep()}. Note that, if the original data are integers, the mean
+by \code{\link[recipes:prep]{recipes::prep()}}. Note that, if the original data are integers, the mean
 will be converted to an integer to maintain the same a data type.}
 
 \item{skip}{A logical. Should the step be skipped when the recipe
@@ -71,8 +71,8 @@ using seasonal outlier detection methods implemented in the Forecast R Package.
 
 #' Outliers are replaced with missing values using the following methods:
 \enumerate{
-\item Non-Seasonal (\code{period = 1}): Uses \code{stats::supsmu()}
-\item Seasonal (\code{period > 1}): Uses \code{forecast::mstl()} with \code{robust = TRUE} (robust STL decomposition)
+\item Non-Seasonal (\code{period = 1}): Uses \code{\link[stats:supsmu]{stats::supsmu()}}
+\item Seasonal (\code{period > 1}): Uses \code{\link[forecast:mstl]{forecast::mstl()}} with \code{robust = TRUE} (robust STL decomposition)
 for seasonal series.
 }
 
@@ -134,7 +134,7 @@ recipe_box_cox \%>\% tidy(1)
 Time Series Analysis:
 \itemize{
 \item Engineered Features: \code{\link[=step_timeseries_signature]{step_timeseries_signature()}}, \code{\link[=step_holiday_signature]{step_holiday_signature()}}, \code{\link[=step_fourier]{step_fourier()}}
-\item Diffs & Lags \code{\link[=step_diff]{step_diff()}}, \code{recipes::step_lag()}
+\item Diffs & Lags \code{\link[=step_diff]{step_diff()}}, \code{\link[recipes:step_lag]{recipes::step_lag()}}
 \item Smoothing: \code{\link[=step_slidify]{step_slidify()}}, \code{\link[=step_smooth]{step_smooth()}}
 \item Variance Reduction: \code{\link[=step_box_cox]{step_box_cox()}}
 \item Imputation: \code{\link[=step_ts_impute]{step_ts_impute()}}, \code{\link[=step_ts_clean]{step_ts_clean()}}

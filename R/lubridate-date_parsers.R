@@ -8,7 +8,7 @@
 #' @param tz Datetime only. A timezone (see `OlsenNames()`).
 #' @param tz_shift Datetime only. If FALSE, forces the datetime into the time zone.
 #'  If TRUE, offsets the datetime from UTC to the new time zone.
-#' @param ... Additional parameters passed to [anytime()] and [`anydate()`]
+#' @param ... Additional parameters passed to [anytime::anytime()] and [anytime::anydate()]
 #' @param silent If `TRUE`, warns the user of parsing failures.
 #'
 #' @return
@@ -31,7 +31,7 @@
 #' shifts datetimes to the specified timezone by default.
 #'
 #' @references
-#' - This function wraps the `anytime::anytime()` and `anytime::anydate()` functions developed by Dirk Eddelbuettel.
+#' - This function wraps the [anytime::anytime()] and [anytime::anydate()] functions developed by Dirk Eddelbuettel.
 #'
 #' @examples
 #'

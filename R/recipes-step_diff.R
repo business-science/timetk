@@ -3,12 +3,12 @@
 #' `step_diff` creates a *specification* of a recipe step that
 #'   will add new columns of differenced data. Differenced data will
 #'   include NA values where a difference was induced.
-#'   These can be removed with [step_naomit()].
+#'   These can be removed with [recipes::step_naomit()].
 #'
 #' @param recipe A recipe object. The step will be added to the sequence of
 #'   operations for this recipe.
 #' @param ... One or more selector functions to choose which variables are
-#'   affected by the step. See [selections()] for more details.
+#'   affected by the step. See [recipes::selections()] for more details.
 #' @param role Defaults to "predictor"
 #' @param trained A logical to indicate if the quantities for preprocessing
 #'   have been estimated.
@@ -46,9 +46,9 @@
 #'  - [recipes::step_naomit()]
 #'
 #'  Main Recipe Functions:
-#'  - `recipes::recipe()`
-#'  - `recipes::prep()`
-#'  - `recipes::bake()`
+#'  - [recipes::recipe()]
+#'  - [recipes::prep()]
+#'  - [recipes::bake()]
 #'
 #' @export
 #' @rdname step_diff

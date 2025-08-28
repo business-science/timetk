@@ -20,7 +20,7 @@
 #'  will be used as predictors in a model.
 #' @param columns A character string of variables that will be
 #'  used as inputs. This field is a placeholder and will be
-#'  populated once `recipes::prep()` is used.
+#'  populated once [recipes::prep()] is used.
 #' @param skip A logical. Should the step be skipped when the recipe is
 #'  baked by bake.recipe()? While all operations are baked when prep.recipe()
 #'  is run, some operations may not be able to be conducted on new data
@@ -98,15 +98,15 @@
 #'
 #'  Time Series Analysis:
 #'  - Engineered Features: [step_timeseries_signature()], [step_holiday_signature()], [step_fourier()]
-#'  - Diffs & Lags [step_diff()], `recipes::step_lag()`
+#'  - Diffs & Lags [step_diff()], [recipes::step_lag()]
 #'  - Smoothing: [step_slidify()], [step_smooth()]
 #'  - Variance Reduction: [step_box_cox()]
 #'
 #'
 #'  Main Recipe Functions:
-#'  - `recipes::recipe()`
-#'  - `recipes::prep`
-#'  - `recipes::bake`
+#'  - [recipes::recipe()]
+#'  - [recipes::prep()]
+#'  - [recipes::bake()]
 #'
 #'
 #' @importFrom recipes rand_id

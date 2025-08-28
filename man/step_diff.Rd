@@ -26,7 +26,7 @@ step_diff(
 operations for this recipe.}
 
 \item{...}{One or more selector functions to choose which variables are
-affected by the step. See \code{\link[=selections]{selections()}} for more details.}
+affected by the step. See \code{\link[recipes:selections]{recipes::selections()}} for more details.}
 
 \item{role}{Defaults to "predictor"}
 
@@ -64,7 +64,7 @@ new step added to the sequence of existing steps (if any).
 \code{step_diff} creates a \emph{specification} of a recipe step that
 will add new columns of differenced data. Differenced data will
 include NA values where a difference was induced.
-These can be removed with \code{\link[=step_naomit]{step_naomit()}}.
+These can be removed with \code{\link[recipes:step_naomit]{recipes::step_naomit()}}.
 }
 \details{
 The step assumes that the data are already \emph{in the proper sequential
@@ -113,8 +113,8 @@ Remove NA Values:
 
 Main Recipe Functions:
 \itemize{
-\item \code{recipes::recipe()}
-\item \code{recipes::prep()}
-\item \code{recipes::bake()}
+\item \code{\link[recipes:recipe]{recipes::recipe()}}
+\item \code{\link[recipes:prep]{recipes::prep()}}
+\item \code{\link[recipes:bake]{recipes::bake()}}
 }
 }

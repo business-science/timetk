@@ -8,7 +8,7 @@
 #' @inheritParams log_interval_vec
 #' @param recipe A `recipe` object. The step will be added to the sequence of operations for this recipe.
 #' @param ... One or more selector functions to choose which
-#'  variables are affected by the step. See [selections()]
+#'  variables are affected by the step. See [recipes::selections()]
 #'  for more details. For the `tidy` method, these are not
 #'  currently used.
 #'
@@ -69,20 +69,20 @@
 #'
 #'  Time Series Analysis:
 #'  - Engineered Features: [step_timeseries_signature()], [step_holiday_signature()], [step_fourier()]
-#'  - Diffs & Lags [step_diff()], `recipes::step_lag()`
+#'  - Diffs & Lags [step_diff()], [recipes::step_lag()]
 #'  - Smoothing: [step_slidify()], [step_smooth()]
 #'  - Variance Reduction: [step_log_interval()]
 #'  - Imputation: [step_ts_impute()], [step_ts_clean()]
 #'  - Padding: [step_ts_pad()]
 #'
 #' Transformations to reduce variance:
-#' - `recipes::step_log()` - Log transformation
-#' - `recipes::step_sqrt()` - Square-Root Power Transformation
+#' - [recipes::step_log()] - Log transformation
+#' - [recipes::step_sqrt()] - Square-Root Power Transformation
 #'
 #' Recipe Setup and Application:
-#' - `recipes::recipe()`
-#' - `recipes::prep()`
-#' - `recipes::bake()`
+#' - [recipes::recipe()]
+#' - [recipes::prep()]
+#' - [recipes::bake()]
 #'
 #' @export
 step_log_interval <-

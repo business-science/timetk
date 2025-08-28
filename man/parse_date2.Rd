@@ -12,7 +12,7 @@ parse_datetime2(x, tz = "UTC", tz_shift = FALSE, ..., silent = FALSE)
 \arguments{
 \item{x}{A character vector}
 
-\item{...}{Additional parameters passed to \code{\link[=anytime]{anytime()}} and \code{\link[=anydate]{anydate()}}}
+\item{...}{Additional parameters passed to \code{\link[anytime:anytime]{anytime::anytime()}} and \code{\link[anytime:anytime]{anytime::anydate()}}}
 
 \item{silent}{If \code{TRUE}, warns the user of parsing failures.}
 
@@ -61,6 +61,6 @@ parse_datetime2("2011 Jan 1 12:35:21", tz = "Europe/London")
 }
 \references{
 \itemize{
-\item This function wraps the \code{anytime::anytime()} and \code{anytime::anydate()} functions developed by Dirk Eddelbuettel.
+\item This function wraps the \code{\link[anytime:anytime]{anytime::anytime()}} and \code{\link[anytime:anytime]{anytime::anydate()}} functions developed by Dirk Eddelbuettel.
 }
 }

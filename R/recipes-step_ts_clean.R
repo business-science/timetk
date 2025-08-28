@@ -20,8 +20,8 @@
 #'
 #' #' Outliers are replaced with missing values using the following methods:
 #'
-#' 1. Non-Seasonal (`period = 1`): Uses `stats::supsmu()`
-#' 2. Seasonal (`period > 1`): Uses `forecast::mstl()` with `robust = TRUE` (robust STL decomposition)
+#' 1. Non-Seasonal (`period = 1`): Uses [stats::supsmu()]
+#' 2. Seasonal (`period > 1`): Uses [forecast::mstl()] with `robust = TRUE` (robust STL decomposition)
 #'  for seasonal series.
 #'
 #'
@@ -48,7 +48,7 @@
 #' @seealso
 #'  Time Series Analysis:
 #'  - Engineered Features: [step_timeseries_signature()], [step_holiday_signature()], [step_fourier()]
-#'  - Diffs & Lags [step_diff()], `recipes::step_lag()`
+#'  - Diffs & Lags [step_diff()], [recipes::step_lag()]
 #'  - Smoothing: [step_slidify()], [step_smooth()]
 #'  - Variance Reduction: [step_box_cox()]
 #'  - Imputation: [step_ts_impute()], [step_ts_clean()]

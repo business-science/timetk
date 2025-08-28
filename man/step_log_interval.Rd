@@ -25,7 +25,7 @@ step_log_interval(
 \item{recipe}{A \code{recipe} object. The step will be added to the sequence of operations for this recipe.}
 
 \item{...}{One or more selector functions to choose which
-variables are affected by the step. See \code{\link[=selections]{selections()}}
+variables are affected by the step. See \code{\link[recipes:selections]{recipes::selections()}}
 for more details. For the \code{tidy} method, these are not
 currently used.}
 
@@ -107,7 +107,7 @@ recipe_log_interval \%>\% tidy(1)
 Time Series Analysis:
 \itemize{
 \item Engineered Features: \code{\link[=step_timeseries_signature]{step_timeseries_signature()}}, \code{\link[=step_holiday_signature]{step_holiday_signature()}}, \code{\link[=step_fourier]{step_fourier()}}
-\item Diffs & Lags \code{\link[=step_diff]{step_diff()}}, \code{recipes::step_lag()}
+\item Diffs & Lags \code{\link[=step_diff]{step_diff()}}, \code{\link[recipes:step_lag]{recipes::step_lag()}}
 \item Smoothing: \code{\link[=step_slidify]{step_slidify()}}, \code{\link[=step_smooth]{step_smooth()}}
 \item Variance Reduction: \code{\link[=step_log_interval]{step_log_interval()}}
 \item Imputation: \code{\link[=step_ts_impute]{step_ts_impute()}}, \code{\link[=step_ts_clean]{step_ts_clean()}}
@@ -116,14 +116,14 @@ Time Series Analysis:
 
 Transformations to reduce variance:
 \itemize{
-\item \code{recipes::step_log()} - Log transformation
-\item \code{recipes::step_sqrt()} - Square-Root Power Transformation
+\item \code{\link[recipes:step_log]{recipes::step_log()}} - Log transformation
+\item \code{\link[recipes:step_sqrt]{recipes::step_sqrt()}} - Square-Root Power Transformation
 }
 
 Recipe Setup and Application:
 \itemize{
-\item \code{recipes::recipe()}
-\item \code{recipes::prep()}
-\item \code{recipes::bake()}
+\item \code{\link[recipes:recipe]{recipes::recipe()}}
+\item \code{\link[recipes:prep]{recipes::prep()}}
+\item \code{\link[recipes:bake]{recipes::bake()}}
 }
 }
