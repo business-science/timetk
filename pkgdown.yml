@@ -1,29 +1,28 @@
-pandoc: 2.19.2
-pkgdown: 2.0.7
+pandoc: 3.1.11
+pkgdown: 2.1.3
 pkgdown_sha: ~
 articles:
   TK00_Time_Series_Coercion: TK00_Time_Series_Coercion.html
+  temp_archive/TK00_Time_Series_Coercion: temp_archive/TK00_Time_Series_Coercion.html
   TK01_Working_With_Time_Series_Index: TK01_Working_With_Time_Series_Index.html
+  temp_archive/TK01_Working_With_Time_Series_Index: temp_archive/TK01_Working_With_Time_Series_Index.html
   TK02_Time_Series_Date_Sequences: TK02_Time_Series_Date_Sequences.html
+  temp_archive/TK02_Time_Series_Date_Sequences: temp_archive/TK02_Time_Series_Date_Sequences.html
   TK03_Forecasting_Using_Time_Series_Signature: TK03_Forecasting_Using_Time_Series_Signature.html
+  temp_archive/TK03_Forecasting_Using_Time_Series_Signature: temp_archive/TK03_Forecasting_Using_Time_Series_Signature.html
   TK04_Plotting_Time_Series: TK04_Plotting_Time_Series.html
+  temp_archive/TK04_Plotting_Time_Series: temp_archive/TK04_Plotting_Time_Series.html
   TK05_Plotting_Seasonality_and_Correlation: TK05_Plotting_Seasonality_and_Correlation.html
+  temp_archive/TK05_Plotting_Seasonality_and_Correlation: temp_archive/TK05_Plotting_Seasonality_and_Correlation.html
   TK06_Automatic_Frequency_And_Trend_Selection: TK06_Automatic_Frequency_And_Trend_Selection.html
+  temp_archive/TK06_Automatic_Frequency_And_Trend_Selection: temp_archive/TK06_Automatic_Frequency_And_Trend_Selection.html
   TK07_Time_Series_Data_Wrangling: TK07_Time_Series_Data_Wrangling.html
+  temp_archive/TK07_Time_Series_Data_Wrangling: temp_archive/TK07_Time_Series_Data_Wrangling.html
   TK08_Automatic_Anomaly_Detection: TK08_Automatic_Anomaly_Detection.html
+  temp_archive/TK08_Automatic_Anomaly_Detection: temp_archive/TK08_Automatic_Anomaly_Detection.html
   TK09_Clustering: TK09_Clustering.html
-  TK00_Time_Series_Coercion: temp_archive/TK00_Time_Series_Coercion.html
-  TK01_Working_With_Time_Series_Index: temp_archive/TK01_Working_With_Time_Series_Index.html
-  TK02_Time_Series_Date_Sequences: temp_archive/TK02_Time_Series_Date_Sequences.html
-  TK03_Forecasting_Using_Time_Series_Signature: temp_archive/TK03_Forecasting_Using_Time_Series_Signature.html
-  TK04_Plotting_Time_Series: temp_archive/TK04_Plotting_Time_Series.html
-  TK05_Plotting_Seasonality_and_Correlation: temp_archive/TK05_Plotting_Seasonality_and_Correlation.html
-  TK06_Automatic_Frequency_And_Trend_Selection: temp_archive/TK06_Automatic_Frequency_And_Trend_Selection.html
-  TK07_Time_Series_Data_Wrangling: temp_archive/TK07_Time_Series_Data_Wrangling.html
-  TK08_Automatic_Anomaly_Detection: temp_archive/TK08_Automatic_Anomaly_Detection.html
-  TK09_Clustering: temp_archive/TK09_Clustering.html
-last_built: 2024-01-04T19:32Z
+  temp_archive/TK09_Clustering: temp_archive/TK09_Clustering.html
+last_built: 2025-08-28T13:32Z
 urls:
   reference: https://business-science.github.io/timetk/reference
   article: https://business-science.github.io/timetk/articles
-
