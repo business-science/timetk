@@ -122,7 +122,6 @@ is \code{\link[=step_smooth]{step_smooth()}}, which implements local polynomial 
 # library(tidymodels)
 library(dplyr)
 library(recipes)
-library(parsnip)
 
 m750 <- m4_monthly \%>\%
     filter(id == "M750") \%>\%

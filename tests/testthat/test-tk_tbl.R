@@ -102,8 +102,10 @@ test_that("matrix to tbl test returns tibble with correct rows and columns.", {
 
 
 # timeSeries::timeSeries to tbl -----
-test_timeSeries <- timeSeries::timeSeries(1:100, timeDate::timeSequence(length.out = 100, by = "sec"))
+
 test_that("timeSeries to tbl test returns tibble with correct rows and columns.", {
+    skip_if_not_installed("timeSeries")
+    test_timeSeries <- timeSeries::timeSeries(1:100, timeDate::timeSequence(length.out = 100, by = "sec"))
     test_tbl_6 <- tk_tbl(test_timeSeries, preserve_index = TRUE, rename_index = "date-time")
     expect_equal(nrow(test_tbl_6), 100)
     expect_equal(ncol(test_tbl_6), 2)

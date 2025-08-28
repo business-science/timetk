@@ -68,7 +68,6 @@
 #' # library(tidymodels)
 #' library(dplyr)
 #' library(recipes)
-#' library(parsnip)
 #'
 #' m750 <- m4_monthly %>%
 #'     filter(id == "M750") %>%
