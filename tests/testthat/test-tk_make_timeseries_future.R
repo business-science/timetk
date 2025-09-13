@@ -411,3 +411,23 @@ test_that("tk_make_future_timeseries(): End of Month", {
 
 })
 
+test_that("tk_make_future_timeseries() handles length 1 inputs", {
+
+    idx_qtr <- zoo::as.yearqtr("2023-01")
+    expect_qtr <- zoo::as.yearqtr("2023-02")
+    expect_equal(tk_make_future_timeseries(idx_qtr, 1), expect_qtr)
+
+    idx_posixt <- as.POSIXct("2023-01-01 00:00:00")
+    expect_posixt <- as.POSIXct("2023-01-01 00:00:01")
+    expect_equal(tk_make_future_timeseries(idx_posixt, 1), expect_posixt)
+
+    idx_yearmon <- zoo::as.yearmon("2023-01")
+    expect_yearmon <- zoo::as.yearmon("2023-02")
+    expect_equal(tk_make_future_timeseries(idx_yearmon, 1), expect_yearmon)
+
+    idx_date <- as.Date("2023-01-01")
+    expect_date <- as.Date("2023-01-02")
+    expect_equal(tk_make_future_timeseries(idx_date, 1), expect_date)
+
+})
+
