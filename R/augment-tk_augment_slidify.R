@@ -111,12 +111,11 @@ tk_augment_slidify.data.frame <- function(.data,
     # print(col_nms)
     # print(.period)
 
-    grid <- purrr::cross_df(
-        .l = list(
-            col   = col_nms,
-            per   = .period
-        )
+    grid <- tidyr::expand_grid(
+        per   = .period,
+        col   = col_nms
     )
+    grid <- grid[c("col", "per")]
 
     # print(grid)
 
